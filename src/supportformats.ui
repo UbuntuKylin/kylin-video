@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SupportFormats</class>
+ <widget class="QWidget" name="SupportFormats">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>470</width>
+    <height>360</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string/>
+  </property>
+  <widget class="QGroupBox" name="groupBox_video">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>9</y>
+     <width>431</width>
+     <height>141</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Video formats</string>
+   </property>
+   <widget class="QTextEdit" name="vedio_edit">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>24</y>
+      <width>411</width>
+      <height>100</height>
+     </rect>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_audio">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>160</y>
+     <width>431</width>
+     <height>91</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Audio formats</string>
+   </property>
+   <widget class="QTextEdit" name="audio_edit">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>24</y>
+      <width>411</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_subtitles">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>259</y>
+     <width>431</width>
+     <height>91</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Subtitles formats</string>
+   </property>
+   <widget class="QTextEdit" name="subtitles_edit">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>24</y>
+      <width>411</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

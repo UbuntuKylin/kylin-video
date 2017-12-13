@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PrefGeneral</class>
+ <widget class="QWidget" name="PrefGeneral">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>470</width>
+    <height>360</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string/>
+  </property>
+  <widget class="QCheckBox" name="pause_if_hidden_check">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>60</y>
+     <width>448</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Pause when minimized</string>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="mplayer_radioButton">
+   <property name="geometry">
+    <rect>
+     <x>128</x>
+     <y>23</y>
+     <width>117</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>MPlayer</string>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="mpv_radioButton">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>23</y>
+     <width>117</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>MPV</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>20</y>
+     <width>121</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Playback engine:</string>
+   </property>
+   <property name="buddy">
+    <cstring>cache_files_spin</cstring>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="preview_if_play_check">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>95</y>
+     <width>448</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Preview when video is playing</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

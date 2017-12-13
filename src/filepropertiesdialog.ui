@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FilePropertiesDialog</class>
+ <widget class="QDialog" name="FilePropertiesDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>650</width>
+    <height>509</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Kylin Video - Preferences</string>
+  </property>
+  <widget class="QWidget" name="title_widget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>160</width>
+     <height>509</height>
+    </rect>
+   </property>
+   <widget class="QLabel" name="icon_label">
+    <property name="geometry">
+     <rect>
+      <x>14</x>
+      <y>20</y>
+      <width>32</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QFrame" name="sections">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>72</y>
+      <width>160</width>
+      <height>437</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="title_label">
+    <property name="geometry">
+     <rect>
+      <x>49</x>
+      <y>20</y>
+      <width>101</width>
+      <height>33</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Properties</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QStackedWidget" name="pages">
+   <property name="geometry">
+    <rect>
+     <x>181</x>
+     <y>20</y>
+     <width>444</width>
+     <height>441</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="currentIndex">
+    <number>0</number>
+   </property>
+   <widget class="QWidget" name="info_page">
+    <widget class="QTextEdit" name="info_edit">
+     <property name="geometry">
+      <rect>
+       <x>6</x>
+       <y>6</y>
+       <width>444</width>
+       <height>441</height>
+      </rect>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="demuxer_page">
+    <widget class="QLabel" name="demuxer_label">
+     <property name="geometry">
+      <rect>
+       <x>5</x>
+       <y>5</y>
+       <width>444</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>&amp;Select the demuxer that will be used for this file:</string>
+     </property>
+     <property name="wordWrap">
+      <bool>false</bool>
+     </property>
+     <property name="buddy">
+      <cstring>demuxer_listbox</cstring>
+     </property>
+    </widget>
+    <widget class="QListWidget" name="demuxer_listbox">
+     <property name="geometry">
+      <rect>
+       <x>5</x>
+       <y>30</y>
+       <width>444</width>
+       <height>378</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="resetDemuxerButton">
+     <property name="geometry">
+      <rect>
+       <x>352</x>
+       <y>414</y>
+       <width>91</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>&amp;Reset</string>
+     </property>
+    </widget>
+    <zorder>demuxer_listbox</zorder>
+    <zorder>demuxer_label</zorder>
+    <zorder>resetDemuxerButton</zorder>
+   </widget>
+   <widget class="QWidget" name="vc_page">
+    <widget class="QListWidget" name="vc_listbox">
+     <property name="geometry">
+      <rect>
+       <x>5</x>
+       <y>30</y>
+       <width>444</width>
+       <height>378</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="video_codec_label">
+     <property name="geometry">
+      <rect>
+       <x>5</x>
+       <y>5</y>
+       <width>444</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>&amp;Select the video codec:</string>
+     </property>
+     <property name="wordWrap">
+      <bool>false</bool>
+     </property>
+     <property name="buddy">
+      <cstring>vc_listbox</cstring>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="resetVCButton">
+     <property name="geometry">
+      <rect>
+       <x>352</x>
+       <y>414</y>
+       <width>91</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>&amp;Reset</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="ac_page">
+    <widget class="QListWidget" name="ac_listbox">
+     <property name="geometry">
+      <rect>
+       <x>5</x>
+       <y>30</y>
+       <width>444</width>
+       <height>378</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="audio_codec_label">
+     <property name="geometry">
+      <rect>
+       <x>5</x>
+       <y>5</y>
+       <width>444</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>&amp;Select the audio codec:</string>
+     </property>
+     <property name="wordWrap">
+      <bool>false</bool>
+     </property>
+     <property name="buddy">
+      <cstring>ac_listbox</cstring>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="resetACButton">
+     <property name="geometry">
+      <rect>
+       <x>352</x>
+       <y>414</y>
+       <width>91</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Reset</string>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QPushButton" name="applyButton">
+   <property name="geometry">
+    <rect>
+     <x>331</x>
+     <y>470</y>
+     <width>91</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Apply</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="okButton">
+   <property name="geometry">
+    <rect>
+     <x>432</x>
+     <y>470</y>
+     <width>91</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>OK</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="cancelButton">
+   <property name="geometry">
+    <rect>
+     <x>532</x>
+     <y>470</y>
+     <width>91</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Cancel</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

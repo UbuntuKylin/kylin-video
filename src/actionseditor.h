@@ -44,7 +44,7 @@ public:
 	void clear();
 
 	// There are no actions yet?
-	bool isEmpty();
+    bool isEmpty();
 
     void addCurrentActions(QWidget * widget);
 
@@ -83,6 +83,7 @@ protected slots:
 private:
 	QTableWidget *actionsTable;
     QList<QAction*> actionsList;
+//    QList<QPushButton*> btnActionsList;
 //	QPushButton *saveButton;
 //	QPushButton *loadButton;
 	QString latest_dir;

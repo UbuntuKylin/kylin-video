@@ -39,6 +39,10 @@
 #include "colorutils.h"
 #include "myaction.h"
 #include "mplayerwindow.h"
+#include "global.h"
+#include "preferences.h"
+
+using namespace Global;
 
 static const QString playStatusPlaying = "playing";
 static const QString playStatusPause = "pause";
@@ -124,7 +128,7 @@ BottomWidget::BottomWidget(QWidget *parent)
     btPrev->setObjectName("PrevBtn");
     btPrev->setFixedSize(24, 24);
     btPlayPause = new QPushButton;
-    btPlayPause->setShortcut(Qt::Key_Space);
+    btPlayPause->setShortcut(Qt::Key_Space);//Qt::Key_Space
     btPlayPause->setObjectName("PlayBtn");
     btPlayPause->setFixedSize(61, 61);
     btNext = new QPushButton;
@@ -139,6 +143,7 @@ BottomWidget::BottomWidget(QWidget *parent)
     btFullScreen->setObjectName("FullScreenBtn");
     btFullScreen->setFixedSize(24, 24);
     btPlayList = new QPushButton;
+//    btPlayList->setShortcut(QKeySequence(pref->playlist_key));//F3
     btPlayList->setShortcut(QKeySequence("F3"));
     btPlayList->setObjectName("PlayListBtn");
     btPlayList->setFixedSize(24, 24);
@@ -263,6 +268,18 @@ BottomWidget::~BottomWidget() {
         timer = NULL;
     }
 }
+
+//void BottomWidget::setData(Preferences *pref) {
+//	QString ao = pref->ao;
+//    setAO(ao);
+//    setGlobalVolume(pref->global_volume);
+//    setSoftVol(pref->use_soft_vol);
+//    setInitialVolNorm(pref->initial_volnorm);
+//    setAmplification(pref->softvol_max);
+//    setAudioChannels(pref->initial_audio_channels);
+//    setAutoSyncActivated(pref->autosync);
+//    setAutoSyncFactor(pref->autosync_factor);
+//}
 
 /*void BottomWidget::setParentWindow(MplayerWindow* window) {
     p_mainwindow = window;

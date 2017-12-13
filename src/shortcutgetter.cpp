@@ -262,7 +262,7 @@ static QStringList modToString(Qt::KeyboardModifiers k)
 }
 
 
-ShortcutGetter::ShortcutGetter(QWidget *parent) : QDialog(parent)
+ShortcutGetter::ShortcutGetter(bool isbtn, QWidget *parent) : QDialog(parent)
   , drag_state(NOT_SCDRAGGING)
   , start_drag(QPoint(0,0))
 {
@@ -312,6 +312,15 @@ ShortcutGetter::ShortcutGetter(QWidget *parent) : QDialog(parent)
 	hbox->addWidget(addItem);
 	hbox->addWidget(removeItem);
 	vbox->addLayout(hbox);
+
+    if (isbtn) {
+        addItem->hide();
+        removeItem->hide();
+    }
+    else {
+        addItem->show();
+        removeItem->show();
+    }
 
 	QLabel *l = new QLabel(this);
     l->setStyleSheet("QLabel{background:transparent;font-size:12px;color:#999999;font-family:方正黑体_GBK;}");

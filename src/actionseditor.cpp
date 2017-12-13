@@ -236,11 +236,12 @@ void ActionsEditor::retranslateStrings() {
 }
 
 bool ActionsEditor::isEmpty() {
-	return actionsList.isEmpty();
+    return actionsList.isEmpty()/* && btnActionsList.isEmpty()*/;
 }
 
 void ActionsEditor::clear() {
 	actionsList.clear();
+//    btnActionsList.clear();
 }
 
 void ActionsEditor::addCurrentActions(QWidget *widget) {
@@ -258,18 +259,32 @@ void ActionsEditor::addCurrentActions(QWidget *widget) {
 	        actionsList.append(action);
     }
 
+    /*QPushButton *btn_action;
+    QList<QPushButton *> btn_actions = widget->findChildren<QPushButton *>();
+    for (int m=0; m < btn_actions.count(); m++) {
+        btn_action = static_cast<QPushButton*> (btn_actions[m]);
+        QString actionName = btn_action->objectName();
+        if (!actionName.isEmpty()) {
+            if (actionName == "PlayListBtn") {
+                qDebug() << "===================PlayListBtn";
+                btnActionsList.append(btn_action);
+            }
+        }
+    }*/
+
 	updateView();
 }
 
 void ActionsEditor::updateView() {
-	actionsTable->setRowCount( actionsList.count() );
+    actionsTable->setRowCount(actionsList.count()/* + btnActionsList.count()*/);
 
     QAction *action;
+    QPushButton *btn_action;
 	QString accelText;
 
 	//actionsTable->setSortingEnabled(false);
-
-	for (int n=0; n < actionsList.count(); n++) {
+    int action_count = actionsList.count();
+    for (int n=0; n < action_count; n++) {
 		action = static_cast<QAction*> (actionsList[n]);
 
         accelText = shortcutsToString(action->shortcuts() );
@@ -301,8 +316,39 @@ void ActionsEditor::updateView() {
 		actionsTable->setItem(n, COL_SHORTCUT, i_shortcut );
 
 	}
-	hasConflicts(); // Check for conflicts
 
+    /*for (int m=0; m < btnActionsList.count(); m++) {
+        btn_action = static_cast<QPushButton*> (btnActionsList[m]);
+        accelText = btn_action->shortcut().toString();//shortcutsToString(btn_action->shortcut());
+
+        // Conflict column
+        QTableWidgetItem * i_conf = new QTableWidgetItem();
+
+        // Name column
+        QTableWidgetItem * i_name = new QTableWidgetItem(btn_action->objectName());
+
+        // Desc column
+        QTableWidgetItem * i_desc = new QTableWidgetItem(btn_action->text().replace("&",""));
+        i_desc->setIcon( action->icon() );
+
+        // Shortcut column
+        QTableWidgetItem * i_shortcut = new QTableWidgetItem(accelText);
+
+        // Set flags
+        i_conf->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+        i_name->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+        i_desc->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+        i_shortcut->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+
+        // Add items to table
+        actionsTable->setItem(m + action_count, COL_CONFLICTS, i_conf );
+        actionsTable->setItem(m + action_count, COL_NAME, i_name );
+        actionsTable->setItem(m + action_count, COL_DESC, i_desc );
+        actionsTable->setItem(m + action_count, COL_SHORTCUT, i_shortcut );
+
+    }*/
+
+	hasConflicts(); // Check for conflicts
 	actionsTable->resizeColumnsToContents();
 	actionsTable->setCurrentCell(0, COL_SHORTCUT);
 
@@ -312,25 +358,39 @@ void ActionsEditor::updateView() {
 
 void ActionsEditor::applyChanges() {
 	qDebug("ActionsEditor::applyChanges");
-
-	for (int row = 0; row < (int)actionsList.size(); ++row) {
+    int action_count = (int)actionsList.size();
+    //QAction可以设置多个快捷键，QPushButton只能设置一个快捷键
+    for (int row = 0; row < action_count; ++row) {
 		QAction *action = actionsList[row];
 		QTableWidgetItem *i = actionsTable->item(row, COL_SHORTCUT);
         action->setShortcuts(stringToShortcuts(i->text()) );//action->setShortcut( QKeySequence(i->text()) );
 	}
+
+    /*for (int m=0; m < (int)btnActionsList.size(); m++) {
+        QPushButton *btn = btnActionsList[m];
+        QTableWidgetItem *i = actionsTable->item(m + action_count, COL_SHORTCUT);
+        btn->setShortcut(i->text());
+    }*/
 }
 
 void ActionsEditor::editShortcut() {
 	QTableWidgetItem * i = actionsTable->item( actionsTable->currentRow(), COL_SHORTCUT );
 	if (i) {
-        ShortcutGetter d/*(this)*/;
+        bool isbtn = false;
+        QTableWidgetItem * j = actionsTable->item( actionsTable->currentRow(), COL_NAME );
+        if (j) {
+            if (j->text() == "PlayListBtn") {
+                isbtn = true;
+            }
+        }
+        ShortcutGetter d(isbtn)/*(this)*/;
 		QString result = d.exec( i->text() );
 
 		if (!result.isNull()) {
             qDebug("ActionsEditor::editShortcut: result: '%s'", result.toUtf8().constData());
 			QString accelText = QKeySequence(result).toString(QKeySequence::PortableText);
 			i->setText(accelText);
-            qDebug() << "accelText="<<accelText;
+//            qDebug() << "accelText="<<accelText;
             if (hasConflicts()) qApp->beep();//使用默认的音量和铃声，发出铃声
 		}
 	}

@@ -167,6 +167,11 @@ void Preferences::reset() {
 
 	media_to_add_to_playlist = NoFiles;
 
+//    playlist_key = "F3";
+//    pause_key = "Qt::Key_Space";
+//    pre_key = "Ctrl + <";
+//    next_key = "Ctrl + >";
+
     /* ***********
        Directories
        *********** */
@@ -280,6 +285,10 @@ void Preferences::save() {
     set->setValue("pause_when_hidden", pause_when_hidden);
     set->setValue("preview_when_playing", preview_when_playing);
 	set->setValue("media_to_add_to_playlist", media_to_add_to_playlist);
+//    set->setValue("playlist_key", playlist_key);
+//    set->setValue("pause_key", pause_key);
+//    set->setValue("next_key", next_key);
+//    set->setValue("pre_key", pre_key);
 	set->endGroup(); // gui
 
 
@@ -429,7 +438,11 @@ void Preferences::load() {
     pause_when_hidden = set->value("pause_when_hidden", pause_when_hidden).toBool();
     preview_when_playing = set->value("preview_when_playing", preview_when_playing).toBool();
 	media_to_add_to_playlist = (AutoAddToPlaylistFilter) set->value("media_to_add_to_playlist", media_to_add_to_playlist).toInt();
-	set->endGroup(); // gui
+//    playlist_key = set->value("playlist_key", playlist_key).toString();
+//    pause_key = set->value("pause_key", pause_key).toString();
+//    next_key = set->value("next_key", next_key).toString();
+//    pre_key = set->value("pre_key", pre_key).toString();
+    set->endGroup(); // gui
 
     /* **************
        Initial values

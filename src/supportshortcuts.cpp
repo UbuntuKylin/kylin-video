@@ -57,16 +57,11 @@ void SupportShortcuts::setData(Preferences * pref) {
     play_edit->clear();
     other_edit->clear();
 
-//    playlist_key = set->value("playlist_key", playlist_key).toString();
-//    pause_key = set->value("pause_key", pause_key).toString();
-//    next_key = set->value("next_key", next_key).toString();
-//    pre_key = set->value("pre_key", pre_key).toString();
     play_edit->append(tr("Play/Pause:   Space"));
-    play_edit->append(tr("Previous:     Ctrl + <"));
-    play_edit->append(tr("Next:     Ctrl + >"));
-//    play_edit->append(tr("Play/Pause:   %1").arg(pref->pause_key));
-//    play_edit->append(tr("Previous:     %1").arg(pref->pre_key));
-//    play_edit->append(tr("Next:     %1").arg(pref->next_key));
+//    play_edit->append(tr("Previous:     <, Media Previous"));
+//    play_edit->append(tr("Next:     >, Media Next"));
+    play_edit->append(tr("Previous:     %1").arg(pref->prev_key));
+    play_edit->append(tr("Next:     %1").arg(pref->next_key));
 
     QString line = QString(tr("Forward %1:     Right(→)").arg(Helper::timeForJumps(pref->seeking1)));
     play_edit->append(line);
@@ -87,8 +82,8 @@ void SupportShortcuts::setData(Preferences * pref) {
     play_edit->append(tr("Set audio delay:     Y"));
     play_edit->append(tr("Increase or decrease audio delay:     + / - / ="));
 
-//    other_edit->append(tr("Playlist:   %1").arg(pref->playlist_key));//F3
-    other_edit->append(tr("Playlist:   F3"));
+
+    other_edit->append(tr("Playlist:   %1").arg(pref->playlist_key));//F3
     other_edit->append(tr("Open File:     Ctrl + F"));
     other_edit->append(tr("Screenshot:     S"));
     other_edit->append(tr("Preferences:     Ctrl + P"));

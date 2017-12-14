@@ -57,6 +57,7 @@
 #include <QKeyEvent>
 #include <QPushButton>
 #include <QDialogButtonBox>
+#include <QDebug>
 
 #if 1
 
@@ -202,7 +203,7 @@ static void initKeyMap()
 	keyMap[Qt::Key_Space] = "Space";
 	keyMap[Qt::Key_Backspace] = "Backspace";
 	keyMap[Qt::Key_MediaPlay] = "Media Play";
-	keyMap[Qt::Key_MediaStop] = "Media Stop";
+    keyMap[Qt::Key_MediaStop] = "Media Stop";
 	keyMap[Qt::Key_MediaPrevious] = "Media Previous";
 	keyMap[Qt::Key_MediaNext] = "Media Next";
 	keyMap[Qt::Key_MediaRecord] = "Media Record";
@@ -222,6 +223,7 @@ static QString keyToString(int k)
 		return QString::null;
 
 	initKeyMap();
+    qDebug() << "========keyToString========";
 	
 	return keyMap[k];
 }
@@ -242,7 +244,7 @@ static QString keyToString(int k)
 static QStringList modToString(Qt::KeyboardModifiers k)
 {
 	//qDebug("modToString: k: %x", (int) k);
-
+    qDebug() << "========modToString========";
 	QStringList l;
 	
 	if ( k & Qt::ShiftModifier )
@@ -262,7 +264,7 @@ static QStringList modToString(Qt::KeyboardModifiers k)
 }
 
 
-ShortcutGetter::ShortcutGetter(bool isbtn, QWidget *parent) : QDialog(parent)
+ShortcutGetter::ShortcutGetter(/*bool isbtn, */QWidget *parent) : QDialog(parent)
   , drag_state(NOT_SCDRAGGING)
   , start_drag(QPoint(0,0))
 {
@@ -313,14 +315,14 @@ ShortcutGetter::ShortcutGetter(bool isbtn, QWidget *parent) : QDialog(parent)
 	hbox->addWidget(removeItem);
 	vbox->addLayout(hbox);
 
-    if (isbtn) {
-        addItem->hide();
-        removeItem->hide();
-    }
-    else {
-        addItem->show();
-        removeItem->show();
-    }
+//    if (isbtn) {
+//        addItem->hide();
+//        removeItem->hide();
+//    }
+//    else {
+//        addItem->show();
+//        removeItem->show();
+//    }
 
 	QLabel *l = new QLabel(this);
     l->setStyleSheet("QLabel{background:transparent;font-size:12px;color:#999999;font-family:方正黑体_GBK;}");

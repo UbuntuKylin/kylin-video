@@ -41,7 +41,7 @@ class ShortcutGetter : public QDialog
 	Q_OBJECT
 
 public:
-    ShortcutGetter(bool isbtn = false, QWidget *parent = 0);
+    ShortcutGetter(/*bool isbtn = false, */QWidget *parent = 0);
 
 	QString exec(const QString& s);
 

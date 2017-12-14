@@ -40,9 +40,8 @@ namespace Global {
     extern Translator * translator;
 
 
-    void global_init(/*const QString & config_path*/);
+    void global_init();
 	void global_end();
-
 };
 
 #endif

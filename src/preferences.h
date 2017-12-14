@@ -202,10 +202,9 @@ public:
 
 	AutoAddToPlaylistFilter media_to_add_to_playlist;
 
-//    QString playlist_key;
-//    QString pause_key;
-//    QString next_key;
-//    QString pre_key;
+    QString playlist_key;
+    QString next_key;
+    QString prev_key;
 
     /* ***********
        Directories

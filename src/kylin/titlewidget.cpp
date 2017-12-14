@@ -29,7 +29,7 @@
 #include <QToolButton>
 #include <QTimer>
 #include <QStyleOption>
-
+//
 
 TitleWidget::TitleWidget(QWidget *parent)
     : QWidget(parent)

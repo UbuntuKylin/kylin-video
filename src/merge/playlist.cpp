@@ -53,8 +53,8 @@
 #include "global.h"
 #include "core.h"
 #include "extensions.h"
-#include "playlistitem.h"
-#include "playlistview.h"
+#include "../kylin/playlistitem.h"
+#include "../kylin/playlistview.h"
 #include "messagedialog.h"
 #include <QPainter>
 #include <QGraphicsOpacityEffect>

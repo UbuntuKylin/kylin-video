@@ -37,11 +37,6 @@
 #include <QDebug>
 #include <QDesktopWidget>
 #include <QPropertyAnimation>
-//#include "esctip.h"
-//#include "overlaywidget.h"
-//#if LOGO_ANIMATION
-//#include <QPropertyAnimation>
-//#endif
 
 Screen::Screen(QWidget* parent, Qt::WindowFlags f)
 	: QWidget(parent, f )
@@ -217,18 +212,13 @@ MplayerWindow::MplayerWindow(QWidget* parent, Qt::WindowFlags f)
 {
 	setAutoFillBackground(true);
     ColorUtils::setBackgroundColor( this, QColor(0,0,0) );
+//    ColorUtils::setBackgroundColor( this, QColor("#0d87ca") );
 
 	mplayerlayer = new MplayerLayer(this);
 	mplayerlayer->setObjectName("mplayerlayer");
 	mplayerlayer->setAutoFillBackground(true);
 
-//    omw = new OverlayWidget(this);
-////    omw->setBackgroundWidget(mplayerlayer);//mplayerwindow
-//    omw->setFixedSize(400,300);
-
-//    logo = new QLabel(this);
     logo = new QLabel(mplayerlayer);
-//    logo->setFixedSize(649,388);
     logo->setObjectName("mplayerwindow logo");
     logo->setAutoFillBackground(true);
     ColorUtils::setBackgroundColor(logo, QColor(0,0,0) );
@@ -242,14 +232,6 @@ MplayerWindow::MplayerWindow(QWidget* parent, Qt::WindowFlags f)
 	installEventFilter(this);
 	mplayerlayer->installEventFilter(this);
 	//logo->installEventFilter(this);
-
-    //0621
-    /*escWidget = new EscTip(this);
-    escWidget->setFixedSize(440, 64);
-    int windowWidth = QApplication::desktop()->screenGeometry(0).width();
-    int windowHeight = QApplication::desktop()->screenGeometry(0).height();
-    escWidget->move((windowWidth - escWidget->width()) / 2,(windowHeight - escWidget->height()) / 2);
-    escWidget->hide();*/
 
     //kobe:为了避免双击时触发单击事件，在单击处理函数clicked()中启动一timer，延时 qApp->doubleClickInterval()，而在此timer的timeout()中处理单击事件，在双击处理函数停止此timer
 	left_click_timer = new QTimer(this);
@@ -295,22 +277,12 @@ void MplayerWindow::setColorKey( QColor c ) {
 
 void MplayerWindow::retranslateStrings() {
     logo->setPixmap(Images::icon("background") );//kobe:设置显示区域的背景图 :/default-theme/background.png
-
-    //20170615
-//    logo->setPixmap(QPixmap("/home/lixiang/work/kylin-video/1.JPG"));
-//    QVBoxLayout * layout = new QVBoxLayout(this);
-//    layout->addWidget(logo);
-//    layout->setContentsMargins(0,0,0,0);
 }
 
 void MplayerWindow::setLogoVisible( bool b) {
-//	if (corner_widget) {
-//		corner_widget->setVisible(b);
-//	}
     if (corner_widget) {
         corner_widget->setVisible(false);
     }
-//    qDebug() << "****************************" << b << "   $$$" << logo->pos() << "  @@@@mplayerlayer rect=" << mplayerlayer->rect() << "  &&&&&this->rect=" << this->rect();//125,59    9,106
     if (b) {//Fixed bug: 4979
         mplayerlayer->move(0,0);
         mplayerlayer->resize(this->size());
@@ -334,8 +306,7 @@ void MplayerWindow::setResolution( int w, int h)
 {
     video_width = w;
     video_height = h;
-    
-    //mplayerlayer->move(1,1);
+
     updateVideoWindow();
 }
 
@@ -358,7 +329,6 @@ void MplayerWindow::hideLogoForTemporary()
 
 void MplayerWindow::update_logo_pos()
 {
-//    qDebug() << "update_logo_pos stoped=" << stoped;
     if (stoped) {//Fixed bug: 4979
         mplayerlayer->move(0,0);
         mplayerlayer->resize(this->size());

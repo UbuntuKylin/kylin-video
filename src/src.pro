@@ -67,16 +67,16 @@ HEADERS += config.h \
 	filedialog.h \
 	errordialog.h \
 	timedialog.h \
-	basegui.h \
+        merge/basegui.h \
 	cleanconfig.h \
 	smplayer.h \
         myapplication.h \
-        titlewidget.h \
-        bottomwidget.h \
+        kylin/titlewidget.h \
+        kylin/bottomwidget.h \
         soundvolume.h \
-        playlist.h \
-        playlistview.h \
-        playlistitem.h \
+        merge/playlist.h \
+        kylin/playlistview.h \
+        kylin/playlistitem.h \
         preferencesdialog.h \
         prefgeneral.h \
         prefwidget.h \
@@ -89,16 +89,14 @@ HEADERS += config.h \
         titlebutton.h \
         filepropertiesdialog.h \
         infofile.h \
-        overlaywidget.h \
-        aboutdialog.h \
-        systemtray.h \
+        kylin/aboutdialog.h \
         translator.h \
         languages.h \
         playmask.h \
         timetip.h \
-        esctip.h \
+        kylin/esctip.h \
         tipwidget.h \
-        audiodelaydialog.h \
+        merge/audiodelaydialog.h \
 #        logwindow.h \
         filesettings.h \
         messagedialog.h \
@@ -155,16 +153,16 @@ SOURCES	+= version.cpp \
 	filedialog.cpp \
 	errordialog.cpp \
 	timedialog.cpp \
-	basegui.cpp \
+        merge/basegui.cpp \
 	cleanconfig.cpp \
 	smplayer.cpp \
         main.cpp \
-        titlewidget.cpp \
-        bottomwidget.cpp \
+        kylin/titlewidget.cpp \
+        kylin/bottomwidget.cpp \
         soundvolume.cpp \
-        playlist.cpp \
-        playlistview.cpp \
-        playlistitem.cpp \
+        merge/playlist.cpp \
+        kylin/playlistview.cpp \
+        kylin/playlistitem.cpp \
         preferencesdialog.cpp \
         prefgeneral.cpp \
         prefwidget.cpp \
@@ -177,16 +175,14 @@ SOURCES	+= version.cpp \
         titlebutton.cpp \
         filepropertiesdialog.cpp \
         infofile.cpp \
-        overlaywidget.cpp \
-        aboutdialog.cpp \
-        systemtray.cpp \
+        kylin/aboutdialog.cpp \
         translator.cpp \
         languages.cpp \
         playmask.cpp \
         timetip.cpp \
-        esctip.cpp \
+        kylin/esctip.cpp \
         tipwidget.cpp \
-        audiodelaydialog.cpp \
+        merge/audiodelaydialog.cpp \
 #        logwindow.cpp \
         filesettings.cpp \
         messagedialog.cpp \
@@ -209,8 +205,8 @@ FORMS = errordialog.ui \
         prefvideo.ui \
         prefaudio.ui \
         filepropertiesdialog.ui \
-        aboutdialog.ui \
-        audiodelaydialog.ui \
+        kylin/aboutdialog.ui \
+        merge/audiodelaydialog.ui \
 #        logwindowbase.ui \
         helpdialog.ui \
         supportformats.ui \

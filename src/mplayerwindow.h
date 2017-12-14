@@ -36,12 +36,9 @@ class QWidget;
 class QLabel;
 class QKeyEvent;
 class QTimer;
-class EscTip;
 
 #define ZOOM_STEP 0.05
 #define ZOOM_MIN 0.5
-
-//class OverlayWidget;
 
 //#define DELAYED_RESIZE 0
 
@@ -236,7 +233,6 @@ protected:
 	MplayerLayer * mplayerlayer;
     QLabel * logo;
     bool stoped;
-//    OverlayWidget *omw;
 
 	// Zoom and moving
 	int offset_x, offset_y;
@@ -268,7 +264,6 @@ private:
 	TDragState drag_state;
 	QPoint start_drag;
 	bool mouse_drag_tracking;
-//    EscTip *escWidget;
 };
 
 #endif

@@ -26,24 +26,22 @@
 #include <QGraphicsProxyWidget>
 #include <QStackedLayout>
 
-#include "mediadata.h"
-#include "mediasettings.h"
-#include "preferences.h"
-#include "core.h"
-#include "config.h"
+#include "../mediadata.h"
+#include "../mediasettings.h"
+#include "../preferences.h"
+#include "../core.h"
+#include "../config.h"
 
 class QPushButton;
 class QWidget;
 class QMenu;
 //class LogWindow;
 class MplayerWindow;
-class OverlayWidget;
 class QLabel;
 class FilePropertiesDialog;
 class AboutDialog;
 class HelpDialog;
 class Playlist;
-class SystemTray;
 class EscTip;
 class TipWidget;
 class MyAction;
@@ -250,6 +248,9 @@ protected:
     void setDataToAboutDialog();
 	void initializeGui();
     void createActionsAndMenus();
+    void createTrayActions();
+    void addTrayActions();
+    void createHiddenActions();
 	void setActionsEnabled(bool);
 	void updateRecents();
     void loadConfig();
@@ -264,7 +265,6 @@ protected:
     // Menu File
     QMenu *openMenu;//打开
     MyAction *openFileAct;//打开文件
-    MyAction *openFileAct2;//打开文件
     MyAction *openDirectoryAct;//打开文件夹
     MyAction *openURLAct;//打开URL
     MyAction *clearRecentsAct;//清空最近的文件
@@ -382,6 +382,18 @@ protected:
     MyAction * channelsFull61Act;
     MyAction * channelsFull71Act;
 
+    //tray menu and actions
+    QMenu *tray_menu;
+    MyAction *action_show;
+    MyAction *action_openshotsdir;
+
+
+    //Hide actions
+    MyAction *playlist_action;
+    MyAction *play_pause_aciton;
+    MyAction *stopAct;
+    MyAction *fullscreenAct;
+
 //    LogWindow * mplayer_log_window;
 //    LogWindow * smplayer_log_window;
 
@@ -411,8 +423,8 @@ private:
     bool trayicon_playlist_was_visible;
     QPushButton *resizeCorner;
     bool resizeFlag;
-    //   OverlayWidget *omw;
-    SystemTray *tray;
+    QSystemTrayIcon *tray;
+
     PlayMask *play_mask;
 //    QPoint dragPosition;
     EscTip *escWidget;

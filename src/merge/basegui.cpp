@@ -17,7 +17,7 @@
 */
 
 #include "basegui.h"
-#include "filedialog.h"
+#include "../filedialog.h"
 #include <QMessageBox>
 #include <QMouseEvent>
 #include <QLabel>
@@ -42,46 +42,44 @@
 #include <QDesktopWidget>
 #include <cmath>
 
-#include "mplayerwindow.h"
-#include "desktopinfo.h"
-#include "helper.h"
-#include "paths.h"
-#include "colorutils.h"
-#include "global.h"
-#include "translator.h"
-#include "images.h"
-#include "preferences.h"
+#include "../mplayerwindow.h"
+#include "../desktopinfo.h"
+#include "../helper.h"
+#include "../paths.h"
+#include "../colorutils.h"
+#include "../global.h"
+#include "../translator.h"
+#include "../images.h"
+#include "../preferences.h"
 //#include "logwindow.h"
 #include "playlist.h"
-#include "filepropertiesdialog.h"
-#include "recents.h"
-#include "urlhistory.h"
-#include "errordialog.h"
-#include "timedialog.h"
-#include "titlewidget.h"
-#include "bottomwidget.h"
-#include "playmask.h"
-#include "overlaywidget.h"
-#include "aboutdialog.h"
-#include "systemtray.h"
-#include "esctip.h"
-#include "tipwidget.h"
+#include "../filepropertiesdialog.h"
+#include "../recents.h"
+#include "../urlhistory.h"
+#include "../errordialog.h"
+#include "../timedialog.h"
+#include "../kylin/titlewidget.h"
+#include "../kylin/bottomwidget.h"
+#include "../playmask.h"
+#include "../kylin/aboutdialog.h"
+#include "../kylin/esctip.h"
+#include "../tipwidget.h"
 #include "audiodelaydialog.h"
-#include "messagedialog.h"
+#include "../messagedialog.h"
 #include <QGraphicsOpacityEffect>
-#include "mplayerversion.h"
-#include "config.h"
-#include "actionseditor.h"
-#include "preferencesdialog.h"
-#include "prefshortcut.h"
-#include "myaction.h"
-#include "myactiongroup.h"
-#include "extensions.h"
-#include "version.h"
-#include "videopreview.h"
-#include "shortcutswidget.h"
-#include "helpdialog.h"
-#include "inputurl.h"
+#include "../mplayerversion.h"
+#include "../config.h"
+#include "../actionseditor.h"
+#include "../preferencesdialog.h"
+#include "../prefshortcut.h"
+#include "../myaction.h"
+#include "../myactiongroup.h"
+#include "../extensions.h"
+#include "../version.h"
+#include "../videopreview.h"
+#include "../shortcutswidget.h"
+#include "../helpdialog.h"
+#include "../inputurl.h"
 
 using namespace Global;
 
@@ -152,6 +150,9 @@ BaseGui::BaseGui(QString arch_type, QWidget* parent, Qt::WindowFlags flags)
     connect(mplayerwindow, SIGNAL(wheelDown()), core, SLOT(wheelDown()));
 
     createActionsAndMenus();
+    createTrayActions();
+    addTrayActions();
+    createHiddenActions();
 
     setAcceptDrops(true);
 
@@ -173,7 +174,7 @@ BaseGui::BaseGui(QString arch_type, QWidget* parent, Qt::WindowFlags flags)
     connect(m_topToolbar, SIGNAL(sig_min()), this, SLOT(slot_min()));
     connect(m_topToolbar, SIGNAL(sig_close()), this, SLOT(slot_close()));
     connect(m_topToolbar, SIGNAL(sig_max()), this, SLOT(slot_max()));
-    connect( m_topToolbar, SIGNAL(mouseMovedDiff(QPoint)), this, SLOT(moveWindowDiff(QPoint)), Qt::QueuedConnection );//kobe 0524
+    connect(m_topToolbar, SIGNAL(mouseMovedDiff(QPoint)), this, SLOT(moveWindowDiff(QPoint)), Qt::QueuedConnection );//kobe 0524
 
     //bottom
     m_bottomToolbar = new BottomWidget(this);//0526
@@ -241,16 +242,6 @@ BaseGui::BaseGui(QString arch_type, QWidget* parent, Qt::WindowFlags flags)
     m_bottomToolbar->show();
     m_bottomToolbar->setFocus();
 
-    tray = new SystemTray(this);
-    connect(tray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(trayIconActivated(QSystemTrayIcon::ActivationReason)));
-    tray->show();
-    connect(tray, SIGNAL(showWidget()), this, SLOT(showAll()));
-    connect(tray, SIGNAL(sig_open_screenshot_dir()), this, SLOT(open_screenshot_directory()));
-    connect(tray, SIGNAL(showPref()), this, SLOT(showPreferencesDialog()));
-    connect(tray, SIGNAL(showAbout()), this, SLOT(showAboutDialog()));
-    connect(tray, SIGNAL(showHelp()), this, SLOT(showHelpDialog()));
-    connect(tray, SIGNAL(quitApp()), this, SLOT(slot_close()));
-
     this->setActionsEnabled(false);
     if (playlistWidget->count() > 0) {
         emit this->setPlayOrPauseEnabled(true);
@@ -271,16 +262,6 @@ BaseGui::BaseGui(QString arch_type, QWidget* parent, Qt::WindowFlags flags)
     escWidget->move((windowWidth - escWidget->width()) / 2,(windowHeight - escWidget->height()) / 2);
     escWidget->hide();
 //    installEventFilter(this);
-
-    //test code by kobe
-//    omw = new OverlayWidget(panel);
-//    omw->setBackgroundWidget(panel);//mplayerwindow
-//    omw = new OverlayWidget(this);
-//    omw->setBackgroundWidget(this);//mplayerwindow
-//    omw->setFixedSize(400,300);
-//    omw = new OverlayWidget(mplayerwindow);
-//    mplayerwindow->setCornerWidget(omw);
-//    omw->hide();
 
     play_mask = new PlayMask(mplayerwindow);
     mplayerwindow->setCornerWidget(play_mask);
@@ -659,11 +640,7 @@ void BaseGui::createActionsAndMenus() {
     // Menu File
     openFileAct = new MyAction(QKeySequence("Ctrl+F"), this, "open_file");
     connect(openFileAct, SIGNAL(triggered()), this, SLOT(openFile()));
-    openFileAct->change(/*QPixmap(":/res/open.png"), */tr("&File..."));
-
-    openFileAct2 = new MyAction(this, "only_open_file" );
-    connect(openFileAct2, SIGNAL(triggered()), this, SLOT(openFile()));
-    openFileAct2->change(QPixmap(":/res/open_file_normal.png"), tr("Open &File..."));
+    openFileAct->change(QPixmap(":/res/open_file_normal.png"), tr("Open &File..."));
 
     openDirectoryAct = new MyAction( this, "open_directory");
     connect(openDirectoryAct, SIGNAL(triggered()), this, SLOT(openDirectory()));
@@ -1034,13 +1011,62 @@ void BaseGui::createActionsAndMenus() {
         main_popup = new QMenu(this);
     else
         main_popup->clear();
-    main_popup->addAction(openFileAct2);
+    main_popup->addAction(openFileAct);
     main_popup->addAction(screenshotAct);
     main_popup->addAction(showPreferencesAct);
     main_popup->addAction(helpAct);
     main_popup->addAction(aboutAct);
     main_popup->addSeparator();
     main_popup->addAction(quitAct);
+}
+
+void BaseGui::createTrayActions() {
+    tray = new QSystemTrayIcon(Images::icon("logo", 22), this);
+    tray->setToolTip("Kylin Video");
+    tray->show();
+    connect(tray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(trayIconActivated(QSystemTrayIcon::ActivationReason)));
+    tray->setIcon(Images::icon("logo", 22));
+    tray_menu = new QMenu(this);
+
+    action_show = new MyAction(this, "open_window");
+    action_show->change(Images::icon("open_window_normal"), tr("Open Homepage"));
+
+    action_openshotsdir = new MyAction(this, "open_shots_dir");
+    action_openshotsdir->change(Images::icon("open_screen"), tr("Open screenshots folder"));
+
+    connect(action_show, SIGNAL(triggered()), this, SLOT(showAll()));
+    connect(action_openshotsdir, SIGNAL(triggered()), this, SLOT(open_screenshot_directory()));
+    tray_menu->setFixedWidth(250);
+
+    tray->setContextMenu(tray_menu);
+}
+
+void BaseGui::addTrayActions() {
+    //添加菜单项
+    tray_menu->addAction(action_show);
+    tray_menu->addAction(action_openshotsdir);
+    tray_menu->addSeparator();
+    tray_menu->addAction(aboutAct);
+    tray_menu->addAction(helpAct);
+    tray_menu->addSeparator();
+    tray_menu->addAction(showPreferencesAct);
+    tray_menu->addAction(quitAct);
+}
+
+void BaseGui::createHiddenActions() {
+    playlist_action = new MyAction(QKeySequence("F3"), this, "playlist_open_close");
+    playlist_action->change(tr("PlayList"));
+    connect(playlist_action, SIGNAL(triggered()), this, SLOT(slot_playlist()));
+
+    play_pause_aciton = new MyAction(QKeySequence(Qt::Key_Space), this, "play_pause");
+    play_pause_aciton->change(tr("Play/Pause"));
+    connect(playlist_action, SIGNAL(triggered()), core, SLOT(play_or_pause()));
+
+    stopAct = new MyAction(Qt::Key_MediaStop, this, "stop");
+    connect(stopAct, SIGNAL(triggered()), core, SLOT(stop()));
+
+    fullscreenAct = new MyAction(QKeySequence("Ctrl+Return"), this, "stop");
+    connect(fullscreenAct, SIGNAL(triggered()), this, SLOT(slot_set_fullscreen()));
 }
 
 void BaseGui::setActionsEnabled(bool b) {
@@ -1161,7 +1187,6 @@ void BaseGui::disableActionsOnStop() {
 void BaseGui::togglePlayAction(Core::State state) {
     if (state == Core::Playing) {//Stopped = 0, Playing = 1, Paused = 2
         m_bottomToolbar->onMusicPlayed();
-//        omw->hide();//0620
         play_mask->hide();//0620
     }
     else if (state == Core::Stopped) {//0621
@@ -1170,7 +1195,6 @@ void BaseGui::togglePlayAction(Core::State state) {
     }
     else {
         m_bottomToolbar->onMusicPause();
-//        omw->show();//0620
         if (mplayerwindow) {
             mplayerwindow->hideLogo();
         }
@@ -1228,7 +1252,7 @@ void BaseGui::createMplayerWindow() {
     mplayerwindow = new MplayerWindow(this);
     mplayerwindow->setObjectName("mplayerwindow");
     mplayerwindow->installEventFilter(this);
-    mplayerwindow->setColorKey("121212");//mplayerwindow->setColorKey("20202");  0x020202 // pref->color_key kobe:视频显示区域背景色设置为黑色
+    mplayerwindow->setColorKey("121212");//121212 mplayerwindow->setColorKey("20202");  0x020202 // pref->color_key kobe:视频显示区域背景色设置为黑色 0d87ca
     mplayerwindow->setContentsMargins(0, 0, 0, 0);
     /*
     mplayerwindow = new MplayerWindow(panel);
@@ -2968,7 +2992,7 @@ void BaseGui::open_screenshot_directory() {
         QDesktopServices::openUrl(QUrl(QString("file:%1").arg(pref->screenshot_directory), QUrl::TolerantMode));
     }
     else {
-        tray->showTipMsg(tr("The screenshot folder does not exist!"));
+        tray->showMessage(tr("Information"), tr("The screenshot folder does not exist!"), QSystemTrayIcon::Information, 2000);//QSystemTrayIcon::Warning
     }
 }
 

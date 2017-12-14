@@ -17,7 +17,6 @@
 */
 
 #include "smplayer.h"
-#include "basegui.h"
 #include "global.h"
 #include "paths.h"
 #include "translator.h"

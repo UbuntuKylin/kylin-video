@@ -196,7 +196,6 @@ void ShortcutsWidget::init_ui()
 //    control_label_list.append(play_title);
 
     play_label = new QLabel();
-//    play_label->setText(pref->pause_key);
     play_label->setText("Space");
     play_label->setFrameShape(QFrame::NoFrame);
     play_label->setStyleSheet("QLabel{background:transparent;font-size:12px;color:#ffffff;font-family:方正黑体_GBK;}");
@@ -214,7 +213,7 @@ void ShortcutsWidget::init_ui()
 //    control_label_list.append(play_pre_title);
 
     play_pre_label = new QLabel();
-    play_pre_label->setText("Ctrl + <");//pref->pre_key
+    play_pre_label->setText(pref->prev_key);
     play_pre_label->setFrameShape(QFrame::NoFrame);
     play_pre_label->setStyleSheet("QLabel{background:transparent;font-size:12px;color:#ffffff;font-family:方正黑体_GBK;}");
     play_pre_label->adjustSize();
@@ -230,7 +229,7 @@ void ShortcutsWidget::init_ui()
 //    control_label_list.append(play_next_title);
 
     play_next_label = new QLabel();
-    play_next_label->setText("Ctrl + >");//pref->next_key
+    play_next_label->setText(pref->next_key);//">, Media Next"
     play_next_label->setFrameShape(QFrame::NoFrame);
     play_next_label->setStyleSheet("QLabel{background:transparent;font-size:12px;color:#ffffff;font-family:方正黑体_GBK;}");
     play_next_label->adjustSize();
@@ -432,8 +431,7 @@ void ShortcutsWidget::init_ui()
     other_grid_layout->addWidget(playlist_title,0,0);
 
     playlist_label = new QLabel();
-//    playlist_label->setText(pref->playlist_key);//F3
-    playlist_label->setText("F3");
+    playlist_label->setText(pref->playlist_key);//F3
     playlist_label->setFrameShape(QFrame::NoFrame);
     playlist_label->setStyleSheet("QLabel{background:transparent;font-size:12px;color:#ffffff;font-family:方正黑体_GBK;}");
     playlist_label->adjustSize();

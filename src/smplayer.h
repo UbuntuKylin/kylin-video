@@ -22,7 +22,7 @@
 #include <QObject>
 #include <QString>
 #include <QStringList>
-#include "basegui.h"
+#include "merge/basegui.h"
 
 class SMPlayer : public QObject
 {

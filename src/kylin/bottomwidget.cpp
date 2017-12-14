@@ -128,7 +128,7 @@ BottomWidget::BottomWidget(QWidget *parent)
     btPrev->setObjectName("PrevBtn");
     btPrev->setFixedSize(24, 24);
     btPlayPause = new QPushButton;
-    btPlayPause->setShortcut(Qt::Key_Space);//Qt::Key_Space
+//    btPlayPause->setShortcut(Qt::Key_Space);
     btPlayPause->setObjectName("PlayBtn");
     btPlayPause->setFixedSize(61, 61);
     btNext = new QPushButton;
@@ -139,12 +139,11 @@ BottomWidget::BottomWidget(QWidget *parent)
     btSound->setFixedSize(24, 24);
     btSound->setProperty("volume", "mid");
     btFullScreen = new QPushButton;
-    btFullScreen->setShortcut(QKeySequence("Ctrl+Return"));
+//    btFullScreen->setShortcut(QKeySequence("Ctrl+Return"));
     btFullScreen->setObjectName("FullScreenBtn");
     btFullScreen->setFixedSize(24, 24);
     btPlayList = new QPushButton;
-//    btPlayList->setShortcut(QKeySequence(pref->playlist_key));//F3
-    btPlayList->setShortcut(QKeySequence("F3"));
+//    btPlayList->setShortcut(QKeySequence("F3"));
     btPlayList->setObjectName("PlayListBtn");
     btPlayList->setFixedSize(24, 24);
     listCountLabel = new QLabel;

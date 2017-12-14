@@ -44,6 +44,9 @@
 #include "paths.h"
 
 #include "shortcutgetter.h"
+#include "global.h"
+
+using namespace Global;
 
 
 /*
@@ -97,7 +100,7 @@ void MyDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
 
 QString ActionsEditor::shortcutsToString(QList <QKeySequence> shortcuts_list) {
 	QString accelText = "";
-
+//    qDebug() << "===========shortcutsToString=============";
 	for (int n=0; n < shortcuts_list.count(); n++) {
 		accelText += shortcuts_list[n].toString(QKeySequence::PortableText);
 		if (n < (shortcuts_list.count()-1)) accelText += ", ";
@@ -110,7 +113,7 @@ QString ActionsEditor::shortcutsToString(QList <QKeySequence> shortcuts_list) {
 
 QList <QKeySequence> ActionsEditor::stringToShortcuts(QString shortcuts) {
 	QList <QKeySequence> shortcuts_list;
-
+//    qDebug() << "===========stringToShortcuts=============";
 	QStringList l = shortcuts.split(", ");
 
 	for (int n=0; n < l.count(); n++) {
@@ -259,18 +262,17 @@ void ActionsEditor::addCurrentActions(QWidget *widget) {
 	        actionsList.append(action);
     }
 
-    /*QPushButton *btn_action;
-    QList<QPushButton *> btn_actions = widget->findChildren<QPushButton *>();
-    for (int m=0; m < btn_actions.count(); m++) {
-        btn_action = static_cast<QPushButton*> (btn_actions[m]);
-        QString actionName = btn_action->objectName();
-        if (!actionName.isEmpty()) {
-            if (actionName == "PlayListBtn") {
-                qDebug() << "===================PlayListBtn";
-                btnActionsList.append(btn_action);
-            }
-        }
-    }*/
+//    QPushButton *btn_action;
+//    QList<QPushButton *> btn_actions = widget->findChildren<QPushButton *>();
+//    for (int m=0; m < btn_actions.count(); m++) {
+//        btn_action = static_cast<QPushButton*> (btn_actions[m]);
+//        QString actionName = btn_action->objectName();
+//        if (!actionName.isEmpty()) {
+//            if (actionName == "PlayListBtn" || actionName == "play_next") {
+//                btnActionsList.append(btn_action);
+//            }
+//        }
+//    }
 
 	updateView();
 }
@@ -279,7 +281,7 @@ void ActionsEditor::updateView() {
     actionsTable->setRowCount(actionsList.count()/* + btnActionsList.count()*/);
 
     QAction *action;
-    QPushButton *btn_action;
+//    QPushButton *btn_action;
 	QString accelText;
 
 	//actionsTable->setSortingEnabled(false);
@@ -317,36 +319,36 @@ void ActionsEditor::updateView() {
 
 	}
 
-    /*for (int m=0; m < btnActionsList.count(); m++) {
-        btn_action = static_cast<QPushButton*> (btnActionsList[m]);
-        accelText = btn_action->shortcut().toString();//shortcutsToString(btn_action->shortcut());
+//    for (int m=0; m < btnActionsList.count(); m++) {
+//        btn_action = static_cast<QPushButton*> (btnActionsList[m]);
+//        accelText = btn_action->shortcut().toString();//shortcutsToString(btn_action->shortcut());
 
-        // Conflict column
-        QTableWidgetItem * i_conf = new QTableWidgetItem();
+//        // Conflict column
+//        QTableWidgetItem * i_conf = new QTableWidgetItem();
 
-        // Name column
-        QTableWidgetItem * i_name = new QTableWidgetItem(btn_action->objectName());
+//        // Name column
+//        QTableWidgetItem * i_name = new QTableWidgetItem(btn_action->objectName());
 
-        // Desc column
-        QTableWidgetItem * i_desc = new QTableWidgetItem(btn_action->text().replace("&",""));
-        i_desc->setIcon( action->icon() );
+//        // Desc column
+//        QTableWidgetItem * i_desc = new QTableWidgetItem(btn_action->text().replace("&",""));
+//        i_desc->setIcon( action->icon() );
 
-        // Shortcut column
-        QTableWidgetItem * i_shortcut = new QTableWidgetItem(accelText);
+//        // Shortcut column
+//        QTableWidgetItem * i_shortcut = new QTableWidgetItem(accelText);
 
-        // Set flags
-        i_conf->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
-        i_name->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
-        i_desc->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
-        i_shortcut->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+//        // Set flags
+//        i_conf->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+//        i_name->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+//        i_desc->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+//        i_shortcut->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
 
-        // Add items to table
-        actionsTable->setItem(m + action_count, COL_CONFLICTS, i_conf );
-        actionsTable->setItem(m + action_count, COL_NAME, i_name );
-        actionsTable->setItem(m + action_count, COL_DESC, i_desc );
-        actionsTable->setItem(m + action_count, COL_SHORTCUT, i_shortcut );
+//        // Add items to table
+//        actionsTable->setItem(m + action_count, COL_CONFLICTS, i_conf );
+//        actionsTable->setItem(m + action_count, COL_NAME, i_name );
+//        actionsTable->setItem(m + action_count, COL_DESC, i_desc );
+//        actionsTable->setItem(m + action_count, COL_SHORTCUT, i_shortcut );
 
-    }*/
+//    }
 
 	hasConflicts(); // Check for conflicts
 	actionsTable->resizeColumnsToContents();
@@ -366,24 +368,24 @@ void ActionsEditor::applyChanges() {
         action->setShortcuts(stringToShortcuts(i->text()) );//action->setShortcut( QKeySequence(i->text()) );
 	}
 
-    /*for (int m=0; m < (int)btnActionsList.size(); m++) {
-        QPushButton *btn = btnActionsList[m];
-        QTableWidgetItem *i = actionsTable->item(m + action_count, COL_SHORTCUT);
-        btn->setShortcut(i->text());
-    }*/
+//    for (int m=0; m < (int)btnActionsList.size(); m++) {
+//        QPushButton *btn = btnActionsList[m];
+//        QTableWidgetItem *i = actionsTable->item(m + action_count, COL_SHORTCUT);
+//        btn->setShortcut(i->text());
+//    }
 }
 
 void ActionsEditor::editShortcut() {
 	QTableWidgetItem * i = actionsTable->item( actionsTable->currentRow(), COL_SHORTCUT );
 	if (i) {
-        bool isbtn = false;
+//        bool isbtn = false;
         QTableWidgetItem * j = actionsTable->item( actionsTable->currentRow(), COL_NAME );
-        if (j) {
-            if (j->text() == "PlayListBtn") {
-                isbtn = true;
-            }
-        }
-        ShortcutGetter d(isbtn)/*(this)*/;
+//        if (j) {
+//            if (j->text() == "PlayListBtn" || j->text() == "play_next") {
+//                isbtn = true;
+//            }
+//        }
+        ShortcutGetter d/*(this)*/;
 		QString result = d.exec( i->text() );
 
 		if (!result.isNull()) {
@@ -587,6 +589,18 @@ void ActionsEditor::saveToConfig(QObject *o, QSettings *set)
         }
     }
 
+//    QPushButton *btn_action;
+//    QList<QPushButton *> btn_actions = o->findChildren<QPushButton *>();
+//    for (int m=0; m < btn_actions.count(); m++) {
+//        btn_action = static_cast<QPushButton*> (btn_actions[m]);
+//        if (!btn_action->objectName().isEmpty()) {
+//            if (btn_action->objectName() == "PlayListBtn" || btn_action->objectName() == "play_next") {
+//                QString accelText = btn_action->shortcut().toString();
+//                set->setValue(btn_action->objectName(), accelText);
+//            }
+//        }
+//    }
+
     set->endGroup();
 }
 
@@ -599,7 +613,7 @@ void ActionsEditor::loadFromConfig(QObject *o, QSettings *set)
 	QString accelText;
 
 	QList<QAction *> actions = o->findChildren<QAction *>();
-    qDebug() << "ActionsEditor::loadFromConfig actions count="<<actions.count();
+//    qDebug() << "ActionsEditor::loadFromConfig actions count="<<actions.count();
 	for (int n=0; n < actions.count(); n++) {
 		action = static_cast<QAction*> (actions[n]);
         if (!action->objectName().isEmpty()/* && !action->inherits("QWidgetAction")*/) {
@@ -608,6 +622,22 @@ void ActionsEditor::loadFromConfig(QObject *o, QSettings *set)
             action->setShortcuts(stringToShortcuts(accelText));
 //            qDebug() << "ActionsEditor::loadFromConfig action->objectName()="<<action->objectName()<<",accelText="<<accelText;
 		}
+    }
+
+    QPushButton *btn_action;
+    QList<QPushButton *> btn_actions = o->findChildren<QPushButton *>();
+    for (int m=0; m < btn_actions.count(); m++) {
+        btn_action = static_cast<QPushButton*> (btn_actions[m]);
+        if (!btn_action->objectName().isEmpty()) {
+            QList <QKeySequence> cur_shortcuts_list;
+            cur_shortcuts_list.append(btn_action->shortcut());
+            QString current = shortcutsToString(cur_shortcuts_list);
+            accelText = set->value(btn_action->objectName(), current).toString();
+            QList <QKeySequence> shortcuts_list = stringToShortcuts(accelText);
+            if (shortcuts_list.count() > 0) {
+                btn_action->setShortcut(shortcuts_list.at(0));
+            }
+        }
     }
 
 	set->endGroup();

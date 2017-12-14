@@ -1,15 +1,19 @@
-# kylin-video
+kylin-video
+===========
 
-简介：麒麟影音，一款基于SMPlayer进行二次开发，使用Qt5进行图形绘制，MPV和MPlayer作为播放引擎的视频播放器。
-
-
-参数配置文件：~/.config/kylin-video/kylin-video.ini
-播放文件上次播放详细信息记录文件：~/.config/kylin-video/kylin_video_files.ini
-播放驱动等信息记录文件：~/.config/kylin-video/player_info.ini
-
-依赖并支持Mplayer和MPV两种视频播放引擎进行播放，可在设置中进行任意切换，默认使用
-MPV。
+Kylin Video utilizes MPV and MPlayer as background play engine (use MPV by default). Its GUI front end is written by Gt5. Plus, it supports both x86 and ARM platform. As a powerful video player, Kylin Video supports most of the audio and video formats. Functions of shortcut keys/ preview/ screenshot/ sound settings/ subtitles and so on are provided. Users can even customize settings as they like.
 
 
-Test URL:
-http://rbv01.ku6.com/WrTcR6Yik9QIW4XIcxYvDw.mp4
+Installation
+============
+
+qmake
+make
+sudo make install
+
+
+How to report bugs
+==================
+
+Bugs should be report to the kylin-video bug tracking system:
+    https://github.com/ukui/kylin-video/issues

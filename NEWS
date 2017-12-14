@@ -1,0 +1,93 @@
+==============
+Version  1.1.0
+==============
+
+- Add Stereo mode for audio.
+- Add frame rotation for video.
+- Show logo normal(LP: #4979).
+- Display the correct shortcut key of increase volume or decrease volume(LP: #4916).
+- When the playing video file is removed from the playlist, then stop playing it(LP: #4915).
+- Solved the mouse drag problem for playlist items(LP: #4907).
+- Add Shortcut for the button of setting audio delay(LP: #4917).
+
+==============
+Version  1.0.9
+==============
+
+- Support URL.
+- Optimize the aboutdialog.
+- Solved the problem that clicking on some buttons causes the interface to move sometimes.
+
+==============
+Version  1.0.8
+==============
+
+- Solve the background problem of pause button.
+- Optimize the scrollbar for playlist.
+- if the state is pause in unfullscreen, then show title bar and control bar.
+- if the state is not pause and playing in fullscreen, then show title bar and control bar.
+- Show normal window size when the icon on the taskbar is clicked, because of the bug of Qt5.
+
+==============
+Version  1.0.7
+==============
+
+- Set windown stay on top.
+- Add play order swither.
+- Add help page.
+- Add more shortcuts, such as full screen, playlist, about and exit.
+- Resolve the problem that text color settings is invalid of QComboBox.
+- Deal with the log records.
+
+==============
+Version  1.0.6
+==============
+
+- Add open screenshots action into systemtray.
+- Make the seek position work properly when using Mplayer.
+- Rewrite mainwindow with QStackedLayout.
+- Show detail info when the file does not exist(LP: #4372).
+- Resize TipWidget depending on the length of the tip text.
+- Show screenshot's information when it is saved successfully.
+- Add shortcut key notes.
+- Add Preview.
+
+==============
+Version  1.0.5
+==============
+
+- Add slot function for some actions.
+- Resolved the problem of selecting item is inaccurate when open files in different ways.
+- Modify progressbar.
+- Add error tip for the file has been removed from disk which double click play.
+- Add MessageDialog.
+- Modify QComboBox qss.
+- Remove Qt::ToolTip from TipWidget, make it be inside the mainwindow, but it's not transparent at this time.
+- Add tip when remove file from playlist.
+- Fixed some bugs.
+
+==============
+Version  1.0.4
+==============
+
+- Support MPV.
+- Support auto restart when the playback engine changed.
+
+==============
+Version  1.0.3
+==============
+
+- Update sub interfaces.
+- Update menu qss.
+
+==============
+Version  1.0.2
+==============
+
+- Update the main interface.
+
+==============
+Version  1.0.0
+==============
+
+- A great MPlayer front-end with Qt5.

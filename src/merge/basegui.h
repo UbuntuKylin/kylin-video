@@ -1,5 +1,6 @@
 /*  smplayer, GUI front-end for mplayer.
     Copyright (C) 2006-2015 Ricardo Villalba <rvm@users.sourceforge.net>
+    Copyright (C) 2013 ~ 2017 National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -15,7 +16,6 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-
 #ifndef _BASEGUI_H_
 #define _BASEGUI_H_
 
@@ -26,16 +26,15 @@
 #include <QGraphicsProxyWidget>
 #include <QStackedLayout>
 
-#include "../mediadata.h"
-#include "../mediasettings.h"
-#include "../preferences.h"
-#include "../core.h"
-#include "../config.h"
+#include "../smplayer/mediadata.h"
+#include "../smplayer/mediasettings.h"
+#include "../smplayer/preferences.h"
+#include "../smplayer/core.h"
+#include "../smplayer/config.h"
 
 class QPushButton;
 class QWidget;
 class QMenu;
-//class LogWindow;
 class MplayerWindow;
 class QLabel;
 class FilePropertiesDialog;
@@ -67,9 +66,6 @@ public:
     void setTransparent(bool transparent);
     void set_widget_opacity(const float &opacity=0.8);
 
-//	//! Saves the line from the smplayer output
-//    void recordSmplayerLog(QString line);
-
 	Core * getCore() { return core; };
     Playlist * getPlaylist() { return playlistWidget; };
 
@@ -96,8 +92,6 @@ public slots:
 	virtual void loadSub();
 	virtual void loadAudioFile(); // Load external audio file
 	void setInitialSubtitle(const QString & subtitle_file);
-//    virtual void showMplayerLog();
-//    virtual void showLog();
 	virtual void showPreferencesDialog();
 	virtual void showFilePropertiesDialog();
 	virtual void showGotoDialog();
@@ -122,14 +116,12 @@ public slots:
     void slot_playlist();
     void slot_resize_corner();
     void slot_set_fullscreen();
-//    void slot_resize_mainwindow(int w, int h);//remove on 20170720 replace by resizeEvent
     void showTipWidget(const QString text);
     void hideTipWidget();
     void showOrHideEscWidget(bool b);
     void open_screenshot_directory();
     void ready_save_pre_image(int time);
     void showShortcuts();
-//    void onShowControls();
 
 protected slots:
 	virtual void closeWindow();
@@ -198,9 +190,6 @@ protected slots:
 
 //	//! Saves the line from the mplayer output
     void recordMplayerLog(QString line);
-
-//	//! Saves the mplayer log to a file every time a file is loaded
-//    void autosaveMplayerLog();
 
 signals:
     void sigActionsEnabled(bool);
@@ -324,7 +313,6 @@ protected:
     QMenu * rotate_flip_menu;
     QMenu * rotate_menu;
 
-
     MyAction * shortcutsAct;
     MyAction * screenshotAct;
 
@@ -374,7 +362,6 @@ protected:
     QMenu *popup;
     QMenu *main_popup;
     QMenu * audiochannels_menu;
-//	// Audio Channels Action Group
     MyActionGroup * channelsGroup;
     MyAction * channelsStereoAct;
     MyAction * channelsSurroundAct;
@@ -394,9 +381,6 @@ protected:
     MyAction *stopAct;
     MyAction *fullscreenAct;
 
-//    LogWindow * mplayer_log_window;
-//    LogWindow * smplayer_log_window;
-
     PreferencesDialog *pref_dialog;
     FilePropertiesDialog *file_dialog;
     AboutDialog *aboutDlg;
@@ -413,9 +397,8 @@ protected:
 private:
 	bool was_maximized;
     QString mplayer_log;
-//    QString smplayer_log;
 	bool ignore_show_hide_events;
-    bool isFinished;//kobe
+    bool isFinished;
     bool isPlaying;
     bool fullscreen;
     QPoint mainwindow_pos;
@@ -426,30 +409,12 @@ private:
     QSystemTrayIcon *tray;
 
     PlayMask *play_mask;
-//    QPoint dragPosition;
     EscTip *escWidget;
     TipWidget *tipWidget;
     QTimer *tip_timer;
     QString arch;
     VideoPreview *video_preview;
     ShortcutsWidget *shortcuts_widget;
-
-/*    QTimer *mouse_timer;
-    bool turned_on;
-    bool        mouseIn;
-
-private slots:
-    void checkUnderMouse();
-
-
-public:
-    void activate_timer();
-//    void deactivate_timer();
-    void showAlways();
-
-//protected:
-//    virtual void enterEvent(QEvent *event);
-//    virtual void leaveEvent(QEvent *event);*/
 };
     
 #endif

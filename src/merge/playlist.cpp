@@ -1,21 +1,21 @@
-/*
- * Copyright (C) 2013 ~ 2017 National University of Defense Technology(NUDT) & Kylin Ltd.
- *
- * Authors:
- *  Kobe Lee    lixiang@kylinos.cn/kobe24_lixiang@126.com
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; version 3.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+/*  smplayer, GUI front-end for mplayer.
+    Copyright (C) 2006-2015 Ricardo Villalba <rvm@users.sourceforge.net>
+    Copyright (C) 2013 ~ 2017 National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+*/
 
 #include "playlist.h"
 
@@ -45,21 +45,21 @@
 #include <QString>
 #include <QLabel>
 
-#include "myaction.h"
-#include "filedialog.h"
-#include "helper.h"
-#include "preferences.h"
-#include "version.h"
-#include "global.h"
-#include "core.h"
-#include "extensions.h"
+#include "../smplayer/myaction.h"
+#include "../smplayer/filedialog.h"
+#include "../smplayer/helper.h"
+#include "../smplayer/preferences.h"
+#include "../smplayer/version.h"
+#include "../smplayer/global.h"
+#include "../smplayer/core.h"
+#include "../smplayer/extensions.h"
 #include "../kylin/playlistitem.h"
 #include "../kylin/playlistview.h"
-#include "messagedialog.h"
+#include "../kylin/messagedialog.h"
 #include <QPainter>
 #include <QGraphicsOpacityEffect>
 #include <stdlib.h>
-#include "infoprovider.h"
+#include "../smplayer/infoprovider.h"
 
 using namespace Global;
 
@@ -1174,4 +1174,4 @@ void Playlist::paintEvent(QPaintEvent *event)
 //    p.fillRect(rect(), Qt::SolidPattern);//p.fillRect(0, 0, this->width(), this->height(), Qt::SolidPattern);
 }
 
-#include "moc_playlist.cpp"
+//#include "moc_playlist.cpp"

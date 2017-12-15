@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 ~ 2017 National University of Defense Technology(NUDT) & Kylin Ltd.
+ * Copyright (C) 2013 ~ 2017 National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
  *
  * Authors:
  *  Kobe Lee    lixiang@kylinos.cn/kobe24_lixiang@126.com
@@ -18,12 +18,12 @@
  */
 
 #include "aboutdialog.h"
-#include "images.h"
-#include "version.h"
-#include "global.h"
-#include "preferences.h"
-#include "paths.h"
-#include "inforeader.h"
+#include "../smplayer/images.h"
+#include "../smplayer/version.h"
+#include "../smplayer/global.h"
+#include "../smplayer/preferences.h"
+#include "../smplayer/paths.h"
+#include "../smplayer/inforeader.h"
 
 #include <QFile>
 #include <QDesktopServices>
@@ -153,7 +153,7 @@ void AboutDialog::setVersions()
 
     aboutText->setText(
                 "<br>" +
-                tr("Kylin Video is developed on the basis of SMPlayer, is a graphical interface for MPlayer and MPV.") + "<br>" +
+                tr("Kylin Video is developed on the basis of KylinVideo, is a graphical interface for MPlayer and MPV.") + "<br>" +
                 "<b>" + tr("Kylin Video") + tr("Version: %1").arg(Version::printable()) + "</b>" + "<br>" +
                 tr("Using Qt %1 (compiled with Qt %2)").arg(qVersion()).arg(QT_VERSION_STR) + "<br>" +
                 tr("Playback engine:") + i->playerVersion() + "<br><br>"

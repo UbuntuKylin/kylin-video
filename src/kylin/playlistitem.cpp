@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 ~ 2017 National University of Defense Technology(NUDT) & Kylin Ltd.
+ * Copyright (C) 2013 ~ 2017 National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
  *
  * Authors:
  *  Kobe Lee    lixiang@kylinos.cn/kobe24_lixiang@126.com
@@ -30,7 +30,7 @@
 #include <QStyleFactory>
 #include <QMessageBox>
 #include <QPushButton>
-#include "helper.h"
+#include "../smplayer/helper.h"
 
 PlayListItem::PlayListItem(QString mtype, QString filename, QString name, double duration, QWidget *parent) : QFrame(parent)
 {

@@ -5,8 +5,6 @@ LANGUAGE = C++
 CONFIG += c++11
 CONFIG += qt warn_on
 CONFIG += release
-#CONFIG += debug
-#CONFIG += console
 
 QT += network xml
 
@@ -23,195 +21,193 @@ isEqual(QT_MAJOR_VERSION, 5) {
 	QT += widgets gui
 }
 
-HEADERS += config.h \
-        mplayerversion.h \
-        mplayerprocess.h \
-        inforeadermplayer.h \
-        mpvprocess.h \
-        inforeadermpv.h \
-	version.h \
-	global.h \
-	paths.h \
-	helper.h \
-	colorutils.h \
-	subtracks.h \
-	tracks.h \
-	titletracks.h \
-	extensions.h \
-	desktopinfo.h \
-	myprocess.h \
-	playerid.h \
-	playerprocess.h \
-	infoprovider.h \
-	mplayerwindow.h \
-	mediadata.h \
-	mediasettings.h \
-	preferences.h \
-	images.h \
-	inforeader.h \
-	deviceinfo.h \
-	recents.h \
-	urlhistory.h \
-	core.h \
-	shortcutgetter.h \
-	actionseditor.h \
-	filechooser.h \
-	lineedit_with_icon.h \
-	mycombobox.h \
-        mylineedit.h \
-	tristatecombo.h \
-	myslider.h \
-	timeslider.h \
-	myaction.h \
-	myactiongroup.h \
-	filedialog.h \
-	errordialog.h \
-	timedialog.h \
+HEADERS += smplayer/config.h \
+        smplayer/mplayerversion.h \
+        smplayer/mplayerprocess.h \
+        smplayer/inforeadermplayer.h \
+        smplayer/mpvprocess.h \
+        smplayer/inforeadermpv.h \
+        smplayer/version.h \
+        smplayer/global.h \
+        smplayer/paths.h \
+        smplayer/helper.h \
+        smplayer/colorutils.h \
+        smplayer/subtracks.h \
+        smplayer/tracks.h \
+        smplayer/titletracks.h \
+        smplayer/extensions.h \
+        smplayer/desktopinfo.h \
+        smplayer/myprocess.h \
+        smplayer/playerid.h \
+        smplayer/playerprocess.h \
+        smplayer/infoprovider.h \
+        smplayer/mplayerwindow.h \
+        smplayer/mediadata.h \
+        smplayer/mediasettings.h \
+        smplayer/preferences.h \
+        smplayer/images.h \
+        smplayer/inforeader.h \
+        smplayer/deviceinfo.h \
+        smplayer/recents.h \
+        smplayer/urlhistory.h \
+        smplayer/core.h \
+        smplayer/shortcutgetter.h \
+        smplayer/actionseditor.h \
+        smplayer/filechooser.h \
+        smplayer/mycombobox.h \
+        smplayer/mylineedit.h \
+        smplayer/tristatecombo.h \
+        smplayer/myslider.h \
+        smplayer/timeslider.h \
+        smplayer/myaction.h \
+        smplayer/myactiongroup.h \
+        smplayer/filedialog.h \
+        smplayer/timedialog.h \
+        smplayer/cleanconfig.h \
+        smplayer/kylinvideo.h \
+        smplayer/myapplication.h \
+        smplayer/infofile.h \
+        smplayer/translator.h \
+        smplayer/languages.h \
+        smplayer/filesettings.h \
+        smplayer/videopreview.h \
+        smplayer/prefwidget.h \
         merge/basegui.h \
-	cleanconfig.h \
-	smplayer.h \
-        myapplication.h \
+        merge/playlist.h \
+        merge/lineedit_with_icon.h \
+        merge/preferencesdialog.h \
+        merge/prefgeneral.h \
+        merge/prefperformance.h \
+        merge/prefsubtitles.h \
+        merge/prefscreenshot.h \
+        merge/prefshortcut.h \
+        merge/prefvideo.h \
+        merge/prefaudio.h \
+        merge/filepropertiesdialog.h \
+        merge/audiodelaydialog.h \
+        merge/inputurl.h \
+        merge/errordialog.h \
         kylin/titlewidget.h \
         kylin/bottomwidget.h \
-        soundvolume.h \
-        merge/playlist.h \
+        kylin/soundvolume.h \
         kylin/playlistview.h \
         kylin/playlistitem.h \
-        preferencesdialog.h \
-        prefgeneral.h \
-        prefwidget.h \
-        prefperformance.h \
-        prefsubtitles.h \
-        prefscreenshot.h \
-        prefshortcut.h \
-        prefvideo.h \
-        prefaudio.h \
-        titlebutton.h \
-        filepropertiesdialog.h \
-        infofile.h \
+        kylin/titlebutton.h \
         kylin/aboutdialog.h \
-        translator.h \
-        languages.h \
-        playmask.h \
-        timetip.h \
+        kylin/playmask.h \
+        kylin/timetip.h \
         kylin/esctip.h \
-        tipwidget.h \
-        merge/audiodelaydialog.h \
-#        logwindow.h \
-        filesettings.h \
-        messagedialog.h \
-        videopreview.h \
-        shortcutswidget.h \
-        helpdialog.h \
-        supportformats.h \
-        supportshortcuts.h \
-        inputurl.h \
-        systembutton.h
+        kylin/tipwidget.h \
+        kylin/messagedialog.h \
+        kylin/shortcutswidget.h \
+        kylin/helpdialog.h \
+        kylin/supportformats.h \
+        kylin/supportshortcuts.h \
+        kylin/systembutton.h
 
-SOURCES	+= version.cpp \
-        mplayerversion.cpp \
-        mplayerprocess.cpp \
-        inforeadermplayer.cpp \
-        mpvprocess.cpp \
-        inforeadermpv.cpp \
-        mpvoptions.cpp \
-	global.cpp \
-	paths.cpp \
-	helper.cpp \
-	colorutils.cpp \
-	subtracks.cpp \
-	tracks.cpp \
-	titletracks.cpp \
-	extensions.cpp \
-	desktopinfo.cpp \
-	myprocess.cpp \
-	playerid.cpp \
-	playerprocess.cpp \
-        mplayeroptions.cpp \
-	infoprovider.cpp \
-	mplayerwindow.cpp \
-	mediadata.cpp \
-	mediasettings.cpp \
-	preferences.cpp \
-	images.cpp \
-	inforeader.cpp \
-	deviceinfo.cpp \
-	recents.cpp \
-	urlhistory.cpp \
-	core.cpp \
-	shortcutgetter.cpp \
-	actionseditor.cpp \
-	filechooser.cpp \
-	lineedit_with_icon.cpp \
-	mycombobox.cpp \
-        mylineedit.cpp \
-	tristatecombo.cpp \
-	myslider.cpp \
-	timeslider.cpp \
-	myaction.cpp \
-	myactiongroup.cpp \
-	filedialog.cpp \
-	errordialog.cpp \
-	timedialog.cpp \
+SOURCES	+= smplayer/version.cpp \
+        smplayer/mplayerversion.cpp \
+        smplayer/mplayerprocess.cpp \
+        smplayer/inforeadermplayer.cpp \
+        smplayer/mpvprocess.cpp \
+        smplayer/inforeadermpv.cpp \
+        smplayer/mpvoptions.cpp \
+        smplayer/global.cpp \
+        smplayer/paths.cpp \
+        smplayer/helper.cpp \
+        smplayer/colorutils.cpp \
+        smplayer/subtracks.cpp \
+        smplayer/tracks.cpp \
+        smplayer/titletracks.cpp \
+        smplayer/extensions.cpp \
+        smplayer/desktopinfo.cpp \
+        smplayer/myprocess.cpp \
+        smplayer/playerid.cpp \
+        smplayer/playerprocess.cpp \
+        smplayer/mplayeroptions.cpp \
+        smplayer/infoprovider.cpp \
+        smplayer/mplayerwindow.cpp \
+        smplayer/mediadata.cpp \
+        smplayer/mediasettings.cpp \
+        smplayer/preferences.cpp \
+        smplayer/images.cpp \
+        smplayer/inforeader.cpp \
+        smplayer/deviceinfo.cpp \
+        smplayer/recents.cpp \
+        smplayer/urlhistory.cpp \
+        smplayer/core.cpp \
+        smplayer/shortcutgetter.cpp \
+        smplayer/actionseditor.cpp \
+        smplayer/filechooser.cpp \
+        smplayer/mycombobox.cpp \
+        smplayer/mylineedit.cpp \
+        smplayer/tristatecombo.cpp \
+        smplayer/myslider.cpp \
+        smplayer/timeslider.cpp \
+        smplayer/myaction.cpp \
+        smplayer/myactiongroup.cpp \
+        smplayer/filedialog.cpp \
+        smplayer/timedialog.cpp \
+        smplayer/cleanconfig.cpp \
+        smplayer/kylinvideo.cpp \
+        smplayer/main.cpp \
+        smplayer/infofile.cpp \
+        smplayer/translator.cpp \
+        smplayer/languages.cpp \
+        smplayer/filesettings.cpp \
+        smplayer/videopreview.cpp \
+        smplayer/prefwidget.cpp \
+        merge/lineedit_with_icon.cpp \
         merge/basegui.cpp \
-	cleanconfig.cpp \
-	smplayer.cpp \
-        main.cpp \
+        merge/playlist.cpp \
+        merge/preferencesdialog.cpp \
+        merge/prefgeneral.cpp \
+        merge/prefperformance.cpp \
+        merge/prefsubtitles.cpp \
+        merge/prefscreenshot.cpp \
+        merge/prefshortcut.cpp \
+        merge/prefvideo.cpp \
+        merge/prefaudio.cpp \
+        merge/filepropertiesdialog.cpp \
+        merge/audiodelaydialog.cpp \
+        merge/inputurl.cpp \
+        merge/errordialog.cpp \
         kylin/titlewidget.cpp \
         kylin/bottomwidget.cpp \
-        soundvolume.cpp \
-        merge/playlist.cpp \
+        kylin/soundvolume.cpp \
         kylin/playlistview.cpp \
         kylin/playlistitem.cpp \
-        preferencesdialog.cpp \
-        prefgeneral.cpp \
-        prefwidget.cpp \
-        prefperformance.cpp \
-        prefsubtitles.cpp \
-        prefscreenshot.cpp \
-        prefshortcut.cpp \
-        prefvideo.cpp \
-        prefaudio.cpp \
-        titlebutton.cpp \
-        filepropertiesdialog.cpp \
-        infofile.cpp \
+        kylin/titlebutton.cpp \
         kylin/aboutdialog.cpp \
-        translator.cpp \
-        languages.cpp \
-        playmask.cpp \
-        timetip.cpp \
+        kylin/playmask.cpp \
+        kylin/timetip.cpp \
         kylin/esctip.cpp \
-        tipwidget.cpp \
-        merge/audiodelaydialog.cpp \
-#        logwindow.cpp \
-        filesettings.cpp \
-        messagedialog.cpp \
-        videopreview.cpp \
-        shortcutswidget.cpp \
-        helpdialog.cpp \
-        supportformats.cpp \
-        supportshortcuts.cpp \
-        inputurl.cpp \
-        systembutton.cpp
+        kylin/tipwidget.cpp \
+        kylin/messagedialog.cpp \
+        kylin/shortcutswidget.cpp \
+        kylin/helpdialog.cpp \
+        kylin/supportformats.cpp \
+        kylin/supportshortcuts.cpp \
+        kylin/systembutton.cpp
 
-FORMS = errordialog.ui \
-        timedialog.ui \
-        preferencesdialog.ui \
-        prefgeneral.ui \
-        prefperformance.ui \
-        prefsubtitles.ui \
-        prefscreenshot.ui \
-        prefshortcut.ui \
-        prefvideo.ui \
-        prefaudio.ui \
-        filepropertiesdialog.ui \
-        kylin/aboutdialog.ui \
+FORMS = smplayer/timedialog.ui \
+        merge/preferencesdialog.ui \
+        merge/prefgeneral.ui \
+        merge/prefperformance.ui \
+        merge/prefsubtitles.ui \
+        merge/prefscreenshot.ui \
+        merge/prefshortcut.ui \
+        merge/prefvideo.ui \
+        merge/prefaudio.ui \
+        merge/filepropertiesdialog.ui \
+        merge/inputurl.ui \
         merge/audiodelaydialog.ui \
-#        logwindowbase.ui \
-        helpdialog.ui \
-        supportformats.ui \
-        supportshortcuts.ui \
-        inputurl.ui
+        merge/errordialog.ui \
+        kylin/helpdialog.ui \
+        kylin/supportformats.ui \
+        kylin/supportshortcuts.ui \
+        kylin/aboutdialog.ui
+
 
 # qtsingleapplication
 contains( DEFINES, SINGLE_INSTANCE ) {
@@ -223,9 +219,9 @@ contains( DEFINES, SINGLE_INSTANCE ) {
 }
 
 unix {
-	UI_DIR = .ui
-	MOC_DIR = .moc
-	OBJECTS_DIR = .obj
+    UI_DIR = .ui
+    MOC_DIR = .moc
+    OBJECTS_DIR = .obj
 }
 
 TRANSLATIONS += \

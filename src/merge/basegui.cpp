@@ -1,5 +1,6 @@
 /*  smplayer, GUI front-end for mplayer.
     Copyright (C) 2006-2015 Ricardo Villalba <rvm@users.sourceforge.net>
+    Copyright (C) 2013 ~ 2017 National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -17,7 +18,7 @@
 */
 
 #include "basegui.h"
-#include "../filedialog.h"
+#include "../smplayer/filedialog.h"
 #include <QMessageBox>
 #include <QMouseEvent>
 #include <QLabel>
@@ -42,44 +43,43 @@
 #include <QDesktopWidget>
 #include <cmath>
 
-#include "../mplayerwindow.h"
-#include "../desktopinfo.h"
-#include "../helper.h"
-#include "../paths.h"
-#include "../colorutils.h"
-#include "../global.h"
-#include "../translator.h"
-#include "../images.h"
-#include "../preferences.h"
-//#include "logwindow.h"
+#include "../smplayer/mplayerwindow.h"
+#include "../smplayer/desktopinfo.h"
+#include "../smplayer/helper.h"
+#include "../smplayer/paths.h"
+#include "../smplayer/colorutils.h"
+#include "../smplayer/global.h"
+#include "../smplayer/translator.h"
+#include "../smplayer/images.h"
+#include "../smplayer/preferences.h"
 #include "playlist.h"
-#include "../filepropertiesdialog.h"
-#include "../recents.h"
-#include "../urlhistory.h"
-#include "../errordialog.h"
-#include "../timedialog.h"
+#include "filepropertiesdialog.h"
+#include "../smplayer/recents.h"
+#include "../smplayer/urlhistory.h"
+#include "errordialog.h"
+#include "../smplayer/timedialog.h"
 #include "../kylin/titlewidget.h"
 #include "../kylin/bottomwidget.h"
-#include "../playmask.h"
+#include "../kylin/playmask.h"
 #include "../kylin/aboutdialog.h"
 #include "../kylin/esctip.h"
-#include "../tipwidget.h"
+#include "../kylin/tipwidget.h"
 #include "audiodelaydialog.h"
-#include "../messagedialog.h"
+#include "../kylin/messagedialog.h"
 #include <QGraphicsOpacityEffect>
-#include "../mplayerversion.h"
-#include "../config.h"
-#include "../actionseditor.h"
-#include "../preferencesdialog.h"
-#include "../prefshortcut.h"
-#include "../myaction.h"
-#include "../myactiongroup.h"
-#include "../extensions.h"
-#include "../version.h"
-#include "../videopreview.h"
-#include "../shortcutswidget.h"
-#include "../helpdialog.h"
-#include "../inputurl.h"
+#include "../smplayer/mplayerversion.h"
+#include "../smplayer/config.h"
+#include "../smplayer/actionseditor.h"
+#include "preferencesdialog.h"
+#include "prefshortcut.h"
+#include "../smplayer/myaction.h"
+#include "../smplayer/myactiongroup.h"
+#include "../smplayer/extensions.h"
+#include "../smplayer/version.h"
+#include "../smplayer/videopreview.h"
+#include "../kylin/shortcutswidget.h"
+#include "../kylin/helpdialog.h"
+#include "inputurl.h"
 
 using namespace Global;
 
@@ -95,8 +95,6 @@ BaseGui::BaseGui(QString arch_type, QWidget* parent, Qt::WindowFlags flags)
 	, was_minimized(false)
 #endif
 {
-//    turned_on = false;
-//    mouseIn = false;
     this->setWindowTitle(tr("Kylin Video"));
     this->setMouseTracking(true);
     this->setAutoFillBackground(true);
@@ -122,8 +120,6 @@ BaseGui::BaseGui(QString arch_type, QWidget* parent, Qt::WindowFlags flags)
     helpDlg = 0;
     video_preview = 0;
     shortcuts_widget = 0;
-//    mplayer_log_window = 0;
-//    smplayer_log_window = 0;
     tray = 0;
     play_mask = 0;
     mplayerwindow = 0;
@@ -160,11 +156,6 @@ BaseGui::BaseGui(QString arch_type, QWidget* parent, Qt::WindowFlags flags)
 
     //top
     m_topToolbar = new TitleWidget(this);
-
-    //20170720
-    /*m_topToolbar->resize(width(), TOP_TOOLBAR_HEIGHT);
-    m_topToolbar->move(0, 0);*/
-
     m_topToolbar->setFixedHeight(TOP_TOOLBAR_HEIGHT);
     this->setMenuWidget(m_topToolbar);
 
@@ -177,12 +168,7 @@ BaseGui::BaseGui(QString arch_type, QWidget* parent, Qt::WindowFlags flags)
     connect(m_topToolbar, SIGNAL(mouseMovedDiff(QPoint)), this, SLOT(moveWindowDiff(QPoint)), Qt::QueuedConnection );//kobe 0524
 
     //bottom
-    m_bottomToolbar = new BottomWidget(this);//0526
-//    m_bottomToolbar->setParentWindow(mplayerwindow);
-    //20170720
-    /*m_bottomToolbar->resize(width(), BOTTOM_TOOLBAR_HEIGHT);
-    m_bottomToolbar->move(0, height() - m_bottomToolbar->height());*/
-
+    m_bottomToolbar = new BottomWidget(this);
     m_bottomToolbar->setFixedHeight(BOTTOM_TOOLBAR_HEIGHT);
 
     connect(m_bottomToolbar, SIGNAL(sig_resize_corner()), this, SLOT(slot_resize_corner()));
@@ -228,7 +214,6 @@ BaseGui::BaseGui(QString arch_type, QWidget* parent, Qt::WindowFlags flags)
     tipWidget->move(10, TOP_TOOLBAR_HEIGHT);
     tipWidget->hide();
 
-    //20170720
     contentLayout = new QStackedLayout(panel);
     contentLayout->setContentsMargins(0, 0, 0, 0);
     contentLayout->setMargin(0);
@@ -236,7 +221,7 @@ BaseGui::BaseGui(QString arch_type, QWidget* parent, Qt::WindowFlags flags)
     contentLayout->addWidget(m_topToolbar);
     contentLayout->addWidget(mplayerwindow);
     contentLayout->addWidget(m_bottomToolbar);
-//    contentLayout->addWidget(tipWidget);
+
     m_topToolbar->show();
     mplayerwindow->show();
     m_bottomToolbar->show();
@@ -255,13 +240,12 @@ BaseGui::BaseGui(QString arch_type, QWidget* parent, Qt::WindowFlags flags)
     int windowHeight = QApplication::desktop()->screenGeometry(0).height();
     this->move((windowWidth - this->width()) / 2,(windowHeight - this->height()) / 2);
 
-    this->reset_mute_button();//kobe
+    this->reset_mute_button();
 
     escWidget = new EscTip(this);
     escWidget->setFixedSize(440, 64);
     escWidget->move((windowWidth - escWidget->width()) / 2,(windowHeight - escWidget->height()) / 2);
     escWidget->hide();
-//    installEventFilter(this);
 
     play_mask = new PlayMask(mplayerwindow);
     mplayerwindow->setCornerWidget(play_mask);
@@ -272,17 +256,7 @@ BaseGui::BaseGui(QString arch_type, QWidget* parent, Qt::WindowFlags flags)
     connect(tip_timer, SIGNAL(timeout()), this, SLOT(hideTipWidget()));
     tip_timer->setInterval(2000);
 
-//    mplayer_log_window = new LogWindow(0);
-//    smplayer_log_window = new LogWindow(0);
-
     initializeGui();
-
-    //0829
-    /*mouse_timer = new QTimer(this);
-    connect(mouse_timer, SIGNAL(timeout()), this, SLOT(checkUnderMouse()));
-    mouse_timer->setInterval(3000);
-    m_topToolbar->installEventFilter(this);
-    m_bottomToolbar->installEventFilter(this);*/
 }
 
 //0829
@@ -538,14 +512,6 @@ BaseGui::~BaseGui() {
         delete core; // delete before mplayerwindow, otherwise, segfault...
         core = 0;
     }
-//    if (mplayer_log_window) {
-//        delete mplayer_log_window;
-//        mplayer_log_window = 0;
-//    }
-//    if (smplayer_log_window) {
-//        delete smplayer_log_window;
-//        smplayer_log_window = 0;
-//    }
     if (play_mask) {
         delete play_mask;
         play_mask = 0;
@@ -1555,13 +1521,11 @@ void BaseGui::newMediaLoaded()
 }
 
 void BaseGui::gotNoFileToPlay() {
-//    qDebug("BaseGui::gotNoFileToPlay");
-    playlistWidget->resumePlay();//kobe:当前播放的文件不存在时，去播放下一个
+    playlistWidget->resumePlay();//当前播放的文件不存在时，去播放下一个
 }
 
 void BaseGui::clearMplayerLog() {
     mplayer_log.clear();
-//    if (mplayer_log_window->isVisible()) mplayer_log_window->clear();
 }
 
 void BaseGui::recordMplayerLog(QString line) {
@@ -1569,51 +1533,9 @@ void BaseGui::recordMplayerLog(QString line) {
         if ( (line.indexOf("A:")==-1) && (line.indexOf("V:")==-1) ) {
             line.append("\n");
             mplayer_log.append(line);
-//            if (mplayer_log_window->isVisible()) mplayer_log_window->appendText(line);
         }
     }
 }
-
-///*!
-//	Save the mplayer log to a file, so it can be used by external
-//	applications.
-//*/
-/*void BaseGui::autosaveMplayerLog() {
-//    qDebug("BaseGui::autosaveMplayerLog");
-    if (pref->autosave_mplayer_log) {
-        if (!pref->mplayer_log_saveto.isEmpty()) {
-            QFile file( pref->mplayer_log_saveto );
-            if ( file.open( QIODevice::WriteOnly ) ) {
-                QTextStream strm( &file );
-                strm << mplayer_log;
-                file.close();
-            }
-        }
-    }
-}
-
-void BaseGui::showMplayerLog() {
-//    qDebug("BaseGui::showMplayerLog");
-    exitFullscreenIfNeeded();
-    mplayer_log_window->setText( mplayer_log );
-    mplayer_log_window->show();
-}*/
-
-/*void BaseGui::recordSmplayerLog(QString line) {
-    if (pref->log_smplayer) {
-        line.append("\n");
-        smplayer_log.append(line);
-//        if (smplayer_log_window->isVisible()) smplayer_log_window->appendText(line);
-    }
-}*/
-
-/*void BaseGui::showLog() {
-//    qDebug("BaseGui::showLog");
-    exitFullscreenIfNeeded();
-
-    smplayer_log_window->setText(smplayer_log);
-    smplayer_log_window->show();
-}*/
 
 void BaseGui::updateRecents() {
 //	qDebug("BaseGui::updateRecents");
@@ -2996,4 +2918,4 @@ void BaseGui::open_screenshot_directory() {
     }
 }
 
-#include "moc_basegui.cpp"
+//#include "moc_basegui.cpp"

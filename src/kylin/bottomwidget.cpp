@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 ~ 2017 National University of Defense Technology(NUDT) & Kylin Ltd.
+ * Copyright (C) 2013 ~ 2017 National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
  *
  * Authors:
  *  Kobe Lee    lixiang@kylinos.cn/kobe24_lixiang@126.com
@@ -34,13 +34,13 @@
 #include <QProgressBar>
 #include <QStackedLayout>
 #include <QPoint>
-#include "timeslider.h"
+#include "../smplayer/timeslider.h"
 #include "soundvolume.h"
-#include "colorutils.h"
-#include "myaction.h"
-#include "mplayerwindow.h"
-#include "global.h"
-#include "preferences.h"
+#include "../smplayer/colorutils.h"
+#include "../smplayer/myaction.h"
+#include "../smplayer/mplayerwindow.h"
+#include "../smplayer/global.h"
+#include "../smplayer/preferences.h"
 
 using namespace Global;
 

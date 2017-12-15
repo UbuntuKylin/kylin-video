@@ -77,7 +77,7 @@
 #include "../smplayer/extensions.h"
 #include "../smplayer/version.h"
 #include "../smplayer/videopreview.h"
-#include "../kylin/shortcutswidget.h"
+//#include "../kylin/shortcutswidget.h"
 #include "../kylin/helpdialog.h"
 #include "inputurl.h"
 
@@ -119,7 +119,7 @@ BaseGui::BaseGui(QString arch_type, QWidget* parent, Qt::WindowFlags flags)
     aboutDlg = 0;
     helpDlg = 0;
     video_preview = 0;
-    shortcuts_widget = 0;
+//    shortcuts_widget = 0;
     tray = 0;
     play_mask = 0;
     mplayerwindow = 0;
@@ -133,8 +133,8 @@ BaseGui::BaseGui(QString arch_type, QWidget* parent, Qt::WindowFlags flags)
     contentLayout = 0;
 
     //遮罩
-    shortcuts_widget = ShortcutsWidget::Instance();
-    shortcuts_widget->set_parent_widget(this);
+//    shortcuts_widget = ShortcutsWidget::Instance();
+//    shortcuts_widget->set_parent_widget(this);
 
 	createPanel();
     setCentralWidget(panel);//kobe for QMainWindow 中心窗口部件，panel加载的是视频显示区域
@@ -353,12 +353,12 @@ void BaseGui::set_widget_opacity(const float &opacity) {
     opacityEffect->setOpacity(opacity);
 }
 
-void BaseGui::showShortcuts()
-{
-    shortcuts_widget->setPrefData(pref);
-    shortcuts_widget->show();
-    shortcuts_widget->restart_timer();
-}
+//void BaseGui::showShortcuts()
+//{
+//    shortcuts_widget->setPrefData(pref);
+//    shortcuts_widget->show();
+//    shortcuts_widget->restart_timer();
+//}
 
 void BaseGui::keyPressEvent(QKeyEvent *event) {
 //    if (event->key() == Qt::Key_Up) {
@@ -373,9 +373,9 @@ void BaseGui::keyPressEvent(QKeyEvent *event) {
             toggleFullscreen(false);
         }
     }
-    if (event->key() == Qt::Key_Question) {
-        this->showShortcuts();
-    }
+//    if (event->key() == Qt::Key_Question) {
+//        this->showShortcuts();
+//    }
     QMainWindow::keyPressEvent(event);
 }
 
@@ -536,10 +536,10 @@ BaseGui::~BaseGui() {
         delete video_preview;
         video_preview = 0;
     }
-    if (shortcuts_widget) {
-        delete shortcuts_widget;
-        shortcuts_widget = 0;
-    }
+//    if (shortcuts_widget) {
+//        delete shortcuts_widget;
+//        shortcuts_widget = 0;
+//    }
     if (pref_dialog) {
         delete pref_dialog;
         pref_dialog = 0;
@@ -797,10 +797,10 @@ void BaseGui::createActionsAndMenus() {
     rotate_flip_menu->addAction(flipAct);
     rotate_flip_menu->addAction(mirrorAct);
 
-    shortcutsAct = new MyAction(QKeySequence("Shift+?"), this, "Shortcuts");//快捷键  Qt::Key_Question
-//    shortcutsAct->addShortcut(QKeySequence("Shift+Ctrl+?"));
-    connect(shortcutsAct, SIGNAL(triggered()), this, SLOT(showShortcuts()));
-    shortcutsAct->change(tr("Shortcuts"));
+//    shortcutsAct = new MyAction(QKeySequence("Shift+?"), this, "Shortcuts");//快捷键  Qt::Key_Question
+////    shortcutsAct->addShortcut(QKeySequence("Shift+Ctrl+?"));
+//    connect(shortcutsAct, SIGNAL(triggered()), this, SLOT(showShortcuts()));
+//    shortcutsAct->change(tr("Shortcuts"));
 
     // Single screenshot
     screenshotAct = new MyAction(Qt::Key_S, this, "screenshot");//屏幕截图
@@ -967,7 +967,7 @@ void BaseGui::createActionsAndMenus() {
     popup->addMenu(rotate_flip_menu);
     popup->addMenu(audioMenu);
     popup->addMenu(subtitlesMenu);
-    popup->addAction(shortcutsAct);
+//    popup->addAction(shortcutsAct);
     popup->addAction(screenshotAct);
     popup->addAction(showPreferencesAct);
     popup->addAction(showPropertiesAct);
@@ -1029,9 +1029,11 @@ void BaseGui::createHiddenActions() {
     connect(playlist_action, SIGNAL(triggered()), core, SLOT(play_or_pause()));
 
     stopAct = new MyAction(Qt::Key_MediaStop, this, "stop");
+    stopAct->change(tr("Stop"));
     connect(stopAct, SIGNAL(triggered()), core, SLOT(stop()));
 
-    fullscreenAct = new MyAction(QKeySequence("Ctrl+Return"), this, "stop");
+    fullscreenAct = new MyAction(QKeySequence("Ctrl+Return"), this, "fullscreen");
+    fullscreenAct->change(tr("Fullscreen"));
     connect(fullscreenAct, SIGNAL(triggered()), this, SLOT(slot_set_fullscreen()));
 }
 

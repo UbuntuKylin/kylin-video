@@ -27,7 +27,7 @@ enum HDragState {NOT_HDRAGGING, START_HDRAGGING, HDRAGGING};
 class QTextBrowser;
 class QPushButton;
 class SupportFormats;
-class SupportShortcuts;
+//class SupportShortcuts;
 class TitleButton;
 class Preferences;
 
@@ -70,7 +70,7 @@ private:
 
 protected:
     SupportFormats *page_formats;
-    SupportShortcuts *page_shortcuts;
+//    SupportShortcuts *page_shortcuts;
 
 private:
     HDragState drag_state;

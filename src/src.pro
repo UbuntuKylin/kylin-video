@@ -99,10 +99,8 @@ HEADERS += smplayer/config.h \
         kylin/esctip.h \
         kylin/tipwidget.h \
         kylin/messagedialog.h \
-        kylin/shortcutswidget.h \
         kylin/helpdialog.h \
         kylin/supportformats.h \
-        kylin/supportshortcuts.h \
         kylin/systembutton.h
 
 SOURCES	+= smplayer/version.cpp \
@@ -184,10 +182,8 @@ SOURCES	+= smplayer/version.cpp \
         kylin/esctip.cpp \
         kylin/tipwidget.cpp \
         kylin/messagedialog.cpp \
-        kylin/shortcutswidget.cpp \
         kylin/helpdialog.cpp \
         kylin/supportformats.cpp \
-        kylin/supportshortcuts.cpp \
         kylin/systembutton.cpp
 
 FORMS = smplayer/timedialog.ui \
@@ -205,7 +201,6 @@ FORMS = smplayer/timedialog.ui \
         merge/errordialog.ui \
         kylin/helpdialog.ui \
         kylin/supportformats.ui \
-        kylin/supportshortcuts.ui \
         kylin/aboutdialog.ui
 
 

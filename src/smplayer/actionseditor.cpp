@@ -258,7 +258,8 @@ void ActionsEditor::addCurrentActions(QWidget *widget) {
             qDebug("ActionsEditor::addCurrentActions: action # %d: '%s' menu: %d", n, action->objectName().toUtf8().constData(), action->menu()!=0);
 		}
 		*/
-        if (!action->objectName().isEmpty() /*&& !action->inherits("QWidgetAction")*/ && (action->menu()==0) )
+
+        if (!action->objectName().isEmpty() && action->objectName() != "pl_play" && action->objectName() != "pl_remove_selected" && action->objectName() != "pl_delete_from_disk" /*&& !action->inherits("QWidgetAction")*/ && (action->menu()==0) )
 	        actionsList.append(action);
     }
 

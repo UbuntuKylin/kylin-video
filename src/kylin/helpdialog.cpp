@@ -26,7 +26,7 @@
 #include <QPushButton>
 
 #include "supportformats.h"
-#include "supportshortcuts.h"
+//#include "supportshortcuts.h"
 #include "titlebutton.h"
 #include "../smplayer/preferences.h"
 
@@ -72,12 +72,12 @@ HelpDialog::HelpDialog(QWidget * parent, Qt::WindowFlags f)
     m_buttonList << btn;
     btn->setActived(true);
 
-    page_shortcuts = new SupportShortcuts;
-    addSection(page_shortcuts);
-    btn = new TitleButton(1, false, tr("Supported shortcuts"));
-    connect(btn, SIGNAL(clicked(int)), this, SLOT(onButtonClicked(int)));
-    layout->addWidget(btn);
-    m_buttonList << btn;
+//    page_shortcuts = new SupportShortcuts;
+//    addSection(page_shortcuts);
+//    btn = new TitleButton(1, false, tr("Supported shortcuts"));
+//    connect(btn, SIGNAL(clicked(int)), this, SLOT(onButtonClicked(int)));
+//    layout->addWidget(btn);
+//    m_buttonList << btn;
 
     layout->addStretch();
     sections->setLayout(layout);
@@ -99,10 +99,10 @@ HelpDialog::~HelpDialog()
         delete page_formats;
         page_formats = NULL;
     }
-    if (page_shortcuts != NULL) {
-        delete page_shortcuts;
-        page_shortcuts = NULL;
-    }
+//    if (page_shortcuts != NULL) {
+//        delete page_shortcuts;
+//        page_shortcuts = NULL;
+//    }
 }
 
 void HelpDialog::switchCurrentIDPage(int id)
@@ -128,9 +128,9 @@ void HelpDialog::onButtonClicked(int id)
     if (id == 0) {
         pages->setCurrentWidget(page_formats);
     }
-    else if (id == 1) {
-        pages->setCurrentWidget(page_shortcuts);
-    }
+//    else if (id == 1) {
+//        pages->setCurrentWidget(page_shortcuts);
+//    }
 }
 
 void HelpDialog::showSection(Section s) {
@@ -156,7 +156,7 @@ void HelpDialog::addSection(QWidget *w) {
 
 void HelpDialog::setData(Preferences * pref) {
     page_formats->setData();
-    page_shortcuts->setData(pref);
+//    page_shortcuts->setData(pref);
 }
 
 // Language change stuff

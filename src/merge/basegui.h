@@ -50,7 +50,7 @@ class TitleWidget;
 class BottomWidget;
 class PlayMask;
 class VideoPreview;
-class ShortcutsWidget;
+//class ShortcutsWidget;
 
 class BaseGui : public QMainWindow
 {
@@ -121,7 +121,7 @@ public slots:
     void showOrHideEscWidget(bool b);
     void open_screenshot_directory();
     void ready_save_pre_image(int time);
-    void showShortcuts();
+//    void showShortcuts();
 
 protected slots:
 	virtual void closeWindow();
@@ -313,7 +313,7 @@ protected:
     QMenu * rotate_flip_menu;
     QMenu * rotate_menu;
 
-    MyAction * shortcutsAct;
+//    MyAction * shortcutsAct;
     MyAction * screenshotAct;
 
     QMenu * ontop_menu;
@@ -414,7 +414,7 @@ private:
     QTimer *tip_timer;
     QString arch;
     VideoPreview *video_preview;
-    ShortcutsWidget *shortcuts_widget;
+//    ShortcutsWidget *shortcuts_widget;
 };
     
 #endif

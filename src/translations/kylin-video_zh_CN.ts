@@ -4837,7 +4837,7 @@ Example: extrastereo,karaoke</source>
         <translation type="vanished">在这里输入保存 %1 日志的路径及文件名。</translation>
     </message>
     <message>
-        <source>This option allows to filter the SMPlayer messages that will be stored in the log. Here you can write any regular expression.&lt;br&gt;For instance: &lt;i&gt;^Core::.*&lt;/i&gt; will display only the lines starting with &lt;i&gt;Core::&lt;/i&gt;</source>
+        <source>This option allows you to filter the SMPlayer messages that will be stored in the log. Here you can write any regular expression.&lt;br&gt;For instance: &lt;i&gt;^Core::.*&lt;/i&gt; will display only the lines starting with &lt;i&gt;Core::&lt;/i&gt;</source>
         <translation type="vanished">此选项允许筛选将被存储在日志中的视频播放器消息。在这里您可以编写任何正则表达式。&lt;br&gt;例如: &lt;i&gt;^Core::..*&lt;/i&gt; 将只显示以 &lt;i&gt;Core::&lt;/i&gt; 开始的行</translation>
     </message>
     <message>
@@ -5401,7 +5401,7 @@ Example: extrastereo,karaoke</source>
         <translation type="vanished">截屏样式</translation>
     </message>
     <message>
-        <source>This option allows to choose the image file type used for saving screenshots.</source>
+        <source>This option allows you to choose the image file type used for saving screenshots.</source>
         <translation type="vanished">此选项让您选择视频截图的格式。</translation>
     </message>
     <message>
@@ -5703,7 +5703,7 @@ Example: extrastereo,karaoke</source>
         <translation type="vanished">高速播放而不改变音调</translation>
     </message>
     <message>
-        <source>Allows to change the playback speed without altering pitch. Requires at least MPlayer dev-SVN-r24924.</source>
+        <source>Allows you to change the playback speed without altering pitch. Requires at least MPlayer dev-SVN-r24924.</source>
         <translation type="vanished">允许更改播放速度而不改变音调。至少需要 MPlayer dev-SVN-r24924。</translation>
     </message>
     <message>
@@ -5922,7 +5922,7 @@ Example: extrastereo,karaoke</source>
         <translation type="vanished">存储文件设置的方法</translation>
     </message>
     <message>
-        <source>This option allows to change the way the file settings would be stored. The following options are available:</source>
+        <source>This option allows you to change the way the file settings would be stored. The following options are available:</source>
         <translation type="vanished">此选项允许更改存储文件设置的方式。可使用以下选项:</translation>
     </message>
     <message>
@@ -7342,7 +7342,7 @@ Example: extrastereo,karaoke</source>
         <translation type="vanished">没有指定其他编解码器和选择了非 VDPAU 视频输出时，将尝试使用非自由的 CoreAVC 编解码器。需要 MPlayer 构建有 CoreAVC 支持。</translation>
     </message>
     <message>
-        <source>This option allows to skips the loop filter (AKA deblocking) during H.264 decoding. Since the filtered frame is supposed to be used as reference for decoding dependent frames this has a worse effect on quality than not doing deblocking on e.g. MPEG-2 video. But at least for high bitrate HDTV this provides a big speedup with no visible quality loss.</source>
+        <source>This option allows you to skips the loop filter (AKA deblocking) during H.264 decoding. Since the filtered frame is supposed to be used as reference for decoding dependent frames this has a worse effect on quality than not doing deblocking on e.g. MPEG-2 video. But at least for high bitrate HDTV this provides a big speedup with no visible quality loss.</source>
         <translation type="vanished">此选项允许在 H.264 解码期间跳过环路过滤器(也叫做&quot;去块&quot;)。因为经过过滤的帧会被当作解码依赖帧引用，而在质量上这比不对视频(例如 MPEG-2)进行去块的效果更差。但是去块至少对高比特率的 HDTV 提供了不损失视觉品质的大幅加速。</translation>
     </message>
     <message>
@@ -7521,7 +7521,7 @@ Example: extrastereo,karaoke</source>
         <translation type="vanished">从文件夹添加</translation>
     </message>
     <message>
-        <source>This option allows to add files automatically to the playlist:</source>
+        <source>This option allows you to add files automatically to the playlist:</source>
         <translation type="vanished">此选项允许自动添加文件到列表</translation>
     </message>
     <message>
@@ -7589,7 +7589,7 @@ Example: extrastereo,karaoke</source>
         <translation type="vanished">如果您想在添加一个目录时也递归添加子目录中的文件，请勾选此选项。否则将只添加所选目录中的文件。</translation>
     </message>
     <message>
-        <source>Check this option to inquire the files to be added to the playlist for some info. That allows to show the title name (if available) and length of the files. Otherwise this info won&apos;t be available until the file is actually played. Beware: this option can be slow, specially if you add many files.</source>
+        <source>Check this option to inquire the files to be added to the playlist for some info. That allows you to show the title name (if available) and length of the files. Otherwise this info won&apos;t be available until the file is actually played. Beware: this option can be slow, specially if you add many files.</source>
         <translation type="vanished">勾选此选项可以查询文件添加到播放列表中的一些信息。这将允许显示文件的标题名称(如果可用)和长度。否则在文件被实际播放之前这些信息将不可用。注意: 这个选项可能会很慢，特别是当您添加的文件过多时。</translation>
     </message>
     <message>
@@ -7723,7 +7723,7 @@ Example: extrastereo,karaoke</source>
     </message>
     <message>
         <location filename="../prefscreenshot.cpp" line="161"/>
-        <source>This option allows to choose the image file type used for saving screenshots.</source>
+        <source>This option allows you to choose the image file type used for saving screenshots.</source>
         <translation>此选项让您选择视频截图的格式。</translation>
     </message>
 </context>
@@ -7926,7 +7926,7 @@ Example: extrastereo,karaoke</source>
         <translation type="vanished">使用 ASS 库</translation>
     </message>
     <message>
-        <source>This option enables the ASS library, which allows to display subtitles with multiple colors, fonts...</source>
+        <source>This option enables the ASS library, which allows you to display subtitles with multiple colors, fonts...</source>
         <translation type="vanished">此选项会启用 ASS 库，这允许字幕以多种颜色，字体显示...</translation>
     </message>
     <message>
@@ -9771,7 +9771,7 @@ Example: extrastereo,karaoke</source>
         <translation type="vanished">如果视频的纵横比是错误的，您可以在这里指定一个不同的。</translation>
     </message>
     <message>
-        <source>Usually the first frames are black, so it&apos;s a good idea to skip some seconds at the beginning of the video. This option allows to specify how many seconds will be skipped.</source>
+        <source>Usually the first frames are black, so it&apos;s a good idea to skip some seconds at the beginning of the video. This option allows you to specify how many seconds will be skipped.</source>
         <translation type="vanished">通常情况下第一帧都是黑色的，因此视频开始时跳过几秒钟是个好主意。此选项允许指定多少秒将被跳过。</translation>
     </message>
     <message>

@@ -158,7 +158,7 @@ void PrefScreenShot::createHelp() {
         tr("This option only works with mpv.") );
 
     setWhatsThis(screenshot_format_combo, tr("Format for screenshots"),
-        tr("This option allows to choose the image file type used for saving screenshots.") + " " +
+        tr("This option allows one to choose the image file type used for saving screenshots.") + " " +
         tr("This option only works with mpv.") );
 }
 

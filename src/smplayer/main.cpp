@@ -27,6 +27,10 @@ int main( int argc, char ** argv )
 {
     MyApplication a("kylin-video", argc, argv );
     a.setQuitOnLastWindowClosed(false);
+
+    a.setOrganizationName("kylin");
+    a.setApplicationName("kylin-video");
+    a.setApplicationVersion("1.1.4");
 	
 #if QT_VERSION >= 0x040400
 	// Enable icons in menus

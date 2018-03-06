@@ -17,15 +17,19 @@
 */
 
 #include "version.h"
+#include <QApplication>
 
 #define USE_SVN_VERSIONS 0
 
-#define VERSION "1.1.1"
+//#define VERSION "1.1.2"
 
 QString Version::printable() {
-    return QString(VERSION);
+    //return QString(VERSION);
+    return QString(qApp->applicationVersion());
 }
 
 QString Version::stable() {
-	return QString(VERSION);
+        //return QString(VERSION);
+        return QString(qApp->applicationVersion());
 }
+

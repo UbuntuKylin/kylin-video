@@ -34,7 +34,7 @@ Translator * Global::translator = 0;
 using namespace Global;
 
 void Global::global_init() {
-    qDebug("global_init");
+//    qDebug("global_init");
 
 	// Translator
     translator = new Translator();
@@ -49,7 +49,7 @@ void Global::global_init() {
 }
 
 void Global::global_end() {
-	qDebug("global_end");
+//	qDebug("global_end");
 
 	// delete
 	delete pref;

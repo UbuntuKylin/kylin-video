@@ -21,7 +21,7 @@
 #include <QFile>
 
 DeviceList DeviceInfo::alsaDevices() {
-	qDebug("DeviceInfo::alsaDevices");
+//	qDebug("DeviceInfo::alsaDevices");
 
 	DeviceList l;
 	QRegExp rx_device("^card\\s([0-9]+).*\\[(.*)\\],\\sdevice\\s([0-9]+):");

@@ -120,4 +120,7 @@
     <qresource prefix="/qss">
         <file>res/style.qss</file>
     </qresource>
+    <qresource prefix="/qm">
+        <file>translations/kylin-video_zh_CN.qm</file>
+    </qresource>
 </RCC>

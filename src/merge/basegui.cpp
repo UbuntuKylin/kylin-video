@@ -2488,13 +2488,13 @@ void BaseGui::exitFullscreenIfNeeded() {
 }
 
 void BaseGui::loadActions() {
-    qDebug("BaseGui::loadActions");
+//    qDebug("BaseGui::loadActions");
     ActionsEditor::loadFromConfig(this, settings);
 //	actions_list = ActionsEditor::actionsNames(this);
 }
 
 void BaseGui::saveActions() {
-    qDebug("BaseGui::saveActions");
+//    qDebug("BaseGui::saveActions");
     ActionsEditor::saveToConfig(this, settings);
 }
 
@@ -2604,12 +2604,12 @@ bool BaseGui::event(QEvent * e) {//kobe 0522 QWidget::paintEngine: Should no lon
 #endif
 
 void BaseGui::quit() {
-    qDebug("BaseGui::quit");
+//    qDebug("BaseGui::quit");
     closeWindow();
 }
 
 void BaseGui::trayIconActivated(QSystemTrayIcon::ActivationReason reason) {
-    qDebug("DefaultGui::trayIconActivated: %d", reason);
+//    qDebug("DefaultGui::trayIconActivated: %d", reason);
 
     switch(reason) {
         case QSystemTrayIcon::Trigger:

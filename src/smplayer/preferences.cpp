@@ -56,8 +56,8 @@ Preferences::~Preferences() {
 
 void Preferences::reset() {
     mplayer_bin = "mpv";
-	vo = ""; 
-	ao = "";
+    vo = "vdpau";//vo = "";
+    ao = "pulse";//ao = "";
 	use_screenshot = true;
 	screenshot_template = "cap_%F_%p_%02n";
 	screenshot_format = "jpg";
@@ -108,7 +108,7 @@ void Preferences::reset() {
        *********** */
 	HD_height = 720;
     threads = 4;
-	hwdec = "no";
+    hwdec = "auto";//hwdec = "no";
 	cache_for_files = 2048;
 	cache_for_streams = 2048;
 
@@ -181,7 +181,7 @@ void Preferences::reset() {
        ************** */
 	initial_postprocessing = false;
 	initial_volnorm = false;
-	initial_audio_channels = MediaSettings::ChDefault;
+    initial_audio_channels = MediaSettings::ChStereo;//MediaSettings::ChDefault;
 
     /* ************
        MPlayer info
@@ -197,8 +197,7 @@ void Preferences::reset() {
 }
 
 void Preferences::save() {
-    qDebug("Preferences::save");
-
+//    qDebug("Preferences::save");
 	QSettings * set = settings;
 
 

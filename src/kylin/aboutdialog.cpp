@@ -88,7 +88,7 @@ AboutDialog::AboutDialog(QWidget * parent, Qt::WindowFlags f)
 //                tr("Using Qt %1 (compiled with Qt %2)").arg(qVersion()).arg(QT_VERSION_STR) + "<br>" +
 //                tr("Playback engine:") + i->playerVersion() + "<br><br>"
 //                );
-    contributorText->setText("<br>&copy; 2006-2015 Ricardo Villalba &lt;rvm@users.sourceforge.net&gt;<br>&copy; 2017 lixiang &lt;lixiang@kylinos.cn&gt;<br><br>");
+    contributorText->setText("<br>&copy; 2006-2015 Ricardo Villalba &lt;rvm@users.sourceforge.net&gt;<br>&copy; 2017-2018 lixiang &lt;lixiang@kylinos.cn&gt;<br><br>");
     contributorText->hide();
 
 	adjustSize();
@@ -153,7 +153,7 @@ void AboutDialog::setVersions()
 
     aboutText->setText(
                 "<br>" +
-                tr("Kylin Video is developed on the basis of KylinVideo, is a graphical interface for MPlayer and MPV.") + "<br>" +
+                tr("Kylin Video is developed on the basis of SMPlayer, is a graphical interface for MPlayer and MPV.") + "<br>" +
                 "<b>" + tr("Kylin Video") + tr("Version: %1").arg(Version::printable()) + "</b>" + "<br>" +
                 tr("Using Qt %1 (compiled with Qt %2)").arg(qVersion()).arg(QT_VERSION_STR) + "<br>" +
                 tr("Playback engine:") + i->playerVersion() + "<br><br>"

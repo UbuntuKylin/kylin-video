@@ -108,6 +108,7 @@ void PrefAudio::setData(Preferences *pref) {
 void PrefAudio::getData(Preferences * pref) {
 	requires_restart = false;
 	filesettings_method_changed = false;
+    TEST_AND_SET(pref->ao, AO());
 	TEST_AND_SET(pref->use_soft_vol, softVol());
 	pref->global_volume = globalVolume();
 	pref->initial_volnorm = initialVolNorm();

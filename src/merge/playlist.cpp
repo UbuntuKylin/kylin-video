@@ -411,7 +411,6 @@ void Playlist::addOneItem(QString filename, QString name, double duration) {
 //            pl.move(n, last_item);
 //            qDebug("Playlist::addOneItem: item already in list (%d), moved to %d and current_item=%d", n, last_item, current_item);
             current_item = n;//20170712
-            qDebug() << "WTF CCC current_item="<<current_item;
 //            if (current_item > -1) {
 //                if (current_item > n) current_item--;
 //                else

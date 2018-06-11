@@ -17,3 +17,20 @@ How to report bugs
 
 Bugs should be report to the kylin-video bug tracking system:
     https://github.com/ukui/kylin-video/issues
+
+
+
+Snap package
+==================
+snapcraft
+snapcraft clean
+sudo snap install kylin-video_1.1.6_amd64.snap --devmode
+sudo snap install kylin-video_1.1.6_amd64.snap --classic --dangerous
+sudo snap install kylin-video_1.1.6_amd64.snap --stable --dangerous
+sudo snap remove kylin-video
+unsquashfs -l kylin-video_1.1.6_amd64.snap | less
+unsquashfs kylin-video_1.1.6_amd64.snap
+
+(snap interfaces     snapcraft plugins    snapcraft list-plugins)
+
+

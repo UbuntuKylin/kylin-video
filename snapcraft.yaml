@@ -1,0 +1,59 @@
+name: kylin-video
+version: "1.1.6"
+summary: Kylin Video
+description: |
+  Qt5 Mplayer and MPV front-end, with basic features like playing
+  videos and audios to more advanced features. It supports both x86
+  and ARM platform, and supports most of the audio and video formats.
+
+grade: stable
+#grade: devel
+confinement: strict
+#confinement: devmode
+#confinement: classic
+
+#plugs:
+#  dbus-svc:
+#    bus: system
+#    interface: dbus
+#    name: org.freedesktop.DBus
+
+apps:
+  kylin-video:
+    command: desktop-launch kylin-video
+    plugs: [home, desktop, network, desktop-legacy, pulseaudio, x11]
+
+parts:
+  kylin-video:
+    plugin: qmake
+    source: .
+    qt-version: qt5
+    project-files: [kylin-video.pro]
+    build-packages:
+      - g++
+      - qtbase5-dev
+      - qt5-qmake
+      - qtscript5-dev
+      - qttools5-dev-tools
+      - zlib1g-dev
+    stage-packages:
+      - libc6
+      - libgcc1
+      - libqt5core5a
+      - libqt5gui5
+      - libqt5network5
+      - libqt5widgets5
+      - libstdc++6
+      - zlib1g
+      - mplayer
+      - mpv
+      - mesa-vdpau-drivers
+      - libxcb1
+ #     - ubuntu-defaults-zh-cn
+#    stage:
+#      - -usr/lib/x86_64-linux-gnu/pkgconfig/glib-2.0.pc
+#      - -usr/share/pkgconfig/systemd.pc
+    after: [desktop-qt5]
+#    snap:
+#      - -usr/share/doc
+#      - -usr/include

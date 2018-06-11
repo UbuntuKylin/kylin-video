@@ -32,7 +32,7 @@ Translator::~Translator() {
 }
 
 bool Translator::loadCatalog(QTranslator & t, QString name, QString locale, QString dir) {
-        QString s = name + "_" + locale + ".pm"; //.toLower();
+        QString s = name + "_" + locale + ".qm"; //.toLower();
 	bool r = t.load(s, dir);
 	if (r) 
 		qDebug("Translator::loadCatalog: successfully loaded %s from %s", s.toUtf8().data(), dir.toUtf8().data());

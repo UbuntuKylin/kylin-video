@@ -12,15 +12,16 @@ RESOURCES = res.qrc
 
 DEFINES += SINGLE_INSTANCE
 
-inst1.files += res/kylin-video.png
-inst1.path = /usr/share/pixmaps
-inst2.files += ../kylin-video.desktop
-inst2.path = /usr/share/applications
+#inst1.files += res/kylin-video.png
+#inst1.path = /usr/share/pixmaps
+#inst2.files += ../kylin-video.desktop
+#inst2.path = /usr/share/applications
 target.source  += $$TARGET
 target.path = /usr/bin
-INSTALLS += inst1 \
-    inst2 \
-    target
+INSTALLS += target
+#INSTALLS += inst1 \
+#    inst2 \
+#    target
 
 QMAKE_CPPFLAGS *= $(shell dpkg-buildflags --get CPPFLAGS)
 QMAKE_CFLAGS   *= $(shell dpkg-buildflags --get CFLAGS)

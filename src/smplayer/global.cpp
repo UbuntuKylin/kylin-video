@@ -33,7 +33,7 @@ Translator * Global::translator = 0;
 
 using namespace Global;
 
-void Global::global_init() {
+void Global::global_init(const QString &arch) {
 //    qDebug("global_init");
 
 	// Translator
@@ -45,7 +45,7 @@ void Global::global_init() {
     settings->setIniCodec("UTF-8");//add by kobe
 
 	// Preferences
-	pref = new Preferences();
+    pref = new Preferences(arch);
 }
 
 void Global::global_end() {

@@ -61,6 +61,8 @@ void Paths::setConfigPath(QString path) {
 	config_path = path;
 }
 
+//snap: /home/lixiang/snap/kylin-video/x1/.config/kylin-video
+//deb:  /home/lixiang/.config/kylin-video
 QString Paths::configPath() {
     //kobe
     if (!config_path.isEmpty()) {

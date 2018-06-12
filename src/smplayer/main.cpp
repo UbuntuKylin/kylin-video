@@ -22,6 +22,8 @@
 #include <QDir>
 #include <QFile>
 #include <QTextCodec>
+//#include <QTranslator>
+//#include <QLibraryInfo>
 
 int main( int argc, char ** argv ) 
 {
@@ -38,6 +40,22 @@ int main( int argc, char ** argv )
 #endif
 
 	QStringList args = a.arguments();
+
+//    QString locale = QLocale::system().name();
+//    QTranslator translator;
+//    if(locale == "zh_CN") {
+//        if(!translator.load("kylin-video_" + locale + ".qm", ":/qm/translations/"))
+//            qDebug() << "Load translation file："<< "kylin-video_" + locale + ".qm" << " failed!";
+//        else
+//            a.installTranslator(&translator);
+//    }
+
+//    //加载Qt对话框默认的国际化
+//    QTranslator qtTranslator;
+//    if (!qtTranslator.load("qt_" + locale, QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
+//        qDebug() << "Load Qt translations file："<< "/usr/share/qt5/translations/qt_" + locale + ".qm" << " failed!";
+//    else
+//        a.installTranslator(&qtTranslator);
 
     QFile qss(":/qss/res/style.qss");
     qss.open(QFile::ReadOnly);

@@ -1812,7 +1812,7 @@ void Core::startMplayer( QString file, double seek ) {
         }
 	} else {
 		// MPV
-		if (!pref->hwdec.isEmpty() && pref->hwdec != "no") {
+        if (!pref->hwdec.isEmpty() && pref->hwdec != "no") {//kobe 20180612
 			qDebug("Core::startMplayer: hardware decoding is enabled. The video filters will be ignored");
 			goto end_video_filters;
 		}

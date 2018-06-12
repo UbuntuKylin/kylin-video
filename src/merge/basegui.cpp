@@ -1133,7 +1133,7 @@ void BaseGui::enableActionsOnPlaying() {
         flipAct->setEnabled(false);
         mirrorAct->setEnabled(false);
         rotateGroup->setActionsEnabled(false);
-        displayMessage(tr("Video filters are disabled when using vdpau"));
+        displayMessage(tr("Video filters are disabled when using vdpau"));//使用 VDPAU 时将禁用视频过滤器
     }
 }
 

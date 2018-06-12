@@ -39,10 +39,9 @@ namespace Global {
 	//! Translator (for changing language)
     extern Translator * translator;
 
-
-    void global_init();
+    void global_init(const QString &arch);
 	void global_end();
-};
+}
 
 #endif
 

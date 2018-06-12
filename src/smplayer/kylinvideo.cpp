@@ -45,9 +45,9 @@ KylinVideo::KylinVideo(const QString &arch, QObject * parent )
 	move_gui = false;
 	resize_gui = false;
 
-	Paths::setAppPath( qApp->applicationDirPath() );
+    Paths::setAppPath(qApp->applicationDirPath());//snap: /snap/kylin-video/x1/usr/bin    deb:/usr/bin
 
-    global_init();
+    global_init(arch_type);
 
 	// Application translations
     translator->load();
@@ -295,7 +295,7 @@ void KylinVideo::showInfo() {
 	qDebug(" * application path: '%s'", Paths::appPath().toUtf8().data());
 	qDebug(" * config path: '%s'", Paths::configPath().toUtf8().data());
 	qDebug(" * ini path: '%s'", Paths::iniPath().toUtf8().data());
-	qDebug(" * current path: '%s'", QDir::currentPath().toUtf8().data());
+    qDebug(" * current path: '%s'", QDir::currentPath().toUtf8().data());//snap:/home/lixiang/work/snap/kylin-video
 }
 
 //#include "moc_kylinvideo.cpp"

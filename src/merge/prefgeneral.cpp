@@ -88,7 +88,9 @@ void PrefGeneral::getData(Preferences * pref) {
 }
 
 void PrefGeneral::setMplayerPath(QString path) {
-    if (path == "/usr/bin/mpv") {
+    QString destPath = Paths::appPath() + "/mpv";
+    if (path == destPath) {
+//    if (path == "/usr/bin/mpv") {
         mpv_radioButton->setChecked(true);
     }
     else {
@@ -98,10 +100,12 @@ void PrefGeneral::setMplayerPath(QString path) {
 
 QString PrefGeneral::mplayerPath() {
     if (mpv_radioButton->isChecked()) {
-        return "/usr/bin/mpv";
+        return QString("%1/mpv").arg(Paths::appPath());
+//        return "/usr/bin/mpv";
     }
     else {
-        return "/usr/bin/mplayer";
+        return QString("%1/mplayer").arg(Paths::appPath());
+//        return "/usr/bin/mplayer";
     }
 }
 

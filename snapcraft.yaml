@@ -22,6 +22,8 @@ apps:
   kylin-video:
     command: desktop-launch kylin-video
     plugs: [home, desktop, network, desktop-legacy, pulseaudio, x11]
+    #plugs: [home, desktop, network, desktop-legacy, pulseaudio, x11, unity7, account-control, accounts-service, locale-control, opengl]
+    #plugs: [home, desktop, network, desktop-legacy, pulseaudio, x11, platform]
 
 parts:
   kylin-video:
@@ -49,7 +51,10 @@ parts:
       - mpv
       - mesa-vdpau-drivers
       - libxcb1
- #     - ubuntu-defaults-zh-cn
+      - libglu1-mesa
+      - freeglut3
+      - libgpm2
+#      - ubuntu-defaults-zh-cn
 #    stage:
 #      - -usr/lib/x86_64-linux-gnu/pkgconfig/glib-2.0.pc
 #      - -usr/share/pkgconfig/systemd.pc
@@ -57,3 +62,22 @@ parts:
 #    snap:
 #      - -usr/share/doc
 #      - -usr/include
+#    after: [desktop-ubuntu-app-platform]
+
+#  publish:
+#    plugin: copy
+#    files:
+#      ./bin/mqttpublish.py: bin/mqttpublish
+
+#  plat:
+#    plugin: dump
+#    source: .
+#    snap: [ubuntu-app-platform]
+
+#plugs:
+#  platform: # plug name, to be used later
+#    interface: content
+#    content: ubuntu-app-platform1 # content being mounted and the version, currently 1
+#    target: ubuntu-app-platform # the mount directory created
+#    default-provider: ubuntu-app-platform # default content source snap, currently the only provider too
+

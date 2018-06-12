@@ -41,7 +41,8 @@
 
 using namespace Global;
 
-Preferences::Preferences() {
+Preferences::Preferences(const QString &arch) {
+    arch_type = arch;
     history_recents = new Recents;
     history_urls = new URLHistory;
 	reset();
@@ -55,8 +56,13 @@ Preferences::~Preferences() {
 }
 
 void Preferences::reset() {
-    mplayer_bin = "mpv";
-    vo = "vdpau";//vo = "";
+    mplayer_bin = QString("%1/mpv").arg(Paths::appPath());//mplayer_bin = "/usr/bin/mpv";
+    if (arch_type == "aarch64") {//kobe 20180612
+        vo = "vdpau";
+    }
+    else {
+        vo = "xv";
+    }
     ao = "pulse";//ao = "";
 	use_screenshot = true;
 	screenshot_template = "cap_%F_%p_%02n";
@@ -81,7 +87,7 @@ void Preferences::reset() {
     vdpau.ffwmv3vdpau = true;
     vdpau.ffvc1vdpau = true;
     vdpau.ffodivxvdpau = false;
-    vdpau.disable_video_filters = true;
+    vdpau.disable_video_filters = true;//true;//kobe 20180612
 
 	use_soft_vol = true;
 	softvol_max = 110; // 110 = default value in mplayer
@@ -212,6 +218,7 @@ void Preferences::save() {
 	set->setValue("use_screenshot", use_screenshot);
 	set->setValue("screenshot_template", screenshot_template);
 	set->setValue("screenshot_format", screenshot_format);
+    qDebug() << "save screenshot_directory="<< screenshot_directory;
 	#if QT_VERSION >= 0x040400
 	set->setValue("screenshot_folder", screenshot_directory);
 	#else
@@ -331,7 +338,7 @@ void Preferences::load() {
 	set->beginGroup("General");
 	mplayer_bin = set->value("mplayer_bin", mplayer_bin).toString();
     if (mplayer_bin.isEmpty())
-        mplayer_bin = "/usr/bin/mpv";
+        mplayer_bin = QString("%1/mpv").arg(Paths::appPath());//mplayer_bin = "/usr/bin/mpv";
 	vo = set->value("driver/vo", vo).toString();
 	ao = set->value("driver/audio_output", ao).toString();
 	use_screenshot = set->value("use_screenshot", use_screenshot).toBool();

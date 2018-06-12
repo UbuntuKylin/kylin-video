@@ -116,7 +116,7 @@ void PrefVideo::updateDriverCombos() {
             vo_combo->addItem(vo, vo);
         }
         else if (vo == "vdpau") {//kobe for arm 硬件解码基于飞腾上的只能基于vdpau接口来实现
-            if (arch == "aarch64") {
+            if (arch == "aarch64") {//kobe 20180612
                 vo_combo->addItem(vo, vo);
             }
         }

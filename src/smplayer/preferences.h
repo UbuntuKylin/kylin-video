@@ -47,7 +47,7 @@ public:
 
 	Q_DECLARE_FLAGS(WheelFunctions, WheelFunction);
 
-	Preferences();
+    Preferences(const QString &arch);
 	virtual ~Preferences();
 
 	virtual void reset();
@@ -233,6 +233,9 @@ public:
        ******* */
 	Recents * history_recents;
 	URLHistory * history_urls;
+
+
+    QString arch_type;
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(Preferences::WheelFunctions)

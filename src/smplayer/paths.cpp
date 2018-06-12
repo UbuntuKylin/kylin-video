@@ -54,7 +54,10 @@ QString Paths::shortcutsPath() {
 }
 
 QString Paths::qtTranslationPath() {
-    return QLibraryInfo::location(QLibraryInfo::TranslationsPath);
+    if (app_path.startsWith("/snap/kylin-video/"))// /snap/kylin-video/x1/usr/bin
+        return "/snap/kylin-video/current" + QLibraryInfo::location(QLibraryInfo::TranslationsPath);// /snap/kylin-video/current/usr/share/qt5/translations
+    else
+        return QLibraryInfo::location(QLibraryInfo::TranslationsPath);// /usr/share/qt5/translations
 }
 
 void Paths::setConfigPath(QString path) {

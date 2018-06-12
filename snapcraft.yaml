@@ -54,6 +54,7 @@ parts:
       - libglu1-mesa
       - freeglut3
       - libgpm2
+      - qttranslations5-l10n
 #      - ubuntu-defaults-zh-cn
 #    stage:
 #      - -usr/lib/x86_64-linux-gnu/pkgconfig/glib-2.0.pc

@@ -6,31 +6,19 @@ description: |
   videos and audios to more advanced features. It supports both x86
   and ARM platform, and supports most of the audio and video formats.
 
-grade: stable
-#grade: devel
-confinement: strict
-#confinement: devmode
-#confinement: classic
-
-#plugs:
-#  dbus-svc:
-#    bus: system
-#    interface: dbus
-#    name: org.freedesktop.DBus
+grade: stable #devel
+confinement: strict #devmode
 
 apps:
   kylin-video:
     command: desktop-launch kylin-video
-    plugs: [home, desktop, network, desktop-legacy, pulseaudio, x11]
-    #plugs: [home, desktop, network, desktop-legacy, pulseaudio, x11, unity7, account-control, accounts-service, locale-control, opengl]
-    #plugs: [home, desktop, network, desktop-legacy, pulseaudio, x11, platform]
+    plugs: [home, network, desktop, pulseaudio, x11]
 
 parts:
   kylin-video:
     plugin: qmake
     source: .
     qt-version: qt5
-    project-files: [kylin-video.pro]
     build-packages:
       - g++
       - qtbase5-dev
@@ -55,30 +43,4 @@ parts:
       - freeglut3
       - libgpm2
       - qttranslations5-l10n
-#      - ubuntu-defaults-zh-cn
-#    stage:
-#      - -usr/lib/x86_64-linux-gnu/pkgconfig/glib-2.0.pc
-#      - -usr/share/pkgconfig/systemd.pc
     after: [desktop-qt5]
-#    snap:
-#      - -usr/share/doc
-#      - -usr/include
-#    after: [desktop-ubuntu-app-platform]
-
-#  publish:
-#    plugin: copy
-#    files:
-#      ./bin/mqttpublish.py: bin/mqttpublish
-
-#  plat:
-#    plugin: dump
-#    source: .
-#    snap: [ubuntu-app-platform]
-
-#plugs:
-#  platform: # plug name, to be used later
-#    interface: content
-#    content: ubuntu-app-platform1 # content being mounted and the version, currently 1
-#    target: ubuntu-app-platform # the mount directory created
-#    default-provider: ubuntu-app-platform # default content source snap, currently the only provider too
-

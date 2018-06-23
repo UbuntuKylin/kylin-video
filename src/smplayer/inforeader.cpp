@@ -35,24 +35,25 @@ using namespace Global;
 
 InfoReader * InfoReader::static_obj = 0;
 
-InfoReader * InfoReader::obj(const QString & mplayer_bin) {
+InfoReader * InfoReader::obj(const QString &snap, const QString & mplayer_bin) {
 	QString player_bin = mplayer_bin;
 	if (player_bin.isEmpty()) {
 		player_bin = pref->mplayer_bin;
 	}
 	if (!static_obj) {
-		static_obj = new InfoReader(player_bin);
+        static_obj = new InfoReader(snap, player_bin);
 	} else {
 		static_obj->setPlayerBin(player_bin);
 	}
 	return static_obj;
 }
 
-InfoReader::InfoReader(QString mplayer_bin, QObject * parent)
+InfoReader::InfoReader(const QString &snap, QString mplayer_bin, QObject * parent)
 	: QObject(parent)
     , mplayer_svn(0)
 //	, is_mplayer2(false)
     , is_mpv(false)
+    , m_snap(snap)
 {
 	setPlayerBin(mplayer_bin);
 }
@@ -63,7 +64,8 @@ InfoReader::~InfoReader() {
 void InfoReader::setPlayerBin(const QString & bin) {
 	mplayerbin = bin;
 
-	QFileInfo fi(mplayerbin);
+    //edited by kobe 20180623
+    /*QFileInfo fi(mplayerbin);
 	if (fi.exists() && fi.isExecutable() && !fi.isDir()) {
 		// mplayerbin = fi.absoluteFilePath();
 	}
@@ -74,7 +76,7 @@ void InfoReader::setPlayerBin(const QString & bin) {
 		if (!fplayer.isEmpty()) mplayerbin = fplayer;
 	}
 #endif
-	qDebug() << "InfoReader::setPlayerBin: mplayerbin:" << mplayerbin;
+    qDebug() << "InfoReader::setPlayerBin: mplayerbin:" << mplayerbin;*/
 }
 
 void InfoReader::getInfo() {
@@ -117,9 +119,10 @@ void InfoReader::getInfo() {
 		}
 	}
 
-    if (PlayerID::player(mplayerbin) == PlayerID::MPV) {
-        qDebug("InfoReader::getInfo: mpv");
-        InfoReaderMPV ir(mplayerbin, this);
+    //edited by kobe 20180623
+    if (PlayerID::player(mplayerbin/*, this->m_snap*/) == PlayerID::MPV) {
+//        qDebug("InfoReader::getInfo: mpv");
+        InfoReaderMPV ir(mplayerbin, this->m_snap, this);
         ir.getInfo();
         vo_list = ir.voList();
         ao_list = ir.aoList();
@@ -134,8 +137,8 @@ void InfoReader::getInfo() {
 //		is_mplayer2 = false;
         is_mpv = true;
     } else {
-        qDebug("InfoReader::getInfo: mplayer");
-		InfoReaderMplayer ir(mplayerbin, this);
+//        qDebug("InfoReader::getInfo: mplayer");
+        InfoReaderMplayer ir(mplayerbin, this->m_snap, this);
 		ir.getInfo();
 		vo_list = ir.voList();
 		ao_list = ir.aoList();

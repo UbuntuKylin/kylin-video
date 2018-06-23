@@ -38,7 +38,7 @@ class Core : public QObject
 public:
 	enum State { Stopped = 0, Playing = 1, Paused = 2 };
 
-	Core( MplayerWindow *mpw, QWidget* parent = 0 );
+    Core(MplayerWindow *mpw, const QString &snap = QString::null, QWidget* parent = 0);
 	~Core();
 
 	MediaData mdat;
@@ -551,6 +551,7 @@ private:
 //#endif
 
 	QMap<QString,QString> forced_titles;
+    QString m_snap;
 };
 
 #endif

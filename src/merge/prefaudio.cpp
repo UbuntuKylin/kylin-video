@@ -27,13 +27,15 @@
 #include <QDebug>
 #include "../smplayer/deviceinfo.h"
 
-PrefAudio::PrefAudio(QWidget * parent, Qt::WindowFlags f)
+PrefAudio::PrefAudio(QString snap, QWidget * parent, Qt::WindowFlags f)
 	: PrefWidget(parent, f )
 {
 	setupUi(this);
 
+    this->m_snap = snap;
+
 	// Read driver info from InfoReader:
-	InfoReader * i = InfoReader::obj();
+    InfoReader * i = InfoReader::obj(this->m_snap);//20181212
 	i->getInfo();
 	ao_list = i->aoList();
 	alsa_devices = DeviceInfo::alsaDevices();
@@ -119,7 +121,7 @@ void PrefAudio::getData(Preferences * pref) {
 }
 
 void PrefAudio::update_driver_combobox() {
-    InfoReader * i = InfoReader::obj();
+    InfoReader * i = InfoReader::obj(this->m_snap);//20181212
     i->getInfo();
     // Update the drivers list at the same time
     ao_list = i->aoList();

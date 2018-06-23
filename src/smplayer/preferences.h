@@ -236,6 +236,7 @@ public:
 
 
     QString arch_type;
+    QString m_snap;
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(Preferences::WheelFunctions)

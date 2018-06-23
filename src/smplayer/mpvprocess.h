@@ -30,7 +30,7 @@ class MPVProcess : public PlayerProcess
 	Q_OBJECT
 
 public:
-	MPVProcess(QObject * parent = 0);
+    MPVProcess(const QString &snap, QObject * parent = 0);
 	~MPVProcess();
 
 	bool start();
@@ -176,6 +176,7 @@ private:
 //#ifdef CAPTURE_STREAM
 //	bool capturing;
 //#endif
+    QString m_snap;
 };
 
 #endif

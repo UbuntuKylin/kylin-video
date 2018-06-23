@@ -31,7 +31,7 @@ class PrefVideo : public PrefWidget, public Ui::PrefVideo
 	Q_OBJECT
 
 public:
-    PrefVideo(QString arch_type = "", QWidget * parent = 0, Qt::WindowFlags f = 0 );
+    PrefVideo(QString arch_type = "", QString snap = "", QWidget * parent = 0, Qt::WindowFlags f = 0 );
     ~PrefVideo();
 
 	// Pass data to the dialog
@@ -88,6 +88,7 @@ protected:
 private:
 	bool filesettings_method_changed;
     QString arch;
+    QString m_snap;
 };
 
 #endif

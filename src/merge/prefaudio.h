@@ -31,7 +31,7 @@ class PrefAudio : public PrefWidget, public Ui::PrefAudio
 	Q_OBJECT
 
 public:
-    PrefAudio( QWidget * parent = 0, Qt::WindowFlags f = 0 );
+    PrefAudio(QString snap, QWidget * parent = 0, Qt::WindowFlags f = 0);
     ~PrefAudio();
 
 	// Pass data to the dialog
@@ -91,6 +91,7 @@ protected:
 
 private:
 	bool filesettings_method_changed;
+    QString m_snap;
 };
 
 #endif

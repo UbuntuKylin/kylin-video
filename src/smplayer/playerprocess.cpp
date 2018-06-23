@@ -42,12 +42,13 @@ void PlayerProcess::writeToStdin(QString text) {
 	}
 }
 
-PlayerProcess * PlayerProcess::createPlayerProcess(const QString & player_bin, QObject * parent) {
-	PlayerProcess * proc = 0;
-    if (PlayerID::player(player_bin) == PlayerID::MPLAYER) {//kobe:go here
+PlayerProcess * PlayerProcess::createPlayerProcess(const QString & player_bin, const QString & snap, QObject * parent) {
+    PlayerProcess * proc = 0;
+    //edited by kobe 20180623
+    if (PlayerID::player(player_bin/*, snap*/) == PlayerID::MPLAYER) {//kobe:go here
         proc = new MplayerProcess(parent);
     } else {
-        proc = new MPVProcess(parent);
+        proc = new MPVProcess(snap, parent);
     }
 
 	return proc;

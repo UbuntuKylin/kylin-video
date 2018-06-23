@@ -57,7 +57,7 @@ class BaseGui : public QMainWindow
     Q_OBJECT
     
 public:
-    BaseGui(QString arch_type = "", QWidget* parent = 0, Qt::WindowFlags flags = 0);
+    BaseGui(QString arch_type = "", QString snap = "", QWidget* parent = 0, Qt::WindowFlags flags = 0);
 	~BaseGui();
 
 	/* Return true if the window shouldn't show on startup */
@@ -415,6 +415,8 @@ private:
     QString arch;
     VideoPreview *video_preview;
 //    ShortcutsWidget *shortcuts_widget;
+
+    QString m_snap;
 };
     
 #endif

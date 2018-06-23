@@ -23,9 +23,10 @@
 #include <QDebug>
 
 
-InfoReaderMPV::InfoReaderMPV( QString mplayer_bin, QObject * parent )
+InfoReaderMPV::InfoReaderMPV( QString mplayer_bin, const QString &snap, QObject * parent )
 	: QObject(parent)
 	, mplayer_svn(0)
+    , m_snap(snap)
 {
 	mplayerbin = mplayer_bin;
 }
@@ -112,7 +113,16 @@ QList<QByteArray> InfoReaderMPV::run(QString options) {
 
 	QStringList args = options.split(" ");
 
-	proc.start(mplayerbin, args);
+    //edited by kobe 20180623
+    QString abs_bin;
+    if (!this->m_snap.isEmpty()) {
+        abs_bin = QString("%1%2").arg(this->m_snap).arg(mplayerbin);
+    }
+    else {
+        abs_bin = mplayerbin;
+    }
+
+    proc.start(abs_bin, args);
 	if (!proc.waitForStarted()) {
 		qWarning("InfoReaderMPV::run: process can't start!");
 		return r;

@@ -88,9 +88,17 @@ void PrefGeneral::getData(Preferences * pref) {
 }
 
 void PrefGeneral::setMplayerPath(QString path) {
-    QString destPath = Paths::appPath() + "/mpv";
-    if (path == destPath) {
-//    if (path == "/usr/bin/mpv") {
+    //edited by kobe 20180623
+    /*if (path.contains("/usr/bin/mpv")) {
+        mpv_radioButton->setChecked(true);
+    }
+    else {
+        mplayer_radioButton->setChecked(true);
+    }*/
+
+    //QString destPath = Paths::appPath() + "/mpv";
+    //if (path == destPath) {
+    if (path == "/usr/bin/mpv") {
         mpv_radioButton->setChecked(true);
     }
     else {
@@ -99,13 +107,14 @@ void PrefGeneral::setMplayerPath(QString path) {
 }
 
 QString PrefGeneral::mplayerPath() {
+    //edited by kobe 20180623
     if (mpv_radioButton->isChecked()) {
-        return QString("%1/mpv").arg(Paths::appPath());
-//        return "/usr/bin/mpv";
+//        return QString("%1/mpv").arg(Paths::appPath());
+        return "/usr/bin/mpv";
     }
     else {
-        return QString("%1/mplayer").arg(Paths::appPath());
-//        return "/usr/bin/mplayer";
+//        return QString("%1/mplayer").arg(Paths::appPath());
+        return "/usr/bin/mplayer";
     }
 }
 

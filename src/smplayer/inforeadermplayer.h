@@ -31,7 +31,7 @@ class InfoReaderMplayer : QObject {
 	Q_OBJECT
 
 public:
-	InfoReaderMplayer( QString mplayer_bin, QObject * parent = 0);
+    InfoReaderMplayer( QString mplayer_bin, const QString &snap, QObject * parent = 0);
 	~InfoReaderMplayer();
 
 	void getInfo();
@@ -71,6 +71,8 @@ protected:
 private:
 	bool waiting_for_key;
 	int reading_type;
+
+    QString m_snap;
 };
 
 #endif

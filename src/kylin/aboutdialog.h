@@ -34,7 +34,7 @@ class AboutDialog : public QDialog, public Ui::AboutDialog
 	Q_OBJECT
 
 public:
-    AboutDialog( QWidget * parent = 0, Qt::WindowFlags f = 0 );
+    AboutDialog(const QString &snap, QWidget * parent = 0, Qt::WindowFlags f = 0 );
     ~AboutDialog();
 
     void initConnect();
@@ -56,6 +56,8 @@ private:
     ADragState drag_state;
     TabState tab_state;
     QPoint start_drag;
+
+    QString m_snap;
 };
 
 #endif

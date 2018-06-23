@@ -31,7 +31,7 @@ class KylinVideo : public QObject
 public:
 	enum ExitCode { ErrorArgument = -3, NoAction = -2, NoRunningInstance = -1, NoError = 0, NoExit = 1 };
 
-    KylinVideo(const QString &arch = QString::null, QObject * parent = 0);
+    KylinVideo(const QString &arch = QString::null, const QString &snap = QString::null, QObject * parent = 0);
 	~KylinVideo();
 
 	//! Process arguments. If ExitCode != NoExit the application must be exited.
@@ -45,7 +45,7 @@ private slots:
     void changeGUI();
 
 private:
-    BaseGui * createGUI(QString arch_type);
+    BaseGui * createGUI(QString arch_type, QString snap);
 	void deleteGUI();
 	void showInfo();
 	void deleteConfig();
@@ -65,6 +65,8 @@ private:
 	int close_at_end; // -1 = not set, 1 = true, 0 false
 	int start_in_fullscreen; // -1 = not set, 1 = true, 0 false
     QString arch_type;
+
+    QString m_snap;
 };
 
 #endif

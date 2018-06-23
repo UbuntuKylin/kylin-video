@@ -53,11 +53,12 @@ public:
 
 	static QStringList filesForPlaylist(const QString & initial_file, Preferences::AutoAddToPlaylistFilter filter);
 
-#ifdef Q_OS_LINUX
+    //edited by kobe 20180623
+/*#ifdef Q_OS_LINUX
 	//! Tries to find the executable in the path.
 	//! Returns the path if found or QString::null if not.
 	static QString findExecutable(const QString & name);
-#endif
+#endif*/
 
 private:
 	static QStringList searchForConsecutiveFiles(const QString & initial_file);

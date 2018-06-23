@@ -56,7 +56,8 @@ Preferences::~Preferences() {
 }
 
 void Preferences::reset() {
-    mplayer_bin = QString("%1/mpv").arg(Paths::appPath());//mplayer_bin = "/usr/bin/mpv";
+    //edited by kobe 20180623
+    mplayer_bin = "/usr/bin/mpv";//mplayer_bin = QString("%1/mpv").arg(Paths::appPath());
     if (arch_type == "aarch64") {//kobe 20180612
         vo = "vdpau";
     }
@@ -337,8 +338,10 @@ void Preferences::load() {
        ******* */
 	set->beginGroup("General");
 	mplayer_bin = set->value("mplayer_bin", mplayer_bin).toString();
-    if (mplayer_bin.isEmpty())
-        mplayer_bin = QString("%1/mpv").arg(Paths::appPath());//mplayer_bin = "/usr/bin/mpv";
+    //edited by kobe 20180623
+    if (mplayer_bin.isEmpty()) {
+        mplayer_bin = "/usr/bin/mpv";//mplayer_bin = QString("%1/mpv").arg(Paths::appPath());
+    }
 	vo = set->value("driver/vo", vo).toString();
 	ao = set->value("driver/audio_output", ao).toString();
 	use_screenshot = set->value("use_screenshot", use_screenshot).toBool();
@@ -479,7 +482,8 @@ void Preferences::load() {
 	history_urls->fromStringList( set->value("urls", history_urls->toStringList()).toStringList() );
 	set->endGroup(); // history
 
-	if (!QFile::exists(mplayer_bin)) {
+    //edited by kobe 20180623
+    /*if (!QFile::exists(mplayer_bin)) {
 		QString app_path = Helper::findExecutable(mplayer_bin);
 		//qDebug("Preferences::load: app_path: %s", app_path.toUtf8().constData());
 		if (!app_path.isEmpty()) {
@@ -496,7 +500,7 @@ void Preferences::load() {
 				if (!app_path.isEmpty()) mplayer_bin = app_path;
 			}
 		}
-	}
+    }*/
 }
 
 void Preferences::setupScreenshotFolder() {

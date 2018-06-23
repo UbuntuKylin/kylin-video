@@ -57,10 +57,13 @@ VideoPreview::~VideoPreview() {
 
 void VideoPreview::setMplayerPath(QString mplayer_path) {
 	mplayer_bin = mplayer_path;
+
+    //edited by kobe 20180623
+    /*
 	QFileInfo fi(mplayer_bin);
 	if (fi.exists() && fi.isExecutable() && !fi.isDir()) {
 		mplayer_bin = fi.absoluteFilePath();
-	}
+    }*/
 
 //	qDebug("VideoPreview::setMplayerPath: mplayer_bin: '%s'", mplayer_bin.toUtf8().constData());
 }
@@ -139,7 +142,8 @@ bool VideoPreview::extractImages(int time) {
 bool VideoPreview::runPlayer(int seek, double aspect_ratio) {
 	QStringList args;
 
-	if (PlayerID::player(mplayer_bin) == PlayerID::MPV) {
+    //edited by kobe 20180623
+    if (PlayerID::player(mplayer_bin/*, this->m_snap*/) == PlayerID::MPV) {
 		// MPV
 		args << "--no-config" << "--no-audio" << "--no-cache";
 		args << "--frames=" + QString::number(N_OUTPUT_FRAMES);
@@ -228,7 +232,8 @@ VideoInfo VideoPreview::getInfo(const QString & mplayer_path, const QString & fi
 
 	QStringList args;
 
-	if (PlayerID::player(mplayer_path) == PlayerID::MPV) {
+    //edited by kobe 20180623
+    if (PlayerID::player(mplayer_path/*, this->m_snap*/) == PlayerID::MPV) {
 		args << "--term-playing-msg="
                 "ID_LENGTH=${=length}\n"
                 "ID_VIDEO_WIDTH=${=width}\n"

@@ -34,10 +34,11 @@ using namespace Global;
 
 BaseGui * KylinVideo::main_window = 0;
 
-KylinVideo::KylinVideo(const QString &arch, QObject * parent )
+KylinVideo::KylinVideo(const QString &arch, const QString &snap, QObject * parent )
 	: QObject(parent) 
 {
     arch_type = arch;
+    m_snap = snap;
 
 	close_at_end = -1; // Not set
 	start_in_fullscreen = -1; // Not set
@@ -45,12 +46,13 @@ KylinVideo::KylinVideo(const QString &arch, QObject * parent )
 	move_gui = false;
 	resize_gui = false;
 
+    //edited by kobe 20180623
     Paths::setAppPath(qApp->applicationDirPath());//snap: /snap/kylin-video/x1/usr/bin    deb:/usr/bin
 
     global_init(arch_type);
 
 	// Application translations
-    translator->load();
+    translator->load(this->m_snap);
 	showInfo();
 }
 
@@ -66,7 +68,7 @@ BaseGui * KylinVideo::gui() {
 		// Changes to app path, so smplayer can find a relative mplayer path
 		QDir::setCurrent(Paths::appPath());
 
-        main_window = createGUI(this->arch_type/*gui_to_use*/);
+        main_window = createGUI(this->arch_type, this->m_snap/*gui_to_use*/);
 
 		if (move_gui) {
             qDebug("KylinVideo::gui: moving main window to %d %d", gui_position.x(), gui_position.y());
@@ -81,9 +83,9 @@ BaseGui * KylinVideo::gui() {
 	return main_window;
 }
 
-BaseGui * KylinVideo::createGUI(QString arch_type/*QString gui_name*/) {
+BaseGui * KylinVideo::createGUI(QString arch_type, QString snap/*QString gui_name*/) {
     BaseGui * gui = 0;
-    gui = new BaseGui(arch_type, 0);//kobe:forced to go here always
+    gui = new BaseGui(arch_type, snap, 0);//kobe:forced to go here always
 	gui->setForceCloseOnFinish(close_at_end);
 	gui->setForceStartInFullscreen(start_in_fullscreen);
 	connect(gui, SIGNAL(quitSolicited()), qApp, SLOT(quit()));
@@ -107,7 +109,7 @@ void KylinVideo::deleteGUI() {
 void KylinVideo::changeGUI() {//kobe 20170710
 	deleteGUI();
 
-    main_window = createGUI(this->arch_type);
+    main_window = createGUI(this->arch_type, this->m_snap);
 
 	main_window->show();
 }

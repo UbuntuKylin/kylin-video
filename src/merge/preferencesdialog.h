@@ -57,7 +57,7 @@ public:
 	enum Section { General=0, Drives=1, Performance=2,
                    Subtitles=3, Gui=4, Mouse=5, Advanced=6, Associations=7 };
 
-    PreferencesDialog(QString arch_type = "", QWidget * parent = 0, Qt::WindowFlags f = 0 );
+    PreferencesDialog(QString arch_type = "", QString snap = "", QWidget * parent = 0, Qt::WindowFlags f = 0 );
 	~PreferencesDialog();
 
     PrefShortCut *mod_shortcut_page() { return page_shortcut; }

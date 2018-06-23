@@ -41,11 +41,18 @@ bool Translator::loadCatalog(QTranslator & t, QString name, QString locale, QStr
 	return r;
 }
 
-void Translator::load(/*QString locale*/) {
+void Translator::load(const QString &snap/*QString locale*/) {
     QString locale = QLocale::system().name();
 
 	QString trans_path = Paths::translationPath();
-    QString qt_trans_path = Paths::qtTranslationPath();
+    //edited by kobe 20160823
+    QString qt_trans_path;
+    if (!snap.isEmpty()) {
+        qt_trans_path = QString("%1%2").arg(snap).arg(Paths::qtTranslationPath());
+    }
+    else {
+        qt_trans_path = Paths::qtTranslationPath();
+    }
 
 	// In linux try to load it first from app path (in case there's an updated
     // translation), if it fails it will try then from the Qt path.

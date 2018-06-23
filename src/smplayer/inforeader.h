@@ -61,7 +61,7 @@ class InfoReader : QObject {
 	Q_OBJECT
 
 public:
-	InfoReader( QString mplayer_bin, QObject * parent = 0 );
+    InfoReader(const QString &snap, QString mplayer_bin, QObject * parent = 0);
 	~InfoReader();
 
 	void setPlayerBin(const QString & bin);
@@ -89,7 +89,7 @@ public:
 
 	//! Returns an InfoReader object. If it didn't exist before, one
 	//! is created.
-	static InfoReader * obj(const QString & mplayer_bin = QString::null);
+    static InfoReader * obj(const QString & snap = QString::null, const QString & mplayer_bin = QString::null);
 
 protected:
 	QString mplayerbin;
@@ -109,6 +109,8 @@ protected:
 //	QString mplayer2_version;
 //	bool is_mplayer2;
     bool is_mpv;
+
+    QString m_snap;
 
 private:
 	static InfoReader * static_obj;

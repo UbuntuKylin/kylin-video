@@ -35,7 +35,7 @@
 #include <QTextBrowser>
 #include <QPushButton>
 
-PreferencesDialog::PreferencesDialog(QString arch_type, QWidget * parent, Qt::WindowFlags f)
+PreferencesDialog::PreferencesDialog(QString arch_type, QString snap, QWidget * parent, Qt::WindowFlags f)
 	: QDialog(parent, f )
     , drag_state(NOT_PDRAGGING)
     , start_drag(QPoint(0,0))
@@ -87,14 +87,14 @@ PreferencesDialog::PreferencesDialog(QString arch_type, QWidget * parent, Qt::Wi
     m_buttonList << btn;
     btn->setActived(true);
 
-    page_video = new PrefVideo(arch_type);
+    page_video = new PrefVideo(arch_type, snap);
     addSection(page_video);
     btn = new TitleButton(1, false, tr("Video"));
     connect(btn, SIGNAL(clicked(int)), this, SLOT(onButtonClicked(int)));
     layout->addWidget(btn);
     m_buttonList << btn;
 
-    page_audio = new PrefAudio;
+    page_audio = new PrefAudio(snap);
     addSection(page_audio);
     btn = new TitleButton(2, false, tr("Audio"));
     connect(btn, SIGNAL(clicked(int)), this, SLOT(onButtonClicked(int)));

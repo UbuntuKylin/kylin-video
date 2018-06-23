@@ -29,7 +29,7 @@ public:
 	Translator();
 	~Translator();
 
-    void load();
+    void load(const QString &snap);
 
 protected:
 	static bool loadCatalog(QTranslator & t, QString name, QString locale, QString dir);

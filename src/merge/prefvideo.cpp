@@ -27,13 +27,15 @@
 #include <QDebug>
 #include "../smplayer/deviceinfo.h"
 
-PrefVideo::PrefVideo(QString arch_type, QWidget * parent, Qt::WindowFlags f)
+PrefVideo::PrefVideo(QString arch_type, QString snap, QWidget * parent, Qt::WindowFlags f)
     : PrefWidget(parent, f ), arch(arch_type)
 {
 	setupUi(this);
 
+    this->m_snap = snap;
+
 	// Read driver info from InfoReader:
-	InfoReader * i = InfoReader::obj();
+    InfoReader * i = InfoReader::obj(this->m_snap);//20181212
 	i->getInfo();
 	vo_list = i->voList();
 	alsa_devices = DeviceInfo::alsaDevices();
@@ -94,7 +96,7 @@ void PrefVideo::getData(Preferences * pref) {
 
 void PrefVideo::update_driver_combobox()
 {
-    InfoReader * i = InfoReader::obj();
+    InfoReader * i = InfoReader::obj(this->m_snap);//20181212
     i->getInfo();
     // Update the drivers list at the same time
     vo_list = i->voList();

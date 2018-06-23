@@ -20,24 +20,42 @@
 #include <QFileInfo>
 #include <QDebug>
 
-PlayerID::Player PlayerID::player(const QString & player_bin) {
-	Player p;
+//edited by kobe 20180623
+PlayerID::Player PlayerID::player(const QString & player_bin/*, const QString &snap*/) {
+    /*Player p;
 	QString bin_name;
 
-	QFileInfo fi(player_bin);
+    //edited by kobe 20180623
+    QString m_player_bin;
+    if (!snap.isEmpty()) {
+        m_player_bin = QString("%1%2").arg(snap).arg(player_bin);
+    }
+    else {
+        m_player_bin = player_bin;
+    }
+
+    QFileInfo fi(m_player_bin);
 	if (fi.exists() && fi.isExecutable() && !fi.isDir()) {
 		bin_name = fi.fileName();
 	} else {
-		bin_name = player_bin;
-	}
+        bin_name = m_player_bin;
+    }
 
-//	qDebug() << "PlayerID::Player: player_bin:" << player_bin << "filename:" << bin_name;
+//	qDebug() << "PlayerID::Player: m_player_bin:" << m_player_bin << "filename:" << bin_name;
+
 
 	if (bin_name.toLower().startsWith("mplayer")) {
 		p = MPLAYER;
 	} else {
 		p = MPV;
 	}
+    */
+    Player p;
+    if (player_bin.toLower().contains("mplayer")) {
+        p = MPLAYER;
+    } else {
+        p = MPV;
+    }
 
 	return p;
 }

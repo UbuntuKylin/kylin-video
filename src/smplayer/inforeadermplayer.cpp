@@ -37,10 +37,11 @@ using namespace Global;
 #define AC 5
 
 
-InfoReaderMplayer::InfoReaderMplayer( QString mplayer_bin, QObject * parent )
+InfoReaderMplayer::InfoReaderMplayer( QString mplayer_bin, const QString &snap, QObject * parent )
 	: QObject(parent)
 	, proc(0)
     , mplayer_svn(0)
+    , m_snap(snap)
 //	, is_mplayer2(false)
 {
 	mplayerbin = mplayer_bin;
@@ -216,8 +217,16 @@ bool InfoReaderMplayer::run(QString options) {
 	}
 
 	QStringList args = options.split(" ");
+    //edited by kobe 20180623
+    QString abs_bin;
+    if (!this->m_snap.isEmpty()) {
+        abs_bin = QString("%1%2").arg(this->m_snap).arg(mplayerbin);
+    }
+    else {
+        abs_bin = mplayerbin;
+    }
 
-	proc->start(mplayerbin, args);
+    proc->start(abs_bin, args);
 	if (!proc->waitForStarted()) {
 		qWarning("InfoReaderMplayer::run: process can't start!");
 		return false;

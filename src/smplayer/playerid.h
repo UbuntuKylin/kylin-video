@@ -28,7 +28,8 @@ class PlayerID
 {
 public:
 	enum Player { MPLAYER = 0, MPV = 1 };
-	static Player player(const QString & player_bin);
+    //edited by kobe 20180623
+    static Player player(const QString & player_bin/*, const QString &snap*/);
 };
 
 #endif

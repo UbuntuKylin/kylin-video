@@ -82,9 +82,10 @@ void PrefScreenShot::setData(Preferences *pref) {
     screenshot_template_edit->setText(pref->screenshot_template);
     setScreenshotFormat(pref->screenshot_format);
 
-    QString destPath = Paths::appPath() + "/mpv";
-//    if (pref->mplayer_bin == "/usr/bin/mpv") {
-    if (pref->mplayer_bin == destPath) {
+    //edited by kobe 20180623
+//    QString destPath = Paths::appPath() + "/mpv";
+//    if (pref->mplayer_bin == destPath) {
+    if (pref->mplayer_bin == "/usr/bin/mpv") {
             screenshot_template_label->show();
             screenshot_template_edit->show();
             screenshot_format_label->show();

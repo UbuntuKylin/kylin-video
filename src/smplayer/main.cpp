@@ -72,7 +72,18 @@ int main( int argc, char ** argv )
         arch = "aarch64";
 #endif
 
-    KylinVideo *player = new KylinVideo(arch);
+    //edited by kobe 20180623
+    QString snap_path;
+    const char *snap;
+    if ((snap = getenv("SNAP")) != NULL) {///snap/kylin-video/x1/
+        snap_path = QString::fromStdString(std::string(snap));
+        qDebug() << "SNAP=====" << snap_path;
+    }
+    else {
+        qDebug() << "Get SNAP path failed!!!";
+    }
+
+    KylinVideo *player = new KylinVideo(arch, snap);
     KylinVideo::ExitCode c = player->processArgs(args);
     if (c != KylinVideo::NoExit) {
 		return c;

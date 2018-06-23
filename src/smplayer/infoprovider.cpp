@@ -23,17 +23,31 @@
 #include "playerid.h"
 #include <QFileInfo>
 
-MediaData InfoProvider::getInfo(QString mplayer_bin, QString filename) {
-	qDebug("InfoProvider::getInfo: %s", filename.toUtf8().data());
+#include <stdlib.h>
 
-	QFileInfo fi(mplayer_bin);
+MediaData InfoProvider::getInfo(QString mplayer_bin, QString filename) {
+    //qDebug("InfoProvider::getInfo: %s", filename.toUtf8().data());
+
+    //edited by kobe 20180623
+    QString bin_path;
+    QString snap_path;
+    const char *snap;
+    if ((snap = getenv("SNAP")) != NULL) {///snap/kylin-video/x1/
+        snap_path = QString::fromStdString(std::string(snap));
+        bin_path = QString("%1%2").arg(snap_path).arg(mplayer_bin);
+    }
+    else {
+        bin_path = mplayer_bin;
+    }
+
+    QFileInfo fi(bin_path);
 	if (fi.exists() && fi.isExecutable() && !fi.isDir()) {
-		mplayer_bin = fi.absoluteFilePath();
+        bin_path = fi.absoluteFilePath();
 	}
 
-	PlayerProcess * proc = PlayerProcess::createPlayerProcess(mplayer_bin, 0);
+    PlayerProcess * proc = PlayerProcess::createPlayerProcess(mplayer_bin, snap_path, 0);
 
-	proc->setExecutable(mplayer_bin);
+    proc->setExecutable(bin_path);
 	proc->setFixedOptions();
 	proc->setOption("frames", "1");
 	proc->setOption("vo", "null");
@@ -41,7 +55,7 @@ MediaData InfoProvider::getInfo(QString mplayer_bin, QString filename) {
 	proc->setMedia(filename);
 
 	QString commandline = proc->arguments().join(" ");
-	qDebug("InfoProvider::getInfo: command: '%s'", commandline.toUtf8().data());
+    qDebug("InfoProvider::getInfo: command: '%s'", commandline.toUtf8().data());
 
 	proc->start();
 	if (!proc->waitForFinished()) {
@@ -56,5 +70,5 @@ MediaData InfoProvider::getInfo(QString mplayer_bin, QString filename) {
 }
 
 MediaData InfoProvider::getInfo(QString filename) {
-	return getInfo( Global::pref->mplayer_bin, filename );
+    return getInfo(Global::pref->mplayer_bin, filename);
 }

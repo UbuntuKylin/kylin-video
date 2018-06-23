@@ -38,12 +38,13 @@
 
 using namespace Global;
 
-Core::Core( MplayerWindow *mpw, QWidget* parent ) 
+Core::Core(MplayerWindow *mpw, const QString &snap, QWidget* parent)
 	: QObject( parent ) 
 {
 	qRegisterMetaType<Core::State>("Core::State");
 
 	mplayerwindow = mpw;
+    m_snap = snap;
 
 	_state = Stopped;
 
@@ -61,7 +62,9 @@ Core::Core( MplayerWindow *mpw, QWidget* parent )
     file_settings = 0;
     changeFileSettingsMethod("normal"/*pref->file_settings_method*/);//normal or hash
 
-	proc = PlayerProcess::createPlayerProcess(pref->mplayer_bin);
+    //TODO: edited by kobe 20180623
+    //程序启动的时候是mpv时，启动参数会设置--no-config，此时在不重启程序的情况下切换到mplayer，则播放报错，因为mplayer不支持--no-config这个参数，后续需要在切换播放器的时候重新new出proc对象
+    proc = PlayerProcess::createPlayerProcess(pref->mplayer_bin, this->m_snap);
 
 	// Do this the first
 	connect( proc, SIGNAL(processExited()),
@@ -1235,10 +1238,18 @@ void Core::startMplayer( QString file, double seek ) {
 	// the mplayer path might not be found if it's a relative path
 	// (seems to be necessary only for linux)
 	QString mplayer_bin = pref->mplayer_bin;
-	QFileInfo fi(mplayer_bin);
+
+    //edited by kobe 20180623
+    /*QFileInfo fi(mplayer_bin);
 	if (fi.exists() && fi.isExecutable() && !fi.isDir()) {
 		mplayer_bin = fi.absoluteFilePath();
-	}
+    }*/
+    if (!this->m_snap.isEmpty()) {
+        proc->setExecutable(QString("%1%2").arg(this->m_snap).arg(mplayer_bin));// /snap/kylin-video/x1/usr/bin/mpv
+    }
+    else {
+        proc->setExecutable(mplayer_bin);// /usr/bin/mpv
+    }
 
 	// debian/ubuntu specific check if we are using mplayer2
 //	if ((fi.baseName().toLower() == "mplayer2") || !access("/usr/share/doc/mplayer2/copyright", F_OK)) {
@@ -1247,8 +1258,6 @@ void Core::startMplayer( QString file, double seek ) {
 //			pref->mplayer_is_mplayer2 = true;
 //		}
 //	}
-
-    proc->setExecutable(mplayer_bin);// /usr/bin/mplayer
 	proc->setFixedOptions();
 
 //#ifdef LOG_MPLAYER

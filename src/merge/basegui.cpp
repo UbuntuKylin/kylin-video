@@ -89,7 +89,7 @@ inline bool inRectCheck(QPoint point, QRect rect) {
     return x && y;
 }
 
-BaseGui::BaseGui(QString arch_type, QWidget* parent, Qt::WindowFlags flags)
+BaseGui::BaseGui(QString arch_type, QString snap, QWidget* parent, Qt::WindowFlags flags)
     : QMainWindow( parent, flags )
 #if QT_VERSION >= 0x050000
 	, was_minimized(false)
@@ -104,6 +104,7 @@ BaseGui::BaseGui(QString arch_type, QWidget* parent, Qt::WindowFlags flags)
     this->setWindowIcon(QIcon(":/res/kylin-video.png"));
 
     arch = arch_type;
+    m_snap = snap;
     ignore_show_hide_events = false;
     arg_close_on_finish = -1;
     arg_start_in_fullscreen = -1;
@@ -1123,7 +1124,7 @@ void BaseGui::enableActionsOnPlaying() {
         rotateGroup->setActionsEnabled(false);
     }
 
-    if (pref->hwdec.startsWith("vdpau") && pref->mplayer_bin.contains("mpv")) {//kobe 20170706
+    if (pref->hwdec.startsWith("vdpau") && pref->mplayer_bin.contains("/usr/bin/mpv")) {//kobe 20170706
         screenshotAct->setEnabled(false);
     }
 
@@ -1181,7 +1182,9 @@ void BaseGui::setJumpTexts() {
 }
 
 void BaseGui::createCore() {
-    core = new Core(mplayerwindow, this);
+    //edited by kobe 20180623
+    core = new Core(mplayerwindow, this->m_snap, this);
+
     connect(core, SIGNAL(widgetsNeedUpdate()), this, SLOT(updateWidgets()));
     connect(core, SIGNAL(showFrame(int)), this, SIGNAL(frameChanged(int)));
     connect(core, SIGNAL(ABMarkersChanged(int,int)), this, SIGNAL(ABMarkersChanged(int,int)));
@@ -1269,7 +1272,7 @@ void BaseGui::createPanel() {
 
 void BaseGui::createPreferencesDialog() {
     QApplication::setOverrideCursor(Qt::WaitCursor);
-    pref_dialog = new PreferencesDialog(arch/*, this*/);
+    pref_dialog = new PreferencesDialog(arch, this->m_snap/*, this*/);
     pref_dialog->setModal(false);
     connect(pref_dialog, SIGNAL(applied()), this, SLOT(applyNewPreferences()));
     QApplication::restoreOverrideCursor();
@@ -1285,7 +1288,7 @@ void BaseGui::createFilePropertiesDialog() {
 
 void BaseGui::createAboutDialog() {
     QApplication::setOverrideCursor(Qt::WaitCursor);
-    aboutDlg = new AboutDialog();
+    aboutDlg = new AboutDialog(this->m_snap);
     aboutDlg->setModal(false);
     QApplication::restoreOverrideCursor();
 }
@@ -1381,7 +1384,8 @@ void BaseGui::showPreferencesDialog() {
 
 // The user has pressed OK in preferences dialog
 void BaseGui::applyNewPreferences() {
-    PlayerID::Player old_player_type = PlayerID::player(pref->mplayer_bin);
+    //edited by kobe 20180623
+    PlayerID::Player old_player_type = PlayerID::player(pref->mplayer_bin/*, this->m_snap*/);
     pref_dialog->getData(pref);
     m_bottomToolbar->setPreviewData(pref->preview_when_playing);
     mplayerwindow->activateMouseDragTracking(true/*pref->move_when_dragging*/);
@@ -1397,7 +1401,8 @@ void BaseGui::applyNewPreferences() {
     saveActions();
 	pref->save();
 
-    if (old_player_type != PlayerID::player(pref->mplayer_bin)) {
+    //edited by kobe 20180623
+    if (old_player_type != PlayerID::player(pref->mplayer_bin/*, this->m_snap*/)) {
 //        qDebug("BaseGui::applyNewPreferences: player changed!");
         // Hack, simulate a change of GUI to restart the interface
         // FIXME: try to create a new Core::proc in the future
@@ -1425,7 +1430,7 @@ void BaseGui::showFilePropertiesDialog() {
 }
 
 void BaseGui::setDataToFileProperties() {
-    InfoReader *i = InfoReader::obj();
+    InfoReader *i = InfoReader::obj(this->m_snap);//20181212
     i->getInfo();
     file_dialog->setCodecs( i->vcList(), i->acList(), i->demuxerList() );
 

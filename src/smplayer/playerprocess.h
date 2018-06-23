@@ -131,7 +131,7 @@ public:
 //	virtual void setCaptureDirectory(const QString & dir);
 //#endif
 
-	static PlayerProcess * createPlayerProcess(const QString & player_bin, QObject * parent = 0);
+    static PlayerProcess * createPlayerProcess(const QString & player_bin, const QString & snap, QObject * parent = 0);
 
 // Signals
 signals:

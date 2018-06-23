@@ -35,11 +35,12 @@
 
 using namespace Global;
 
-AboutDialog::AboutDialog(QWidget * parent, Qt::WindowFlags f)
+AboutDialog::AboutDialog(const QString &snap, QWidget * parent, Qt::WindowFlags f)
 	: QDialog(parent, f)
     , drag_state(NOT_ADRAGGING)
     , tab_state(TAB_ABOUT)
     , start_drag(QPoint(0,0))
+    , m_snap(snap)
 {
 	setupUi(this);
     this->setWindowFlags(Qt::FramelessWindowHint);
@@ -78,7 +79,7 @@ AboutDialog::AboutDialog(QWidget * parent, Qt::WindowFlags f)
     this->initConnect();
     this->initAnimation();
 
-//	InfoReader * i = InfoReader::obj(pref->mplayer_bin);
+//	InfoReader * i = InfoReader::obj(pref->mplayer_bin, this->m_snap);
 //	i->getInfo();
 
 //    aboutText->setText(
@@ -148,7 +149,7 @@ void AboutDialog::initAnimation()
 
 void AboutDialog::setVersions()
 {
-    InfoReader * i = InfoReader::obj(pref->mplayer_bin);
+    InfoReader * i = InfoReader::obj(this->m_snap, pref->mplayer_bin);//20181212
     i->getInfo();
 
     aboutText->setText(

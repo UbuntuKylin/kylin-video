@@ -1,18 +1,23 @@
 name: kylin-video
-version: "1.1.6"
+version: "1.1.6.2"
 summary: Kylin Video
 description: |
   Qt5 Mplayer and MPV front-end, with basic features like playing
   videos and audios to more advanced features. It supports both x86
   and ARM platform, and supports most of the audio and video formats.
 
+  Features currently included:
+   * Display the application icon
+   * Add network-bind plug to solve this error: QtSingleCoreApplication listen on local socket failed
+   * Support debian and snap
+
 grade: stable #devel
 confinement: strict #devmode
 
 apps:
   kylin-video:
-    command: desktop-launch kylin-video
-    plugs: [home, network, desktop, pulseaudio, x11]
+    command: desktop-launch $SNAP/usr/bin/kylin-video
+    plugs: [home, unity7, network, network-bind, desktop, pulseaudio, x11]
 
 parts:
   kylin-video:
@@ -20,6 +25,7 @@ parts:
     source: .
     qt-version: qt5
     build-packages:
+      - build-essential
       - g++
       - qtbase5-dev
       - qt5-qmake

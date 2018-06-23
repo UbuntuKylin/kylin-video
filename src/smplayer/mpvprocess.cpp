@@ -31,7 +31,7 @@ using namespace Global;
 
 static QRegExp mpv_screenshot("Screenshot: '(.*)'");
 
-MPVProcess::MPVProcess(QObject * parent)
+MPVProcess::MPVProcess(const QString &snap, QObject * parent)
 	: PlayerProcess(parent)
 	, notified_mplayer_is_running(false)
 	, notified_pause(false)
@@ -52,6 +52,8 @@ MPVProcess::MPVProcess(QObject * parent)
 	, dvd_current_title(-1)
 	, br_current_title(-1)
 {
+    this->m_snap = snap;
+
 	player_id = PlayerID::MPV;
 
 	connect( this, SIGNAL(lineAvailable(QByteArray)),

@@ -8,7 +8,9 @@ Installation
 ============
 
 qmake
+
 make
+
 sudo make install
 
 
@@ -20,13 +22,21 @@ Bugs should be report to the kylin-video bug tracking system:
 
 
 Snap:
+
 snapcraft
+
 snapcraft clean
+
 sudo snap install kylin-video_1.1.6_amd64.snap --devmode
+
 sudo snap install kylin-video_1.1.6_amd64.snap --classic --dangerous
+
 sudo snap install kylin-video_1.1.6_amd64.snap --stable --dangerous
+
 sudo snap remove kylin-video
+
 unsquashfs -l kylin-video_1.1.6_amd64.snap | less
+
 unsquashfs kylin-video_1.1.6_amd64.snap
 
 查看已经存在的plug及slot:   snap interfaces (snapcraft plugins    snapcraft list-plugins)

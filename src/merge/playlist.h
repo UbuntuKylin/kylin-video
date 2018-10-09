@@ -69,7 +69,7 @@ public slots:
 
 	// Start playing, from item 0 if shuffle is off, or from
 	// a random item otherwise
-	void startPlay();
+	void startPlayPause();
 
 	void playItem(int n);
 

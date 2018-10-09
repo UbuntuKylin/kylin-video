@@ -17,32 +17,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _BOTTOMCONTROLLER_H_
-#define _BOTTOMCONTROLLER_H_
+#ifndef _FILTERHANDLER_H_
+#define _FILTERHANDLER_H_
 
 #include <QObject>
 
-class QTimer;
+class BaseGui;
 
-class BottomController : public QObject
+class FilterHandler : public QObject
 {
     Q_OBJECT
 
 public:
-    BottomController(QObject *parent);
-    ~BottomController();
-
-public slots:
-    void temporaryShow();
-    void permanentShow();
-    void onTimeout();
+    FilterHandler(BaseGui &gui, QObject &obj);
+    ~FilterHandler();
 
 signals:
-    void requestShow();
-    void requestHide();
+    void mouseMoved();
+
+protected:
+    bool eventFilter(QObject *obj, QEvent *event);
 
 private:
-    QTimer *timer = nullptr;
+    BaseGui *m_baseGui;
 };
 
-#endif // _BOTTOMCONTROLLER_H_
+#endif // _FILTERHANDLER_H_

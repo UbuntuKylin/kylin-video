@@ -113,7 +113,8 @@ HEADERS += smplayer/config.h \
         kylin/helpdialog.h \
         kylin/supportformats.h \
         kylin/systembutton.h \
-        bottomcontroller.h
+        bottomcontroller.h \
+        filterhandler.h
 
 SOURCES	+= smplayer/version.cpp \
         smplayer/mplayerversion.cpp \
@@ -197,7 +198,8 @@ SOURCES	+= smplayer/version.cpp \
         kylin/helpdialog.cpp \
         kylin/supportformats.cpp \
         kylin/systembutton.cpp \
-        bottomcontroller.cpp
+        bottomcontroller.cpp \
+        filterhandler.cpp
 
 FORMS = smplayer/timedialog.ui \
         merge/preferencesdialog.ui \

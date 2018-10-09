@@ -229,7 +229,7 @@ MplayerWindow::MplayerWindow(QWidget* parent, Qt::WindowFlags f)
 	setSizePolicy( QSizePolicy::Expanding , QSizePolicy::Expanding );
 	setFocusPolicy( Qt::StrongFocus );
 
-	installEventFilter(this);
+    this->installEventFilter(this);
 	mplayerlayer->installEventFilter(this);
 	//logo->installEventFilter(this);
 

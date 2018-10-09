@@ -44,8 +44,9 @@ TitleWidget::TitleWidget(QWidget *parent)
     , start_drag(QPoint(0,0))
 {
     this->setMouseTracking(true);
+    setAutoFillBackground(true);
+    setFocusPolicy(Qt::ClickFocus);
 
-    this->setAutoFillBackground(true);//20170615
     this->setStyleSheet("QWidget{background:transparent;}");//20170615   rgba(255, 255, 255, 20%);
 
     QPalette palette;
@@ -57,6 +58,7 @@ TitleWidget::TitleWidget(QWidget *parent)
     //201810
 //    parent->installEventFilter(this);
 //    installFilter(parent);
+    this->installEventFilter(this);
 
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(checkUnderMouse()));
@@ -247,29 +249,29 @@ int TitleWidget::hideDelay() {
     return timer->interval();
 }
 
-void TitleWidget::installFilter(QObject *o) {
-    QObjectList children = o->children();
-    for (int n=0; n < children.count(); n++) {
-        if (children[n]->isWidgetType()) {
-            if (children[n]->objectName() == "PlayListViewScrollBar") {//kobe:让滚动条可以鼠标拖动
-                continue;
-            }
-            else if (children[n]->objectName() == "min_button" || children[n]->objectName() == "close_button" || children[n]->objectName() == "menu_button" || children[n]->objectName() == "max_button") {
-                continue;
-            }
-            else if (children[n]->objectName() == "StopBtn" || children[n]->objectName() == "PrevBtn" || children[n]->objectName() == "PlayBtn" || children[n]->objectName() == "NextBtn") {
-                continue;
-            }
-            else if (children[n]->objectName() == "SoundBtn" || children[n]->objectName() == "FullScreenBtn" || children[n]->objectName() == "PlayListBtn" || children[n]->objectName() == "VolumeSlider") {
-                continue;
-            }
-            QWidget *w = static_cast<QWidget *>(children[n]);
-            w->setMouseTracking(true);
-            w->installEventFilter(this);
-            installFilter(children[n]);
-        }
-    }
-}
+//void TitleWidget::installFilter(QObject *o) {
+//    QObjectList children = o->children();
+//    for (int n=0; n < children.count(); n++) {
+//        if (children[n]->isWidgetType()) {
+//            if (children[n]->objectName() == "PlayListViewScrollBar") {//kobe:让滚动条可以鼠标拖动
+//                continue;
+//            }
+//            else if (children[n]->objectName() == "min_button" || children[n]->objectName() == "close_button" || children[n]->objectName() == "menu_button" || children[n]->objectName() == "max_button") {
+//                continue;
+//            }
+//            else if (children[n]->objectName() == "StopBtn" || children[n]->objectName() == "PrevBtn" || children[n]->objectName() == "PlayBtn" || children[n]->objectName() == "NextBtn") {
+//                continue;
+//            }
+//            else if (children[n]->objectName() == "SoundBtn" || children[n]->objectName() == "FullScreenBtn" || children[n]->objectName() == "PlayListBtn" || children[n]->objectName() == "VolumeSlider") {
+//                continue;
+//            }
+//            QWidget *w = static_cast<QWidget *>(children[n]);
+//            w->setMouseTracking(true);
+//            w->installEventFilter(this);
+//            installFilter(children[n]);
+//        }
+//    }
+//}
 
 //201810
 void TitleWidget::activate() {
@@ -286,10 +288,10 @@ void TitleWidget::deactivate() {
 }
 
 void TitleWidget::showAlways() {
-    timer->stop();
-    QPoint dest_position = QPoint(0, 0);
-    move(dest_position);
-    QWidget::show();
+//    timer->stop();
+//    QPoint dest_position = QPoint(0, 0);
+//    move(dest_position);
+//    QWidget::show();
 }
 
 void TitleWidget::enable_turned_on() {
@@ -297,10 +299,10 @@ void TitleWidget::enable_turned_on() {
 }
 
 void TitleWidget::showWidget() {
-    showSpreadAnimated();
-    if (timer->isActive())
-        timer->stop();
-    timer->start();
+//    showSpreadAnimated();
+//    if (timer->isActive())
+//        timer->stop();
+//    timer->start();
 }
 
 void TitleWidget::checkUnderMouse() {
@@ -310,140 +312,140 @@ void TitleWidget::checkUnderMouse() {
 }
 
 //201810
-//bool TitleWidget::eventFilter(QObject * obj, QEvent * event) {
-//    QEvent::Type type = event->type();
-//    if (type != QEvent::MouseButtonPress
-//        && type != QEvent::MouseButtonRelease
-//        && type != QEvent::MouseMove)
-//        return false;
-//    QMouseEvent *mouseEvent = dynamic_cast<QMouseEvent*>(event);
-//    if (!mouseEvent)
-//        return false;
-//    if (mouseEvent->modifiers() != Qt::NoModifier) {
-//        drag_state = NOT_TDRAGGING;
-//        return false;
-//    }
+bool TitleWidget::eventFilter(QObject * obj, QEvent * event) {
+    QEvent::Type type = event->type();
+    if (type != QEvent::MouseButtonPress
+        && type != QEvent::MouseButtonRelease
+        && type != QEvent::MouseMove)
+        return false;
+    QMouseEvent *mouseEvent = dynamic_cast<QMouseEvent*>(event);
+    if (!mouseEvent)
+        return false;
+    if (mouseEvent->modifiers() != Qt::NoModifier) {
+        drag_state = NOT_TDRAGGING;
+        return false;
+    }
 
-//    if (turned_on) {
-//        if (event->type() == QEvent::MouseMove) {
-//    //        qDebug() << "TitleWidget::eventFilter: mouse move" << obj;
-//            if (!isVisible()) {
-//                showWidget();
-//                /*if (activation_area == Anywhere) {
-//                    showWidget();
-//                } else {
-//                    QMouseEvent * mouse_event = dynamic_cast<QMouseEvent*>(event);
-//                    QWidget * parent = parentWidget();
-//                    QPoint p = parent->mapFromGlobal(mouse_event->globalPos());
-//                    if (p.y() > (parent->height() - height() - spacing)) {
-//                        showWidget();
-//                    }
-//                }*/
-//            }
-//        }
+    if (turned_on) {
+        if (event->type() == QEvent::MouseMove) {
+    //        qDebug() << "TitleWidget::eventFilter: mouse move" << obj;
+            if (!isVisible()) {
+                showWidget();
+                /*if (activation_area == Anywhere) {
+                    showWidget();
+                } else {
+                    QMouseEvent * mouse_event = dynamic_cast<QMouseEvent*>(event);
+                    QWidget * parent = parentWidget();
+                    QPoint p = parent->mapFromGlobal(mouse_event->globalPos());
+                    if (p.y() > (parent->height() - height() - spacing)) {
+                        showWidget();
+                    }
+                }*/
+            }
+        }
 
-//        if (type == QEvent::MouseButtonPress) {
-//            if (mouseEvent->button() != Qt::LeftButton) {
-//                drag_state = NOT_TDRAGGING;
-//                return false;
-//            }
+        if (type == QEvent::MouseButtonPress) {
+            if (mouseEvent->button() != Qt::LeftButton) {
+                drag_state = NOT_TDRAGGING;
+                return false;
+            }
 
-//            drag_state = START_TDRAGGING;
-//            start_drag = mouseEvent->globalPos();
-//            // Don't filter, so others can have a look at it too
-//            return false;
-//        }
+            drag_state = START_TDRAGGING;
+            start_drag = mouseEvent->globalPos();
+            // Don't filter, so others can have a look at it too
+            return false;
+        }
 
-//        if (type == QEvent::MouseButtonRelease) {
-//            if (drag_state != TDRAGGING || mouseEvent->button() != Qt::LeftButton) {
-//                drag_state = NOT_TDRAGGING;
-//                return false;
-//            }
+        if (type == QEvent::MouseButtonRelease) {
+            if (drag_state != TDRAGGING || mouseEvent->button() != Qt::LeftButton) {
+                drag_state = NOT_TDRAGGING;
+                return false;
+            }
 
-//            // Stop dragging and eat event
-//            drag_state = NOT_TDRAGGING;
-//            event->accept();
-//            return true;
-//        }
+            // Stop dragging and eat event
+            drag_state = NOT_TDRAGGING;
+            event->accept();
+            return true;
+        }
 
-//        // type == QEvent::MouseMove
-//        if (drag_state == NOT_TDRAGGING)
-//            return false;
+        // type == QEvent::MouseMove
+        if (drag_state == NOT_TDRAGGING)
+            return false;
 
-//        // buttons() note the s
-//        if (mouseEvent->buttons() != Qt::LeftButton) {
-//            drag_state = NOT_TDRAGGING;
-//            return false;
-//        }
+        // buttons() note the s
+        if (mouseEvent->buttons() != Qt::LeftButton) {
+            drag_state = NOT_TDRAGGING;
+            return false;
+        }
 
-//        QPoint pos = mouseEvent->globalPos();
-//        QPoint diff = pos - start_drag;
-//        if (drag_state == START_TDRAGGING) {
-//            // Don't start dragging before moving at least DRAG_THRESHOLD pixels
-//            if (abs(diff.x()) < 4 && abs(diff.y()) < 4)
-//                return false;
+        QPoint pos = mouseEvent->globalPos();
+        QPoint diff = pos - start_drag;
+        if (drag_state == START_TDRAGGING) {
+            // Don't start dragging before moving at least DRAG_THRESHOLD pixels
+            if (abs(diff.x()) < 4 && abs(diff.y()) < 4)
+                return false;
 
-//            drag_state = TDRAGGING;
-//        }
+            drag_state = TDRAGGING;
+        }
 
-//        emit mouseMovedDiff(diff);
-//        start_drag = pos;
+        emit mouseMovedDiff(diff);
+        start_drag = pos;
 
-//        event->accept();
-//        return true;
-//    }
-//    else {
-//        if (type == QEvent::MouseButtonPress) {
-//            if (mouseEvent->button() != Qt::LeftButton) {
-//                drag_state = NOT_TDRAGGING;
-//                return false;
-//            }
+        event->accept();
+        return true;
+    }
+    else {
+        if (type == QEvent::MouseButtonPress) {
+            if (mouseEvent->button() != Qt::LeftButton) {
+                drag_state = NOT_TDRAGGING;
+                return false;
+            }
 
-//            drag_state = START_TDRAGGING;
-//            start_drag = mouseEvent->globalPos();
-//            // Don't filter, so others can have a look at it too
-//            return false;
-//        }
+            drag_state = START_TDRAGGING;
+            start_drag = mouseEvent->globalPos();
+            // Don't filter, so others can have a look at it too
+            return false;
+        }
 
-//        if (type == QEvent::MouseButtonRelease) {
-//            if (drag_state != TDRAGGING || mouseEvent->button() != Qt::LeftButton) {
-//                drag_state = NOT_TDRAGGING;
-//                return false;
-//            }
+        if (type == QEvent::MouseButtonRelease) {
+            if (drag_state != TDRAGGING || mouseEvent->button() != Qt::LeftButton) {
+                drag_state = NOT_TDRAGGING;
+                return false;
+            }
 
-//            // Stop dragging and eat event
-//            drag_state = NOT_TDRAGGING;
-//            event->accept();
-//            return true;
-//        }
+            // Stop dragging and eat event
+            drag_state = NOT_TDRAGGING;
+            event->accept();
+            return true;
+        }
 
-//        // type == QEvent::MouseMove
-//        if (drag_state == NOT_TDRAGGING)
-//            return false;
+        // type == QEvent::MouseMove
+        if (drag_state == NOT_TDRAGGING)
+            return false;
 
-//        // buttons() note the s
-//        if (mouseEvent->buttons() != Qt::LeftButton) {
-//            drag_state = NOT_TDRAGGING;
-//            return false;
-//        }
+        // buttons() note the s
+        if (mouseEvent->buttons() != Qt::LeftButton) {
+            drag_state = NOT_TDRAGGING;
+            return false;
+        }
 
-//        QPoint pos = mouseEvent->globalPos();
-//        QPoint diff = pos - start_drag;
-//        if (drag_state == START_TDRAGGING) {
-//            // Don't start dragging before moving at least DRAG_THRESHOLD pixels
-//            if (abs(diff.x()) < 4 && abs(diff.y()) < 4)
-//                return false;
+        QPoint pos = mouseEvent->globalPos();
+        QPoint diff = pos - start_drag;
+        if (drag_state == START_TDRAGGING) {
+            // Don't start dragging before moving at least DRAG_THRESHOLD pixels
+            if (abs(diff.x()) < 4 && abs(diff.y()) < 4)
+                return false;
 
-//            drag_state = TDRAGGING;
-//        }
+            drag_state = TDRAGGING;
+        }
 
-//        emit mouseMovedDiff(diff);
-//        start_drag = pos;
+        emit mouseMovedDiff(diff);
+        start_drag = pos;
 
-//        event->accept();
-//        return true;
-//    }
-//}
+        event->accept();
+        return true;
+    }
+}
 
 void TitleWidget::spreadAniFinished() {
 }

@@ -154,7 +154,7 @@ private slots:
     void showGatherAnimated();
 
 private:
-    void installFilter(QObject *o);
+//    void installFilter(QObject *o);
 
 private:
     bool turned_on;

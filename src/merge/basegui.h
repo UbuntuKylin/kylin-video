@@ -51,6 +51,7 @@ class BottomWidget;
 class PlayMask;
 class VideoPreview;
 class BottomController;
+class FilterHandler;
 //class ShortcutsWidget;
 
 class BaseGui : public QMainWindow
@@ -75,6 +76,9 @@ public:
     void slideEdgeWidget(QWidget *right, QRect start, QRect end, int delay, bool hide = false);
     void disableControl(int delay = 350);
     bool mouseInControlsArea();
+
+    void parseArguments();
+//    void setResizeCornerFilter();
 
 public slots:
     void slot_mute(/*bool b*/);
@@ -124,7 +128,7 @@ public slots:
     void ready_save_pre_image(int time);
 //    void showShortcuts();
 
-    void startPlay();
+    void startPlayPause();
 
 protected slots:
 	virtual void closeWindow();
@@ -225,6 +229,7 @@ protected:
 #endif
     void closeEvent(QCloseEvent *event);
     void mousePressEvent(QMouseEvent *event);
+    void mouseReleaseEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
     virtual bool eventFilter(QObject *obj, QEvent *event) override;
     virtual void resizeEvent(QResizeEvent *e) override;//20170720
@@ -247,6 +252,7 @@ protected:
 	void updateRecents();
     void loadConfig();
     virtual void keyPressEvent(QKeyEvent *event);
+    //void moveEvent(QMoveEvent *event);
 
 protected:
     QStackedLayout *contentLayout;
@@ -421,6 +427,9 @@ private:
 //    ShortcutsWidget *shortcuts_widget;
 
     QString m_snap;
+    bool m_leftPressed;
+    QPoint m_dragPosition;
+    FilterHandler *m_mouseFilterHandler = nullptr;
 };
     
 #endif

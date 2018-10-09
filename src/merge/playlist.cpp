@@ -537,7 +537,7 @@ void Playlist::showPopupMenu(const QPoint & pos) {
 }
 
 //kobe:添加多个文件文件夹或拖拽进多个文件文件夹时才会走这里，如果是支持乱序，则乱序选择一个开始播放20170725
-void Playlist::startPlay() {
+void Playlist::startPlayPause() {
 	// Start to play
     if (pref->play_order == Preferences::RandomPlay) {//随机播放
         playItem(chooseRandomItem());

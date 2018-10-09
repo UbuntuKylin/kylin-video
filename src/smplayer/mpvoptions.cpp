@@ -512,7 +512,6 @@ void MPVProcess::quit() {
 }
 
 void MPVProcess::setVolume(int v) {
-    qDebug() << "kobe set volumn" << v;
     writeToStdin("set volume " + QString::number(v));
 }
 
@@ -556,7 +555,7 @@ void MPVProcess::seek(double secs, int mode, bool precise) {
         case 2 : s += "absolute "; break;
     }
     if (precise) s += "exact"; else s += "keyframes";
-    qDebug() << "*****************MPVProcess::seek="<<s;//seek 162 absolute exact
+    //qDebug() << "*****************MPVProcess::seek="<<s;//seek 162 absolute exact
     writeToStdin(s);
 }
 

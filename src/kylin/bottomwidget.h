@@ -88,6 +88,10 @@ signals:
     void need_to_save_pre_image(int time);//kobe
     void send_save_preview_image_name(int time, QString filepath);//kobe
 
+    void mouseEnter();
+    void mouseLeave();
+    void requestTemporaryShow();
+
 public slots:
     void showWidget();
     void activate();
@@ -133,6 +137,10 @@ public:
 protected:
     bool eventFilter(QObject * obj, QEvent * event);
     virtual void resizeEvent(QResizeEvent *event);
+
+    virtual void leaveEvent(QEvent *event);
+    virtual void enterEvent(QEvent *event);
+
 //    virtual void mouseMoveEvent(QMouseEvent *event);
 //        void mousePressEvent(QMouseEvent *);
 //        void mouseMoveEvent(QMouseEvent *);

@@ -20,18 +20,36 @@ Bugs should be report to the kylin-video bug tracking system:
 
 
 Snap:
+
 snapcraft
+
 snapcraft clean
+
 sudo snap install kylin-video_1.1.6_amd64.snap --devmode
+
 sudo snap install kylin-video_1.1.6_amd64.snap --classic --dangerous
+
 sudo snap install kylin-video_1.1.6_amd64.snap --stable --dangerous
+
 sudo snap remove kylin-video
+
 unsquashfs -l kylin-video_1.1.6_amd64.snap | less
+
 unsquashfs kylin-video_1.1.6_amd64.snap
 
 查看已经存在的plug及slot:   snap interfaces (snapcraft plugins    snapcraft list-plugins)
 
+处在snapcraft中最核心的是parts。parts是一些软件或数据被用来构造snap包的，或是用来编译其它软件的，每个part是由一个plugin来管理的，并且通常是互相独立的。
 
-处在snapcraft中最核心的是parts．parts是一些软件或数据被用来构造snap包的，或是用来编译其它软件的．每个part是由一个plugin来管理的，并且通常是互相独立的．
 
+Git
+==================
+
+分支1.1.6
+
+新建分支：git branch 1.1.6
+
+切换分支：git checkout 1.1.6
+
+上传分支：git push origin 1.1.6
 

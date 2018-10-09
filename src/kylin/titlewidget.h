@@ -125,7 +125,7 @@ public:
     int hideDelay();
 
 protected:
-    bool eventFilter(QObject * obj, QEvent * event);
+//    bool eventFilter(QObject * obj, QEvent * event);
     void paintEvent(QPaintEvent *event);
 
 private slots:

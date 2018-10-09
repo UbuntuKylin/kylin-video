@@ -219,7 +219,7 @@ void Preferences::save() {
 	set->setValue("use_screenshot", use_screenshot);
 	set->setValue("screenshot_template", screenshot_template);
 	set->setValue("screenshot_format", screenshot_format);
-    qDebug() << "save screenshot_directory="<< screenshot_directory;
+    //qDebug() << "save screenshot_directory="<< screenshot_directory;
 	#if QT_VERSION >= 0x040400
 	set->setValue("screenshot_folder", screenshot_directory);
 	#else
@@ -329,7 +329,7 @@ void Preferences::save() {
 }
 
 void Preferences::load() {
-	qDebug("Preferences::load");
+    //qDebug("Preferences::load");
 
 	QSettings * set = settings;
 

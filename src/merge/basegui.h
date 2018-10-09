@@ -50,6 +50,7 @@ class TitleWidget;
 class BottomWidget;
 class PlayMask;
 class VideoPreview;
+class BottomController;
 //class ShortcutsWidget;
 
 class BaseGui : public QMainWindow
@@ -122,6 +123,8 @@ public slots:
     void open_screenshot_directory();
     void ready_save_pre_image(int time);
 //    void showShortcuts();
+
+    void startPlay();
 
 protected slots:
 	virtual void closeWindow();
@@ -250,6 +253,7 @@ protected:
 	QWidget * panel;
     TitleWidget *m_topToolbar;
     BottomWidget *m_bottomToolbar;
+    BottomController *m_bottomController = nullptr;
 
     // Menu File
     QMenu *openMenu;//打开
@@ -385,7 +389,7 @@ protected:
     FilePropertiesDialog *file_dialog;
     AboutDialog *aboutDlg;
     HelpDialog *helpDlg;
-	Core * core;
+    Core *core = nullptr;
 	MplayerWindow *mplayerwindow;
     Playlist * playlistWidget;
 	QString pending_actions_to_run;

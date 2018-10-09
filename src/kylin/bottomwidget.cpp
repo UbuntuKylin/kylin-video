@@ -68,9 +68,11 @@ BottomWidget::BottomWidget(QWidget *parent)
     setAutoFillBackground(true);
     setFocusPolicy(Qt::ClickFocus);
 
+    //201810
     QPalette palette;
     palette.setColor(QPalette::Background, QColor("#040404"));
     this->setPalette(palette);
+//    this->setStyleSheet("QWidget{background-color:rgba(255, 255, 255, 0.8);}");
 
     setWindowFlags(windowFlags() | Qt::SubWindow);
     setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
@@ -78,7 +80,7 @@ BottomWidget::BottomWidget(QWidget *parent)
     drag_delay = 200;
     enableMove      = false;
 
-    //20170810
+    //201810
     parent->installEventFilter(this);
 //    parent->setMouseTracking(true);
     installFilter(parent);
@@ -476,17 +478,18 @@ void BottomWidget::installFilter(QObject *o) {
     }
 }
 
+//201810
 void BottomWidget::activate() {
-    turned_on = true;
-    if (timer->isActive())
-        timer->stop();
-    timer->start();
+//    turned_on = true;
+//    if (timer->isActive())
+//        timer->stop();
+//    timer->start();
 }
 
 void BottomWidget::deactivate() {
-    turned_on = false;
-    timer->stop();
-    this->showWidget();
+//    turned_on = false;
+//    timer->stop();
+//    this->showWidget();
 }
 
 void BottomWidget::showAlways() {
@@ -523,6 +526,7 @@ bool BottomWidget::eventFilter(QObject * obj, QEvent * event) {
         && type != QEvent::MouseButtonRelease
         && type != QEvent::MouseMove)
         return false;
+
     QMouseEvent *mouseEvent = dynamic_cast<QMouseEvent*>(event);
     if (!mouseEvent)
         return false;
@@ -530,10 +534,14 @@ bool BottomWidget::eventFilter(QObject * obj, QEvent * event) {
         drag_state = NOT_BDRAGGING;
         return false;
     }
-    if (turned_on) {
+
+//    if (turned_on) {
         if (event->type() == QEvent::MouseMove) {
             if (!isVisible()) {
-                showWidget();
+                //201810
+                //showWidget();
+                emit this->requestTemporaryShow();
+
                 /*if (activation_area == Anywhere) {
                     showWidget();
                 } else {
@@ -546,7 +554,10 @@ bool BottomWidget::eventFilter(QObject * obj, QEvent * event) {
                 }*/
             }
             else if (!ctlWidget->isVisible()) {
-                showWidget();
+                //201810
+                //showWidget();
+                emit this->requestTemporaryShow();
+
                 /*if (activation_area == Anywhere) {
                     showWidget();
                 } else {
@@ -609,7 +620,7 @@ bool BottomWidget::eventFilter(QObject * obj, QEvent * event) {
 
         event->accept();
         return true;
-    }
+    /*}
     else {
         if (type == QEvent::MouseButtonPress) {
             if (mouseEvent->button() != Qt::LeftButton) {
@@ -660,7 +671,7 @@ bool BottomWidget::eventFilter(QObject * obj, QEvent * event) {
 
         event->accept();
         return true;
-    }
+    }*/
 }
 
 void BottomWidget::spreadAniFinished() {
@@ -793,8 +804,20 @@ void BottomWidget::resizeEvent(QResizeEvent *event)
     progress->resize(this->width(), 24);
 }
 
+//201810
+void BottomWidget::enterEvent(QEvent *event)
+{
+    QWidget::enterEvent(event);
 
+    emit mouseEnter();
+}
 
+void BottomWidget::leaveEvent(QEvent *event)
+{
+    QWidget::leaveEvent(event);
+
+    emit mouseLeave();
+}
 
 
 

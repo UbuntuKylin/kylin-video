@@ -1,4 +1,5 @@
 #!/bin/sh
 # Run this to generate all the initial makefiles, etc.
 
-lrelease src/src.pro
+#lrelease src/src.pro
+lrelease kylin-video.pro

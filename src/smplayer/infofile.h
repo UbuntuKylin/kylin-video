@@ -43,7 +43,7 @@ protected:
 	int row;
 
 private:
-	inline QString tr( const char * sourceText, const char * comment = 0, int n = -1 );
+    inline QString kylin_tr( const char * sourceText, const char * comment = 0, int n = -1 );
 };
 
 #endif

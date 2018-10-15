@@ -1,0 +1,2531 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-10-15 15:13+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.13.0\n"
+
+#: AboutDialog#1
+msgid "About"
+msgstr ""
+
+#: AboutDialog#2
+msgid "Contributor"
+msgstr ""
+
+#: AboutDialog#3
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR"
+"/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\""
+">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Ubuntu'; font-size:11pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
+"margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><"
+"br /></p></body></html>"
+msgstr ""
+
+#: AboutDialog#4
+msgctxt "AboutDialog#4"
+msgid "OK"
+msgstr ""
+
+#: AboutDialog#5
+msgid ""
+"Kylin Video is developed on the basis of SMPlayer, is a graphical interface "
+"for MPlayer and MPV."
+msgstr ""
+
+#: AboutDialog#6
+msgctxt "AboutDialog#6"
+msgid "Kylin Video"
+msgstr ""
+
+#: AboutDialog#7
+msgid "Version: %1"
+msgstr ""
+
+#: AboutDialog#8
+msgid "Using Qt %1 (compiled with Qt %2)"
+msgstr ""
+
+#: AboutDialog#9
+msgctxt "AboutDialog#9"
+msgid "Playback engine:"
+msgstr ""
+
+#: ActionsEditor#1
+msgid "Shortcut"
+msgstr ""
+
+#: ActionsEditor#2
+msgid "Description"
+msgstr ""
+
+#: ActionsEditor#3
+msgid "Name"
+msgstr ""
+
+#: AudioDelayDialog#1
+msgid "Audio delay"
+msgstr ""
+
+#: AudioDelayDialog#2
+msgctxt "AudioDelayDialog#2"
+msgid "OK"
+msgstr ""
+
+#: AudioDelayDialog#3
+msgctxt "AudioDelayDialog#3"
+msgid "Cancel"
+msgstr ""
+
+#: AudioDelayDialog#4
+msgid "Audio delay (in milliseconds):"
+msgstr ""
+
+#: BaseGui#1
+msgctxt "BaseGui#1"
+msgid "Kylin Video"
+msgstr ""
+
+#: BaseGui#2
+msgid "Open"
+msgstr ""
+
+#: BaseGui#3
+msgid "Open &File..."
+msgstr ""
+
+#: BaseGui#4
+msgid "Directory..."
+msgstr ""
+
+#: BaseGui#5
+msgid "&URL..."
+msgstr ""
+
+#: BaseGui#6
+msgid "&Clear"
+msgstr ""
+
+#: BaseGui#7
+msgid "Recent files"
+msgstr ""
+
+#: BaseGui#8
+msgid "Play control"
+msgstr ""
+
+#: BaseGui#9
+msgid "Forward and rewind"
+msgstr ""
+
+#: BaseGui#10
+msgid "&Jump to..."
+msgstr ""
+
+#: BaseGui#11
+msgid "Play Speed"
+msgstr ""
+
+#: BaseGui#12
+msgid "Normal speed"
+msgstr ""
+
+#: BaseGui#13
+msgid "Half speed"
+msgstr ""
+
+#: BaseGui#14
+msgid "Double speed"
+msgstr ""
+
+#: BaseGui#15
+msgid "Speed -10%"
+msgstr ""
+
+#: BaseGui#16
+msgid "Speed +10%"
+msgstr ""
+
+#: BaseGui#17
+msgid "Speed -4%"
+msgstr ""
+
+#: BaseGui#18
+msgid "Speed +4%"
+msgstr ""
+
+#: BaseGui#19
+msgid "Speed -1%"
+msgstr ""
+
+#: BaseGui#20
+msgid "Speed +1%"
+msgstr ""
+
+#: BaseGui#21
+msgctxt "BaseGui#21"
+msgid "Next"
+msgstr ""
+
+#: BaseGui#22
+msgid "Previous"
+msgstr ""
+
+#: BaseGui#23
+msgid "&Auto"
+msgstr ""
+
+#: BaseGui#24
+msgid "&Disabled"
+msgstr ""
+
+#: BaseGui#25
+msgid "Aspect ratio"
+msgstr ""
+
+#: BaseGui#26
+msgid "&Off"
+msgstr ""
+
+#: BaseGui#27
+msgid "&Rotate by 90 degrees clockwise and flip"
+msgstr ""
+
+#: BaseGui#28
+msgid "Rotate by 90 degrees &clockwise"
+msgstr ""
+
+#: BaseGui#29
+msgid "Rotate by 90 degrees counterclock&wise"
+msgstr ""
+
+#: BaseGui#30
+msgid "Rotate by 90 degrees counterclockwise and &flip"
+msgstr ""
+
+#: BaseGui#31
+msgid "Fli&p image"
+msgstr ""
+
+#: BaseGui#32
+msgid "Mirr&or image"
+msgstr ""
+
+#: BaseGui#33
+msgid "Frame rotation"
+msgstr ""
+
+#: BaseGui#34
+msgid "&Rotate"
+msgstr ""
+
+#: BaseGui#35
+msgid "&Screenshot"
+msgstr ""
+
+#: BaseGui#36
+msgid "&Always"
+msgstr ""
+
+#: BaseGui#37
+msgid "&Never"
+msgstr ""
+
+#: BaseGui#38
+msgid "While &playing"
+msgstr ""
+
+#: BaseGui#39
+msgid "S&tay on top"
+msgstr ""
+
+#: BaseGui#40
+msgid "Order play"
+msgstr ""
+
+#: BaseGui#41
+msgid "Random play"
+msgstr ""
+
+#: BaseGui#42
+msgid "List loop play"
+msgstr ""
+
+#: BaseGui#43
+msgid "Play order"
+msgstr ""
+
+#: BaseGui#44
+msgid "&Stereo"
+msgstr ""
+
+#: BaseGui#45
+msgid "&4.0 Surround"
+msgstr ""
+
+#: BaseGui#46
+msgid "&5.1 Surround"
+msgstr ""
+
+#: BaseGui#47
+msgid "&6.1 Surround"
+msgstr ""
+
+#: BaseGui#48
+msgid "&7.1 Surround"
+msgstr ""
+
+#: BaseGui#49
+msgid "&Channels"
+msgstr ""
+
+#: BaseGui#50
+msgctxt "BaseGui#50"
+msgid "Audio"
+msgstr ""
+
+#: BaseGui#51
+msgid "&Mute"
+msgstr ""
+
+#: BaseGui#52
+msgid "Volume -"
+msgstr ""
+
+#: BaseGui#53
+msgid "Volume +"
+msgstr ""
+
+#: BaseGui#54
+msgid "Delay -"
+msgstr ""
+
+#: BaseGui#55
+msgid "Delay +"
+msgstr ""
+
+#: BaseGui#56
+msgid "Set dela&y..."
+msgstr ""
+
+#: BaseGui#57
+msgid "&Left channel"
+msgstr ""
+
+#: BaseGui#58
+msgid "&Right channel"
+msgstr ""
+
+#: BaseGui#59
+msgid "&Mono"
+msgstr ""
+
+#: BaseGui#60
+msgid "Re&verse"
+msgstr ""
+
+#: BaseGui#61
+msgid "&Stereo mode"
+msgstr ""
+
+#: BaseGui#62
+msgctxt "BaseGui#62"
+msgid "Subtitles"
+msgstr ""
+
+#: BaseGui#63
+msgid "Load..."
+msgstr ""
+
+#: BaseGui#64
+msgid "Subtitle &visibility"
+msgstr ""
+
+#: BaseGui#65
+msgid "Preferences"
+msgstr ""
+
+#: BaseGui#66
+msgid "View &info and properties..."
+msgstr ""
+
+#: BaseGui#67
+msgctxt "BaseGui#67"
+msgid "Help"
+msgstr ""
+
+#: BaseGui#68
+msgid "About &Kylin Video"
+msgstr ""
+
+#: BaseGui#69
+msgid "Quit"
+msgstr ""
+
+#: BaseGui#70
+msgid "Open Homepage"
+msgstr ""
+
+#: BaseGui#71
+msgid "Open screenshots folder"
+msgstr ""
+
+#: BaseGui#72
+msgctxt "BaseGui#72"
+msgid "PlayList"
+msgstr ""
+
+#: BaseGui#73
+msgid "Play/Pause"
+msgstr ""
+
+#: BaseGui#74
+msgctxt "BaseGui#74"
+msgid "Stop"
+msgstr ""
+
+#: BaseGui#75
+msgid "Fullscreen"
+msgstr ""
+
+#: BaseGui#76
+msgid "Video filters are disabled when using vdpau"
+msgstr ""
+
+#: BaseGui#77
+msgid "-%1"
+msgstr ""
+
+#: BaseGui#78
+msgid "+%1"
+msgstr ""
+
+#: BaseGui#79
+msgid "<empty>"
+msgstr ""
+
+#: BaseGui#80
+msgid "Confirm deletion - Kylin Video"
+msgstr ""
+
+#: BaseGui#81
+msgid "Delete the list of recent files?"
+msgstr ""
+
+#: BaseGui#82
+msgid "Choose a file"
+msgstr ""
+
+#: BaseGui#83
+msgctxt "BaseGui#83"
+msgid "Multimedia"
+msgstr ""
+
+#: BaseGui#84
+msgctxt "BaseGui#84"
+msgid "Video"
+msgstr ""
+
+#: BaseGui#85
+msgid "Playlists"
+msgstr ""
+
+#: BaseGui#86
+msgctxt "BaseGui#86"
+msgid "All files"
+msgstr ""
+
+#: BaseGui#87
+msgctxt "BaseGui#87"
+msgid "Choose a directory"
+msgstr ""
+
+#: BaseGui#88
+msgid "&Jump to:"
+msgstr ""
+
+#: BaseGui#89
+msgid "Kylin Video - Seek"
+msgstr ""
+
+#: BaseGui#90
+msgid "Kylin Video - Subtitle delay"
+msgstr ""
+
+#: BaseGui#91
+msgid "Subtitle delay (in milliseconds):"
+msgstr ""
+
+#: BaseGui#92
+msgid "Error detected"
+msgstr ""
+
+#: BaseGui#93
+msgid "Unfortunately this video can't be played."
+msgstr ""
+
+#: BaseGui#94
+msgid "The server returned '%1'"
+msgstr ""
+
+#: BaseGui#95
+msgid "Jump to %1"
+msgstr ""
+
+#: BaseGui#96
+msgid "%1 Error"
+msgstr ""
+
+#: BaseGui#97
+msgid "'%1' was not found!"
+msgstr ""
+
+#: BaseGui#98
+msgid "%1 has finished unexpectedly."
+msgstr ""
+
+#: BaseGui#99
+msgid "Exit code: %1"
+msgstr ""
+
+#: BaseGui#100
+msgid "%1 failed to start."
+msgstr ""
+
+#: BaseGui#101
+msgid "Please check the %1 path in preferences."
+msgstr ""
+
+#: BaseGui#102
+msgid "%1 has crashed."
+msgstr ""
+
+#: BaseGui#103
+msgid "See the log for more info."
+msgstr ""
+
+#: BaseGui#104
+msgctxt "BaseGui#104"
+msgid "Information"
+msgstr ""
+
+#: BaseGui#105
+msgid "The screenshot folder does not exist!"
+msgstr ""
+
+#: BottomWidget#1
+msgctxt "BottomWidget#1"
+msgid "Stop"
+msgstr ""
+
+#: BottomWidget#2
+msgid "Prev"
+msgstr ""
+
+#: BottomWidget#3
+msgid "Play / Pause"
+msgstr ""
+
+#: BottomWidget#4
+msgctxt "BottomWidget#4"
+msgid "Next"
+msgstr ""
+
+#: BottomWidget#5
+msgid "Mute"
+msgstr ""
+
+#: BottomWidget#6
+msgid "Play List"
+msgstr ""
+
+#: Core#1
+msgid "Screenshot NOT taken, folder not configured"
+msgstr ""
+
+#: Core#2
+msgid "Screenshots NOT taken, folder not configured"
+msgstr ""
+
+#: Core#3
+msgid "\"A\" marker set to %1"
+msgstr ""
+
+#: Core#4
+msgid "\"B\" marker set to %1"
+msgstr ""
+
+#: Core#5
+msgid "A-B markers cleared"
+msgstr ""
+
+#: Core#6
+msgid "Brightness: %1"
+msgstr ""
+
+#: Core#7
+msgid "Contrast: %1"
+msgstr ""
+
+#: Core#8
+msgid "Gamma: %1"
+msgstr ""
+
+#: Core#9
+msgid "Hue: %1"
+msgstr ""
+
+#: Core#10
+msgid "Saturation: %1"
+msgstr ""
+
+#: Core#11
+msgid "Speed: %1"
+msgstr ""
+
+#: Core#12
+msgid "Volume: %1"
+msgstr ""
+
+#: Core#13
+msgid "Subtitle delay: %1 ms"
+msgstr ""
+
+#: Core#14
+msgid "Audio delay: %1 ms"
+msgstr ""
+
+#: Core#15
+msgid "Subtitles on"
+msgstr ""
+
+#: Core#16
+msgid "Subtitles off"
+msgstr ""
+
+#: Core#17
+msgid "Aspect ratio: %1"
+msgstr ""
+
+#: Core#18
+msgid "Mouse wheel seeks now"
+msgstr ""
+
+#: Core#19
+msgid "Mouse wheel changes volume now"
+msgstr ""
+
+#: Core#20
+msgid "Mouse wheel changes zoom level now"
+msgstr ""
+
+#: Core#21
+msgid "Mouse wheel changes speed now"
+msgstr ""
+
+#: Core#22
+msgid "Zoom: %1"
+msgstr ""
+
+#: Core#23
+msgid "Screenshot saved as %1"
+msgstr ""
+
+#: Core#24
+msgid "Updating the font cache. This may take some seconds..."
+msgstr ""
+
+#: Core#25
+msgid "Buffering..."
+msgstr ""
+
+#: Core#26
+msgid "Starting..."
+msgstr ""
+
+#: ErrorDialog#1
+msgid "MPlayer Error"
+msgstr ""
+
+#: ErrorDialog#2
+msgctxt "ErrorDialog#2"
+msgid "OK"
+msgstr ""
+
+#: ErrorDialog#3
+msgid "icon"
+msgstr ""
+
+#: ErrorDialog#4
+msgid "Oops, something wrong happened"
+msgstr ""
+
+#: ErrorDialog#5
+msgid "Error"
+msgstr ""
+
+#: ErrorDialog#6
+msgid "Show log"
+msgstr ""
+
+#: ErrorDialog#7
+msgid "Hide log"
+msgstr ""
+
+#: EscTip#1
+msgid "Press ESC to exit full screen mode"
+msgstr ""
+
+#: FileChooser#1
+msgid "Click to select a file or folder"
+msgstr ""
+
+#: FilePropertiesDialog#1
+msgctxt "FilePropertiesDialog#1"
+msgid "Kylin Video - Preferences"
+msgstr ""
+
+#: FilePropertiesDialog#2
+msgid "Properties"
+msgstr ""
+
+#: FilePropertiesDialog#3
+msgid "&Select the demuxer that will be used for this file:"
+msgstr ""
+
+#: FilePropertiesDialog#4
+msgid "&Reset"
+msgstr ""
+
+#: FilePropertiesDialog#5
+msgid "&Select the video codec:"
+msgstr ""
+
+#: FilePropertiesDialog#6
+msgid "&Select the audio codec:"
+msgstr ""
+
+#: FilePropertiesDialog#7
+msgid "Reset"
+msgstr ""
+
+#: FilePropertiesDialog#8
+msgctxt "FilePropertiesDialog#8"
+msgid "Apply"
+msgstr ""
+
+#: FilePropertiesDialog#9
+msgctxt "FilePropertiesDialog#9"
+msgid "OK"
+msgstr ""
+
+#: FilePropertiesDialog#10
+msgctxt "FilePropertiesDialog#10"
+msgid "Cancel"
+msgstr ""
+
+#: FilePropertiesDialog#11
+msgctxt "FilePropertiesDialog#11"
+msgid "Information"
+msgstr ""
+
+#: FilePropertiesDialog#12
+msgid "Demuxer"
+msgstr ""
+
+#: FilePropertiesDialog#13
+msgid "Video codec"
+msgstr ""
+
+#: FilePropertiesDialog#14
+msgid "Audio codec"
+msgstr ""
+
+#: HelpDialog#1
+msgid "Kylin Video - Help"
+msgstr ""
+
+#: HelpDialog#2
+msgctxt "HelpDialog#2"
+msgid "Help"
+msgstr ""
+
+#: HelpDialog#3
+msgctxt "HelpDialog#3"
+msgid "OK"
+msgstr ""
+
+#: HelpDialog#4
+msgid "Supported formats"
+msgstr ""
+
+#: InputURL#1
+msgid "Enter URL"
+msgstr ""
+
+#: InputURL#2
+msgctxt "InputURL#2"
+msgid "OK"
+msgstr ""
+
+#: InputURL#3
+msgctxt "InputURL#3"
+msgid "Cancel"
+msgstr ""
+
+#: InputURL#4
+msgid "URL:"
+msgstr ""
+
+#: Languages#1
+msgid "Afar"
+msgstr ""
+
+#: Languages#2
+msgid "Abkhazian"
+msgstr ""
+
+#: Languages#3
+msgid "Avestan"
+msgstr ""
+
+#: Languages#4
+msgid "Afrikaans"
+msgstr ""
+
+#: Languages#5
+msgid "Akan"
+msgstr ""
+
+#: Languages#6
+msgid "Amharic"
+msgstr ""
+
+#: Languages#7
+msgid "Aragonese"
+msgstr ""
+
+#: Languages#8
+msgid "Arabic"
+msgstr ""
+
+#: Languages#9
+msgid "Assamese"
+msgstr ""
+
+#: Languages#10
+msgid "Avaric"
+msgstr ""
+
+#: Languages#11
+msgid "Aymara"
+msgstr ""
+
+#: Languages#12
+msgid "Azerbaijani"
+msgstr ""
+
+#: Languages#13
+msgid "Bashkir"
+msgstr ""
+
+#: Languages#14
+msgid "Belarusian"
+msgstr ""
+
+#: Languages#15
+msgid "Bulgarian"
+msgstr ""
+
+#: Languages#16
+msgid "Bihari"
+msgstr ""
+
+#: Languages#17
+msgid "Bislama"
+msgstr ""
+
+#: Languages#18
+msgid "Bambara"
+msgstr ""
+
+#: Languages#19
+msgid "Bengali"
+msgstr ""
+
+#: Languages#20
+msgid "Tibetan"
+msgstr ""
+
+#: Languages#21
+msgid "Breton"
+msgstr ""
+
+#: Languages#22
+msgid "Bosnian"
+msgstr ""
+
+#: Languages#23
+msgid "Catalan"
+msgstr ""
+
+#: Languages#24
+msgid "Chechen"
+msgstr ""
+
+#: Languages#25
+msgid "Corsican"
+msgstr ""
+
+#: Languages#26
+msgid "Cree"
+msgstr ""
+
+#: Languages#27
+msgid "Czech"
+msgstr ""
+
+#: Languages#28
+msgid "Church"
+msgstr ""
+
+#: Languages#29
+msgid "Chuvash"
+msgstr ""
+
+#: Languages#30
+msgid "Welsh"
+msgstr ""
+
+#: Languages#31
+msgid "Danish"
+msgstr ""
+
+#: Languages#32
+msgid "German"
+msgstr ""
+
+#: Languages#33
+msgid "Divehi"
+msgstr ""
+
+#: Languages#34
+msgid "Dzongkha"
+msgstr ""
+
+#: Languages#35
+msgid "Ewe"
+msgstr ""
+
+#: Languages#36
+msgid "Greek"
+msgstr ""
+
+#: Languages#37
+msgid "English"
+msgstr ""
+
+#: Languages#38
+msgid "Esperanto"
+msgstr ""
+
+#: Languages#39
+msgid "Spanish"
+msgstr ""
+
+#: Languages#40
+msgid "Estonian"
+msgstr ""
+
+#: Languages#41
+msgid "Basque"
+msgstr ""
+
+#: Languages#42
+msgid "Persian"
+msgstr ""
+
+#: Languages#43
+msgid "Fulah"
+msgstr ""
+
+#: Languages#44
+msgid "Finnish"
+msgstr ""
+
+#: Languages#45
+msgid "Fijian"
+msgstr ""
+
+#: Languages#46
+msgid "Faroese"
+msgstr ""
+
+#: Languages#47
+msgid "French"
+msgstr ""
+
+#: Languages#48
+msgid "Frisian"
+msgstr ""
+
+#: Languages#49
+msgid "Irish"
+msgstr ""
+
+#: Languages#50
+msgid "Gaelic"
+msgstr ""
+
+#: Languages#51
+msgid "Galician"
+msgstr ""
+
+#: Languages#52
+msgid "Guarani"
+msgstr ""
+
+#: Languages#53
+msgid "Gujarati"
+msgstr ""
+
+#: Languages#54
+msgid "Manx"
+msgstr ""
+
+#: Languages#55
+msgid "Hausa"
+msgstr ""
+
+#: Languages#56
+msgid "Hebrew"
+msgstr ""
+
+#: Languages#57
+msgid "Hindi"
+msgstr ""
+
+#: Languages#58
+msgid "Hiri"
+msgstr ""
+
+#: Languages#59
+msgid "Croatian"
+msgstr ""
+
+#: Languages#60
+msgid "Haitian"
+msgstr ""
+
+#: Languages#61
+msgid "Hungarian"
+msgstr ""
+
+#: Languages#62
+msgid "Armenian"
+msgstr ""
+
+#: Languages#63
+msgid "Herero"
+msgstr ""
+
+#: Languages#64
+msgid "Chamorro"
+msgstr ""
+
+#: Languages#65
+msgid "Interlingua"
+msgstr ""
+
+#: Languages#66
+msgid "Indonesian"
+msgstr ""
+
+#: Languages#67
+msgid "Interlingue"
+msgstr ""
+
+#: Languages#68
+msgid "Igbo"
+msgstr ""
+
+#: Languages#69
+msgid "Sichuan"
+msgstr ""
+
+#: Languages#70
+msgid "Inupiaq"
+msgstr ""
+
+#: Languages#71
+msgid "Ido"
+msgstr ""
+
+#: Languages#72
+msgid "Icelandic"
+msgstr ""
+
+#: Languages#73
+msgid "Italian"
+msgstr ""
+
+#: Languages#74
+msgid "Inuktitut"
+msgstr ""
+
+#: Languages#75
+msgid "Japanese"
+msgstr ""
+
+#: Languages#76
+msgid "Javanese"
+msgstr ""
+
+#: Languages#77
+msgid "Georgian"
+msgstr ""
+
+#: Languages#78
+msgid "Kongo"
+msgstr ""
+
+#: Languages#79
+msgid "Kikuyu"
+msgstr ""
+
+#: Languages#80
+msgid "Kuanyama"
+msgstr ""
+
+#: Languages#81
+msgid "Kazakh"
+msgstr ""
+
+#: Languages#82
+msgid "Greenlandic"
+msgstr ""
+
+#: Languages#83
+msgid "Khmer"
+msgstr ""
+
+#: Languages#84
+msgid "Kannada"
+msgstr ""
+
+#: Languages#85
+msgid "Korean"
+msgstr ""
+
+#: Languages#86
+msgid "Kanuri"
+msgstr ""
+
+#: Languages#87
+msgid "Kashmiri"
+msgstr ""
+
+#: Languages#88
+msgid "Kurdish"
+msgstr ""
+
+#: Languages#89
+msgid "Komi"
+msgstr ""
+
+#: Languages#90
+msgid "Cornish"
+msgstr ""
+
+#: Languages#91
+msgid "Kirghiz"
+msgstr ""
+
+#: Languages#92
+msgid "Latin"
+msgstr ""
+
+#: Languages#93
+msgid "Luxembourgish"
+msgstr ""
+
+#: Languages#94
+msgid "Ganda"
+msgstr ""
+
+#: Languages#95
+msgid "Limburgan"
+msgstr ""
+
+#: Languages#96
+msgid "Lingala"
+msgstr ""
+
+#: Languages#97
+msgid "Lao"
+msgstr ""
+
+#: Languages#98
+msgid "Lithuanian"
+msgstr ""
+
+#: Languages#99
+msgid "Luba-Katanga"
+msgstr ""
+
+#: Languages#100
+msgid "Latvian"
+msgstr ""
+
+#: Languages#101
+msgid "Malagasy"
+msgstr ""
+
+#: Languages#102
+msgid "Marshallese"
+msgstr ""
+
+#: Languages#103
+msgid "Maori"
+msgstr ""
+
+#: Languages#104
+msgid "Macedonian"
+msgstr ""
+
+#: Languages#105
+msgid "Malayalam"
+msgstr ""
+
+#: Languages#106
+msgid "Mongolian"
+msgstr ""
+
+#: Languages#107
+msgid "Moldavian"
+msgstr ""
+
+#: Languages#108
+msgid "Marathi"
+msgstr ""
+
+#: Languages#109
+msgid "Malay"
+msgstr ""
+
+#: Languages#110
+msgid "Maltese"
+msgstr ""
+
+#: Languages#111
+msgid "Burmese"
+msgstr ""
+
+#: Languages#112
+msgid "Nauru"
+msgstr ""
+
+#: Languages#113
+msgid "Bokmål"
+msgstr ""
+
+#: Languages#114
+msgid "Ndebele"
+msgstr ""
+
+#: Languages#115
+msgid "Nepali"
+msgstr ""
+
+#: Languages#116
+msgid "Ndonga"
+msgstr ""
+
+#: Languages#117
+msgid "Dutch"
+msgstr ""
+
+#: Languages#118
+msgid "Norwegian Nynorsk"
+msgstr ""
+
+#: Languages#119
+msgid "Norwegian"
+msgstr ""
+
+#: Languages#120
+msgid "Navajo"
+msgstr ""
+
+#: Languages#121
+msgid "Chichewa"
+msgstr ""
+
+#: Languages#122
+msgid "Occitan"
+msgstr ""
+
+#: Languages#123
+msgid "Ojibwa"
+msgstr ""
+
+#: Languages#124
+msgid "Oromo"
+msgstr ""
+
+#: Languages#125
+msgid "Oriya"
+msgstr ""
+
+#: Languages#126
+msgid "Ossetian"
+msgstr ""
+
+#: Languages#127
+msgid "Panjabi"
+msgstr ""
+
+#: Languages#128
+msgid "Pali"
+msgstr ""
+
+#: Languages#129
+msgid "Polish"
+msgstr ""
+
+#: Languages#130
+msgid "Pushto"
+msgstr ""
+
+#: Languages#131
+msgid "Portuguese"
+msgstr ""
+
+#: Languages#132
+msgid "Quechua"
+msgstr ""
+
+#: Languages#133
+msgid "Romansh"
+msgstr ""
+
+#: Languages#134
+msgid "Rundi"
+msgstr ""
+
+#: Languages#135
+msgid "Romanian"
+msgstr ""
+
+#: Languages#136
+msgid "Russian"
+msgstr ""
+
+#: Languages#137
+msgid "Kinyarwanda"
+msgstr ""
+
+#: Languages#138
+msgid "Sanskrit"
+msgstr ""
+
+#: Languages#139
+msgid "Sardinian"
+msgstr ""
+
+#: Languages#140
+msgid "Sindhi"
+msgstr ""
+
+#: Languages#141
+msgid "Sami"
+msgstr ""
+
+#: Languages#142
+msgid "Sango"
+msgstr ""
+
+#: Languages#143
+msgid "Sinhala"
+msgstr ""
+
+#: Languages#144
+msgid "Slovak"
+msgstr ""
+
+#: Languages#145
+msgid "Slovene"
+msgstr ""
+
+#: Languages#146
+msgid "Samoan"
+msgstr ""
+
+#: Languages#147
+msgid "Shona"
+msgstr ""
+
+#: Languages#148
+msgid "Somali"
+msgstr ""
+
+#: Languages#149
+msgid "Albanian"
+msgstr ""
+
+#: Languages#150
+msgid "Serbian"
+msgstr ""
+
+#: Languages#151
+msgid "Swati"
+msgstr ""
+
+#: Languages#152
+msgid "Sotho"
+msgstr ""
+
+#: Languages#153
+msgid "Sundanese"
+msgstr ""
+
+#: Languages#154
+msgid "Swedish"
+msgstr ""
+
+#: Languages#155
+msgid "Swahili"
+msgstr ""
+
+#: Languages#156
+msgid "Tamil"
+msgstr ""
+
+#: Languages#157
+msgid "Telugu"
+msgstr ""
+
+#: Languages#158
+msgid "Tajik"
+msgstr ""
+
+#: Languages#159
+msgid "Thai"
+msgstr ""
+
+#: Languages#160
+msgid "Tigrinya"
+msgstr ""
+
+#: Languages#161
+msgid "Turkmen"
+msgstr ""
+
+#: Languages#162
+msgid "Tagalog"
+msgstr ""
+
+#: Languages#163
+msgid "Tswana"
+msgstr ""
+
+#: Languages#164
+msgid "Tonga"
+msgstr ""
+
+#: Languages#165
+msgid "Turkish"
+msgstr ""
+
+#: Languages#166
+msgid "Tsonga"
+msgstr ""
+
+#: Languages#167
+msgid "Tatar"
+msgstr ""
+
+#: Languages#168
+msgid "Twi"
+msgstr ""
+
+#: Languages#169
+msgid "Tahitian"
+msgstr ""
+
+#: Languages#170
+msgid "Uighur"
+msgstr ""
+
+#: Languages#171
+msgid "Ukrainian"
+msgstr ""
+
+#: Languages#172
+msgid "Urdu"
+msgstr ""
+
+#: Languages#173
+msgid "Uzbek"
+msgstr ""
+
+#: Languages#174
+msgid "Venda"
+msgstr ""
+
+#: Languages#175
+msgid "Vietnamese"
+msgstr ""
+
+#: Languages#176
+msgid "Volapük"
+msgstr ""
+
+#: Languages#177
+msgid "Walloon"
+msgstr ""
+
+#: Languages#178
+msgid "Wolof"
+msgstr ""
+
+#: Languages#179
+msgid "Xhosa"
+msgstr ""
+
+#: Languages#180
+msgid "Yiddish"
+msgstr ""
+
+#: Languages#181
+msgid "Yoruba"
+msgstr ""
+
+#: Languages#182
+msgid "Zhuang"
+msgstr ""
+
+#: Languages#183
+msgid "Chinese"
+msgstr ""
+
+#: Languages#184
+msgid "Zulu"
+msgstr ""
+
+#: Languages#185
+msgid "Arabic - Syria"
+msgstr ""
+
+#: Languages#186
+msgid "Unicode"
+msgstr ""
+
+#: Languages#187
+msgid "UTF-8"
+msgstr ""
+
+#: Languages#188
+msgid "Western European Languages"
+msgstr ""
+
+#: Languages#189
+msgid "Western European Languages with Euro"
+msgstr ""
+
+#: Languages#190
+msgid "Slavic/Central European Languages"
+msgstr ""
+
+#: Languages#191
+msgid "Esperanto, Galician, Maltese, Turkish"
+msgstr ""
+
+#: Languages#192
+msgid "Old Baltic charset"
+msgstr ""
+
+#: Languages#193
+msgid "Cyrillic"
+msgstr ""
+
+#: Languages#194
+msgid "Modern Greek"
+msgstr ""
+
+#: Languages#195
+msgid "Baltic"
+msgstr ""
+
+#: Languages#196
+msgid "Celtic"
+msgstr ""
+
+#: Languages#197
+msgid "South-Eastern European"
+msgstr ""
+
+#: Languages#198
+msgid "Hebrew charsets"
+msgstr ""
+
+#: Languages#199
+msgid "Ukrainian, Belarusian"
+msgstr ""
+
+#: Languages#200
+msgid "Simplified Chinese charset"
+msgstr ""
+
+#: Languages#201
+msgid "Traditional Chinese charset"
+msgstr ""
+
+#: Languages#202
+msgid "Japanese charsets"
+msgstr ""
+
+#: Languages#203
+msgid "Korean charset"
+msgstr ""
+
+#: Languages#204
+msgid "Thai charset"
+msgstr ""
+
+#: Languages#205
+msgid "Cyrillic Windows"
+msgstr ""
+
+#: Languages#206
+msgid "Slavic/Central European Windows"
+msgstr ""
+
+#: Languages#207
+msgid "Arabic Windows"
+msgstr ""
+
+#: Languages#208
+msgid "Modern Greek Windows"
+msgstr ""
+
+#: LineEditWithIcon#1
+msgid "Change"
+msgstr ""
+
+#: MPVProcess#1
+msgid "the '%1' filter is not supported by mpv"
+msgstr ""
+
+#: MessageDialog#1
+msgid "Ok"
+msgstr ""
+
+#: MessageDialog#2
+msgctxt "MessageDialog#2"
+msgid "Cancel"
+msgstr ""
+
+#: MessageDialog#3
+msgctxt "MessageDialog#3"
+msgid "Yes"
+msgstr ""
+
+#: MessageDialog#4
+msgctxt "MessageDialog#4"
+msgid "No"
+msgstr ""
+
+#: MplayerProcess#1
+msgid "This option is not supported by MPlayer"
+msgstr ""
+
+#: Playlist#1
+msgid "Playlist is empty"
+msgstr ""
+
+#: Playlist#2
+msgid "Add File"
+msgstr ""
+
+#: Playlist#3
+msgctxt "Playlist#3"
+msgid "PlayList"
+msgstr ""
+
+#: Playlist#4
+msgctxt "Playlist#4"
+msgid "Clear"
+msgstr ""
+
+#: Playlist#5
+msgid "Add"
+msgstr ""
+
+#: Playlist#6
+msgid "Play"
+msgstr ""
+
+#: Playlist#7
+msgid "Remove &selected"
+msgstr ""
+
+#: Playlist#8
+msgid "&Delete file from disk"
+msgstr ""
+
+#: Playlist#9
+msgid "Reached the end of the playlist"
+msgstr ""
+
+#: Playlist#10
+msgid "Select one or more files to open"
+msgstr ""
+
+#: Playlist#11
+msgctxt "Playlist#11"
+msgid "Multimedia"
+msgstr ""
+
+#: Playlist#12
+msgctxt "Playlist#12"
+msgid "All files"
+msgstr ""
+
+#: Playlist#13
+msgctxt "Playlist#13"
+msgid "Choose a directory"
+msgstr ""
+
+#: Playlist#14
+msgid "Confirm remove"
+msgstr ""
+
+#: Playlist#15
+msgid "You're about to remove the file '%1' from the playlist."
+msgstr ""
+
+#: Playlist#16
+msgid "Are you sure you want to proceed?"
+msgstr ""
+
+#: Playlist#17
+msgid "Confirm deletion"
+msgstr ""
+
+#: Playlist#18
+msgid "You're about to DELETE the file '%1' from your drive."
+msgstr ""
+
+#: Playlist#19
+msgid "This action cannot be undone. Are you sure you want to proceed?"
+msgstr ""
+
+#: Playlist#20
+msgid "Deletion failed"
+msgstr ""
+
+#: Playlist#21
+msgid "It wasn't possible to delete '%1'"
+msgstr ""
+
+#: Playlist#22
+msgid "Error deleting the file"
+msgstr ""
+
+#: Playlist#23
+msgid "It's not possible to delete '%1' from the filesystem."
+msgstr ""
+
+#: PrefAudio#1
+msgid "Volume"
+msgstr ""
+
+#: PrefAudio#2
+msgid "Global volume"
+msgstr ""
+
+#: PrefAudio#3
+msgid "Use software volume control"
+msgstr ""
+
+#: PrefAudio#4
+msgid "Max. Amplification:"
+msgstr ""
+
+#: PrefAudio#5
+msgid "Volume normalization by default"
+msgstr ""
+
+#: PrefAudio#6
+msgid "Synchronization"
+msgstr ""
+
+#: PrefAudio#7
+msgid "Audio/video auto synchronization"
+msgstr ""
+
+#: PrefAudio#8
+msgid "Factor:"
+msgstr ""
+
+#: PrefAudio#9
+msgctxt "PrefAudio#9"
+msgid "Output driver:"
+msgstr ""
+
+#: PrefAudio#10
+msgid "Channels by default:"
+msgstr ""
+
+#: PrefAudio#11
+msgid "2 (Stereo)"
+msgstr ""
+
+#: PrefAudio#12
+msgid "4 (4.0 Surround)"
+msgstr ""
+
+#: PrefAudio#13
+msgid "6 (5.1 Surround)"
+msgstr ""
+
+#: PrefAudio#14
+msgid "7 (6.1 Surround)"
+msgstr ""
+
+#: PrefAudio#15
+msgid "8 (7.1 Surround)"
+msgstr ""
+
+#: PrefAudio#16
+msgctxt "PrefAudio#16"
+msgid "Default"
+msgstr ""
+
+#: PrefAudio#17
+msgid "Audio output driver"
+msgstr ""
+
+#: PrefAudio#18
+msgid "Select the audio output driver."
+msgstr ""
+
+#: PrefAudio#19
+msgid ""
+"%1 is the recommended one. Try to avoid %2 and %3, they are slow and can "
+"have an impact on performance."
+msgstr ""
+
+#: PrefAudio#20
+msgid "Channels by default"
+msgstr ""
+
+#: PrefAudio#21
+msgid ""
+"Requests the number of playback channels. MPlayer asks the decoder to decode "
+"the audio into as many channels as specified. Then it is up to the decoder "
+"to fulfill the requirement. This is usually only important when playing "
+"videos with AC3 audio (like DVDs). In that case liba52 does the decoding by "
+"default and correctly downmixes the audio into the requested number of "
+"channels. <b>Note</b>: This option is honored by codecs (AC3 only), filters "
+"(surround) and audio output drivers (OSS at least)."
+msgstr ""
+
+#: PrefAudio#22
+msgid ""
+"If this option is checked, the same volume will be used for all files you "
+"play. If the option is not checked each file uses its own volume."
+msgstr ""
+
+#: PrefAudio#23
+msgid "This option also applies for the mute control."
+msgstr ""
+
+#: PrefAudio#24
+msgid "Software volume control"
+msgstr ""
+
+#: PrefAudio#25
+msgid ""
+"Check this option to use the software mixer, instead of using the sound card "
+"mixer."
+msgstr ""
+
+#: PrefAudio#26
+msgid "Max. Amplification"
+msgstr ""
+
+#: PrefAudio#27
+msgid ""
+"Sets the maximum amplification level in percent (default: 110). A value of "
+"200 will allow you to adjust the volume up to a maximum of double the "
+"current level. With values below 100 the initial volume (which is 100%) will "
+"be above the maximum, which e.g. the OSD cannot display correctly."
+msgstr ""
+
+#: PrefAudio#28
+msgid "Maximizes the volume without distorting the sound."
+msgstr ""
+
+#: PrefAudio#29
+msgid "Gradually adjusts the A/V sync based on audio delay measurements."
+msgstr ""
+
+#: PrefGeneral#1
+msgid "Pause when minimized"
+msgstr ""
+
+#: PrefGeneral#2
+msgid "MPlayer"
+msgstr ""
+
+#: PrefGeneral#3
+msgid "MPV"
+msgstr ""
+
+#: PrefGeneral#4
+msgctxt "PrefGeneral#4"
+msgid "Playback engine:"
+msgstr ""
+
+#: PrefGeneral#5
+msgid "Preview when video is playing"
+msgstr ""
+
+#: PrefGeneral#6
+msgid ""
+"If this option is enabled, the file will be paused when the main window is "
+"hidden. When the window is restored, playback will be resumed."
+msgstr ""
+
+#: PrefGeneral#7
+msgid "Preview when the video is playing"
+msgstr ""
+
+#: PrefGeneral#8
+msgid ""
+"If this option is enabled, the video preview will be displayed when the "
+"mouse is placed on the progress bar."
+msgstr ""
+
+#: PrefGeneral#9
+msgid "Select MPlayer as playback engine"
+msgstr ""
+
+#: PrefGeneral#10
+msgid ""
+"If you change the playback engine to MPlayer, please restart Kylin Video."
+msgstr ""
+
+#: PrefGeneral#11
+msgid "Select MPV as playback engine"
+msgstr ""
+
+#: PrefGeneral#12
+msgid "If you change the playback engine to MPV, please restart Kylin Video."
+msgstr ""
+
+#: PrefPerformance#1
+msgid "Cache"
+msgstr ""
+
+#: PrefPerformance#2
+msgid "Cache for local files:"
+msgstr ""
+
+#: PrefPerformance#3
+msgid "KB"
+msgstr ""
+
+#: PrefPerformance#4
+msgid "Cache for streams:"
+msgstr ""
+
+#: PrefPerformance#5
+msgid "Decode"
+msgstr ""
+
+#: PrefPerformance#6
+msgid "Threads for decoding (MPEG-1/2 and H.264 only):"
+msgstr ""
+
+#: PrefPerformance#7
+msgid "Hardware decoding"
+msgstr ""
+
+#: PrefPerformance#8
+msgid "None"
+msgstr ""
+
+#: PrefPerformance#9
+msgctxt "PrefPerformance#9"
+msgid "Auto"
+msgstr ""
+
+#: PrefPerformance#10
+msgctxt "PrefPerformance#10"
+msgid "Performance"
+msgstr ""
+
+#: PrefPerformance#11
+msgid "Threads for decoding"
+msgstr ""
+
+#: PrefPerformance#12
+msgid ""
+"Sets the number of threads to use for decoding. Only for MPEG-1/2 and H.264"
+msgstr ""
+
+#: PrefPerformance#13
+msgid ""
+"Sets the hardware video decoding API. If hardware decoding is not possible, "
+"software decoding will be used instead."
+msgstr ""
+
+#: PrefPerformance#14
+msgid "Available options:"
+msgstr ""
+
+#: PrefPerformance#15
+msgid "None: only software decoding will be used."
+msgstr ""
+
+#: PrefPerformance#16
+msgid ""
+"Auto: it tries to automatically enable hardware decoding using the first "
+"available method."
+msgstr ""
+
+#: PrefPerformance#17
+msgid "vdpau: for the vdpau and opengl video outputs."
+msgstr ""
+
+#: PrefPerformance#18
+msgid "vaapi: for the opengl and vaapi video outputs. For Intel GPUs only."
+msgstr ""
+
+#: PrefPerformance#19
+msgid "vaapi-copy: it copies video back into system RAM. For Intel GPUs only."
+msgstr ""
+
+#: PrefPerformance#20
+msgctxt "PrefPerformance#20"
+msgid "This option only works with mpv."
+msgstr ""
+
+#: PrefPerformance#21
+msgid "Cache for files"
+msgstr ""
+
+#: PrefPerformance#22
+msgid ""
+"This option specifies how much memory (in kBytes) to use when precaching a "
+"file."
+msgstr ""
+
+#: PrefPerformance#23
+msgid "Cache for streams"
+msgstr ""
+
+#: PrefPerformance#24
+msgid ""
+"This option specifies how much memory (in kBytes) to use when precaching a "
+"URL."
+msgstr ""
+
+#: PrefScreenShot#1
+msgid "Screenshots"
+msgstr ""
+
+#: PrefScreenShot#2
+msgid "Enable screenshots"
+msgstr ""
+
+#: PrefScreenShot#3
+msgid "Folder:"
+msgstr ""
+
+#: PrefScreenShot#4
+msgid "Template:"
+msgstr ""
+
+#: PrefScreenShot#5
+msgid "Format:"
+msgstr ""
+
+#: PrefScreenShot#6
+msgid "Select a directory"
+msgstr ""
+
+#: PrefScreenShot#7
+msgid ""
+"You can use this option to enable or disable the possibility to take "
+"screenshots."
+msgstr ""
+
+#: PrefScreenShot#8
+msgid "Screenshots folder"
+msgstr ""
+
+#: PrefScreenShot#9
+msgid ""
+"Here you can specify a folder where the screenshots taken by Kylin Video "
+"will be stored. If the folder is not valid the screenshot feature will be "
+"disabled."
+msgstr ""
+
+#: PrefScreenShot#10
+msgid "Template for screenshots"
+msgstr ""
+
+#: PrefScreenShot#11
+msgid "This option specifies the filename template used to save screenshots."
+msgstr ""
+
+#: PrefScreenShot#12
+msgid "For example %1 would save the screenshot as 'moviename_0001.png'."
+msgstr ""
+
+#: PrefScreenShot#13
+msgid ""
+"%1 specifies the filename of the video without the extension, %2 adds a 4 "
+"digit number padded with zeros."
+msgstr ""
+
+#: PrefScreenShot#14
+msgid "For a full list of the template specifiers visit this link:"
+msgstr ""
+
+#: PrefScreenShot#15
+msgctxt "PrefScreenShot#15"
+msgid "This option only works with mpv."
+msgstr ""
+
+#: PrefScreenShot#16
+msgid "Format for screenshots"
+msgstr ""
+
+#: PrefScreenShot#17
+msgid ""
+"This option allows one to choose the image file type used for saving "
+"screenshots."
+msgstr ""
+
+#: PrefShortCut#1
+msgid ""
+"Here you can change any key shortcut. To do it double click or press enter "
+"over a shortcut cell. "
+msgstr ""
+
+#: PrefShortCut#2
+msgid "ShortCut"
+msgstr ""
+
+#: PrefShortCut#3
+msgid ""
+"Here you can change any key shortcut. To do it double click or start typing "
+"over a shortcut cell."
+msgstr ""
+
+#: PrefShortCut#4
+msgctxt "PrefShortCut#4"
+msgid "Shortcut Key"
+msgstr ""
+
+#: PrefShortCut#5
+msgid "Shortcut editor"
+msgstr ""
+
+#: PrefShortCut#6
+msgid ""
+"This table allows you to change the key shortcuts of most available actions. "
+"Double click or press enter on a item, or press the <b>Change shortcut</b> "
+"button to enter in the <i>Modify shortcut</i> dialog. There are two ways to "
+"change a shortcut: if the <b>Capture</b> button is on then just press the "
+"new key or combination of keys that you want to assign for the action ("
+"unfortunately this doesn't work for all keys). If the <b>Capture</b> button "
+"is off then you could enter the full name of the key."
+msgstr ""
+
+#: PrefSubtitles#1
+msgid "Autoload"
+msgstr ""
+
+#: PrefSubtitles#2
+msgid "Autoload subtitles files (*.srt, *.sub...):"
+msgstr ""
+
+#: PrefSubtitles#3
+msgid "Same name as movie"
+msgstr ""
+
+#: PrefSubtitles#4
+msgid "All subs containing movie name"
+msgstr ""
+
+#: PrefSubtitles#5
+msgid "All subs in directory"
+msgstr ""
+
+#: PrefSubtitles#6
+msgid "Encoding"
+msgstr ""
+
+#: PrefSubtitles#7
+msgid "Default subtitle encoding:"
+msgstr ""
+
+#: PrefSubtitles#8
+msgid "Try to autodetect for this language:"
+msgstr ""
+
+#: PrefSubtitles#9
+msgctxt "PrefSubtitles#9"
+msgid "Subtitles"
+msgstr ""
+
+#: PrefSubtitles#10
+msgid "Select the subtitle autoload method."
+msgstr ""
+
+#: PrefSubtitles#11
+msgid "Default subtitle encoding"
+msgstr ""
+
+#: PrefSubtitles#12
+msgid "Select the encoding which will be used for subtitle files by default."
+msgstr ""
+
+#: PrefSubtitles#13
+msgid "Try to autodetect for this language"
+msgstr ""
+
+#: PrefSubtitles#14
+msgid ""
+"When this option is on, the encoding of the subtitles will be tried to be "
+"autodetected for the given language. It will fall back to the default "
+"encoding if the autodetection fails. This option requires a MPlayer compiled "
+"with ENCA support."
+msgstr ""
+
+#: PrefSubtitles#15
+msgid "Subtitle language"
+msgstr ""
+
+#: PrefSubtitles#16
+msgid ""
+"Select the language for which you want the encoding to be guessed "
+"automatically."
+msgstr ""
+
+#: PrefSubtitles#17
+msgid "Font"
+msgstr ""
+
+#: PrefVideo#1
+msgid "Enable postprocessing by default"
+msgstr ""
+
+#: PrefVideo#2
+msgid "Draw video using slices"
+msgstr ""
+
+#: PrefVideo#3
+msgid "Direct rendering"
+msgstr ""
+
+#: PrefVideo#4
+msgid "Double buffering"
+msgstr ""
+
+#: PrefVideo#5
+msgid "Use software video equalizer"
+msgstr ""
+
+#: PrefVideo#6
+msgctxt "PrefVideo#6"
+msgid "Output driver:"
+msgstr ""
+
+#: PrefVideo#7
+msgctxt "PrefVideo#7"
+msgid "Default"
+msgstr ""
+
+#: PrefVideo#8
+msgid "slow"
+msgstr ""
+
+#: PrefVideo#9
+msgid "Video output driver"
+msgstr ""
+
+#: PrefVideo#10
+msgid "Select the video output driver. %1 provides the best performance."
+msgstr ""
+
+#: PrefVideo#11
+msgid "Postprocessing will be used by default on new opened files."
+msgstr ""
+
+#: PrefVideo#12
+msgid "Software video equalizer"
+msgstr ""
+
+#: PrefVideo#13
+msgid ""
+"You can check this option if video equalizer is not supported by your "
+"graphic card or the selected video output driver.<br><b>Note:</b> this "
+"option can be incompatible with some video output drivers."
+msgstr ""
+
+#: PrefVideo#14
+msgid ""
+"If checked, turns on direct rendering (not supported by all codecs and video "
+"outputs)<br><b>Warning:</b> May cause OSD/SUB corruption!"
+msgstr ""
+
+#: PrefVideo#15
+msgid ""
+"Double buffering fixes flicker by storing two frames in memory, and "
+"displaying one while decoding another. If disabled it can affect OSD "
+"negatively, but often removes OSD flickering."
+msgstr ""
+
+#: PrefVideo#16
+msgid ""
+"Enable/disable drawing video by 16-pixel height slices/bands. If disabled, "
+"the whole frame is drawn in a single run. May be faster or slower, depending "
+"on video card and available cache. It has effect only with libmpeg2 and "
+"libavcodec codecs."
+msgstr ""
+
+#: PreferencesDialog#1
+msgctxt "PreferencesDialog#1"
+msgid "Kylin Video - Preferences"
+msgstr ""
+
+#: PreferencesDialog#2
+msgid "Preference"
+msgstr ""
+
+#: PreferencesDialog#3
+msgctxt "PreferencesDialog#3"
+msgid "Cancel"
+msgstr ""
+
+#: PreferencesDialog#4
+msgctxt "PreferencesDialog#4"
+msgid "Apply"
+msgstr ""
+
+#: PreferencesDialog#5
+msgctxt "PreferencesDialog#5"
+msgid "OK"
+msgstr ""
+
+#: PreferencesDialog#6
+msgid "General"
+msgstr ""
+
+#: PreferencesDialog#7
+msgctxt "PreferencesDialog#7"
+msgid "Video"
+msgstr ""
+
+#: PreferencesDialog#8
+msgctxt "PreferencesDialog#8"
+msgid "Audio"
+msgstr ""
+
+#: PreferencesDialog#9
+msgctxt "PreferencesDialog#9"
+msgid "Performance"
+msgstr ""
+
+#: PreferencesDialog#10
+msgctxt "PreferencesDialog#10"
+msgid "Subtitles"
+msgstr ""
+
+#: PreferencesDialog#11
+msgid "ScreenShot"
+msgstr ""
+
+#: PreferencesDialog#12
+msgctxt "PreferencesDialog#12"
+msgid "Shortcut Key"
+msgstr ""
+
+#: QObject#1
+#, fuzzy
+msgid "%n second(s)"
+msgstr ""
+"\n"
+"            \n"
+"            \n"
+"        "
+
+#: QObject#2
+#, fuzzy
+msgid "%n minute(s)"
+msgstr ""
+"\n"
+"            \n"
+"            \n"
+"        "
+
+#: QObject#3
+msgid "%1 and %2"
+msgstr ""
+
+#: QObject#4
+msgid "This is Kylin Vedio v. %1 running on %2"
+msgstr ""
+
+# aspect_ratio
+#: QObject#5
+msgid "disabled"
+msgstr ""
+
+# aspect_ratio
+#: QObject#6
+msgid "auto"
+msgstr ""
+
+# aspect_ratio
+#: QObject#7
+msgid "unknown"
+msgstr ""
+
+#: ShortcutGetter#1
+msgid "Modify shortcut"
+msgstr ""
+
+#: ShortcutGetter#2
+msgid "Add shortcut"
+msgstr ""
+
+#: ShortcutGetter#3
+msgid "Remove shortcut"
+msgstr ""
+
+#: ShortcutGetter#4
+msgid "Press the key combination you want to assign"
+msgstr ""
+
+#: ShortcutGetter#5
+msgctxt "ShortcutGetter#5"
+msgid "Clear"
+msgstr ""
+
+#: ShortcutGetter#6
+msgctxt "ShortcutGetter#6"
+msgid "OK"
+msgstr ""
+
+#: ShortcutGetter#7
+msgctxt "ShortcutGetter#7"
+msgid "Cancel"
+msgstr ""
+
+#: ShortcutGetter#8
+msgid "Capture"
+msgstr ""
+
+#: ShortcutGetter#9
+msgid "Capture keystrokes"
+msgstr ""
+
+#: SupportFormats#1
+msgid "Video formats"
+msgstr ""
+
+#: SupportFormats#2
+msgid "Audio formats"
+msgstr ""
+
+#: SupportFormats#3
+msgid "Subtitles formats"
+msgstr ""
+
+#: SupportFormats#4
+msgid ""
+"Some video formats do not support preview and seek by dragging, e.g. the swf."
+msgstr ""
+
+#: TimeDialog#1
+msgid "Seek"
+msgstr ""
+
+#: TimeDialog#2
+msgctxt "TimeDialog#2"
+msgid "OK"
+msgstr ""
+
+#: TimeDialog#3
+msgctxt "TimeDialog#3"
+msgid "Cancel"
+msgstr ""
+
+#: TimeDialog#4
+msgid "Jump to:"
+msgstr ""
+
+#: TitleWidget#1
+msgctxt "TitleWidget#1"
+msgid "Kylin Video"
+msgstr ""
+
+#: TristateCombo#1
+msgctxt "TristateCombo#1"
+msgid "Auto"
+msgstr ""
+
+#: TristateCombo#2
+msgctxt "TristateCombo#2"
+msgid "Yes"
+msgstr ""
+
+#: TristateCombo#3
+msgctxt "TristateCombo#3"
+msgid "No"
+msgstr ""
+
+#: VideoPreview#1
+msgid "The length of the video is 0"
+msgstr ""
+
+#: VideoPreview#2
+msgid "The temporary directory (%1) can't be created"
+msgstr ""
+
+#: VideoPreview#3
+msgid "The file %1 doesn't exist"
+msgstr ""
+
+#: VideoPreview#4
+msgid "The mplayer process didn't run"
+msgstr ""
+
+#: VideoPreview#5
+msgid "No filename"
+msgstr ""
+
+#: VideoPreview#6
+msgid ""
+"The mplayer process didn't start while trying to get info about the video"
+msgstr ""

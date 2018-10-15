@@ -18,7 +18,9 @@
 
 #include <QDir>
 #include <QDebug>
+#include <QObject>
 #include "inforeader.h"
+#include "mpvprocess.h"// src/smplayer/mpvoptions.cpp:109: Qualifying with unknown namespace/class ::MPVProcess
 
 void MPVProcess::setMedia(const QString & media, bool is_playlist) {
     arg << "--term-playing-msg="
@@ -105,7 +107,7 @@ void MPVProcess::addVFIfAvailable(const QString & vf, const QString & value) {
 }
 
 void MPVProcess::messageFilterNotSupported(const QString & filter_name) {
-    QString text = tr("the '%1' filter is not supported by mpv").arg(filter_name);
+    QString text = QString(tr("the '%1' filter is not supported by mpv").arg(filter_name));
     writeToStdin(QString("show_text \"%1\" 3000").arg(text));
 }
 

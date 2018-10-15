@@ -5,6 +5,7 @@ LANGUAGE = C++
 CONFIG += c++11
 CONFIG += qt warn_on
 CONFIG += release
+CONFIG += link_pkgconfig
 
 QT += network xml
 
@@ -234,5 +235,5 @@ unix {
     OBJECTS_DIR = .obj
 }
 
-TRANSLATIONS += \
-    translations/kylin-video_zh_CN.ts
+#TRANSLATIONS += \
+#    translation/kylin-video_zh_CN.ts

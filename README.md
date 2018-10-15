@@ -19,7 +19,8 @@ Bugs should be report to the kylin-video bug tracking system:
     https://github.com/ukui/kylin-video/issues
 
 
-Snap:
+Snap
+==================
 
 snapcraft
 
@@ -53,3 +54,10 @@ Git
 
 上传分支：git push origin 1.1.6
 
+
+ts2po
+==================
+
+sudo apt install translate-toolkit
+
+ts2po -i kylin-video_fr.ts -o kylin-video.pot

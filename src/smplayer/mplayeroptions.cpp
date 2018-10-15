@@ -17,8 +17,10 @@
 */
 
 #include "subtracks.h"
+#include "mplayerprocess.h"// src/smplayer/mplayeroptions.cpp:280: Qualifying with unknown namespace/class ::MplayerProcess
 #include <QDir>
 #include <QDebug>
+#include <QObject>
 
 void MplayerProcess::setMedia(const QString & media, bool is_playlist) {
 	if (is_playlist) arg << "-playlist";
@@ -276,7 +278,7 @@ void MplayerProcess::frameStep() {
 
 void MplayerProcess::frameBackStep() {
 	qDebug("MplayerProcess::frameBackStep: function not supported by mplayer");
-	showOSDText(tr("This option is not supported by MPlayer"), 3000, 1);
+    showOSDText(QString(tr("This option is not supported by MPlayer")), 3000, 1);
 }
 
 

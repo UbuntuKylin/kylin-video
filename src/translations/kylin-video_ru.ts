@@ -1,3154 +1,2468 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="ru_RU">
-<context>
-    <name>AboutDialog</name>
-    <message>
-        <location filename="../kylin/aboutdialog.ui" line="26"/>
-        <location filename="../kylin/aboutdialog.ui" line="66"/>
-        <source>About</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../kylin/aboutdialog.ui" line="79"/>
-        <source>Contributor</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../kylin/aboutdialog.ui" line="131"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+<TS>
+    <context>
+        <name>AboutDialog</name>
+        <message>
+            <source>About</source>
+            <translation>Около</translation>
+        </message>
+        <message>
+            <source>Contributor</source>
+            <translation>участник</translation>
+        </message>
+        <message>
+            <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../kylin/aboutdialog.cpp" line="75"/>
-        <source>OK</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../kylin/aboutdialog.cpp" line="157"/>
-        <source>Kylin Video is developed on the basis of SMPlayer, is a graphical interface for MPlayer and MPV.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../kylin/aboutdialog.cpp" line="158"/>
-        <source>Kylin Video</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../kylin/aboutdialog.cpp" line="158"/>
-        <source>Version: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../kylin/aboutdialog.cpp" line="159"/>
-        <source>Using Qt %1 (compiled with Qt %2)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../kylin/aboutdialog.cpp" line="160"/>
-        <source>Playback engine:</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ActionsEditor</name>
-    <message>
-        <location filename="../smplayer/actionseditor.cpp" line="226"/>
-        <source>Shortcut</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/actionseditor.cpp" line="226"/>
-        <source>Description</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/actionseditor.cpp" line="226"/>
-        <source>Name</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>AudioDelayDialog</name>
-    <message>
-        <location filename="../merge/audiodelaydialog.ui" line="26"/>
-        <location filename="../merge/audiodelaydialog.ui" line="77"/>
-        <source>Audio delay</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/audiodelaydialog.ui" line="38"/>
-        <location filename="../merge/audiodelaydialog.cpp" line="58"/>
-        <source>OK</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/audiodelaydialog.ui" line="51"/>
-        <location filename="../merge/audiodelaydialog.cpp" line="63"/>
-        <source>Cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/audiodelaydialog.ui" line="93"/>
-        <source>Audio delay (in milliseconds):</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>BaseGui</name>
-    <message>
-        <location filename="../merge/basegui.cpp" line="103"/>
-        <source>Kylin Video</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="660"/>
-        <source>Open</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="666"/>
-        <source>Open &amp;File...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="670"/>
-        <source>Directory...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="674"/>
-        <source>&amp;URL...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="682"/>
-        <source>&amp;Clear</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="687"/>
-        <source>Recent files</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="691"/>
-        <source>Play control</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="693"/>
-        <source>Forward and rewind</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="713"/>
-        <source>&amp;Jump to...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="725"/>
-        <source>Play Speed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="746"/>
-        <source>Normal speed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="747"/>
-        <source>Half speed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="748"/>
-        <source>Double speed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="749"/>
-        <source>Speed -10%</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="750"/>
-        <source>Speed +10%</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="751"/>
-        <source>Speed -4%</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="752"/>
-        <source>Speed +4%</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="753"/>
-        <source>Speed -1%</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="754"/>
-        <source>Speed +1%</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="778"/>
-        <source>Next</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="779"/>
-        <source>Previous</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="803"/>
-        <source>&amp;Auto</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="814"/>
-        <source>&amp;Disabled</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="819"/>
-        <source>Aspect ratio</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="829"/>
-        <source>&amp;Off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="830"/>
-        <source>&amp;Rotate by 90 degrees clockwise and flip</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="831"/>
-        <source>Rotate by 90 degrees &amp;clockwise</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="832"/>
-        <source>Rotate by 90 degrees counterclock&amp;wise</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="833"/>
-        <source>Rotate by 90 degrees counterclockwise and &amp;flip</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="838"/>
-        <source>Fli&amp;p image</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="843"/>
-        <source>Mirr&amp;or image</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="847"/>
-        <source>Frame rotation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="852"/>
-        <source>&amp;Rotate</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="865"/>
-        <source>&amp;Screenshot</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="872"/>
-        <source>&amp;Always</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="873"/>
-        <source>&amp;Never</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="874"/>
-        <source>While &amp;playing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="880"/>
-        <source>S&amp;tay on top</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="888"/>
-        <source>Order play</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="889"/>
-        <source>Random play</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="890"/>
-        <source>List loop play</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="895"/>
-        <source>Play order</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="906"/>
-        <location filename="../merge/basegui.cpp" line="952"/>
-        <source>&amp;Stereo</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="907"/>
-        <source>&amp;4.0 Surround</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="908"/>
-        <source>&amp;5.1 Surround</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="909"/>
-        <source>&amp;6.1 Surround</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="910"/>
-        <source>&amp;7.1 Surround</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="915"/>
-        <source>&amp;Channels</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="918"/>
-        <location filename="../merge/basegui.cpp" line="1754"/>
-        <location filename="../merge/basegui.cpp" line="1911"/>
-        <source>Audio</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="926"/>
-        <source>&amp;Mute</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="930"/>
-        <source>Volume -</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="933"/>
-        <source>Volume +</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="936"/>
-        <source>Delay -</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="939"/>
-        <source>Delay +</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="942"/>
-        <source>Set dela&amp;y...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="953"/>
-        <source>&amp;Left channel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="954"/>
-        <source>&amp;Right channel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="955"/>
-        <source>&amp;Mono</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="956"/>
-        <source>Re&amp;verse</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="962"/>
-        <source>&amp;Stereo mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="979"/>
-        <location filename="../merge/basegui.cpp" line="1890"/>
-        <source>Subtitles</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="983"/>
-        <source>Load...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="987"/>
-        <source>Subtitle &amp;visibility</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="993"/>
-        <source>Preferences</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="997"/>
-        <source>View &amp;info and properties...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="1001"/>
-        <source>Help</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="1005"/>
-        <source>About &amp;Kylin Video</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="1008"/>
-        <source>Quit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="1055"/>
-        <source>Open Homepage</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="1058"/>
-        <source>Open screenshots folder</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="1081"/>
-        <source>PlayList</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="1085"/>
-        <source>Play/Pause</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="1091"/>
-        <source>Stop</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="1095"/>
-        <source>Fullscreen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="1195"/>
-        <source>Video filters are disabled when using vdpau</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="1234"/>
-        <location filename="../merge/basegui.cpp" line="1235"/>
-        <location filename="../merge/basegui.cpp" line="1236"/>
-        <source>-%1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="1238"/>
-        <location filename="../merge/basegui.cpp" line="1239"/>
-        <location filename="../merge/basegui.cpp" line="1240"/>
-        <source>+%1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="1638"/>
-        <source>&lt;empty&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="1649"/>
-        <source>Confirm deletion - Kylin Video</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="1649"/>
-        <source>Delete the list of recent files?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="1751"/>
-        <location filename="../merge/basegui.cpp" line="1888"/>
-        <location filename="../merge/basegui.cpp" line="1909"/>
-        <source>Choose a file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="1752"/>
-        <source>Multimedia</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="1753"/>
-        <source>Video</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="1755"/>
-        <source>Playlists</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="1756"/>
-        <location filename="../merge/basegui.cpp" line="1891"/>
-        <location filename="../merge/basegui.cpp" line="1912"/>
-        <source>All files</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="1790"/>
-        <source>Choose a directory</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="1946"/>
-        <source>&amp;Jump to:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="1947"/>
-        <source>Kylin Video - Seek</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="1973"/>
-        <location filename="../merge/basegui.cpp" line="1977"/>
-        <source>Kylin Video - Subtitle delay</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="1974"/>
-        <location filename="../merge/basegui.cpp" line="1978"/>
-        <source>Subtitle delay (in milliseconds):</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="2240"/>
-        <source>Error detected</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="2241"/>
-        <source>Unfortunately this video can&apos;t be played.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="2242"/>
-        <source>The server returned &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="2557"/>
-        <source>Jump to %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="2925"/>
-        <location filename="../merge/basegui.cpp" line="2926"/>
-        <location filename="../merge/basegui.cpp" line="2937"/>
-        <location filename="../merge/basegui.cpp" line="2938"/>
-        <location filename="../merge/basegui.cpp" line="2958"/>
-        <location filename="../merge/basegui.cpp" line="2959"/>
-        <source>%1 Error</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="2927"/>
-        <source>&apos;%1&apos; was not found!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="2939"/>
-        <source>%1 has finished unexpectedly.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="2940"/>
-        <source>Exit code: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="2961"/>
-        <source>%1 failed to start.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="2962"/>
-        <source>Please check the %1 path in preferences.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="2964"/>
-        <source>%1 has crashed.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="2965"/>
-        <source>See the log for more info.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="3207"/>
-        <source>Information</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/basegui.cpp" line="3207"/>
-        <source>The screenshot folder does not exist!</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>BottomWidget</name>
-    <message>
-        <location filename="../kylin/bottomwidget.cpp" line="244"/>
-        <source>Stop</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../kylin/bottomwidget.cpp" line="245"/>
-        <source>Prev</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../kylin/bottomwidget.cpp" line="246"/>
-        <source>Play / Pause</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../kylin/bottomwidget.cpp" line="247"/>
-        <source>Next</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../kylin/bottomwidget.cpp" line="248"/>
-        <source>Mute</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../kylin/bottomwidget.cpp" line="249"/>
-        <source>Play List</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>Core</name>
-    <message>
-        <location filename="../smplayer/core.cpp" line="1042"/>
-        <source>Screenshot NOT taken, folder not configured</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/core.cpp" line="1055"/>
-        <source>Screenshots NOT taken, folder not configured</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/core.cpp" line="2349"/>
-        <source>&quot;A&quot; marker set to %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/core.cpp" line="2366"/>
-        <source>&quot;B&quot; marker set to %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/core.cpp" line="2381"/>
-        <source>A-B markers cleared</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/core.cpp" line="2680"/>
-        <source>Brightness: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/core.cpp" line="2696"/>
-        <source>Contrast: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/core.cpp" line="2711"/>
-        <source>Gamma: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/core.cpp" line="2726"/>
-        <source>Hue: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/core.cpp" line="2741"/>
-        <source>Saturation: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/core.cpp" line="2795"/>
-        <source>Speed: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/core.cpp" line="2896"/>
-        <source>Volume: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/core.cpp" line="2953"/>
-        <source>Subtitle delay: %1 ms</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/core.cpp" line="2971"/>
-        <source>Audio delay: %1 ms</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/core.cpp" line="3118"/>
-        <source>Subtitles on</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/core.cpp" line="3120"/>
-        <source>Subtitles off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/core.cpp" line="3676"/>
-        <source>Aspect ratio: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/core.cpp" line="3724"/>
-        <source>Mouse wheel seeks now</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/core.cpp" line="3727"/>
-        <source>Mouse wheel changes volume now</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/core.cpp" line="3730"/>
-        <source>Mouse wheel changes zoom level now</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/core.cpp" line="3733"/>
-        <source>Mouse wheel changes speed now</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/core.cpp" line="3837"/>
-        <source>Zoom: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/core.cpp" line="4039"/>
-        <source>Screenshot saved as %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/core.cpp" line="4062"/>
-        <source>Updating the font cache. This may take some seconds...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/core.cpp" line="4066"/>
-        <source>Buffering...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/core.cpp" line="4071"/>
-        <source>Starting...</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ErrorDialog</name>
-    <message>
-        <location filename="../merge/errordialog.ui" line="26"/>
-        <location filename="../merge/errordialog.ui" line="64"/>
-        <source>MPlayer Error</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/errordialog.ui" line="38"/>
-        <source>OK</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/errordialog.ui" line="80"/>
-        <source>icon</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/errordialog.ui" line="105"/>
-        <source>Oops, something wrong happened</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/errordialog.ui" line="130"/>
-        <source>Error</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/errordialog.ui" line="159"/>
-        <location filename="../merge/errordialog.cpp" line="105"/>
-        <source>Show log</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/errordialog.cpp" line="101"/>
-        <source>Hide log</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>EscTip</name>
-    <message>
-        <location filename="../kylin/esctip.cpp" line="50"/>
-        <source>Press ESC to exit full screen mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>FileChooser</name>
-    <message>
-        <location filename="../smplayer/filechooser.cpp" line="44"/>
-        <source>Click to select a file or folder</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>FilePropertiesDialog</name>
-    <message>
-        <location filename="../merge/filepropertiesdialog.ui" line="14"/>
-        <source>Kylin Video - Preferences</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/filepropertiesdialog.ui" line="73"/>
-        <source>Properties</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/filepropertiesdialog.ui" line="124"/>
-        <source>&amp;Select the demuxer that will be used for this file:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/filepropertiesdialog.ui" line="153"/>
-        <location filename="../merge/filepropertiesdialog.ui" line="200"/>
-        <source>&amp;Reset</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/filepropertiesdialog.ui" line="181"/>
-        <source>&amp;Select the video codec:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/filepropertiesdialog.ui" line="225"/>
-        <source>&amp;Select the audio codec:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/filepropertiesdialog.ui" line="244"/>
-        <source>Reset</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/filepropertiesdialog.ui" line="259"/>
-        <location filename="../merge/filepropertiesdialog.cpp" line="191"/>
-        <source>Apply</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/filepropertiesdialog.ui" line="272"/>
-        <location filename="../merge/filepropertiesdialog.cpp" line="189"/>
-        <source>OK</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/filepropertiesdialog.ui" line="285"/>
-        <location filename="../merge/filepropertiesdialog.cpp" line="190"/>
-        <source>Cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/filepropertiesdialog.cpp" line="103"/>
-        <source>Information</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/filepropertiesdialog.cpp" line="108"/>
-        <source>Demuxer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/filepropertiesdialog.cpp" line="112"/>
-        <source>Video codec</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/filepropertiesdialog.cpp" line="116"/>
-        <source>Audio codec</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>HelpDialog</name>
-    <message>
-        <location filename="../kylin/helpdialog.ui" line="14"/>
-        <source>Kylin Video - Help</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../kylin/helpdialog.ui" line="35"/>
-        <source>Help</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../kylin/helpdialog.ui" line="109"/>
-        <location filename="../kylin/helpdialog.cpp" line="144"/>
-        <source>OK</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../kylin/helpdialog.cpp" line="69"/>
-        <source>Supported formats</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>InputURL</name>
-    <message>
-        <location filename="../merge/inputurl.ui" line="26"/>
-        <location filename="../merge/inputurl.ui" line="77"/>
-        <source>Enter URL</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/inputurl.ui" line="38"/>
-        <location filename="../merge/inputurl.cpp" line="62"/>
-        <source>OK</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/inputurl.ui" line="51"/>
-        <location filename="../merge/inputurl.cpp" line="67"/>
-        <source>Cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/inputurl.ui" line="115"/>
-        <source>URL:</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>Languages</name>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="24"/>
-        <source>Afar</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="25"/>
-        <source>Abkhazian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="26"/>
-        <source>Avestan</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="27"/>
-        <source>Afrikaans</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="28"/>
-        <source>Akan</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="29"/>
-        <source>Amharic</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="30"/>
-        <source>Aragonese</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="31"/>
-        <location filename="../smplayer/languages.cpp" line="297"/>
-        <source>Arabic</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="32"/>
-        <source>Assamese</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="33"/>
-        <source>Avaric</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="34"/>
-        <source>Aymara</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="35"/>
-        <source>Azerbaijani</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="36"/>
-        <source>Bashkir</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="37"/>
-        <location filename="../smplayer/languages.cpp" line="322"/>
-        <source>Belarusian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="38"/>
-        <location filename="../smplayer/languages.cpp" line="323"/>
-        <source>Bulgarian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="39"/>
-        <source>Bihari</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="40"/>
-        <source>Bislama</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="41"/>
-        <source>Bambara</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="42"/>
-        <source>Bengali</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="43"/>
-        <source>Tibetan</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="44"/>
-        <source>Breton</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="45"/>
-        <source>Bosnian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="46"/>
-        <source>Catalan</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="47"/>
-        <source>Chechen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="48"/>
-        <source>Corsican</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="49"/>
-        <source>Cree</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="50"/>
-        <location filename="../smplayer/languages.cpp" line="324"/>
-        <source>Czech</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="51"/>
-        <source>Church</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="52"/>
-        <source>Chuvash</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="53"/>
-        <source>Welsh</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="54"/>
-        <source>Danish</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="55"/>
-        <location filename="../smplayer/languages.cpp" line="216"/>
-        <source>German</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="56"/>
-        <source>Divehi</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="57"/>
-        <source>Dzongkha</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="58"/>
-        <source>Ewe</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="59"/>
-        <source>Greek</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="60"/>
-        <location filename="../smplayer/languages.cpp" line="217"/>
-        <source>English</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="61"/>
-        <source>Esperanto</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="62"/>
-        <location filename="../smplayer/languages.cpp" line="218"/>
-        <source>Spanish</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="63"/>
-        <location filename="../smplayer/languages.cpp" line="325"/>
-        <source>Estonian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="64"/>
-        <source>Basque</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="65"/>
-        <source>Persian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="66"/>
-        <source>Fulah</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="67"/>
-        <location filename="../smplayer/languages.cpp" line="219"/>
-        <source>Finnish</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="68"/>
-        <source>Fijian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="69"/>
-        <source>Faroese</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="70"/>
-        <location filename="../smplayer/languages.cpp" line="220"/>
-        <source>French</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="71"/>
-        <source>Frisian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="72"/>
-        <source>Irish</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="73"/>
-        <source>Gaelic</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="74"/>
-        <source>Galician</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="75"/>
-        <source>Guarani</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="76"/>
-        <source>Gujarati</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="77"/>
-        <source>Manx</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="78"/>
-        <source>Hausa</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="79"/>
-        <source>Hebrew</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="80"/>
-        <source>Hindi</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="81"/>
-        <source>Hiri</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="82"/>
-        <location filename="../smplayer/languages.cpp" line="326"/>
-        <source>Croatian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="83"/>
-        <source>Haitian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="84"/>
-        <location filename="../smplayer/languages.cpp" line="327"/>
-        <source>Hungarian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="85"/>
-        <source>Armenian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="86"/>
-        <source>Herero</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="87"/>
-        <source>Chamorro</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="88"/>
-        <source>Interlingua</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="89"/>
-        <source>Indonesian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="90"/>
-        <source>Interlingue</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="91"/>
-        <source>Igbo</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="92"/>
-        <source>Sichuan</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="93"/>
-        <source>Inupiaq</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="94"/>
-        <source>Ido</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="95"/>
-        <source>Icelandic</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="96"/>
-        <location filename="../smplayer/languages.cpp" line="221"/>
-        <source>Italian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="97"/>
-        <source>Inuktitut</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="98"/>
-        <location filename="../smplayer/languages.cpp" line="222"/>
-        <source>Japanese</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="99"/>
-        <source>Javanese</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="100"/>
-        <source>Georgian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="101"/>
-        <source>Kongo</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="102"/>
-        <source>Kikuyu</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="103"/>
-        <source>Kuanyama</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="104"/>
-        <source>Kazakh</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="105"/>
-        <source>Greenlandic</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="106"/>
-        <source>Khmer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="107"/>
-        <source>Kannada</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="108"/>
-        <source>Korean</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="109"/>
-        <source>Kanuri</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="110"/>
-        <source>Kashmiri</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="111"/>
-        <source>Kurdish</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="112"/>
-        <source>Komi</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="113"/>
-        <source>Cornish</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="114"/>
-        <source>Kirghiz</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="115"/>
-        <source>Latin</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="116"/>
-        <source>Luxembourgish</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="117"/>
-        <source>Ganda</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="118"/>
-        <source>Limburgan</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="119"/>
-        <source>Lingala</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="120"/>
-        <source>Lao</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="121"/>
-        <location filename="../smplayer/languages.cpp" line="328"/>
-        <source>Lithuanian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="122"/>
-        <source>Luba-Katanga</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="123"/>
-        <location filename="../smplayer/languages.cpp" line="329"/>
-        <source>Latvian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="124"/>
-        <source>Malagasy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="125"/>
-        <source>Marshallese</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="126"/>
-        <source>Maori</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="127"/>
-        <source>Macedonian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="128"/>
-        <source>Malayalam</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="129"/>
-        <source>Mongolian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="130"/>
-        <source>Moldavian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="131"/>
-        <source>Marathi</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="132"/>
-        <source>Malay</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="133"/>
-        <source>Maltese</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="134"/>
-        <source>Burmese</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="135"/>
-        <source>Nauru</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="136"/>
-        <source>Bokmål</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="137"/>
-        <location filename="../smplayer/languages.cpp" line="143"/>
-        <source>Ndebele</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="138"/>
-        <source>Nepali</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="139"/>
-        <source>Ndonga</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="140"/>
-        <location filename="../smplayer/languages.cpp" line="223"/>
-        <source>Dutch</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="141"/>
-        <source>Norwegian Nynorsk</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="142"/>
-        <location filename="../smplayer/languages.cpp" line="224"/>
-        <source>Norwegian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="144"/>
-        <source>Navajo</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="145"/>
-        <source>Chichewa</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="146"/>
-        <source>Occitan</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="147"/>
-        <source>Ojibwa</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="148"/>
-        <source>Oromo</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="149"/>
-        <source>Oriya</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="150"/>
-        <source>Ossetian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="151"/>
-        <source>Panjabi</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="152"/>
-        <source>Pali</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="153"/>
-        <location filename="../smplayer/languages.cpp" line="330"/>
-        <source>Polish</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="154"/>
-        <source>Pushto</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="155"/>
-        <location filename="../smplayer/languages.cpp" line="225"/>
-        <source>Portuguese</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="156"/>
-        <source>Quechua</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="157"/>
-        <source>Romansh</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="158"/>
-        <source>Rundi</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="159"/>
-        <source>Romanian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="160"/>
-        <location filename="../smplayer/languages.cpp" line="226"/>
-        <location filename="../smplayer/languages.cpp" line="304"/>
-        <location filename="../smplayer/languages.cpp" line="331"/>
-        <source>Russian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="161"/>
-        <source>Kinyarwanda</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="162"/>
-        <source>Sanskrit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="163"/>
-        <source>Sardinian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="164"/>
-        <source>Sindhi</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="165"/>
-        <source>Sami</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="166"/>
-        <source>Sango</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="167"/>
-        <source>Sinhala</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="168"/>
-        <location filename="../smplayer/languages.cpp" line="332"/>
-        <source>Slovak</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="169"/>
-        <location filename="../smplayer/languages.cpp" line="333"/>
-        <source>Slovene</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="170"/>
-        <source>Samoan</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="171"/>
-        <source>Shona</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="172"/>
-        <source>Somali</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="173"/>
-        <source>Albanian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="174"/>
-        <source>Serbian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="175"/>
-        <source>Swati</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="176"/>
-        <source>Sotho</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="177"/>
-        <source>Sundanese</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="178"/>
-        <location filename="../smplayer/languages.cpp" line="227"/>
-        <source>Swedish</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="179"/>
-        <source>Swahili</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="180"/>
-        <source>Tamil</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="181"/>
-        <source>Telugu</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="182"/>
-        <source>Tajik</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="183"/>
-        <source>Thai</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="184"/>
-        <source>Tigrinya</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="185"/>
-        <source>Turkmen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="186"/>
-        <source>Tagalog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="187"/>
-        <source>Tswana</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="188"/>
-        <source>Tonga</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="189"/>
-        <location filename="../smplayer/languages.cpp" line="299"/>
-        <source>Turkish</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="190"/>
-        <source>Tsonga</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="191"/>
-        <source>Tatar</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="192"/>
-        <source>Twi</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="193"/>
-        <source>Tahitian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="194"/>
-        <source>Uighur</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="195"/>
-        <location filename="../smplayer/languages.cpp" line="334"/>
-        <source>Ukrainian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="196"/>
-        <source>Urdu</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="197"/>
-        <source>Uzbek</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="198"/>
-        <source>Venda</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="199"/>
-        <source>Vietnamese</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="200"/>
-        <source>Volapük</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="201"/>
-        <source>Walloon</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="202"/>
-        <source>Wolof</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="203"/>
-        <source>Xhosa</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="204"/>
-        <source>Yiddish</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="205"/>
-        <source>Yoruba</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="206"/>
-        <source>Zhuang</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="207"/>
-        <location filename="../smplayer/languages.cpp" line="228"/>
-        <location filename="../smplayer/languages.cpp" line="335"/>
-        <source>Chinese</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="208"/>
-        <source>Zulu</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="236"/>
-        <source>Arabic - Syria</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="289"/>
-        <source>Unicode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="290"/>
-        <source>UTF-8</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="291"/>
-        <source>Western European Languages</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="292"/>
-        <source>Western European Languages with Euro</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="293"/>
-        <source>Slavic/Central European Languages</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="294"/>
-        <source>Esperanto, Galician, Maltese, Turkish</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="295"/>
-        <source>Old Baltic charset</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="296"/>
-        <source>Cyrillic</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="298"/>
-        <source>Modern Greek</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="300"/>
-        <source>Baltic</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="301"/>
-        <source>Celtic</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="302"/>
-        <source>South-Eastern European</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="303"/>
-        <source>Hebrew charsets</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="305"/>
-        <source>Ukrainian, Belarusian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="306"/>
-        <source>Simplified Chinese charset</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="307"/>
-        <source>Traditional Chinese charset</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="308"/>
-        <source>Japanese charsets</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="309"/>
-        <source>Korean charset</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="310"/>
-        <source>Thai charset</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="311"/>
-        <source>Cyrillic Windows</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="312"/>
-        <source>Slavic/Central European Windows</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="313"/>
-        <source>Arabic Windows</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/languages.cpp" line="314"/>
-        <source>Modern Greek Windows</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>LineEditWithIcon</name>
-    <message>
-        <location filename="../merge/lineedit_with_icon.cpp" line="35"/>
-        <source>Change</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>MPVProcess</name>
-    <message>
-        <location filename="../smplayer/mpvoptions.cpp" line="110"/>
-        <source>the &apos;%1&apos; filter is not supported by mpv</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>MessageDialog</name>
-    <message>
-        <location filename="../kylin/messagedialog.cpp" line="64"/>
-        <source>Ok</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../kylin/messagedialog.cpp" line="72"/>
-        <source>Cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../kylin/messagedialog.cpp" line="80"/>
-        <source>Yes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../kylin/messagedialog.cpp" line="88"/>
-        <source>No</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>MplayerProcess</name>
-    <message>
-        <location filename="../smplayer/mplayeroptions.cpp" line="281"/>
-        <source>This option is not supported by MPlayer</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>Playlist</name>
-    <message>
-        <location filename="../merge/playlist.cpp" line="288"/>
-        <source>Playlist is empty</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/playlist.cpp" line="293"/>
-        <source>Add File</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/playlist.cpp" line="303"/>
-        <source>PlayList</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/playlist.cpp" line="308"/>
-        <source>Clear</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/playlist.cpp" line="316"/>
-        <source>Add</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/playlist.cpp" line="322"/>
-        <source>Play</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/playlist.cpp" line="328"/>
-        <source>Remove &amp;selected</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/playlist.cpp" line="333"/>
-        <source>&amp;Delete file from disk</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/playlist.cpp" line="627"/>
-        <source>Reached the end of the playlist</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/playlist.cpp" line="702"/>
-        <source>Select one or more files to open</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/playlist.cpp" line="704"/>
-        <source>Multimedia</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/playlist.cpp" line="705"/>
-        <source>All files</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/playlist.cpp" line="762"/>
-        <source>Choose a directory</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/playlist.cpp" line="821"/>
-        <location filename="../merge/playlist.cpp" line="836"/>
-        <source>Confirm remove</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/playlist.cpp" line="822"/>
-        <location filename="../merge/playlist.cpp" line="837"/>
-        <source>You&apos;re about to remove the file &apos;%1&apos; from the playlist.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/playlist.cpp" line="823"/>
-        <location filename="../merge/playlist.cpp" line="838"/>
-        <source>Are you sure you want to proceed?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/playlist.cpp" line="990"/>
-        <source>Confirm deletion</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/playlist.cpp" line="991"/>
-        <source>You&apos;re about to DELETE the file &apos;%1&apos; from your drive.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/playlist.cpp" line="992"/>
-        <source>This action cannot be undone. Are you sure you want to proceed?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/playlist.cpp" line="1003"/>
-        <source>Deletion failed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/playlist.cpp" line="1003"/>
-        <source>It wasn&apos;t possible to delete &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/playlist.cpp" line="1010"/>
-        <source>Error deleting the file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/playlist.cpp" line="1010"/>
-        <source>It&apos;s not possible to delete &apos;%1&apos; from the filesystem.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>PrefAudio</name>
-    <message>
-        <location filename="../merge/prefaudio.ui" line="26"/>
-        <source>Volume</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefaudio.ui" line="44"/>
-        <location filename="../merge/prefaudio.cpp" line="277"/>
-        <source>Global volume</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefaudio.ui" line="68"/>
-        <source>Use software volume control</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefaudio.ui" line="91"/>
-        <source>Max. Amplification:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefaudio.ui" line="119"/>
-        <location filename="../merge/prefaudio.cpp" line="294"/>
-        <source>Volume normalization by default</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefaudio.ui" line="135"/>
-        <source>Synchronization</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefaudio.ui" line="155"/>
-        <location filename="../merge/prefaudio.cpp" line="297"/>
-        <source>Audio/video auto synchronization</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefaudio.ui" line="181"/>
-        <source>Factor:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefaudio.ui" line="227"/>
-        <source>Output driver:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefaudio.ui" line="293"/>
-        <source>Channels by default:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefaudio.cpp" line="87"/>
-        <source>2 (Stereo)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefaudio.cpp" line="88"/>
-        <source>4 (4.0 Surround)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefaudio.cpp" line="89"/>
-        <source>6 (5.1 Surround)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefaudio.cpp" line="90"/>
-        <source>7 (6.1 Surround)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefaudio.cpp" line="91"/>
-        <source>8 (7.1 Surround)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefaudio.cpp" line="134"/>
-        <source>Default</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefaudio.cpp" line="256"/>
-        <source>Audio output driver</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefaudio.cpp" line="257"/>
-        <source>Select the audio output driver.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefaudio.cpp" line="259"/>
-        <source>%1 is the recommended one. Try to avoid %2 and %3, they are slow and can have an impact on performance.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefaudio.cpp" line="266"/>
-        <source>Channels by default</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefaudio.cpp" line="267"/>
-        <source>Requests the number of playback channels. MPlayer asks the decoder to decode the audio into as many channels as specified. Then it is up to the decoder to fulfill the requirement. This is usually only important when playing videos with AC3 audio (like DVDs). In that case liba52 does the decoding by default and correctly downmixes the audio into the requested number of channels. &lt;b&gt;Note&lt;/b&gt;: This option is honored by codecs (AC3 only), filters (surround) and audio output drivers (OSS at least).</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefaudio.cpp" line="278"/>
-        <source>If this option is checked, the same volume will be used for all files you play. If the option is not checked each file uses its own volume.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefaudio.cpp" line="281"/>
-        <source>This option also applies for the mute control.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefaudio.cpp" line="283"/>
-        <source>Software volume control</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefaudio.cpp" line="284"/>
-        <source>Check this option to use the software mixer, instead of using the sound card mixer.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefaudio.cpp" line="287"/>
-        <source>Max. Amplification</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefaudio.cpp" line="288"/>
-        <source>Sets the maximum amplification level in percent (default: 110). A value of 200 will allow you to adjust the volume up to a maximum of double the current level. With values below 100 the initial volume (which is 100%) will be above the maximum, which e.g. the OSD cannot display correctly.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefaudio.cpp" line="295"/>
-        <source>Maximizes the volume without distorting the sound.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefaudio.cpp" line="298"/>
-        <source>Gradually adjusts the A/V sync based on audio delay measurements.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>PrefGeneral</name>
-    <message>
-        <location filename="../merge/prefgeneral.ui" line="26"/>
-        <location filename="../merge/prefgeneral.cpp" line="140"/>
-        <source>Pause when minimized</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefgeneral.ui" line="39"/>
-        <source>MPlayer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefgeneral.ui" line="52"/>
-        <source>MPV</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefgeneral.ui" line="65"/>
-        <source>Playback engine:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefgeneral.ui" line="81"/>
-        <source>Preview when video is playing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefgeneral.cpp" line="141"/>
-        <source>If this option is enabled, the file will be paused when the main window is hidden. When the window is restored, playback will be resumed.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefgeneral.cpp" line="144"/>
-        <source>Preview when the video is playing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefgeneral.cpp" line="145"/>
-        <source>If this option is enabled, the video preview will be displayed when the mouse is placed on the progress bar.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefgeneral.cpp" line="147"/>
-        <source>Select MPlayer as playback engine</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefgeneral.cpp" line="148"/>
-        <source>If you change the playback engine to MPlayer, please restart Kylin Video.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefgeneral.cpp" line="149"/>
-        <source>Select MPV as playback engine</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefgeneral.cpp" line="150"/>
-        <source>If you change the playback engine to MPV, please restart Kylin Video.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>PrefPerformance</name>
-    <message>
-        <location filename="../merge/prefperformance.ui" line="26"/>
-        <location filename="../merge/prefperformance.cpp" line="155"/>
-        <source>Cache</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefperformance.ui" line="49"/>
-        <source>Cache for local files:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefperformance.ui" line="66"/>
-        <location filename="../merge/prefperformance.ui" line="94"/>
-        <source>KB</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefperformance.ui" line="77"/>
-        <source>Cache for streams:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefperformance.ui" line="112"/>
-        <source>Decode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefperformance.ui" line="135"/>
-        <source>Threads for decoding (MPEG-1/2 and H.264 only):</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefperformance.ui" line="172"/>
-        <location filename="../merge/prefperformance.cpp" line="139"/>
-        <source>Hardware decoding</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefperformance.cpp" line="32"/>
-        <source>None</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefperformance.cpp" line="33"/>
-        <source>Auto</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefperformance.cpp" line="51"/>
-        <location filename="../merge/prefperformance.cpp" line="133"/>
-        <source>Performance</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefperformance.cpp" line="135"/>
-        <source>Threads for decoding</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefperformance.cpp" line="136"/>
-        <source>Sets the number of threads to use for decoding. Only for MPEG-1/2 and H.264</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefperformance.cpp" line="140"/>
-        <source>Sets the hardware video decoding API. If hardware decoding is not possible, software decoding will be used instead.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefperformance.cpp" line="142"/>
-        <source>Available options:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefperformance.cpp" line="144"/>
-        <source>None: only software decoding will be used.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefperformance.cpp" line="145"/>
-        <source>Auto: it tries to automatically enable hardware decoding using the first available method.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefperformance.cpp" line="147"/>
-        <source>vdpau: for the vdpau and opengl video outputs.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefperformance.cpp" line="148"/>
-        <source>vaapi: for the opengl and vaapi video outputs. For Intel GPUs only.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefperformance.cpp" line="149"/>
-        <source>vaapi-copy: it copies video back into system RAM. For Intel GPUs only.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefperformance.cpp" line="153"/>
-        <source>This option only works with mpv.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefperformance.cpp" line="157"/>
-        <source>Cache for files</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefperformance.cpp" line="158"/>
-        <source>This option specifies how much memory (in kBytes) to use when precaching a file.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefperformance.cpp" line="161"/>
-        <source>Cache for streams</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefperformance.cpp" line="162"/>
-        <source>This option specifies how much memory (in kBytes) to use when precaching a URL.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>PrefScreenShot</name>
-    <message>
-        <location filename="../merge/prefscreenshot.ui" line="26"/>
-        <source>Screenshots</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefscreenshot.ui" line="32"/>
-        <location filename="../merge/prefscreenshot.cpp" line="144"/>
-        <source>Enable screenshots</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefscreenshot.ui" line="44"/>
-        <source>Folder:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefscreenshot.ui" line="71"/>
-        <source>Template:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefscreenshot.ui" line="91"/>
-        <source>Format:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefscreenshot.cpp" line="71"/>
-        <source>Select a directory</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefscreenshot.cpp" line="145"/>
-        <source>You can use this option to enable or disable the possibility to take screenshots.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefscreenshot.cpp" line="148"/>
-        <source>Screenshots folder</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefscreenshot.cpp" line="149"/>
-        <source>Here you can specify a folder where the screenshots taken by Kylin Video will be stored. If the folder is not valid the screenshot feature will be disabled.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefscreenshot.cpp" line="153"/>
-        <source>Template for screenshots</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefscreenshot.cpp" line="154"/>
-        <source>This option specifies the filename template used to save screenshots.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefscreenshot.cpp" line="155"/>
-        <source>For example %1 would save the screenshot as &apos;moviename_0001.png&apos;.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefscreenshot.cpp" line="156"/>
-        <source>%1 specifies the filename of the video without the extension, %2 adds a 4 digit number padded with zeros.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefscreenshot.cpp" line="158"/>
-        <source>For a full list of the template specifiers visit this link:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefscreenshot.cpp" line="161"/>
-        <location filename="../merge/prefscreenshot.cpp" line="165"/>
-        <source>This option only works with mpv.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefscreenshot.cpp" line="163"/>
-        <source>Format for screenshots</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefscreenshot.cpp" line="164"/>
-        <source>This option allows one to choose the image file type used for saving screenshots.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>PrefShortCut</name>
-    <message>
-        <location filename="../merge/prefshortcut.ui" line="50"/>
-        <source>Here you can change any key shortcut. To do it double click or press enter over a shortcut cell. </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefshortcut.cpp" line="38"/>
-        <source>ShortCut</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefshortcut.cpp" line="50"/>
-        <source>Here you can change any key shortcut. To do it double click or start typing over a shortcut cell.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefshortcut.cpp" line="68"/>
-        <source>Shortcut Key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefshortcut.cpp" line="70"/>
-        <source>Shortcut editor</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefshortcut.cpp" line="71"/>
-        <source>This table allows you to change the key shortcuts of most available actions. Double click or press enter on a item, or press the &lt;b&gt;Change shortcut&lt;/b&gt; button to enter in the &lt;i&gt;Modify shortcut&lt;/i&gt; dialog. There are two ways to change a shortcut: if the &lt;b&gt;Capture&lt;/b&gt; button is on then just press the new key or combination of keys that you want to assign for the action (unfortunately this doesn&apos;t work for all keys). If the &lt;b&gt;Capture&lt;/b&gt; button is off then you could enter the full name of the key.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>PrefSubtitles</name>
-    <message>
-        <location filename="../merge/prefsubtitles.ui" line="26"/>
-        <location filename="../merge/prefsubtitles.cpp" line="154"/>
-        <source>Autoload</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefsubtitles.ui" line="63"/>
-        <source>Autoload subtitles files (*.srt, *.sub...):</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefsubtitles.ui" line="77"/>
-        <source>Same name as movie</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefsubtitles.ui" line="82"/>
-        <source>All subs containing movie name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefsubtitles.ui" line="87"/>
-        <source>All subs in directory</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefsubtitles.ui" line="104"/>
-        <source>Encoding</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefsubtitles.ui" line="127"/>
-        <source>Default subtitle encoding:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefsubtitles.ui" line="176"/>
-        <source>Try to autodetect for this language:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefsubtitles.cpp" line="47"/>
-        <location filename="../merge/prefsubtitles.cpp" line="152"/>
-        <source>Subtitles</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefsubtitles.cpp" line="155"/>
-        <source>Select the subtitle autoload method.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefsubtitles.cpp" line="157"/>
-        <source>Default subtitle encoding</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefsubtitles.cpp" line="158"/>
-        <source>Select the encoding which will be used for subtitle files by default.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefsubtitles.cpp" line="161"/>
-        <source>Try to autodetect for this language</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefsubtitles.cpp" line="162"/>
-        <source>When this option is on, the encoding of the subtitles will be tried to be autodetected for the given language. It will fall back to the default encoding if the autodetection fails. This option requires a MPlayer compiled with ENCA support.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefsubtitles.cpp" line="168"/>
-        <source>Subtitle language</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefsubtitles.cpp" line="169"/>
-        <source>Select the language for which you want the encoding to be guessed automatically.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefsubtitles.cpp" line="172"/>
-        <source>Font</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>PrefVideo</name>
-    <message>
-        <location filename="../merge/prefvideo.ui" line="26"/>
-        <location filename="../merge/prefvideo.cpp" line="249"/>
-        <source>Enable postprocessing by default</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefvideo.ui" line="39"/>
-        <location filename="../merge/prefvideo.cpp" line="268"/>
-        <source>Draw video using slices</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefvideo.ui" line="52"/>
-        <location filename="../merge/prefvideo.cpp" line="258"/>
-        <source>Direct rendering</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefvideo.ui" line="65"/>
-        <location filename="../merge/prefvideo.cpp" line="263"/>
-        <source>Double buffering</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefvideo.ui" line="78"/>
-        <source>Use software video equalizer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefvideo.ui" line="110"/>
-        <source>Output driver:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefvideo.cpp" line="109"/>
-        <source>Default</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefvideo.cpp" line="114"/>
-        <source>slow</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefvideo.cpp" line="244"/>
-        <source>Video output driver</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefvideo.cpp" line="245"/>
-        <source>Select the video output driver. %1 provides the best performance.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefvideo.cpp" line="250"/>
-        <source>Postprocessing will be used by default on new opened files.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefvideo.cpp" line="252"/>
-        <source>Software video equalizer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefvideo.cpp" line="253"/>
-        <source>You can check this option if video equalizer is not supported by your graphic card or the selected video output driver.&lt;br&gt;&lt;b&gt;Note:&lt;/b&gt; this option can be incompatible with some video output drivers.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefvideo.cpp" line="259"/>
-        <source>If checked, turns on direct rendering (not supported by all codecs and video outputs)&lt;br&gt;&lt;b&gt;Warning:&lt;/b&gt; May cause OSD/SUB corruption!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefvideo.cpp" line="264"/>
-        <source>Double buffering fixes flicker by storing two frames in memory, and displaying one while decoding another. If disabled it can affect OSD negatively, but often removes OSD flickering.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/prefvideo.cpp" line="269"/>
-        <source>Enable/disable drawing video by 16-pixel height slices/bands. If disabled, the whole frame is drawn in a single run. May be faster or slower, depending on video card and available cache. It has effect only with libmpeg2 and libavcodec codecs.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>PreferencesDialog</name>
-    <message>
-        <location filename="../merge/preferencesdialog.ui" line="14"/>
-        <source>Kylin Video - Preferences</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/preferencesdialog.ui" line="35"/>
-        <source>Preference</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/preferencesdialog.ui" line="109"/>
-        <location filename="../merge/preferencesdialog.cpp" line="234"/>
-        <source>Cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/preferencesdialog.ui" line="122"/>
-        <location filename="../merge/preferencesdialog.cpp" line="235"/>
-        <source>Apply</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/preferencesdialog.ui" line="135"/>
-        <location filename="../merge/preferencesdialog.cpp" line="233"/>
-        <source>OK</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/preferencesdialog.cpp" line="84"/>
-        <source>General</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/preferencesdialog.cpp" line="92"/>
-        <source>Video</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/preferencesdialog.cpp" line="99"/>
-        <source>Audio</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/preferencesdialog.cpp" line="106"/>
-        <source>Performance</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/preferencesdialog.cpp" line="113"/>
-        <source>Subtitles</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/preferencesdialog.cpp" line="120"/>
-        <source>ScreenShot</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../merge/preferencesdialog.cpp" line="127"/>
-        <source>Shortcut Key</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>QObject</name>
-    <message numerus="yes">
-        <location filename="../smplayer/helper.cpp" line="79"/>
-        <location filename="../smplayer/helper.cpp" line="85"/>
-        <source>%n second(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
-    </message>
-    <message numerus="yes">
-        <location filename="../smplayer/helper.cpp" line="82"/>
-        <location filename="../smplayer/helper.cpp" line="84"/>
-        <source>%n minute(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
-    </message>
-    <message>
-        <location filename="../smplayer/helper.cpp" line="86"/>
-        <source>%1 and %2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/kylinvideo.cpp" line="284"/>
-        <source>This is Kylin Vedio v. %1 running on %2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/mediasettings.cpp" line="174"/>
-        <source>disabled</source>
-        <comment>aspect_ratio</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/mediasettings.cpp" line="185"/>
-        <source>auto</source>
-        <comment>aspect_ratio</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/mediasettings.cpp" line="186"/>
-        <source>unknown</source>
-        <comment>aspect_ratio</comment>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ShortcutGetter</name>
-    <message>
-        <location filename="../smplayer/shortcutgetter.cpp" line="277"/>
-        <source>Modify shortcut</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/shortcutgetter.cpp" line="302"/>
-        <source>Add shortcut</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/shortcutgetter.cpp" line="310"/>
-        <source>Remove shortcut</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/shortcutgetter.cpp" line="329"/>
-        <source>Press the key combination you want to assign</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/shortcutgetter.cpp" line="350"/>
-        <source>Clear</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/shortcutgetter.cpp" line="356"/>
-        <source>OK</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/shortcutgetter.cpp" line="361"/>
-        <source>Cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/shortcutgetter.cpp" line="363"/>
-        <source>Capture</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/shortcutgetter.cpp" line="366"/>
-        <source>Capture keystrokes</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>SupportFormats</name>
-    <message>
-        <location filename="../kylin/supportformats.ui" line="26"/>
-        <source>Video formats</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../kylin/supportformats.ui" line="52"/>
-        <source>Audio formats</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../kylin/supportformats.ui" line="78"/>
-        <source>Subtitles formats</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../kylin/supportformats.cpp" line="52"/>
-        <source>Some video formats do not support preview and seek by dragging, e.g. the swf.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>TimeDialog</name>
-    <message>
-        <location filename="../smplayer/timedialog.ui" line="26"/>
-        <location filename="../smplayer/timedialog.ui" line="77"/>
-        <source>Seek</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/timedialog.ui" line="38"/>
-        <location filename="../smplayer/timedialog.cpp" line="50"/>
-        <source>OK</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/timedialog.ui" line="51"/>
-        <location filename="../smplayer/timedialog.cpp" line="55"/>
-        <source>Cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/timedialog.ui" line="99"/>
-        <source>Jump to:</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>TitleWidget</name>
-    <message>
-        <location filename="../kylin/titlewidget.cpp" line="133"/>
-        <source>Kylin Video</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>TristateCombo</name>
-    <message>
-        <location filename="../smplayer/tristatecombo.cpp" line="36"/>
-        <source>Auto</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/tristatecombo.cpp" line="37"/>
-        <source>Yes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/tristatecombo.cpp" line="38"/>
-        <source>No</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>VideoPreview</name>
-    <message>
-        <location filename="../smplayer/videopreview.cpp" line="91"/>
-        <source>The length of the video is 0</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/videopreview.cpp" line="100"/>
-        <source>The temporary directory (%1) can&apos;t be created</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/videopreview.cpp" line="120"/>
-        <source>The file %1 doesn&apos;t exist</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/videopreview.cpp" line="185"/>
-        <source>The mplayer process didn&apos;t run</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/videopreview.cpp" line="218"/>
-        <source>No filename</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smplayer/videopreview.cpp" line="295"/>
-        <source>The mplayer process didn&apos;t start while trying to get info about the video</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
+            <translation>&lt;! DOCTYPE HTML PUBLIC \ &quot;- // W3C // DTD HTML 4.0 // EN &quot; \ &quot;http: //www.w3.org/TR/REC-html40/strict.dtd &quot;&gt; \ n &lt;html&gt; &lt;head&gt; &lt;meta name = \ &quot;qrichtext &quot; content = \ &quot;1 &quot; /&gt; &lt;style type = \ &quot;text / css &quot;&gt; \ np, li {white-space: pre-wrap; } \ n &lt;/ style&gt; &lt;/ head&gt; &lt;body style = \ &quot;font-family: 'Ubuntu'; font-size: 11pt; font-weight: 400; font-style: normal; &quot;&gt; \ n &lt;p style = \ &quot;- qt-paragraph-type: empty; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px; \ &quot;&gt; &lt;br /&gt; &lt;/ p&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
+        </message>
+        <message>
+            <source>OK</source>
+            <translation>Хорошо</translation>
+        </message>
+        <message>
+            <source>Kylin Video is developed on the basis of SMPlayer, is a graphical interface for MPlayer and MPV.</source>
+            <translation>Kylin Video разработан на базе SMPlayer, представляет собой графический интерфейс для MPlayer и MPV.</translation>
+        </message>
+        <message>
+            <source>Kylin Video</source>
+            <translation>Kylin Video</translation>
+        </message>
+        <message>
+            <source>Version: %1</source>
+            <translation>Версия:% 1</translation>
+        </message>
+        <message>
+            <source>Using Qt %1 (compiled with Qt %2)</source>
+            <translation>Используя Qt% 1 (скомпилированный с Qt% 2)</translation>
+        </message>
+        <message>
+            <source>Playback engine:</source>
+            <translation>Механизм воспроизведения:</translation>
+        </message>
+    </context>
+    <context>
+        <name>ActionsEditor</name>
+        <message>
+            <source>Shortcut</source>
+            <translation>кратчайший путь</translation>
+        </message>
+        <message>
+            <source>Description</source>
+            <translation>Описание</translation>
+        </message>
+        <message>
+            <source>Name</source>
+            <translation>название</translation>
+        </message>
+    </context>
+    <context>
+        <name>AudioDelayDialog</name>
+        <message>
+            <source>Audio delay</source>
+            <translation>Задержка звука</translation>
+        </message>
+        <message>
+            <source>OK</source>
+            <translation>Хорошо</translation>
+        </message>
+        <message>
+            <source>Cancel</source>
+            <translation>отменить</translation>
+        </message>
+        <message>
+            <source>Audio delay (in milliseconds):</source>
+            <translation>Задержка звука (в миллисекундах):</translation>
+        </message>
+    </context>
+    <context>
+        <name>BaseGui</name>
+        <message>
+            <source>Kylin Video</source>
+            <translation>Kylin Video</translation>
+        </message>
+        <message>
+            <source>Open</source>
+            <translation>открыто</translation>
+        </message>
+        <message>
+            <source>Open &amp;File...</source>
+            <translation>Открыть файл...</translation>
+        </message>
+        <message>
+            <source>Directory...</source>
+            <translation>Справочник ...</translation>
+        </message>
+        <message>
+            <source>&amp;URL...</source>
+            <translation>&amp; URL ...</translation>
+        </message>
+        <message>
+            <source>&amp;Clear</source>
+            <translation>&amp;Очистить</translation>
+        </message>
+        <message>
+            <source>Recent files</source>
+            <translation>Недавние файлы</translation>
+        </message>
+        <message>
+            <source>Play control</source>
+            <translation>Управление воспроизведением</translation>
+        </message>
+        <message>
+            <source>Forward and rewind</source>
+            <translation>Перемотка вперед и назад</translation>
+        </message>
+        <message>
+            <source>&amp;Jump to...</source>
+            <translation>&amp;Прыгать, чтобы...</translation>
+        </message>
+        <message>
+            <source>Play Speed</source>
+            <translation>Скорость воспроизведения</translation>
+        </message>
+        <message>
+            <source>Normal speed</source>
+            <translation>Нормальная скорость</translation>
+        </message>
+        <message>
+            <source>Half speed</source>
+            <translation>Половина скорости</translation>
+        </message>
+        <message>
+            <source>Double speed</source>
+            <translation>Двойная скорость</translation>
+        </message>
+        <message>
+            <source>Speed -10%</source>
+            <translation>Скорость -10%</translation>
+        </message>
+        <message>
+            <source>Speed +10%</source>
+            <translation>Скорость + 10%</translation>
+        </message>
+        <message>
+            <source>Speed -4%</source>
+            <translation>Скорость -4%</translation>
+        </message>
+        <message>
+            <source>Speed +4%</source>
+            <translation>Скорость + 4%</translation>
+        </message>
+        <message>
+            <source>Speed -1%</source>
+            <translation>Скорость -1%</translation>
+        </message>
+        <message>
+            <source>Speed +1%</source>
+            <translation>Скорость + 1%</translation>
+        </message>
+        <message>
+            <source>Next</source>
+            <translation>следующий</translation>
+        </message>
+        <message>
+            <source>Previous</source>
+            <translation>предыдущий</translation>
+        </message>
+        <message>
+            <source>&amp;Auto</source>
+            <translation>&amp;Авто</translation>
+        </message>
+        <message>
+            <source>&amp;Disabled</source>
+            <translation>&amp;Инвалид</translation>
+        </message>
+        <message>
+            <source>Aspect ratio</source>
+            <translation>Соотношение сторон</translation>
+        </message>
+        <message>
+            <source>&amp;Off</source>
+            <translation>&amp; Off</translation>
+        </message>
+        <message>
+            <source>&amp;Rotate by 90 degrees clockwise and flip</source>
+            <translation>&amp; Повернуть на 90 градусов по часовой стрелке и перевернуть</translation>
+        </message>
+        <message>
+            <source>Rotate by 90 degrees &amp;clockwise</source>
+            <translation>Повернуть на 90 градусов и по часовой стрелке</translation>
+        </message>
+        <message>
+            <source>Rotate by 90 degrees counterclock&amp;wise</source>
+            <translation>Поворот на 90 градусов против часовой стрелки и мудрый</translation>
+        </message>
+        <message>
+            <source>Rotate by 90 degrees counterclockwise and &amp;flip</source>
+            <translation>Поверните на 90 градусов против часовой стрелки и переверните</translation>
+        </message>
+        <message>
+            <source>Fli&amp;p image</source>
+            <translation>Fli &amp; p image</translation>
+        </message>
+        <message>
+            <source>Mirr&amp;or image</source>
+            <translation>Зеркальное изображение</translation>
+        </message>
+        <message>
+            <source>Frame rotation</source>
+            <translation>Вращение рамы</translation>
+        </message>
+        <message>
+            <source>&amp;Rotate</source>
+            <translation>&amp; Rotate</translation>
+        </message>
+        <message>
+            <source>&amp;Screenshot</source>
+            <translation>&amp;Скриншот</translation>
+        </message>
+        <message>
+            <source>&amp;Always</source>
+            <translation>&amp;Всегда</translation>
+        </message>
+        <message>
+            <source>&amp;Never</source>
+            <translation>&amp;Никогда</translation>
+        </message>
+        <message>
+            <source>While &amp;playing</source>
+            <translation>Во время игры</translation>
+        </message>
+        <message>
+            <source>S&amp;tay on top</source>
+            <translation>S &amp; tay сверху</translation>
+        </message>
+        <message>
+            <source>Order play</source>
+            <translation>Заказать игру</translation>
+        </message>
+        <message>
+            <source>Random play</source>
+            <translation>Случайная игра</translation>
+        </message>
+        <message>
+            <source>List loop play</source>
+            <translation>Список воспроизведения в цикле</translation>
+        </message>
+        <message>
+            <source>Play order</source>
+            <translation>Порядок воспроизведения</translation>
+        </message>
+        <message>
+            <source>&amp;Stereo</source>
+            <translation>&amp;Стерео</translation>
+        </message>
+        <message>
+            <source>&amp;4.0 Surround</source>
+            <translation>&amp; 4.0 Surround</translation>
+        </message>
+        <message>
+            <source>&amp;5.1 Surround</source>
+            <translation>&amp; 5.1 Surround</translation>
+        </message>
+        <message>
+            <source>&amp;6.1 Surround</source>
+            <translation>&amp; 6.1 Surround</translation>
+        </message>
+        <message>
+            <source>&amp;7.1 Surround</source>
+            <translation>&amp; 7.1 Surround</translation>
+        </message>
+        <message>
+            <source>&amp;Channels</source>
+            <translation>&amp;Каналы</translation>
+        </message>
+        <message>
+            <source>Audio</source>
+            <translation>аудио</translation>
+        </message>
+        <message>
+            <source>&amp;Mute</source>
+            <translation>&amp; Mute</translation>
+        </message>
+        <message>
+            <source>Volume -</source>
+            <translation>Объем -</translation>
+        </message>
+        <message>
+            <source>Volume +</source>
+            <translation>Объем +</translation>
+        </message>
+        <message>
+            <source>Delay -</source>
+            <translation>Задержка -</translation>
+        </message>
+        <message>
+            <source>Delay +</source>
+            <translation>Задержка +</translation>
+        </message>
+        <message>
+            <source>Set dela&amp;y...</source>
+            <translation>Установить dela &amp; y ...</translation>
+        </message>
+        <message>
+            <source>&amp;Left channel</source>
+            <translation>&amp; Левый канал</translation>
+        </message>
+        <message>
+            <source>&amp;Right channel</source>
+            <translation>&amp; Правый канал</translation>
+        </message>
+        <message>
+            <source>&amp;Mono</source>
+            <translation>&amp;Моно</translation>
+        </message>
+        <message>
+            <source>Re&amp;verse</source>
+            <translation>Задний ход</translation>
+        </message>
+        <message>
+            <source>&amp;Stereo mode</source>
+            <translation>&amp; Стерео режим</translation>
+        </message>
+        <message>
+            <source>Subtitles</source>
+            <translation>Субтитры</translation>
+        </message>
+        <message>
+            <source>Load...</source>
+            <translation>Загрузить ...</translation>
+        </message>
+        <message>
+            <source>Subtitle &amp;visibility</source>
+            <translation>Субтитры и видимость</translation>
+        </message>
+        <message>
+            <source>Preferences</source>
+            <translation>предпочтения</translation>
+        </message>
+        <message>
+            <source>View &amp;info and properties...</source>
+            <translation>Просмотр и информация и свойства ...</translation>
+        </message>
+        <message>
+            <source>Help</source>
+            <translation>Помогите</translation>
+        </message>
+        <message>
+            <source>About &amp;Kylin Video</source>
+            <translation>О компании &amp; Kylin Video</translation>
+        </message>
+        <message>
+            <source>Quit</source>
+            <translation>Уволиться</translation>
+        </message>
+        <message>
+            <source>Open Homepage</source>
+            <translation>Открыть домашнюю страницу</translation>
+        </message>
+        <message>
+            <source>Open screenshots folder</source>
+            <translation>Открыть папку скриншотов</translation>
+        </message>
+        <message>
+            <source>PlayList</source>
+            <translation>PlayList</translation>
+        </message>
+        <message>
+            <source>Play/Pause</source>
+            <translation>Воспроизведение / Пауза</translation>
+        </message>
+        <message>
+            <source>Stop</source>
+            <translation>Стоп</translation>
+        </message>
+        <message>
+            <source>Fullscreen</source>
+            <translation>Полноэкранный</translation>
+        </message>
+        <message>
+            <source>Video filters are disabled when using vdpau</source>
+            <translation>Видеоэффекты отключены при использовании vdpau</translation>
+        </message>
+        <message>
+            <source>-%1</source>
+            <translation>- 1%</translation>
+        </message>
+        <message>
+            <source>+%1</source>
+            <translation>+ 1%</translation>
+        </message>
+        <message>
+            <source>&lt;empty&gt;</source>
+            <translation>&lt;Пусто&gt;</translation>
+        </message>
+        <message>
+            <source>Confirm deletion - Kylin Video</source>
+            <translation>Подтвердить удаление - Kylin Video</translation>
+        </message>
+        <message>
+            <source>Delete the list of recent files?</source>
+            <translation>Удалить список последних файлов?</translation>
+        </message>
+        <message>
+            <source>Choose a file</source>
+            <translation>Выберите файл</translation>
+        </message>
+        <message>
+            <source>Multimedia</source>
+            <translation>мультимедиа</translation>
+        </message>
+        <message>
+            <source>Video</source>
+            <translation>видео</translation>
+        </message>
+        <message>
+            <source>Playlists</source>
+            <translation>Плейлисты</translation>
+        </message>
+        <message>
+            <source>All files</source>
+            <translation>Все файлы</translation>
+        </message>
+        <message>
+            <source>Choose a directory</source>
+            <translation>Выберите каталог</translation>
+        </message>
+        <message>
+            <source>&amp;Jump to:</source>
+            <translation>&amp;Прыгать, чтобы:</translation>
+        </message>
+        <message>
+            <source>Kylin Video - Seek</source>
+            <translation>Kylin Video - Ищите</translation>
+        </message>
+        <message>
+            <source>Kylin Video - Subtitle delay</source>
+            <translation>Kylin Video - Задержка субтитров</translation>
+        </message>
+        <message>
+            <source>Subtitle delay (in milliseconds):</source>
+            <translation>Задержка субтитров (в миллисекундах):</translation>
+        </message>
+        <message>
+            <source>Error detected</source>
+            <translation>Обнаружена ошибка</translation>
+        </message>
+        <message>
+            <source>Unfortunately this video can't be played.</source>
+            <translation>К сожалению, это видео невозможно воспроизвести.</translation>
+        </message>
+        <message>
+            <source>The server returned '%1'</source>
+            <translation>Сервер вернул '% 1'</translation>
+        </message>
+        <message>
+            <source>Jump to %1</source>
+            <translation>Перейти к% 1</translation>
+        </message>
+        <message>
+            <source>%1 Error</source>
+            <translation>% 1 Ошибка</translation>
+        </message>
+        <message>
+            <source>'%1' was not found!</source>
+            <translation>«% 1» не найден!</translation>
+        </message>
+        <message>
+            <source>%1 has finished unexpectedly.</source>
+            <translation>% 1 закончил неожиданно.</translation>
+        </message>
+        <message>
+            <source>Exit code: %1</source>
+            <translation>Код выхода:% 1</translation>
+        </message>
+        <message>
+            <source>%1 failed to start.</source>
+            <translation>% 1 не удалось запустить.</translation>
+        </message>
+        <message>
+            <source>Please check the %1 path in preferences.</source>
+            <translation>Проверьте путь% 1 в настройках.</translation>
+        </message>
+        <message>
+            <source>%1 has crashed.</source>
+            <translation>% 1 разбился.</translation>
+        </message>
+        <message>
+            <source>See the log for more info.</source>
+            <translation>См. Журнал для получения дополнительной информации.</translation>
+        </message>
+        <message>
+            <source>Information</source>
+            <translation>Информация</translation>
+        </message>
+        <message>
+            <source>The screenshot folder does not exist!</source>
+            <translation>Папки для скриншотов не существует!</translation>
+        </message>
+    </context>
+    <context>
+        <name>BottomWidget</name>
+        <message>
+            <source>Stop</source>
+            <translation>Стоп</translation>
+        </message>
+        <message>
+            <source>Prev</source>
+            <translation>Предыдущая</translation>
+        </message>
+        <message>
+            <source>Play / Pause</source>
+            <translation>Воспроизвести / Пауза</translation>
+        </message>
+        <message>
+            <source>Next</source>
+            <translation>следующий</translation>
+        </message>
+        <message>
+            <source>Mute</source>
+            <translation>безгласный</translation>
+        </message>
+        <message>
+            <source>Play List</source>
+            <translation>Список воспроизведения</translation>
+        </message>
+    </context>
+    <context>
+        <name>Core</name>
+        <message>
+            <source>Screenshot NOT taken, folder not configured</source>
+            <translation>Снимок экрана не сделан, папка не настроена</translation>
+        </message>
+        <message>
+            <source>Screenshots NOT taken, folder not configured</source>
+            <translation>Скриншоты НЕ приняты, папка не настроена</translation>
+        </message>
+        <message>
+            <source>&quot;A&quot; marker set to %1</source>
+            <translation>Маркер «А» установлен на% 1</translation>
+        </message>
+        <message>
+            <source>&quot;B&quot; marker set to %1</source>
+            <translation>Маркер «B» установлен в% 1</translation>
+        </message>
+        <message>
+            <source>A-B markers cleared</source>
+            <translation>Маркеры AB очищены</translation>
+        </message>
+        <message>
+            <source>Brightness: %1</source>
+            <translation>Яркость:% 1</translation>
+        </message>
+        <message>
+            <source>Contrast: %1</source>
+            <translation>Контраст:% 1</translation>
+        </message>
+        <message>
+            <source>Gamma: %1</source>
+            <translation>Гамма:% 1</translation>
+        </message>
+        <message>
+            <source>Hue: %1</source>
+            <translation>Оттенок:% 1</translation>
+        </message>
+        <message>
+            <source>Saturation: %1</source>
+            <translation>Насыщенность:% 1</translation>
+        </message>
+        <message>
+            <source>Speed: %1</source>
+            <translation>Скорость:% 1</translation>
+        </message>
+        <message>
+            <source>Volume: %1</source>
+            <translation>Объем:% 1</translation>
+        </message>
+        <message>
+            <source>Subtitle delay: %1 ms</source>
+            <translation>Задержка субтитров:% 1 мс</translation>
+        </message>
+        <message>
+            <source>Audio delay: %1 ms</source>
+            <translation>Задержка звука:% 1 мс</translation>
+        </message>
+        <message>
+            <source>Subtitles on</source>
+            <translation>Субтитры на</translation>
+        </message>
+        <message>
+            <source>Subtitles off</source>
+            <translation>Субтитры отключены</translation>
+        </message>
+        <message>
+            <source>Aspect ratio: %1</source>
+            <translation>Соотношение сторон:% 1</translation>
+        </message>
+        <message>
+            <source>Mouse wheel seeks now</source>
+            <translation>Колесо мыши теперь ищет</translation>
+        </message>
+        <message>
+            <source>Mouse wheel changes volume now</source>
+            <translation>Теперь колесо мыши меняет громкость</translation>
+        </message>
+        <message>
+            <source>Mouse wheel changes zoom level now</source>
+            <translation>Колесо мыши меняет масштаб</translation>
+        </message>
+        <message>
+            <source>Mouse wheel changes speed now</source>
+            <translation>Теперь колесо мыши меняет скорость</translation>
+        </message>
+        <message>
+            <source>Zoom: %1</source>
+            <translation>Масштаб:% 1</translation>
+        </message>
+        <message>
+            <source>Screenshot saved as %1</source>
+            <translation>Снимок экрана, сохраненный как% 1</translation>
+        </message>
+        <message>
+            <source>Updating the font cache. This may take some seconds...</source>
+            <translation>Обновление кеша шрифтов. Это может занять несколько секунд ...</translation>
+        </message>
+        <message>
+            <source>Buffering...</source>
+            <translation>Буферизация ...</translation>
+        </message>
+        <message>
+            <source>Starting...</source>
+            <translation>Начиная с ...</translation>
+        </message>
+    </context>
+    <context>
+        <name>ErrorDialog</name>
+        <message>
+            <source>MPlayer Error</source>
+            <translation>Ошибка MPlayer</translation>
+        </message>
+        <message>
+            <source>OK</source>
+            <translation>Хорошо</translation>
+        </message>
+        <message>
+            <source>icon</source>
+            <translation>значок</translation>
+        </message>
+        <message>
+            <source>Oops, something wrong happened</source>
+            <translation>Ой, что-то не так случилось</translation>
+        </message>
+        <message>
+            <source>Error</source>
+            <translation>ошибка</translation>
+        </message>
+        <message>
+            <source>Show log</source>
+            <translation>Показать журнал</translation>
+        </message>
+        <message>
+            <source>Hide log</source>
+            <translation>Скрыть журнал</translation>
+        </message>
+    </context>
+    <context>
+        <name>EscTip</name>
+        <message>
+            <source>Press ESC to exit full screen mode</source>
+            <translation>Нажмите ESC для выхода из полноэкранного режима</translation>
+        </message>
+    </context>
+    <context>
+        <name>FileChooser</name>
+        <message>
+            <source>Click to select a file or folder</source>
+            <translation>Нажмите, чтобы выбрать файл или папку</translation>
+        </message>
+    </context>
+    <context>
+        <name>FilePropertiesDialog</name>
+        <message>
+            <source>Kylin Video - Preferences</source>
+            <translation>Kylin Video - Настройки</translation>
+        </message>
+        <message>
+            <source>Properties</source>
+            <translation>свойства</translation>
+        </message>
+        <message>
+            <source>&amp;Select the demuxer that will be used for this file:</source>
+            <translation>&amp; Выберите демультиплекс, который будет использоваться для этого файла:</translation>
+        </message>
+        <message>
+            <source>&amp;Reset</source>
+            <translation>&amp;Сброс</translation>
+        </message>
+        <message>
+            <source>&amp;Select the video codec:</source>
+            <translation>&amp; Выберите видеокодек:</translation>
+        </message>
+        <message>
+            <source>&amp;Select the audio codec:</source>
+            <translation>&amp; Выберите аудиокодек:</translation>
+        </message>
+        <message>
+            <source>Reset</source>
+            <translation>Сброс</translation>
+        </message>
+        <message>
+            <source>Apply</source>
+            <translation>Применять</translation>
+        </message>
+        <message>
+            <source>OK</source>
+            <translation>Хорошо</translation>
+        </message>
+        <message>
+            <source>Cancel</source>
+            <translation>отменить</translation>
+        </message>
+        <message>
+            <source>Information</source>
+            <translation>Информация</translation>
+        </message>
+        <message>
+            <source>Demuxer</source>
+            <translation>Demuxer</translation>
+        </message>
+        <message>
+            <source>Video codec</source>
+            <translation>Видео кодек</translation>
+        </message>
+        <message>
+            <source>Audio codec</source>
+            <translation>Аудиокодек</translation>
+        </message>
+    </context>
+    <context>
+        <name>HelpDialog</name>
+        <message>
+            <source>Kylin Video - Help</source>
+            <translation>Kylin Video - Помощь</translation>
+        </message>
+        <message>
+            <source>Help</source>
+            <translation>Помогите</translation>
+        </message>
+        <message>
+            <source>OK</source>
+            <translation>Хорошо</translation>
+        </message>
+        <message>
+            <source>Supported formats</source>
+            <translation>Поддерживаемые форматы</translation>
+        </message>
+    </context>
+    <context>
+        <name>InputURL</name>
+        <message>
+            <source>Enter URL</source>
+            <translation>Введите URL-адрес</translation>
+        </message>
+        <message>
+            <source>OK</source>
+            <translation>Хорошо</translation>
+        </message>
+        <message>
+            <source>Cancel</source>
+            <translation>отменить</translation>
+        </message>
+        <message>
+            <source>URL:</source>
+            <translation>URL:</translation>
+        </message>
+    </context>
+    <context>
+        <name>Languages</name>
+        <message>
+            <source>Afar</source>
+            <translation>издалека</translation>
+        </message>
+        <message>
+            <source>Abkhazian</source>
+            <translation>абхазская</translation>
+        </message>
+        <message>
+            <source>Avestan</source>
+            <translation>Avestan</translation>
+        </message>
+        <message>
+            <source>Afrikaans</source>
+            <translation>африкаанс</translation>
+        </message>
+        <message>
+            <source>Akan</source>
+            <translation>Акан</translation>
+        </message>
+        <message>
+            <source>Amharic</source>
+            <translation>амхарский</translation>
+        </message>
+        <message>
+            <source>Aragonese</source>
+            <translation>арагонский</translation>
+        </message>
+        <message>
+            <source>Arabic</source>
+            <translation>арабский</translation>
+        </message>
+        <message>
+            <source>Assamese</source>
+            <translation>Ассамский</translation>
+        </message>
+        <message>
+            <source>Avaric</source>
+            <translation>аварский</translation>
+        </message>
+        <message>
+            <source>Aymara</source>
+            <translation>аймара</translation>
+        </message>
+        <message>
+            <source>Azerbaijani</source>
+            <translation>азербайджанец</translation>
+        </message>
+        <message>
+            <source>Bashkir</source>
+            <translation>башкирский</translation>
+        </message>
+        <message>
+            <source>Belarusian</source>
+            <translation>Белорусский</translation>
+        </message>
+        <message>
+            <source>Bulgarian</source>
+            <translation>болгарский</translation>
+        </message>
+        <message>
+            <source>Bihari</source>
+            <translation>Бихари</translation>
+        </message>
+        <message>
+            <source>Bislama</source>
+            <translation>Бислама</translation>
+        </message>
+        <message>
+            <source>Bambara</source>
+            <translation>Bambara</translation>
+        </message>
+        <message>
+            <source>Bengali</source>
+            <translation>бенгальский</translation>
+        </message>
+        <message>
+            <source>Tibetan</source>
+            <translation>тибетский</translation>
+        </message>
+        <message>
+            <source>Breton</source>
+            <translation>бретонский</translation>
+        </message>
+        <message>
+            <source>Bosnian</source>
+            <translation>боснийский</translation>
+        </message>
+        <message>
+            <source>Catalan</source>
+            <translation>каталонский</translation>
+        </message>
+        <message>
+            <source>Chechen</source>
+            <translation>чеченец</translation>
+        </message>
+        <message>
+            <source>Corsican</source>
+            <translation>корсиканец</translation>
+        </message>
+        <message>
+            <source>Cree</source>
+            <translation>Cree</translation>
+        </message>
+        <message>
+            <source>Czech</source>
+            <translation>чешский язык</translation>
+        </message>
+        <message>
+            <source>Church</source>
+            <translation>церковь</translation>
+        </message>
+        <message>
+            <source>Chuvash</source>
+            <translation>чувашский</translation>
+        </message>
+        <message>
+            <source>Welsh</source>
+            <translation>валлийский</translation>
+        </message>
+        <message>
+            <source>Danish</source>
+            <translation>датский</translation>
+        </message>
+        <message>
+            <source>German</source>
+            <translation>Немецкий</translation>
+        </message>
+        <message>
+            <source>Divehi</source>
+            <translation>мальдивский</translation>
+        </message>
+        <message>
+            <source>Dzongkha</source>
+            <translation>Dzongkha</translation>
+        </message>
+        <message>
+            <source>Ewe</source>
+            <translation>овца</translation>
+        </message>
+        <message>
+            <source>Greek</source>
+            <translation>греческий</translation>
+        </message>
+        <message>
+            <source>English</source>
+            <translation>английский</translation>
+        </message>
+        <message>
+            <source>Esperanto</source>
+            <translation>эсперанто</translation>
+        </message>
+        <message>
+            <source>Spanish</source>
+            <translation>испанский</translation>
+        </message>
+        <message>
+            <source>Estonian</source>
+            <translation>эстонский</translation>
+        </message>
+        <message>
+            <source>Basque</source>
+            <translation>баскский</translation>
+        </message>
+        <message>
+            <source>Persian</source>
+            <translation>персидский</translation>
+        </message>
+        <message>
+            <source>Fulah</source>
+            <translation>фулах</translation>
+        </message>
+        <message>
+            <source>Finnish</source>
+            <translation>финский</translation>
+        </message>
+        <message>
+            <source>Fijian</source>
+            <translation>Fijian</translation>
+        </message>
+        <message>
+            <source>Faroese</source>
+            <translation>Фарерская</translation>
+        </message>
+        <message>
+            <source>French</source>
+            <translation>Французский</translation>
+        </message>
+        <message>
+            <source>Frisian</source>
+            <translation>фризский</translation>
+        </message>
+        <message>
+            <source>Irish</source>
+            <translation>ирландский</translation>
+        </message>
+        <message>
+            <source>Gaelic</source>
+            <translation>гаэльский</translation>
+        </message>
+        <message>
+            <source>Galician</source>
+            <translation>Галицкая</translation>
+        </message>
+        <message>
+            <source>Guarani</source>
+            <translation>Гуарани</translation>
+        </message>
+        <message>
+            <source>Gujarati</source>
+            <translation>гуджарати</translation>
+        </message>
+        <message>
+            <source>Manx</source>
+            <translation>с острова Мэн</translation>
+        </message>
+        <message>
+            <source>Hausa</source>
+            <translation>хауса</translation>
+        </message>
+        <message>
+            <source>Hebrew</source>
+            <translation>иврит</translation>
+        </message>
+        <message>
+            <source>Hindi</source>
+            <translation>хинди</translation>
+        </message>
+        <message>
+            <source>Hiri</source>
+            <translation>Hiri</translation>
+        </message>
+        <message>
+            <source>Croatian</source>
+            <translation>хорватский</translation>
+        </message>
+        <message>
+            <source>Haitian</source>
+            <translation>гаитянский</translation>
+        </message>
+        <message>
+            <source>Hungarian</source>
+            <translation>Венгерский</translation>
+        </message>
+        <message>
+            <source>Armenian</source>
+            <translation>армянин</translation>
+        </message>
+        <message>
+            <source>Herero</source>
+            <translation>гереро</translation>
+        </message>
+        <message>
+            <source>Chamorro</source>
+            <translation>Чаморро</translation>
+        </message>
+        <message>
+            <source>Interlingua</source>
+            <translation>Интерлингва</translation>
+        </message>
+        <message>
+            <source>Indonesian</source>
+            <translation>индонезийский</translation>
+        </message>
+        <message>
+            <source>Interlingue</source>
+            <translation>Интерлингве</translation>
+        </message>
+        <message>
+            <source>Igbo</source>
+            <translation>Игбо</translation>
+        </message>
+        <message>
+            <source>Sichuan</source>
+            <translation>Сычуань</translation>
+        </message>
+        <message>
+            <source>Inupiaq</source>
+            <translation>Инупиак</translation>
+        </message>
+        <message>
+            <source>Ido</source>
+            <translation>Я делаю</translation>
+        </message>
+        <message>
+            <source>Icelandic</source>
+            <translation>исландский</translation>
+        </message>
+        <message>
+            <source>Italian</source>
+            <translation>итальянский</translation>
+        </message>
+        <message>
+            <source>Inuktitut</source>
+            <translation>Inuktitut</translation>
+        </message>
+        <message>
+            <source>Japanese</source>
+            <translation>японский язык</translation>
+        </message>
+        <message>
+            <source>Javanese</source>
+            <translation>яванский</translation>
+        </message>
+        <message>
+            <source>Georgian</source>
+            <translation>грузинский</translation>
+        </message>
+        <message>
+            <source>Kongo</source>
+            <translation>Kongo</translation>
+        </message>
+        <message>
+            <source>Kikuyu</source>
+            <translation>кикуйю</translation>
+        </message>
+        <message>
+            <source>Kuanyama</source>
+            <translation>Kuanyama</translation>
+        </message>
+        <message>
+            <source>Kazakh</source>
+            <translation>казах</translation>
+        </message>
+        <message>
+            <source>Greenlandic</source>
+            <translation>гренландский</translation>
+        </message>
+        <message>
+            <source>Khmer</source>
+            <translation>кхмерский</translation>
+        </message>
+        <message>
+            <source>Kannada</source>
+            <translation>каннада</translation>
+        </message>
+        <message>
+            <source>Korean</source>
+            <translation>корейский язык</translation>
+        </message>
+        <message>
+            <source>Kanuri</source>
+            <translation>канури</translation>
+        </message>
+        <message>
+            <source>Kashmiri</source>
+            <translation>Kashmiri</translation>
+        </message>
+        <message>
+            <source>Kurdish</source>
+            <translation>курдский</translation>
+        </message>
+        <message>
+            <source>Komi</source>
+            <translation>Коми</translation>
+        </message>
+        <message>
+            <source>Cornish</source>
+            <translation>корнуоллский</translation>
+        </message>
+        <message>
+            <source>Kirghiz</source>
+            <translation>киргизы</translation>
+        </message>
+        <message>
+            <source>Latin</source>
+            <translation>латынь</translation>
+        </message>
+        <message>
+            <source>Luxembourgish</source>
+            <translation>люксембургский</translation>
+        </message>
+        <message>
+            <source>Ganda</source>
+            <translation>Ganda</translation>
+        </message>
+        <message>
+            <source>Limburgan</source>
+            <translation>Limburgan</translation>
+        </message>
+        <message>
+            <source>Lingala</source>
+            <translation>Lingala</translation>
+        </message>
+        <message>
+            <source>Lao</source>
+            <translation>Лао</translation>
+        </message>
+        <message>
+            <source>Lithuanian</source>
+            <translation>Литовский язык</translation>
+        </message>
+        <message>
+            <source>Luba-Katanga</source>
+            <translation>Luba-Катанга</translation>
+        </message>
+        <message>
+            <source>Latvian</source>
+            <translation>Латышский</translation>
+        </message>
+        <message>
+            <source>Malagasy</source>
+            <translation>малагасиец</translation>
+        </message>
+        <message>
+            <source>Marshallese</source>
+            <translation>Marshallese</translation>
+        </message>
+        <message>
+            <source>Maori</source>
+            <translation>маори</translation>
+        </message>
+        <message>
+            <source>Macedonian</source>
+            <translation>македонский</translation>
+        </message>
+        <message>
+            <source>Malayalam</source>
+            <translation>Malayalam</translation>
+        </message>
+        <message>
+            <source>Mongolian</source>
+            <translation>монгольский</translation>
+        </message>
+        <message>
+            <source>Moldavian</source>
+            <translation>молдаванин</translation>
+        </message>
+        <message>
+            <source>Marathi</source>
+            <translation>маратхи</translation>
+        </message>
+        <message>
+            <source>Malay</source>
+            <translation>малайский</translation>
+        </message>
+        <message>
+            <source>Maltese</source>
+            <translation>мальтийский</translation>
+        </message>
+        <message>
+            <source>Burmese</source>
+            <translation>бирманский</translation>
+        </message>
+        <message>
+            <source>Nauru</source>
+            <translation>Науру</translation>
+        </message>
+        <message>
+            <source>Bokmål</source>
+            <translation>букмол</translation>
+        </message>
+        <message>
+            <source>Ndebele</source>
+            <translation>Ndebele</translation>
+        </message>
+        <message>
+            <source>Nepali</source>
+            <translation>непальский</translation>
+        </message>
+        <message>
+            <source>Ndonga</source>
+            <translation>Ndonga</translation>
+        </message>
+        <message>
+            <source>Dutch</source>
+            <translation>Голландский</translation>
+        </message>
+        <message>
+            <source>Norwegian Nynorsk</source>
+            <translation>Норвежский нюнорск</translation>
+        </message>
+        <message>
+            <source>Norwegian</source>
+            <translation>норвежский язык</translation>
+        </message>
+        <message>
+            <source>Navajo</source>
+            <translation>навахо</translation>
+        </message>
+        <message>
+            <source>Chichewa</source>
+            <translation>Chichewa</translation>
+        </message>
+        <message>
+            <source>Occitan</source>
+            <translation>Occitan</translation>
+        </message>
+        <message>
+            <source>Ojibwa</source>
+            <translation>оджибва</translation>
+        </message>
+        <message>
+            <source>Oromo</source>
+            <translation>ор</translation>
+        </message>
+        <message>
+            <source>Oriya</source>
+            <translation>Ория</translation>
+        </message>
+        <message>
+            <source>Ossetian</source>
+            <translation>осетинский</translation>
+        </message>
+        <message>
+            <source>Panjabi</source>
+            <translation>Panjabi</translation>
+        </message>
+        <message>
+            <source>Pali</source>
+            <translation>пали</translation>
+        </message>
+        <message>
+            <source>Polish</source>
+            <translation>польский</translation>
+        </message>
+        <message>
+            <source>Pushto</source>
+            <translation>пушту</translation>
+        </message>
+        <message>
+            <source>Portuguese</source>
+            <translation>португальский</translation>
+        </message>
+        <message>
+            <source>Quechua</source>
+            <translation>кечуа</translation>
+        </message>
+        <message>
+            <source>Romansh</source>
+            <translation>ретороманский диалект</translation>
+        </message>
+        <message>
+            <source>Rundi</source>
+            <translation>Рунди</translation>
+        </message>
+        <message>
+            <source>Romanian</source>
+            <translation>румынский</translation>
+        </message>
+        <message>
+            <source>Russian</source>
+            <translation>русский</translation>
+        </message>
+        <message>
+            <source>Kinyarwanda</source>
+            <translation>киньяруанда</translation>
+        </message>
+        <message>
+            <source>Sanskrit</source>
+            <translation>санскрит</translation>
+        </message>
+        <message>
+            <source>Sardinian</source>
+            <translation>сардинец</translation>
+        </message>
+        <message>
+            <source>Sindhi</source>
+            <translation>Sindhi</translation>
+        </message>
+        <message>
+            <source>Sami</source>
+            <translation>Сами</translation>
+        </message>
+        <message>
+            <source>Sango</source>
+            <translation>Санго</translation>
+        </message>
+        <message>
+            <source>Sinhala</source>
+            <translation>Sinhala</translation>
+        </message>
+        <message>
+            <source>Slovak</source>
+            <translation>словацкий</translation>
+        </message>
+        <message>
+            <source>Slovene</source>
+            <translation>словенец</translation>
+        </message>
+        <message>
+            <source>Samoan</source>
+            <translation>Samoan</translation>
+        </message>
+        <message>
+            <source>Shona</source>
+            <translation>Shona</translation>
+        </message>
+        <message>
+            <source>Somali</source>
+            <translation>сомалийский</translation>
+        </message>
+        <message>
+            <source>Albanian</source>
+            <translation>албанский</translation>
+        </message>
+        <message>
+            <source>Serbian</source>
+            <translation>сербский</translation>
+        </message>
+        <message>
+            <source>Swati</source>
+            <translation>Свати</translation>
+        </message>
+        <message>
+            <source>Sotho</source>
+            <translation>сото</translation>
+        </message>
+        <message>
+            <source>Sundanese</source>
+            <translation>Суданский</translation>
+        </message>
+        <message>
+            <source>Swedish</source>
+            <translation>шведский</translation>
+        </message>
+        <message>
+            <source>Swahili</source>
+            <translation>суахили</translation>
+        </message>
+        <message>
+            <source>Tamil</source>
+            <translation>тамильский</translation>
+        </message>
+        <message>
+            <source>Telugu</source>
+            <translation>телугу</translation>
+        </message>
+        <message>
+            <source>Tajik</source>
+            <translation>таджикский</translation>
+        </message>
+        <message>
+            <source>Thai</source>
+            <translation>тайский</translation>
+        </message>
+        <message>
+            <source>Tigrinya</source>
+            <translation>тигринья</translation>
+        </message>
+        <message>
+            <source>Turkmen</source>
+            <translation>туркменский</translation>
+        </message>
+        <message>
+            <source>Tagalog</source>
+            <translation>тагальского</translation>
+        </message>
+        <message>
+            <source>Tswana</source>
+            <translation>Tswana</translation>
+        </message>
+        <message>
+            <source>Tonga</source>
+            <translation>Тонга</translation>
+        </message>
+        <message>
+            <source>Turkish</source>
+            <translation>турецкий</translation>
+        </message>
+        <message>
+            <source>Tsonga</source>
+            <translation>Тсонга</translation>
+        </message>
+        <message>
+            <source>Tatar</source>
+            <translation>татарин</translation>
+        </message>
+        <message>
+            <source>Twi</source>
+            <translation>Twi</translation>
+        </message>
+        <message>
+            <source>Tahitian</source>
+            <translation>Tahitian</translation>
+        </message>
+        <message>
+            <source>Uighur</source>
+            <translation>Уйгурский</translation>
+        </message>
+        <message>
+            <source>Ukrainian</source>
+            <translation>украинец</translation>
+        </message>
+        <message>
+            <source>Urdu</source>
+            <translation>урду</translation>
+        </message>
+        <message>
+            <source>Uzbek</source>
+            <translation>узбек</translation>
+        </message>
+        <message>
+            <source>Venda</source>
+            <translation>Венда</translation>
+        </message>
+        <message>
+            <source>Vietnamese</source>
+            <translation>вьетнамский</translation>
+        </message>
+        <message>
+            <source>Volapük</source>
+            <translation>Volapük</translation>
+        </message>
+        <message>
+            <source>Walloon</source>
+            <translation>валлонский</translation>
+        </message>
+        <message>
+            <source>Wolof</source>
+            <translation>Волоф</translation>
+        </message>
+        <message>
+            <source>Xhosa</source>
+            <translation>Кос</translation>
+        </message>
+        <message>
+            <source>Yiddish</source>
+            <translation>идиш</translation>
+        </message>
+        <message>
+            <source>Yoruba</source>
+            <translation>йоруба</translation>
+        </message>
+        <message>
+            <source>Zhuang</source>
+            <translation>Чжуан</translation>
+        </message>
+        <message>
+            <source>Chinese</source>
+            <translation>китайский язык</translation>
+        </message>
+        <message>
+            <source>Zulu</source>
+            <translation>зулус</translation>
+        </message>
+        <message>
+            <source>Arabic - Syria</source>
+            <translation>Арабский - Сирия</translation>
+        </message>
+        <message>
+            <source>Unicode</source>
+            <translation>Unicode</translation>
+        </message>
+        <message>
+            <source>UTF-8</source>
+            <translation>UTF-8,</translation>
+        </message>
+        <message>
+            <source>Western European Languages</source>
+            <translation>Западноевропейские языки</translation>
+        </message>
+        <message>
+            <source>Western European Languages with Euro</source>
+            <translation>Западноевропейские языки с евро</translation>
+        </message>
+        <message>
+            <source>Slavic/Central European Languages</source>
+            <translation>Славянские / центральноевропейские языки</translation>
+        </message>
+        <message>
+            <source>Esperanto, Galician, Maltese, Turkish</source>
+            <translation>Эсперанто, Галисийский, Мальтийский, Турецкий</translation>
+        </message>
+        <message>
+            <source>Old Baltic charset</source>
+            <translation>Старая балтийская кодировка</translation>
+        </message>
+        <message>
+            <source>Cyrillic</source>
+            <translation>кириллица</translation>
+        </message>
+        <message>
+            <source>Modern Greek</source>
+            <translation>Современный греческий</translation>
+        </message>
+        <message>
+            <source>Baltic</source>
+            <translation>балтийский</translation>
+        </message>
+        <message>
+            <source>Celtic</source>
+            <translation>кельтский</translation>
+        </message>
+        <message>
+            <source>South-Eastern European</source>
+            <translation>Юго-Восточная Европа</translation>
+        </message>
+        <message>
+            <source>Hebrew charsets</source>
+            <translation>Ивритские кодировки</translation>
+        </message>
+        <message>
+            <source>Ukrainian, Belarusian</source>
+            <translation>Украинский, белорусский</translation>
+        </message>
+        <message>
+            <source>Simplified Chinese charset</source>
+            <translation>Упрощенная китайская кодировка</translation>
+        </message>
+        <message>
+            <source>Traditional Chinese charset</source>
+            <translation>Традиционная китайская кодировка</translation>
+        </message>
+        <message>
+            <source>Japanese charsets</source>
+            <translation>Японские кодировки</translation>
+        </message>
+        <message>
+            <source>Korean charset</source>
+            <translation>Корейская кодировка</translation>
+        </message>
+        <message>
+            <source>Thai charset</source>
+            <translation>Тайская кодировка</translation>
+        </message>
+        <message>
+            <source>Cyrillic Windows</source>
+            <translation>Кириллические окна</translation>
+        </message>
+        <message>
+            <source>Slavic/Central European Windows</source>
+            <translation>Славянские / центральноевропейские окна</translation>
+        </message>
+        <message>
+            <source>Arabic Windows</source>
+            <translation>Арабские Windows</translation>
+        </message>
+        <message>
+            <source>Modern Greek Windows</source>
+            <translation>Современные греческие окна</translation>
+        </message>
+    </context>
+    <context>
+        <name>LineEditWithIcon</name>
+        <message>
+            <source>Change</source>
+            <translation>+ Изменить</translation>
+        </message>
+    </context>
+    <context>
+        <name>MPVProcess</name>
+        <message>
+            <source>the '%1' filter is not supported by mpv</source>
+            <translation>фильтр «% 1» не поддерживается mpv</translation>
+        </message>
+    </context>
+    <context>
+        <name>MessageDialog</name>
+        <message>
+            <source>Ok</source>
+            <translation>Хорошо</translation>
+        </message>
+        <message>
+            <source>Cancel</source>
+            <translation>отменить</translation>
+        </message>
+        <message>
+            <source>Yes</source>
+            <translation>да</translation>
+        </message>
+        <message>
+            <source>No</source>
+            <translation>нет</translation>
+        </message>
+    </context>
+    <context>
+        <name>MplayerProcess</name>
+        <message>
+            <source>This option is not supported by MPlayer</source>
+            <translation>Этот параметр не поддерживается MPlayer</translation>
+        </message>
+    </context>
+    <context>
+        <name>Playlist</name>
+        <message>
+            <source>Playlist is empty</source>
+            <translation>Плейлист пуст</translation>
+        </message>
+        <message>
+            <source>Add File</source>
+            <translation>Добавить файл</translation>
+        </message>
+        <message>
+            <source>PlayList</source>
+            <translation>PlayList</translation>
+        </message>
+        <message>
+            <source>Clear</source>
+            <translation>Очистить</translation>
+        </message>
+        <message>
+            <source>Add</source>
+            <translation>добавлять</translation>
+        </message>
+        <message>
+            <source>Play</source>
+            <translation>Играть</translation>
+        </message>
+        <message>
+            <source>Remove &amp;selected</source>
+            <translation>Убрать выбранное</translation>
+        </message>
+        <message>
+            <source>&amp;Delete file from disk</source>
+            <translation>&amp; Удалить файл с диска</translation>
+        </message>
+        <message>
+            <source>Reached the end of the playlist</source>
+            <translation>Достигнут конец плейлиста</translation>
+        </message>
+        <message>
+            <source>Select one or more files to open</source>
+            <translation>Выберите один или несколько файлов для открытия</translation>
+        </message>
+        <message>
+            <source>Multimedia</source>
+            <translation>мультимедиа</translation>
+        </message>
+        <message>
+            <source>All files</source>
+            <translation>Все файлы</translation>
+        </message>
+        <message>
+            <source>Choose a directory</source>
+            <translation>Выберите каталог</translation>
+        </message>
+        <message>
+            <source>Confirm remove</source>
+            <translation>Подтвердить удаление</translation>
+        </message>
+        <message>
+            <source>You're about to remove the file '%1' from the playlist.</source>
+            <translation>Вы собираетесь удалить файл «% 1» из списка воспроизведения.</translation>
+        </message>
+        <message>
+            <source>Are you sure you want to proceed?</source>
+            <translation>Вы уверены, что хотите продолжить?</translation>
+        </message>
+        <message>
+            <source>Confirm deletion</source>
+            <translation>Подтвердить удаление</translation>
+        </message>
+        <message>
+            <source>You're about to DELETE the file '%1' from your drive.</source>
+            <translation>Вы собираетесь удалить файл «% 1» с вашего диска.</translation>
+        </message>
+        <message>
+            <source>This action cannot be undone. Are you sure you want to proceed?</source>
+            <translation>Это действие не может быть отменено. Вы уверены, что хотите продолжить?</translation>
+        </message>
+        <message>
+            <source>Deletion failed</source>
+            <translation>Не удалось выполнить удаление</translation>
+        </message>
+        <message>
+            <source>It wasn't possible to delete '%1'</source>
+            <translation>Не удалось удалить '% 1'</translation>
+        </message>
+        <message>
+            <source>Error deleting the file</source>
+            <translation>Ошибка удаления файла</translation>
+        </message>
+        <message>
+            <source>It's not possible to delete '%1' from the filesystem.</source>
+            <translation>Невозможно удалить «% 1» из файловой системы.</translation>
+        </message>
+    </context>
+    <context>
+        <name>PrefAudio</name>
+        <message>
+            <source>Volume</source>
+            <translation>объем</translation>
+        </message>
+        <message>
+            <source>Global volume</source>
+            <translation>Глобальный объем</translation>
+        </message>
+        <message>
+            <source>Use software volume control</source>
+            <translation>Использовать регулятор громкости программного обеспечения</translation>
+        </message>
+        <message>
+            <source>Max. Amplification:</source>
+            <translation>Максимум. Усиление:</translation>
+        </message>
+        <message>
+            <source>Volume normalization by default</source>
+            <translation>Нормализация по умолчанию</translation>
+        </message>
+        <message>
+            <source>Synchronization</source>
+            <translation>синхронизация</translation>
+        </message>
+        <message>
+            <source>Audio/video auto synchronization</source>
+            <translation>Автоматическая синхронизация аудио / видео</translation>
+        </message>
+        <message>
+            <source>Factor:</source>
+            <translation>фактор:</translation>
+        </message>
+        <message>
+            <source>Output driver:</source>
+            <translation>Выходной драйвер:</translation>
+        </message>
+        <message>
+            <source>Channels by default:</source>
+            <translation>Каналы по умолчанию:</translation>
+        </message>
+        <message>
+            <source>2 (Stereo)</source>
+            <translation>2 (стерео)</translation>
+        </message>
+        <message>
+            <source>4 (4.0 Surround)</source>
+            <translation>4 (4.0 Surround)</translation>
+        </message>
+        <message>
+            <source>6 (5.1 Surround)</source>
+            <translation>6 (5.1 Surround)</translation>
+        </message>
+        <message>
+            <source>7 (6.1 Surround)</source>
+            <translation>7 (6.1 Surround)</translation>
+        </message>
+        <message>
+            <source>8 (7.1 Surround)</source>
+            <translation>8 (7.1 Surround)</translation>
+        </message>
+        <message>
+            <source>Default</source>
+            <translation>По умолчанию</translation>
+        </message>
+        <message>
+            <source>Audio output driver</source>
+            <translation>Драйвер аудиовыхода</translation>
+        </message>
+        <message>
+            <source>Select the audio output driver.</source>
+            <translation>Выберите драйвер аудиовыхода.</translation>
+        </message>
+        <message>
+            <source>%1 is the recommended one. Try to avoid %2 and %3, they are slow and can have an impact on performance.</source>
+            <translation>% 1 рекомендуется. Старайтесь избегать% 2 и% 3, они медленны и могут влиять на производительность.</translation>
+        </message>
+        <message>
+            <source>Channels by default</source>
+            <translation>Каналы по умолчанию</translation>
+        </message>
+        <message>
+            <source>Requests the number of playback channels. MPlayer asks the decoder to decode the audio into as many channels as specified. Then it is up to the decoder to fulfill the requirement. This is usually only important when playing videos with AC3 audio (like DVDs). In that case liba52 does the decoding by default and correctly downmixes the audio into the requested number of channels. &lt;b&gt;Note&lt;/b&gt;: This option is honored by codecs (AC3 only), filters (surround) and audio output drivers (OSS at least).</source>
+            <translation>Запросит количество каналов воспроизведения. MPlayer просит декодер декодировать аудио на столько каналов, сколько указано. Тогда для декодера требуется выполнение этого требования. Это обычно важно только при воспроизведении видео с аудио AC3 (например, DVD-дисков). В этом случае liba52 выполняет декодирование по умолчанию и корректно микширует аудио в запрошенное количество каналов. &lt;b&gt; Примечание &lt;/ b&gt;: эта опция соблюдается кодеками (только для AC3), фильтрами (объемным) и драйверами вывода звука (по крайней мере, OSS).</translation>
+        </message>
+        <message>
+            <source>If this option is checked, the same volume will be used for all files you play. If the option is not checked each file uses its own volume.</source>
+            <translation>Если этот параметр установлен, то тот же объем будет использоваться для всех файлов, которые вы играете. Если опция не проверена, каждый файл использует свой собственный том.</translation>
+        </message>
+        <message>
+            <source>This option also applies for the mute control.</source>
+            <translation>Этот параметр также применяется для управления отключением звука.</translation>
+        </message>
+        <message>
+            <source>Software volume control</source>
+            <translation>Контроль громкости программного обеспечения</translation>
+        </message>
+        <message>
+            <source>Check this option to use the software mixer, instead of using the sound card mixer.</source>
+            <translation>Установите этот параметр, чтобы использовать программный микшер, вместо использования микшера звуковой карты.</translation>
+        </message>
+        <message>
+            <source>Max. Amplification</source>
+            <translation>Максимум. усиление</translation>
+        </message>
+        <message>
+            <source>Sets the maximum amplification level in percent (default: 110). A value of 200 will allow you to adjust the volume up to a maximum of double the current level. With values below 100 the initial volume (which is 100%) will be above the maximum, which e.g. the OSD cannot display correctly.</source>
+            <translation>Устанавливает максимальный уровень усиления в процентах (по умолчанию: 110). Значение 200 позволит вам отрегулировать громкость до максимума в два раза выше текущего уровня. При значениях ниже 100 начальный объем (который равен 100%) будет превышать максимальный, что, например, экранное меню не может отображаться правильно.</translation>
+        </message>
+        <message>
+            <source>Maximizes the volume without distorting the sound.</source>
+            <translation>Максимизирует громкость без искажения звука.</translation>
+        </message>
+        <message>
+            <source>Gradually adjusts the A/V sync based on audio delay measurements.</source>
+            <translation>Постепенно настраивает A / V-синхронизацию на основе измерений задержки звука.</translation>
+        </message>
+    </context>
+    <context>
+        <name>PrefGeneral</name>
+        <message>
+            <source>Pause when minimized</source>
+            <translation>Пауза при минимизации</translation>
+        </message>
+        <message>
+            <source>MPlayer</source>
+            <translation>MPlayer</translation>
+        </message>
+        <message>
+            <source>MPV</source>
+            <translation>MPV</translation>
+        </message>
+        <message>
+            <source>Playback engine:</source>
+            <translation>Механизм воспроизведения:</translation>
+        </message>
+        <message>
+            <source>Preview when video is playing</source>
+            <translation>Предварительный просмотр при воспроизведении видео</translation>
+        </message>
+        <message>
+            <source>If this option is enabled, the file will be paused when the main window is hidden. When the window is restored, playback will be resumed.</source>
+            <translation>Если этот параметр включен, файл будет приостановлен, когда основное окно будет скрыто. Когда окно будет восстановлено, воспроизведение будет возобновлено.</translation>
+        </message>
+        <message>
+            <source>Preview when the video is playing</source>
+            <translation>Предварительный просмотр при воспроизведении видео</translation>
+        </message>
+        <message>
+            <source>If this option is enabled, the video preview will be displayed when the mouse is placed on the progress bar.</source>
+            <translation>Если эта опция включена, предварительный просмотр видео будет отображаться, когда мышь будет установлена ​​на индикатор выполнения.</translation>
+        </message>
+        <message>
+            <source>Select MPlayer as playback engine</source>
+            <translation>Выберите MPlayer в качестве механизма воспроизведения</translation>
+        </message>
+        <message>
+            <source>If you change the playback engine to MPlayer, please restart Kylin Video.</source>
+            <translation>Если вы измените движок воспроизведения на MPlayer, перезапустите Kylin Video.</translation>
+        </message>
+        <message>
+            <source>Select MPV as playback engine</source>
+            <translation>Выберите MPV в качестве механизма воспроизведения</translation>
+        </message>
+        <message>
+            <source>If you change the playback engine to MPV, please restart Kylin Video.</source>
+            <translation>Если вы измените движок воспроизведения на MPV, перезапустите Kylin Video.</translation>
+        </message>
+    </context>
+    <context>
+        <name>PrefPerformance</name>
+        <message>
+            <source>Cache</source>
+            <translation>кэш</translation>
+        </message>
+        <message>
+            <source>Cache for local files:</source>
+            <translation>Кэш для локальных файлов:</translation>
+        </message>
+        <message>
+            <source>KB</source>
+            <translation>KB</translation>
+        </message>
+        <message>
+            <source>Cache for streams:</source>
+            <translation>Кэш для потоков:</translation>
+        </message>
+        <message>
+            <source>Decode</source>
+            <translation>раскодировать</translation>
+        </message>
+        <message>
+            <source>Threads for decoding (MPEG-1/2 and H.264 only):</source>
+            <translation>Темы для декодирования (только для MPEG-1/2 и H.264):</translation>
+        </message>
+        <message>
+            <source>Hardware decoding</source>
+            <translation>Аппаратное декодирование</translation>
+        </message>
+        <message>
+            <source>None</source>
+            <translation>Никто</translation>
+        </message>
+        <message>
+            <source>Auto</source>
+            <translation>Авто</translation>
+        </message>
+        <message>
+            <source>Performance</source>
+            <translation>Спектакль</translation>
+        </message>
+        <message>
+            <source>Threads for decoding</source>
+            <translation>Темы для декодирования</translation>
+        </message>
+        <message>
+            <source>Sets the number of threads to use for decoding. Only for MPEG-1/2 and H.264</source>
+            <translation>Устанавливает количество потоков для декодирования. Только для MPEG-1/2 и H.264</translation>
+        </message>
+        <message>
+            <source>Sets the hardware video decoding API. If hardware decoding is not possible, software decoding will be used instead.</source>
+            <translation>Устанавливает API декодирования аппаратного видео. Если аппаратное декодирование невозможно, вместо этого будет использоваться программное декодирование.</translation>
+        </message>
+        <message>
+            <source>Available options:</source>
+            <translation>Доступные Варианты:</translation>
+        </message>
+        <message>
+            <source>None: only software decoding will be used.</source>
+            <translation>Нет: будет использоваться только программное декодирование.</translation>
+        </message>
+        <message>
+            <source>Auto: it tries to automatically enable hardware decoding using the first available method.</source>
+            <translation>Авто: он пытается автоматически включить аппаратное декодирование с использованием первого доступного метода.</translation>
+        </message>
+        <message>
+            <source>vdpau: for the vdpau and opengl video outputs.</source>
+            <translation>vdpau: для видеовыходов vdpau и opengl.</translation>
+        </message>
+        <message>
+            <source>vaapi: for the opengl and vaapi video outputs. For Intel GPUs only.</source>
+            <translation>vaapi: для видеовыходов opengl и vaapi. Только для графических процессоров Intel.</translation>
+        </message>
+        <message>
+            <source>vaapi-copy: it copies video back into system RAM. For Intel GPUs only.</source>
+            <translation>vaapi-copy: копирует видео обратно в оперативную память системы. Только для графических процессоров Intel.</translation>
+        </message>
+        <message>
+            <source>This option only works with mpv.</source>
+            <translation>Этот параметр работает только с mpv.</translation>
+        </message>
+        <message>
+            <source>Cache for files</source>
+            <translation>Кэш для файлов</translation>
+        </message>
+        <message>
+            <source>This option specifies how much memory (in kBytes) to use when precaching a file.</source>
+            <translation>Этот параметр указывает, сколько памяти (в kBytes) следует использовать при преследовании файла.</translation>
+        </message>
+        <message>
+            <source>Cache for streams</source>
+            <translation>Кэш для потоков</translation>
+        </message>
+        <message>
+            <source>This option specifies how much memory (in kBytes) to use when precaching a URL.</source>
+            <translation>Этот параметр указывает, сколько памяти (в kBytes) следует использовать при доработке URL-адреса.</translation>
+        </message>
+    </context>
+    <context>
+        <name>PrefScreenShot</name>
+        <message>
+            <source>Screenshots</source>
+            <translation>Скриншоты</translation>
+        </message>
+        <message>
+            <source>Enable screenshots</source>
+            <translation>Включить скриншоты</translation>
+        </message>
+        <message>
+            <source>Folder:</source>
+            <translation>Папка:</translation>
+        </message>
+        <message>
+            <source>Template:</source>
+            <translation>Шаблон:</translation>
+        </message>
+        <message>
+            <source>Format:</source>
+            <translation>Формат:</translation>
+        </message>
+        <message>
+            <source>Select a directory</source>
+            <translation>Выберите каталог</translation>
+        </message>
+        <message>
+            <source>You can use this option to enable or disable the possibility to take screenshots.</source>
+            <translation>Вы можете использовать этот параметр, чтобы включить или отключить возможность делать скриншоты.</translation>
+        </message>
+        <message>
+            <source>Screenshots folder</source>
+            <translation>Папка скриншотов</translation>
+        </message>
+        <message>
+            <source>Here you can specify a folder where the screenshots taken by Kylin Video will be stored. If the folder is not valid the screenshot feature will be disabled.</source>
+            <translation>Здесь вы можете указать папку, в которой будут сохранены снимки экрана, сделанные Kylin Video. Если папка недействительна, функция скриншота будет отключена.</translation>
+        </message>
+        <message>
+            <source>Template for screenshots</source>
+            <translation>Шаблон для скриншотов</translation>
+        </message>
+        <message>
+            <source>This option specifies the filename template used to save screenshots.</source>
+            <translation>Этот параметр указывает шаблон имени файла, используемый для сохранения скриншотов.</translation>
+        </message>
+        <message>
+            <source>For example %1 would save the screenshot as 'moviename_0001.png'.</source>
+            <translation>Например,% 1 сохранит скриншот как «moviename_0001.png».</translation>
+        </message>
+        <message>
+            <source>%1 specifies the filename of the video without the extension, %2 adds a 4 digit number padded with zeros.</source>
+            <translation>% 1 указывает имя файла видео без расширения,% 2 добавляет 4-значное число, заполненное нулями.</translation>
+        </message>
+        <message>
+            <source>For a full list of the template specifiers visit this link:</source>
+            <translation>Полный список спецификаторов шаблонов можно найти по этой ссылке:</translation>
+        </message>
+        <message>
+            <source>This option only works with mpv.</source>
+            <translation>Этот параметр работает только с mpv.</translation>
+        </message>
+        <message>
+            <source>Format for screenshots</source>
+            <translation>Формат для скриншотов</translation>
+        </message>
+        <message>
+            <source>This option allows one to choose the image file type used for saving screenshots.</source>
+            <translation>Эта опция позволяет выбрать тип файла изображения, используемый для сохранения снимков экрана.</translation>
+        </message>
+    </context>
+    <context>
+        <name>PrefShortCut</name>
+        <message>
+            <source>Here you can change any key shortcut. To do it double click or press enter over a shortcut cell. </source>
+            <translation>Здесь вы можете изменить любой ключевой ярлык. Для этого дважды щелкните или нажмите enter через ячейку быстрого доступа. </translation>
+        </message>
+        <message>
+            <source>ShortCut</source>
+            <translation>ShortCut</translation>
+        </message>
+        <message>
+            <source>Here you can change any key shortcut. To do it double click or start typing over a shortcut cell.</source>
+            <translation>Здесь вы можете изменить любой ключевой ярлык. Чтобы сделать это, дважды щелкните или начните вводить текст по ячейке быстрого доступа.</translation>
+        </message>
+        <message>
+            <source>Shortcut Key</source>
+            <translation>Быстрая клавиша</translation>
+        </message>
+        <message>
+            <source>Shortcut editor</source>
+            <translation>Редактор ярлыков</translation>
+        </message>
+        <message>
+            <source>This table allows you to change the key shortcuts of most available actions. Double click or press enter on a item, or press the &lt;b&gt;Change shortcut&lt;/b&gt; button to enter in the &lt;i&gt;Modify shortcut&lt;/i&gt; dialog. There are two ways to change a shortcut: if the &lt;b&gt;Capture&lt;/b&gt; button is on then just press the new key or combination of keys that you want to assign for the action (unfortunately this doesn't work for all keys). If the &lt;b&gt;Capture&lt;/b&gt; button is off then you could enter the full name of the key.</source>
+            <translation>В этой таблице вы можете изменить ключевые ярлыки большинства доступных действий. Дважды щелкните или нажмите клавишу ввода для элемента или нажмите кнопку &lt;b&gt; Изменить ярлык &lt;/ b&gt;, чтобы войти в диалоговое окно &lt;i&gt; Изменить ярлык &lt;/ i&gt;. Есть два способа изменить ярлык: если кнопка &lt;b&gt; Capture &lt;/ b&gt; включена, просто нажмите новую клавишу или комбинацию клавиш, которые вы хотите назначить для действия (к сожалению, это не работает для всех клавиш ). Если кнопка &lt;b&gt; Capture &lt;/ b&gt; выключена, вы можете ввести полное имя ключа.</translation>
+        </message>
+    </context>
+    <context>
+        <name>PrefSubtitles</name>
+        <message>
+            <source>Autoload</source>
+            <translation>Автозагрузка</translation>
+        </message>
+        <message>
+            <source>Autoload subtitles files (*.srt, *.sub...):</source>
+            <translation>Файлы субтитров Autoload (* .srt, * .sub ...):</translation>
+        </message>
+        <message>
+            <source>Same name as movie</source>
+            <translation>То же имя, что и фильм</translation>
+        </message>
+        <message>
+            <source>All subs containing movie name</source>
+            <translation>Все субтитры, содержащие название фильма</translation>
+        </message>
+        <message>
+            <source>All subs in directory</source>
+            <translation>Все подкаталоги в каталоге</translation>
+        </message>
+        <message>
+            <source>Encoding</source>
+            <translation>кодирование</translation>
+        </message>
+        <message>
+            <source>Default subtitle encoding:</source>
+            <translation>Кодировка субтитров по умолчанию:</translation>
+        </message>
+        <message>
+            <source>Try to autodetect for this language:</source>
+            <translation>Попробуйте автоопределить для этого языка:</translation>
+        </message>
+        <message>
+            <source>Subtitles</source>
+            <translation>Субтитры</translation>
+        </message>
+        <message>
+            <source>Select the subtitle autoload method.</source>
+            <translation>Выберите метод автозагрузки субтитров.</translation>
+        </message>
+        <message>
+            <source>Default subtitle encoding</source>
+            <translation>Кодировка субтитров по умолчанию</translation>
+        </message>
+        <message>
+            <source>Select the encoding which will be used for subtitle files by default.</source>
+            <translation>Выберите кодировку, которая будет использоваться для файлов субтитров по умолчанию.</translation>
+        </message>
+        <message>
+            <source>Try to autodetect for this language</source>
+            <translation>Попробуйте автоопределить для этого языка</translation>
+        </message>
+        <message>
+            <source>When this option is on, the encoding of the subtitles will be tried to be autodetected for the given language. It will fall back to the default encoding if the autodetection fails. This option requires a MPlayer compiled with ENCA support.</source>
+            <translation>Когда эта опция включена, кодировка субтитров будет проверена автоматически для данного языка. Он вернется к кодировке по умолчанию, если автоопределение не удастся. Для этого параметра требуется MPlayer, скомпилированный с поддержкой ENCA.</translation>
+        </message>
+        <message>
+            <source>Subtitle language</source>
+            <translation>Язык субтитров</translation>
+        </message>
+        <message>
+            <source>Select the language for which you want the encoding to be guessed automatically.</source>
+            <translation>Выберите язык, для которого вы хотите, чтобы кодировка была угадана автоматически.</translation>
+        </message>
+        <message>
+            <source>Font</source>
+            <translation>Шрифт</translation>
+        </message>
+    </context>
+    <context>
+        <name>PrefVideo</name>
+        <message>
+            <source>Enable postprocessing by default</source>
+            <translation>Включить постобработку по умолчанию</translation>
+        </message>
+        <message>
+            <source>Draw video using slices</source>
+            <translation>Рисование видео с помощью фрагментов</translation>
+        </message>
+        <message>
+            <source>Direct rendering</source>
+            <translation>Прямая передача</translation>
+        </message>
+        <message>
+            <source>Double buffering</source>
+            <translation>Двойная буферизация</translation>
+        </message>
+        <message>
+            <source>Use software video equalizer</source>
+            <translation>Использовать программный видеоэквалайзер</translation>
+        </message>
+        <message>
+            <source>Output driver:</source>
+            <translation>Выходной драйвер:</translation>
+        </message>
+        <message>
+            <source>Default</source>
+            <translation>По умолчанию</translation>
+        </message>
+        <message>
+            <source>slow</source>
+            <translation>медленный</translation>
+        </message>
+        <message>
+            <source>Video output driver</source>
+            <translation>Драйвер видеовыхода</translation>
+        </message>
+        <message>
+            <source>Select the video output driver. %1 provides the best performance.</source>
+            <translation>Выберите драйвер видеовыхода. % 1 обеспечивает лучшую производительность.</translation>
+        </message>
+        <message>
+            <source>Postprocessing will be used by default on new opened files.</source>
+            <translation>Постобработка будет использоваться по умолчанию для новых открытых файлов.</translation>
+        </message>
+        <message>
+            <source>Software video equalizer</source>
+            <translation>Программный видеоэквалайзер</translation>
+        </message>
+        <message>
+            <source>You can check this option if video equalizer is not supported by your graphic card or the selected video output driver.&lt;br&gt;&lt;b&gt;Note:&lt;/b&gt; this option can be incompatible with some video output drivers.</source>
+            <translation>Вы можете проверить эту опцию, если видеоэквалайзер не поддерживается графической картой или выбранным драйвером вывода видео. &lt;br&gt; &lt;b&gt; Примечание: &lt;/ b&gt; этот параметр может быть несовместим с некоторыми драйверами вывода видео.</translation>
+        </message>
+        <message>
+            <source>If checked, turns on direct rendering (not supported by all codecs and video outputs)&lt;br&gt;&lt;b&gt;Warning:&lt;/b&gt; May cause OSD/SUB corruption!</source>
+            <translation>Если отмечено, включается прямая рендеринг (не поддерживается всеми кодеками и видеовыходами) &lt;br&gt; &lt;b&gt; Предупреждение: &lt;/ b&gt; Может вызвать повреждение OSD / SUB!</translation>
+        </message>
+        <message>
+            <source>Double buffering fixes flicker by storing two frames in memory, and displaying one while decoding another. If disabled it can affect OSD negatively, but often removes OSD flickering.</source>
+            <translation>Двойная буферизация фиксирует мерцание, сохраняя два кадра в памяти и отображая их при декодировании другого. Если он отключен, он может негативно повлиять на экранное меню, но часто удаляет мерцание экранного меню.</translation>
+        </message>
+        <message>
+            <source>Enable/disable drawing video by 16-pixel height slices/bands. If disabled, the whole frame is drawn in a single run. May be faster or slower, depending on video card and available cache. It has effect only with libmpeg2 and libavcodec codecs.</source>
+            <translation>Включить / отключить рисование видео на 16-пиксельных срезах / диапазонах. Если он отключен, весь кадр рисуется за один проход. Может быть быстрее или медленнее, в зависимости от видеокарты и доступного кеша. Он действует только с кодеками libmpeg2 и libavcodec.</translation>
+        </message>
+    </context>
+    <context>
+        <name>PreferencesDialog</name>
+        <message>
+            <source>Kylin Video - Preferences</source>
+            <translation>Kylin Video - Настройки</translation>
+        </message>
+        <message>
+            <source>Preference</source>
+            <translation>предпочтение</translation>
+        </message>
+        <message>
+            <source>Cancel</source>
+            <translation>отменить</translation>
+        </message>
+        <message>
+            <source>Apply</source>
+            <translation>Применять</translation>
+        </message>
+        <message>
+            <source>OK</source>
+            <translation>Хорошо</translation>
+        </message>
+        <message>
+            <source>General</source>
+            <translation>генеральный</translation>
+        </message>
+        <message>
+            <source>Video</source>
+            <translation>видео</translation>
+        </message>
+        <message>
+            <source>Audio</source>
+            <translation>аудио</translation>
+        </message>
+        <message>
+            <source>Performance</source>
+            <translation>Спектакль</translation>
+        </message>
+        <message>
+            <source>Subtitles</source>
+            <translation>Субтитры</translation>
+        </message>
+        <message>
+            <source>ScreenShot</source>
+            <translation>Скриншот</translation>
+        </message>
+        <message>
+            <source>Shortcut Key</source>
+            <translation>Быстрая клавиша</translation>
+        </message>
+    </context>
+    <context>
+        <name>QObject</name>
+        <message>
+            <source>%n second(s)</source>
+            <translation type="unfinished">
+            </translation>
+        </message>
+        <message>
+            <source>%n minute(s)</source>
+            <translation type="unfinished">
+            </translation>
+        </message>
+        <message>
+            <source>%1 and %2</source>
+            <translation>% 1 и% 2</translation>
+        </message>
+        <message>
+            <source>This is Kylin Vedio v. %1 running on %2</source>
+            <translation>Это Kylin Vedio v.% 1 работает на% 2</translation>
+        </message>
+        <message>
+            <source>disabled</source>
+            <comment>aspect_ratio</comment>
+            <translation>отключен</translation>
+        </message>
+        <message>
+            <source>auto</source>
+            <comment>aspect_ratio</comment>
+            <translation>авто</translation>
+        </message>
+        <message>
+            <source>unknown</source>
+            <comment>aspect_ratio</comment>
+            <translation>неизвестный</translation>
+        </message>
+    </context>
+    <context>
+        <name>ShortcutGetter</name>
+        <message>
+            <source>Modify shortcut</source>
+            <translation>Изменить ярлык</translation>
+        </message>
+        <message>
+            <source>Add shortcut</source>
+            <translation>Добавьте ярлык</translation>
+        </message>
+        <message>
+            <source>Remove shortcut</source>
+            <translation>Удалить ярлык</translation>
+        </message>
+        <message>
+            <source>Press the key combination you want to assign</source>
+            <translation>Нажмите комбинацию клавиш, которую вы хотите назначить</translation>
+        </message>
+        <message>
+            <source>Clear</source>
+            <translation>Очистить</translation>
+        </message>
+        <message>
+            <source>OK</source>
+            <translation>Хорошо</translation>
+        </message>
+        <message>
+            <source>Cancel</source>
+            <translation>отменить</translation>
+        </message>
+        <message>
+            <source>Capture</source>
+            <translation>Захватить</translation>
+        </message>
+        <message>
+            <source>Capture keystrokes</source>
+            <translation>Захват нажатий клавиш</translation>
+        </message>
+    </context>
+    <context>
+        <name>SupportFormats</name>
+        <message>
+            <source>Video formats</source>
+            <translation>Видео форматы</translation>
+        </message>
+        <message>
+            <source>Audio formats</source>
+            <translation>Аудио форматы</translation>
+        </message>
+        <message>
+            <source>Subtitles formats</source>
+            <translation>Форматы субтитров</translation>
+        </message>
+        <message>
+            <source>Some video formats do not support preview and seek by dragging, e.g. the swf.</source>
+            <translation>Некоторые видеоформаты не поддерживают предварительный просмотр и поиск путем перетаскивания, например swf.</translation>
+        </message>
+    </context>
+    <context>
+        <name>TimeDialog</name>
+        <message>
+            <source>Seek</source>
+            <translation>Искать</translation>
+        </message>
+        <message>
+            <source>OK</source>
+            <translation>Хорошо</translation>
+        </message>
+        <message>
+            <source>Cancel</source>
+            <translation>отменить</translation>
+        </message>
+        <message>
+            <source>Jump to:</source>
+            <translation>Прыгать, чтобы:</translation>
+        </message>
+    </context>
+    <context>
+        <name>TitleWidget</name>
+        <message>
+            <source>Kylin Video</source>
+            <translation>Kylin Video</translation>
+        </message>
+    </context>
+    <context>
+        <name>TristateCombo</name>
+        <message>
+            <source>Auto</source>
+            <translation>Авто</translation>
+        </message>
+        <message>
+            <source>Yes</source>
+            <translation>да</translation>
+        </message>
+        <message>
+            <source>No</source>
+            <translation>нет</translation>
+        </message>
+    </context>
+    <context>
+        <name>VideoPreview</name>
+        <message>
+            <source>The length of the video is 0</source>
+            <translation>Длина видео равна 0</translation>
+        </message>
+        <message>
+            <source>The temporary directory (%1) can't be created</source>
+            <translation>Временный каталог (% 1) не может быть создан</translation>
+        </message>
+        <message>
+            <source>The file %1 doesn't exist</source>
+            <translation>Файл% 1 не существует</translation>
+        </message>
+        <message>
+            <source>The mplayer process didn't run</source>
+            <translation>Процесс mplayer не запускался</translation>
+        </message>
+        <message>
+            <source>No filename</source>
+            <translation>Нет имени файла</translation>
+        </message>
+        <message>
+            <source>The mplayer process didn't start while trying to get info about the video</source>
+            <translation>Процесс mplayer не начинался, пытаясь получить информацию о видео</translation>
+        </message>
+    </context>
 </TS>

@@ -45,6 +45,9 @@ public:
 
     void setVersions();
 
+    virtual QSize sizeHint () const;
+    QString link(const QString & url, QString name = "");
+
 public slots:
     void onAboutBtnClicked();
     void onContributorBtnClicked();

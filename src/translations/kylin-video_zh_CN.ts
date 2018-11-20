@@ -8,28 +8,38 @@
         <translation type="vanished">麒麟影音是MPlayer和MPV的图形化前端。</translation>
     </message>
     <message>
-        <location filename="../kylin/aboutdialog.cpp" line="157"/>
         <source>Kylin Video is developed on the basis of SMPlayer, is a graphical interface for MPlayer and MPV.</source>
-        <translation>麒麟影音基于SMPlayer进行开发，是MPlayer和MPV的图形化前端。</translation>
+        <translation type="vanished">麒麟影音基于SMPlayer进行开发，是MPlayer和MPV的图形化前端。</translation>
     </message>
     <message>
-        <location filename="../kylin/aboutdialog.cpp" line="158"/>
+        <location filename="../kylin/aboutdialog.cpp" line="180"/>
+        <source>Kylin Video is developed on the basis of %1, is a graphical interface for %2 and %3.</source>
+        <translation>麒麟影音基于 %1 进行开发，是 %2 和 %3 的图形化前端。</translation>
+    </message>
+    <message>
+        <location filename="../kylin/aboutdialog.cpp" line="181"/>
         <source>Version: %1</source>
         <translation>版本: %1</translation>
     </message>
     <message>
-        <location filename="../kylin/aboutdialog.cpp" line="158"/>
+        <location filename="../kylin/aboutdialog.cpp" line="181"/>
         <source>Kylin Video</source>
         <translation>麒麟影音</translation>
     </message>
     <message>
-        <location filename="../kylin/aboutdialog.cpp" line="160"/>
+        <location filename="../kylin/aboutdialog.cpp" line="183"/>
         <source>Playback engine:</source>
         <translation>播放引擎：</translation>
     </message>
     <message>
+        <location filename="../kylin/aboutdialog.cpp" line="184"/>
         <source>Links:</source>
-        <translation type="vanished">链接:</translation>
+        <translation>链接:</translation>
+    </message>
+    <message>
+        <location filename="../kylin/aboutdialog.cpp" line="185"/>
+        <source>Code website:</source>
+        <translation>代码托管：</translation>
     </message>
     <message>
         <source>Official website:</source>
@@ -112,7 +122,7 @@
         <translation type="vanished">便携版</translation>
     </message>
     <message>
-        <location filename="../kylin/aboutdialog.cpp" line="159"/>
+        <location filename="../kylin/aboutdialog.cpp" line="182"/>
         <source>Using Qt %1 (compiled with Qt %2)</source>
         <translation>正在使用 Qt %1 (用 Qt %2 编译)</translation>
     </message>
@@ -133,7 +143,7 @@
         <translation type="vanished">阅读翻译</translation>
     </message>
     <message>
-        <location filename="../kylin/aboutdialog.cpp" line="75"/>
+        <location filename="../kylin/aboutdialog.cpp" line="87"/>
         <source>OK</source>
         <translation>确定</translation>
     </message>
@@ -450,12 +460,12 @@ Do you want to overwrite?</source>
         <translation type="vanished">DVD 文件夹(&amp;V)...</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="674"/>
+        <location filename="../merge/basegui.cpp" line="675"/>
         <source>&amp;URL...</source>
         <translation>网址(&amp;U)...</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="682"/>
+        <location filename="../merge/basegui.cpp" line="683"/>
         <source>&amp;Clear</source>
         <translation>清除(&amp;C)</translation>
     </message>
@@ -569,12 +579,12 @@ Do you want to overwrite?</source>
         <translation type="vanished">均衡器(&amp;E)</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="865"/>
+        <location filename="../merge/basegui.cpp" line="866"/>
         <source>&amp;Screenshot</source>
         <translation>屏幕截图(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="880"/>
+        <location filename="../merge/basegui.cpp" line="881"/>
         <source>S&amp;tay on top</source>
         <translation>置顶(&amp;T)</translation>
     </message>
@@ -591,43 +601,43 @@ Do you want to overwrite?</source>
         <translation type="vanished">过滤器(&amp;F)</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="906"/>
-        <location filename="../merge/basegui.cpp" line="952"/>
+        <location filename="../merge/basegui.cpp" line="907"/>
+        <location filename="../merge/basegui.cpp" line="953"/>
         <source>&amp;Stereo</source>
         <translation>立体声(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="907"/>
+        <location filename="../merge/basegui.cpp" line="908"/>
         <source>&amp;4.0 Surround</source>
         <translation>4.0 环绕声(&amp;4)</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="908"/>
+        <location filename="../merge/basegui.cpp" line="909"/>
         <source>&amp;5.1 Surround</source>
         <translation>5.1 环绕声(&amp;5)</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="915"/>
+        <location filename="../merge/basegui.cpp" line="916"/>
         <source>&amp;Channels</source>
         <translation>声道(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="953"/>
+        <location filename="../merge/basegui.cpp" line="954"/>
         <source>&amp;Left channel</source>
         <translation>左声道(&amp;L)</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="954"/>
+        <location filename="../merge/basegui.cpp" line="955"/>
         <source>&amp;Right channel</source>
         <translation>右声道(&amp;R)</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="962"/>
+        <location filename="../merge/basegui.cpp" line="963"/>
         <source>&amp;Stereo mode</source>
         <translation>立体声模式(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="926"/>
+        <location filename="../merge/basegui.cpp" line="927"/>
         <source>&amp;Mute</source>
         <translation>静音(&amp;M)</translation>
     </message>
@@ -688,7 +698,7 @@ Do you want to overwrite?</source>
         <translation type="vanished">播放列表(&amp;P)</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="814"/>
+        <location filename="../merge/basegui.cpp" line="815"/>
         <source>&amp;Disabled</source>
         <translation>禁用(&amp;D)</translation>
     </message>
@@ -709,93 +719,93 @@ Do you want to overwrite?</source>
         <translation type="vanished">关于视频播放器(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1638"/>
+        <location filename="../merge/basegui.cpp" line="1639"/>
         <source>&lt;empty&gt;</source>
         <translation>&lt;空&gt;</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1649"/>
+        <location filename="../merge/basegui.cpp" line="1650"/>
         <source>Confirm deletion - Kylin Video</source>
         <translation>确认删除 - 麒麟影音</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1753"/>
+        <location filename="../merge/basegui.cpp" line="1754"/>
         <source>Video</source>
         <translation>视频</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="918"/>
-        <location filename="../merge/basegui.cpp" line="1754"/>
-        <location filename="../merge/basegui.cpp" line="1911"/>
+        <location filename="../merge/basegui.cpp" line="919"/>
+        <location filename="../merge/basegui.cpp" line="1755"/>
+        <location filename="../merge/basegui.cpp" line="1912"/>
         <source>Audio</source>
         <translation>音频</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="660"/>
+        <location filename="../merge/basegui.cpp" line="661"/>
         <source>Open</source>
         <translation>打开</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="666"/>
+        <location filename="../merge/basegui.cpp" line="667"/>
         <source>Open &amp;File...</source>
         <translation>打开文件(&amp;F)...</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="691"/>
+        <location filename="../merge/basegui.cpp" line="692"/>
         <source>Play control</source>
         <translation>播放控制</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="693"/>
+        <location filename="../merge/basegui.cpp" line="694"/>
         <source>Forward and rewind</source>
         <translation>快进快退</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="725"/>
+        <location filename="../merge/basegui.cpp" line="726"/>
         <source>Play Speed</source>
         <translation>播放速度</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1055"/>
+        <location filename="../merge/basegui.cpp" line="1056"/>
         <source>Open Homepage</source>
-        <translation type="unfinished">打开主界面</translation>
+        <translation>打开主界面</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1058"/>
+        <location filename="../merge/basegui.cpp" line="1059"/>
         <source>Open screenshots folder</source>
-        <translation type="unfinished">打开截图文件夹</translation>
+        <translation>打开截图文件夹</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1081"/>
+        <location filename="../merge/basegui.cpp" line="1082"/>
         <source>PlayList</source>
-        <translation type="unfinished">播放列表</translation>
+        <translation>播放列表</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1085"/>
+        <location filename="../merge/basegui.cpp" line="1086"/>
         <source>Play/Pause</source>
-        <translation type="unfinished">播放/暂停</translation>
+        <translation>播放/暂停</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1095"/>
+        <location filename="../merge/basegui.cpp" line="1096"/>
         <source>Fullscreen</source>
-        <translation type="unfinished">全屏</translation>
+        <translation>全屏</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1755"/>
+        <location filename="../merge/basegui.cpp" line="1756"/>
         <source>Playlists</source>
         <translation>播放列表</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1756"/>
-        <location filename="../merge/basegui.cpp" line="1891"/>
-        <location filename="../merge/basegui.cpp" line="1912"/>
+        <location filename="../merge/basegui.cpp" line="1757"/>
+        <location filename="../merge/basegui.cpp" line="1892"/>
+        <location filename="../merge/basegui.cpp" line="1913"/>
         <source>All files</source>
         <translation>所有文件</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1751"/>
-        <location filename="../merge/basegui.cpp" line="1888"/>
-        <location filename="../merge/basegui.cpp" line="1909"/>
+        <location filename="../merge/basegui.cpp" line="1752"/>
+        <location filename="../merge/basegui.cpp" line="1889"/>
+        <location filename="../merge/basegui.cpp" line="1910"/>
         <source>Choose a file</source>
         <translation>选择一个文件</translation>
     </message>
@@ -822,18 +832,18 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="vanished">选择Blu-ray文件夹</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1790"/>
+        <location filename="../merge/basegui.cpp" line="1791"/>
         <source>Choose a directory</source>
         <translation>选择一个目录</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="979"/>
-        <location filename="../merge/basegui.cpp" line="1890"/>
+        <location filename="../merge/basegui.cpp" line="980"/>
+        <location filename="../merge/basegui.cpp" line="1891"/>
         <source>Subtitles</source>
         <translation>字幕</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1947"/>
+        <location filename="../merge/basegui.cpp" line="1948"/>
         <source>Kylin Video - Seek</source>
         <translation>麒麟影音 - 定位</translation>
     </message>
@@ -842,18 +852,18 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="vanished">麒麟影音 - 音频延迟</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1973"/>
-        <location filename="../merge/basegui.cpp" line="1977"/>
+        <location filename="../merge/basegui.cpp" line="1974"/>
+        <location filename="../merge/basegui.cpp" line="1978"/>
         <source>Kylin Video - Subtitle delay</source>
         <translation>麒麟影音 - 字幕延迟</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="2240"/>
+        <location filename="../merge/basegui.cpp" line="2241"/>
         <source>Error detected</source>
         <translation>检测到错误</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="2241"/>
+        <location filename="../merge/basegui.cpp" line="2242"/>
         <source>Unfortunately this video can&apos;t be played.</source>
         <translation>抱歉此视频不能播放</translation>
     </message>
@@ -866,7 +876,7 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="vanished">暂停</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1091"/>
+        <location filename="../merge/basegui.cpp" line="1092"/>
         <source>Stop</source>
         <translation>停止</translation>
     </message>
@@ -891,7 +901,7 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="vanished">关闭(&amp;L)</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="997"/>
+        <location filename="../merge/basegui.cpp" line="998"/>
         <source>View &amp;info and properties...</source>
         <translation>媒体信息(&amp;I)...</translation>
     </message>
@@ -905,12 +915,12 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation>麒麟影音</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="670"/>
+        <location filename="../merge/basegui.cpp" line="671"/>
         <source>Directory...</source>
         <translation>目录...</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="687"/>
+        <location filename="../merge/basegui.cpp" line="688"/>
         <source>Recent files</source>
         <translation>最近的文件</translation>
     </message>
@@ -923,62 +933,62 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="vanished">速度</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="746"/>
+        <location filename="../merge/basegui.cpp" line="747"/>
         <source>Normal speed</source>
         <translation>正常速度</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="747"/>
+        <location filename="../merge/basegui.cpp" line="748"/>
         <source>Half speed</source>
         <translation>半速</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="748"/>
+        <location filename="../merge/basegui.cpp" line="749"/>
         <source>Double speed</source>
         <translation>双倍速度</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="749"/>
+        <location filename="../merge/basegui.cpp" line="750"/>
         <source>Speed -10%</source>
         <translation>速度-10%</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="750"/>
+        <location filename="../merge/basegui.cpp" line="751"/>
         <source>Speed +10%</source>
         <translation>速度+10%</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="751"/>
+        <location filename="../merge/basegui.cpp" line="752"/>
         <source>Speed -4%</source>
         <translation>速度-4%</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="752"/>
+        <location filename="../merge/basegui.cpp" line="753"/>
         <source>Speed +4%</source>
         <translation>速度+4%</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="753"/>
+        <location filename="../merge/basegui.cpp" line="754"/>
         <source>Speed -1%</source>
         <translation>速度-1%</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="754"/>
+        <location filename="../merge/basegui.cpp" line="755"/>
         <source>Speed +1%</source>
         <translation>速度+1%</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="778"/>
+        <location filename="../merge/basegui.cpp" line="779"/>
         <source>Next</source>
         <translation>下一个</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="779"/>
+        <location filename="../merge/basegui.cpp" line="780"/>
         <source>Previous</source>
         <translation>上一个</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="847"/>
+        <location filename="../merge/basegui.cpp" line="848"/>
         <source>Frame rotation</source>
         <translation>画面旋转</translation>
     </message>
@@ -987,32 +997,32 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="vanished">快捷键</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="888"/>
+        <location filename="../merge/basegui.cpp" line="889"/>
         <source>Order play</source>
         <translation>顺序播放</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="889"/>
+        <location filename="../merge/basegui.cpp" line="890"/>
         <source>Random play</source>
         <translation>随机播放</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="890"/>
+        <location filename="../merge/basegui.cpp" line="891"/>
         <source>List loop play</source>
         <translation>列表循环播放</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="895"/>
+        <location filename="../merge/basegui.cpp" line="896"/>
         <source>Play order</source>
         <translation>播放顺序</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1001"/>
+        <location filename="../merge/basegui.cpp" line="1002"/>
         <source>Help</source>
         <translation>帮助</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="3207"/>
+        <location filename="../merge/basegui.cpp" line="3208"/>
         <source>The screenshot folder does not exist!</source>
         <translation>截图文件夹不存在！</translation>
     </message>
@@ -1045,7 +1055,7 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="vanished">缩放</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="819"/>
+        <location filename="../merge/basegui.cpp" line="820"/>
         <source>Aspect ratio</source>
         <translation>画面比例</translation>
     </message>
@@ -1094,42 +1104,42 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="vanished">模糊/锐化</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="930"/>
+        <location filename="../merge/basegui.cpp" line="931"/>
         <source>Volume -</source>
         <translation>音量 -</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="933"/>
+        <location filename="../merge/basegui.cpp" line="934"/>
         <source>Volume +</source>
         <translation>音量 +</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="936"/>
+        <location filename="../merge/basegui.cpp" line="937"/>
         <source>Delay -</source>
         <translation>延迟 -</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="939"/>
+        <location filename="../merge/basegui.cpp" line="940"/>
         <source>Delay +</source>
         <translation>延迟 +</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="983"/>
+        <location filename="../merge/basegui.cpp" line="984"/>
         <source>Load...</source>
         <translation>加载...</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="993"/>
+        <location filename="../merge/basegui.cpp" line="994"/>
         <source>Preferences</source>
         <translation>设置</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1005"/>
+        <location filename="../merge/basegui.cpp" line="1006"/>
         <source>About &amp;Kylin Video</source>
         <translation>关于 麒麟影音</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1008"/>
+        <location filename="../merge/basegui.cpp" line="1009"/>
         <source>Quit</source>
         <translation>退出</translation>
     </message>
@@ -1150,16 +1160,16 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="vanished">视频播放器日志</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1234"/>
         <location filename="../merge/basegui.cpp" line="1235"/>
         <location filename="../merge/basegui.cpp" line="1236"/>
+        <location filename="../merge/basegui.cpp" line="1237"/>
         <source>-%1</source>
         <translation>-%1</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1238"/>
         <location filename="../merge/basegui.cpp" line="1239"/>
         <location filename="../merge/basegui.cpp" line="1240"/>
+        <location filename="../merge/basegui.cpp" line="1241"/>
         <source>+%1</source>
         <translation>+%1</translation>
     </message>
@@ -1339,22 +1349,22 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="vanished">锐化(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="909"/>
+        <location filename="../merge/basegui.cpp" line="910"/>
         <source>&amp;6.1 Surround</source>
         <translation>6.1 环绕声(&amp;6)</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="910"/>
+        <location filename="../merge/basegui.cpp" line="911"/>
         <source>&amp;7.1 Surround</source>
         <translation>7.1 环绕声(&amp;7)</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="955"/>
+        <location filename="../merge/basegui.cpp" line="956"/>
         <source>&amp;Mono</source>
         <translation>单声道(&amp;M)</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="956"/>
+        <location filename="../merge/basegui.cpp" line="957"/>
         <source>Re&amp;verse</source>
         <translation>反相(&amp;v)</translation>
     </message>
@@ -1395,12 +1405,12 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="vanished">Youtube的问题</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="2925"/>
         <location filename="../merge/basegui.cpp" line="2926"/>
-        <location filename="../merge/basegui.cpp" line="2937"/>
+        <location filename="../merge/basegui.cpp" line="2927"/>
         <location filename="../merge/basegui.cpp" line="2938"/>
-        <location filename="../merge/basegui.cpp" line="2958"/>
+        <location filename="../merge/basegui.cpp" line="2939"/>
         <location filename="../merge/basegui.cpp" line="2959"/>
+        <location filename="../merge/basegui.cpp" line="2960"/>
         <source>%1 Error</source>
         <translation>%1 错误</translation>
     </message>
@@ -1409,22 +1419,22 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="vanished">%1 没有被找到！</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="2939"/>
+        <location filename="../merge/basegui.cpp" line="2940"/>
         <source>%1 has finished unexpectedly.</source>
         <translation>%1 已意外结束。</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="2961"/>
+        <location filename="../merge/basegui.cpp" line="2962"/>
         <source>%1 failed to start.</source>
         <translation>%1 启动失败。</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="2962"/>
+        <location filename="../merge/basegui.cpp" line="2963"/>
         <source>Please check the %1 path in preferences.</source>
         <translation>请检查首选项中的 %1 路径。</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="2964"/>
+        <location filename="../merge/basegui.cpp" line="2965"/>
         <source>%1 has crashed.</source>
         <translation>%1 已崩溃。</translation>
     </message>
@@ -1453,7 +1463,7 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="vanished">和朋友分享视频播放器(&amp;h)</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="3207"/>
+        <location filename="../merge/basegui.cpp" line="3208"/>
         <source>Information</source>
         <translation>信息</translation>
     </message>
@@ -1466,7 +1476,7 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="vanished">确认删除 - 视频播放器</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1649"/>
+        <location filename="../merge/basegui.cpp" line="1650"/>
         <source>Delete the list of recent files?</source>
         <translation>要删除最近的文件列表吗?</translation>
     </message>
@@ -1555,57 +1565,57 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="vanished">重置视频均衡器</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="2242"/>
+        <location filename="../merge/basegui.cpp" line="2243"/>
         <source>The server returned &apos;%1&apos;</source>
         <translation>服务器返回&apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="2927"/>
+        <location filename="../merge/basegui.cpp" line="2928"/>
         <source>&apos;%1&apos; was not found!</source>
         <translation>&apos;%1&apos; 没有被找到！</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="2940"/>
+        <location filename="../merge/basegui.cpp" line="2941"/>
         <source>Exit code: %1</source>
         <translation>退出代码: %1</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="2965"/>
+        <location filename="../merge/basegui.cpp" line="2966"/>
         <source>See the log for more info.</source>
         <translation>更多信息请参阅日志。</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="852"/>
+        <location filename="../merge/basegui.cpp" line="853"/>
         <source>&amp;Rotate</source>
         <translation>旋转(&amp;R)</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="829"/>
+        <location filename="../merge/basegui.cpp" line="830"/>
         <source>&amp;Off</source>
         <translation>关(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="830"/>
+        <location filename="../merge/basegui.cpp" line="831"/>
         <source>&amp;Rotate by 90 degrees clockwise and flip</source>
         <translation>顺时针旋转90度并翻转(&amp;R)</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="831"/>
+        <location filename="../merge/basegui.cpp" line="832"/>
         <source>Rotate by 90 degrees &amp;clockwise</source>
         <translation>顺时针旋转90度(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="832"/>
+        <location filename="../merge/basegui.cpp" line="833"/>
         <source>Rotate by 90 degrees counterclock&amp;wise</source>
         <translation>逆时针旋转90度(&amp;W)</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="833"/>
+        <location filename="../merge/basegui.cpp" line="834"/>
         <source>Rotate by 90 degrees counterclockwise and &amp;flip</source>
         <translation>逆时针旋转90度并翻转(&amp;F)</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="713"/>
+        <location filename="../merge/basegui.cpp" line="714"/>
         <source>&amp;Jump to...</source>
         <translation>跳转到(&amp;J)...</translation>
     </message>
@@ -1614,7 +1624,7 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="vanished">显示上下文菜单</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1752"/>
+        <location filename="../merge/basegui.cpp" line="1753"/>
         <source>Multimedia</source>
         <translation>多媒体</translation>
     </message>
@@ -1631,7 +1641,7 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="vanished">上传字幕到 OpenSubtitles.org(&amp;B)...</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="803"/>
+        <location filename="../merge/basegui.cpp" line="804"/>
         <source>&amp;Auto</source>
         <translation>自动(&amp;A)</translation>
     </message>
@@ -1660,7 +1670,7 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="vanished">默认(&amp;D)</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="843"/>
+        <location filename="../merge/basegui.cpp" line="844"/>
         <source>Mirr&amp;or image</source>
         <translation>镜像图像(&amp;O)</translation>
     </message>
@@ -1711,17 +1721,17 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="vanished">缩放为 2.35:1(&amp;2)</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="872"/>
+        <location filename="../merge/basegui.cpp" line="873"/>
         <source>&amp;Always</source>
         <translation>始终(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="873"/>
+        <location filename="../merge/basegui.cpp" line="874"/>
         <source>&amp;Never</source>
         <translation>从不(&amp;N)</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="874"/>
+        <location filename="../merge/basegui.cpp" line="875"/>
         <source>While &amp;playing</source>
         <translation>当播放时(&amp;P)</translation>
     </message>
@@ -1758,7 +1768,7 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="vanished">DVD 菜单，鼠标单击</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="942"/>
+        <location filename="../merge/basegui.cpp" line="943"/>
         <source>Set dela&amp;y...</source>
         <translation>设置延迟(&amp;Y)...</translation>
     </message>
@@ -1767,7 +1777,7 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="vanished">设置延迟(&amp;T)...</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1946"/>
+        <location filename="../merge/basegui.cpp" line="1947"/>
         <source>&amp;Jump to:</source>
         <translation>跳转到(&amp;J):</translation>
     </message>
@@ -1788,8 +1798,8 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="vanished">视频播放器 - 字幕延迟</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1974"/>
-        <location filename="../merge/basegui.cpp" line="1978"/>
+        <location filename="../merge/basegui.cpp" line="1975"/>
+        <location filename="../merge/basegui.cpp" line="1979"/>
         <source>Subtitle delay (in milliseconds):</source>
         <translation>字幕延迟(毫秒):</translation>
     </message>
@@ -1798,7 +1808,7 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="vanished">切换保持在最前端</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="2557"/>
+        <location filename="../merge/basegui.cpp" line="2558"/>
         <source>Jump to %1</source>
         <translation>跳转到 %1</translation>
     </message>
@@ -1807,7 +1817,7 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="vanished">开始/停止屏幕截图(&amp;G)</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="987"/>
+        <location filename="../merge/basegui.cpp" line="988"/>
         <source>Subtitle &amp;visibility</source>
         <translation>字幕可见性(&amp;V)</translation>
     </message>
@@ -1845,12 +1855,12 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="vanished">音量+定位+计时器+总时间(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1195"/>
+        <location filename="../merge/basegui.cpp" line="1196"/>
         <source>Video filters are disabled when using vdpau</source>
         <translation>使用 VDPAU 时将禁用视频过滤器</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="838"/>
+        <location filename="../merge/basegui.cpp" line="839"/>
         <source>Fli&amp;p image</source>
         <translation>翻转图像(&amp;P)</translation>
     </message>
@@ -7697,7 +7707,7 @@ Example: extrastereo,karaoke</source>
     <message>
         <location filename="../merge/prefscreenshot.cpp" line="164"/>
         <source>This option allows one to choose the image file type used for saving screenshots.</source>
-        <translation type="unfinished"></translation>
+        <translation>此选项让您选择视频截图的格式。</translation>
     </message>
     <message>
         <source>This option allows you to choose the image file type used for saving screenshots.</source>

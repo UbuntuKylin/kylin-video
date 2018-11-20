@@ -104,7 +104,8 @@ BaseGui::BaseGui(QString arch_type, QString snap, QWidget* parent, Qt::WindowFla
     this->setMouseTracking(true);
     this->setAutoFillBackground(true);
     //QWidget::setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
-    this->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowMinimizeButtonHint);
+    //this->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowMinimizeButtonHint);
+    this->setWindowFlags(Qt::FramelessWindowHint);
     this->setMinimumSize(WINDOW_MIN_WIDTH, WINDOW_MIN_HEIGHT);
     this->resize(900, 600);
     this->setWindowIcon(QIcon(":/res/kylin-video.png"));

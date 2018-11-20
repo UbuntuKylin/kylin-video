@@ -84,6 +84,7 @@ HEADERS += smplayer/config.h \
         smplayer/filesettings.h \
         smplayer/videopreview.h \
         smplayer/prefwidget.h \
+        smplayer/scrollermodule.h \
         merge/basegui.h \
         merge/playlist.h \
         merge/lineedit_with_icon.h \
@@ -169,6 +170,7 @@ SOURCES	+= smplayer/version.cpp \
         smplayer/filesettings.cpp \
         smplayer/videopreview.cpp \
         smplayer/prefwidget.cpp \
+        smplayer/scrollermodule.cpp \
         merge/lineedit_with_icon.cpp \
         merge/basegui.cpp \
         merge/playlist.cpp \

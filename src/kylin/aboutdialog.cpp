@@ -25,6 +25,10 @@
 #include "../smplayer/paths.h"
 #include "../smplayer/inforeader.h"
 
+#if QT_VERSION >= 0x050000
+#include "../smplayer/scrollermodule.h"
+#endif
+
 #include <QFile>
 #include <QDesktopServices>
 #include <QPropertyAnimation>
@@ -32,6 +36,9 @@
 #include <QMouseEvent>
 #include <QPoint>
 #include <QDebug>
+#include <QScrollBar>
+
+#define URL_HOMEPAGE "https://github.com/ukui/kylin-video"
 
 using namespace Global;
 
@@ -44,12 +51,17 @@ AboutDialog::AboutDialog(const QString &snap, QWidget * parent, Qt::WindowFlags 
 {
 	setupUi(this);
     this->setWindowFlags(Qt::FramelessWindowHint);
-    this->setFixedSize(438, 320);
+    //this->setFixedSize(438, 320);
     this->setStyleSheet("QDialog{border: 1px solid #121212;border-radius:1px;background-color: #ffffff;}");
     this->setWindowIcon(QIcon(":/res/kylin-video.png"));//setWindowIcon( Images::icon("logo", 64) );
     this->setAutoFillBackground(true);
     this->setMouseTracking(true);
     installEventFilter(this);
+
+#if QT_VERSION >= 0x050000
+    ScrollerModule::setScroller(aboutText->viewport());
+    ScrollerModule::setScroller(contributorText->viewport());
+#endif
 
 //	logo->setPixmap( QPixmap(":/default-theme/logo.png").scaledToHeight(64, Qt::SmoothTransformation) );//setPixmap( Images::icon("contributors" ) );
     aboutGroup = NULL;
@@ -101,6 +113,17 @@ AboutDialog::AboutDialog(const QString &snap, QWidget * parent, Qt::WindowFlags 
     </style></head><body style=" font-family:'Ubuntu'; font-size:12pt; font-weight:400; font-style:normal;">
     <p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></body></html>
     */
+
+
+    //QString scrollstyle= "QScrollBar:vertical {width: 12px;background: #141414;margin:0px 0px 0px 0px;border:1px solid #141414;}QScrollBar::handle:vertical {width: 12px;min-height: 45px;background: #292929;margin-left: 0px;margin-right: 0px;}QScrollBar::handle:vertical:hover {background: #3e3e3e;}QScrollBar::handle:vertical:pressed {background: #272727;}QScrollBar::sub-line:vertical {height: 6px;background: transparent;subcontrol-position: top;}QScrollBar::add-line:vertical {height: 6px;background: transparent;subcontrol-position: bottom;}QScrollBar::sub-line:vertical:hover {background: #292929;}QScrollBar::add-line:vertical:hover {background: #292929;}QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {background: transparent;}";
+    //aboutText->verticalScrollBar()->setStyleSheet(scrollstyle);
+
+    aboutText->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    contributorText->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    aboutText->verticalScrollBar()->setStyleSheet("QScrollBar:vertical {width: 12px;background: #141414;margin:0px 0px 0px 0px;border:1px solid #141414;}QScrollBar::handle:vertical {width: 12px;min-height: 45px;background: #292929;margin-left: 0px;margin-right: 0px;}QScrollBar::handle:vertical:hover {background: #3e3e3e;}QScrollBar::handle:vertical:pressed {background: #272727;}QScrollBar::sub-line:vertical {height: 6px;background: transparent;subcontrol-position: top;}QScrollBar::add-line:vertical {height: 6px;background: transparent;subcontrol-position: bottom;}QScrollBar::sub-line:vertical:hover {background: #292929;}QScrollBar::add-line:vertical:hover {background: #292929;}QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {background: transparent;}");
+    contributorText->verticalScrollBar()->setStyleSheet("QScrollBar:vertical {width: 12px;background: #141414;margin:0px 0px 0px 0px;border:1px solid #141414;}QScrollBar::handle:vertical {width: 12px;min-height: 45px;background: #292929;margin-left: 0px;margin-right: 0px;}QScrollBar::handle:vertical:hover {background: #3e3e3e;}QScrollBar::handle:vertical:pressed {background: #272727;}QScrollBar::sub-line:vertical {height: 6px;background: transparent;subcontrol-position: top;}QScrollBar::add-line:vertical {height: 6px;background: transparent;subcontrol-position: bottom;}QScrollBar::sub-line:vertical:hover {background: #292929;}QScrollBar::add-line:vertical:hover {background: #292929;}QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {background: transparent;}");
+
+    this->adjustSize();
 }
 
 AboutDialog::~AboutDialog()
@@ -154,11 +177,19 @@ void AboutDialog::setVersions()
 
     aboutText->setText(
                 "<br>" +
-                tr("Kylin Video is developed on the basis of SMPlayer, is a graphical interface for MPlayer and MPV.") + "<br>" +
+                tr("Kylin Video is developed on the basis of %1, is a graphical interface for %2 and %3.").arg("<a href=\"http://www.smplayer.info\">SMPlayer</a>").arg("<a href=\"http://www.mplayerhq.hu/design7/info.html\">MPlayer</a>").arg("<a href=\"http://www.mpv.io\">mpv</a>") + "<br>" +
                 "<b>" + tr("Kylin Video") + tr("Version: %1").arg(Version::printable()) + "</b>" + "<br>" +
                 tr("Using Qt %1 (compiled with Qt %2)").arg(qVersion()).arg(QT_VERSION_STR) + "<br>" +
-                tr("Playback engine:") + i->playerVersion() + "<br><br>"
+                tr("Playback engine:") + i->playerVersion() + "<br><br>" +
+                "<b>"+ tr("Links:") + "</b><br>" +
+                tr("Code website:") + " " +  link(URL_HOMEPAGE) + "<br>"
                 );
+}
+
+QString AboutDialog::link(const QString & url, QString name)
+{
+        if (name.isEmpty()) name = url;
+        return QString("<a href=\"" + url + "\">" + name +"</a>");
 }
 
 void AboutDialog::onAboutBtnClicked()
@@ -179,6 +210,11 @@ void AboutDialog::onContributorBtnClicked()
         contributorText->show();
         aboutText->hide();
     }
+}
+
+QSize AboutDialog::sizeHint () const
+{
+    return QSize(438, 320);
 }
 
 void AboutDialog::moveDialog(QPoint diff) {

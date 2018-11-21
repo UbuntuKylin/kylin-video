@@ -40,7 +40,8 @@ public:
     FilePropertiesDialog( QWidget* parent = 0, Qt::WindowFlags f = 0 );
     ~FilePropertiesDialog();
 
-	void setMediaData(MediaData md);
+//	void setMediaData(MediaData md);
+    void setMediaData(MediaData md, Tracks videos, Tracks audios, SubTracks subs);
 
 	// Call it as soon as possible
 	void setCodecs(InfoList vc, InfoList ac, InfoList demuxer);
@@ -87,6 +88,10 @@ private:
 	InfoList vclist, aclist, demuxerlist;
 	QString orig_demuxer, orig_ac, orig_vc;
 	MediaData media_data;
+
+    Tracks video_tracks;
+    Tracks audio_tracks;
+    SubTracks sub_tracks;
 
     QList<TitleButton *> m_buttonList;
     FDragState drag_state;

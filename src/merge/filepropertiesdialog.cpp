@@ -32,6 +32,10 @@
 #include <QScrollBar>
 #include "../kylin/titlebutton.h"
 
+#if QT_VERSION >= 0x050000
+#include "../smplayer/scrollermodule.h"
+#endif
+
 FilePropertiesDialog::FilePropertiesDialog( QWidget* parent, Qt::WindowFlags f )
 	: QDialog(parent, f)
 {
@@ -124,6 +128,13 @@ FilePropertiesDialog::FilePropertiesDialog( QWidget* parent, Qt::WindowFlags f )
 
 	codecs_set = false;
 
+#if QT_VERSION >= 0x050000
+    ScrollerModule::setScroller(info_edit);
+    ScrollerModule::setScroller(demuxer_listbox->viewport());
+    ScrollerModule::setScroller(vc_listbox->viewport());
+    ScrollerModule::setScroller(ac_listbox->viewport());
+#endif
+
 	retranslateStrings();
 }
 
@@ -137,9 +148,17 @@ FilePropertiesDialog::~FilePropertiesDialog() {
     m_buttonList.clear();
 }
 
-void FilePropertiesDialog::setMediaData(MediaData md) {
-	media_data = md;
-	showInfo();
+//void FilePropertiesDialog::setMediaData(MediaData md) {
+//	media_data = md;
+//	showInfo();
+//}
+
+void FilePropertiesDialog::setMediaData(MediaData md, Tracks videos, Tracks audios, SubTracks subs) {
+    media_data = md;
+    video_tracks = videos;
+    audio_tracks = audios;
+    sub_tracks = subs;
+    showInfo();
 }
 
 void FilePropertiesDialog::showInfo() {

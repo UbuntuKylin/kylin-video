@@ -30,13 +30,13 @@ public:
     FileSettings(QString directory);
 	virtual ~FileSettings();
 
-	virtual bool existSettingsFor(QString filename);
+    virtual bool existSettingsFor(QString filename, int type);
 
-	virtual void loadSettingsFor(QString filename, MediaSettings & mset, int player);
+    virtual void loadSettingsFor(QString filename, int type, MediaSettings & mset, int player);
 
-	virtual void saveSettingsFor(QString filename, MediaSettings & mset, int player);
+    virtual void saveSettingsFor(QString filename, int type, MediaSettings & mset, int player);
 
-	static QString filenameToGroupname(const QString & filename);
+    static QString filenameToGroupname(const QString & filename, int type);
 
 
 protected:

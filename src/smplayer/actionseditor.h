@@ -1,5 +1,5 @@
 /*  smplayer, GUI front-end for mplayer.
-    Copyright (C) 2006-2015 Ricardo Villalba <rvm@users.sourceforge.net>
+    Copyright (C) 2006-2018 Ricardo Villalba <rvm@users.sourceforge.net>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -13,24 +13,24 @@
 
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
 /* This is based on qq14-actioneditor-code.zip from Qt */
 
-#ifndef _ACTIONSEDITOR_H_
-#define _ACTIONSEDITOR_H_
+#ifndef ACTIONSEDITOR_H
+#define ACTIONSEDITOR_H
 
 #include <QWidget>
 #include <QList>
 #include <QStringList>
+//#include "guiconfig.h"
 
 class QTableWidget;
 class QTableWidgetItem;
 class QAction;
 class QSettings;
 class QPushButton;
-
 
 class ActionsEditor : public QWidget
 {
@@ -44,26 +44,28 @@ public:
 	void clear();
 
 	// There are no actions yet?
-    bool isEmpty();
+	bool isEmpty();
 
-    void addCurrentActions(QWidget * widget);
+	void addActions(QWidget * widget);
 
 	// Static functions
 	static QAction * findAction(QObject *o, const QString & name);
 	static QStringList actionsNames(QObject *o);
 
-    static void saveToConfig(QObject *o, QSettings *set);
+	static void saveToConfig(QObject *o, QSettings *set);
 	static void loadFromConfig(QObject *o, QSettings *set);
 
-    static QString shortcutsToString(QList <QKeySequence> shortcuts_list);
-    static QList <QKeySequence> stringToShortcuts(QString shortcuts);
+//#if USE_MULTIPLE_SHORTCUTS
+	static QString shortcutsToString(QList <QKeySequence> shortcuts_list);
+	static QList <QKeySequence> stringToShortcuts(QString shortcuts);
+//#endif
 
 public slots:
 	void applyChanges();
-//	void saveActionsTable();
-//	bool saveActionsTable(const QString & filename);
-//	void loadActionsTable();
-//	bool loadActionsTable(const QString & filename);
+	void saveActionsTable();
+	bool saveActionsTable(const QString & filename);
+	void loadActionsTable();
+	bool loadActionsTable(const QString & filename);
 
 	void updateView();
 
@@ -78,17 +80,26 @@ protected:
 	static bool containsShortcut(const QString & accel, const QString & shortcut);
 
 protected slots:
-	void editShortcut();
+//#if !USE_SHORTCUTGETTER
+	void recordAction(QTableWidgetItem*);
+	void validateAction(QTableWidgetItem*);
+//#else
+    void editShortcut();
+//#endif
 
 private:
 	QTableWidget *actionsTable;
     QList<QAction*> actionsList;
-//    QList<QPushButton*> btnActionsList;
-//	QPushButton *saveButton;
-//	QPushButton *loadButton;
+    //QPushButton *saveButton;
+    //QPushButton *loadButton;
 	QString latest_dir;
 
+//#if USE_SHORTCUTGETTER
 //	QPushButton *editButton;
+//#else
+	QString oldAccelText;
+	bool dont_validate;
+//#endif
 };
 
 #endif

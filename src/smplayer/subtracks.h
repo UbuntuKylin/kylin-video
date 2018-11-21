@@ -24,6 +24,8 @@
 #include <QFileInfo>
 #include <QList>
 
+class QSettings;
+
 class SubData 
 {
 
@@ -111,6 +113,9 @@ public:
 	void list();
 	void listNames();
 	/* void test(); */
+
+    void save(QSettings * set, const QString & name);
+    void load(QSettings * set, const QString & name);
 
 protected:
 	SubList subs;

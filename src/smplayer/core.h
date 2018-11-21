@@ -62,7 +62,7 @@ public slots:
 	//! Generic open, with autodetection of type
 	void open(QString file, int seek=-1); 
 	void openFile(QString filename, int seek=-1);
-	void openStream(QString name);
+    void openStream(QString name, QStringList params = QStringList());
 	/*
 	void openDVD( bool from_folder, QString directory = "");
 	void openDVD(); // Plays title 1
@@ -236,9 +236,11 @@ public slots:
 //	void incSubScale();
 //	void decSubScale();
 
-//	void changeOSDScale(double value);
-//	void incOSDScale();
-//	void decOSDScale();
+    void changeOSDScale(double value);
+    void incOSDScale();
+    void decOSDScale();
+
+    void setOSDFractions(bool active);
 
 	//! Select next line in subtitle file
 	void incSubStep();
@@ -317,6 +319,7 @@ public slots:
 	void autoZoomFor235();
 
 	void showFilenameOnOSD();
+    void showMediaInfoOnOSD();
 	void showTimeOnOSD();
 	void toggleDeinterlace();
 
@@ -402,13 +405,13 @@ protected slots:
 	void initAudioTrack();
 #endif
 //#if NOTIFY_AUDIO_CHANGES
-	void initAudioTrack(const Tracks &);
+    void initAudioTrack(const Tracks &, int selected_id);
 //#endif
 #if NOTIFY_VIDEO_CHANGES
-	void initVideoTrack(const Tracks &);
+    void initVideoTrack(const Tracks &, int selected_id);
 #endif
 #if NOTIFY_SUB_CHANGES
-	void initSubtitleTrack(const SubTracks &);
+    void initSubtitleTrack(const SubTracks &, int selected_id);
 	void setSubtitleTrackAgain(const SubTracks &);
 #endif
 //#if NOTIFY_CHAPTER_CHANGES
@@ -447,6 +450,8 @@ protected:
 
     void startMplayer(QString file, double seek = -1 );
 	void stopMplayer();
+
+    void restoreSettingsForMedia(const QString & name, int type);
 
 //#ifndef NO_USE_INI_FILES
 	void saveMediaInfo();

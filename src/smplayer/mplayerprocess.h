@@ -64,7 +64,8 @@ public:
 	void frameStep();
 	void frameBackStep();
 	void showOSDText(const QString & text, int duration, int level);
-	void showFilenameOnOSD();
+    void showFilenameOnOSD(int duration = 2000);
+    void showMediaInfoOnOSD();
 	void showTimeOnOSD();
 	void setContrast(int value);
 	void setBrightness(int value);
@@ -107,16 +108,22 @@ public:
 	void toggleDeinterlace();
 	void askForLength();
 	void setOSDScale(double value);
+    void setOSDFractions(bool) {};
 	void setChannelsFile(const QString &) {};
 
 //#ifdef CAPTURE_STREAM
 //	void setCaptureDirectory(const QString & dir);
 //#endif
+    void enableOSDInCommands(bool) {};
+    bool isOSDInCommandsEnabled() { return true; };
 
 protected slots:
 	void parseLine(QByteArray ba);
 	void processFinished(int exitCode, QProcess::ExitStatus exitStatus);
 	void gotError(QProcess::ProcessError);
+
+protected:
+    virtual void initializeOptionVars();
 
 private:
 	bool notified_mplayer_is_running;

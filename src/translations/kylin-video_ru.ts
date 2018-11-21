@@ -70,6 +70,39 @@ p, li { white-space: pre-wrap; }
         <source>Name</source>
         <translation>название</translation>
     </message>
+    <message>
+        <source>Choose a filename</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Key files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Confirm overwrite?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The file %1 already exists.
+Do you want to overwrite?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation type="unfinished">ошибка</translation>
+    </message>
+    <message>
+        <source>The file couldn&apos;t be saved</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a file</source>
+        <translation type="unfinished">Выберите файл</translation>
+    </message>
+    <message>
+        <source>The file couldn&apos;t be loaded</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioDelayDialog</name>
@@ -511,6 +544,42 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>The screenshot folder does not exist!</source>
         <translation>Папки для скриншотов не существует!</translation>
+    </message>
+    <message>
+        <source>Show &amp;info on OSD</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Size &amp;+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Size &amp;-</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show times with &amp;milliseconds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Subtitles onl&amp;y</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Volume + &amp;Seek</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Volume + Seek + &amp;Timer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Volume + Seek + Timer + T&amp;otal time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OSD</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1636,6 +1705,62 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>the &apos;%1&apos; filter is not supported by mpv</source>
         <translation>фильтр «% 1» не поддерживается mpv</translation>
+    </message>
+    <message>
+        <source>File:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Video:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Resolution:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Frames per second:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Estimated:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Aspect Ratio:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bitrate:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dropped frames:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Audio:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sample Rate:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Channels:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Audio/video synchronization:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cache fill:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Used cache:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

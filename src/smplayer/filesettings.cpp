@@ -18,8 +18,11 @@
 
 #include "filesettings.h"
 #include "mediasettings.h"
+#include "mediadata.h"
 #include <QSettings>
 #include <QFileInfo>
+
+#include <QDebug>
 
 FileSettings::FileSettings(QString directory)
 {
@@ -31,60 +34,68 @@ FileSettings::~FileSettings() {
 	delete my_settings;
 }
 
-QString FileSettings::filenameToGroupname(const QString & filename) {
-	QString s = filename;
-	s = s.replace('/', '_');
-	s = s.replace('\\', '_');
-	s = s.replace(':', '_');
-	s = s.replace('.', '_');
-	s = s.replace(' ', '_');
+QString FileSettings::filenameToGroupname(const QString & filename, int type) {
+    QString s = filename;
+    s = s.replace('/', '_');
+    s = s.replace('\\', '_');
+    s = s.replace(':', '_');
+    s = s.replace('.', '_');
+    s = s.replace(' ', '_');
 
-	QFileInfo fi(filename);
-	if (fi.exists()) {
-		s += "_" + QString::number( fi.size() );
-	}
+    if (type == TYPE_FILE) {
+        QFileInfo fi(filename);
+        if (fi.exists()) {
+            s += "_" + QString::number(fi.size());
+        }
+    }
 
-	return s;	
+    return s;
 }
 
-bool FileSettings::existSettingsFor(QString filename) {
-//	qDebug("FileSettings::existSettingsFor: '%s'", filename.toUtf8().constData());
+bool FileSettings::existSettingsFor(QString filename, int type) {
+    qDebug() << "FileSettings::existSettingsFor" << filename;
 
-	QString group_name = filenameToGroupname(filename);
+    if (type != TYPE_FILE && type != TYPE_STREAM) return false;
 
-//	qDebug("FileSettings::existSettingsFor: group_name: '%s'", group_name.toUtf8().constData());
+    QString group_name = filenameToGroupname(filename, type);
 
-	my_settings->beginGroup( group_name );
-	bool saved = my_settings->value("saved", false).toBool();
-	my_settings->endGroup();
+    qDebug() << "FileSettings::existSettingsFor: group_name:" << group_name;
 
-	return saved;
+    my_settings->beginGroup( group_name );
+    bool saved = my_settings->value("saved", false).toBool();
+    my_settings->endGroup();
+
+    return saved;
 }
 
-void FileSettings::loadSettingsFor(QString filename, MediaSettings & mset, int player) {
-//	qDebug("FileSettings::loadSettingsFor: '%s'", filename.toUtf8().constData());
+void FileSettings::loadSettingsFor(QString filename, int type, MediaSettings & mset, int player) {
+    qDebug() << "FileSettings::loadSettingsFor:" << filename;
 
-	QString group_name = filenameToGroupname(filename);
+    if (type != TYPE_FILE && type != TYPE_STREAM) return;
 
-//	qDebug("FileSettings::loadSettingsFor: group_name: '%s'", group_name.toUtf8().constData());
+    QString group_name = filenameToGroupname(filename, type);
 
-	mset.reset();
+    qDebug() << "FileSettings::loadSettingsFor: group_name:" << group_name;
 
-	my_settings->beginGroup( group_name );
-	mset.load(my_settings, player);
-	my_settings->endGroup();
+    mset.reset();
+
+    my_settings->beginGroup( group_name );
+    mset.load(my_settings, player);
+    my_settings->endGroup();
 }
 
-void FileSettings::saveSettingsFor(QString filename, MediaSettings & mset, int player) {
-//	qDebug("FileSettings::saveSettingsFor: '%s'", filename.toUtf8().constData());
+void FileSettings::saveSettingsFor(QString filename, int type, MediaSettings & mset, int player) {
+    qDebug() << "FileSettings::saveSettingsFor:" << filename;
 
-	QString group_name = filenameToGroupname(filename);
+    if (type != TYPE_FILE && type != TYPE_STREAM) return;
 
-//	qDebug("FileSettings::saveSettingsFor: group_name: '%s'", group_name.toUtf8().constData());
+    QString group_name = filenameToGroupname(filename, type);
 
-	my_settings->beginGroup( group_name );
-	my_settings->setValue("saved", true);
-	mset.save(my_settings, player);
-	my_settings->endGroup();
+    qDebug() << "FileSettings::saveSettingsFor: group_name:" << group_name;
+
+    my_settings->beginGroup( group_name );
+    my_settings->setValue("saved", true);
+    mset.save(my_settings, player);
+    my_settings->endGroup();
 }
 

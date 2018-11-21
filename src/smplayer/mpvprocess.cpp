@@ -66,6 +66,9 @@ MPVProcess::MPVProcess(const QString &snap, QObject * parent)
              this, SLOT(gotError(QProcess::ProcessError)) );
 
 	/* int svn = MplayerVersion::mplayerVersion("mpv unknown version (C)"); */
+
+    initializeOptionVars();
+    initializeRX();
 }
 
 MPVProcess::~MPVProcess() {
@@ -147,6 +150,52 @@ static QRegExp rx_mpv_generic("^([A-Z_]+)=(.*)");
 
 static QRegExp rx_stream_title("icy-title: (.*)");
 
+
+void MPVProcess::initializeRX() {
+/*#ifdef CUSTOM_STATUS
+    rx_av.setPattern("^STATUS: ([0-9\\.-]+) / ([0-9\\.-]+) P: (yes|no) B: (yes|no) I: (yes|no) VB: ([0-9\\.-]+) AB: ([0-9\\.-]+)");
+#else
+    rx_av.setPattern("^(\\((.*)\\) |)(AV|V|A): ([0-9]+):([0-9]+):([0-9]+) / ([0-9]+):([0-9]+):([0-9]+)"); //AV: 00:02:15 / 00:09:56
+#endif
+
+    rx_dsize.setPattern("^INFO_VIDEO_DSIZE=(\\d+)x(\\d+)");
+    rx_vo.setPattern("^VO: \\[(.*)\\]");
+    rx_ao.setPattern("^AO: \\[(.*)\\]");
+    rx_paused.setPattern("^\\(Paused\\)");
+    rx_endoffile.setPattern("^Exiting... \\(End of file\\)");
+
+    rx_audio.setPattern("^.* Audio\\s+--aid=(\\d+)( --alang=([a-zA-Z-]+)|)([ \\(\\)\\*]+)('(.*)'|)");
+    rx_subs.setPattern("^.* Subs\\s+--sid=(\\d+)( --slang=([a-zA-Z-]+)|)([ \\(\\)\\*]+)('(.*)'|)");
+
+    rx_videocodec.setPattern("^INFO_VIDEO_CODEC=(.*)\\s");
+    rx_videocodec.setMinimal(true);
+
+    rx_audiocodec.setPattern("^INFO_AUDIO_CODEC=(.*)\\s");
+    rx_audiocodec.setMinimal(true);
+
+#if !NOTIFY_VIDEO_CHANGES
+    rx_video.setPattern("^.* Video\\s+--vid=(\\d+)([ \\(\\)\\*]+)('(.*)'|)");
+#endif
+
+    rx_chaptername.setPattern("^INFO_CHAPTER_(\\d+)_NAME=(.*)");
+    rx_trackinfo.setPattern("^INFO_TRACK_(\\d+): (audio|video|sub) (\\d+) '(.*)' '(.*)' (yes|no)");
+
+    rx_forbidden.setPattern("HTTP error 403 Forbidden");
+
+#if DVDNAV_SUPPORT
+    rx_switch_title.setPattern("^\\[dvdnav\\] DVDNAV, switched to title: (\\d+)");
+#endif
+
+    rx_playing.setPattern("^Playing:.*|^\\[ytdl_hook\\].*");
+    rx_generic.setPattern("^([A-Z_]+)=(.*)");
+    rx_stream_title.setPattern("icy-title: (.*)");
+    rx_debug.setPattern("^(INFO|METADATA)_.*=\\$.*");
+
+    #if 0
+    static QRegExp rx_subs2("^Sub:( >|) \\((\\d+)\\) '(.*)'");
+    static QRegExp rx_videoinfo("^\\[vd\\] VIDEO: .* (\\d+)x(\\d+) .* ([0-9.]+) fps"); // [vd] VIDEO:  624x352  25.000 fps  1018.5 kbps (127.3 kB/s)
+    #endif*/
+}
 
 void MPVProcess::parseLine(QByteArray ba) {
 	//qDebug("MPVProcess::parseLine: '%s'", ba.data() );

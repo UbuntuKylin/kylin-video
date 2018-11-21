@@ -40,6 +40,10 @@
 #define TYPE_AUDIO_CD 4
 #define TYPE_TV 5
 
+//#ifdef BLURAY_SUPPORT
+//#define TYPE_BLURAY 6
+//#endif
+
 class MediaData {
 
 public:
@@ -50,6 +54,8 @@ public:
 
 	QString filename;
 	double duration;
+
+    QStringList extra_params; // For streams
 
 	//Resolution of the video
 	int video_width;

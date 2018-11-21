@@ -71,6 +71,11 @@ public:
 	QString screenshot_format;
 	QString screenshot_directory;
 
+    // Possibility to remember all media settings
+    bool remember_media_settings;
+    bool remember_time_pos;
+    bool remember_stream_settings;
+
 	// Video
 	bool use_direct_rendering;
 	bool use_double_buffer;
@@ -105,7 +110,11 @@ public:
 	double osd_scale; // mpv
 	double subfont_osd_scale; // mplayer
 	int osd_delay; //<! Delay in ms to show the OSD.
-
+//#ifdef MPV_SUPPORT
+    bool osd_fractions; //<! Show OSD times with milliseconds.
+//#endif
+    int osd_bar_pos;
+    int osd_show_filename_duration;
 
 
 
@@ -128,6 +137,8 @@ public:
 	bool use_enca;
 	QString enca_lang;
 	bool sub_visibility;
+    int subfuzziness;
+    bool autoload_sub;
 
     /* ********
        Advanced
@@ -171,6 +182,13 @@ public:
 	bool show_tag_in_window_title;
 
 	int time_to_kill_mplayer;
+
+//#ifdef MPV_SUPPORT
+    QString mpv_osd_media_info;
+//#endif
+//#ifdef MPLAYER_SUPPORT
+    QString mplayer_osd_media_info;
+//#endif
 
 	/* *********
 	   GUI stuff

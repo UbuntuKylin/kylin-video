@@ -27,6 +27,10 @@
 #include <QSize>
 #include "config.h"
 
+//#include "audioequalizerlist.h"
+#include "tracks.h"
+#include "subtracks.h"
+
 class QSettings;
 
 class MediaSettings {
@@ -57,6 +61,7 @@ public:
 
 	double current_sec;
 	int current_sub_id;
+    int current_subtitle_track;
 //#ifdef MPV_SUPPORT
 //	int current_secondary_sub_id;
 //#endif
@@ -165,6 +170,10 @@ public:
 //    QString mplayer_additional_options;
 //	QString mplayer_additional_video_filters;
 //	QString mplayer_additional_audio_filters;
+
+    Tracks videos;
+    Tracks audios;
+    SubTracks subs;
 
 	// Some things that were before in mediadata
 	// They can vary, because of filters, so better here

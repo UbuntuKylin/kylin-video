@@ -17,6 +17,7 @@
 */
 
 #include "extensions.h"
+#include <QDebug>
 
 ExtensionList::ExtensionList() : QStringList()
 {
@@ -51,34 +52,53 @@ QString ExtensionList::forRegExp() {
 
 Extensions::Extensions()
 {
-	_video << "avi" << "vfw" << "divx" 
-           << "mpg" << "mpeg" << "m1v" << "m2v" << "mpv" << "dv" << "3gp"
-           << "mov" << "mp4" << "m4v" << "mqv"
-           << "dat" << "vcd"
-           << "ogg" << "ogm" << "ogv" << "ogx"
-           << "asf" << "wmv"
-           << "bin" << "iso" << "vob"
-           << "mkv" << "nsv" << "ram" << "flv"
-           << "rm" << "swf"
-           << "ts" << "rmvb" << "dvr-ms" << "m2t" << "m2ts" << "mts" << "rec" << "wtv"
-           << "f4v" << "hdmov" << "webm" << "vp8"
-           << "bik" << "smk" << "m4b" << "wtv";
+    _video << "avi" << "vfw" << "divx"
+       << "mpg" << "mpeg" << "m1v" << "m2v" << "mpv" << "dv" << "3gp"
+       << "mov" << "mp4" << "m4v" << "mqv"
+       << "dat" << "vcd"
+       << "ogg" << "ogm" << "ogv" << "ogx"
+       << "asf" << "wmv"
+       << "bin" << "iso" << "vob"
+       << "mkv" << "nsv" << "ram" << "flv"
+       << "rm" << "swf"
+       << "ts" << "rmvb" << "dvr-ms" << "m2t" << "m2ts" << "mts" << "rec" << "wtv"
+       << "f4v" << "hdmov" << "webm" << "vp8"
+       << "bik" << "smk" << "m4b" << "wtv"
+       << "part";
 
-    _audio << "mp3" << "ogg" << "oga" << "wav" << "wma" <<  "aac" << "ac3" << "dts" << "ra" << "ape" << "flac" << "thd" << "mka" << "m4a";// << "mid";
+    _audio << "mp3" << "ogg" << "oga" << "wav" << "wma" <<  "aac" << "ac3"
+       << "dts" << "ra" << "ape" << "flac" << "thd" << "mka" << "m4a" << "opus";
 
-	_subtitles << "srt" << "sub" << "ssa" << "ass" << "idx" << "txt" << "smi"
-               << "rt" << "utf" << "aqt";
+    _subtitles << "srt" << "sub" << "ssa" << "ass" << "idx" << "txt" << "smi"
+           << "rt" << "utf" << "aqt" << "vtt";
 
-	_playlist << "m3u" << "m3u8" << "pls";
+    _playlist << "m3u" << "m3u8" << "pls" << "xspf";
 
-	_multimedia = _video;
-	for (int n = 0; n < _audio.count(); n++) {
-		if (!_multimedia.contains(_audio[n])) _multimedia << _audio[n];
-	}
+    _multimedia = _video;
+    for (int n = 0; n < _audio.count(); n++) {
+            if (!_multimedia.contains(_audio[n])) _multimedia << _audio[n];
+    }
 
-	_all_playable << _multimedia << _playlist;
+    _all_playable << _multimedia << _playlist;
 }
 
 Extensions::~Extensions() {
 }
 
+QString Extensions::extensionFromUrl(const QString & url) {
+    //qDebug() << "Extensions::extensionFromUrl:" << url;
+
+    QString extension;
+    int pos = url.lastIndexOf(".");
+    if (pos != -1) {
+        extension = url.mid(pos+1).toLower();
+        // Check if extension contains a '?' and remove everything after it
+        pos = extension.lastIndexOf("?");
+        if (pos != -1) {
+            extension = extension.left(pos);
+        }
+    }
+
+    //qDebug() << "Extensions::extensionFromUrl: extension:" << extension;
+    return extension;
+}

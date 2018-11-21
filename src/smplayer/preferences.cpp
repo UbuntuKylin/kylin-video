@@ -77,6 +77,10 @@ void Preferences::reset() {
 	}
 	#endif
 
+    remember_media_settings = true;
+    remember_time_pos = true;
+    remember_stream_settings = true;
+
 	use_direct_rendering = false;
 	use_double_buffer = true;
 
@@ -102,10 +106,15 @@ void Preferences::reset() {
 
 	min_step = 4;
 
-	osd = None;
-	osd_scale = 1;
-	subfont_osd_scale = 3;
-	osd_delay = 2200;
+    osd = Seek;
+    osd_scale = 1;
+    subfont_osd_scale = 3;
+    osd_delay = 5000;
+//#ifdef MPV_SUPPORT
+    osd_fractions = false;
+//#endif
+    osd_bar_pos = 80;
+    osd_show_filename_duration = 2000;
 
     //kobe:pref->file_settings_method 记住时间位置的配置设置在一个ini文件时为normal，在多个ini文件时为hash
 //	file_settings_method = "hash"; // Possible values: normal & hash
@@ -126,6 +135,8 @@ void Preferences::reset() {
 	use_enca = false;
 	enca_lang = QString(QLocale::system().name()).section("_",0,0);
 	sub_visibility = true;
+    subfuzziness = 1;
+    autoload_sub = true;
 
     /* ********
        Advanced
@@ -148,6 +159,13 @@ void Preferences::reset() {
 	actions_to_run = "";
 	show_tag_in_window_title = true;
 	time_to_kill_mplayer = 1000;
+
+//#ifdef MPV_SUPPORT
+    mpv_osd_media_info = "";
+//#endif
+//#ifdef MPLAYER_SUPPORT
+    mplayer_osd_media_info = "";
+//#endif
 
     /* *********
        GUI stuff
@@ -238,6 +256,17 @@ void Preferences::save() {
     set->setValue("autosync", autosync);
     set->setValue("autosync_factor", autosync_factor);
     set->setValue("min_step", min_step);
+
+    set->setValue("osd", osd);
+    set->setValue("osd_scale", osd_scale);
+    set->setValue("subfont_osd_scale", subfont_osd_scale);
+    set->setValue("osd_delay", osd_delay);
+//#ifdef MPV_SUPPORT
+    set->setValue("osd_fractions", osd_fractions);
+//#endif
+    set->setValue("osd_bar_pos", osd_bar_pos);
+    set->setValue("osd_show_filename_duration", osd_show_filename_duration);
+
 	set->endGroup(); // General
 
     /* ***********
@@ -272,6 +301,15 @@ void Preferences::save() {
 	set->setValue("actions_to_run", actions_to_run);
 	set->setValue("show_tag_in_window_title", show_tag_in_window_title);
 	set->setValue("time_to_kill_mplayer", time_to_kill_mplayer);
+
+//#ifdef MPV_SUPPORT
+    set->setValue("mpv_osd_media_info", mpv_osd_media_info);
+//#endif
+//#ifdef MPLAYER_SUPPORT
+    set->setValue("mplayer_osd_media_info", mplayer_osd_media_info);
+//#endif
+
+
 	set->endGroup(); // advanced
 
     /* *********
@@ -376,11 +414,17 @@ void Preferences::load() {
 
     min_step = set->value("min_step", min_step).toInt();
 
-	osd = set->value("osd", osd).toInt();
-    osd = 0;//kobe:选项->屏幕显示->仅字幕，该版本会屏蔽“屏幕显示”菜单，全部默认为仅字幕，即配置文件~/.config/smplayer/smplayer.ini的osd字段不管是多少，定制版播放器启动后都重新设置该值为0（仅字幕）
+    osd = set->value("osd", osd).toInt();
+    //osd = 0;//kobe:选项->屏幕显示->仅字幕，该版本会屏蔽“屏幕显示”菜单，全部默认为仅字幕，即配置文件~/.config/smplayer/smplayer.ini的osd字段不管是多少，定制版播放器启动后都重新设置该值为0（仅字幕）
     osd_scale = set->value("osd_scale", osd_scale).toDouble();
-	subfont_osd_scale = set->value("subfont_osd_scale", subfont_osd_scale).toDouble();
-	osd_delay = set->value("osd_delay", osd_delay).toInt();
+    subfont_osd_scale = set->value("subfont_osd_scale", subfont_osd_scale).toDouble();
+    osd_delay = set->value("osd_delay", osd_delay).toInt();
+//#ifdef MPV_SUPPORT
+    osd_fractions = set->value("osd_fractions", osd_fractions).toBool();
+//#endif
+    osd_bar_pos = set->value("osd_bar_pos", osd_bar_pos).toInt();
+    osd_show_filename_duration = set->value("osd_show_filename_duration", osd_show_filename_duration).toInt();
+
 
 	set->endGroup(); // General
 
@@ -421,6 +465,14 @@ void Preferences::load() {
 	actions_to_run = set->value("actions_to_run", actions_to_run).toString();
 	show_tag_in_window_title = set->value("show_tag_in_window_title", show_tag_in_window_title).toBool();
 	time_to_kill_mplayer = set->value("time_to_kill_mplayer", time_to_kill_mplayer).toInt();
+
+//#ifdef MPV_SUPPORT
+    mpv_osd_media_info = set->value("mpv_osd_media_info", mpv_osd_media_info).toString();
+//#endif
+//#ifdef MPLAYER_SUPPORT
+    mplayer_osd_media_info = set->value("mplayer_osd_media_info", mplayer_osd_media_info).toString();
+//#endif
+
 	set->endGroup(); // advanced
 
     /* *********

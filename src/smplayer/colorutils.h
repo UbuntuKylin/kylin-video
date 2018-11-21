@@ -29,13 +29,13 @@ class ColorUtils {
 public:
 
 	//! Returns a string suitable to be used for -ass-color
-	static QString colorToRRGGBBAA(unsigned int color);
-	static QString colorToRRGGBB(unsigned int color);
+//	static QString colorToRRGGBBAA(unsigned int color);
+//	static QString colorToRRGGBB(unsigned int color);
 
 	//! Returns a string suitable to be used for -colorkey
-	static QString colorToRGB(unsigned int color);
+//	static QString colorToRGB(unsigned int color);
 
-	static QString colorToAABBGGRR(unsigned int color);
+//	static QString colorToAABBGGRR(unsigned int color);
 
 	//! Changes the foreground color of the specified widget
 	static void setForegroundColor(QWidget * w, const QColor & color);
@@ -54,6 +54,13 @@ public:
      ** \return Returns a clean string (no colors, no tags)
      */
     static QString stripColorsTags(QString s);
+
+    static QString colorToRGB(QColor c);
+    static QString colorToRRGGBBAA(QColor c);
+    static QString colorToRRGGBB(QColor c);
+    static QString colorToAABBGGRR(QColor c);
+    static QString colorToAARRGGBB(QColor c);
+    static QColor AARRGGBBToColor(const QString & s);
 };
 
 #endif

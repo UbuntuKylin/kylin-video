@@ -187,17 +187,17 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>ActionsEditor</name>
     <message>
-        <location filename="../smplayer/actionseditor.cpp" line="226"/>
+        <location filename="../smplayer/actionseditor.cpp" line="232"/>
         <source>Name</source>
         <translation>名称</translation>
     </message>
     <message>
-        <location filename="../smplayer/actionseditor.cpp" line="226"/>
+        <location filename="../smplayer/actionseditor.cpp" line="232"/>
         <source>Description</source>
         <translation>描述</translation>
     </message>
     <message>
-        <location filename="../smplayer/actionseditor.cpp" line="226"/>
+        <location filename="../smplayer/actionseditor.cpp" line="232"/>
         <source>Shortcut</source>
         <translation>快捷键</translation>
     </message>
@@ -210,38 +210,48 @@ p, li { white-space: pre-wrap; }
         <translation type="vanished">加载(&amp;L)</translation>
     </message>
     <message>
+        <location filename="../smplayer/actionseditor.cpp" line="477"/>
+        <location filename="../smplayer/actionseditor.cpp" line="527"/>
         <source>Key files</source>
-        <translation type="vanished">键文件</translation>
+        <translation>键文件</translation>
     </message>
     <message>
+        <location filename="../smplayer/actionseditor.cpp" line="475"/>
         <source>Choose a filename</source>
-        <translation type="vanished">选择一个文件名</translation>
+        <translation>选择一个文件名</translation>
     </message>
     <message>
+        <location filename="../smplayer/actionseditor.cpp" line="486"/>
         <source>Confirm overwrite?</source>
-        <translation type="vanished">确认是否覆盖?</translation>
+        <translation>确认是否覆盖?</translation>
     </message>
     <message>
+        <location filename="../smplayer/actionseditor.cpp" line="487"/>
         <source>The file %1 already exists.
 Do you want to overwrite?</source>
-        <translation type="vanished">文件 %1 已存在。
+        <translation>文件 %1 已存在。
 您想要覆盖吗?</translation>
     </message>
     <message>
+        <location filename="../smplayer/actionseditor.cpp" line="526"/>
         <source>Choose a file</source>
-        <translation type="vanished">选择一个文件</translation>
+        <translation>选择一个文件</translation>
     </message>
     <message>
+        <location filename="../smplayer/actionseditor.cpp" line="499"/>
+        <location filename="../smplayer/actionseditor.cpp" line="533"/>
         <source>Error</source>
-        <translation type="vanished">错误</translation>
+        <translation>错误</translation>
     </message>
     <message>
+        <location filename="../smplayer/actionseditor.cpp" line="500"/>
         <source>The file couldn&apos;t be saved</source>
-        <translation type="vanished">无法保存该文件</translation>
+        <translation>无法保存该文件</translation>
     </message>
     <message>
+        <location filename="../smplayer/actionseditor.cpp" line="534"/>
         <source>The file couldn&apos;t be loaded</source>
-        <translation type="vanished">无法加载该文件</translation>
+        <translation>无法加载该文件</translation>
     </message>
     <message>
         <source>&amp;Change shortcut...</source>
@@ -703,8 +713,9 @@ Do you want to overwrite?</source>
         <translation>禁用(&amp;D)</translation>
     </message>
     <message>
+        <location filename="../merge/basegui.cpp" line="1066"/>
         <source>&amp;OSD</source>
-        <translation type="vanished">屏幕显示(&amp;O)</translation>
+        <translation>屏幕显示(&amp;O)</translation>
     </message>
     <message>
         <source>&amp;View logs</source>
@@ -719,24 +730,24 @@ Do you want to overwrite?</source>
         <translation type="vanished">关于视频播放器(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1639"/>
+        <location filename="../merge/basegui.cpp" line="1699"/>
         <source>&lt;empty&gt;</source>
         <translation>&lt;空&gt;</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1650"/>
+        <location filename="../merge/basegui.cpp" line="1710"/>
         <source>Confirm deletion - Kylin Video</source>
         <translation>确认删除 - 麒麟影音</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1754"/>
+        <location filename="../merge/basegui.cpp" line="1832"/>
         <source>Video</source>
         <translation>视频</translation>
     </message>
     <message>
         <location filename="../merge/basegui.cpp" line="919"/>
-        <location filename="../merge/basegui.cpp" line="1755"/>
-        <location filename="../merge/basegui.cpp" line="1912"/>
+        <location filename="../merge/basegui.cpp" line="1833"/>
+        <location filename="../merge/basegui.cpp" line="1990"/>
         <source>Audio</source>
         <translation>音频</translation>
     </message>
@@ -766,46 +777,56 @@ Do you want to overwrite?</source>
         <translation>播放速度</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1056"/>
+        <location filename="../merge/basegui.cpp" line="1019"/>
+        <source>Show &amp;info on OSD</source>
+        <translation>在 OSD 中显示信息(&amp;i)</translation>
+    </message>
+    <message>
+        <location filename="../merge/basegui.cpp" line="1036"/>
+        <source>Show times with &amp;milliseconds</source>
+        <translation>以毫秒显示时间</translation>
+    </message>
+    <message>
+        <location filename="../merge/basegui.cpp" line="1115"/>
         <source>Open Homepage</source>
         <translation>打开主界面</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1059"/>
+        <location filename="../merge/basegui.cpp" line="1118"/>
         <source>Open screenshots folder</source>
         <translation>打开截图文件夹</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1082"/>
+        <location filename="../merge/basegui.cpp" line="1141"/>
         <source>PlayList</source>
         <translation>播放列表</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1086"/>
+        <location filename="../merge/basegui.cpp" line="1145"/>
         <source>Play/Pause</source>
         <translation>播放/暂停</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1096"/>
+        <location filename="../merge/basegui.cpp" line="1155"/>
         <source>Fullscreen</source>
         <translation>全屏</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1756"/>
+        <location filename="../merge/basegui.cpp" line="1834"/>
         <source>Playlists</source>
         <translation>播放列表</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1757"/>
-        <location filename="../merge/basegui.cpp" line="1892"/>
-        <location filename="../merge/basegui.cpp" line="1913"/>
+        <location filename="../merge/basegui.cpp" line="1835"/>
+        <location filename="../merge/basegui.cpp" line="1970"/>
+        <location filename="../merge/basegui.cpp" line="1991"/>
         <source>All files</source>
         <translation>所有文件</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1752"/>
-        <location filename="../merge/basegui.cpp" line="1889"/>
-        <location filename="../merge/basegui.cpp" line="1910"/>
+        <location filename="../merge/basegui.cpp" line="1830"/>
+        <location filename="../merge/basegui.cpp" line="1967"/>
+        <location filename="../merge/basegui.cpp" line="1988"/>
         <source>Choose a file</source>
         <translation>选择一个文件</translation>
     </message>
@@ -832,18 +853,18 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="vanished">选择Blu-ray文件夹</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1791"/>
+        <location filename="../merge/basegui.cpp" line="1869"/>
         <source>Choose a directory</source>
         <translation>选择一个目录</translation>
     </message>
     <message>
         <location filename="../merge/basegui.cpp" line="980"/>
-        <location filename="../merge/basegui.cpp" line="1891"/>
+        <location filename="../merge/basegui.cpp" line="1969"/>
         <source>Subtitles</source>
         <translation>字幕</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1948"/>
+        <location filename="../merge/basegui.cpp" line="2026"/>
         <source>Kylin Video - Seek</source>
         <translation>麒麟影音 - 定位</translation>
     </message>
@@ -852,18 +873,18 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="vanished">麒麟影音 - 音频延迟</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1974"/>
-        <location filename="../merge/basegui.cpp" line="1978"/>
+        <location filename="../merge/basegui.cpp" line="2052"/>
+        <location filename="../merge/basegui.cpp" line="2056"/>
         <source>Kylin Video - Subtitle delay</source>
         <translation>麒麟影音 - 字幕延迟</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="2241"/>
+        <location filename="../merge/basegui.cpp" line="2319"/>
         <source>Error detected</source>
         <translation>检测到错误</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="2242"/>
+        <location filename="../merge/basegui.cpp" line="2320"/>
         <source>Unfortunately this video can&apos;t be played.</source>
         <translation>抱歉此视频不能播放</translation>
     </message>
@@ -876,7 +897,7 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="vanished">暂停</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1092"/>
+        <location filename="../merge/basegui.cpp" line="1151"/>
         <source>Stop</source>
         <translation>停止</translation>
     </message>
@@ -1022,7 +1043,7 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation>帮助</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="3208"/>
+        <location filename="../merge/basegui.cpp" line="3286"/>
         <source>The screenshot folder does not exist!</source>
         <translation>截图文件夹不存在！</translation>
     </message>
@@ -1160,16 +1181,16 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="vanished">视频播放器日志</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1235"/>
-        <location filename="../merge/basegui.cpp" line="1236"/>
-        <location filename="../merge/basegui.cpp" line="1237"/>
+        <location filename="../merge/basegui.cpp" line="1294"/>
+        <location filename="../merge/basegui.cpp" line="1295"/>
+        <location filename="../merge/basegui.cpp" line="1296"/>
         <source>-%1</source>
         <translation>-%1</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1239"/>
-        <location filename="../merge/basegui.cpp" line="1240"/>
-        <location filename="../merge/basegui.cpp" line="1241"/>
+        <location filename="../merge/basegui.cpp" line="1298"/>
+        <location filename="../merge/basegui.cpp" line="1299"/>
+        <location filename="../merge/basegui.cpp" line="1300"/>
         <source>+%1</source>
         <translation>+%1</translation>
     </message>
@@ -1239,12 +1260,14 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="vanished">打开配置文件夹(&amp;O)</translation>
     </message>
     <message>
+        <location filename="../merge/basegui.cpp" line="1028"/>
         <source>Size &amp;+</source>
-        <translation type="vanished">大小 &amp;+</translation>
+        <translation>大小 &amp;+</translation>
     </message>
     <message>
+        <location filename="../merge/basegui.cpp" line="1032"/>
         <source>Size &amp;-</source>
-        <translation type="vanished">大小 &amp;-</translation>
+        <translation>大小 &amp;-</translation>
     </message>
     <message>
         <source>Inc volume (2)</source>
@@ -1405,12 +1428,12 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="vanished">Youtube的问题</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="2926"/>
-        <location filename="../merge/basegui.cpp" line="2927"/>
-        <location filename="../merge/basegui.cpp" line="2938"/>
-        <location filename="../merge/basegui.cpp" line="2939"/>
-        <location filename="../merge/basegui.cpp" line="2959"/>
-        <location filename="../merge/basegui.cpp" line="2960"/>
+        <location filename="../merge/basegui.cpp" line="3004"/>
+        <location filename="../merge/basegui.cpp" line="3005"/>
+        <location filename="../merge/basegui.cpp" line="3016"/>
+        <location filename="../merge/basegui.cpp" line="3017"/>
+        <location filename="../merge/basegui.cpp" line="3037"/>
+        <location filename="../merge/basegui.cpp" line="3038"/>
         <source>%1 Error</source>
         <translation>%1 错误</translation>
     </message>
@@ -1419,22 +1442,22 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="vanished">%1 没有被找到！</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="2940"/>
+        <location filename="../merge/basegui.cpp" line="3018"/>
         <source>%1 has finished unexpectedly.</source>
         <translation>%1 已意外结束。</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="2962"/>
+        <location filename="../merge/basegui.cpp" line="3040"/>
         <source>%1 failed to start.</source>
         <translation>%1 启动失败。</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="2963"/>
+        <location filename="../merge/basegui.cpp" line="3041"/>
         <source>Please check the %1 path in preferences.</source>
         <translation>请检查首选项中的 %1 路径。</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="2965"/>
+        <location filename="../merge/basegui.cpp" line="3043"/>
         <source>%1 has crashed.</source>
         <translation>%1 已崩溃。</translation>
     </message>
@@ -1463,7 +1486,7 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="vanished">和朋友分享视频播放器(&amp;h)</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="3208"/>
+        <location filename="../merge/basegui.cpp" line="3286"/>
         <source>Information</source>
         <translation>信息</translation>
     </message>
@@ -1476,7 +1499,7 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="vanished">确认删除 - 视频播放器</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1650"/>
+        <location filename="../merge/basegui.cpp" line="1710"/>
         <source>Delete the list of recent files?</source>
         <translation>要删除最近的文件列表吗?</translation>
     </message>
@@ -1565,22 +1588,22 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="vanished">重置视频均衡器</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="2243"/>
+        <location filename="../merge/basegui.cpp" line="2321"/>
         <source>The server returned &apos;%1&apos;</source>
         <translation>服务器返回&apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="2928"/>
+        <location filename="../merge/basegui.cpp" line="3006"/>
         <source>&apos;%1&apos; was not found!</source>
         <translation>&apos;%1&apos; 没有被找到！</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="2941"/>
+        <location filename="../merge/basegui.cpp" line="3019"/>
         <source>Exit code: %1</source>
         <translation>退出代码: %1</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="2966"/>
+        <location filename="../merge/basegui.cpp" line="3044"/>
         <source>See the log for more info.</source>
         <translation>更多信息请参阅日志。</translation>
     </message>
@@ -1624,7 +1647,7 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="vanished">显示上下文菜单</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1753"/>
+        <location filename="../merge/basegui.cpp" line="1831"/>
         <source>Multimedia</source>
         <translation>多媒体</translation>
     </message>
@@ -1777,7 +1800,7 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="vanished">设置延迟(&amp;T)...</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1947"/>
+        <location filename="../merge/basegui.cpp" line="2025"/>
         <source>&amp;Jump to:</source>
         <translation>跳转到(&amp;J):</translation>
     </message>
@@ -1798,8 +1821,8 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="vanished">视频播放器 - 字幕延迟</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1975"/>
-        <location filename="../merge/basegui.cpp" line="1979"/>
+        <location filename="../merge/basegui.cpp" line="2053"/>
+        <location filename="../merge/basegui.cpp" line="2057"/>
         <source>Subtitle delay (in milliseconds):</source>
         <translation>字幕延迟(毫秒):</translation>
     </message>
@@ -1808,7 +1831,7 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="vanished">切换保持在最前端</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="2558"/>
+        <location filename="../merge/basegui.cpp" line="2636"/>
         <source>Jump to %1</source>
         <translation>跳转到 %1</translation>
     </message>
@@ -1839,23 +1862,27 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="vanished">广播(&amp;O)</translation>
     </message>
     <message>
+        <location filename="../merge/basegui.cpp" line="1047"/>
         <source>Subtitles onl&amp;y</source>
-        <translation type="vanished">仅字幕(&amp;Y)</translation>
+        <translation>仅字幕(&amp;Y)</translation>
     </message>
     <message>
+        <location filename="../merge/basegui.cpp" line="1048"/>
         <source>Volume + &amp;Seek</source>
-        <translation type="vanished">音量+定位(&amp;S)</translation>
+        <translation>音量+定位(&amp;S)</translation>
     </message>
     <message>
+        <location filename="../merge/basegui.cpp" line="1049"/>
         <source>Volume + Seek + &amp;Timer</source>
-        <translation type="vanished">音量+定位+计时器(&amp;T)</translation>
+        <translation>音量+定位+计时器(&amp;T)</translation>
     </message>
     <message>
+        <location filename="../merge/basegui.cpp" line="1050"/>
         <source>Volume + Seek + Timer + T&amp;otal time</source>
-        <translation type="vanished">音量+定位+计时器+总时间(&amp;O)</translation>
+        <translation>音量+定位+计时器+总时间(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../merge/basegui.cpp" line="1196"/>
+        <location filename="../merge/basegui.cpp" line="1255"/>
         <source>Video filters are disabled when using vdpau</source>
         <translation>使用 VDPAU 时将禁用视频过滤器</translation>
     </message>
@@ -2038,42 +2065,42 @@ The configuration dialog will be shown now, so you can do it.</source>
 <context>
     <name>Core</name>
     <message>
-        <location filename="../smplayer/core.cpp" line="2680"/>
+        <location filename="../smplayer/core.cpp" line="2787"/>
         <source>Brightness: %1</source>
         <translation>亮度: %1</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="2696"/>
+        <location filename="../smplayer/core.cpp" line="2803"/>
         <source>Contrast: %1</source>
         <translation>对比度: %1</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="2711"/>
+        <location filename="../smplayer/core.cpp" line="2818"/>
         <source>Gamma: %1</source>
         <translation>伽玛: %1</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="2726"/>
+        <location filename="../smplayer/core.cpp" line="2833"/>
         <source>Hue: %1</source>
         <translation>色调: %1</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="2741"/>
+        <location filename="../smplayer/core.cpp" line="2848"/>
         <source>Saturation: %1</source>
         <translation>饱和度: %1</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="2896"/>
+        <location filename="../smplayer/core.cpp" line="3003"/>
         <source>Volume: %1</source>
         <translation>音量: %1</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="3837"/>
+        <location filename="../smplayer/core.cpp" line="3950"/>
         <source>Zoom: %1</source>
         <translation>缩放: %1</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="4066"/>
+        <location filename="../smplayer/core.cpp" line="4191"/>
         <source>Buffering...</source>
         <translation>缓冲中...</translation>
     </message>
@@ -2082,27 +2109,27 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="vanished">字体缩放: %1</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="3676"/>
+        <location filename="../smplayer/core.cpp" line="3789"/>
         <source>Aspect ratio: %1</source>
         <translation>纵横比: %1</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="4062"/>
+        <location filename="../smplayer/core.cpp" line="4187"/>
         <source>Updating the font cache. This may take some seconds...</source>
         <translation>正在更新字体缓存。这可能需要几秒钟...</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="2953"/>
+        <location filename="../smplayer/core.cpp" line="3060"/>
         <source>Subtitle delay: %1 ms</source>
         <translation>字幕延迟: %1毫秒</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="2971"/>
+        <location filename="../smplayer/core.cpp" line="3078"/>
         <source>Audio delay: %1 ms</source>
         <translation>音频延迟: %1毫秒</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="2795"/>
+        <location filename="../smplayer/core.cpp" line="2902"/>
         <source>Speed: %1</source>
         <translation>速度: %1</translation>
     </message>
@@ -2115,67 +2142,67 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="vanished">无法定位视频的URL</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="3118"/>
+        <location filename="../smplayer/core.cpp" line="3231"/>
         <source>Subtitles on</source>
         <translation>字幕开启</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="3120"/>
+        <location filename="../smplayer/core.cpp" line="3233"/>
         <source>Subtitles off</source>
         <translation>字幕关闭</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="3724"/>
+        <location filename="../smplayer/core.cpp" line="3837"/>
         <source>Mouse wheel seeks now</source>
         <translation>鼠标滚轮定位</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="3727"/>
+        <location filename="../smplayer/core.cpp" line="3840"/>
         <source>Mouse wheel changes volume now</source>
         <translation>鼠标滚轮更改音量</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="3730"/>
+        <location filename="../smplayer/core.cpp" line="3843"/>
         <source>Mouse wheel changes zoom level now</source>
         <translation>鼠标滚轮更改缩放等级</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="3733"/>
+        <location filename="../smplayer/core.cpp" line="3846"/>
         <source>Mouse wheel changes speed now</source>
         <translation>鼠标滚轮更改速度</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="4039"/>
+        <location filename="../smplayer/core.cpp" line="4164"/>
         <source>Screenshot saved as %1</source>
         <translation>截图保存为 %1</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="4071"/>
+        <location filename="../smplayer/core.cpp" line="4196"/>
         <source>Starting...</source>
         <translation>正在开始...</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="1042"/>
+        <location filename="../smplayer/core.cpp" line="1116"/>
         <source>Screenshot NOT taken, folder not configured</source>
         <translation>无法进行屏幕截图，没有配置文件夹</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="1055"/>
+        <location filename="../smplayer/core.cpp" line="1129"/>
         <source>Screenshots NOT taken, folder not configured</source>
         <translation>无法进行屏幕截图，没有配置文件夹</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="2349"/>
+        <location filename="../smplayer/core.cpp" line="2456"/>
         <source>&quot;A&quot; marker set to %1</source>
         <translation>&quot;A&quot;标记设置到 %1</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="2366"/>
+        <location filename="../smplayer/core.cpp" line="2473"/>
         <source>&quot;B&quot; marker set to %1</source>
         <translation>&quot;B&quot;标记设置到 %1</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="2381"/>
+        <location filename="../smplayer/core.cpp" line="2488"/>
         <source>A-B markers cleared</source>
         <translation>A-B 标记已清除</translation>
     </message>
@@ -2404,7 +2431,7 @@ The configuration dialog will be shown now, so you can do it.</source>
 <context>
     <name>FileChooser</name>
     <message>
-        <location filename="../smplayer/filechooser.cpp" line="44"/>
+        <location filename="../smplayer/filechooser.cpp" line="45"/>
         <source>Click to select a file or folder</source>
         <translation>单击以选择一个文件或文件夹</translation>
     </message>
@@ -2513,40 +2540,40 @@ Example: extrastereo,karaoke</source>
         <translation type="vanished">音频过滤器(&amp;F):</translation>
     </message>
     <message>
-        <location filename="../merge/filepropertiesdialog.cpp" line="103"/>
+        <location filename="../merge/filepropertiesdialog.cpp" line="107"/>
         <source>Information</source>
         <translation>信息</translation>
     </message>
     <message>
-        <location filename="../merge/filepropertiesdialog.cpp" line="108"/>
+        <location filename="../merge/filepropertiesdialog.cpp" line="112"/>
         <source>Demuxer</source>
         <translation>解复用器</translation>
     </message>
     <message>
-        <location filename="../merge/filepropertiesdialog.cpp" line="112"/>
+        <location filename="../merge/filepropertiesdialog.cpp" line="116"/>
         <source>Video codec</source>
         <translation>视频编解码器</translation>
     </message>
     <message>
-        <location filename="../merge/filepropertiesdialog.cpp" line="116"/>
+        <location filename="../merge/filepropertiesdialog.cpp" line="120"/>
         <source>Audio codec</source>
         <translation>音频编解码器</translation>
     </message>
     <message>
         <location filename="../merge/filepropertiesdialog.ui" line="272"/>
-        <location filename="../merge/filepropertiesdialog.cpp" line="189"/>
+        <location filename="../merge/filepropertiesdialog.cpp" line="208"/>
         <source>OK</source>
         <translation>确定</translation>
     </message>
     <message>
         <location filename="../merge/filepropertiesdialog.ui" line="285"/>
-        <location filename="../merge/filepropertiesdialog.cpp" line="190"/>
+        <location filename="../merge/filepropertiesdialog.cpp" line="209"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
         <location filename="../merge/filepropertiesdialog.ui" line="259"/>
-        <location filename="../merge/filepropertiesdialog.cpp" line="191"/>
+        <location filename="../merge/filepropertiesdialog.cpp" line="210"/>
         <source>Apply</source>
         <translation>应用</translation>
     </message>
@@ -4228,9 +4255,80 @@ Do you want to overwrite?</source>
 <context>
     <name>MPVProcess</name>
     <message>
-        <location filename="../smplayer/mpvoptions.cpp" line="110"/>
+        <location filename="../smplayer/mpvoptions.cpp" line="126"/>
         <source>the &apos;%1&apos; filter is not supported by mpv</source>
         <translation>mpv不支持 &apos;%1&apos; 过滤器</translation>
+    </message>
+    <message>
+        <location filename="../smplayer/mpvoptions.cpp" line="643"/>
+        <source>File:</source>
+        <translation>文件：</translation>
+    </message>
+    <message>
+        <location filename="../smplayer/mpvoptions.cpp" line="646"/>
+        <source>Video:</source>
+        <translation>视频：</translation>
+    </message>
+    <message>
+        <location filename="../smplayer/mpvoptions.cpp" line="647"/>
+        <source>Resolution:</source>
+        <translation>解析度：</translation>
+    </message>
+    <message>
+        <location filename="../smplayer/mpvoptions.cpp" line="648"/>
+        <source>Frames per second:</source>
+        <translation>每秒显示的画面数：</translation>
+    </message>
+    <message>
+        <location filename="../smplayer/mpvoptions.cpp" line="648"/>
+        <source>Estimated:</source>
+        <translation>预估：</translation>
+    </message>
+    <message>
+        <location filename="../smplayer/mpvoptions.cpp" line="650"/>
+        <source>Aspect Ratio:</source>
+        <translation>外观比例：</translation>
+    </message>
+    <message>
+        <location filename="../smplayer/mpvoptions.cpp" line="651"/>
+        <location filename="../smplayer/mpvoptions.cpp" line="656"/>
+        <source>Bitrate:</source>
+        <translation>位率：</translation>
+    </message>
+    <message>
+        <location filename="../smplayer/mpvoptions.cpp" line="652"/>
+        <source>Dropped frames:</source>
+        <translation>已丢失的画面：</translation>
+    </message>
+    <message>
+        <location filename="../smplayer/mpvoptions.cpp" line="655"/>
+        <source>Audio:</source>
+        <translation>音频：</translation>
+    </message>
+    <message>
+        <location filename="../smplayer/mpvoptions.cpp" line="657"/>
+        <source>Sample Rate:</source>
+        <translation>取样率：</translation>
+    </message>
+    <message>
+        <location filename="../smplayer/mpvoptions.cpp" line="658"/>
+        <source>Channels:</source>
+        <translation>频道：</translation>
+    </message>
+    <message>
+        <location filename="../smplayer/mpvoptions.cpp" line="661"/>
+        <source>Audio/video synchronization:</source>
+        <translation>音/视频同步：</translation>
+    </message>
+    <message>
+        <location filename="../smplayer/mpvoptions.cpp" line="662"/>
+        <source>Cache fill:</source>
+        <translation>缓存填充：</translation>
+    </message>
+    <message>
+        <location filename="../smplayer/mpvoptions.cpp" line="663"/>
+        <source>Used cache:</source>
+        <translation>使用缓存：</translation>
     </message>
 </context>
 <context>
@@ -4322,7 +4420,7 @@ Do you want to overwrite?</source>
 <context>
     <name>MplayerProcess</name>
     <message>
-        <location filename="../smplayer/mplayeroptions.cpp" line="281"/>
+        <location filename="../smplayer/mplayeroptions.cpp" line="286"/>
         <source>This option is not supported by MPlayer</source>
         <translation>MPlayer不支持该选项</translation>
     </message>
@@ -8628,19 +8726,19 @@ Example: extrastereo,karaoke</source>
         <translation type="vanished">指定视频播放器将存储其配置文件(smplayer.ini、smplayer_files.ini...)的目录位置</translation>
     </message>
     <message>
-        <location filename="../smplayer/mediasettings.cpp" line="174"/>
+        <location filename="../smplayer/mediasettings.cpp" line="179"/>
         <source>disabled</source>
         <comment>aspect_ratio</comment>
         <translation>禁用</translation>
     </message>
     <message>
-        <location filename="../smplayer/mediasettings.cpp" line="185"/>
+        <location filename="../smplayer/mediasettings.cpp" line="190"/>
         <source>auto</source>
         <comment>aspect_ratio</comment>
         <translation>自动</translation>
     </message>
     <message>
-        <location filename="../smplayer/mediasettings.cpp" line="186"/>
+        <location filename="../smplayer/mediasettings.cpp" line="191"/>
         <source>unknown</source>
         <comment>aspect_ratio</comment>
         <translation>未知</translation>

@@ -64,8 +64,9 @@ public:
 	void frameStep();
 	void frameBackStep();
 	void showOSDText(const QString & text, int duration, int level);
-	void showFilenameOnOSD();
+    void showFilenameOnOSD(int duration = 2000);
 	void showTimeOnOSD();
+    void showMediaInfoOnOSD();
 	void setContrast(int value);
 	void setBrightness(int value);
 	void setHue(int value);
@@ -107,14 +108,22 @@ public:
 	void toggleDeinterlace();
 	void askForLength();
 	void setOSDScale(double value);
+    void setOSDFractions(bool active);
 	void setChannelsFile(const QString &);
 
 	QString mpvVersion() { return mpv_version; };
+
+    void enableOSDInCommands(bool b) { use_osd_in_commands = b; };
+    bool isOSDInCommandsEnabled() { return use_osd_in_commands; };
 
 protected:
 	bool isOptionAvailable(const QString & option);
 	void addVFIfAvailable(const QString & vf, const QString & value = QString::null);
 	void messageFilterNotSupported(const QString & filter_name);
+
+//#ifdef OSD_WITH_TIMER
+    void toggleInfoOnOSD();
+//#endif
 
 protected slots:
 	void parseLine(QByteArray ba);
@@ -123,10 +132,16 @@ protected slots:
 	void requestChapterInfo();
 	void requestBitrateInfo();
 
+//#ifdef OSD_WITH_TIMER
+    void displayInfoOnOSD();
+//#endif
+
 signals:
     void receivedScreenshot(QString);//20170722
 
 protected:
+    virtual void initializeOptionVars();
+
 #if NOTIFY_AUDIO_CHANGES
 	void updateAudioTrack(int ID, const QString & name, const QString & lang);
 #endif
@@ -177,6 +192,46 @@ private:
 //	bool capturing;
 //#endif
     QString m_snap;
+
+//#ifdef OSD_WITH_TIMER
+    QTimer * osd_timer;
+//#endif
+
+
+    bool use_osd_in_commands;
+/*
+    // Regular expressions
+    QRegExp rx_av;
+    QRegExp rx_dsize;
+    QRegExp rx_vo;
+    QRegExp rx_ao;
+    QRegExp rx_paused;
+    QRegExp rx_endoffile;
+
+    QRegExp rx_audio;
+    QRegExp rx_subs;
+
+    QRegExp rx_videocodec;
+    QRegExp rx_audiocodec;
+
+#if !NOTIFY_VIDEO_CHANGES
+    QRegExp rx_video;
+#endif
+
+    QRegExp rx_chaptername;
+    QRegExp rx_trackinfo;
+    QRegExp rx_forbidden;
+
+#if DVDNAV_SUPPORT
+    QRegExp rx_switch_title;
+#endif
+
+    QRegExp rx_playing;
+    QRegExp rx_generic;
+    QRegExp rx_stream_title;
+    QRegExp rx_debug;*/
+
+    void initializeRX();
 };
 
 #endif

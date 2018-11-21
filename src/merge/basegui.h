@@ -367,7 +367,25 @@ protected:
     MyAction *aboutAct;
     MyAction *helpAct;
     MyAction *quitAct;
-    MyAction *openDirAct;
+    //MyAction *openDirAct;
+
+    //20181120
+    QMenu * osd_menu;
+    //MyAction *showFilenameAct;
+    MyAction *showMediaInfoAct;
+    //MyAction *showTimeAct;
+    // OSD
+    MyAction *incOSDScaleAct;
+    MyAction *decOSDScaleAct;
+//#ifdef MPV_SUPPORT
+    MyAction *OSDFractionsAct;
+//#endif
+    // OSD Action Group
+    MyActionGroup * osdGroup;
+    MyAction * osdNoneAct;
+    MyAction * osdSeekAct;
+    MyAction * osdTimerAct;
+    MyAction * osdTotalAct;
 
     QMenu *popup;
     QMenu *main_popup;

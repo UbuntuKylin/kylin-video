@@ -22,6 +22,11 @@
 #include <QDebug>
 #include <QObject>
 
+void MplayerProcess::initializeOptionVars() {
+    qDebug("MplayerProcess::initializeOptionVars");
+    PlayerProcess::initializeOptionVars();
+}
+
 void MplayerProcess::setMedia(const QString & media, bool is_playlist) {
 	if (is_playlist) arg << "-playlist";
 	arg << media;
@@ -281,19 +286,27 @@ void MplayerProcess::frameBackStep() {
     showOSDText(QString(tr("This option is not supported by MPlayer")), 3000, 1);
 }
 
-
 void MplayerProcess::showOSDText(const QString & text, int duration, int level) {
 	QString str = QString("osd_show_text \"%1\" %2 %3").arg(text).arg(duration).arg(level);
 	if (!pausing_prefix.isEmpty()) str = pausing_prefix + " " + str;
 	writeToStdin(str);
 }
 
-void MplayerProcess::showFilenameOnOSD() {
-	writeToStdin("osd_show_property_text \"${filename}\" 2000 0");
+void MplayerProcess::showFilenameOnOSD(int duration) {
+//	writeToStdin("osd_show_property_text \"${filename}\" 2000 0");
+    QString s = "${filename}";
+
+    if (!osd_media_info.isEmpty()) s = osd_media_info;
+
+    writeToStdin(QString("osd_show_property_text \"%1\" %2 0").arg(s).arg(duration));
 }
 
 void MplayerProcess::showTimeOnOSD() {
 	writeToStdin("osd_show_property_text \"${time_pos} / ${length} (${percent_pos}%)\" 2000 0");
+}
+
+void MplayerProcess::showMediaInfoOnOSD() {
+    showFilenameOnOSD();
 }
 
 void MplayerProcess::setContrast(int value) {

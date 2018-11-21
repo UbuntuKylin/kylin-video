@@ -22,6 +22,22 @@
 #include "inforeader.h"
 #include "mpvprocess.h"// src/smplayer/mpvoptions.cpp:109: Qualifying with unknown namespace/class ::MPVProcess
 
+#define OSD_PREFIX use_osd_in_commands ? "" : "no-osd"
+
+void MPVProcess::initializeOptionVars() {
+    qDebug("MPVProcess::initializeOptionVars");
+    PlayerProcess::initializeOptionVars();
+
+//#ifdef OSD_WITH_TIMER
+    osd_timer = new QTimer(this);
+    osd_timer->setInterval(500);
+    connect(osd_timer, SIGNAL(timeout()), this, SLOT(displayInfoOnOSD()));
+//#endif
+
+    use_osd_in_commands = true;
+}
+
+
 void MPVProcess::setMedia(const QString & media, bool is_playlist) {
     arg << "--term-playing-msg="
             "MPV_VERSION=${=mpv-version:}\n"
@@ -578,17 +594,81 @@ void MPVProcess::frameBackStep() {
 }
 
 void MPVProcess::showOSDText(const QString & text, int duration, int level) {
-    QString str = QString("show_text \"%1\" %2 %3").arg(text).arg(duration).arg(level);
-    writeToStdin(str);
+//    QString str = QString("show_text \"%1\" %2 %3").arg(text).arg(duration).arg(level);
+//    writeToStdin(str);
+    if (use_osd_in_commands) {
+        QString str = QString("show_text \"%1\" %2 %3").arg(text).arg(duration).arg(level);
+        writeToStdin(str);
+    }
 }
 
-void MPVProcess::showFilenameOnOSD() {
-    writeToStdin("show_text \"${filename}\" 2000 0");
+void MPVProcess::showFilenameOnOSD(int duration) {
+//#ifdef OSD_WITH_TIMER
+    osd_timer->stop();
+//#endif
+    showOSDText("${filename}", duration, 0);//writeToStdin("show_text \"${filename}\" 2000 0");
 }
 
 void MPVProcess::showTimeOnOSD() {
     writeToStdin("show_text \"${time-pos} / ${length:0} (${percent-pos}%)\" 2000 0");
 }
+
+
+void MPVProcess::showMediaInfoOnOSD() {
+//#ifdef OSD_WITH_TIMER
+    toggleInfoOnOSD();
+//#else
+//	showOSDText("${filename}", 2000, 0);
+//#endif
+}
+
+//#ifdef OSD_WITH_TIMER
+void MPVProcess::toggleInfoOnOSD() {
+    if (!osd_timer->isActive()) {
+        osd_timer->start();
+        displayInfoOnOSD();
+    } else {
+        osd_timer->stop();
+        showOSDText("", 100, 0);
+    }
+}
+
+void MPVProcess::displayInfoOnOSD() {
+    QString b1 = "{\\\\b1}";
+    QString b0 = "{\\\\b0}";
+    QString tab = "\\\\h\\\\h\\\\h\\\\h\\\\h";
+    QString nl = "\\n";
+
+    QString s = "${osd-ass-cc/0}{\\\\fs14}" +
+        b1 + tr("File:") + b0 +" ${filename}" + nl +
+        "${time-pos} ${?duration:/ ${duration} (${percent-pos}%)}" + nl + nl +
+        //b1 + tr("Title:") + b0 + " ${media-title}" + nl + nl +
+        b1 + tr("Video:") + b0 + " ${video-codec}" + nl +
+        tab + b1 + tr("Resolution:") + b0 +" ${=width}x${=height}" + nl +
+        tab + b1 + tr("Frames per second:") + b0 + " ${container-fps:${fps}} " + b1 + tr("Estimated:") + b0 + " ${estimated-vf-fps}" + nl +
+        //tab + b1 + tr("Display FPS:") + b0 + " ${display-fps}" + nl +
+        tab + b1 + tr("Aspect Ratio:") + b0 + " ${video-params/aspect}" + nl +
+        tab + b1 + tr("Bitrate:") + b0 + " ${video-bitrate}" + nl +
+        tab + b1 + tr("Dropped frames:") + b0 + " ${decoder-frame-drop-count:${drop-frame-count}}" + nl +
+        nl +
+
+        b1 + tr("Audio:") + b0 + " ${audio-codec}" + nl +
+        tab + b1 + tr("Bitrate:") + b0 + " ${audio-bitrate}" + nl +
+        tab + b1 + tr("Sample Rate:") + b0 + " ${audio-params/samplerate} Hz" + nl +
+        tab + b1 + tr("Channels:") + b0 + " ${audio-params/channel-count}" + nl +
+        nl +
+
+        b1 + tr("Audio/video synchronization:") + b0 + " ${avsync}" + nl +
+        b1 + tr("Cache fill:") + b0 + " ${cache:0}%" + nl +
+        b1 + tr("Used cache:") + b0 + " ${cache-used:0}" + nl;
+
+    if (!osd_media_info.isEmpty()) s = osd_media_info;
+
+    showOSDText(s, 2000, 0);
+
+    if (!isRunning()) osd_timer->stop();
+}
+//#endif
 
 void MPVProcess::setContrast(int value) {
     writeToStdin("set contrast " + QString::number(value));
@@ -762,6 +842,10 @@ void MPVProcess::askForLength() {
 
 void MPVProcess::setOSDScale(double value) {
     writeToStdin("set osd-scale " + QString::number(value));
+}
+
+void MPVProcess::setOSDFractions(bool active) {
+    writeToStdin(QString("no-osd set osd-fractions %1").arg(active ? "yes" : "no"));
 }
 
 void MPVProcess::changeVF(const QString & filter, bool enable, const QVariant & option) {

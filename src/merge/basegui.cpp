@@ -1009,6 +1009,64 @@ void BaseGui::createActionsAndMenus() {
     quitAct->change(Images::icon("quit_normal"), tr("Quit"));
     connect(quitAct, SIGNAL(triggered()), this, SLOT(slot_close()));
 
+    //20181120
+    //showFilenameAct = new MyAction(Qt::SHIFT | Qt::Key_O, this, "show_filename_osd");
+    //connect( showFilenameAct, SIGNAL(triggered()), core, SLOT(showFilenameOnOSD()) );
+//    showFilenameAct->change( tr("Show filename on OSD") );//在OSD中显示文件名
+
+    showMediaInfoAct = new MyAction(Qt::SHIFT | Qt::Key_I, this, "show_info_osd");
+    connect( showMediaInfoAct, SIGNAL(triggered()), core, SLOT(showMediaInfoOnOSD()) );
+    showMediaInfoAct->change( tr("Show &info on OSD") );
+
+//    showTimeAct = new MyAction(Qt::Key_I, this, "show_time");
+//    connect( showTimeAct, SIGNAL(triggered()), core, SLOT(showTimeOnOSD()) );
+//    showTimeAct->change( tr("Show playback time on OSD") );//在 OSD 上显示播放时间
+
+    // OSD
+    incOSDScaleAct = new MyAction(Qt::SHIFT | Qt::Key_U, this, "inc_osd_scale");
+    connect(incOSDScaleAct, SIGNAL(triggered()), core, SLOT(incOSDScale()));
+    incOSDScaleAct->change(tr("Size &+"));
+
+    decOSDScaleAct = new MyAction(Qt::SHIFT | Qt::Key_Y, this, "dec_osd_scale");
+    connect(decOSDScaleAct, SIGNAL(triggered()), core, SLOT(decOSDScale()));
+    decOSDScaleAct->change(tr("Size &-"));
+
+//#ifdef MPV_SUPPORT
+    OSDFractionsAct = new MyAction(this, "osd_fractions");
+    OSDFractionsAct->change(tr("Show times with &milliseconds"));
+    OSDFractionsAct->setCheckable(true);
+    connect(OSDFractionsAct, SIGNAL(toggled(bool)), core, SLOT(setOSDFractions(bool)));
+//#endif
+    osdGroup = new MyActionGroup(this);
+    osdNoneAct = new MyActionGroupItem(this, osdGroup, "osd_none", Preferences::None);
+    osdSeekAct = new MyActionGroupItem(this, osdGroup, "osd_seek", Preferences::Seek);
+    osdTimerAct = new MyActionGroupItem(this, osdGroup, "osd_timer", Preferences::SeekTimer);
+    osdTotalAct = new MyActionGroupItem(this, osdGroup, "osd_total", Preferences::SeekTimerTotal);
+    connect( osdGroup, SIGNAL(activated(int)), core, SLOT(changeOSD(int)) );
+    // Action groups
+    osdNoneAct->change( tr("Subtitles onl&y") );
+    osdSeekAct->change( tr("Volume + &Seek") );
+    osdTimerAct->change( tr("Volume + Seek + &Timer") );
+    osdTotalAct->change( tr("Volume + Seek + Timer + T&otal time") );
+
+    // OSD submenu
+    osd_menu = new QMenu(this);
+    osd_menu->menuAction()->setObjectName("osd_menu");
+    osd_menu->addActions(osdGroup->actions());
+    osd_menu->addSeparator();
+    osd_menu->addAction(showMediaInfoAct);
+    osd_menu->addSeparator();
+    osd_menu->addAction(decOSDScaleAct);
+    osd_menu->addAction(incOSDScaleAct);
+//#ifdef MPV_SUPPORT
+    osd_menu->addSeparator();
+    osd_menu->addAction(OSDFractionsAct);
+//#endif
+    // Menu Options
+    osd_menu->menuAction()->setText( tr("&OSD") );
+    osd_menu->menuAction()->setIcon( Images::icon("osd") );
+
+
     this->setJumpTexts();
 
     // POPUP MENU
@@ -1025,6 +1083,7 @@ void BaseGui::createActionsAndMenus() {
     popup->addMenu(rotate_flip_menu);
     popup->addMenu(audioMenu);
     popup->addMenu(subtitlesMenu);
+    popup->addMenu(osd_menu);
 //    popup->addAction(shortcutsAct);
     popup->addAction(screenshotAct);
     popup->addAction(showPreferencesAct);
@@ -1433,7 +1492,7 @@ void BaseGui::showPreferencesDialog() {
 
     //从最新的配置文件读取快捷键并进行设置
     pref_dialog->mod_shortcut_page()->actions_editor->clear();
-    pref_dialog->mod_shortcut_page()->actions_editor->addCurrentActions(this);
+    pref_dialog->mod_shortcut_page()->actions_editor->addActions(this);
 
     pref_dialog->move((width() - pref_dialog->width()) / 2 +
                                mapToGlobal(QPoint(0, 0)).x(),
@@ -1516,7 +1575,8 @@ void BaseGui::setDataToFileProperties() {
     file_dialog->setDemuxer(demuxer, core->mset.original_demuxer);
     file_dialog->setAudioCodec(ac, core->mset.original_audio_codec);
     file_dialog->setVideoCodec(vc, core->mset.original_video_codec);
-    file_dialog->setMediaData(core->mdat);
+    //file_dialog->setMediaData(core->mdat);
+    file_dialog->setMediaData(core->mdat, core->mset.videos, core->mset.audios, core->mset.subs);
 }
 
 void BaseGui::applyFileProperties() {
@@ -1689,6 +1749,24 @@ void BaseGui::updateWidgets() {
 
     // Stay on top
     onTopActionGroup->setChecked((int)pref->stay_on_top);
+
+    // OSD
+    osdGroup->setChecked( pref->osd );
+
+//#ifdef MPV_SUPPORT
+    OSDFractionsAct->setChecked(pref->osd_fractions);
+//#endif
+
+//#if defined(MPV_SUPPORT) && defined(MPLAYER_SUPPORT)
+    if (PlayerID::player(pref->mplayer_bin) == PlayerID::MPLAYER) {
+        //secondary_subtitles_track_menu->setEnabled(false);
+        //frameBackStepAct->setEnabled(false);
+        OSDFractionsAct->setEnabled(false);
+        //earwaxAct->setEnabled(false);
+    } else {
+        //karaokeAct->setEnabled(false);
+    }
+//#endif
 }
 
 void BaseGui::openRecent() {

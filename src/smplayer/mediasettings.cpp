@@ -34,6 +34,7 @@ void MediaSettings::reset() {
 //    qDebug("MediaSettings::reset");
 
 	current_sec = 0;
+    current_subtitle_track = NoneSelected;
 	//current_sub_id = SubNone; 
 	current_sub_id = NoneSelected;
 //#ifdef MPV_SUPPORT
@@ -138,6 +139,10 @@ void MediaSettings::reset() {
 
 	win_width=400;
 	win_height=300;
+
+    videos.clear();
+    audios.clear();
+    subs.clear();
 }
 
 double MediaSettings::win_aspect() {
@@ -285,6 +290,15 @@ void MediaSettings::list() {
 
 //	qDebug("  starting_time: %f", starting_time);
 //	qDebug("  is264andHD: %d", is264andHD);
+
+    qDebug("  Videos:");
+    videos.list();
+
+    qDebug("  Audios:");
+    audios.list();
+
+    qDebug("  Subtitles:");
+    subs.list();
 }
 
 //#ifndef NO_USE_INI_FILES
@@ -310,6 +324,7 @@ void MediaSettings::save(QSettings * set, int player_id) {
 	}
 
 	set->beginGroup(demuxer_section);
+    set->setValue( "current_subtitle_track", current_subtitle_track );
 	set->setValue( "current_sub_id", current_sub_id );
 //	#ifdef MPV_SUPPORT
 //	set->setValue( "current_secondary_sub_id", current_secondary_sub_id );
@@ -420,6 +435,11 @@ void MediaSettings::save(QSettings * set, int player_id) {
 	set->setValue( "starting_time", starting_time );
 
 	set->setValue( "is264andHD", is264andHD );
+
+    // Save tracks
+    videos.save(set, "videotracks");
+    audios.save(set, "audiotracks");
+    subs.save(set, "subtitletracks");
 }
 
 void MediaSettings::load(QSettings * set, int player_id) {
@@ -556,6 +576,20 @@ void MediaSettings::load(QSettings * set, int player_id) {
 
 	// ChDefault not used anymore
 	if (audio_use_channels == ChDefault) audio_use_channels = ChStereo;
+
+    // Load tracks
+    videos.load(set, "videotracks");
+    audios.load(set, "audiotracks");
+    subs.load(set, "subtitletracks");
+
+    qDebug("MediaSettings::load: list of video tracks:");
+    videos.list();
+
+    qDebug("MediaSettings::load: list of audio tracks:");
+    audios.list();
+
+    qDebug("MediaSettings::load: list of subtitle tracks:");
+    subs.list();
 }
 
 //#endif // NO_USE_INI_FILES

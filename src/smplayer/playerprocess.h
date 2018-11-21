@@ -72,8 +72,9 @@ public:
 	virtual void frameStep() = 0;
 	virtual void frameBackStep() = 0;
 	virtual void showOSDText(const QString & text, int duration, int level) = 0;
-	virtual void showFilenameOnOSD() = 0;
+    virtual void showFilenameOnOSD(int duration = 2000) = 0;
 	virtual void showTimeOnOSD() = 0;
+    virtual void showMediaInfoOnOSD() = 0;
 	virtual void setContrast(int value) = 0;
 	virtual void setBrightness(int value) = 0;
 	virtual void setHue(int value) = 0;
@@ -117,6 +118,7 @@ public:
 	virtual void toggleDeinterlace() = 0;
 	virtual void askForLength() = 0;
 	virtual void setOSDScale(double value) = 0;
+    virtual void setOSDFractions(bool active) = 0;
 	virtual void setChannelsFile(const QString &) = 0;
 
     void setPausingPrefix(const QString & prefix) {
@@ -124,8 +126,14 @@ public:
 //        qDebug() << "kobe pausing_prefix=" << pausing_prefix;
     };//kobe
 
+    void setOSDMediaInfo(const QString & s) { osd_media_info = s; };
+    QString OSDMediaInfo() { return osd_media_info; };
+
 	void setScreenshotDirectory(const QString & dir) { screenshot_dir = dir; };
 	QString screenshotDirectory() { return screenshot_dir; };
+
+    virtual void enableOSDInCommands(bool b) = 0;
+    virtual bool isOSDInCommandsEnabled() = 0;
 
 //#ifdef CAPTURE_STREAM
 //	virtual void setCaptureDirectory(const QString & dir);
@@ -196,6 +204,8 @@ signals:
 	void receivedAudioBitrate(int);
 
 protected:
+    virtual void initializeOptionVars() {};
+
 	MediaData md;
 	QString pausing_prefix;
 	QString screenshot_dir;
@@ -205,6 +215,7 @@ protected:
 //#endif
 
 	PlayerID::Player player_id;
+    QString osd_media_info;
 };
 
 #endif

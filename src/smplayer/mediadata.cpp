@@ -45,13 +45,12 @@ void MediaData::reset() {
 //#if PROGRAM_SWITCH
 //	programs.clear();
 //#endif
-	videos.clear();
-	audios.clear();
+//	videos.clear();
+//	audios.clear();
+//    subs.clear();
+
 	titles.clear();
-
-	subs.clear();
-
-//	chapters.clear();
+    chapters.clear();
 
 	n_chapters = 0;
 
@@ -134,17 +133,17 @@ void MediaData::list() {
 //	qDebug("  chapters: %d", n_chapters);
 
 //	qDebug("  Subs:");
-	subs.list();
+//	subs.list();
 
 //#if PROGRAM_SWITCH
 //	qDebug("  Programs:");
 //	programs.list();
 //#endif
 //	qDebug("  Videos:");
-	videos.list();
+//	videos.list();
 
 //	qDebug("  Audios:");
-	audios.list();
+//	audios.list();
 
 //	qDebug("  Titles:");
 	titles.list();

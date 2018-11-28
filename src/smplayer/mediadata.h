@@ -75,12 +75,12 @@ public:
 //#if PROGRAM_SWITCH
 //	Tracks programs;
 //#endif
-	Tracks videos;
-	Tracks audios;
+
+//	Tracks videos;
+//	Tracks audios;
+//    SubTracks subs;
 	TitleTracks titles; // for DVDs
-
-	SubTracks subs;
-
+    Chapters chapters;
 	int n_chapters;
 
 	// Clip info

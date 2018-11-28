@@ -40,7 +40,6 @@ void MplayerProcess::setFixedOptions() {
     "-intput" "file=/tmp/fifo"    Mplayer 通过命名管道获取命令。
     */
     arg << "-noquiet" << "-slave" << "-identify";//kobe:必须使用noquiet而不是quiet，否则无法在parseLine函数中获取数据进行进行判断，比如判断当前播放是否成功等
-//    arg << "-quiet" << "-slave" << "-identify";
     //-quiet   使得控制台消息少输出; 特别地, 阻止状态行 (即 A: 0.7 V: 0.6 A-V: 0.068 ...)的显示。 对慢机器或者不能正确处理回车符(即 \r)的旧机器特别有用
     //-identify  是 −msglevel identify=4 的简写形式。使用便于解析的格式显示文件参数。 同时打印更为详细的关于字幕和音轨的语言与 ID 号的信息。 在某些情形下，使用 −msglevel identify=6 能得到更多的信息。 例如，对于一张 DVD 碟片，该选项能列出每个标题的章节和时长，以及一个碟片 ID 号。 将此选项与 −frames 0 一起使用能禁止所有输出。 封装脚本 TOOLS/midentify 禁止 MPlayer 的其它输出， 并且（很可能）shellescapes（脚本转义）了文件名。
 }
@@ -81,72 +80,122 @@ void MplayerProcess::enableScreenshots(const QString & dir, const QString & /* t
 }
 
 void MplayerProcess::setOption(const QString & option_name, const QVariant & value) {
-	if (option_name == "cache") {
-		int cache = value.toInt();
-		if (cache > 31) {
-			arg << "-cache" << value.toString();
-		} else {
-			arg << "-nocache";
-		}
-	}
-	else
-	if (option_name == "stop-xscreensaver") {
-		bool stop_ss = value.toBool();
-		if (stop_ss) arg << "-stop-xscreensaver"; else arg << "-nostop-xscreensaver";
-	}
-	else
-	if (option_name == "correct-pts") {
-		bool b = value.toBool();
-		if (b) arg << "-correct-pts"; else arg << "-nocorrect-pts";
-	}
-	else
-	if (option_name == "framedrop") {
-		QString o = value.toString();
-		if (o.contains("vo"))  arg << "-framedrop";
-		if (o.contains("decoder")) arg << "-hardframedrop";
-	}
-	else
-	if (option_name == "osd-scale") {
-		arg << "-subfont-osd-scale" << value.toString();
-	}
-	else
-	if (option_name == "verbose") {
-		arg << "-v";
-	}
-	else
-	if (option_name == "screenshot_template" || option_name == "screenshot_format") {
-		// Not supported
-	}
-	else
-	if (option_name == "enable_streaming_sites_support") {
-		// Not supported
-	}
-	else
-	if (option_name == "hwdec") {
-		// Not supported
-	}
-	else
-	if (option_name == "fontconfig") {
-		bool b = value.toBool();
-		if (b) arg << "-fontconfig"; else arg << "-nofontconfig";
-	}
-	else
-	if (option_name == "mute") {
-		// Not supported
-	}
-	else
-	if (option_name == "keepaspect" ||
-	    option_name == "dr" || option_name == "double" ||
-	    option_name == "fs" || option_name == "slices" ||
-	    option_name == "flip-hebrew")
-	{
-		bool b = value.toBool();
-		if (b) arg << "-" + option_name; else arg << "-no" + option_name;
-	}
-	else {
-		arg << "-" + option_name;
-		if (!value.isNull()) arg << value.toString();
-	}
+    if (option_name == "ao") {
+        QString ao = value.toString();
+        if (ao.contains(":")) {
+            QStringList l = DeviceInfo::extractDevice(ao);
+            qDebug() << "MplayerProcess::setOption: ao:" << l;
+            if (l.count() > 1) {
+//                #ifndef Q_OS_WIN
+                if (l[0] == "alsa") {
+                    ao = "alsa:device=hw=" + l[1];
+                }
+                else
+                if (l[0] == "pulse") {
+                    ao = "pulse::" + l[1];
+                }
+//                #else
+//                if (l[0] == "dsound") {
+//                    ao = "dsound:device=" + l[1];
+//                }
+//                #endif
+            }
+        }
+        arg << "-ao" << ao + ",";
+    }
+    else
+    if (option_name == "cache") {
+        int cache = value.toInt();
+        if (cache > 31) {
+            arg << "-cache" << value.toString();
+        } else {
+            arg << "-nocache";
+        }
+    }
+    else
+    if (option_name == "cache_auto") {
+        // Nothing to do
+    }
+    else
+    if (option_name == "stop-xscreensaver") {
+        bool stop_ss = value.toBool();
+        if (stop_ss) arg << "-stop-xscreensaver"; else arg << "-nostop-xscreensaver";
+    }
+    else
+    if (option_name == "correct-pts") {
+        bool b = value.toBool();
+        if (b) arg << "-correct-pts"; else arg << "-nocorrect-pts";
+    }
+    else
+    if (option_name == "framedrop") {
+        QString o = value.toString();
+        if (o.contains("vo"))  arg << "-framedrop";
+        if (o.contains("decoder")) arg << "-hardframedrop";
+    }
+    else
+    if (option_name == "osd-level") {
+        arg << "-osdlevel" << value.toString();
+    }
+    else
+    if (option_name == "osd-fractions") {
+    }
+    else
+    if (option_name == "osd-bar-pos") {
+        int position = value.toInt();
+        if (position >= 0 && position <= 100) {
+            arg << "-progbar-align" << QString::number(position);
+        }
+    }
+    else
+    if (option_name == "osd-scale") {
+        arg << "-subfont-osd-scale" << value.toString();
+    }
+    else
+    if (option_name == "verbose") {
+        arg << "-v";
+    }
+    else
+    if (option_name == "enable_streaming_sites_support") {
+        // Not supported
+    }
+    else
+    if (option_name == "ytdl_quality") {
+        // Not supported
+    }
+    else
+    if (option_name == "hwdec") {
+        // Not supported
+    }
+    else
+    if (option_name == "fontconfig") {
+        bool b = value.toBool();
+        if (b) arg << "-fontconfig"; else arg << "-nofontconfig";
+    }
+    else
+    if (option_name == "mute") {
+        // Not supported
+    }
+    else
+    if (option_name == "softvol") {
+        if (value.toString() != "off") {
+            int v = value.toInt();
+            if (v < 100) v = 100;
+            arg << "-softvol" << "-softvol-max" << QString::number(v);
+        }
+    }
+    else
+    if (option_name == "keepaspect" ||
+        option_name == "dr" || option_name == "double" ||
+        option_name == "fs" || option_name == "slices" ||
+        option_name == "flip-hebrew")
+    {
+        bool b = value.toBool();
+        if (b) arg << "-" + option_name; else arg << "-no" + option_name;
+    }
+    else {
+        arg << "-" + option_name;
+        if (!value.isNull()) arg << value.toString();
+    }
 }
 
 void MplayerProcess::addUserOption(const QString & option) {
@@ -172,63 +221,64 @@ void MplayerProcess::setSubEncoding(const QString & codepage, const QString & en
 }
 
 void MplayerProcess::addVF(const QString & filter_name, const QVariant & value) {
-	QString option = value.toString();
+    QString option = value.toString();
 
-	if (filter_name == "blur" || filter_name == "sharpen") {
-		arg << "-vf-add" << "unsharp=" + option;
-	}
-	else
-	if (filter_name == "deblock") {
-		arg << "-vf-add" << "pp=" + option;
-	}
-	else
-	if (filter_name == "dering") {
-		arg << "-vf-add" << "pp=dr";
-	}
-	else
-	if (filter_name == "postprocessing") {
-		arg << "-vf-add" << "pp";
-	}
-	else
-	if (filter_name == "lb" || filter_name == "l5") {
-		arg << "-vf-add" << "pp=" + filter_name;
-	}
-	else
-	if (filter_name == "subs_on_screenshots") {
-		if (option == "ass") {
-			arg << "-vf-add" << "ass";
-		} else {
-			arg << "-vf-add" << "expand=osd=1";
-		}
-	}
-	else
-	if (filter_name == "screenshot") {
-		QString f = "screenshot";
-		if (!screenshot_dir.isEmpty()) {
-			f += "="+ QDir::toNativeSeparators(screenshot_dir + "/shot");
-		}
-		arg << "-vf-add" << f;
-	}
-	else
-	if (filter_name == "flip") {
-		// expand + flip doesn't work well, a workaround is to add another
-		// filter between them, so that's why harddup is here
-		arg << "-vf-add" << "harddup,flip";
-	}
-	else
-	if (filter_name == "expand") {
-		arg << "-vf-add" << "expand=" + option + ",harddup";
-		// Note: on some videos (h264 for instance) the subtitles doesn't disappear,
-		// appearing the new ones on top of the old ones. It seems adding another
-		// filter after expand fixes the problem. I chose harddup 'cos I think
-		// it will be harmless in mplayer.
-	}
-	else {
-		QString s = filter_name;
-		QString option = value.toString();
-		if (!option.isEmpty()) s += "=" + option;
-		arg << "-vf-add" << s;
-	}
+    if (filter_name == "blur" || filter_name == "sharpen") {
+        arg << "-vf-add" << "unsharp=" + option;
+    }
+    else
+    if (filter_name == "deblock") {
+        arg << "-vf-add" << "pp=" + option;
+    }
+    else
+    if (filter_name == "dering") {
+        arg << "-vf-add" << "pp=dr";
+    }
+    else
+    if (filter_name == "postprocessing") {
+        arg << "-vf-add" << "pp";
+    }
+    else
+    if (filter_name == "lb" || filter_name == "l5") {
+        arg << "-vf-add" << "pp=" + filter_name;
+    }
+    else
+    if (filter_name == "subs_on_screenshots") {
+        if (option == "ass") {
+            arg << "-vf-add" << "ass";
+        } else {
+            arg << "-vf-add" << "expand=osd=1";
+        }
+    }
+    else
+    if (filter_name == "flip") {
+        // expand + flip doesn't work well, a workaround is to add another
+        // filter between them, so that's why harddup is here
+        arg << "-vf-add" << "harddup,flip";
+    }
+    else
+    if (filter_name == "letterbox") {
+        QSize desktop_size = value.toSize();
+        double aspect = (double) desktop_size.width() / desktop_size.height();
+        arg << "-vf-add" << "expand=aspect=" + QString::number(aspect) + ",harddup";
+        // harddup fixes subtitles not disappearing
+    }
+    /*
+    else
+    if (filter_name == "expand") {
+        arg << "-vf-add" << "expand=" + option + ",harddup";
+        // Note: on some videos (h264 for instance) the subtitles doesn't disappear,
+        // appearing the new ones on top of the old ones. It seems adding another
+        // filter after expand fixes the problem. I chose harddup 'cos I think
+        // it will be harmless in mplayer.
+    }
+    */
+    else {
+        QString s = filter_name;
+        QString option = value.toString();
+        if (!option.isEmpty()) s += "=" + option;
+        arg << "-vf-add" << s;
+    }
 }
 
 void MplayerProcess::addStereo3DFilter(const QString & in, const QString & out) {
@@ -236,7 +286,6 @@ void MplayerProcess::addStereo3DFilter(const QString & in, const QString & out) 
 	filter += ",scale"; // In my PC it doesn't work without scale :?
 	arg << "-vf-add" << filter;
 }
-
 
 void MplayerProcess::setVideoEqualizerOptions(int contrast, int brightness, int hue, int saturation, int gamma, bool soft_eq) {
     if (contrast != 0) arg << "-contrast" << QString::number(contrast);
@@ -251,9 +300,30 @@ void MplayerProcess::setVideoEqualizerOptions(int contrast, int brightness, int 
 }
 
 void MplayerProcess::addAF(const QString & filter_name, const QVariant & value) {
-	QString s = filter_name;
-	if (!value.isNull()) s += "=" + value.toString();
-	arg << "-af-add" << s;
+    QString s = filter_name;
+    if (filter_name == "earwax") {
+        // Not supported
+    }
+    else
+    if (filter_name == "stereo-mode") {
+        QString o = value.toString();
+        if (o == "left") arg << "-af-add" << "channels=2:2:0:1:0:0";
+        else
+        if (o == "right") arg << "-af-add" << "channels=2:2:1:0:1:1";
+        else
+        if (o == "reverse") arg << "-af-add" << "channels=2:2:0:1:1:0";
+        else
+        if (o == "mono") arg << "-af-add" << "pan=1:0.5:0.5";
+    }
+    else
+    if (filter_name == "equalizer") {
+        AudioEqualizerList l = value.toList();
+        QString o = AudioEqualizerHelper::equalizerListToString(l);
+        arg << "-af-add" << "equalizer=" + o;
+    } else {
+        if (!value.isNull()) s += "=" + value.toString();
+        arg << "-af-add" << s;
+    }
 }
 
 void MplayerProcess::quit() {
@@ -349,12 +419,12 @@ void MplayerProcess::showFilenameOnOSD(int duration) {
     writeToStdin(QString("osd_show_property_text \"%1\" %2 0").arg(s).arg(duration));
 }
 
-void MplayerProcess::showTimeOnOSD() {
-	writeToStdin("osd_show_property_text \"${time_pos} / ${length} (${percent_pos}%)\" 2000 0");
-}
-
 void MplayerProcess::showMediaInfoOnOSD() {
     showFilenameOnOSD();
+}
+
+void MplayerProcess::showTimeOnOSD() {
+	writeToStdin("osd_show_property_text \"${time_pos} / ${length} (${percent_pos}%)\" 2000 0");
 }
 
 void MplayerProcess::setContrast(int value) {
@@ -453,7 +523,6 @@ void MplayerProcess::setLoop(int v) {
 	writeToStdin(QString("loop %1 1").arg(v));
 }
 
-
 void MplayerProcess::setAMarker(int /*sec*/) {
     /* Not supported */
 }
@@ -524,11 +593,11 @@ void MplayerProcess::setOSDScale(double /*value*/) {
 	/* writeToStdin("set_property subfont-osd-scale " + QString::number(value)); */
 }
 
-void MplayerProcess::changeVF(const QString & /*filter*/, bool /*enable*/, const QVariant & /*option*/) {
+void MplayerProcess::changeVF(const QString & filter, bool enable, const QVariant & option) {
     // not supported
-//	Q_UNUSED(filter);
-//	Q_UNUSED(enable);
-//	Q_UNUSED(option);
+    Q_UNUSED(filter);
+    Q_UNUSED(enable);
+    Q_UNUSED(option);
 }
 
 void MplayerProcess::changeAF(const QString & filter, bool enable, const QVariant & option) {

@@ -1242,8 +1242,9 @@ void BaseGui::enableActionsOnPlaying() {
                                  (QFileInfo(pref->screenshot_directory).isDir()));
     screenshotAct->setEnabled(screenshots_enabled);
 
+    //TODO
     // Disable audio actions if there's not audio track
-    if ((core->mdat.audios.numItems()==0) && (core->mset.external_audio.isEmpty())) {
+    /*if ((core->mdat.audios.numItems()==0) && (core->mset.external_audio.isEmpty())) {
         muteAct->setEnabled(false);
         decVolumeAct->setEnabled(false);
         incVolumeAct->setEnabled(false);
@@ -1252,7 +1253,7 @@ void BaseGui::enableActionsOnPlaying() {
         audioDelayAct->setEnabled(false);
         channelsGroup->setActionsEnabled(false);
         stereoGroup->setActionsEnabled(false);
-    }
+    }*/
 
     // Disable video actions if it's an audio file
     if (core->mdat.novideo) {

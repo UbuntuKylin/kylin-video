@@ -69,11 +69,13 @@ public:
     void showFilenameOnOSD(int duration = 2000);
     void showMediaInfoOnOSD();
 	void showTimeOnOSD();
+
 	void setContrast(int value);
 	void setBrightness(int value);
 	void setHue(int value);
 	void setSaturation(int value);
 	void setGamma(int value);
+
 	void setChapter(int ID);
     void nextChapter();
     void previousChapter();

@@ -67,4 +67,4 @@ po2ts -i kylin-video_fr.po kylin-video_fr.ts
 
 TODO
 ==================
-alsaDevices
+alsaDevices BLURAY_SUPPORT

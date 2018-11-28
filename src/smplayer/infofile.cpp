@@ -125,6 +125,8 @@ QString InfoFile::getInfo(MediaData md) {
     s += addItem( kylin_tr("Selected codec"), md.audio_codec );
     s += closePar();
 
+    //TODO
+    /*
 	// Audio Tracks
     if (md.audios.numItems() > 0) {
         s += openPar( kylin_tr("Audio Streams") );
@@ -182,6 +184,8 @@ QString InfoFile::getInfo(MediaData md) {
 		}
 		s += closePar();
 	}
+    */
+
     return "<html><body><font font-size:12px;color=\"#999999\">"+ s + "</font></body></html>";
 }
 

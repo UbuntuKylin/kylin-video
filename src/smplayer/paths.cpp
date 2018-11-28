@@ -79,3 +79,7 @@ QString Paths::configPath() {
 QString Paths::iniPath() {
 	return configPath();
 }
+
+QString Paths::subtitleStyleFile() {
+    return configPath() + "/styles.ass";
+}

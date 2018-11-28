@@ -43,6 +43,7 @@ MplayerProcess::MplayerProcess(QObject * parent)
 #if NOTIFY_AUDIO_CHANGES
 	, audio_info_changed(false)
 #endif
+    , video_info_changed(false)
 	, dvd_current_title(-1)
 	, br_current_title(-1)
 {
@@ -80,6 +81,11 @@ bool MplayerProcess::start() {
 	audios.clear();
 	audio_info_changed = false;
 #endif
+
+//#if NOTIFY_VIDEO_CHANGES
+    videos.clear();
+    video_info_changed = false;
+//#endif
 
 	dvd_current_title = -1;
 	br_current_title = -1;
@@ -186,7 +192,7 @@ void MplayerProcess::parseLine(QByteArray ba) {
 //				qDebug("MplayerProcess::parseLine: subtitle_info_changed");
 				subtitle_info_changed = false;
 				subtitle_info_received = false;
-				emit subtitleInfoChanged(subs);
+                emit subtitleInfoChanged(subs, -1);
 			}
 			if (subtitle_info_received) {
 //				qDebug("MplayerProcess::parseLine: subtitle_info_received");
@@ -201,10 +207,20 @@ void MplayerProcess::parseLine(QByteArray ba) {
 			if (audio_info_changed) {
 //                qDebug("MplayerProcess::parseLine: audio_info_changed");
 				audio_info_changed = false;
-				emit audioInfoChanged(audios);
+                emit audioInfoChanged(audios, -1);
 			}
 		}
 #endif
+
+//#if NOTIFY_VIDEO_CHANGES
+        if (notified_mplayer_is_running) {
+            if (video_info_changed) {
+                qDebug("MplayerProcess::parseLine: video_info_changed");
+                video_info_changed = false;
+                emit videoInfoChanged(videos, -1);
+            }
+        }
+//#endif
 
 		if (!notified_mplayer_is_running) {
 //			qDebug("MplayerProcess::parseLine: starting sec: %f", sec);
@@ -445,20 +461,20 @@ void MplayerProcess::parseLine(QByteArray ba) {
             }
         }
 
-#if !NOTIFY_SUB_CHANGES
-		// Subtitles
-		if (rx_subtitle.indexIn(line) > -1) {
-			md.subs.parse(line);
-		}
-		else
-		if (rx_sid.indexIn(line) > -1) {
-			md.subs.parse(line);
-		}
-		else
-		if (rx_subtitle_file.indexIn(line) > -1) {
-			md.subs.parse(line);
-		}
-#endif
+//#if !NOTIFY_SUB_CHANGES
+//		// Subtitles
+//		if (rx_subtitle.indexIn(line) > -1) {
+//			md.subs.parse(line);
+//		}
+//		else
+//		if (rx_sid.indexIn(line) > -1) {
+//			md.subs.parse(line);
+//		}
+//		else
+//		if (rx_subtitle_file.indexIn(line) > -1) {
+//			md.subs.parse(line);
+//		}
+//#endif
 		// AO
 		if (rx_ao.indexIn(line) > -1) {
 			emit receivedAO( rx_ao.cap(1) );

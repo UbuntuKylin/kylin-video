@@ -36,9 +36,10 @@ void MediaSettings::reset() {
 	current_sec = 0;
     current_subtitle_track = NoneSelected;
 	//current_sub_id = SubNone; 
-	current_sub_id = NoneSelected;
+//	current_sub_id = NoneSelected;
 //#ifdef MPV_SUPPORT
 //	current_secondary_sub_id = NoneSelected;
+    current_secondary_subtitle_track = NoneSelected;
 //#endif
 //#if PROGRAM_SWITCH
 //	current_program_id = NoneSelected;
@@ -52,26 +53,26 @@ void MediaSettings::reset() {
 	aspect_ratio_id = AspectAuto;
 
 	//fullscreen = false;
-    volume = 40;//pref->initial_volume;
+    volume = pref->initial_volume;//40
 	mute = false;
 	external_subtitles = "";
 	external_subtitles_fps = SFPS_None;
 	external_audio = "";
 	sub_delay=0;
 	audio_delay=0;
-    sub_pos = 100;//pref->initial_sub_pos; // 100% by default
-    sub_scale = 5;//pref->initial_sub_scale;
-    sub_scale_ass = 1;//pref->initial_sub_scale_ass;
+    sub_pos = pref->initial_sub_pos; // 100% by default
+    sub_scale = pref->initial_sub_scale;
+    sub_scale_ass = pref->initial_sub_scale_ass;
 
 	closed_caption_channel = 0; // disabled
 
-    brightness = 0;//pref->initial_brightness;
-    contrast = 0;//pref->initial_contrast;
-    gamma = 0;//pref->initial_gamma;
-    hue = 0;//pref->initial_hue;
-    saturation = 0;//pref->initial_saturation;
+    brightness = pref->initial_brightness;
+    contrast = pref->initial_contrast;
+    gamma = pref->initial_gamma;
+    hue = pref->initial_hue;
+    saturation = pref->initial_saturation;
 
-//	audio_equalizer = pref->initial_audio_equalizer;
+    audio_equalizer = pref->initial_audio_equalizer;
 
 	speed = 1.0;
 
@@ -88,9 +89,9 @@ void MediaSettings::reset() {
 	stereo3d_in = "none";
 	stereo3d_out = QString::null;
 
-    current_deinterlacer = NoDeinterlace;//pref->initial_deinterlace;
+    current_deinterlacer = pref->initial_deinterlace;//NoDeinterlace
 
-	add_letterbox = false;
+    add_letterbox = pref->initial_blackborders;//add_letterbox = false;
 
 //#ifdef MPLAYER_SUPPORT
 	karaoke_filter = false;
@@ -98,10 +99,15 @@ void MediaSettings::reset() {
 //#endif
 	volnorm_filter = pref->initial_volnorm;
 
-    audio_use_channels = pref->initial_audio_channels; //ChDefault; // (0)
-    stereo_mode = MediaSettings::Stereo;//pref->initial_stereo_mode; //Stereo; // (0)
+//#ifdef MPV_SUPPORT
+    earwax_filter = false;
+//#endif
 
-    zoom_factor = 1.0;//pref->initial_zoom_factor; // 1.0;
+
+    audio_use_channels = pref->initial_audio_channels; //ChDefault; // (0)
+    stereo_mode = pref->initial_stereo_mode; //Stereo; // (0)
+
+    zoom_factor = pref->initial_zoom_factor; // 1.0;
 
 	starting_time = -1; // Not set yet.
 
@@ -133,9 +139,9 @@ void MediaSettings::reset() {
 	original_video_codec="";
 	original_audio_codec="";
 
-//    mplayer_additional_options="";
-//	mplayer_additional_video_filters="";
-//	mplayer_additional_audio_filters="";
+    mplayer_additional_options="";
+    mplayer_additional_video_filters="";
+    mplayer_additional_audio_filters="";
 
 	win_width=400;
 	win_height=300;
@@ -166,7 +172,7 @@ double MediaSettings::aspectToNum(Aspect aspect) {
 		case MediaSettings::Aspect118: asp = (double) 11 / 8; break;
 		case MediaSettings::AspectAuto: asp = win_aspect(); break;
 		default: asp = win_aspect(); 
-//                 qWarning("MediaSettings::aspectToNum: invalid aspect: %d", aspect);
+                 qWarning("MediaSettings::aspectToNum: invalid aspect: %d", aspect);
 	}
 
 	return asp;
@@ -291,13 +297,13 @@ void MediaSettings::list() {
 //	qDebug("  starting_time: %f", starting_time);
 //	qDebug("  is264andHD: %d", is264andHD);
 
-    qDebug("  Videos:");
+//    qDebug("  Videos:");
     videos.list();
 
-    qDebug("  Audios:");
+//    qDebug("  Audios:");
     audios.list();
 
-    qDebug("  Subtitles:");
+//    qDebug("  Subtitles:");
     subs.list();
 }
 
@@ -318,16 +324,16 @@ void MediaSettings::save(QSettings * set, int player_id) {
 
 	// Save the tracks ID in a demuxer section
 	QString demuxer_section = QString("demuxer_%1").arg(current_demuxer);
-
 	if (!forced_demuxer.isEmpty()) {
 		demuxer_section = QString("demuxer_%1").arg(forced_demuxer);
 	}
 
 	set->beginGroup(demuxer_section);
     set->setValue( "current_subtitle_track", current_subtitle_track );
-	set->setValue( "current_sub_id", current_sub_id );
+//	set->setValue( "current_sub_id", current_sub_id );
 //	#ifdef MPV_SUPPORT
 //	set->setValue( "current_secondary_sub_id", current_secondary_sub_id );
+    set->setValue( "current_secondary_subtitle_track", current_secondary_subtitle_track );
 //	#endif
 //	#if PROGRAM_SWITCH
 //	set->setValue( "current_program_id", current_program_id );
@@ -366,7 +372,7 @@ void MediaSettings::save(QSettings * set, int player_id) {
 	set->setValue( "hue", hue);
 	set->setValue( "saturation", saturation);
 
-//	set->setValue("audio_equalizer", audio_equalizer );
+    set->setValue("audio_equalizer", audio_equalizer );
 
 	set->setValue( "speed", speed);
 
@@ -392,6 +398,10 @@ void MediaSettings::save(QSettings * set, int player_id) {
 	set->setValue( "extrastereo_filter", extrastereo_filter);
 //#endif
 	set->setValue( "volnorm_filter", volnorm_filter);
+
+//#ifdef MPV_SUPPORT
+    set->setValue( "earwax_filter", earwax_filter);
+//#endif
 
 	set->setValue( "audio_use_channels", audio_use_channels);
 	set->setValue( "stereo_mode", stereo_mode);
@@ -425,9 +435,9 @@ void MediaSettings::save(QSettings * set, int player_id) {
 //	}
 //#endif
 
-//    set->setValue( "mplayer_additional_options", mplayer_additional_options);
-//	set->setValue( "mplayer_additional_video_filters", mplayer_additional_video_filters);
-//	set->setValue( "mplayer_additional_audio_filters", mplayer_additional_audio_filters);
+    set->setValue( "mplayer_additional_options", mplayer_additional_options);
+    set->setValue( "mplayer_additional_video_filters", mplayer_additional_video_filters);
+    set->setValue( "mplayer_additional_audio_filters", mplayer_additional_audio_filters);
 
 	set->setValue( "win_width", win_width );
 	set->setValue( "win_height", win_height );
@@ -459,7 +469,6 @@ void MediaSettings::load(QSettings * set, int player_id) {
 
 	// Load the tracks ID from a demuxer section
 	QString demuxer_section = QString("demuxer_%1").arg(current_demuxer);
-
 	if (!forced_demuxer.isEmpty()) {
 		demuxer_section = QString("demuxer_%1").arg(forced_demuxer);
 	}
@@ -467,9 +476,11 @@ void MediaSettings::load(QSettings * set, int player_id) {
 //	qDebug("MediaSettings::load: demuxer_section: %s", demuxer_section.toUtf8().constData());
 
 	set->beginGroup(demuxer_section);
-	current_sub_id = set->value( "current_sub_id", NoneSelected ).toInt();
+    current_subtitle_track = set->value( "current_subtitle_track", NoneSelected ).toInt();
+//	current_sub_id = set->value( "current_sub_id", NoneSelected ).toInt();
 //	#ifdef MPV_SUPPORT
 //	current_secondary_sub_id = set->value( "current_secondary_sub_id", NoneSelected ).toInt();
+    current_secondary_subtitle_track = set->value( "current_secondary_subtitle_track", NoneSelected ).toInt();
 //	#endif
 //	#if PROGRAM_SWITCH
 //	current_program_id = set->value( "current_program_id", NoneSelected ).toInt();
@@ -508,7 +519,7 @@ void MediaSettings::load(QSettings * set, int player_id) {
 	hue = set->value( "hue", hue).toInt();
 	saturation = set->value( "saturation", saturation).toInt();
 
-//	audio_equalizer = set->value("audio_equalizer", audio_equalizer ).toList();
+    audio_equalizer = set->value("audio_equalizer", audio_equalizer ).toList();
 
 	speed = set->value( "speed", speed ).toDouble();
 
@@ -534,6 +545,9 @@ void MediaSettings::load(QSettings * set, int player_id) {
 	extrastereo_filter = set->value( "extrastereo_filter", extrastereo_filter).toBool();
 //#endif
 	volnorm_filter = set->value( "volnorm_filter", volnorm_filter).toBool();
+//#ifdef MPV_SUPPORT
+    earwax_filter = set->value( "earwax_filter", earwax_filter).toBool();
+//#endif
 
 	audio_use_channels = set->value( "audio_use_channels", audio_use_channels).toInt();
 	stereo_mode = set->value( "stereo_mode", stereo_mode).toInt();
@@ -563,9 +577,9 @@ void MediaSettings::load(QSettings * set, int player_id) {
 //	set->endArray();
 //#endif
 
-//    mplayer_additional_options = set->value( "mplayer_additional_options", mplayer_additional_options).toString();
-//	mplayer_additional_video_filters = set->value( "mplayer_additional_video_filters", mplayer_additional_video_filters).toString();
-//	mplayer_additional_audio_filters = set->value( "mplayer_additional_audio_filters", mplayer_additional_audio_filters).toString();
+    mplayer_additional_options = set->value( "mplayer_additional_options", mplayer_additional_options).toString();
+    mplayer_additional_video_filters = set->value( "mplayer_additional_video_filters", mplayer_additional_video_filters).toString();
+    mplayer_additional_audio_filters = set->value( "mplayer_additional_audio_filters", mplayer_additional_audio_filters).toString();
 
 	win_width = set->value( "win_width", win_width ).toInt();
 	win_height = set->value( "win_height", win_height ).toInt();

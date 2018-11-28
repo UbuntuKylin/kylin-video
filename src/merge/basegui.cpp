@@ -296,6 +296,9 @@ BaseGui::BaseGui(QString arch_type, QString snap, QWidget* parent, Qt::WindowFla
     tip_timer->setInterval(2000);
 
     initializeGui();
+
+    connect( this, SIGNAL(videoInfoChanged(int,int,double)), this, SLOT(displayVideoInfo(int,int,double)) );
+    connect( core, SIGNAL(bitrateChanged(int,int)), this, SLOT(displayBitrateInfo(int,int)) );
 }
 
 void BaseGui::parseArguments()
@@ -708,6 +711,24 @@ void BaseGui::createActionsAndMenus() {
     connect(forward2Act, SIGNAL(triggered()), core, SLOT(forward()));
     forward3Act = new MyAction( Qt::Key_PageUp, this, "forward3" );
     connect(forward3Act, SIGNAL(triggered()), core, SLOT(fastforward()));
+
+//    setAMarkerAct = new MyAction( this, "set_a_marker" );
+//	connect( setAMarkerAct, SIGNAL(triggered()),
+//             core, SLOT(setAMarker()) );
+
+//	setBMarkerAct = new MyAction( this, "set_b_marker" );
+//	connect( setBMarkerAct, SIGNAL(triggered()),
+//             core, SLOT(setBMarker()) );
+
+//	clearABMarkersAct = new MyAction( this, "clear_ab_markers" );
+//	connect( clearABMarkersAct, SIGNAL(triggered()),
+//             core, SLOT(clearABMarkers()) );
+
+//    repeatAct = new MyAction( this, "repeat" );
+//	repeatAct->setCheckable( true );
+//	connect( repeatAct, SIGNAL(toggled(bool)),
+//             core, SLOT(toggleRepeat(bool)) );
+
     gotoAct = new MyAction( QKeySequence("Ctrl+J"), this, "jump_to");
     connect(gotoAct, SIGNAL(triggered()), this, SLOT(showGotoDialog()));
 //    gotoAct->change( Images::icon("jumpto"), tr("&Jump to..."));
@@ -1318,7 +1339,7 @@ void BaseGui::createCore() {
     connect(core, SIGNAL(show_logo_signal(bool)), mplayerwindow, SLOT(setLogoVisible(bool)));
     connect(core, SIGNAL(mediaLoaded()), this, SLOT(enableActionsOnPlaying()));
     connect(core, SIGNAL(noFileToPlay()), this, SLOT(gotNoFileToPlay()));
-    connect(core, SIGNAL(audioTracksChanged()), this, SLOT(enableActionsOnPlaying()));
+    connect(core, SIGNAL(audioTracksInitialized()), this, SLOT(enableActionsOnPlaying()));
     connect(core, SIGNAL(mediaFinished()), this, SLOT(disableActionsOnStop()));
     connect(core, SIGNAL(mediaStoppedByUser()), this, SLOT(disableActionsOnStop()));
     connect(core, SIGNAL(stateChanged(Core::State)), this, SLOT(togglePlayAction(Core::State)));
@@ -1596,7 +1617,7 @@ void BaseGui::applyFileProperties() {
         // Demuxer changed
         demuxer_changed = true;
         core->mset.current_audio_id = MediaSettings::NoneSelected;
-        core->mset.current_sub_id = MediaSettings::NoneSelected;
+        core->mset.current_subtitle_track = MediaSettings::NoneSelected;
     }
 
     // Restart the video to apply
@@ -1615,6 +1636,23 @@ void BaseGui::updateMediaInfo()
 //	qDebug("BaseGui::updateMediaInfo");
     tray->setToolTip( windowTitle() );
 	emit videoInfoChanged(core->mdat.video_width, core->mdat.video_height, core->mdat.video_fps.toDouble());
+}
+
+void BaseGui::displayVideoInfo(int width, int height, double fps) {
+    if ((width != 0) && (height != 0)) {
+//		video_info_display->setText(tr("%1x%2 %3 fps", "width + height + fps").arg(width).arg(height).arg(fps));
+    } else {
+//		video_info_display->setText(" ");
+    }
+
+//	QString format = core->mdat.video_format;
+//	if (!format.isEmpty() && !core->mdat.audio_format.isEmpty()) format += " / ";
+//	format += core->mdat.audio_format;
+//	format_info_display->setText(format.toUpper());
+}
+
+void BaseGui::displayBitrateInfo(int vbitrate, int abitrate) {
+//	bitrate_info_display->setText(tr("V: %1 kbps A: %2 kbps").arg(vbitrate/1000).arg(abitrate/1000));
 }
 
 void BaseGui::newMediaLoaded()

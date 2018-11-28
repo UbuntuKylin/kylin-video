@@ -69,6 +69,14 @@ int Tracks::find(int ID) {
 	return -1;
 }
 
+int Tracks::IDAt(int n) {
+    if (existsItemAt(n)) {
+        return itemAt(n).ID();
+    } else {
+        return -1;
+    }
+}
+
 int Tracks::findLang(QString expr) {
 	qDebug( "Tracks::findLang: '%s'", expr.toUtf8().data());
 	QRegExp rx( expr );

@@ -53,7 +53,9 @@ public:
 	virtual void addVF(const QString & filter_name, const QVariant & value = QVariant()) = 0;
 	virtual void addAF(const QString & filter_name, const QVariant & value = QVariant()) = 0;
 	virtual void addStereo3DFilter(const QString & in, const QString & out) = 0;
-//	virtual void setSubStyles(const AssStyles & styles, const QString & assStylesFile = QString::null) = 0;
+    virtual void setSubStyles(const AssStyles & styles, const QString & assStylesFile = QString::null) = 0;
+    virtual void setSubEncoding(const QString & codepage, const QString & enca_lang) = 0;
+    virtual void setVideoEqualizerOptions(int contrast, int brightness, int hue, int saturation, int gamma, bool soft_eq) = 0;
 
 	// Slave commands
 	virtual void quit() = 0;
@@ -95,16 +97,24 @@ public:
 	virtual void enableExtrastereo(bool b) = 0;
 //#endif
 	virtual void enableVolnorm(bool b, const QString & option) = 0;
-	virtual void setAudioEqualizer(const QString & values) = 0;
+//#ifdef MPV_SUPPORT
+    virtual void enableEarwax(bool b) = 0;
+//#endif
+//	virtual void setAudioEqualizer(const QString & values) = 0;
+    virtual void setAudioEqualizer(AudioEqualizerList) = 0;
 	virtual void setAudioDelay(double delay) = 0;
 	virtual void setSubDelay(double delay) = 0;
 	virtual void setLoop(int v) = 0;
+    virtual void setAMarker(int sec) = 0;
+    virtual void setBMarker(int sec) = 0;
+    virtual void clearABMarkers() = 0;
 	virtual void takeScreenshot(ScreenshotType t, bool include_subtitles = false) = 0;
 //#ifdef CAPTURE_STREAM
 //	virtual void switchCapturing() = 0;
 //#endif
 	virtual void setTitle(int ID) = 0;
 	virtual void changeVF(const QString & filter, bool enable, const QVariant & option = QVariant()) = 0;
+    virtual void changeAF(const QString & filter, bool enable, const QVariant & option = QVariant()) = 0;
 	virtual void changeStereo3DFilter(bool enable, const QString & in, const QString & out) = 0;
 //#if DVDNAV_SUPPORT
 //	virtual void discSetMousePos(int x, int y) = 0;
@@ -120,6 +130,9 @@ public:
 	virtual void setOSDScale(double value) = 0;
     virtual void setOSDFractions(bool active) = 0;
 	virtual void setChannelsFile(const QString &) = 0;
+
+    virtual void enableScreenshots(const QString & dir, const QString & templ = QString::null, const QString & format = QString::null) = 0;
+
 
     void setPausingPrefix(const QString & prefix) {
         pausing_prefix = prefix;
@@ -175,20 +188,20 @@ signals:
 	void failedToParseMplayerVersion(QString line_with_mplayer_version);
 
 #if NOTIFY_SUB_CHANGES
-	//! Emitted if a new subtitle has been added or an old one changed
-	void subtitleInfoChanged(const SubTracks &);
+    //! Emitted if a new subtitle has been added or an old one changed
+    void subtitleInfoChanged(const SubTracks &, int selected_id);
 
 	//! Emitted when subtitle info has been received but there wasn't anything new
 	void subtitleInfoReceivedAgain(const SubTracks &);
 #endif
 #if NOTIFY_AUDIO_CHANGES
 	//! Emitted if a new audio track been added or an old one changed
-    void audioInfoChanged(const Tracks &);
+    void audioInfoChanged(const Tracks &, int selected_id);
 #endif
-#if NOTIFY_VIDEO_CHANGES
+//#if NOTIFY_VIDEO_CHANGES
 	//! Emitted if a new video track been added or an old one changed
-	void videoInfoChanged(const Tracks &);
-#endif
+    void videoInfoChanged(const Tracks &, int selected_id);
+//#endif
 //#if NOTIFY_CHAPTER_CHANGES
 //	void chaptersChanged(const Chapters &);
 //#endif

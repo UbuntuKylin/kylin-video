@@ -149,6 +149,9 @@ protected slots:
 	virtual void updateWidgets();
 	virtual void newMediaLoaded();
 	virtual void updateMediaInfo();
+//    virtual void displayABSection(int secs_a, int secs_b);
+    virtual void displayVideoInfo(int width, int height, double fps);
+    virtual void displayBitrateInfo(int vbitrate, int abitrate);
 	void gotNoFileToPlay();
 	void gotForbidden();
 	virtual void enableActionsOnPlaying();

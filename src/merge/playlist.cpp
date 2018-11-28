@@ -136,6 +136,7 @@ Playlist::Playlist(Core *c, QWidget * parent, Qt::WindowFlags f)
     connect(core, SIGNAL(mediaFinished()), this, SLOT(playNext()), Qt::QueuedConnection);
     connect(core, SIGNAL(mplayerFailed(QProcess::ProcessError)), this, SLOT(playerFailed(QProcess::ProcessError)) );
     connect(core, SIGNAL(mplayerFinishedWithError(int)), this, SLOT(playerFinishedWithError(int)) );
+    connect(core, SIGNAL(mediaDataReceived(const MediaData &)), this, SLOT(getMediaInfo(const MediaData &)));
     connect(core, SIGNAL(mediaLoaded()), this, SLOT(getMediaInfo()) );
 
 	// Random seed
@@ -1073,6 +1074,57 @@ void Playlist::showEvent( QShowEvent * ) {
 void Playlist::closeEvent( QCloseEvent * e )  {
 	saveSettings();
 	e->accept();
+}
+
+void Playlist::getMediaInfo(const MediaData & mdat) {
+    /*qDebug("Playlist::getMediaInfo");
+
+    QString filename = mdat.filename;
+    double duration = mdat.duration;
+    QString artist = mdat.clip_artist;
+    QString video_url = mdat.stream_path;
+
+//	#if defined(Q_OS_WIN) || defined(Q_OS_OS2)
+//	filename = Helper::changeSlashes(filename);
+//	#endif
+
+    QString name;
+    if (change_name) {
+        name = mdat.clip_name;
+        if (name.isEmpty()) name = mdat.stream_title;
+
+        if (name.isEmpty()) {
+            QFileInfo fi(filename);
+            if (fi.exists()) {
+                // Local file
+                name = fi.fileName();
+            } else {
+                // Stream
+                name = filename;
+            }
+        }
+        if (!artist.isEmpty()) name = artist + " - " + name;
+    }
+
+    for (int n = 0; n < count(); n++) {
+        PLItem * i = itemData(n);
+        if (i->filename() == filename) {
+            // Found item
+            bool modified_name = !(i->filename().endsWith(i->name()));
+            if (i->duration() < 1) {
+                if (!modified_name && !name.isEmpty()) {
+                    i->setName(name);
+                }
+                i->setDuration(duration);
+            }
+            else
+            // Edited name (sets duration to 1)
+            if (i->duration() == 1) {
+                i->setDuration(duration);
+            }
+            i->setVideoURL(video_url);
+        }
+    }*/
 }
 
 void Playlist::playerFailed(QProcess::ProcessError e) {

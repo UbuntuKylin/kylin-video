@@ -20,10 +20,14 @@
 #ifndef EQSLIDER_H
 #define EQSLIDER_H
 
-#include "ui_eqslider.h"
+//#include "ui_eqslider.h"
 #include <QPixmap>
+#include <QWidget>
+class QSlider;
+class QLabel;
+class VerticalText;
 
-class EqSlider : public QWidget, public Ui::EqSlider
+class EqSlider : public QWidget/*, public Ui::EqSlider*/
 {
 	Q_OBJECT
 	Q_PROPERTY(QPixmap icon READ icon WRITE setIcon)
@@ -57,6 +61,11 @@ protected slots:
 protected:
 	/* virtual void languageChange(); */
 
+private:
+    QLabel *_icon;
+    QLabel *value_label;
+    VerticalText *_label;
+    QSlider *_slider;
 };
 
 #endif

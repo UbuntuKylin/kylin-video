@@ -39,6 +39,8 @@ public:
 	//! Obsolete. Just returns configPath()
 	static QString iniPath();
 
+    static QString subtitleStyleFile();
+
 private:
 	static QString app_path;
 	static QString config_path;

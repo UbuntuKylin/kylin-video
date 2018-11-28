@@ -123,6 +123,14 @@ SubData SubTracks::findItem( SubData::Type t, int ID ) {
 		return sub;
 }
 
+int SubTracks::IDAt(int n) {
+    if (existsItemAt(n)) {
+        return itemAt(n).ID();
+    } else {
+        return -1;
+    }
+}
+
 SubData SubTracks::itemAt( int n ) {
 	if (n >= 0 && n < subs.count()) {
 		return subs[n];

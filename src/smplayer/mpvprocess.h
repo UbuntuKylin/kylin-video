@@ -25,6 +25,19 @@
 
 class QStringList;
 
+
+//#ifndef USE_OLD_VIDEO_EQ
+class SoftVideoEq
+{
+public:
+    SoftVideoEq() { contrast = brightness = hue = saturation = gamma = 0; };
+    SoftVideoEq(int c, int b, int h, int s, int g) {
+        contrast = c; brightness = b; hue = h, saturation = s; gamma = g;
+    }
+    int contrast, brightness, hue, saturation, gamma;
+};
+//#endif
+
 class MPVProcess : public PlayerProcess
 {
 	Q_OBJECT
@@ -45,7 +58,9 @@ public:
 	void addVF(const QString & filter_name, const QVariant & value = QVariant());
 	void addAF(const QString & filter_name, const QVariant & value = QVariant());
 	void addStereo3DFilter(const QString & in, const QString & out);
-//	void setSubStyles(const AssStyles & styles, const QString & assStylesFile = QString::null);
+    void setSubStyles(const AssStyles & styles, const QString & assStylesFile = QString::null);
+    void setSubEncoding(const QString & codepage, const QString & enca_lang);
+    void setVideoEqualizerOptions(int contrast, int brightness, int hue, int saturation, int gamma, bool soft_eq);
 
 	// Slave commands
 	void quit();
@@ -85,16 +100,22 @@ public:
 	void enableExtrastereo(bool b);
 //#endif
 	void enableVolnorm(bool b, const QString & option);
-	void setAudioEqualizer(const QString & values);
+    void enableEarwax(bool b);
+//	void setAudioEqualizer(const QString & values);
+    void setAudioEqualizer(AudioEqualizerList);
 	void setAudioDelay(double delay);
 	void setSubDelay(double delay);
 	void setLoop(int v);
+    void setAMarker(int sec);
+    void setBMarker(int sec);
+    void clearABMarkers();
 	void takeScreenshot(ScreenshotType t, bool include_subtitles = false);
 //#ifdef CAPTURE_STREAM
 //	void switchCapturing();
 //#endif
 	void setTitle(int ID);
 	void changeVF(const QString & filter, bool enable, const QVariant & option = QVariant());
+    void changeAF(const QString & filter, bool enable, const QVariant & option = QVariant());
 	void changeStereo3DFilter(bool enable, const QString & in, const QString & out);
 //#if DVDNAV_SUPPORT
 //	void discSetMousePos(int x, int y);
@@ -111,15 +132,24 @@ public:
     void setOSDFractions(bool active);
 	void setChannelsFile(const QString &);
 
-	QString mpvVersion() { return mpv_version; };
+    void enableScreenshots(const QString & dir, const QString & templ = QString::null, const QString & format = QString::null);
 
     void enableOSDInCommands(bool b) { use_osd_in_commands = b; };
     bool isOSDInCommandsEnabled() { return use_osd_in_commands; };
+
+	QString mpvVersion() { return mpv_version; };
 
 protected:
 	bool isOptionAvailable(const QString & option);
 	void addVFIfAvailable(const QString & vf, const QString & value = QString::null);
 	void messageFilterNotSupported(const QString & filter_name);
+
+    QString lavfi(const QString & filter_name, const QVariant & option = QVariant());
+    QString audioEqualizerFilter(AudioEqualizerList);
+//#ifndef USE_OLD_VIDEO_EQ
+    QString videoEqualizerFilter(SoftVideoEq);
+    void updateSoftVideoEqualizerFilter();
+//#endif
 
 //#ifdef OSD_WITH_TIMER
     void toggleInfoOnOSD();
@@ -143,11 +173,15 @@ protected:
     virtual void initializeOptionVars();
 
 #if NOTIFY_AUDIO_CHANGES
-	void updateAudioTrack(int ID, const QString & name, const QString & lang);
+    void updateAudioTrack(int ID, const QString & name, const QString & lang, bool selected);
 #endif
 #if NOTIFY_SUB_CHANGES
-	void updateSubtitleTrack(int ID, const QString & name, const QString & lang);
+    void updateSubtitleTrack(int ID, const QString & name, const QString & lang, bool selected);
 #endif
+
+//#if NOTIFY_VIDEO_CHANGES
+    void updateVideoTrack(int ID, const QString & name, const QString & lang, bool selected);
+//#endif
 
 private:
 	bool notified_mplayer_is_running;
@@ -166,17 +200,20 @@ private:
 
 	bool subtitle_info_received;
 	bool subtitle_info_changed;
+    int selected_subtitle;
 #endif
 
 #if NOTIFY_AUDIO_CHANGES
 	Tracks audios;
 	bool audio_info_changed;
+    int selected_audio;
 #endif
 
-#if NOTIFY_VIDEO_CHANGES
+//#if NOTIFY_VIDEO_CHANGES
 	Tracks videos;
 	bool video_info_changed;
-#endif
+    int selected_video;
+//#endif
 
 //#if NOTIFY_CHAPTER_CHANGES
 //	Chapters chapters;
@@ -187,6 +224,13 @@ private:
 	int br_current_title;
 
 	QString previous_eq;
+    AudioEqualizerList previous_eq_list;
+
+//#ifndef USE_OLD_VIDEO_EQ
+    bool use_soft_eq;
+    SoftVideoEq current_soft_eq;
+    SoftVideoEq previous_soft_eq;
+//#endif
 
 //#ifdef CAPTURE_STREAM
 //	bool capturing;

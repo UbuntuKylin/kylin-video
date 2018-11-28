@@ -85,12 +85,13 @@ HEADERS += smplayer/config.h \
         smplayer/videopreview.h \
         smplayer/prefwidget.h \
         smplayer/scrollermodule.h \
-#        smplayer/assstyles.h \
-#        smplayer/audioequalizer.h \
-#        smplayer/audioequalizerlist.h \
+        smplayer/filters.h \
+        smplayer/assstyles.h \
+        smplayer/audioequalizer.h \
+        smplayer/audioequalizerlist.h \
 #        smplayer/autohidewidget.h \
-#        smplayer/verticaltext.h \
-#        smplayer/eqslider.h \
+        smplayer/verticaltext.h \
+        smplayer/eqslider.h \
         merge/basegui.h \
         merge/playlist.h \
         merge/lineedit_with_icon.h \
@@ -177,12 +178,13 @@ SOURCES	+= smplayer/version.cpp \
         smplayer/videopreview.cpp \
         smplayer/prefwidget.cpp \
         smplayer/scrollermodule.cpp \
-#        smplayer/assstyles.cpp \
-#        smplayer/audioequalizer.cpp \
-#        smplayer/audioequalizerlist.cpp \
+        smplayer/filters.cpp \
+        smplayer/assstyles.cpp \
+        smplayer/audioequalizer.cpp \
+        smplayer/audioequalizerlist.cpp \
 #        smplayer/autohidewidget.cpp \
-#        smplayer/verticaltext.cpp \
-#        smplayer/eqslider.cpp \
+        smplayer/verticaltext.cpp \
+        smplayer/eqslider.cpp \
         merge/lineedit_with_icon.cpp \
         merge/basegui.cpp \
         merge/playlist.cpp \
@@ -217,7 +219,6 @@ SOURCES	+= smplayer/version.cpp \
         filterhandler.cpp
 
 FORMS = smplayer/timedialog.ui \
-#        smplayer/eqslider.ui \
         merge/preferencesdialog.ui \
         merge/prefgeneral.ui \
         merge/prefperformance.ui \

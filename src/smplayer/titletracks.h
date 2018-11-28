@@ -88,7 +88,7 @@ public:
 
 	TitleData itemAt(int n);
 	TitleData item(int ID);
-	int find(int ID);
+    int find(int ID);
 
 protected:
 	typedef QMap <int, TitleData> TitleMap;

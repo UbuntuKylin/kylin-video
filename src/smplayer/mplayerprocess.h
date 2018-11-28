@@ -45,7 +45,9 @@ public:
 	void addVF(const QString & filter_name, const QVariant & value = QVariant());
 	void addAF(const QString & filter_name, const QVariant & value = QVariant());
 	void addStereo3DFilter(const QString & in, const QString & out);
-//	void setSubStyles(const AssStyles & styles, const QString & assStylesFile = QString::null);
+    void setSubStyles(const AssStyles & styles, const QString & assStylesFile = QString::null);
+    void setSubEncoding(const QString & codepage, const QString & enca_lang);
+    void setVideoEqualizerOptions(int contrast, int brightness, int hue, int saturation, int gamma, bool soft_eq);
 
 	// Slave commands
 	void quit();
@@ -85,16 +87,24 @@ public:
 	void enableKaraoke(bool b);
 	void enableExtrastereo(bool b);
 	void enableVolnorm(bool b, const QString & option);
-	void setAudioEqualizer(const QString & values);
+//#ifdef MPV_SUPPORT
+    void enableEarwax(bool /*b*/) {};
+//#endif
+//	void setAudioEqualizer(const QString & values);
+    void setAudioEqualizer(AudioEqualizerList);
 	void setAudioDelay(double delay);
 	void setSubDelay(double delay);
 	void setLoop(int v);
+    void setAMarker(int sec);
+    void setBMarker(int sec);
+    void clearABMarkers();
 	void takeScreenshot(ScreenshotType t, bool include_subtitles = false);
 //#ifdef CAPTURE_STREAM
 //	void switchCapturing();
 //#endif
 	void setTitle(int ID);
 	void changeVF(const QString & filter, bool enable, const QVariant & option = QVariant());
+    void changeAF(const QString & filter, bool enable, const QVariant & option = QVariant());
 	void changeStereo3DFilter(bool enable, const QString & in, const QString & out);
 //#if DVDNAV_SUPPORT
 //	void discSetMousePos(int x, int y);
@@ -110,6 +120,9 @@ public:
 	void setOSDScale(double value);
     void setOSDFractions(bool) {};
 	void setChannelsFile(const QString &) {};
+
+    void enableScreenshots(const QString & dir, const QString & templ = QString::null, const QString & format = QString::null);
+
 
 //#ifdef CAPTURE_STREAM
 //	void setCaptureDirectory(const QString & dir);
@@ -144,6 +157,11 @@ private:
 	Tracks audios;
 	bool audio_info_changed;
 #endif
+
+//#if NOTIFY_VIDEO_CHANGES
+    Tracks videos;
+    bool video_info_changed;
+//#endif
 
 	int dvd_current_title;
 	int br_current_title;

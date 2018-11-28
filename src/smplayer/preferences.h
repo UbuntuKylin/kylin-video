@@ -26,9 +26,12 @@
 #include <QStringList>
 #include <QSize>
 #include "config.h"
+#include "audioequalizerlist.h"
+#include "assstyles.h"
 
 class Recents;
 class URLHistory;
+class Filters;
 
 class Preferences {
 
@@ -76,34 +79,47 @@ public:
     bool remember_time_pos;
     bool remember_stream_settings;
 
+    QString alang;
+    QString slang;
+
 	// Video
 	bool use_direct_rendering;
 	bool use_double_buffer;
 	bool use_soft_video_eq;
 	bool use_slices;
 
-    struct VDPAU_settings {//kobe 20170706
+    struct VDPAU_settings {
         bool ffh264vdpau;
         bool ffmpeg12vdpau;
         bool ffwmv3vdpau;
         bool ffvc1vdpau;
         bool ffodivxvdpau;
+        bool ffhevcvdpau;
         bool disable_video_filters;
     } vdpau;
 
 	// Audio
 	bool use_soft_vol;
 	int softvol_max;
+    OptionState use_scaletempo;
+    bool use_hwac3; // -afm hwac3
+    bool use_audio_equalizer;
 
 	// Global volume options
 	bool global_volume;
 	int volume;
 	bool mute;
 
+    // Global equalizer
+    bool global_audio_equalizer;
+    AudioEqualizerList audio_equalizer;
+
     bool autosync;
     int autosync_factor;
 
-	int min_step; //<! Step to increase of decrease the controls for color, contrast, brightness and so on
+    // When playing a mp4 file, it will use a m4a file for audio if a there's a file with same name but extension m4a
+    bool autoload_m4a;
+    int min_step; //<! Step to increase of decrease the controls for color, contrast, brightness and so on
 
 	// Misc
 	int osd;
@@ -121,17 +137,32 @@ public:
     /* ***********
        Performance
        *********** */
+//    bool frame_drop;
+//	bool hard_frame_drop;
+    bool coreavc;
+    H264LoopFilter h264_skip_loop_filter;
 	int HD_height; //!< An HD is a video which height is equal or greater than this.
 
 	int threads; //!< number of threads to use for decoding (-lavdopts threads <1-8>)
 	QString hwdec; //!< hardware video decoding (mpv only)
 
-	int cache_for_files;
-	int cache_for_streams;
+
+    bool cache_auto;
+    int cache_for_files;
+    int cache_for_streams;
+//	int cache_for_dvds;
+//	int cache_for_vcds;
+//	int cache_for_audiocds;
 
 	/* *********
 	   Subtitles
 	   ********* */
+
+    bool use_ass_subtitles;
+    bool enable_ass_styles;
+    int ass_line_spacing;
+
+    bool use_forced_subs_only;
 
 	QString subcp; // -subcp
 	bool use_enca;
@@ -140,11 +171,31 @@ public:
     int subfuzziness;
     bool autoload_sub;
 
+    bool subtitles_on_screenshots;
+
+    // ASS styles
+    AssStyles ass_styles;
+    bool force_ass_styles; // Use ass styles even for ass files
+    QString user_forced_ass_style; //!< Specifies a style defined by the user to be used with -ass-force-style
+
+    //! If false, options requiring freetype won't be used
+    bool freetype_support;
+
     /* ********
        Advanced
        ******** */
+
+//#if USE_ADAPTER
+    int adapter; //Screen for overlay. If -1 it won't be used.
+//#endif
+
 	bool use_idx; //!< Use -idx
 	bool use_lavf_demuxer;
+
+    // Let the user pass options to mplayer
+    QString mplayer_additional_options;
+    QString mplayer_additional_video_filters;
+    QString mplayer_additional_audio_filters;
 
     bool log_mplayer;
     bool verbose_log;
@@ -157,6 +208,11 @@ public:
 	//! If true it will autoload edl files with the same name of the file
     //! to play
 	bool use_edl_files;
+
+//#ifdef MPLAYER_SUPPORT
+    //! If true it will pass to mplayer the -playlist option
+    bool use_playlist_option;
+//#endif
 
 	//! Preferred connection method: ipv4 or ipv6
 	bool prefer_ipv4;
@@ -188,6 +244,10 @@ public:
 //#endif
 //#ifdef MPLAYER_SUPPORT
     QString mplayer_osd_media_info;
+//#endif
+
+//#ifdef MPV_SUPPORT
+    bool emulate_mplayer_ab_section;
 //#endif
 
 	/* *********
@@ -233,9 +293,40 @@ public:
     /* **************
        Initial values
        ************** */
-	bool initial_postprocessing; //!< global postprocessing filter
-	bool initial_volnorm;
-	int initial_audio_channels;
+    double initial_sub_scale;
+    double initial_sub_scale_ass;
+    int initial_volume;
+    int initial_contrast;
+    int initial_brightness;
+    int initial_hue;
+    int initial_saturation;
+    int initial_gamma;
+
+    AudioEqualizerList initial_audio_equalizer;
+
+    //! Default value for zoom (1.0 = no zoom)
+    double initial_zoom_factor;
+
+    //! Default value for position of subtitles on screen
+    //! 100 = 100% at the bottom
+    int initial_sub_pos;
+
+//#ifdef INITIAL_BLACKBORDERS
+    bool initial_blackborders;
+//#endif
+
+    bool initial_postprocessing; //!< global postprocessing filter
+    bool initial_volnorm;
+
+    int initial_deinterlace;
+
+    int initial_audio_channels;
+    int initial_stereo_mode;
+
+//#if SELECT_TRACKS_ON_STARTUP
+    int initial_audio_track;
+    int initial_subtitle_track;
+//#endif
 
     /* ************
        MPlayer info
@@ -251,6 +342,11 @@ public:
        ******* */
 	Recents * history_recents;
 	URLHistory * history_urls;
+
+    /* *******
+       Filters
+       ******* */
+    Filters * filters;
 
 
     QString arch_type;

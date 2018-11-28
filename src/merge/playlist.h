@@ -27,6 +27,8 @@
 #include <QProcess>
 #include <QGraphicsOpacityEffect>
 
+#include "../smplayer/mediadata.h"
+
 class MyAction;
 class Core;
 class QMenu;
@@ -146,6 +148,7 @@ protected slots:
 
 	virtual void maybeSaveSettings();
 
+    void getMediaInfo(const MediaData &);
 	void playerFailed(QProcess::ProcessError);
 	void playerFinishedWithError(int);
 

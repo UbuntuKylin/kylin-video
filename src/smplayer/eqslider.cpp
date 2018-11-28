@@ -20,20 +20,33 @@
 #include <QSlider>
 #include <QLabel>
 #include <QPixmap>
+#include <QObject>
+#include <QHBoxLayout>
 #include "verticaltext.h"
-
 
 EqSlider::EqSlider( QWidget* parent, Qt::WindowFlags f) 
 	: QWidget(parent, f)
 {
-	setupUi(this);
-
+    this->setFixedSize(68, 289);
+    _icon = new QLabel(this);
+    value_label = new QLabel(this);
+    _label = new VerticalText(this);
+    _slider = new QSlider(Qt::Vertical);
 	_icon->setText( QString::null );
 	_slider->setFocusPolicy( Qt::StrongFocus );
 	_slider->setTickPosition( QSlider::TicksRight );
 	_slider->setTickInterval( 10 );
 	_slider->setSingleStep( 1 );
 	_slider->setPageStep( 10 );
+
+    QHBoxLayout *hlayout = new QHBoxLayout;
+    hlayout->addWidget(_label);
+    hlayout->addWidget(_slider);
+
+    QVBoxLayout *layout = new QVBoxLayout(this);
+    layout->addWidget(_icon);
+    layout->addLayout(hlayout);
+    layout->addWidget(value_label);
 
 	connect( _slider, SIGNAL(valueChanged(int)),
              this, SLOT(sliderValueChanged(int)) );
@@ -76,4 +89,4 @@ void EqSlider::sliderValueChanged(int v) {
 	emit valueChanged( v );
 }
 
-#include "moc_eqslider.cpp"
+//#include "moc_eqslider.cpp"

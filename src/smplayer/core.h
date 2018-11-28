@@ -36,7 +36,7 @@ class Core : public QObject
     Q_OBJECT
     
 public:
-	enum State { Stopped = 0, Playing = 1, Paused = 2 };
+    enum State { Stopped = 0, Playing = 1, Paused = 2, Buffering = 3 };
 
     Core(MplayerWindow *mpw, const QString &snap = QString::null, QWidget* parent = 0);
 	~Core();
@@ -97,8 +97,13 @@ public slots:
 	void pause();
 	void frameStep();
 	void frameBackStep();
-	void screenshot();	//!< Take a screenshot of current frame
-	void screenshots();	//!< Start/stop taking screenshot of each frame
+
+    void screenshot();      //!< Take a screenshot of current frame
+     void screenshots();     //!< Start/stop taking screenshot of each frame
+
+     void screenshot(bool include_subtitles);
+     void screenshotWithSubtitles();
+     void screenshotWithoutSubtitles();
 //#ifdef CAPTURE_STREAM
 //	void switchCapturing();
 //#endif
@@ -126,8 +131,8 @@ public slots:
 
 	void clearABMarkers();
 
-//	void toggleRepeat();
-//	void toggleRepeat(bool b);
+    void toggleRepeat();
+    void toggleRepeat(bool b);
 
 	void toggleFlip();
 	void toggleFlip(bool b);
@@ -142,8 +147,14 @@ public slots:
 //	void toggleExtrastereo();
 //	void toggleExtrastereo(bool b);
 //#endif
-//	void toggleVolnorm();
-//	void toggleVolnorm(bool b);
+
+//#ifdef MPV_SUPPORT
+    void toggleEarwax();
+    void toggleEarwax(bool b);
+//#endif
+
+    void toggleVolnorm();
+    void toggleVolnorm(bool b);
 
 	void setAudioChannels(int channels);
 	void setStereoMode(int mode);
@@ -198,8 +209,10 @@ public slots:
 	void setVolume(int volume, bool force = false);
 	void switchMute();
 	void mute(bool b);
-	void incVolume();
-	void decVolume();
+    void incVolume(int step);
+    void decVolume(int step);
+    void incVolume();
+    void decVolume();
 
     bool getMute();//kobe
     int getVolumn();//kobe
@@ -252,8 +265,8 @@ public slots:
 	void changeExternalSubFPS(int fps_id);
 
 	//! Audio equalizer
-//	void setAudioEqualizer(AudioEqualizerList values, bool restart = false);
-//	void setAudioAudioEqualizerRestart(AudioEqualizerList values) { setAudioEqualizer(values, true); };
+    void setAudioEqualizer(AudioEqualizerList values, bool restart = false);
+    void setAudioAudioEqualizerRestart(AudioEqualizerList values) { setAudioEqualizer(values, true); };
 	void updateAudioEqualizer();
 
 	void setAudioEq(int eq, int value);
@@ -269,10 +282,10 @@ public slots:
 	void setAudioEq9(int value);
 
 	void changeDeinterlace(int);
-	void changeSubtitle(int);
+    void changeSubtitle(int track);
 	void nextSubtitle();
 //#ifdef MPV_SUPPORT
-//	void changeSecondarySubtitle(int);
+    void changeSecondarySubtitle(int track);
 //#endif
 	void changeAudio(int ID, bool allow_restart = true);
 	void nextAudio();
@@ -294,8 +307,9 @@ public slots:
 	void nextWheelFunction();
 
 //#ifdef BOOKMARKS
-//	void nextBookmark();
-//	void prevBookmark();
+//    void nextBookmark();
+//    void prevBookmark();
+//    void saveBookmarks();
 //#endif
 
 //	#if 0
@@ -307,8 +321,10 @@ public slots:
 	void changeRotate(int r);
 
 //#if USE_ADAPTER
-//	void changeAdapter(int n);
+    void changeAdapter(int n);
 //#endif
+
+    void changeAO(const QString & new_ao);
 
 	void incZoom();
 	void decZoom();
@@ -354,7 +370,7 @@ public slots:
 public:
 	//! Returns the number of the first chapter in 
 	//! files. In some versions of mplayer is 0, in others 1
-//	static int firstChapter();
+    static int firstChapter();
 	int firstDVDTitle();
 	int firstBlurayTitle();
 
@@ -407,9 +423,9 @@ protected slots:
 //#if NOTIFY_AUDIO_CHANGES
     void initAudioTrack(const Tracks &, int selected_id);
 //#endif
-#if NOTIFY_VIDEO_CHANGES
+//#if NOTIFY_VIDEO_CHANGES
     void initVideoTrack(const Tracks &, int selected_id);
-#endif
+//#endif
 #if NOTIFY_SUB_CHANGES
     void initSubtitleTrack(const SubTracks &, int selected_id);
 	void setSubtitleTrackAgain(const SubTracks &);
@@ -470,6 +486,7 @@ signals:
 	void aboutToStartPlaying(); // Signal emited just before to start mplayer
 	void mediaLoaded();
 	void mediaInfoChanged();
+    void mediaDataReceived(const MediaData &);
 	//! Sends the filename and title of the stream playing in this moment
 	void mediaPlaying(const QString & filename, const QString & title);
 	void stateChanged(Core::State state);
@@ -492,11 +509,13 @@ signals:
 	void newDuration(double); // Duration has changed
 	void showFrame(int frame);
 	void ABMarkersChanged(int secs_a, int secs_b);
+    void bitrateChanged(int vbitrate, int abitrate);
 	void needResize(int w, int h);
 	void noVideo();
 	void volumeChanged(int);
 //#if NOTIFY_AUDIO_CHANGES
-	void audioTracksChanged();
+//	void audioTracksChanged();
+    void audioTracksInitialized();
 //#endif
 
 	//! Sent when requested to play, but there is no file to play

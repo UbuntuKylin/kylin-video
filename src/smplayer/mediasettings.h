@@ -27,7 +27,7 @@
 #include <QSize>
 #include "config.h"
 
-//#include "audioequalizerlist.h"
+#include "audioequalizerlist.h"
 #include "tracks.h"
 #include "subtracks.h"
 
@@ -60,10 +60,11 @@ public:
 	virtual void reset();
 
 	double current_sec;
-	int current_sub_id;
+//	int current_sub_id;
     int current_subtitle_track;
 //#ifdef MPV_SUPPORT
 //	int current_secondary_sub_id;
+    int current_secondary_subtitle_track;
 //#endif
 
 //#if PROGRAM_SWITCH
@@ -86,7 +87,7 @@ public:
 
 	int brightness, contrast, gamma, hue, saturation;
 
-//	AudioEqualizerList audio_equalizer;
+    AudioEqualizerList audio_equalizer;
 
 	QString external_subtitles;
 	int external_subtitles_fps;
@@ -129,6 +130,10 @@ public:
 //#endif
 	bool volnorm_filter;
 
+//#ifdef MPV_SUPPORT
+    bool earwax_filter;
+//#endif
+
 	int audio_use_channels;
 	int stereo_mode;
 
@@ -166,10 +171,10 @@ public:
 	QString original_video_codec;
 	QString original_audio_codec;
 
-	// Options to mplayer (for this file only)
-//    QString mplayer_additional_options;
-//	QString mplayer_additional_video_filters;
-//	QString mplayer_additional_audio_filters;
+    // Options to mplayer (for this file only)
+    QString mplayer_additional_options;
+    QString mplayer_additional_video_filters;
+    QString mplayer_additional_audio_filters;
 
     Tracks videos;
     Tracks audios;

@@ -22,6 +22,25 @@
 #include "inforeader.h"
 #include "mpvprocess.h"// src/smplayer/mpvoptions.cpp:109: Qualifying with unknown namespace/class ::MPVProcess
 
+
+#define EQ_OLD 0
+#define EQ_ANEQUALIZER 1
+#define EQ_FIREQUALIZER 2
+#define EQ_FIREQUALIZER_LIST 3
+#define EQ_SUPEREQUALIZER 4
+#define EQ_FEQUALIZER 5
+
+#define USE_EQUALIZER EQ_FIREQUALIZER
+
+#define LETTERBOX_OLD 1
+#define LETTERBOX_PAD 2
+#define LETTERBOX_PAD_WITH_ASPECT 3
+
+//#ifdef Q_OS_WIN
+//#define USE_LETTERBOX LETTERBOX_PAD_WITH_ASPECT
+//#else
+#define USE_LETTERBOX LETTERBOX_PAD
+//#endif
 #define OSD_PREFIX use_osd_in_commands ? "" : "no-osd"
 
 void MPVProcess::initializeOptionVars() {
@@ -125,6 +144,28 @@ void MPVProcess::addVFIfAvailable(const QString & vf, const QString & value) {
 void MPVProcess::messageFilterNotSupported(const QString & filter_name) {
     QString text = QString(tr("the '%1' filter is not supported by mpv").arg(filter_name));
     writeToStdin(QString("show_text \"%1\" 3000").arg(text));
+}
+
+
+void MPVProcess::enableScreenshots(const QString & dir, const QString & templ, const QString & format) {
+    if (!templ.isEmpty()) {
+        arg << "--screenshot-template=" + templ;
+    }
+
+    if (!format.isEmpty()) {
+        arg << "--screenshot-format=" + format;
+    }
+
+    if (!dir.isEmpty()) {
+        QString d = QDir::toNativeSeparators(dir);
+        if (!isOptionAvailable("--screenshot-directory")) {
+            qDebug() << "MPVProcess::enableScreenshots: the option --screenshot-directory is not available in this version of mpv";
+            qDebug() << "MPVProcess::enableScreenshots: changing working directory to" << d;
+            setWorkingDirectory(d);
+        } else {
+            arg << "--screenshot-directory=" + d;
+        }
+    }
 }
 
 void MPVProcess::setOption(const QString & option_name, const QVariant & value) {
@@ -381,6 +422,13 @@ void MPVProcess::addUserOption(const QString & option) {
     }
 }
 
+void MPVProcess::setSubEncoding(const QString & codepage, const QString & enca_lang) {
+    Q_UNUSED(enca_lang)
+    if (!codepage.isEmpty()) {
+        arg << "--sub-codepage=" + codepage;
+    }
+}
+
 void MPVProcess::addVF(const QString & filter_name, const QVariant & value) {
     QString option = value.toString();
 
@@ -484,6 +532,34 @@ void MPVProcess::addVF(const QString & filter_name, const QVariant & value) {
 
 void MPVProcess::addStereo3DFilter(const QString & in, const QString & out) {
     arg << "--vf-add=stereo3d=" + in + ":" + out;
+}
+
+
+void MPVProcess::setVideoEqualizerOptions(int contrast, int brightness, int hue, int saturation, int gamma, bool soft_eq) {
+//#ifndef USE_OLD_VIDEO_EQ
+    use_soft_eq = soft_eq;
+//#endif
+
+    if (soft_eq) {
+//        #ifdef USE_OLD_VIDEO_EQ
+//        arg << "--vf-add=lavfi=[eq]";
+//        #else
+        current_soft_eq = SoftVideoEq(contrast, brightness, hue, saturation, gamma);
+        QString f = videoEqualizerFilter(current_soft_eq);
+        arg << "--vf-add=" + f;
+        previous_soft_eq = current_soft_eq;
+//        #endif
+    }
+//#ifndef USE_OLD_VIDEO_EQ
+    else
+//#endif
+    {
+        if (contrast != 0) arg << "--contrast=" + QString::number(contrast);
+        if (brightness != 0) arg << "--brightness=" + QString::number(brightness);
+        if (hue != 0) arg << "--hue=" + QString::number(hue);
+        if (saturation != 0) arg << "--saturation=" + QString::number(saturation);
+        if (gamma != 0) arg << "--gamma=" + QString::number(gamma);
+    }
 }
 
 void MPVProcess::addAF(const QString & filter_name, const QVariant & value) {
@@ -671,22 +747,57 @@ void MPVProcess::displayInfoOnOSD() {
 //#endif
 
 void MPVProcess::setContrast(int value) {
+//#ifndef USE_OLD_VIDEO_EQ
+    if (use_soft_eq) {
+        current_soft_eq.contrast = value;
+        updateSoftVideoEqualizerFilter();
+    }
+    else
+//#endif
     writeToStdin("set contrast " + QString::number(value));
 }
 
 void MPVProcess::setBrightness(int value) {
+//#ifndef USE_OLD_VIDEO_EQ
+    if (use_soft_eq) {
+        current_soft_eq.brightness = value;
+        updateSoftVideoEqualizerFilter();
+    }
+    else
+//#endif
     writeToStdin("set brightness " + QString::number(value));
 }
 
 void MPVProcess::setHue(int value) {
+//#ifndef USE_OLD_VIDEO_EQ
+    if (use_soft_eq) {
+        current_soft_eq.hue = value;
+        updateSoftVideoEqualizerFilter();
+    }
+    else
+//#endif
     writeToStdin("set hue " + QString::number(value));
 }
 
 void MPVProcess::setSaturation(int value) {
+//#ifndef USE_OLD_VIDEO_EQ
+    if (use_soft_eq) {
+        current_soft_eq.saturation = value;
+        updateSoftVideoEqualizerFilter();
+    }
+    else
+//#endif
     writeToStdin("set saturation " + QString::number(value));
 }
 
 void MPVProcess::setGamma(int value) {
+//#ifndef USE_OLD_VIDEO_EQ
+    if (use_soft_eq) {
+        current_soft_eq.gamma = value;
+        updateSoftVideoEqualizerFilter();
+    }
+    else
+//#endif
     writeToStdin("set gamma " + QString::number(value));
 }
 
@@ -741,17 +852,58 @@ void MPVProcess::enableExtrastereo(bool /*b*/) {
 //#endif
 
 void MPVProcess::enableVolnorm(bool b, const QString & option) {
-    if (b) writeToStdin("af add drc=" + option); else writeToStdin("af del drc=" + option);
+//    if (b) writeToStdin("af add drc=" + option); else writeToStdin("af del drc=" + option);
+    changeAF("volnorm", b, option);
 }
 
-void MPVProcess::setAudioEqualizer(const QString & values) {
-    if (values == previous_eq) return;
+void MPVProcess::enableEarwax(bool b) {
+    changeAF("earwax", b);
+}
+
+//void MPVProcess::setAudioEqualizer(const QString & values) {
+//    if (values == previous_eq) return;
+
+//    if (!previous_eq.isEmpty()) {
+//        writeToStdin("af del equalizer=" + previous_eq);
+//    }
+//    writeToStdin("af add equalizer=" + values);
+//    previous_eq = values;
+//}
+
+void MPVProcess::setAudioEqualizer(AudioEqualizerList l) {
+    qDebug("MPVProcess::setAudioEqualizer");
+
+    #if !defined(SIMPLE_EQUALIZER) && USE_EQUALIZER == EQ_ANEQUALIZER
+
+    QStringList commands = AudioEqualizerHelper::equalizerListForCommand(l, previous_eq_list, AudioEqualizerHelper::Anequalizer);
+    foreach(QString command, commands) {
+        writeToStdin("af-command \"anequalizer\" \"change\" \"" + command + "\"");
+    }
+
+    previous_eq_list = l;
+
+    #elif !defined(SIMPLE_EQUALIZER) && USE_EQUALIZER == EQ_FIREQUALIZER
+
+    QStringList commands = AudioEqualizerHelper::equalizerListForCommand(l, previous_eq_list, AudioEqualizerHelper::Firequalizer);
+    foreach(QString command, commands) {
+        writeToStdin("af-command \"firequalizer\" \"gain_entry\" \"" + command + "\"");
+    }
+
+    previous_eq_list = l;
+
+    #else
+
+    QString eq_filter = audioEqualizerFilter(l);
+    if (previous_eq == eq_filter) return;
 
     if (!previous_eq.isEmpty()) {
-        writeToStdin("af del equalizer=" + previous_eq);
+        writeToStdin("af del \"" + previous_eq + "\"");
     }
-    writeToStdin("af add equalizer=" + values);
-    previous_eq = values;
+
+    writeToStdin("af add \"" + eq_filter + "\"");
+    previous_eq = eq_filter;
+
+#endif
 }
 
 void MPVProcess::setAudioDelay(double delay) {
@@ -770,6 +922,20 @@ void MPVProcess::setLoop(int v) {
         default: o = QString::number(v);
     }
     writeToStdin(QString("set loop %1").arg(o));
+}
+
+
+void MPVProcess::setAMarker(int sec) {
+    writeToStdin(QString("set ab-loop-a %1").arg(sec));
+}
+
+void MPVProcess::setBMarker(int sec) {
+    writeToStdin(QString("set ab-loop-b %1").arg(sec));
+}
+
+void MPVProcess::clearABMarkers() {
+    writeToStdin("set ab-loop-a no");
+    writeToStdin("set ab-loop-b no");
 }
 
 void MPVProcess::takeScreenshot(ScreenshotType t, bool include_subtitles) {//20170722
@@ -943,6 +1109,22 @@ void MPVProcess::changeVF(const QString & filter, bool enable, const QVariant & 
     }
 }
 
+
+void MPVProcess::changeAF(const QString & filter, bool enable, const QVariant & option) {
+    qDebug() << "MPVProcess::changeAF:" << filter << enable;
+
+    QString f;
+
+    QString lavfi_filter = lavfi(filter, option);
+    if (!lavfi_filter.isEmpty()) {
+        f = lavfi_filter;
+    }
+
+    if (!f.isEmpty()) {
+        writeToStdin(QString("af %1 \"%2\"").arg(enable ? "add" : "del").arg(f));
+    }
+}
+
 void MPVProcess::changeStereo3DFilter(bool enable, const QString & in, const QString & out) {
     QString filter = "stereo3d=" + in + ":" + out;
     writeToStdin(QString("vf %1 \"%2\"").arg(enable ? "add" : "del").arg(filter));
@@ -951,3 +1133,281 @@ void MPVProcess::changeStereo3DFilter(bool enable, const QString & in, const QSt
 void MPVProcess::setChannelsFile(const QString & filename) {
     arg << "--dvbin-file=" + filename;
 }
+
+
+void MPVProcess::setSubStyles(const AssStyles & styles, const QString &) {
+    /*SUBOPTION(sub_font, "--sub-font", "--sub-text-font");
+    SUBOPTION(sub_color, "--sub-color", "--sub-text-color");
+
+    QString sub_shadow_color = "--sub-text-shadow-color";
+    if (isOptionAvailable("--sub-shadow-color")) sub_shadow_color = "--sub-shadow-color";
+
+    QString sub_back_color = "--sub-text-back-color";
+    if (isOptionAvailable("--sub-back-color")) sub_back_color = "--sub-back-color";
+
+    SUBOPTION(sub_border_color, "--sub-border-color", "--sub-text-border-color");
+    SUBOPTION(sub_border_size, "--sub-border-size", "--sub-text-border-size");
+    SUBOPTION(sub_shadow_offset, "--sub-shadow-offset", "--sub-text-shadow-offset");
+
+    SUBOPTION(sub_font_size, "--sub-font-size", "--sub-text-font-size");
+    SUBOPTION(sub_bold, "--sub-bold", "--sub-text-bold");
+    SUBOPTION(sub_italic, "--sub-italic", "--sub-text-italic");
+    SUBOPTION(sub_align_x, "--sub-align-x", "--sub-text-align-x");
+    SUBOPTION(sub_align_y, "--sub-align-y", "--sub-text-align-y");
+
+    if (!sub_font.isEmpty()) {
+        QString font = styles.fontname;
+        //arg << "--sub-text-font=" + font.replace(" ", "");
+        arg << sub_font + "=" + font;
+    }
+
+    if (!sub_color.isEmpty()) {
+        arg << sub_color + "=#" + ColorUtils::colorToAARRGGBB(styles.primarycolor);
+    }
+
+    arg << sub_shadow_color + "=#" + ColorUtils::colorToAARRGGBB(styles.backcolor);
+
+    if (styles.borderstyle == AssStyles::Opaque) {
+        arg << sub_back_color + "=#" + ColorUtils::colorToAARRGGBB(styles.backgroundcolor);
+    }
+
+    if (!sub_border_color.isEmpty()) {
+        arg << sub_border_color + "=#" + ColorUtils::colorToAARRGGBB(styles.outlinecolor);
+    }
+
+    if (!sub_border_size.isEmpty()) {
+        arg << sub_border_size + "=" + QString::number(styles.outline * 2.5);
+    }
+
+    if (!sub_shadow_offset.isEmpty()) {
+        arg << sub_shadow_offset + "=" + QString::number(styles.shadow * 2.5);
+    }
+
+    if (!sub_font_size.isEmpty()) {
+        arg << sub_font_size + "=" + QString::number(styles.fontsize * 2.5);
+    }
+
+    if (!sub_bold.isEmpty()) {
+        arg << QString("%1=%2").arg(sub_bold).arg(styles.bold ? "yes" : "no");
+    }
+
+    if (!sub_italic.isEmpty()) {
+        arg << QString("%1=%2").arg(sub_italic).arg(styles.italic ? "yes" : "no");
+    }
+
+    QString halign;
+    switch (styles.halignment) {
+        case AssStyles::Left: halign = "left"; break;
+        case AssStyles::Right: halign = "right"; break;
+    }
+
+    QString valign;
+    switch (styles.valignment) {
+        case AssStyles::VCenter: valign = "center"; break;
+        case AssStyles::Top: valign = "top"; break;
+    }
+
+    if (!sub_align_x.isEmpty() && !halign.isEmpty()) {
+        arg << sub_align_x + "=" + halign;
+    }
+
+    if (!sub_align_y.isEmpty() && !valign.isEmpty()) {
+        arg << sub_align_y + "=" + valign;
+    }*/
+}
+
+QString MPVProcess::lavfi(const QString & filter_name, const QVariant & option) {
+    QString f;
+
+    if (filter_name == "flip") {
+        f = "vflip";
+    }
+    else
+    if (filter_name == "mirror") {
+        f = "hflip";
+    }
+    else
+    if (filter_name == "noise") {
+        f = "noise=alls=9:allf=t";
+    }
+    else
+    if (filter_name == "blur") {
+        f = "unsharp=la=-1.5:ca=-1.5";
+    }
+    else
+    if (filter_name == "sharpen") {
+        f = "unsharp=la=1.5:ca=1.5";
+    }
+    else
+    if (filter_name == "deblock") {
+        f = "pp=" + option.toString();
+    }
+    else
+    if (filter_name == "dering") {
+        f = "pp=dr";
+    }
+    else
+    if (filter_name == "postprocessing") {
+        f = "pp";
+    }
+    else
+    if (filter_name == "lb" || filter_name == "l5") {
+        f = "pp=" + filter_name;
+    }
+    else
+
+    if (filter_name == "yadif") {
+        if (option.toString() == "1") {
+            f = "yadif=mode=send_field";
+        } else {
+            f = "yadif=mode=send_frame";
+        }
+    }
+    else
+
+    if (filter_name == "scale" || filter_name == "gradfun" ||
+       filter_name == "hqdn3d" || filter_name == "kerndeint" ||
+       filter_name == "phase" || filter_name == "extrastereo" ||
+       filter_name == "earwax")
+    {
+        f = filter_name;
+        QString o = option.toString();
+        if (!o.isEmpty()) f += "=" + o;
+    }
+    else
+    if (filter_name == "letterbox") {
+        QSize desktop_size = option.toSize();
+        #if USE_LETTERBOX == LETTERBOX_PAD_WITH_ASPECT
+        double aspect = (double) desktop_size.width() / desktop_size.height();
+        f = QString("pad=aspect=%1:x=(ow-iw)/2:y=(oh-ih)/2").arg(aspect);
+        #endif
+        #if USE_LETTERBOX == LETTERBOX_PAD
+        //f = QString("pad=ih*%1/%2:ih:(ow-iw)/2:(oh-ih)/2").arg(desktop_size.width()).arg(desktop_size.height());
+        f = QString("pad=iw:iw*sar/%1*%2:0:(oh-ih)/2").arg(desktop_size.width()).arg(desktop_size.height());
+        #endif
+    }
+    else
+    if (filter_name == "rotate") {
+        QString o = option.toString();
+        if (o == "0") {
+            f = "rotate=3*PI/2:ih:iw,vflip";
+        }
+        else
+        if (o == "1") {
+            f = "rotate=PI/2:ih:iw"; // 90º
+        }
+        else
+        if (o == "2") {
+            f = "rotate=3*PI/2:ih:iw"; // 270º
+        }
+        else
+        if (o == "3") {
+            f = "rotate=PI/2:ih:iw,vflip";
+        }
+    }
+    else
+    if (filter_name == "volnorm") {
+        f = "acompressor";
+        QString o = option.toString();
+        if (!o.isEmpty()) f += "=" + o;
+    }
+    else
+    if (filter_name == "karaoke") {
+        f = "stereotools=mlev=0.015625";
+    }
+    else
+    if (filter_name == "stereo-mode") {
+        QString o = option.toString();
+        if (o == "left") f = "pan=mono|c0=c0";
+        else
+        if (o == "right") f = "pan=mono|c0=c1";
+        else
+        if (o == "reverse") f = "pan=stereo|c0=c1|c1=c0";
+        else
+        if (o == "mono") f = "pan=mono|c0=.5*c0+.5*c1";
+    }
+
+    if (!f.isEmpty()) f = "lavfi=[" + f + "]";
+    return f;
+}
+
+QString MPVProcess::audioEqualizerFilter(AudioEqualizerList l) {
+    QString f;
+
+#if USE_EQUALIZER == EQ_OLD
+    QString values = AudioEqualizerHelper::equalizerListToString(l);
+    f = "equalizer=" + values;
+#endif
+
+#if USE_EQUALIZER == EQ_ANEQUALIZER
+    QString values = AudioEqualizerHelper::equalizerListToString(l, AudioEqualizerHelper::Anequalizer);
+    f = "lavfi=[anequalizer=" + values + "]";
+    #ifndef SIMPLE_EQUALIZER
+    f = "@anequalizer:" + f;
+    #endif
+#endif
+
+#if USE_EQUALIZER == EQ_FIREQUALIZER
+    QString values = AudioEqualizerHelper::equalizerListToString(l, AudioEqualizerHelper::Firequalizer);
+    f = "lavfi=[firequalizer=gain='cubic_interpolate(f)':zero_phase=on:wfunc=tukey:delay=0.027:" + values + "]";
+    #ifndef SIMPLE_EQUALIZER
+    f = "@firequalizer:" + f;
+    #endif
+#endif
+
+#ifndef SIMPLE_EQUALIZER
+#if USE_EQUALIZER == EQ_SUPEREQUALIZER
+    QString values = AudioEqualizerHelper::equalizerListToString(l, AudioEqualizerHelper::Superequalizer);
+    f = "lavfi=[superequalizer=" + values + "]";
+#endif
+
+#if USE_EQUALIZER == EQ_FIREQUALIZER_LIST
+    QStringList e = AudioEqualizerHelper::equalizerListToStringList(l, AudioEqualizerHelper::Firequalizer);
+    foreach(QString option, e) {
+        if (!f.isEmpty()) f += ",";
+        f += "firequalizer=" + option;
+    }
+    f = "@firequalizer:lavfi=[" + f + "]";
+#endif
+
+#if USE_EQUALIZER == EQ_FEQUALIZER
+    QStringList e = AudioEqualizerHelper::equalizerListToStringList(l, AudioEqualizerHelper::FEqualizer);
+    foreach(QString option, e) {
+        if (!f.isEmpty()) f += ",";
+        f += "equalizer=" + option;
+    }
+    f = "lavfi=[aresample=44100," + f + "]";
+#endif
+#endif
+
+    return f;
+}
+
+//#ifndef USE_OLD_VIDEO_EQ
+QString MPVProcess::videoEqualizerFilter(SoftVideoEq eq) {
+    QString f;
+
+    double brightness = (double) eq.brightness / 100;
+    double contrast = (double) (eq.contrast + 100) / 100;
+    double saturation = qMax(0.0, (double) (eq.saturation + 50) / 50);
+    double gamma = qMax(0.1, (double) (eq.gamma + (100/9)) / (100/9));
+
+    f = QString("%1:%2:%3:%4").arg(contrast).arg(brightness).arg(saturation).arg(gamma);
+
+    f += ",hue=h=" + QString::number(eq.hue);
+
+    f = "lavfi=[eq=" + f + "]";
+
+    return f;
+}
+
+void MPVProcess::updateSoftVideoEqualizerFilter() {
+    QString f = videoEqualizerFilter(previous_soft_eq);
+    writeToStdin("vf del \"" + f + "\"");
+
+    f = videoEqualizerFilter(current_soft_eq);
+    writeToStdin("vf add \"" + f + "\"");
+
+    previous_soft_eq = current_soft_eq;
+}
+//#endif

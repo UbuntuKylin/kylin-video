@@ -63,6 +63,22 @@ void MplayerProcess::disableInput() {
 //}
 //#endif
 
+void MplayerProcess::enableScreenshots(const QString & dir, const QString & /* templ */, const QString & /* format */) {
+    QString f = "screenshot";
+    if (!dir.isEmpty()) {
+        QString d = QDir::toNativeSeparators(dir);
+        if (MplayerVersion::isMplayerAtLeast(36848)) {
+            f += "="+ d + "/shot";
+        } else {
+            // Keep compatibility with older versions
+            qDebug() << "MplayerProcess::enableScreenshots: this version of mplayer is very old";
+            qDebug() << "MplayerProcess::enableScreenshots: changing working directory to" << d;
+            setWorkingDirectory(d);
+        }
+    }
+    arg << "-vf-add" << f;
+}
+
 void MplayerProcess::setOption(const QString & option_name, const QVariant & value) {
 	if (option_name == "cache") {
 		int cache = value.toInt();
@@ -136,6 +152,24 @@ void MplayerProcess::addUserOption(const QString & option) {
 	arg << option;
 }
 
+void MplayerProcess::setSubEncoding(const QString & codepage, const QString & enca_lang) {
+    QString encoding;
+    if (!enca_lang.isEmpty()) {
+        encoding = "enca:"+ enca_lang;
+        if (!codepage.isEmpty()) {
+            encoding += ":"+ codepage;
+        }
+    }
+    else
+    if (!codepage.isEmpty()) {
+        encoding = codepage;
+    }
+
+    if (!encoding.isEmpty()) {
+        arg << "-subcp" << encoding;
+    }
+}
+
 void MplayerProcess::addVF(const QString & filter_name, const QVariant & value) {
 	QString option = value.toString();
 
@@ -200,6 +234,19 @@ void MplayerProcess::addStereo3DFilter(const QString & in, const QString & out) 
 	QString filter = "stereo3d=" + in + ":" + out;
 	filter += ",scale"; // In my PC it doesn't work without scale :?
 	arg << "-vf-add" << filter;
+}
+
+
+void MplayerProcess::setVideoEqualizerOptions(int contrast, int brightness, int hue, int saturation, int gamma, bool soft_eq) {
+    if (contrast != 0) arg << "-contrast" << QString::number(contrast);
+    if (brightness != 0) arg << "-brightness" << QString::number(brightness);
+    if (hue != 0) arg << "-hue" << QString::number(hue);
+    if (saturation != 0) arg << "-saturation" << QString::number(saturation);
+    if (gamma != 0) arg << "-gamma" << QString::number(gamma);
+
+    if (soft_eq) {
+        arg << "-vf-add" << "eq2,hue";
+    }
 }
 
 void MplayerProcess::addAF(const QString & filter_name, const QVariant & value) {
@@ -376,8 +423,12 @@ void MplayerProcess::enableVolnorm(bool b, const QString & option) {
 	if (b) writeToStdin("af_add volnorm=" + option); else writeToStdin("af_del volnorm");
 }
 
-void MplayerProcess::setAudioEqualizer(const QString & values) {
-	writeToStdin("af_cmdline equalizer " + values);
+//void MplayerProcess::setAudioEqualizer(const QString & values) {
+//	writeToStdin("af_cmdline equalizer " + values);
+//}
+void MplayerProcess::setAudioEqualizer(AudioEqualizerList l) {
+    QString values = AudioEqualizerHelper::equalizerListToString(l);
+    writeToStdin("af_cmdline equalizer " + values);
 }
 
 void MplayerProcess::setAudioDelay(double delay) {
@@ -390,6 +441,19 @@ void MplayerProcess::setSubDelay(double delay) {
 
 void MplayerProcess::setLoop(int v) {
 	writeToStdin(QString("loop %1 1").arg(v));
+}
+
+
+void MplayerProcess::setAMarker(int /*sec*/) {
+    /* Not supported */
+}
+
+void MplayerProcess::setBMarker(int /*sec*/) {
+    /* Not supported */
+}
+
+void MplayerProcess::clearABMarkers() {
+    /* Not supported */
 }
 
 void MplayerProcess::takeScreenshot(ScreenshotType t, bool /*include_subtitles*/) {
@@ -451,27 +515,37 @@ void MplayerProcess::setOSDScale(double /*value*/) {
 }
 
 void MplayerProcess::changeVF(const QString & /*filter*/, bool /*enable*/, const QVariant & /*option*/) {
-	// not supported
+    // not supported
+//	Q_UNUSED(filter);
+//	Q_UNUSED(enable);
+//	Q_UNUSED(option);
 }
+
+void MplayerProcess::changeAF(const QString & filter, bool enable, const QVariant & option) {
+    /* Not used yet */
+    Q_UNUSED(filter);
+    Q_UNUSED(enable);
+    Q_UNUSED(option);
+};
 
 void MplayerProcess::changeStereo3DFilter(bool /*enable*/, const QString & /*in*/, const QString & /*out*/) {
 	// not supported
 }
 
-//void MplayerProcess::setSubStyles(const AssStyles & styles, const QString & assStylesFile) {
-//	if (assStylesFile.isEmpty()) {
-//		qWarning("MplayerProcess::setSubStyles: assStylesFile is invalid");
-//		return;
-//	}
+void MplayerProcess::setSubStyles(const AssStyles & styles, const QString & assStylesFile) {
+    if (assStylesFile.isEmpty()) {
+        qWarning("MplayerProcess::setSubStyles: assStylesFile is invalid");
+        return;
+    }
 
-//	// Load the styles.ass file
-//	if (!QFile::exists(assStylesFile)) {
-//		// If file doesn't exist, create it
-//		styles.exportStyles(assStylesFile);
-//	}
-//	if (QFile::exists(assStylesFile)) {
-//		setOption("ass-styles", assStylesFile);
-//	} else {
-//		qWarning("MplayerProcess::setSubStyles: '%s' doesn't exist", assStylesFile.toUtf8().constData());
-//	}
-//}
+    // Load the styles.ass file
+    if (!QFile::exists(assStylesFile)) {
+        // If file doesn't exist, create it
+        styles.exportStyles(assStylesFile);
+    }
+    if (QFile::exists(assStylesFile)) {
+        setOption("ass-styles", assStylesFile);
+    } else {
+        qWarning("MplayerProcess::setSubStyles: '%s' doesn't exist", assStylesFile.toUtf8().constData());
+    }
+}

@@ -42,7 +42,7 @@ public:
 	AudioEqualizer( QWidget* parent = 0, Qt::WindowFlags f = Qt::Dialog );
 	~AudioEqualizer();
 
-	EqSlider * eq[10];
+    EqSlider * eq[10];
 
 	void setEqualizer(AudioEqualizerList l);
 

@@ -180,12 +180,12 @@ Core::Core(MplayerWindow *mpw, const QString &snap, QWidget* parent)
 #if DELAYED_AUDIO_SETUP_ON_STARTUP
 	connect( this, SIGNAL(mediaLoaded()), this, SLOT(initAudioTrack()), Qt::QueuedConnection );
 #endif
-#if NOTIFY_SUB_CHANGES
+//#if NOTIFY_SUB_CHANGES
     connect( proc, SIGNAL(subtitleInfoChanged(const SubTracks &, int)),
              this, SLOT(initSubtitleTrack(const SubTracks &, int)), Qt::QueuedConnection );
     connect( proc, SIGNAL(subtitleInfoReceivedAgain(const SubTracks &)),
              this, SLOT(setSubtitleTrackAgain(const SubTracks &)), Qt::QueuedConnection );
-#endif
+//#endif
 //#if NOTIFY_AUDIO_CHANGES
     connect( proc, SIGNAL(audioInfoChanged(const Tracks &, int)),
              this, SLOT(initAudioTrack(const Tracks &, int)), Qt::QueuedConnection );
@@ -539,7 +539,7 @@ void Core::openFile(QString filename, int seek) {
 
 void Core::loadSub(const QString & sub ) {
     if ( (!sub.isEmpty()) && (QFile::exists(sub)) ) {
-#if NOTIFY_SUB_CHANGES
+//#if NOTIFY_SUB_CHANGES
 		mset.external_subtitles = sub;
 		just_loaded_external_subs = true;
 
@@ -561,11 +561,11 @@ void Core::loadSub(const QString & sub ) {
 		} else {
 			restartPlay();
 		}
-#else
-		mset.external_subtitles = sub;
-		just_loaded_external_subs = true;
-		restartPlay();
-#endif
+//#else
+//		mset.external_subtitles = sub;
+//		just_loaded_external_subs = true;
+//		restartPlay();
+//#endif
 	} else {
 //		qWarning("Core::loadSub: file '%s' is not valid", sub.toUtf8().constData());
 	}
@@ -783,36 +783,36 @@ void Core::newMediaPlaying() {
 	}
     #endif
 
-#if !DELAYED_AUDIO_SETUP_ON_STARTUP && !NOTIFY_AUDIO_CHANGES
-	// First audio if none selected
-//	if ( (mset.current_audio_id == MediaSettings::NoneSelected) &&
-//         (mdat.audios.numItems() > 0) )
-    if ( (mset.current_audio_id == MediaSettings::NoneSelected) &&
-            (mset.audios.numItems() > 0) )
-	{
-		// Don't set mset.current_audio_id here! changeAudio will do. 
-		// Otherwise changeAudio will do nothing.
+//#if !DELAYED_AUDIO_SETUP_ON_STARTUP && !NOTIFY_AUDIO_CHANGES
+//	// First audio if none selected
+////	if ( (mset.current_audio_id == MediaSettings::NoneSelected) &&
+////         (mdat.audios.numItems() > 0) )
+//    if ( (mset.current_audio_id == MediaSettings::NoneSelected) &&
+//            (mset.audios.numItems() > 0) )
+//	{
+//		// Don't set mset.current_audio_id here! changeAudio will do.
+//		// Otherwise changeAudio will do nothing.
 
-		int audio = mdat.audios.itemAt(0).ID(); // First one
-//        if (mdat.audios.existsItemAt(0)) {//pref->initial_audio_track-1
-//            audio = mdat.audios.itemAt(0).ID();//pref->initial_audio_track-1
-//		}
-        if (mset.audios.existsItemAt(pref->initial_audio_track-1)) {
-            audio = mset.audios.itemAt(pref->initial_audio_track-1).ID();
-        }
+//		int audio = mdat.audios.itemAt(0).ID(); // First one
+////        if (mdat.audios.existsItemAt(0)) {//pref->initial_audio_track-1
+////            audio = mdat.audios.itemAt(0).ID();//pref->initial_audio_track-1
+////		}
+//        if (mset.audios.existsItemAt(pref->initial_audio_track-1)) {
+//            audio = mset.audios.itemAt(pref->initial_audio_track-1).ID();
+//        }
 
-		// Check if one of the audio tracks is the user preferred.
-        if (!pref->audio_lang.isEmpty()) {
-            int res = mdat.audios.findLang( pref->audio_lang );
-            if (res != -1) audio = res;
-        }
+//		// Check if one of the audio tracks is the user preferred.
+//        if (!pref->audio_lang.isEmpty()) {
+//            int res = mdat.audios.findLang( pref->audio_lang );
+//            if (res != -1) audio = res;
+//        }
 
-        // Change the audio without restarting mplayer, it's not
-        // safe to do it here.
-        changeAudio( audio, false );
+//        // Change the audio without restarting mplayer, it's not
+//        // safe to do it here.
+//        changeAudio( audio, false );
 
-	}
-#endif
+//	}
+//#endif
 
 //    NOTIFY_SUB_CHANGES is 1
 
@@ -2361,18 +2361,6 @@ void Core::startMplayer( QString file, double seek ) {
             AudioEqualizerList l = pref->global_audio_equalizer ? pref->audio_equalizer : mset.audio_equalizer;
             proc->addAF("equalizer", l);
         }
-//		if (pref->use_audio_equalizer) {
-//			AudioEqualizerList l = pref->global_audio_equalizer ? pref->audio_equalizer : mset.audio_equalizer;
-//			proc->addAF("equalizer", Helper::equalizerListToString(l));
-//		}
-        //kobe
-        double v0 = (double) 0 / 10;
-        QString s = QString::number(v0) + ":" + QString::number(v0) + ":" +
-                    QString::number(v0) + ":" + QString::number(v0) + ":" +
-                    QString::number(v0) + ":" + QString::number(v0) + ":" +
-                    QString::number(v0) + ":" + QString::number(v0) + ":" +
-                    QString::number(v0) + ":" + QString::number(v0);
-        proc->addAF("equalizer", s);
 
 		// Additional audio filters, supplied by user
 		// File
@@ -4876,9 +4864,9 @@ void Core::checkIfVideoIsHD() {
 	}
 }
 
-#if DELAYED_AUDIO_SETUP_ON_STARTUP && NOTIFY_AUDIO_CHANGES
-#error "DELAYED_AUDIO_SETUP_ON_STARTUP and NOTIFY_AUDIO_CHANGES can't be both defined"
-#endif
+//#if DELAYED_AUDIO_SETUP_ON_STARTUP && NOTIFY_AUDIO_CHANGES
+//#error "DELAYED_AUDIO_SETUP_ON_STARTUP and NOTIFY_AUDIO_CHANGES can't be both defined"
+//#endif
 
 #if DELAYED_AUDIO_SETUP_ON_STARTUP
 void Core::initAudioTrack() {
@@ -5009,9 +4997,9 @@ void Core::initAudioTrack(const Tracks & audios, int selected_id) {
 //}
 //#endif
 
-#if NOTIFY_SUB_CHANGES
-/*void Core::initAudioTrack(const Tracks & audios) {
-	qDebug("Core::initSubtitleTrack");
+//#if NOTIFY_SUB_CHANGES
+//void Core::initAudioTrack(const Tracks & audios) {
+    /*qDebug("Core::initSubtitleTrack");
 
 	bool restore_subs = ((mdat.subs.numItems() > 0) || 
                          (mset.current_sub_id != MediaSettings::NoneSelected));
@@ -5107,8 +5095,8 @@ void Core::initAudioTrack(const Tracks & audios, int selected_id) {
 	}
 end:
 
-	updateWidgets();
-}*/
+    updateWidgets();*/
+//}
 
 //SIMPLE_TRACK_SELECTION
 
@@ -5162,7 +5150,7 @@ void Core::setSubtitleTrackAgain(const SubTracks &) {
 //	changeSubtitle( mset.current_sub_id );
     changeSubtitle( mset.current_subtitle_track );
 }
-#endif
+//#endif
 
 QString Core::pausing_prefix() {
 	qDebug("Core::pausing_prefix");

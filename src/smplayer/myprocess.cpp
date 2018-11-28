@@ -64,9 +64,9 @@ void MyProcess::readStdOut() {
 }
 
 
-void MyProcess::readTmpFile() {
-	genericRead( temp_file.readAll() );
-}
+//void MyProcess::readTmpFile() {
+//	genericRead( temp_file.readAll() );
+//}
 
 void MyProcess::genericRead(QByteArray buffer) {
 	QByteArray ba = remaining_output + buffer;
@@ -122,8 +122,8 @@ void MyProcess::procFinished() {
 	qDebug("MyProcess::procFinished");
 
 	if ( bytesAvailable() > 0 ) readStdOut();
-	if ( temp_file.bytesAvailable() > 0 ) readTmpFile();
-	temp_file.close();
+//	if ( temp_file.bytesAvailable() > 0 ) readTmpFile();
+//	temp_file.close();
 }
 
 QStringList MyProcess::splitArguments(const QString & args) {

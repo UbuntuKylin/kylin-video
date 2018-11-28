@@ -426,10 +426,10 @@ protected slots:
 //#if NOTIFY_VIDEO_CHANGES
     void initVideoTrack(const Tracks &, int selected_id);
 //#endif
-#if NOTIFY_SUB_CHANGES
+//#if NOTIFY_SUB_CHANGES
     void initSubtitleTrack(const SubTracks &, int selected_id);
 	void setSubtitleTrackAgain(const SubTracks &);
-#endif
+//#endif
 //#if NOTIFY_CHAPTER_CHANGES
 //	void updateChapterInfo(const Chapters &);
 //#endif

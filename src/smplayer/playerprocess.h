@@ -23,6 +23,7 @@
 #include "mediadata.h"
 #include "playerid.h"
 #include "config.h"
+#include "assstyles.h"
 #include <QVariant>
 #include <QDebug>
 
@@ -75,20 +76,24 @@ public:
 	virtual void frameBackStep() = 0;
 	virtual void showOSDText(const QString & text, int duration, int level) = 0;
     virtual void showFilenameOnOSD(int duration = 2000) = 0;
-	virtual void showTimeOnOSD() = 0;
     virtual void showMediaInfoOnOSD() = 0;
+	virtual void showTimeOnOSD() = 0;
+
 	virtual void setContrast(int value) = 0;
 	virtual void setBrightness(int value) = 0;
 	virtual void setHue(int value) = 0;
 	virtual void setSaturation(int value) = 0;
 	virtual void setGamma(int value) = 0;
+
 	virtual void setChapter(int ID) = 0;
+    virtual void nextChapter() = 0;
+    virtual void previousChapter() = 0;
 	virtual void setExternalSubtitleFile(const QString & filename) = 0;
 	virtual void setSubPos(int pos) = 0;
 	virtual void setSubScale(double value) = 0;
 	virtual void setSubStep(int value) = 0;
 //#ifdef MPV_SUPPORT
-//	virtual void seekSub(int value) = 0;
+    virtual void seekSub(int value) = 0;
 //#endif
 	virtual void setSubForcedOnly(bool b) = 0;
 	virtual void setSpeed(double value) = 0;
@@ -137,7 +142,7 @@ public:
     void setPausingPrefix(const QString & prefix) {
         pausing_prefix = prefix;
 //        qDebug() << "kobe pausing_prefix=" << pausing_prefix;
-    };//kobe
+    };
 
     void setOSDMediaInfo(const QString & s) { osd_media_info = s; };
     QString OSDMediaInfo() { return osd_media_info; };
@@ -187,23 +192,23 @@ signals:
 
 	void failedToParseMplayerVersion(QString line_with_mplayer_version);
 
-#if NOTIFY_SUB_CHANGES
+//#if NOTIFY_SUB_CHANGES
     //! Emitted if a new subtitle has been added or an old one changed
     void subtitleInfoChanged(const SubTracks &, int selected_id);
 
 	//! Emitted when subtitle info has been received but there wasn't anything new
 	void subtitleInfoReceivedAgain(const SubTracks &);
-#endif
-#if NOTIFY_AUDIO_CHANGES
+//#endif
+//#if NOTIFY_AUDIO_CHANGES
 	//! Emitted if a new audio track been added or an old one changed
     void audioInfoChanged(const Tracks &, int selected_id);
-#endif
+//#endif
 //#if NOTIFY_VIDEO_CHANGES
 	//! Emitted if a new video track been added or an old one changed
     void videoInfoChanged(const Tracks &, int selected_id);
 //#endif
 //#if NOTIFY_CHAPTER_CHANGES
-//	void chaptersChanged(const Chapters &);
+    void chaptersChanged(const Chapters &);
 //#endif
 
 //#if DVDNAV_SUPPORT

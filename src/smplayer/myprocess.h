@@ -61,7 +61,7 @@ signals:
 
 protected slots:
 	void readStdOut();			//!< Called for reading from standard output
-	void readTmpFile();			//!< Called for reading from the temp file
+//	void readTmpFile();			//!< Called for reading from the temp file
 	void procFinished();		//!< Called when the process has finished
 
 protected:
@@ -77,7 +77,7 @@ protected:
 
 	QByteArray remaining_output;
 
-	QTemporaryFile temp_file;
+//	QTemporaryFile temp_file;
 	QTimer timer;
 };
 

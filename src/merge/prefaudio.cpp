@@ -38,7 +38,7 @@ PrefAudio::PrefAudio(QString snap, QWidget * parent, Qt::WindowFlags f)
     InfoReader * i = InfoReader::obj(this->m_snap);//20181212
 	i->getInfo();
 	ao_list = i->aoList();
-	alsa_devices = DeviceInfo::alsaDevices();
+//	alsa_devices = DeviceInfo::alsaDevices();
 	xv_adaptors = DeviceInfo::xvAdaptors();
 
 	// Channels combo
@@ -128,8 +128,9 @@ void PrefAudio::update_driver_combobox() {
     updateDriverCombos();
 }
 
+//TODO
 void PrefAudio::updateDriverCombos() {
-	QString current_ao = AO();
+    /*QString current_ao = AO();
 	ao_combo->clear();
 	ao_combo->addItem(tr("Default"), "player_default");
 
@@ -146,7 +147,7 @@ void PrefAudio::updateDriverCombos() {
 			}
 		}
 	}
-	setAO(current_ao);
+    setAO(current_ao);*/
 }
 
 void PrefAudio::setAO( QString ao_driver ) {

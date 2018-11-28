@@ -92,6 +92,7 @@ HEADERS += smplayer/config.h \
 #        smplayer/autohidewidget.h \
         smplayer/verticaltext.h \
         smplayer/eqslider.h \
+        smplayer/chapters.h \
         merge/basegui.h \
         merge/playlist.h \
         merge/lineedit_with_icon.h \
@@ -185,6 +186,7 @@ SOURCES	+= smplayer/version.cpp \
 #        smplayer/autohidewidget.cpp \
         smplayer/verticaltext.cpp \
         smplayer/eqslider.cpp \
+        smplayer/chapters.cpp \
         merge/lineedit_with_icon.cpp \
         merge/basegui.cpp \
         merge/playlist.cpp \

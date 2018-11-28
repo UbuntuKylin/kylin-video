@@ -63,3 +63,8 @@ sudo apt install translate-toolkit
 ts2po -i kylin-video_fr.ts -o kylin-video.pot
 
 po2ts -i kylin-video_fr.po kylin-video_fr.ts
+
+
+TODO
+==================
+alsaDevices

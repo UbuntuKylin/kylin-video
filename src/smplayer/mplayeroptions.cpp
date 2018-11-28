@@ -17,6 +17,7 @@
 */
 
 #include "subtracks.h"
+#include "deviceinfo.h"
 #include "mplayerprocess.h"// src/smplayer/mplayeroptions.cpp:280: Qualifying with unknown namespace/class ::MplayerProcess
 #include <QDir>
 #include <QDebug>
@@ -380,6 +381,14 @@ void MplayerProcess::setChapter(int ID) {
 	writeToStdin("seek_chapter " + QString::number(ID) +" 1");
 }
 
+void MplayerProcess::nextChapter() {
+    writeToStdin("seek_chapter 1 0");
+}
+
+void MplayerProcess::previousChapter() {
+    writeToStdin("seek_chapter -1 0");
+}
+
 void MplayerProcess::setExternalSubtitleFile(const QString & filename) {
 	writeToStdin("sub_load \""+ filename +"\"");
 }
@@ -397,10 +406,10 @@ void MplayerProcess::setSubStep(int value) {
 }
 
 //#ifdef MPV_SUPPORT
-//void MplayerProcess::seekSub(int /*value*/) {
-//	/* Not supported */
-//	showOSDText(tr("This option is not supported by MPlayer"), 3000, 1);
-//};
+void MplayerProcess::seekSub(int /*value*/) {
+    /* Not supported */
+    showOSDText(tr("This option is not supported by MPlayer"), 3000, 1);
+}
 //#endif
 
 void MplayerProcess::setSubForcedOnly(bool b) {
@@ -427,6 +436,7 @@ void MplayerProcess::enableVolnorm(bool b, const QString & option) {
 //	writeToStdin("af_cmdline equalizer " + values);
 //}
 void MplayerProcess::setAudioEqualizer(AudioEqualizerList l) {
+    qDebug() << "equalizerListToString start 222";
     QString values = AudioEqualizerHelper::equalizerListToString(l);
     writeToStdin("af_cmdline equalizer " + values);
 }

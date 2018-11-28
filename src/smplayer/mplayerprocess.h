@@ -75,12 +75,14 @@ public:
 	void setSaturation(int value);
 	void setGamma(int value);
 	void setChapter(int ID);
+    void nextChapter();
+    void previousChapter();
 	void setExternalSubtitleFile(const QString & filename);
 	void setSubPos(int pos);
 	void setSubScale(double value);
 	void setSubStep(int value);
 //#ifdef MPV_SUPPORT
-//	void seekSub(int value);
+    void seekSub(int value);
 //#endif
 	void setSubForcedOnly(bool b);
 	void setSpeed(double value);
@@ -146,17 +148,16 @@ private:
 
     int mplayer_svn;
 
-#if NOTIFY_SUB_CHANGES
+//#if NOTIFY_SUB_CHANGES
 	SubTracks subs;
-
 	bool subtitle_info_received;
 	bool subtitle_info_changed;
-#endif
+//#endif
 
-#if NOTIFY_AUDIO_CHANGES
+//#if NOTIFY_AUDIO_CHANGES
 	Tracks audios;
 	bool audio_info_changed;
-#endif
+//#endif
 
 //#if NOTIFY_VIDEO_CHANGES
     Tracks videos;

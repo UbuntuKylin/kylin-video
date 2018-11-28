@@ -20,11 +20,11 @@
 #define MPVPROCESS_H
 
 #include <QString>
+#include <QRegExp>
 #include "playerprocess.h"
 #include "config.h"
 
-class QStringList;
-
+#define OSD_WITH_TIMER
 
 //#ifndef USE_OLD_VIDEO_EQ
 class SoftVideoEq
@@ -38,6 +38,8 @@ public:
 };
 //#endif
 
+class QStringList;
+
 class MPVProcess : public PlayerProcess
 {
 	Q_OBJECT
@@ -49,7 +51,7 @@ public:
 	bool start();
 
 	// Command line options
-//    void addArgument(const QString & a);//kobe 20170705
+    void addArgument(const QString & a);//kobe 20170705
 	void setMedia(const QString & media, bool is_playlist = false);
 	void disableInput();
 	void setFixedOptions();
@@ -80,19 +82,23 @@ public:
 	void frameBackStep();
 	void showOSDText(const QString & text, int duration, int level);
     void showFilenameOnOSD(int duration = 2000);
-	void showTimeOnOSD();
     void showMediaInfoOnOSD();
+	void showTimeOnOSD();
+
 	void setContrast(int value);
 	void setBrightness(int value);
 	void setHue(int value);
 	void setSaturation(int value);
 	void setGamma(int value);
+
 	void setChapter(int ID);
+    void nextChapter();
+    void previousChapter();
 	void setExternalSubtitleFile(const QString & filename);
 	void setSubPos(int pos);
 	void setSubScale(double value);
 	void setSubStep(int value);
-//	void seekSub(int value);//kobe 20170705
+    void seekSub(int value);//kobe 20170705
 	void setSubForcedOnly(bool b);
 	void setSpeed(double value);
 //#ifdef MPLAYER_SUPPORT
@@ -160,7 +166,7 @@ protected slots:
 	void processFinished(int exitCode, QProcess::ExitStatus exitStatus);
 	void gotError(QProcess::ProcessError);
 	void requestChapterInfo();
-	void requestBitrateInfo();
+//	void requestBitrateInfo();
 
 //#ifdef OSD_WITH_TIMER
     void displayInfoOnOSD();
@@ -172,12 +178,12 @@ signals:
 protected:
     virtual void initializeOptionVars();
 
-#if NOTIFY_AUDIO_CHANGES
+//#if NOTIFY_AUDIO_CHANGES
     void updateAudioTrack(int ID, const QString & name, const QString & lang, bool selected);
-#endif
-#if NOTIFY_SUB_CHANGES
+//#endif
+//#if NOTIFY_SUB_CHANGES
     void updateSubtitleTrack(int ID, const QString & name, const QString & lang, bool selected);
-#endif
+//#endif
 
 //#if NOTIFY_VIDEO_CHANGES
     void updateVideoTrack(int ID, const QString & name, const QString & lang, bool selected);
@@ -195,19 +201,18 @@ private:
 	QString mpv_version;
 	bool verbose;
 
-#if NOTIFY_SUB_CHANGES
+//#if NOTIFY_SUB_CHANGES
 	SubTracks subs;
-
 	bool subtitle_info_received;
 	bool subtitle_info_changed;
     int selected_subtitle;
-#endif
+//#endif
 
-#if NOTIFY_AUDIO_CHANGES
+//#if NOTIFY_AUDIO_CHANGES
 	Tracks audios;
 	bool audio_info_changed;
     int selected_audio;
-#endif
+//#endif
 
 //#if NOTIFY_VIDEO_CHANGES
 	Tracks videos;
@@ -216,8 +221,8 @@ private:
 //#endif
 
 //#if NOTIFY_CHAPTER_CHANGES
-//	Chapters chapters;
-//	bool chapter_info_changed;
+    Chapters chapters;
+    bool chapter_info_changed;
 //#endif
 
 	int dvd_current_title;
@@ -243,7 +248,7 @@ private:
 
 
     bool use_osd_in_commands;
-/*
+
     // Regular expressions
     QRegExp rx_av;
     QRegExp rx_dsize;
@@ -258,22 +263,22 @@ private:
     QRegExp rx_videocodec;
     QRegExp rx_audiocodec;
 
-#if !NOTIFY_VIDEO_CHANGES
-    QRegExp rx_video;
-#endif
+//#if !NOTIFY_VIDEO_CHANGES
+//    QRegExp rx_video;
+//#endif
 
     QRegExp rx_chaptername;
     QRegExp rx_trackinfo;
     QRegExp rx_forbidden;
 
-#if DVDNAV_SUPPORT
-    QRegExp rx_switch_title;
-#endif
+//#if DVDNAV_SUPPORT
+//    QRegExp rx_switch_title;
+//#endif
 
     QRegExp rx_playing;
     QRegExp rx_generic;
     QRegExp rx_stream_title;
-    QRegExp rx_debug;*/
+    QRegExp rx_debug;
 
     void initializeRX();
 };

@@ -25,17 +25,22 @@
 #include "mplayerprocess.h"
 
 PlayerProcess::PlayerProcess(QObject * parent) : MyProcess(parent) {
-#if NOTIFY_SUB_CHANGES
+//#if NOTIFY_SUB_CHANGES
 	qRegisterMetaType<SubTracks>("SubTracks");
-#endif
+//#endif
 
-#if NOTIFY_AUDIO_CHANGES
+//#if NOTIFY_AUDIO_CHANGES
 	qRegisterMetaType<Tracks>("Tracks");
-#endif
+//#endif
+
+//#if NOTIFY_CHAPTER_CHANGES
+    qRegisterMetaType<Chapters>("Chapters");
+//#endif
 }
 
 void PlayerProcess::writeToStdin(QString text) {
 	if (isRunning()) {
+        //qDebug("PlayerProcess::writeToStdin: %s", text.toUtf8().constData());
 		write( text.toLocal8Bit() + "\n");
 	} else {
         qWarning("PlayerProcess::writeToStdin: process not running");
@@ -53,5 +58,22 @@ PlayerProcess * PlayerProcess::createPlayerProcess(const QString & player_bin, c
 
 	return proc;
 }
+
+//#ifdef CAPTURE_STREAM
+//void PlayerProcess::setCaptureDirectory(const QString & dir) {
+//	capture_filename = "";
+//	if (!dir.isEmpty() && (QFileInfo(dir).isDir())) {
+//		// Find a unique filename
+//		QString prefix = "capture";
+//		for (int n = 1; ; n++) {
+//			QString c = QDir::toNativeSeparators(QString("%1/%2_%3.dump").arg(dir).arg(prefix).arg(n, 4, 10, QChar('0')));
+//			if (!QFile::exists(c)) {
+//				capture_filename = c;
+//				return;
+//			}
+//		}
+//	}
+//}
+//#endif
 
 //#include "moc_playerprocess.cpp"

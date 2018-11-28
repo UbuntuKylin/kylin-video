@@ -38,7 +38,7 @@ PrefVideo::PrefVideo(QString arch_type, QString snap, QWidget * parent, Qt::Wind
     InfoReader * i = InfoReader::obj(this->m_snap);//20181212
 	i->getInfo();
 	vo_list = i->voList();
-	alsa_devices = DeviceInfo::alsaDevices();
+//	alsa_devices = DeviceInfo::alsaDevices();
 	xv_adaptors = DeviceInfo::xvAdaptors();
     connect(vo_combo, SIGNAL(currentIndexChanged(int)), this, SLOT(vo_combo_changed(int)));
 

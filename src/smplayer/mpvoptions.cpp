@@ -20,6 +20,7 @@
 #include <QDebug>
 #include <QObject>
 #include "inforeader.h"
+#include "deviceinfo.h"
 #include "mpvprocess.h"// src/smplayer/mpvoptions.cpp:109: Qualifying with unknown namespace/class ::MPVProcess
 
 
@@ -42,6 +43,10 @@
 #define USE_LETTERBOX LETTERBOX_PAD
 //#endif
 #define OSD_PREFIX use_osd_in_commands ? "" : "no-osd"
+//#define OSD_PREFIX ""
+
+void MPVProcess::addArgument(const QString & /*a*/) {
+}
 
 void MPVProcess::initializeOptionVars() {
     qDebug("MPVProcess::initializeOptionVars");
@@ -56,31 +61,31 @@ void MPVProcess::initializeOptionVars() {
     use_osd_in_commands = true;
 }
 
-
 void MPVProcess::setMedia(const QString & media, bool is_playlist) {
     arg << "--term-playing-msg="
             "MPV_VERSION=${=mpv-version:}\n"
             "INFO_VIDEO_WIDTH=${=width}\nINFO_VIDEO_HEIGHT=${=height}\n"
             "INFO_VIDEO_ASPECT=${=video-aspect}\n"
 //			"INFO_VIDEO_DSIZE=${=dwidth}x${=dheight}\n"
-            "INFO_VIDEO_FPS=${=fps}\n"
+            "INFO_VIDEO_FPS=${=container-fps:${=fps}}\n"
 //			"INFO_VIDEO_BITRATE=${=video-bitrate}\n"
             "INFO_VIDEO_FORMAT=${=video-format}\n"
             "INFO_VIDEO_CODEC=${=video-codec}\n"
 
 //			"INFO_AUDIO_BITRATE=${=audio-bitrate}\n"
-//			"INFO_AUDIO_FORMAT=${=audio-format}\n"
-            "INFO_AUDIO_FORMAT=${=audio-codec-name:${=audio-format}}\n"
+//			"INFO_AUDIO_FORMAT=${=audio-format}\n" // old
+            "INFO_AUDIO_FORMAT=${=audio-codec-name}\n"
             "INFO_AUDIO_CODEC=${=audio-codec}\n"
-//			"INFO_AUDIO_RATE=${=audio-samplerate}\n"
-            "INFO_AUDIO_RATE=${=audio-params/samplerate:${=audio-samplerate}}\n"
-//			"INFO_AUDIO_NCH=${=audio-channels}\n"
-            "INFO_AUDIO_NCH=${=audio-params/channel-count:${=audio-channels}}\n"
+//			"INFO_AUDIO_RATE=${=audio-samplerate}\n" // old
+            "INFO_AUDIO_RATE=${=audio-params/samplerate}\n"
+//			"INFO_AUDIO_NCH=${=audio-channels}\n" // old
+            "INFO_AUDIO_NCH=${=audio-params/channel-count}\n"
 
 //			"INFO_LENGTH=${=length}\n"
             "INFO_LENGTH=${=duration:${=length}}\n"
 
-            "INFO_DEMUXER=${=demuxer}\n"
+            "INFO_DEMUXER=${=current-demuxer:${=demuxer}}\n"
+            "INFO_SEEKABLE=${=seekable}\n"
             "INFO_TITLES=${=disc-titles}\n"
             "INFO_CHAPTERS=${=chapters}\n"
             "INFO_TRACKS_COUNT=${=track-list/count}\n"
@@ -93,15 +98,27 @@ void MPVProcess::setMedia(const QString & media, bool is_playlist) {
             "METADATA_TRACK=${metadata/by-key/track:}\n"
             "METADATA_COPYRIGHT=${metadata/by-key/copyright:}\n"
 
-            "INFO_MEDIA_TITLE=${=media-title:}\n";
+            "INFO_MEDIA_TITLE=${=media-title:}\n"
+            "INFO_STREAM_PATH=${stream-path}\n";
 
-    arg << "--term-status-msg=STATUS: ${=time-pos} / ${=duration:${=length:0}} P: ${=pause} B: ${=paused-for-cache} I: ${=core-idle}";
+//#ifndef Q_OS_WIN
+    arg << "--audio-client-name=KylinVideo";
+//#endif
+
+//#ifdef CUSTOM_STATUS
+    arg << "--term-status-msg=STATUS: ${=time-pos} / ${=duration:${=length:0}} P: ${=pause} B: ${=paused-for-cache} I: ${=core-idle} VB: ${=video-bitrate:0} AB: ${=audio-bitrate:0}";
+//#endif
 
     if (is_playlist) {
         arg << "--playlist=" + media;
     } else {
         arg << media;
     }
+
+//#ifdef CAPTURE_STREAM
+//    capturing = false;
+//#endif
+
 }
 
 void MPVProcess::setFixedOptions() {
@@ -112,20 +129,39 @@ void MPVProcess::setFixedOptions() {
     arg << "--input-file=/dev/stdin";
     //arg << "--no-osc";
     //arg << "--msg-level=vd=v";
+    //arg << "--video-stereo-mode=no";
 }
 
 void MPVProcess::disableInput() {
     arg << "--no-input-default-bindings";
-    arg << "--input-x11-keyboard=no";
+    if (isOptionAvailable("--input-vo-keyboard")) {
+        arg << "--input-vo-keyboard=no";
+    } else {
+        arg << "--input-x11-keyboard=no";
+    }
     arg << "--no-input-cursor";
     arg << "--cursor-autohide=no";
 }
 
 bool MPVProcess::isOptionAvailable(const QString & option) {
-    InfoReader * ir = InfoReader::obj(this->m_snap, executable());//20181212
+    static QStringList option_list;
+    static QString mpv_bin;
+
+    if (option_list.isEmpty() || mpv_bin != executable()) {
+        InfoReader * ir = InfoReader::obj(this->m_snap, executable());
+        ir->getInfo();
+        option_list = ir->optionList();
+        mpv_bin = executable();
+        //qDebug() << "MPVProcess::isOptionAvailable: option_list:" << option_list;
+    }
+
+    return option_list.contains(option);
+
+
+    /*InfoReader * ir = InfoReader::obj(this->m_snap, executable());//20181212
     ir->getInfo();
     //qDebug() << "MPVProcess::isOptionAvailable: option_list:" << ir->optionList();
-    return ir->optionList().contains(option);
+    return ir->optionList().contains(option);*/
 }
 
 void MPVProcess::addVFIfAvailable(const QString & vf, const QString & value) {
@@ -178,6 +214,10 @@ void MPVProcess::setOption(const QString & option_name, const QVariant & value) 
         }
     }
     else
+    if (option_name == "cache_auto") {
+        arg << "--cache=auto";
+    }
+    else
     if (option_name == "ss") {
         arg << "--start=" + value.toString();
     }
@@ -187,9 +227,11 @@ void MPVProcess::setOption(const QString & option_name, const QVariant & value) 
     }
     else
     if (option_name == "loop") {
+        QString loop = "--loop";
+        if (isOptionAvailable("--loop-file")) loop = "--loop-file";
         QString o = value.toString();
         if (o == "0") o = "inf";
-        arg << "--loop=" + o;
+        arg << loop + "=" + o;
     }
     else
     if (option_name == "ass") {
@@ -240,8 +282,22 @@ void MPVProcess::setOption(const QString & option_name, const QVariant & value) 
         arg << "--sub-codepage=" + cp;
     }
     else
-    if (option_name == "osdlevel") {
+    if (option_name == "osd-level") {
         arg << "--osd-level=" + value.toString();
+    }
+    else
+    if (option_name == "osd-fractions") {
+        bool use_fractions = value.toBool();
+        if (use_fractions) arg << "--osd-fractions";
+    }
+    else
+    if (option_name == "osd-bar-pos") {
+        if (isOptionAvailable("--osd-bar-align-y")) {
+            if (value.toInt() >= 0 && value.toInt() <= 100) {
+                double position = double (value.toInt() * 2 - 100) / 100;
+                arg << "--osd-bar-align-y=" + QString::number(position);
+            }
+        }
     }
     else
     if (option_name == "sws") {
@@ -254,6 +310,18 @@ void MPVProcess::setOption(const QString & option_name, const QVariant & value) 
     else
     if (option_name == "subfont-text-scale" || option_name == "ass-font-scale") {
         arg << "--sub-scale=" + value.toString();
+    }
+    else
+    if (option_name == "ass-line-spacing") {
+        QString line_spacing = "--ass-line-spacing";
+        if (isOptionAvailable("--sub-ass-line-spacing")) line_spacing = "--sub-ass-line-spacing";
+        arg << line_spacing + "=" + value.toString();
+    }
+    else
+    if (option_name == "ass-force-style") {
+        QString ass_force_style = "--ass-force-style";
+        if (isOptionAvailable("--sub-ass-force-style")) ass_force_style = "--sub-ass-force-style";
+        arg << ass_force_style + "=" + value.toString();
     }
     else
     if (option_name == "stop-xscreensaver") {
@@ -271,13 +339,20 @@ void MPVProcess::setOption(const QString & option_name, const QVariant & value) 
     }
     else
     if (option_name == "softvol") {
-        arg << "--softvol=yes";
-    }
-    else
-    if (option_name == "softvol-max") {
-        int v = value.toInt();
-        if (v < 100) v = 100;
-        arg << "--softvol-max=" + QString::number(v);
+        if (value.toString() == "off") {
+            if (isOptionAvailable("--volume-max")) {
+                arg << "--volume-max=100";
+            }
+        } else {
+            int v = value.toInt();
+            if (v < 100) v = 100;
+            if (isOptionAvailable("--volume-max")) {
+                arg << "--volume-max=" + QString::number(v);
+            } else {
+                arg << "--softvol=yes";
+                arg << "--softvol-max=" + QString::number(v);
+            }
+        }
     }
     else
     if (option_name == "subfps") {
@@ -309,14 +384,6 @@ void MPVProcess::setOption(const QString & option_name, const QVariant & value) 
         */
     }
     else
-    if (option_name == "screenshot_template") {
-        arg << "--screenshot-template=" + value.toString();
-    }
-    else
-    if (option_name == "screenshot_format") {
-        arg << "--screenshot-format=" + value.toString();
-    }
-    else
     if (option_name == "threads") {
         arg << "--vd-lavc-threads=" + value.toString();
     }
@@ -330,15 +397,77 @@ void MPVProcess::setOption(const QString & option_name, const QVariant & value) 
         if (b) arg << "--" + option_name; else arg << "--no-" + option_name;
     }
     else
-    if (option_name == "ao") {
-        QString o = value.toString();
-        if (o.startsWith("alsa:device=")) {
-            QString device = o.mid(12);
-            //qDebug() << "MPVProcess::setOption: alsa device:" << device;
-            device = device.replace("=", ":").replace(".", ",");
-            o = "alsa:device=[" + device + "]";
+    if (option_name == "vo") {
+        QString vo = value.toString();
+        if (vo.endsWith(",")) vo.chop(1);
+//		#ifndef Q_OS_WIN
+        if (isOptionAvailable("--xv-adaptor")) {
+            QRegExp rx("xv:adaptor=(\\d+)");
+            if (rx.indexIn(vo) > -1) {
+                QString adaptor = rx.cap(1);
+                vo = "xv";
+                arg << "--xv-adaptor=" + adaptor;
+            }
         }
-        arg << "--ao=" + o;
+//		#endif
+
+        // Remove options (used by mplayer)
+        int pos = vo.indexOf(":");
+        if (pos > -1) vo = vo.left(pos);
+
+        if (vo == "gl") vo = "opengl";
+
+        arg << "--vo=" + vo + ",";
+    }
+    else
+    if (option_name == "ao") {
+        QString ao = value.toString();
+
+        QStringList l;
+        if (ao.contains(":")) l = DeviceInfo::extractDevice(ao);
+        if (l.count() > 0) ao = l[0];
+
+        if (isOptionAvailable("--audio-device")) {
+            if (l.count() == 3) {
+//				#ifndef Q_OS_WIN
+                if (l[0] == "pulse") {
+                    arg << "--audio-device=pulse/" + l[2];
+                }
+//				#if USE_MPV_ALSA_DEVICES
+//				else
+//				if (l[0] == "alsa") {
+//					arg << "--audio-device=alsa/" + l[1];
+//				}
+//				#endif
+//				#else
+//				if (l[0] == "dsound") {
+//					arg << "--audio-device=dsound/" + l[1];
+//				}
+//				else
+//				if (l[0] == "wasapi") {
+//					arg << "--audio-device=wasapi/" + l[1];
+//				}
+//				#endif
+            }
+        } else {
+//			#ifndef Q_OS_WIN
+            if (l.count() > 1) {
+                if (l[0] == "alsa") {
+                    ao = "alsa:device=[hw:" + l[1] + "]";
+                }
+                else
+                if (l[0] == "pulse") {
+                    ao = "pulse::" + l[1];
+                }
+            }
+//			#endif
+        }
+
+        // Remove options (used by mplayer)
+        int pos = ao.indexOf(":");
+        if (pos > -1) ao = ao.left(pos);
+
+        arg << "--ao=" + ao + ",";
     }
     else
     if (option_name == "vc") {
@@ -351,12 +480,19 @@ void MPVProcess::setOption(const QString & option_name, const QVariant & value) 
     else
     if (option_name == "afm") {
         QString s = value.toString();
-        if (s == "hwac3") arg << "--ad=spdif:ac3,spdif:dts";
+        if (s == "hwac3") arg << "--audio-spdif=ac3,dts-hd";
     }
     else
     if (option_name == "enable_streaming_sites_support") {
         if (isOptionAvailable("--ytdl")) {
             if (value.toBool()) arg << "--ytdl"; else arg << "--ytdl=no";
+        }
+    }
+    else
+    if (option_name == "ytdl_quality") {
+        if (isOptionAvailable("--ytdl-format")) {
+            QString quality = value.toString();
+            if (!quality.isEmpty()) arg << "-ytdl-format=" + quality;
         }
     }
     else
@@ -376,6 +512,13 @@ void MPVProcess::setOption(const QString & option_name, const QVariant & value) 
         arg << "--mute=yes";
     }
     else
+    if (option_name == "scaletempo") {
+        if (isOptionAvailable("--audio-pitch-correction")) {
+            bool enabled = value.toBool();
+            if (enabled) arg << "--audio-pitch-correction=yes"; else arg << "--audio-pitch-correction=no";
+        }
+    }
+    else
     if (option_name == "vf-add") {
         if (!value.isNull()) arg << "--vf-add=" + value.toString();
     }
@@ -384,12 +527,15 @@ void MPVProcess::setOption(const QString & option_name, const QVariant & value) 
         if (!value.isNull()) arg << "--af-add=" + value.toString();
     }
     else
+    if (option_name == "aid" || option_name == "sid" || option_name == "secondary-sid" || option_name == "vid") {
+        int v = value.toInt();
+        arg << QString("--%1=%2").arg(option_name).arg(v > -1 ? value.toString() : "no");
+    }
+    else
     if (option_name == "wid" ||
-        option_name == "vo" ||
-        option_name == "aid" || option_name == "vid" ||
+        option_name == "alang" || option_name == "slang" ||
         option_name == "volume" ||
-        option_name == "ass-styles" || option_name == "ass-force-style" ||
-        option_name == "ass-line-spacing" ||
+        option_name == "ass-styles" ||
         option_name == "embeddedfonts" ||
         option_name == "osd-scale" ||
         option_name == "speed" ||
@@ -403,7 +549,9 @@ void MPVProcess::setOption(const QString & option_name, const QVariant & value) 
         option_name == "autosync" ||
         option_name == "dvd-device" || option_name == "cdrom-device" ||
         option_name == "demuxer" ||
-        option_name == "frames")
+        option_name == "frames" ||
+        option_name == "user-agent" || option_name == "referrer" ||
+        option_name == "ab-loop-a" || option_name == "ab-loop-b")
     {
         QString s = "--" + option_name;
         if (!value.isNull()) s += "=" + value.toString();
@@ -416,7 +564,23 @@ void MPVProcess::setOption(const QString & option_name, const QVariant & value) 
 }
 
 void MPVProcess::addUserOption(const QString & option) {
-    arg << option;
+    qDebug() << "MPVProcess::addUserOption:" << option;
+
+    // Remove quotes
+    QString s = option;
+    if (s.count("=\"") == 1 && s.endsWith("\"")) {
+        s.replace("=\"", "=");
+        s.chop(1);
+    }
+    else
+    if (s.startsWith("\"") && s.endsWith("\"")) {
+        s.remove(0, 1);
+        s.chop(1);
+    }
+
+    qDebug() << "MPVProcess::addUserOption: s:" << s;
+
+    arg << s;
     if (option == "-v") {
         verbose = true;
     }
@@ -432,90 +596,38 @@ void MPVProcess::setSubEncoding(const QString & codepage, const QString & enca_l
 void MPVProcess::addVF(const QString & filter_name, const QVariant & value) {
     QString option = value.toString();
 
+    QString lavfi_filter = lavfi(filter_name, value);
+    if (!lavfi_filter.isEmpty()) {
+        arg << "--vf-add=" + lavfi_filter;
+    }
+    else
+//USE_LETTERBOX: 2     LETTERBOX_OLD: 1
+
+/*#if USE_LETTERBOX == LETTERBOX_OLD
+    if (filter_name == "letterbox") {
+        QSize desktop_size = value.toSize();
+        double aspect = (double) desktop_size.width() / desktop_size.height();
+        arg << "--vf-add=" + QString("expand=aspect=%1").arg(aspect);
+    }
+    else
+#endif*/
+
     if ((filter_name == "harddup") || (filter_name == "hue")) {
         // ignore
     }
     else
+    /*
     if (filter_name == "eq2") {
+        #ifdef USE_OLD_VIDEO_EQ
         arg << "--vf-add=eq";
+        #else
+        arg << "--vf-add=@eq:lavfi=[eq]";
+        #endif
     }
     else
-    if (filter_name == "blur") {
-        addVFIfAvailable("lavfi", "[unsharp=la=-1.5:ca=-1.5]");
-    }
-    else
-    if (filter_name == "sharpen") {
-        addVFIfAvailable("lavfi", "[unsharp=la=1.5:ca=1.5]");
-    }
-    else
-    if (filter_name == "noise") {
-        addVFIfAvailable("lavfi", "[noise=alls=9:allf=t]");
-    }
-    else
-    if (filter_name == "deblock") {
-        addVFIfAvailable("lavfi", "[pp=" + option +"]");
-    }
-    else
-    if (filter_name == "dering") {
-        addVFIfAvailable("lavfi", "[pp=dr]");
-    }
-    else
-    if (filter_name == "phase") {
-        addVFIfAvailable("lavfi", "[phase=" + option +"]");
-    }
-    else
-    if (filter_name == "postprocessing") {
-        addVFIfAvailable("lavfi", "[pp]");
-    }
-    else
-    if (filter_name == "hqdn3d") {
-        QString o;
-        if (!option.isEmpty()) o = "=" + option;
-        addVFIfAvailable("lavfi", "[hqdn3d" + o +"]");
-    }
-    else
-    if (filter_name == "yadif") {
-        if (option == "1") {
-            arg << "--vf-add=yadif=field";
-        } else {
-            arg << "--vf-add=yadif";
-        }
-    }
-    else
-    if (filter_name == "kerndeint") {
-        addVFIfAvailable("lavfi", "[kerndeint=" + option +"]");
-    }
-    else
-    if (filter_name == "lb" || filter_name == "l5") {
-        addVFIfAvailable("lavfi", "[pp=" + filter_name +"]");
-    }
-    else
+    */
     if (filter_name == "subs_on_screenshots") {
         // Ignore
-    }
-    else
-    if (filter_name == "screenshot") {
-        if (!screenshot_dir.isEmpty() && isOptionAvailable("--screenshot-directory")) {
-            arg << "--screenshot-directory=" + QDir::toNativeSeparators(screenshot_dir);
-        }
-    }
-    else
-    if (filter_name == "rotate") {
-        if (option == "0") {
-            arg << "--vf-add=rotate=270,flip";
-        }
-        else
-        if (option == "1") {
-            arg << "--vf-add=rotate=90";
-        }
-        else
-        if (option == "2") {
-            arg << "--vf-add=rotate=270";
-        }
-        else
-        if (option == "3") {
-            arg << "--vf-add=rotate=90,flip";
-        }
     }
     else {
         if (filter_name == "pp") {
@@ -531,9 +643,14 @@ void MPVProcess::addVF(const QString & filter_name, const QVariant & value) {
 }
 
 void MPVProcess::addStereo3DFilter(const QString & in, const QString & out) {
-    arg << "--vf-add=stereo3d=" + in + ":" + out;
-}
+    QString input;
+    if (!in.isEmpty()) input = "in=" + in + ":";
 
+    QString output;
+    if (!out.isEmpty()) output = "out=" + out;
+
+    arg << "--vf-add=lavfi=[stereo3d=" + input + output + "]";
+}
 
 void MPVProcess::setVideoEqualizerOptions(int contrast, int brightness, int hue, int saturation, int gamma, bool soft_eq) {
 //#ifndef USE_OLD_VIDEO_EQ
@@ -565,34 +682,18 @@ void MPVProcess::setVideoEqualizerOptions(int contrast, int brightness, int hue,
 void MPVProcess::addAF(const QString & filter_name, const QVariant & value) {
     QString option = value.toString();
 
-    if (filter_name == "volnorm") {
-        QString s = "drc";
-        if (!option.isEmpty()) s += "=" + option;
-        arg << "--af-add=" + s;
+    QString lavfi_filter = lavfi(filter_name, value);
+    if (!lavfi_filter.isEmpty()) {
+        arg << "--af-add=" + lavfi_filter;
     }
     else
-    if (filter_name == "channels") {
-        if (option == "2:2:0:1:0:0") arg << "--af-add=channels=2:[0-1,0-0]";
-        else
-        if (option == "2:2:1:0:1:1") arg << "--af-add=channels=2:[1-0,1-1]";
-        else
-        if (option == "2:2:0:1:1:0") arg << "--af-add=channels=2:[0-1,1-0]";
-    }
-    else
-    if (filter_name == "pan") {
-        if (option == "1:0.5:0.5") {
-            arg << "--af-add=pan=1:[0.5,0.5]";
-        }
-    }
-    else
+
     if (filter_name == "equalizer") {
-        previous_eq = option;
-        arg << "--af-add=equalizer=" + option;
-    }
-    else
-    if (filter_name == "extrastereo" || filter_name == "karaoke") {
-        /* Not supported anymore */
-        /* Ignore */
+        AudioEqualizerList al = value.toList();
+        QString f = audioEqualizerFilter(al);
+        arg << "--af-add=" + f;
+        previous_eq = f;
+        previous_eq_list = al;
     }
     else {
         QString s = filter_name;
@@ -610,35 +711,44 @@ void MPVProcess::setVolume(int v) {
 }
 
 void MPVProcess::setOSD(int o) {
-    writeToStdin("osd " + QString::number(o));
+//    writeToStdin("osd " + QString::number(o));
+    writeToStdin("no-osd set osd-level " + QString::number(o));
 }
 
 void MPVProcess::setAudio(int ID) {
-    writeToStdin("set aid " + QString::number(ID));
+//    writeToStdin("set aid " + QString::number(ID));
+    writeToStdin(QString("%1 set aid %2").arg(OSD_PREFIX).arg(ID));
 }
 
 void MPVProcess::setVideo(int ID) {
-    writeToStdin("set vid " + QString::number(ID));
+//    writeToStdin("set vid " + QString::number(ID));
+    writeToStdin(QString("%1 set vid %2").arg(OSD_PREFIX).arg(ID));
 }
 
-void MPVProcess::setSubtitle(int /*type*/, int ID) {
-    writeToStdin("set sid " + QString::number(ID));
+void MPVProcess::setSubtitle(int type, int ID) {
+    Q_UNUSED(type);
+    writeToStdin(QString("%1 set sid %2").arg(OSD_PREFIX).arg(ID));
+//    writeToStdin("set sid " + QString::number(ID));
 }
 
 void MPVProcess::disableSubtitles() {
-    writeToStdin("set sid no");
+//    writeToStdin("set sid no");
+    writeToStdin("no-osd set sid no");
 }
 
 void MPVProcess::setSecondarySubtitle(int ID) {
-    writeToStdin("set secondary-sid " + QString::number(ID));
+//    writeToStdin("set secondary-sid " + QString::number(ID));
+    writeToStdin(QString("%1 set secondary-sid %2").arg(OSD_PREFIX).arg(ID));
 }
 
 void MPVProcess::disableSecondarySubtitles() {
-    writeToStdin("set secondary-sid no");
+//    writeToStdin("set secondary-sid no");
+    writeToStdin("no-osd set secondary-sid no");
 }
 
 void MPVProcess::setSubtitlesVisibility(bool b) {
-    writeToStdin(QString("set sub-visibility %1").arg(b ? "yes" : "no"));
+//    writeToStdin(QString("set sub-visibility %1").arg(b ? "yes" : "no"));
+    writeToStdin(QString("no-osd set sub-visibility %1").arg(b ? "yes" : "no"));
 }
 
 void MPVProcess::seek(double secs, int mode, bool precise) {
@@ -685,17 +795,19 @@ void MPVProcess::showFilenameOnOSD(int duration) {
     showOSDText("${filename}", duration, 0);//writeToStdin("show_text \"${filename}\" 2000 0");
 }
 
-void MPVProcess::showTimeOnOSD() {
-    writeToStdin("show_text \"${time-pos} / ${length:0} (${percent-pos}%)\" 2000 0");
-}
-
-
 void MPVProcess::showMediaInfoOnOSD() {
 //#ifdef OSD_WITH_TIMER
     toggleInfoOnOSD();
 //#else
 //	showOSDText("${filename}", 2000, 0);
 //#endif
+}
+
+void MPVProcess::showTimeOnOSD() {
+//#ifdef OSD_WITH_TIMER
+    osd_timer->stop();
+//#endif
+    writeToStdin("show_text \"${time-pos} ${?duration:/ ${duration} (${percent-pos}%)}\" 2000 0");
 }
 
 //#ifdef OSD_WITH_TIMER
@@ -805,6 +917,14 @@ void MPVProcess::setChapter(int ID) {
     writeToStdin("set chapter " + QString::number(ID));
 }
 
+void MPVProcess::nextChapter() {
+    writeToStdin("add chapter 1");
+}
+
+void MPVProcess::previousChapter() {
+    writeToStdin("add chapter -1");
+}
+
 void MPVProcess::setExternalSubtitleFile(const QString & filename) {
     writeToStdin("sub_add \""+ filename +"\"");
     //writeToStdin("print_text ${track-list}");
@@ -823,9 +943,9 @@ void MPVProcess::setSubStep(int value) {
     writeToStdin("sub_step " + QString::number(value));
 }
 
-//void MPVProcess::seekSub(int value) {//kobe 20170705
-//	writeToStdin("sub-seek " + QString::number(value));
-//}
+void MPVProcess::seekSub(int value) {//kobe 20170705
+    writeToStdin("sub-seek " + QString::number(value));
+}
 
 void MPVProcess::setSubForcedOnly(bool b) {
     writeToStdin(QString("set sub-forced-only %1").arg(b ? "yes" : "no"));
@@ -835,31 +955,23 @@ void MPVProcess::setSpeed(double value) {
     writeToStdin("set speed " + QString::number(value));
 }
 
-//#ifdef MPLAYER_SUPPORT
-void MPVProcess::enableKaraoke(bool /*b*/) {
-    /*
-    if (b) writeToStdin("af add karaoke"); else writeToStdin("af del karaoke");
-    */
-    messageFilterNotSupported("karaoke");
+void MPVProcess::enableKaraoke(bool b) {
+    changeAF("karaoke", b);
+
+    //messageFilterNotSupported("karaoke");
 }
 
-void MPVProcess::enableExtrastereo(bool /*b*/) {
-    /*
-    if (b) writeToStdin("af add extrastereo"); else writeToStdin("af del extrastereo");
-    */
-    messageFilterNotSupported("extrastereo");
+void MPVProcess::enableExtrastereo(bool b) {
+    changeAF("extrastereo", b);
 }
-//#endif
 
 void MPVProcess::enableVolnorm(bool b, const QString & option) {
-//    if (b) writeToStdin("af add drc=" + option); else writeToStdin("af del drc=" + option);
     changeAF("volnorm", b, option);
 }
 
 void MPVProcess::enableEarwax(bool b) {
     changeAF("earwax", b);
 }
-
 //void MPVProcess::setAudioEqualizer(const QString & values) {
 //    if (values == previous_eq) return;
 
@@ -873,7 +985,7 @@ void MPVProcess::enableEarwax(bool b) {
 void MPVProcess::setAudioEqualizer(AudioEqualizerList l) {
     qDebug("MPVProcess::setAudioEqualizer");
 
-    #if !defined(SIMPLE_EQUALIZER) && USE_EQUALIZER == EQ_ANEQUALIZER
+    /*#if !defined(SIMPLE_EQUALIZER) && USE_EQUALIZER == EQ_ANEQUALIZER
 
     QStringList commands = AudioEqualizerHelper::equalizerListForCommand(l, previous_eq_list, AudioEqualizerHelper::Anequalizer);
     foreach(QString command, commands) {
@@ -891,7 +1003,7 @@ void MPVProcess::setAudioEqualizer(AudioEqualizerList l) {
 
     previous_eq_list = l;
 
-    #else
+    #else*/
 
     QString eq_filter = audioEqualizerFilter(l);
     if (previous_eq == eq_filter) return;
@@ -903,7 +1015,7 @@ void MPVProcess::setAudioEqualizer(AudioEqualizerList l) {
     writeToStdin("af add \"" + eq_filter + "\"");
     previous_eq = eq_filter;
 
-#endif
+//#endif
 }
 
 void MPVProcess::setAudioDelay(double delay) {
@@ -921,7 +1033,8 @@ void MPVProcess::setLoop(int v) {
         case 0: o = "inf"; break;
         default: o = QString::number(v);
     }
-    writeToStdin(QString("set loop %1").arg(o));
+//    writeToStdin(QString("set loop %1").arg(o));
+    writeToStdin(QString("set loop-file %1").arg(o));
 }
 
 
@@ -1018,88 +1131,21 @@ void MPVProcess::changeVF(const QString & filter, bool enable, const QVariant & 
     qDebug() << "MPVProcess::changeVF:" << filter << enable;
 
     QString f;
+
+    QString lavfi_filter = lavfi(filter, option);
+    if (!lavfi_filter.isEmpty()) {
+        f = lavfi_filter;
+    }
+//USE_LETTERBOX: 2     LETTERBOX_OLD: 1
+/*#if USE_LETTERBOX == LETTERBOX_OLD
+    else
     if (filter == "letterbox") {
-        f = QString("expand=aspect=%1").arg(option.toDouble());
+        QSize desktop_size = option.toSize();
+        double aspect = (double) desktop_size.width() / desktop_size.height();
+        f = QString("expand=aspect=%1").arg(aspect);
     }
-    else
-    if (filter == "noise") {
-        f = "lavfi=[noise=alls=9:allf=t]";
-    }
-    else
-    if (filter == "blur") {
-        f = "lavfi=[unsharp=la=-1.5:ca=-1.5]";
-    }
-    else
-    if (filter == "sharpen") {
-        f = "lavfi=[unsharp=la=1.5:ca=1.5]";
-    }
-    else
-    if (filter == "deblock") {
-        f = "lavfi=[pp=" + option.toString() +"]";
-    }
-    else
-    if (filter == "dering") {
-        f = "lavfi=[pp=dr]";
-    }
-    else
-    if (filter == "phase") {
-        f = "lavfi=[phase=" + option.toString() +"]";
-    }
-    else
-    if (filter == "postprocessing") {
-        f = "lavfi=[pp]";
-    }
-    else
-    if (filter == "hqdn3d") {
-        QString o = option.toString();
-        if (!o.isEmpty()) o = "=" + o;
-        f = "lavfi=[hqdn3d" + o +"]";
-    }
-    else
-    if (filter == "rotate") {
-        QString o = option.toString();
-        if (o == "0") {
-            f = "rotate=270,flip";
-        }
-        else
-        if (o == "1") {
-            f = "rotate=90";
-        }
-        else
-        if (o == "2") {
-            f = "rotate=270";
-        }
-        else
-        if (o == "3") {
-            f = "rotate=90,flip";
-        }
-    }
-    else
-    if (filter == "flip" || filter == "mirror") {
-        f = filter;
-    }
-    else
-    if (filter == "scale" || filter == "gradfun") {
-        f = filter;
-        QString o = option.toString();
-        if (!o.isEmpty()) f += "=" + o;
-    }
-    else
-    if (filter == "lb" || filter == "l5") {
-        f = "lavfi=[pp=" + filter +"]";
-    }
-    else
-    if (filter == "yadif") {
-        if (option.toString() == "1") {
-            f = "yadif=field";
-        } else {
-            f = "yadif";
-        }
-    }
-    else
-    if (filter == "kerndeint") {
-        f = "lavfi=[kerndeint=" + option.toString() +"]";
-    }
+#endif*/
+
     else {
         qDebug() << "MPVProcess::changeVF: unknown filter:" << filter;
     }
@@ -1108,7 +1154,6 @@ void MPVProcess::changeVF(const QString & filter, bool enable, const QVariant & 
         writeToStdin(QString("vf %1 \"%2\"").arg(enable ? "add" : "del").arg(f));
     }
 }
-
 
 void MPVProcess::changeAF(const QString & filter, bool enable, const QVariant & option) {
     qDebug() << "MPVProcess::changeAF:" << filter << enable;
@@ -1126,17 +1171,32 @@ void MPVProcess::changeAF(const QString & filter, bool enable, const QVariant & 
 }
 
 void MPVProcess::changeStereo3DFilter(bool enable, const QString & in, const QString & out) {
-    QString filter = "stereo3d=" + in + ":" + out;
+//    QString filter = "stereo3d=" + in + ":" + out;
+//    writeToStdin(QString("vf %1 \"%2\"").arg(enable ? "add" : "del").arg(filter));
+
+    QString input;
+    if (!in.isEmpty()) input = "in=" + in + ":";
+
+    QString output;
+    if (!out.isEmpty()) output = "out=" + out;
+
+    QString filter = "lavfi=[stereo3d=" + input + output + "]";
     writeToStdin(QString("vf %1 \"%2\"").arg(enable ? "add" : "del").arg(filter));
 }
 
-void MPVProcess::setChannelsFile(const QString & filename) {
-    arg << "--dvbin-file=" + filename;
-}
-
+//#if 0
+//#define SUBOPTION(name, alternative1, alternative2) \
+//	QString name = alternative2;
+//#else
+#define SUBOPTION(name, alternative1, alternative2) \
+    QString name; \
+    if (isOptionAvailable(alternative1)) name = alternative1; \
+    else \
+    if (isOptionAvailable(alternative2)) name = alternative2;
+//#endif
 
 void MPVProcess::setSubStyles(const AssStyles & styles, const QString &) {
-    /*SUBOPTION(sub_font, "--sub-font", "--sub-text-font");
+    SUBOPTION(sub_font, "--sub-font", "--sub-text-font");
     SUBOPTION(sub_color, "--sub-color", "--sub-text-color");
 
     QString sub_shadow_color = "--sub-text-shadow-color";
@@ -1213,7 +1273,11 @@ void MPVProcess::setSubStyles(const AssStyles & styles, const QString &) {
 
     if (!sub_align_y.isEmpty() && !valign.isEmpty()) {
         arg << sub_align_y + "=" + valign;
-    }*/
+    }
+}
+
+void MPVProcess::setChannelsFile(const QString & filename) {
+    arg << "--dvbin-file=" + filename;
 }
 
 QString MPVProcess::lavfi(const QString & filter_name, const QVariant & option) {
@@ -1277,14 +1341,15 @@ QString MPVProcess::lavfi(const QString & filter_name, const QVariant & option) 
     else
     if (filter_name == "letterbox") {
         QSize desktop_size = option.toSize();
-        #if USE_LETTERBOX == LETTERBOX_PAD_WITH_ASPECT
-        double aspect = (double) desktop_size.width() / desktop_size.height();
-        f = QString("pad=aspect=%1:x=(ow-iw)/2:y=(oh-ih)/2").arg(aspect);
-        #endif
-        #if USE_LETTERBOX == LETTERBOX_PAD
+        //USE_LETTERBOX: 2     LETTERBOX_OLD: 1     LETTERBOX_PAD_WITH_ASPECT: 3    LETTERBOX_PAD: 2
+//		#if USE_LETTERBOX == LETTERBOX_PAD_WITH_ASPECT
+//		double aspect = (double) desktop_size.width() / desktop_size.height();
+//		f = QString("pad=aspect=%1:x=(ow-iw)/2:y=(oh-ih)/2").arg(aspect);
+//		#endif
+//		#if USE_LETTERBOX == LETTERBOX_PAD
         //f = QString("pad=ih*%1/%2:ih:(ow-iw)/2:(oh-ih)/2").arg(desktop_size.width()).arg(desktop_size.height());
         f = QString("pad=iw:iw*sar/%1*%2:0:(oh-ih)/2").arg(desktop_size.width()).arg(desktop_size.height());
-        #endif
+//		#endif
     }
     else
     if (filter_name == "rotate") {
@@ -1333,52 +1398,54 @@ QString MPVProcess::lavfi(const QString & filter_name, const QVariant & option) 
 
 QString MPVProcess::audioEqualizerFilter(AudioEqualizerList l) {
     QString f;
+//USE_EQUALIZER: 2   EQ_FIREQUALIZER:2    EQ_FIREQUALIZER_LIST: 3   EQ_FEQUALIZER: 5   EQ_OLD: 0   EQ_ANEQUALIZER: 1   EQ_SUPEREQUALIZER: 4
 
-#if USE_EQUALIZER == EQ_OLD
-    QString values = AudioEqualizerHelper::equalizerListToString(l);
-    f = "equalizer=" + values;
-#endif
+//#if USE_EQUALIZER == EQ_OLD
+//    QString values = AudioEqualizerHelper::equalizerListToString(l);
+//    f = "equalizer=" + values;
+//#endif
 
-#if USE_EQUALIZER == EQ_ANEQUALIZER
-    QString values = AudioEqualizerHelper::equalizerListToString(l, AudioEqualizerHelper::Anequalizer);
-    f = "lavfi=[anequalizer=" + values + "]";
-    #ifndef SIMPLE_EQUALIZER
-    f = "@anequalizer:" + f;
-    #endif
-#endif
+//#if USE_EQUALIZER == EQ_ANEQUALIZER
+//    QString values = AudioEqualizerHelper::equalizerListToString(l, AudioEqualizerHelper::Anequalizer);
+//    f = "lavfi=[anequalizer=" + values + "]";
+//    #ifndef SIMPLE_EQUALIZER
+//    f = "@anequalizer:" + f;
+//    #endif
+//#endif
 
-#if USE_EQUALIZER == EQ_FIREQUALIZER
+//#if USE_EQUALIZER == EQ_FIREQUALIZER
+    qDebug() << "equalizerListToString start 1111";
     QString values = AudioEqualizerHelper::equalizerListToString(l, AudioEqualizerHelper::Firequalizer);
     f = "lavfi=[firequalizer=gain='cubic_interpolate(f)':zero_phase=on:wfunc=tukey:delay=0.027:" + values + "]";
     #ifndef SIMPLE_EQUALIZER
     f = "@firequalizer:" + f;
     #endif
-#endif
+//#endif
 
-#ifndef SIMPLE_EQUALIZER
-#if USE_EQUALIZER == EQ_SUPEREQUALIZER
-    QString values = AudioEqualizerHelper::equalizerListToString(l, AudioEqualizerHelper::Superequalizer);
-    f = "lavfi=[superequalizer=" + values + "]";
-#endif
+//#ifndef SIMPLE_EQUALIZER
+//#if USE_EQUALIZER == EQ_SUPEREQUALIZER
+//    QString values = AudioEqualizerHelper::equalizerListToString(l, AudioEqualizerHelper::Superequalizer);
+//    f = "lavfi=[superequalizer=" + values + "]";
+//#endif
 
-#if USE_EQUALIZER == EQ_FIREQUALIZER_LIST
-    QStringList e = AudioEqualizerHelper::equalizerListToStringList(l, AudioEqualizerHelper::Firequalizer);
-    foreach(QString option, e) {
-        if (!f.isEmpty()) f += ",";
-        f += "firequalizer=" + option;
-    }
-    f = "@firequalizer:lavfi=[" + f + "]";
-#endif
+//#if USE_EQUALIZER == EQ_FIREQUALIZER_LIST
+//    QStringList e = AudioEqualizerHelper::equalizerListToStringList(l, AudioEqualizerHelper::Firequalizer);
+//    foreach(QString option, e) {
+//        if (!f.isEmpty()) f += ",";
+//        f += "firequalizer=" + option;
+//    }
+//    f = "@firequalizer:lavfi=[" + f + "]";
+//#endif
 
-#if USE_EQUALIZER == EQ_FEQUALIZER
-    QStringList e = AudioEqualizerHelper::equalizerListToStringList(l, AudioEqualizerHelper::FEqualizer);
-    foreach(QString option, e) {
-        if (!f.isEmpty()) f += ",";
-        f += "equalizer=" + option;
-    }
-    f = "lavfi=[aresample=44100," + f + "]";
-#endif
-#endif
+//#if USE_EQUALIZER == EQ_FEQUALIZER
+//    QStringList e = AudioEqualizerHelper::equalizerListToStringList(l, AudioEqualizerHelper::FEqualizer);
+//    foreach(QString option, e) {
+//        if (!f.isEmpty()) f += ",";
+//        f += "equalizer=" + option;
+//    }
+//    f = "lavfi=[aresample=44100," + f + "]";
+//#endif
+//#endif
 
     return f;
 }

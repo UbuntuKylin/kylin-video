@@ -44,9 +44,11 @@ public:
                     BelowNormal = 4, Idle = 5 };
 	enum WheelFunction { DoNothing = 1, Seeking = 2, Volume = 4, Zoom = 8,
                          ChangeSpeed = 16 };
+    enum DragFunction { DragDisabled = 0, MoveWindow = 1, Gestures = 2 };
 	enum OptionState { Detect = -1, Disabled = 0, Enabled = 1 };
 	enum H264LoopFilter { LoopDisabled = 0, LoopEnabled = 1, LoopDisabledOnHD = 2 };
 	enum AutoAddToPlaylistFilter { NoFiles = 0, VideoFiles = 1, AudioFiles = 2, MultimediaFiles = 3, ConsecutiveFiles = 4 };
+    enum Streaming { NoStreaming = 0, StreamingAuto = 1, StreamingYT = 2, StreamingYTDL = 3 };
 
 	Q_DECLARE_FLAGS(WheelFunctions, WheelFunction);
 
@@ -57,6 +59,8 @@ public:
 
 	void save();
 	void load();
+
+    double monitor_aspect_double();
 	void setupScreenshotFolder();
 
 
@@ -64,14 +68,17 @@ public:
     /* *******
        General
        ******* */
+    int config_version;
+
 	QString mplayer_bin;
 	QString vo; // video output
 	QString ao; // audio output
 
 	bool use_screenshot;
-
-	QString screenshot_template;
-	QString screenshot_format;
+//#ifdef MPV_SUPPORT
+    QString screenshot_template;
+    QString screenshot_format;
+//#endif
 	QString screenshot_directory;
 
     // Possibility to remember all media settings
@@ -79,14 +86,27 @@ public:
     bool remember_time_pos;
     bool remember_stream_settings;
 
+//#if SIMPLE_TRACK_SELECTION
     QString alang;
     QString slang;
+//#else
+//	QString audio_lang; 		// Preferred audio language
+//	QString subtitle_lang;		// Preferred subtitle language
+//#endif
 
 	// Video
 	bool use_direct_rendering;
 	bool use_double_buffer;
 	bool use_soft_video_eq;
 	bool use_slices;
+    int autoq; 	//!< Postprocessing quality
+
+
+//#ifdef ADD_BLACKBORDERS_FS
+    bool add_blackborders_on_fullscreen;
+//#endif
+
+    bool disable_screensaver;
 
     struct VDPAU_settings {
         bool ffh264vdpau;
@@ -117,6 +137,10 @@ public:
     bool autosync;
     int autosync_factor;
 
+    // For the -mc option
+    bool use_mc;
+    double mc_value;
+
     // When playing a mp4 file, it will use a m4a file for audio if a there's a file with same name but extension m4a
     bool autoload_m4a;
     int min_step; //<! Step to increase of decrease the controls for color, contrast, brightness and so on
@@ -132,13 +156,40 @@ public:
     int osd_bar_pos;
     int osd_show_filename_duration;
 
+    QString file_settings_method; //!< Method to be used for saving file settings
+
+    bool tablet_mode;
+
+
+
+    /* ***************
+       Drives (CD/DVD)
+       *************** */
+
+    QString dvd_device;
+    QString cdrom_device;
+//#ifdef BLURAY_SUPPORT
+//	QString bluray_device;
+//#endif
+
+//#ifdef Q_OS_WIN
+//	bool enable_audiocd_on_windows;
+//#endif
+
+    int vcd_initial_title;
+
+//#if DVDNAV_SUPPORT
+//	bool use_dvdnav; //!< Opens DVDs using dvdnav: instead of dvd:
+//#endif
+
+
 
 
     /* ***********
        Performance
        *********** */
-//    bool frame_drop;
-//	bool hard_frame_drop;
+    bool frame_drop;
+    bool hard_frame_drop;
     bool coreavc;
     H264LoopFilter h264_skip_loop_filter;
 	int HD_height; //!< An HD is a video which height is equal or greater than this.
@@ -150,13 +201,19 @@ public:
     bool cache_auto;
     int cache_for_files;
     int cache_for_streams;
-//	int cache_for_dvds;
-//	int cache_for_vcds;
-//	int cache_for_audiocds;
+    int cache_for_dvds;
+    int cache_for_vcds;
+    int cache_for_audiocds;
 
 	/* *********
 	   Subtitles
 	   ********* */
+
+	QString subcp; // -subcp
+	bool use_enca;
+	QString enca_lang;
+    int subfuzziness;
+    bool autoload_sub;
 
     bool use_ass_subtitles;
     bool enable_ass_styles;
@@ -164,14 +221,16 @@ public:
 
     bool use_forced_subs_only;
 
-	QString subcp; // -subcp
-	bool use_enca;
-	QString enca_lang;
-	bool sub_visibility;
-    int subfuzziness;
-    bool autoload_sub;
+    bool sub_visibility;
 
     bool subtitles_on_screenshots;
+
+    OptionState change_sub_scale_should_restart;
+
+    //! If true, loading an external subtitle will be done
+    //! by using the sub_load slave command. Otherwise
+    //! mplayer will be restarted.
+    bool fast_load_sub;
 
     // ASS styles
     AssStyles ass_styles;
@@ -186,8 +245,12 @@ public:
        ******** */
 
 //#if USE_ADAPTER
-    int adapter; //Screen for overlay. If -1 it won't be used.
+//    int adapter; //Screen for overlay. If -1 it won't be used.
 //#endif
+
+    bool use_mplayer_window;
+
+    QString monitor_aspect;
 
 	bool use_idx; //!< Use -idx
 	bool use_lavf_demuxer;
@@ -197,13 +260,22 @@ public:
     QString mplayer_additional_video_filters;
     QString mplayer_additional_audio_filters;
 
+//#ifdef LOG_MPLAYER
     bool log_mplayer;
     bool verbose_log;
-//    bool autosave_mplayer_log;
-//    QString mplayer_log_saveto;
+    bool autosave_mplayer_log;
+    QString mplayer_log_saveto;
+//#endif
+//#ifdef LOG_SMPLAYER
     bool log_smplayer;
     QString log_filter;
     bool save_smplayer_log;
+//#endif
+
+//#if REPAINT_BACKGROUND_OPTION
+    //! If true, mplayerlayer erases its background
+    bool repaint_video_background;
+//#endif
 
 	//! If true it will autoload edl files with the same name of the file
     //! to play
@@ -250,19 +322,47 @@ public:
     bool emulate_mplayer_ab_section;
 //#endif
 
+    bool use_native_open_dialog;
+
 	/* *********
 	   GUI stuff
 	   ********* */
 
 	bool fullscreen;
+    bool start_in_fullscreen;
+    bool compact_mode;
     OnTop stay_on_top;
+    int size_factor;
+
     PlayOrder play_order;
 
 	int resize_method; 	//!< Mainwindow resize method
-	int wheel_function;
 
-	WheelFunctions wheel_function_cycle;
-	bool wheel_function_seeking_reverse;
+//#if STYLE_SWITCHING
+    QString style; 	//!< SMPlayer look
+//#endif
+
+    bool center_window; //!< Center the main window when playback starts
+    bool center_window_if_outside; //!< Center the main window after an autoresize if it's outside of the screen
+
+//#ifdef GLOBALSHORTCUTS
+    bool use_global_shortcuts;
+    int global_shortcuts_grabbed_keys;
+//#endif
+
+    // Function of mouse buttons:
+    QString mouse_left_click_function;
+    QString mouse_right_click_function;
+    QString mouse_double_click_function;
+    QString mouse_middle_click_function;
+    QString mouse_xbutton1_click_function;
+    QString mouse_xbutton2_click_function;
+    int wheel_function;
+
+    WheelFunctions wheel_function_cycle;
+    bool wheel_function_seeking_reverse;
+
+    int drag_function;
 
 	// Configurable seeking
 	int seeking1; // By default 10s
@@ -270,25 +370,90 @@ public:
 	int seeking3; // By default 10m
 	int seeking4; // For mouse wheel, by default 30s
 
-//	bool update_while_seeking;
-	int time_slider_drag_delay;
+    bool update_while_seeking;
+//#if ENABLE_DELAYED_DRAGGING
+    int time_slider_drag_delay;
+//#endif
+
+//#if SEEKBAR_RESOLUTION
+    //! If true, seeking will be done using a
+    //! percentage (with fractions) instead of time.
+    bool relative_seeking;
+//#endif
+    bool precise_seeking; //! Enable precise_seeking (only available with mpv)
+
+    bool reset_stop; //! Pressing the stop button resets the position
+
+    //! If true, the left click in the video is delayed some ms
+    //! to check if the user double clicked
+    bool delay_left_click;
+
+    QString language;
+    QString iconset;
+
+    //! Number of times to show the balloon remembering that the program
+    //! is still running in the system tray.
+    int balloon_count;
+
+    //! If true, the position of the main window will be saved before
+    //! entering in fullscreen and will restore when going back to
+    //! window mode.
+    bool restore_pos_after_fullscreen;
+
+    bool save_window_size_on_exit;
+
+    //! Close the main window when a file or playlist finish
+    bool close_on_finish;
+
+//#ifdef AUTO_SHUTDOWN_PC
+    bool auto_shutdown_pc;
+//#endif
+
+    QString default_font;
 
 	//!< Pause the current file when the main window is not visible
     bool pause_when_hidden;
 
+    //!< Allow frre movement of the video window
+    bool allow_video_movement;
+
+    QString gui; //!< The name of the GUI to use
+
+//#if USE_MINIMUMSIZE
+    int gui_minimum_width;
+//#endif
+    QSize default_size; // Default size of the main window
+
+//#if ALLOW_TO_HIDE_VIDEO_WINDOW_ON_AUDIO_FILES
+    bool hide_video_window_on_audio_files;
+//#endif
+
+    bool report_mplayer_crashes;
+
+//#if REPORT_OLD_MPLAYER
+    bool reported_mplayer_is_old;
+//#endif
+
+    bool auto_add_to_playlist; //!< Add files to open to playlist
+    AutoAddToPlaylistFilter media_to_add_to_playlist;
+
+//#if LOGO_ANIMATION
+//    bool animated_logo;
+//#endif
+
     bool preview_when_playing;
-
-	AutoAddToPlaylistFilter media_to_add_to_playlist;
-
-    QString playlist_key;
-    QString next_key;
-    QString prev_key;
+//    QString playlist_key;
+//    QString next_key;
+//    QString prev_key;
 
     /* ***********
        Directories
        *********** */
 
 	QString latest_dir; //!< Directory of the latest file loaded
+    QString last_dvd_directory;
+    bool save_dirs; // Save or not the latest dirs
+
 
     /* **************
        Initial values
@@ -328,6 +493,7 @@ public:
     int initial_subtitle_track;
 //#endif
 
+
     /* ************
        MPlayer info
        ************ */
@@ -349,6 +515,9 @@ public:
     Filters * filters;
 
 
+    /* *********
+       Kylin Video info
+       ********* */
     QString arch_type;
     QString m_snap;
 };

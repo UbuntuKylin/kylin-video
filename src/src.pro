@@ -12,6 +12,7 @@ QT += network xml
 RESOURCES = res.qrc
 
 DEFINES += SINGLE_INSTANCE
+DEFINES += AUTO_SHUTDOWN_PC
 
 inst1.files += res/kylin-video.png
 inst1.path = /usr/share/pixmaps
@@ -31,6 +32,11 @@ QMAKE_LFLAGS   *= $(shell dpkg-buildflags --get LDFLAGS)
 
 isEqual(QT_MAJOR_VERSION, 5) {
 	QT += widgets gui
+}
+
+unix {
+        QT += gui-private
+        LIBS += $${QMAKE_LIBS_X11}
 }
 
 HEADERS += smplayer/config.h \
@@ -89,10 +95,12 @@ HEADERS += smplayer/config.h \
         smplayer/assstyles.h \
         smplayer/audioequalizer.h \
         smplayer/audioequalizerlist.h \
-#        smplayer/autohidewidget.h \
+        smplayer/autohidewidget.h \
         smplayer/verticaltext.h \
         smplayer/eqslider.h \
         smplayer/chapters.h \
+        smplayer/globalshortcuts/globalshortcuts.h \
+        smplayer/globalshortcuts/globalshortcutsdialog.h \
         merge/basegui.h \
         merge/playlist.h \
         merge/lineedit_with_icon.h \
@@ -183,10 +191,12 @@ SOURCES	+= smplayer/version.cpp \
         smplayer/assstyles.cpp \
         smplayer/audioequalizer.cpp \
         smplayer/audioequalizerlist.cpp \
-#        smplayer/autohidewidget.cpp \
+        smplayer/autohidewidget.cpp \
         smplayer/verticaltext.cpp \
         smplayer/eqslider.cpp \
         smplayer/chapters.cpp \
+        smplayer/globalshortcuts/globalshortcuts.cpp \
+        smplayer/globalshortcuts/globalshortcutsdialog.cpp \
         merge/lineedit_with_icon.cpp \
         merge/basegui.cpp \
         merge/playlist.cpp \
@@ -220,6 +230,8 @@ SOURCES	+= smplayer/version.cpp \
         bottomcontroller.cpp \
         filterhandler.cpp
 
+
+
 FORMS = smplayer/timedialog.ui \
         merge/preferencesdialog.ui \
         merge/prefgeneral.ui \
@@ -235,7 +247,8 @@ FORMS = smplayer/timedialog.ui \
         merge/errordialog.ui \
         kylin/helpdialog.ui \
         kylin/supportformats.ui \
-        kylin/aboutdialog.ui
+        kylin/aboutdialog.ui \
+        smplayer/globalshortcuts/globalshortcutsdialog.ui
 
 
 # qtsingleapplication
@@ -246,6 +259,22 @@ contains( DEFINES, SINGLE_INSTANCE ) {
 	SOURCES += qtsingleapplication/qtsingleapplication.cpp qtsingleapplication/qtlocalpeer.cpp
 	HEADERS += qtsingleapplication/qtsingleapplication.h qtsingleapplication/qtlocalpeer.h
 }
+
+contains( DEFINES, AUTO_SHUTDOWN_PC ) {
+        HEADERS += smplayer/shutdowndialog.h smplayer/shutdown.h
+        SOURCES += smplayer/shutdowndialog.cpp smplayer/shutdown.cpp
+        FORMS += smplayer/shutdowndialog.ui
+
+        unix { QT += dbus }
+}
+
+#contains( DEFINES, GLOBALSHORTCUTS ) {
+#        lessThan(QT_MAJOR_VERSION, 5) {
+#                DEFINES -= GLOBALSHORTCUTS
+#                message("GLOBALSHORTCUTS requires Qt 5. Disabled.")
+#        }
+#}
+
 
 unix {
     UI_DIR = .ui

@@ -16,15 +16,22 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-#ifndef SHUTDOWN_H
-#define SHUTDOWN_H
+#ifndef GLOBALSHORTCUTSDIALOG_H
+#define GLOBALSHORTCUTSDIALOG_H
 
-class Shutdown
+#include "ui_globalshortcutsdialog.h"
+#include <QDialog>
+
+class GlobalShortcutsDialog : public QDialog, public Ui::GlobalShortcutsDialog
 {
+	Q_OBJECT
 
 public:
-	static void shutdown();
+	GlobalShortcutsDialog(QWidget* parent = 0, Qt::WindowFlags f = 0);
+	~GlobalShortcutsDialog();
+
+	void setGrabbedKeys(int);
+	int grabbedKeys();
 };
 
 #endif
-

@@ -1555,9 +1555,9 @@ void Core::startMplayer( QString file, double seek ) {
     }*/
 
 //#if USE_ADAPTER
-    if (pref->adapter > -1) {
-        proc->setOption("adapter", QString::number(pref->adapter));
-    }
+//    if (pref->adapter > -1) {
+//        proc->setOption("adapter", QString::number(pref->adapter));
+//    }
 //#endif
 
 //	if (pref->ao != "player_default") {
@@ -4454,14 +4454,14 @@ void Core::changeRotate(int r) {
 }
 
 //#if USE_ADAPTER
-void Core::changeAdapter(int n) {
-    qDebug("Core::changeScreen: %d", n);
+//void Core::changeAdapter(int n) {
+//    qDebug("Core::changeScreen: %d", n);
 
-//	if (pref->adapter != n) {
-//		pref->adapter = n;
-//		restartPlay();
-//	}
-}
+////	if (pref->adapter != n) {
+////		pref->adapter = n;
+////		restartPlay();
+////	}
+//}
 //#endif
 
 void Core::changeAO(const QString & new_ao) {

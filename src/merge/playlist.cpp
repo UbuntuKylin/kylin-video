@@ -598,6 +598,7 @@ void Playlist::playItem( int n ) {
 void Playlist::playNext() {
 //    emit this->sig_playing_title("");
 //    qDebug("Playlist::playNext  pl[current_item]->name()=%s", pl[current_item]->name());
+
     if (pref->play_order == Preferences::RandomPlay) {//随机播放
         int chosen_item = chooseRandomItem();
         if (chosen_item == -1) {

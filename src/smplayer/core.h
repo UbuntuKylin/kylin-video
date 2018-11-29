@@ -321,7 +321,7 @@ public slots:
 	void changeRotate(int r);
 
 //#if USE_ADAPTER
-    void changeAdapter(int n);
+//    void changeAdapter(int n);
 //#endif
 
     void changeAO(const QString & new_ao);

@@ -2155,7 +2155,6 @@ void BaseGui::checkStayOnTop(Core::State state) {
 
 void BaseGui::changePlayOrder(int play_order) {
     pref->play_order = (Preferences::PlayOrder) play_order;
-//    updateWidgets();
     playOrderActionGroup->setChecked((int)pref->play_order);
 }
 

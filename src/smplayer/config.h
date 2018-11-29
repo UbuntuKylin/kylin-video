@@ -26,6 +26,8 @@
 #define NOTIFY_VIDEO_CHANGES 1
 #define NOTIFY_CHAPTER_CHANGES 1
 
+#define SIMPLE_TRACK_SELECTION 1
+#define SELECT_TRACKS_ON_STARTUP 1
 
 #define TOP_TOOLBAR_HEIGHT 39
 #define BOTTOM_TOOLBAR_HEIGHT 79
@@ -116,7 +118,7 @@
 
 // Adds or not the "Repaint the background of the video window" option.
 //#ifndef Q_OS_WIN
-//#define REPAINT_BACKGROUND_OPTION 1
+#define REPAINT_BACKGROUND_OPTION 1
 //#endif
 
 
@@ -131,7 +133,7 @@
 // If 1, smplayer will check if mplayer is old
 // and in that case it will report to the user
 //#if !defined(Q_OS_WIN) && !defined(Q_OS_OS2)
-//#define REPORT_OLD_MPLAYER 1
+#define REPORT_OLD_MPLAYER 1
 //#endif
 
 

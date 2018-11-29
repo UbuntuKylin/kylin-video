@@ -165,7 +165,7 @@ void Preferences::reset() {
     osd_show_filename_duration = 2000;
 
     //kobe:pref->file_settings_method 记住时间位置的配置设置在一个ini文件时为normal，在多个ini文件时为hash
-    file_settings_method = "hash"; // Possible values: normal & hash
+    file_settings_method = "normal";//"hash"; // Possible values: normal & hash
 
     tablet_mode = false;
 

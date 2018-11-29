@@ -16,30 +16,36 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-#ifndef FILESETTINGS_H
-#define FILESETTINGS_H
+#include "filehash.h"
+#include <QFile>
+#include <QDataStream>
 
-#include "filesettingsbase.h"
+// From the patch by Kamil Dziobek turbos11(at)gmail.com
+// (c) Kamil Dziobek turbos11(at)gmail.com | BSD or GPL or public domain
+QString FileHash::calculateHash(QString filename) {
+	QFile file(filename);
 
-class QSettings;
+	if (!file.exists()) {
+		qWarning("OSParser:calculateHash: error hashing file. File doesn't exist.");
+		return QString();
+	}
 
-class FileSettings : public FileSettingsBase
-{
-public:
-	FileSettings(QString directory);
-	virtual ~FileSettings();
+	file.open(QIODevice::ReadOnly);
+	QDataStream in(&file);
+	in.setByteOrder(QDataStream::LittleEndian);
+	quint64 size=file.size ();
+	quint64 hash=size; 
+	quint64 a;
+	for(int i = 0; i < 8192; i++) {
+		in >> a ; hash += a;
+	};
+	file.seek(size-65536);
+	for(int i = 0; i < 8192; i++) {
+		in >> a ; hash += a;
+	};
 
-	virtual bool existSettingsFor(QString filename, int type);
+	QString hexhash = QString("%1").arg(hash, 16, 16, QChar('0'));
 
-	virtual void loadSettingsFor(QString filename, int type, MediaSettings & mset, int player);
-
-	virtual void saveSettingsFor(QString filename, int type, MediaSettings & mset, int player);
-
-	static QString filenameToGroupname(const QString & filename, int type);
-
-private:
-	QSettings * my_settings;
-};
-
-#endif
+	return hexhash;
+}
 

@@ -100,10 +100,10 @@ public:
 //#if REPAINT_BACKGROUND_OPTION
 	//! If b is true, the background of the widget will be repainted as usual.
 	/*! Otherwise the background will not repainted when a video is playing. */
-//	void setRepaintBackground(bool b);
+    void setRepaintBackground(bool b);
 
-//	//! Return true if repainting the background is allowed.
-//	bool repaintBackground() { return repaint_background; };
+    //! Return true if repainting the background is allowed.
+    bool repaintBackground() { return repaint_background; };
 //#endif
 
 public slots:
@@ -120,7 +120,7 @@ protected:
 
 private:
 //#if REPAINT_BACKGROUND_OPTION
-//	bool repaint_background;
+    bool repaint_background;
 //#endif
 	bool playing;
 };

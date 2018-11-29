@@ -88,6 +88,9 @@ HEADERS += smplayer/config.h \
         smplayer/translator.h \
         smplayer/languages.h \
         smplayer/filesettings.h \
+        smplayer/filesettingsbase.h \
+        smplayer/filesettingshash.h \
+        smplayer/filehash.h \
         smplayer/videopreview.h \
         smplayer/prefwidget.h \
         smplayer/scrollermodule.h \
@@ -101,6 +104,7 @@ HEADERS += smplayer/config.h \
         smplayer/chapters.h \
         smplayer/globalshortcuts/globalshortcuts.h \
         smplayer/globalshortcuts/globalshortcutsdialog.h \
+        smplayer/discname.h \
         merge/basegui.h \
         merge/playlist.h \
         merge/lineedit_with_icon.h \
@@ -184,6 +188,9 @@ SOURCES	+= smplayer/version.cpp \
         smplayer/translator.cpp \
         smplayer/languages.cpp \
         smplayer/filesettings.cpp \
+        smplayer/filesettingsbase.cpp \
+        smplayer/filesettingshash.cpp \
+        smplayer/filehash.cpp \
         smplayer/videopreview.cpp \
         smplayer/prefwidget.cpp \
         smplayer/scrollermodule.cpp \
@@ -197,6 +204,7 @@ SOURCES	+= smplayer/version.cpp \
         smplayer/chapters.cpp \
         smplayer/globalshortcuts/globalshortcuts.cpp \
         smplayer/globalshortcuts/globalshortcutsdialog.cpp \
+        smplayer/discname.cpp \
         merge/lineedit_with_icon.cpp \
         merge/basegui.cpp \
         merge/playlist.cpp \

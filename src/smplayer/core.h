@@ -27,9 +27,12 @@
 
 #include "config.h"
 
-class FileSettings;
+class FileSettingsBase;
+
+//class FileSettings;
 class PlayerProcess;
 class MplayerWindow;
+class QSettings;
 
 class Core : public QObject
 {
@@ -74,7 +77,7 @@ public slots:
 //#endif
 	void openVCD(int title = -1);
 	void openAudioCD(int title = -1);
-	void openTV(QString channel_id);
+//	void openTV(QString channel_id);
 
 //#ifdef YOUTUBE_SUPPORT
 //	void openYT(const QString & url);
@@ -142,19 +145,19 @@ public slots:
 
 	// Audio filters
 //#ifdef MPLAYER_SUPPORT
-//	void toggleKaraoke();
-//	void toggleKaraoke(bool b);
-//	void toggleExtrastereo();
-//	void toggleExtrastereo(bool b);
+    void toggleKaraoke();
+    void toggleKaraoke(bool b);
+    void toggleExtrastereo();
+    void toggleExtrastereo(bool b);
 //#endif
+
+    void toggleVolnorm();
+    void toggleVolnorm(bool b);
 
 //#ifdef MPV_SUPPORT
     void toggleEarwax();
     void toggleEarwax(bool b);
 //#endif
-
-    void toggleVolnorm();
-    void toggleVolnorm(bool b);
 
 	void setAudioChannels(int channels);
 	void setStereoMode(int mode);
@@ -189,8 +192,8 @@ public slots:
 	void forward(int secs);
 	void rewind(int secs);
 //#ifdef MPV_SUPPORT
-//	void seekToNextSub();
-//	void seekToPrevSub();
+    void seekToNextSub();
+    void seekToPrevSub();
 //#endif
 	void wheelUp();
 	void wheelDown();
@@ -245,9 +248,9 @@ public slots:
 	void incSubPos();
 	void decSubPos();
 
-//	void changeSubScale(double value);
-//	void incSubScale();
-//	void decSubScale();
+    void changeSubScale(double value);
+    void incSubScale();
+    void decSubScale();
 
     void changeOSDScale(double value);
     void incOSDScale();
@@ -307,9 +310,9 @@ public slots:
 	void nextWheelFunction();
 
 //#ifdef BOOKMARKS
-//    void nextBookmark();
-//    void prevBookmark();
-//    void saveBookmarks();
+    void nextBookmark();
+    void prevBookmark();
+    void saveBookmarks();
 //#endif
 
 //	#if 0
@@ -339,10 +342,10 @@ public slots:
 	void showTimeOnOSD();
 	void toggleDeinterlace();
 
-//	void changeUseCustomSubStyle(bool);
-//	void toggleForcedSubsOnly(bool);
+    void changeUseCustomSubStyle(bool);
+    void toggleForcedSubsOnly(bool);
 
-//	void changeClosedCaptionChannel(int);
+    void changeClosedCaptionChannel(int);
 	/*
 	void nextClosedCaptionChannel();
 	void prevClosedCaptionChannel();
@@ -417,9 +420,9 @@ protected slots:
 	//! the resolution is HD
 	void checkIfVideoIsHD();
 
-#if DELAYED_AUDIO_SETUP_ON_STARTUP
-	void initAudioTrack();
-#endif
+//#if DELAYED_AUDIO_SETUP_ON_STARTUP
+//	void initAudioTrack();
+//#endif
 //#if NOTIFY_AUDIO_CHANGES
     void initAudioTrack(const Tracks &, int selected_id);
 //#endif
@@ -431,7 +434,7 @@ protected slots:
 	void setSubtitleTrackAgain(const SubTracks &);
 //#endif
 //#if NOTIFY_CHAPTER_CHANGES
-//	void updateChapterInfo(const Chapters &);
+    void updateChapterInfo(const Chapters &);
 //#endif
 
 //#if DVDNAV_SUPPORT
@@ -467,17 +470,16 @@ protected:
     void startMplayer(QString file, double seek = -1 );
 	void stopMplayer();
 
+    //#ifndef NO_USE_INI_FILES
+        void saveMediaInfo();
+    //#endif
     void restoreSettingsForMedia(const QString & name, int type);
-
-//#ifndef NO_USE_INI_FILES
-	void saveMediaInfo();
-//#endif
 
     void initializeMenus();
 	void updateWidgets();
 
 	//! Returns true if changing the subscale requires to restart mplayer
-//	bool subscale_need_restart();
+    bool subscale_need_restart();
 
 	int adjustVolume(int v, int max_vol);
 
@@ -545,7 +547,8 @@ protected:
 	MplayerWindow * mplayerwindow;
 
 //#ifndef NO_USE_INI_FILES
-    FileSettings * file_settings;
+    FileSettingsBase * file_settings;
+//    FileSettings * file_settings;
 //	FileSettingsBase * tv_settings;
 //#endif
 

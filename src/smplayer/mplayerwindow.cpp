@@ -145,6 +145,13 @@ MplayerLayer::MplayerLayer(QWidget* parent, Qt::WindowFlags f)
 MplayerLayer::~MplayerLayer() {
 }
 
+//#if REPAINT_BACKGROUND_OPTION
+void MplayerLayer::setRepaintBackground(bool b) {
+    qDebug("MplayerLayer::setRepaintBackground: %d", b);
+    repaint_background = b;
+}
+//#endif
+
 void MplayerLayer::paintEvent( QPaintEvent * e ) {
 //    qDebug("MplayerLayer::paintEvent: repaint_background: %d", repaint_background);
     if (/*repaint_background || */!playing) {//kobe: if repaint_background is true, Qt5 will call "QPainter::begin: Paint device returned engine == 0, type: 1"

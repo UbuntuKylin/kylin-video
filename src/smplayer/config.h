@@ -55,6 +55,13 @@
 #define EXTERNAL_SLEEP 0
 
 
+// ENABLE_DELAYED_DRAGGING
+// if 1, sends the dragging position of the time slider
+// some ms later
+
+#define ENABLE_DELAYED_DRAGGING 1
+
+
 // SEEKBAR_RESOLUTION
 // if SEEKBAR_RESOLUTION is defined, it specified the
 // maximum value of the time slider
@@ -95,7 +102,7 @@
 // Just for testing, possibility to disable the use of the colorkey
 
 //#define USE_COLORKEY 1
-
+#define USE_COLORKEY 0
 
 // USE_MINIMUMSIZE
 // if 1, the main window will not be smaller than the control widget 
@@ -107,14 +114,19 @@
 // DVDNAV_SUPPORT
 // if 1, smplayer will be compiled with support for mplayer's dvdnav
 //#ifdef MPLAYER_SUPPORT
-//#define DVDNAV_SUPPORT 1
+//#define DVDNAV_SUPPORT 0
 //#endif
 
 
 // PROGRAM_SWITCH
 // support for program switch in ts files
 
-//#define PROGRAM_SWITCH 0
+#define PROGRAM_SWITCH 0
+
+// ALLOW_DEMUXER_CODE_CHANGE
+// support changing of demuxer and video and audio codecs
+
+#define ALLOW_DEMUXER_CODEC_CHANGE 1
 
 // Adds or not the "Repaint the background of the video window" option.
 //#ifndef Q_OS_WIN

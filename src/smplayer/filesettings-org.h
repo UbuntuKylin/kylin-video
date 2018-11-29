@@ -1,5 +1,5 @@
 /*  smplayer, GUI front-end for mplayer.
-    Copyright (C) 2006-2018 Ricardo Villalba <rvm@users.sourceforge.net>
+    Copyright (C) 2006-2015 Ricardo Villalba <rvm@users.sourceforge.net>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -13,29 +13,34 @@
 
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef FILESETTINGS_H
-#define FILESETTINGS_H
+#ifndef _FILESETTINGS_H_
+#define _FILESETTINGS_H_
 
-#include "filesettingsbase.h"
+#include <QString>
 
 class QSettings;
+class MediaSettings;
 
-class FileSettings : public FileSettingsBase
+class FileSettings
 {
 public:
-	FileSettings(QString directory);
+    FileSettings(QString directory);
 	virtual ~FileSettings();
 
-	virtual bool existSettingsFor(QString filename, int type);
+    virtual bool existSettingsFor(QString filename, int type);
 
-	virtual void loadSettingsFor(QString filename, int type, MediaSettings & mset, int player);
+    virtual void loadSettingsFor(QString filename, int type, MediaSettings & mset, int player);
 
-	virtual void saveSettingsFor(QString filename, int type, MediaSettings & mset, int player);
+    virtual void saveSettingsFor(QString filename, int type, MediaSettings & mset, int player);
 
-	static QString filenameToGroupname(const QString & filename, int type);
+    static QString filenameToGroupname(const QString & filename, int type);
+
+
+protected:
+    QString output_directory;
 
 private:
 	QSettings * my_settings;

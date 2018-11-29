@@ -109,7 +109,9 @@ void MediaSettings::reset() {
 
     zoom_factor = pref->initial_zoom_factor; // 1.0;
 
-	starting_time = -1; // Not set yet.
+//#ifdef MSET_USE_STARTING_TIME
+//	starting_time = -1; // Not set yet.
+//#endif
 
 	rotate = NoRotate;
 	flip = false;
@@ -121,8 +123,8 @@ void MediaSettings::reset() {
 
 //#ifdef BOOKMARKS
 //	// Initialize bookmarks
-//	bookmarks.clear();
-//	bookmarks.insert(0, "");
+    bookmarks.clear();
+    bookmarks.insert(0, "");
 //#endif
 
 	is264andHD = false;
@@ -417,22 +419,22 @@ void MediaSettings::save(QSettings * set, int player_id) {
 	set->setValue( "B_marker", B_marker);
 
 //#ifdef BOOKMARKS
-//	// Save bookmarks
-//	bool save_bookmarks = true;
-//	QMap<int, QString>::const_iterator i = bookmarks.constBegin();
-//	if (bookmarks.count() == 1 && i.key() == 0) save_bookmarks = false;
-//	if (save_bookmarks) {
-//		set->beginWriteArray("bookmarks");
-//		int count = 0;
-//		while (i != bookmarks.constEnd()) {
-//			set->setArrayIndex(count);
-//			set->setValue("time", i.key());
-//			set->setValue("name", i.value());
-//			i++;
-//			count++;
-//		}
-//		set->endArray();
-//	}
+    // Save bookmarks
+    bool save_bookmarks = true;
+    QMap<int, QString>::const_iterator i = bookmarks.constBegin();
+    if (bookmarks.count() == 1 && i.key() == 0) save_bookmarks = false;
+    if (save_bookmarks) {
+        set->beginWriteArray("bookmarks");
+        int count = 0;
+        while (i != bookmarks.constEnd()) {
+            set->setArrayIndex(count);
+            set->setValue("time", i.key());
+            set->setValue("name", i.value());
+            i++;
+            count++;
+        }
+        set->endArray();
+    }
 //#endif
 
     set->setValue( "mplayer_additional_options", mplayer_additional_options);
@@ -441,9 +443,9 @@ void MediaSettings::save(QSettings * set, int player_id) {
 
 	set->setValue( "win_width", win_width );
 	set->setValue( "win_height", win_height );
-
-	set->setValue( "starting_time", starting_time );
-
+//#ifdef MSET_USE_STARTING_TIME
+//	set->setValue( "starting_time", starting_time );
+//#endif
 	set->setValue( "is264andHD", is264andHD );
 
     // Save tracks
@@ -563,18 +565,18 @@ void MediaSettings::load(QSettings * set, int player_id) {
 	B_marker = set->value( "B_marker", B_marker).toInt();
 
 //#ifdef BOOKMARKS
-//	// Load bookmarks
-//	int n_bookmarks = set->beginReadArray("bookmarks");
-//	if (n_bookmarks > 0) {
-//		bookmarks.clear();
-//		for (int i = 0; i < n_bookmarks; ++i) {
-//			set->setArrayIndex(i);
-//			int time = set->value("time").toInt();
-//			QString name = set->value("name").toString();
-//			bookmarks.insert(time, name);
-//		}
-//	}
-//	set->endArray();
+    // Load bookmarks
+    int n_bookmarks = set->beginReadArray("bookmarks");
+    if (n_bookmarks > 0) {
+        bookmarks.clear();
+        for (int i = 0; i < n_bookmarks; ++i) {
+            set->setArrayIndex(i);
+            int time = set->value("time").toInt();
+            QString name = set->value("name").toString();
+            bookmarks.insert(time, name);
+        }
+    }
+    set->endArray();
 //#endif
 
     mplayer_additional_options = set->value( "mplayer_additional_options", mplayer_additional_options).toString();
@@ -584,7 +586,9 @@ void MediaSettings::load(QSettings * set, int player_id) {
 	win_width = set->value( "win_width", win_width ).toInt();
 	win_height = set->value( "win_height", win_height ).toInt();
 
-	starting_time = set->value( "starting_time", starting_time ).toDouble();
+//#ifdef MSET_USE_STARTING_TIME
+//	starting_time = set->value( "starting_time", starting_time ).toDouble();
+//#endif
 
 	is264andHD = set->value( "is264andHD", is264andHD ).toBool();
 

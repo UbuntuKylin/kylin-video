@@ -16,18 +16,16 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-#ifndef FILESETTINGS_H
-#define FILESETTINGS_H
+#ifndef FILESETTINGS_HASH_H
+#define FILESETTINGS_HASH_H
 
 #include "filesettingsbase.h"
 
-class QSettings;
-
-class FileSettings : public FileSettingsBase
+class FileSettingsHash : public FileSettingsBase
 {
 public:
-	FileSettings(QString directory);
-	virtual ~FileSettings();
+	FileSettingsHash(QString directory);
+	virtual ~FileSettingsHash();
 
 	virtual bool existSettingsFor(QString filename, int type);
 
@@ -35,10 +33,9 @@ public:
 
 	virtual void saveSettingsFor(QString filename, int type, MediaSettings & mset, int player);
 
-	static QString filenameToGroupname(const QString & filename, int type);
-
 private:
-	QSettings * my_settings;
+	QString configFile(const QString & filename, int type, QString * output_dir = 0);
+	QString base_dir;
 };
 
 #endif

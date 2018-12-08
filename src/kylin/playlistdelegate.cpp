@@ -77,7 +77,6 @@ PlaylistDelegate::PlaylistDelegate(QWidget *parent)
     : QStyledItemDelegate(parent)
 {
     m_background = QColor("#2e2e2e");
-    m_background2 = QColor("#000000");
     m_normalTextColor = QColor("#ffffff");
     m_activeTextColor = QColor("#009aff");
     m_hoverTextColor = QColor("#0da4f6");
@@ -128,7 +127,7 @@ void PlaylistDelegate::paint(QPainter *painter, const QStyleOptionViewItem &opti
     painter->setRenderHint(QPainter::Antialiasing);
     painter->setRenderHint(QPainter::HighQualityAntialiasing);
 
-    QColor background = (index.row() % 2) == 0 ? m_background : m_background2;
+    QColor background = m_background;
 //    if (option.state & QStyle::State_Selected) {
 //    }
 //    else if (option.state & QStyle::State_HasFocus) {

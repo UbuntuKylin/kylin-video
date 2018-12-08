@@ -57,7 +57,6 @@ private:
     QColor m_hoverTextColor;
     QColor m_activeTextColor;
     QColor m_background;
-    QColor m_background2;
 //    QModelIndex m_hoverIndex;
 };
 

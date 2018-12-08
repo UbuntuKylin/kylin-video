@@ -2418,9 +2418,8 @@ void BaseGui::dragEnterEvent( QDragEnterEvent *e ) {
 	}
 }
 
-void BaseGui::dropEvent( QDropEvent *e ) {
-//	qDebug("BaseGui::dropEvent");
-
+void BaseGui::dropEvent( QDropEvent *e )
+{
 	QStringList files;
 
 	if (e->mimeData()->hasUrls()) {
@@ -2437,53 +2436,116 @@ void BaseGui::dropEvent( QDropEvent *e ) {
 				qDebug(" * '%s'", l[n].toString().toUtf8().data());
 				qDebug(" * '%s'", l[n].toLocalFile().toUtf8().data());
 				*/
-				qDebug("BaseGui::dropEvent: file: '%s'", s.toUtf8().data());
+                //qDebug("BaseGui::dropEvent: file: '%s'", s.toUtf8().data());
+                if (pref->m_videoMap.contains(s)) {
+                    continue;
+                }
 				files.append(s);
 			}
 		}
 	}
 
+    QStringList file_list;
+    QStringList dir_list;
+    QString sub_file;
+
 	qDebug( "BaseGui::dropEvent: count: %d", files.count());
 	if (files.count() > 0) {
-		#ifdef Q_OS_WIN
-		files = Helper::resolveSymlinks(files); // Check for Windows shortcuts
-		#endif
 		files.sort();
 
-		if (files.count() == 1) {
-			QFileInfo fi( files[0] );
+        Extensions ext;
+        QRegExp ext_sub(ext.subtitles().forRegExp());
+        ext_sub.setCaseSensitivity(Qt::CaseInsensitive);
 
-			Extensions e;
-			QRegExp ext_sub(e.subtitles().forRegExp());
-			ext_sub.setCaseSensitivity(Qt::CaseInsensitive);
-			if (ext_sub.indexIn(fi.suffix()) > -1) {
-				qDebug( "BaseGui::dropEvent: loading sub: '%s'", files[0].toUtf8().data());
-				core->loadSub( files[0] );
-			}
-			else
-			if (fi.isDir()) {
-				openDirectory( files[0] );
-			} else {
-				//openFile( files[0] );
-//				if (pref->auto_add_to_playlist) {
-//                    if (playlistWidget->maybeSave()) {
-//                        playlistWidget->clear();
-                        playlistWidget->addFile(files[0], Playlist::NoGetInfo);//20170712
-						open( files[0] );
-//                    }
-//				} else {
-//					open( files[0] );
-//				}
-			}
-		} else {
-			// More than one file
-            qDebug("BaseGui::dropEvent: adding files to playlist");
-//            playlistWidget->clear();
-            playlistWidget->addFiles(files);
-            //openFile( files[0] );
+        foreach (QString file, files) {
+            QFileInfo fi(file);
+            if (fi.isDir()) {
+                // Folder
+                dir_list << file;
+            }
+            else
+            if (ext_sub.indexIn(fi.suffix()) > -1) {
+                // Subtitle file
+                if (sub_file.isEmpty()) sub_file = file;
+            }
+            else {
+                // File (or something else)
+                file_list << file;
+            }
+        }
+
+        /* If only one file is dropped and it's not a folder nor a subtitle,
+           open it with openFile so that it remembers the position */
+        if (dir_list.isEmpty() && sub_file.isEmpty() && file_list.count() == 1 && QFile::exists(file_list[0])) {
+            openFile(file_list[0]);
+            return;
+        }
+
+        if (!sub_file.isEmpty()) {
+            core->loadSub(sub_file);
+            return;
+        }
+
+        if (file_list.isEmpty() && dir_list.isEmpty()) {
+            return;
+        }
+
+        if (dir_list.count() == 1 && file_list.isEmpty()) {
+            openDirectory(dir_list[0]);
+            return;
+        }
+
+        if (pref->auto_add_to_playlist) {//true
+            if (!dir_list.isEmpty()) {
+                // Add directories to the playlist
+                foreach(QString dir, dir_list) playlistWidget->addDirectory(dir);
+            }
+
+            if (!file_list.isEmpty()) {
+                // Add files to the playlist
+                playlistWidget->addFiles(files);
+            }
+
+            // All files are in the playlist, let's start to play
             playlistWidget->startPlayPause();
-		}
-	}
+        }
+        else {
+            // It wasn't possible to add files to the list
+            // Let's open the first directory or file
+            if (!dir_list.isEmpty()) openDirectory(dir_list[0]); // Bug? This actually modifies the playlist...
+            else
+            if (!file_list.isEmpty()) open(file_list[0]);
+        }
+    }
+
+
+
+//		if (files.count() == 1) {
+//			QFileInfo fi( files[0] );
+
+//			Extensions e;
+//			QRegExp ext_sub(e.subtitles().forRegExp());
+//			ext_sub.setCaseSensitivity(Qt::CaseInsensitive);
+//			if (ext_sub.indexIn(fi.suffix()) > -1) {
+//				qDebug( "BaseGui::dropEvent: loading sub: '%s'", files[0].toUtf8().data());
+//				core->loadSub( files[0] );
+//			}
+//			else
+//			if (fi.isDir()) {
+//				openDirectory( files[0] );
+//			} else {
+//                playlistWidget->addFile(files[0], Playlist::NoGetInfo);//20170712
+//                open(files[0]);
+//			}
+//		} else {
+//			// More than one file
+//            qDebug("BaseGui::dropEvent: adding files to playlist");
+////            playlistWidget->clear();
+//            playlistWidget->addFiles(files);
+//            //openFile( files[0] );
+//            playlistWidget->startPlayPause();
+//		}
+//	}
 }
 
 void BaseGui::showPopupMenu() {

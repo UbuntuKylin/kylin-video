@@ -29,9 +29,6 @@
 
 #include "../smplayer/mediadata.h"
 
-#define PLAYLIST_DOWNLOAD
-#define PLAYLIST_DELETE_FROM_DISK
-
 class PlayListView;
 class MyAction;
 class Core;
@@ -97,15 +94,8 @@ public:
     bool startPlayOnLoad() { return start_play_on_load; };
     bool automaticallyPlayNext() { return automatically_play_next; };
 
-//#ifdef PLAYLIST_DOWNLOAD
-//    void setMaxItemsUrlHistory(int max_items);
-//    int maxItemsUrlHistory();
-//#endif
-
-//#ifdef PLAYLIST_DELETE_FROM_DISK
     void allowDeleteFromDisk(bool enabled) { allow_delete_from_disk = enabled; };
     bool isDeleteFromDiskAllowed() { return allow_delete_from_disk; };
-//#endif
 
 //#ifdef YT_PLAYLIST_SUPPORT
 //	static bool isYTPlaylist(const QString & url);
@@ -127,9 +117,6 @@ public slots:
     void playNextAuto(); // Called from GUI when a file finished
 
 	virtual void resumePlay();
-
-    virtual void removeTheSelected();
-    virtual void removeSelected(/*QString filename*/);
 	virtual void removeAll();
     virtual void onPlayListItemDeleteBtnClicked(const QStringList &filelist);
 
@@ -156,21 +143,13 @@ public slots:
 //	virtual void sortBy(int section);
 	// <--
 
-//#ifdef PLAYLIST_DELETE_FROM_DISK
     void deleteSelectedFileFromDisk(const QStringList &filelist);
-//#endif
-//	virtual void deleteSelectedFileFromDisk();
 
     bool maybeSave();
     void load();
 
     bool saveCurrentPlaylist();
     bool save(const QString & filename = QString::null);
-
-//#ifdef PLAYLIST_DOWNLOAD
-//    void openUrl();
-//    void openUrl(const QString & url);
-//#endif
 
     void load_m3u(QString file, M3UFormat format = DetectFormat);
     bool save_m3u(QString file);
@@ -181,12 +160,6 @@ public slots:
     void loadXSPF(const QString & filename);
     bool saveXSPF(const QString & filename);
 
-//#ifdef YT_PLAYLIST_SUPPORT
-//	void loadYoutubeList(QByteArray & data);
-//#endif
-
-//	virtual void getMediaInfo();
-
     void setModified(bool);
 
     // Slots to connect from basegui
@@ -194,41 +167,22 @@ public slots:
     void playerFailed(QProcess::ProcessError);
     void playerFinishedWithError(int);
 
-
-    void playCurrent();
-    void itemDoubleClicked(int row);
     void itemActivated(const QModelIndex & index );
     void upItem();
     void downItem();
-    void editCurrentItem();
-    void editItem(int item);
 
     void copyURL();
     void openFolder();
-
-//#ifdef CHROMECAST_SUPPORT
-//	void playOnChromecast();
-//#else
-//	void openURLInWeb();
-//#endif
 
     void saveSettings();
     void loadSettings();
     void maybeSaveSettings();
 
-//    void filterEditChanged(const QString &);
-
-//#ifdef PLAYLIST_DOWNLOAD
-//    void playlistDownloaded(QByteArray);
-//    void errorOcurred(int error_number, QString error_str);
-//    void showLoadingAnimation(bool b);
-//#endif
     void onResortVideos(const QStringList &sortList, int index);
     void onPlayListItemDoubleClicked(int row, const QString &filename);
 
 signals:
 	void playlistEnded();
-	void visibilityChanged(bool visible);
     void sig_playing_title(QString title);
     void update_playlist_count(int count);
     void closePlaylist();
@@ -252,7 +206,6 @@ private:
     QString latest_dir;
 
 	Core * core;
-//	QMenu * popup;
     QFrame      *noVideoFrame;
     QLabel      *novideo_icon;
     QLabel      *novideo_text;
@@ -262,16 +215,6 @@ private:
     QFrame *btAddFrame;
     QPushButton *btDel;
     QPushButton *btAdd;
-//    MyAction * playAct;
-//    MyAction * removeSelectedAct;
-//    MyAction * deleteSelectedFileFromDiskAct;
-
-//#ifdef PLAYLIST_DOWNLOAD
-//    LoadPage * downloader;
-//    URLHistory * history_urls;
-//    QMovie * animation;
-//    QAction * loading_label_action;
-//#endif
 
     QSettings *set;
     bool modified;
@@ -290,10 +233,7 @@ private:
     bool automatically_play_next;
     bool ignore_player_errors;
 
-//#ifdef PLAYLIST_DELETE_FROM_DISK
     bool allow_delete_from_disk;
-//#endif
-
 };
 
 #endif

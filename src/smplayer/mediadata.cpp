@@ -19,7 +19,7 @@
 #include "mediadata.h"
 #include <QFileInfo>
 #include <cmath>
-
+#include <QDebug>
 
 MediaData::MediaData() {
 	reset();
@@ -29,7 +29,7 @@ MediaData::~MediaData() {
 }
 
 void MediaData::reset() {
-	filename="";
+    m_filename="";
 	dvd_id="";
 	type = TYPE_UNKNOWN;
 	duration=0;
@@ -87,7 +87,9 @@ void MediaData::reset() {
 
 QString MediaData::displayName(bool show_tag) {
 	if (show_tag) {
-		if (!stream_title.isEmpty()) return stream_title;
+        if (!stream_title.isEmpty()) {
+            return stream_title;
+        }
 //		else
 //		if (!clip_name.isEmpty()) return clip_name;//0526
 	}
@@ -95,29 +97,30 @@ QString MediaData::displayName(bool show_tag) {
     //kobe:有的rmvb视频的clip_name存在乱码 0526
     QString name;
     if (name.isEmpty()) {
-        QFileInfo fi(filename);
+        QFileInfo fi(m_filename);
         if (fi.exists()) {
             // Local file
             name = fi.fileName();
         } else {
             // Stream
-            name = filename;
+            name = m_filename;
         }
     }
+
     return name;
 
-//	QFileInfo fi(filename);
+//	QFileInfo fi(m_filename);
 //	if (fi.exists())
-//		return fi.fileName(); // filename without path
+//		return fi.fileName(); // m_filename without path
 //	else
-//		return filename;
+//		return m_filename;
 }
 
 
 void MediaData::list() {
 //	qDebug("MediaData::list");
 
-//	qDebug("  filename: '%s'", filename.toUtf8().data());
+//	qDebug("  m_filename: '%s'", m_filename.toUtf8().data());
 //	qDebug("  duration: %f", duration);
 
 //	qDebug("  video_width: %d", video_width);

@@ -34,7 +34,7 @@ QString InfoFile::getInfo(MediaData md) {
     QString s;
 
 	// General
-	QFileInfo fi(md.filename);
+    QFileInfo fi(md.m_filename);//20181201  m_filename
 
 	QString icon;
 	switch (md.type) {
@@ -75,7 +75,7 @@ QString InfoFile::getInfo(MediaData md) {
         s += addItem(kylin_tr("File"), fi.absoluteFilePath());
         s += addItem(kylin_tr("Size"), kylin_tr("%1 KB (%2 MB)").arg(fi.size()/1024).arg(fi.size()/1048576));
     } else {
-        QString url = md.filename;
+        QString url = md.m_filename;//20181201  m_filename
         s += addItem(kylin_tr("URL"), url);
     }
     s += addItem(kylin_tr("Length"), Helper::formatTime((int)md.duration));

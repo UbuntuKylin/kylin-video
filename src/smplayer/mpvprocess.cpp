@@ -272,19 +272,19 @@ void MPVProcess::parseLine(QByteArray ba) {
 
         if (paused) {
             notified_pause = true;
-            qDebug("MPVProcess::parseLine: paused");
+            //qDebug("MPVProcess::parseLine: paused");
             emit receivedPause();
             return;
         }
         else
         if (buffering) {
-            qDebug("MPVProcess::parseLine: buffering");
+            //qDebug("MPVProcess::parseLine: buffering");
             emit receivedBuffering();
             return;
         }
         else
         if (idle) {
-            qDebug("MPVProcess::parseLine: idle");
+            //qDebug("MPVProcess::parseLine: idle");
             emit receivedBuffering();
             return;
         }
@@ -341,13 +341,13 @@ void MPVProcess::parseLine(QByteArray ba) {
 //#if NOTIFY_SUB_CHANGES
         if (notified_mplayer_is_running) {
             if (subtitle_info_changed && sec > 0.4) {
-                qDebug("MPVProcess::parseLine: subtitle_info_changed");
+                //qDebug("MPVProcess::parseLine: subtitle_info_changed");
                 subtitle_info_changed = false;
                 subtitle_info_received = false;
                 emit subtitleInfoChanged(subs, selected_subtitle);
             }
             if (subtitle_info_received) {
-                qDebug("MPVProcess::parseLine: subtitle_info_received");
+                //qDebug("MPVProcess::parseLine: subtitle_info_received");
                 subtitle_info_received = false;
                 emit subtitleInfoReceivedAgain(subs);
             }
@@ -357,7 +357,7 @@ void MPVProcess::parseLine(QByteArray ba) {
 //#if NOTIFY_AUDIO_CHANGES
         if (notified_mplayer_is_running) {
             if (audio_info_changed && sec > 0.4) {
-                qDebug("MPVProcess::parseLine: audio_info_changed");
+                //qDebug("MPVProcess::parseLine: audio_info_changed");
                 audio_info_changed = false;
                 emit audioInfoChanged(audios, selected_audio);
             }
@@ -367,7 +367,7 @@ void MPVProcess::parseLine(QByteArray ba) {
 //#if NOTIFY_VIDEO_CHANGES
         if (notified_mplayer_is_running) {
             if (video_info_changed) {
-                qDebug("MPVProcess::parseLine: video_info_changed");
+                //qDebug("MPVProcess::parseLine: video_info_changed");
                 video_info_changed = false;
                 emit videoInfoChanged(videos, selected_video);
             }
@@ -377,7 +377,7 @@ void MPVProcess::parseLine(QByteArray ba) {
 //#if NOTIFY_CHAPTER_CHANGES
         if (notified_mplayer_is_running) {
             if (chapter_info_changed) {
-                qDebug("MPVProcess::parseLine: chapter_info_changed");
+                //qDebug("MPVProcess::parseLine: chapter_info_changed");
                 chapter_info_changed = false;
                 emit chaptersChanged(chapters);
             }
@@ -385,7 +385,7 @@ void MPVProcess::parseLine(QByteArray ba) {
 //#endif
 
         if (!notified_mplayer_is_running) {
-            qDebug() << "MPVProcess::parseLine: starting sec:" << sec;
+            //qDebug() << "MPVProcess::parseLine: starting sec:" << sec;
 
             if (md.video_width == 0 || md.video_height == 0) {
                 md.novideo = true;
@@ -431,7 +431,7 @@ void MPVProcess::parseLine(QByteArray ba) {
         emit lineAvailable(line);
 
         // Parse other things
-        qDebug() << "MPVProcess::parseLine:" << line;
+        //qDebug() << "MPVProcess::parseLine:" << line;
 
         if (mpv_screenshot.indexIn(line) > -1) {//20170722
             QString shot = mpv_screenshot.cap(1);
@@ -485,7 +485,7 @@ void MPVProcess::parseLine(QByteArray ba) {
             int ID = rx_audio.cap(1).toInt();
             QString lang = rx_audio.cap(3);
             QString title = rx_audio.cap(6);
-            qDebug() << "MPVProcess::parseLine: audio id:" << ID << "lang:" << lang << "name:" << title;
+            //qDebug() << "MPVProcess::parseLine: audio id:" << ID << "lang:" << lang << "name:" << title;
 
 //            #if NOTIFY_AUDIO_CHANGES
             updateAudioTrack(ID, title, lang, false);
@@ -501,7 +501,7 @@ void MPVProcess::parseLine(QByteArray ba) {
 
         if (rx_stream_title.indexIn(line) > -1) {
             QString s = rx_stream_title.cap(1);
-            qDebug() << "MPVProcess::parseLine: stream_title:" << s;
+            //qDebug() << "MPVProcess::parseLine: stream_title:" << s;
             md.stream_title = s;
             emit receivedStreamTitle(s);
         }
@@ -512,7 +512,7 @@ void MPVProcess::parseLine(QByteArray ba) {
             int ID = rx_subs.cap(1).toInt();
             QString lang = rx_subs.cap(3);
             QString title = rx_subs.cap(6);
-            qDebug() << "MPVProcess::parseLine: sub id:" << ID << "lang:" << lang << "name:" << title;
+            //qDebug() << "MPVProcess::parseLine: sub id:" << ID << "lang:" << lang << "name:" << title;
 
 //            #if NOTIFY_SUB_CHANGES
             updateSubtitleTrack(ID, title, lang, false);
@@ -573,7 +573,7 @@ void MPVProcess::parseLine(QByteArray ba) {
 //            #else
 //            md.chapters.addName(ID, title);
 //            #endif
-            qDebug() << "MPVProcess::parseLine: chapter id:" << ID << "title:" << title;
+            //qDebug() << "MPVProcess::parseLine: chapter id:" << ID << "title:" << title;
             //md.chapters.list();
         }
         else
@@ -586,7 +586,7 @@ void MPVProcess::parseLine(QByteArray ba) {
             QString name = rx_trackinfo.cap(5);
             QString lang = rx_trackinfo.cap(4);
             QString selected = rx_trackinfo.cap(6);
-            qDebug() << "MPVProcess::parseLine: ID:" << ID << "type:" << type << "name:" << name << "lang:" << lang << "selected:" << selected;
+            //qDebug() << "MPVProcess::parseLine: ID:" << ID << "type:" << type << "name:" << name << "lang:" << lang << "selected:" << selected;
             /*
             if (lang == "(unavailable)") lang = "";
             if (name == "(unavailable)") name = "";
@@ -631,17 +631,17 @@ void MPVProcess::parseLine(QByteArray ba) {
 
         if (rx_videocodec.indexIn(line) > -1) {
             md.video_codec = rx_videocodec.cap(1);
-            qDebug() << "MPVProcess::parseLine: md.video_codec:" << md.video_codec;
+            //qDebug() << "MPVProcess::parseLine: md.video_codec:" << md.video_codec;
         }
         else
         if (rx_audiocodec.indexIn(line) > -1) {
             md.audio_codec = rx_audiocodec.cap(1);
-            qDebug() << "MPVProcess::parseLine: md.audio_codec:" << md.audio_codec;
+            //qDebug() << "MPVProcess::parseLine: md.audio_codec:" << md.audio_codec;
         }
         else
 
         if (rx_forbidden.indexIn(line) > -1) {
-            qDebug("MVPProcess::parseLine: 403 forbidden");
+            //qDebug("MVPProcess::parseLine: 403 forbidden");
             emit receivedForbiddenText();
         }
 
@@ -654,12 +654,12 @@ void MPVProcess::parseLine(QByteArray ba) {
 
             if (tag == "INFO_VIDEO_WIDTH") {
                 md.video_width = value.toInt();
-                qDebug("MPVProcess::parseLine: md.video_width set to %d", md.video_width);
+                //qDebug("MPVProcess::parseLine: md.video_width set to %d", md.video_width);
             }
             else
             if (tag == "INFO_VIDEO_HEIGHT") {
                 md.video_height = value.toInt();
-                qDebug("MPVProcess::parseLine: md.video_height set to %d", md.video_height);
+                //qDebug("MPVProcess::parseLine: md.video_height set to %d", md.video_height);
             }
             else
             if (tag == "INFO_VIDEO_ASPECT") {
@@ -668,7 +668,7 @@ void MPVProcess::parseLine(QByteArray ba) {
                     // I hope width & height are already set.
                     md.video_aspect = (double) md.video_width / md.video_height;
                 }
-                qDebug() << "MPVProcess::parseLine: md.video_aspect set to" << md.video_aspect;
+                //qDebug() << "MPVProcess::parseLine: md.video_aspect set to" << md.video_aspect;
             }
             if (tag == "INFO_VIDEO_BITRATE") {
                 int bitrate = value.toInt();
@@ -677,7 +677,7 @@ void MPVProcess::parseLine(QByteArray ba) {
             else
             if (tag == "INFO_LENGTH") {
                 md.duration = value.toDouble();
-                qDebug() << "MPVProcess::parseLine: md.duration set to" << md.duration;
+                //qDebug() << "MPVProcess::parseLine: md.duration set to" << md.duration;
             }
             else
             if (tag == "INFO_DEMUXER") {
@@ -722,8 +722,8 @@ void MPVProcess::parseLine(QByteArray ba) {
                 md.n_chapters = value.toInt();
 //                #ifdef TOO_CHAPTERS_WORKAROUND
                 if (md.n_chapters > 1000) {
-                    qDebug("MPVProcess::parseLine: warning too many chapters: %d", md.n_chapters);
-                    qDebug("                       chapters will be ignored");
+                    //qDebug("MPVProcess::parseLine: warning too many chapters: %d", md.n_chapters);
+                    //qDebug("                       chapters will be ignored");
                     md.n_chapters = 0;
                 }
 //                #endif
@@ -785,7 +785,7 @@ void MPVProcess::parseLine(QByteArray ba) {
             if (tag == "MPV_VERSION") {
                 mpv_version = value;
                 if (mpv_version.startsWith("mpv ")) mpv_version = mpv_version.mid(4);
-                qDebug() << "MPVProcess::parseLine: mpv version:" << mpv_version;
+                //qDebug() << "MPVProcess::parseLine: mpv version:" << mpv_version;
                 MplayerVersion::mplayerVersion("mpv " + mpv_version + " (C)");
             }
 //#if NOTIFY_VIDEO_CHANGES || NOTIFY_AUDIO_CHANGES || NOTIFY_SUB_CHANGES
@@ -818,7 +818,7 @@ void MPVProcess::requestChapterInfo() {
 
 //#if NOTIFY_VIDEO_CHANGES
 void MPVProcess::updateVideoTrack(int ID, const QString & name, const QString & lang, bool selected) {
-    qDebug("MPVProcess::updateVideoTrack: ID: %d", ID);
+    //qDebug("MPVProcess::updateVideoTrack: ID: %d", ID);
 
     int idx = videos.find(ID);
     if (idx == -1) {
@@ -846,7 +846,7 @@ void MPVProcess::updateVideoTrack(int ID, const QString & name, const QString & 
 
 //#if NOTIFY_AUDIO_CHANGES
 void MPVProcess::updateAudioTrack(int ID, const QString & name, const QString & lang, bool selected) {
-    qDebug("MPVProcess::updateAudioTrack: ID: %d", ID);
+    //qDebug("MPVProcess::updateAudioTrack: ID: %d", ID);
 
     int idx = audios.find(ID);
     if (idx == -1) {

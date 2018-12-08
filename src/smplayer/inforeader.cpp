@@ -91,7 +91,7 @@ void InfoReader::getInfo() {
 	if (fi.exists()) {
 		sname += "_" + QString::number(fi.size());
 
-        qDebug() << "InfoReader::getInfo: sname:" << sname;//_usr_bin_mplayer_4027216
+        //qDebug() << "InfoReader::getInfo: sname:" << sname;//_usr_bin_mplayer_4027216
 
 		// Check if we already have info about the player in the ini file
 		bool got_info = false;
@@ -114,7 +114,7 @@ void InfoReader::getInfo() {
 		}
 		set.endGroup();
 		if (got_info) {
-			qDebug() << "InfoReader::getInfo: loaded info from" << inifile;
+            //qDebug() << "InfoReader::getInfo: loaded info from" << inifile;
 			return;
 		}
 	}
@@ -156,7 +156,7 @@ void InfoReader::getInfo() {
     }
 
 	if (fi.exists()) {
-		qDebug() << "InfoReader::getInfo: saving info to" << inifile;
+        //qDebug() << "InfoReader::getInfo: saving info to" << inifile;
 		set.beginGroup(version_group +"/"+ sname);
 		set.setValue("size", fi.size());
 		set.setValue("date", fi.lastModified());

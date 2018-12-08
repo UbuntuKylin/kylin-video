@@ -600,13 +600,13 @@ void MediaSettings::load(QSettings * set, int player_id) {
     audios.load(set, "audiotracks");
     subs.load(set, "subtitletracks");
 
-    qDebug("MediaSettings::load: list of video tracks:");
+    //qDebug("MediaSettings::load: list of video tracks:");
     videos.list();
 
-    qDebug("MediaSettings::load: list of audio tracks:");
+    //qDebug("MediaSettings::load: list of audio tracks:");
     audios.list();
 
-    qDebug("MediaSettings::load: list of subtitle tracks:");
+    //qDebug("MediaSettings::load: list of subtitle tracks:");
     subs.list();
 }
 

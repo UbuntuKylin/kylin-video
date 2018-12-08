@@ -26,7 +26,7 @@
 #include <stdlib.h>
 
 MediaData InfoProvider::getInfo(QString mplayer_bin, QString filename) {
-    //qDebug("InfoProvider::getInfo: %s", filename.toUtf8().data());
+    qDebug("InfoProvider::getInfo: %s", filename.toUtf8().data());
 
     //edited by kobe 20180623
     QString bin_path;
@@ -46,13 +46,14 @@ MediaData InfoProvider::getInfo(QString mplayer_bin, QString filename) {
 	}
 
     PlayerProcess * proc = PlayerProcess::createPlayerProcess(mplayer_bin, snap_path, 0);
-
     proc->setExecutable(bin_path);
-	proc->setFixedOptions();
-	proc->setOption("frames", "1");
-	proc->setOption("vo", "null");
-	proc->setOption("ao", "null");
-	proc->setMedia(filename);
+    proc->setFixedOptions();
+    QString nframes = "1";
+    if (proc->isMPlayer()) nframes = "0";
+    proc->setOption("frames", nframes);
+    proc->setOption("vo", "null");
+    proc->setOption("ao", "null");
+    proc->setMedia(filename);
 
 	QString commandline = proc->arguments().join(" ");
     qDebug("InfoProvider::getInfo: command: '%s'", commandline.toUtf8().data());

@@ -53,7 +53,7 @@ public:
 
 	virtual void reset();
 
-	QString filename;
+    QString m_filename;
 	double duration;
 
     QStringList extra_params; // For streams

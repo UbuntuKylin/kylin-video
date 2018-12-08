@@ -24,11 +24,12 @@
 #include <QObject>
 
 void MplayerProcess::initializeOptionVars() {
-    qDebug("MplayerProcess::initializeOptionVars");
+    //qDebug("MplayerProcess::initializeOptionVars");
     PlayerProcess::initializeOptionVars();
 }
 
 void MplayerProcess::setMedia(const QString & media, bool is_playlist) {
+    //qDebug() << "MplayerProcess::setMedia file=" << media;
 	if (is_playlist) arg << "-playlist";
 	arg << media;
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 ~ 2017 National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
+ * Copyright (C) 2013 ~ 2019 National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
  *
  * Authors:
  *  Kobe Lee    lixiang@kylinos.cn/kobe24_lixiang@126.com
@@ -18,100 +18,464 @@
  */
 
 #include "playlistview.h"
+#include "../smplayer/myaction.h"
 
+#include <QScrollBar>
 #include <QDebug>
 #include <QMenu>
-#include <QScrollBar>
+#include <QDir>
+#include <QProcess>
+#include <QFileInfo>
 #include <QStyleFactory>
+#include <QResizeEvent>
+#include <QStandardItemModel>
+#include <QScrollBar>
 
-#include "playlistitem.h"
+#include "playlistdelegate.h"
+#include "playlistmodel.h"
+#include "../smplayer/preferences.h"
+#include "../smplayer/global.h"
+using namespace Global;
 
-PlayListView::PlayListView(QWidget *parent) : QListWidget(parent)
+
+PlayListItem::PlayListItem() : QStandardItem()
 {
-    setObjectName("PlayListView");//kobe:设置选中项的左侧的颜色栏
+    setDuration(0);
+}
 
-    scrollBarWidth = 8;//滚动条的宽度
-    itemHeight = 32;//每个item的高度
+PlayListItem::PlayListItem(const QString filename, const QString name, double duration) : QStandardItem()
+{
+    setFilename(filename);
+    setName(name);
+    setDuration(duration);
+}
 
-    /*setAcceptDrops(true)来接受放下事件，通过设置setDropIndicatorShown(true)则可以清晰地看到放下过程中的图标指示。
-     * 然后实现dragEnterEvent()、dropEvent()方法，当用户把一个对象拖动到这个窗体上时，就会调用dragEnterEvent()，
-     * 如果对这个事件调用acceptProposedAction()，就表明可以在这个窗体上拖放对象。默认情况下窗口部件是不接受拖动的。
-     * Qt会自动改变光标向用户说明这个窗口部件不是有效的放下点。
-    */
-    setDragEnabled(true);
-//    viewport()->setAcceptDrops(true);//不允许listitem项拖动
-    setDropIndicatorShown(true);
-    setDefaultDropAction(Qt::MoveAction);
-//    setDragDropMode(QAbstractItemView::DragOnly);
+PlayListItem::~PlayListItem()
+{
+}
+
+void PlayListItem::setFilename(const QString filename)
+{
+    m_filename = filename;
+}
+
+void PlayListItem::setName(const QString name)
+{
+    m_name = name;
+}
+
+void PlayListItem::setDuration(double duration)
+{
+    m_duration = duration;
+}
+
+QString PlayListItem::filename()
+{
+    return this->m_filename;
+}
+
+QString PlayListItem::name()
+{
+    return this->m_name;
+}
+
+double PlayListItem::duration()
+{
+    return this->m_duration;
+}
 
 
-//    setResizeMode(QListWidget::Adjust);
-    setMovement(QListWidget::Static);//设置单元项不可拖动
 
-    setSelectionMode(QListView::SingleSelection);
-    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+PlayListView::PlayListView(QSettings *set, QWidget *parent)
+    : QListView(parent)
+    , m_set(set)
+{
+    this->setStyleSheet("QListView{background-color: #2e2e2e;}");
 
+    m_scrollBar = new QScrollBar(this);
+    m_scrollBar->setOrientation(Qt::Vertical);
+    m_scrollBar->raise();
+    connect(m_scrollBar, SIGNAL(valueChanged(int)), this, SLOT(onValueChanged(int)));
+
+    m_playlistModel = new PlaylistModel(this);
+    m_playlistDelegate = new PlaylistDelegate;
+    this->setItemDelegate(m_playlistDelegate);
+    connect(m_playlistDelegate, &PlaylistDelegate::removeBtnClicked, this, [=] {
+        this->removeSelection(this->currentHoverIndex());
+    });
+    this->setModel(m_playlistModel);
+
+    this->setDragEnabled(true);
+    this->setSpacing(0);
+    this->setContentsMargins(0, 0, 0, 0);
+    this->setUpdatesEnabled(true);
+    this->setMouseTracking(true);
+    this->viewport()->setAcceptDrops(true);//不允许listitem项拖动
+    this->setDropIndicatorShown(true);
+    this->setDragDropOverwriteMode(false);
+    this->setVerticalScrollMode(QAbstractItemView::ScrollPerItem);//QListView::ScrollPerPixel
+    this->setHorizontalScrollMode(QAbstractItemView::ScrollPerItem);
+    this->setDefaultDropAction(Qt::MoveAction);
+    this->setDragDropMode(QAbstractItemView::InternalMove);
+    this->setMovement(QListView::Free);
+//    setSelectionMode(QListView::ExtendedSelection);
+    this->setSelectionMode(QListView::SingleSelection);//设置为单行选中
+    this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    this->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    this->setSelectionBehavior(QAbstractItemView::SelectRows);
     this->setContextMenuPolicy(Qt::CustomContextMenu);
 
-//    this->verticalScrollBar()->setStyleSheet("QScrollBar:vertical {width: 12px;background: #141414;margin:0px 0px 0px 0px;border:1px solid #141414;}QScrollBar::handle:vertical {width: 12px;min-height: 45px;background: #292929;margin-left: 0px;margin-right: 0px;}QScrollBar::handle:vertical:hover {background: #3e3e3e;}QScrollBar::handle:vertical:pressed {background: #272727;}QScrollBar::sub-line:vertical {height: 6px;background: transparent;subcontrol-position: top;}QScrollBar::add-line:vertical {height: 6px;background: transparent;subcontrol-position: bottom;}QScrollBar::sub-line:vertical:hover {background: #292929;}QScrollBar::add-line:vertical:hover {background: #292929;}QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {background: transparent;}");
-//    this->verticalScrollBar()->setObjectName("PlayListViewScrollBar");//kobe:让滚动条可以鼠标拖动
-//    this->verticalScrollBar()->setFixedWidth(scrollBarWidth);
-////    this->verticalScrollBar()->move(this->size().width() - scrollBarWidth, 0);
-//    this->verticalScrollBar()->setSingleStep(1);
+    connect(this, &PlayListView::currentHoverChanged, this, &PlayListView::onCurrentHoverChanged);
+    connect(this, &PlayListView::entered, this, &PlayListView::onItemEntered);
 
-    vscrollBar = new QScrollBar(this);
-    vscrollBar->setObjectName("PlayListViewScrollBar");//kobe:让滚动条可以鼠标拖动
-    vscrollBar->setStyleSheet("QScrollBar:vertical {width: 12px;background: #141414;margin:0px 0px 0px 0px;border:1px solid #141414;}QScrollBar::handle:vertical {width: 12px;min-height: 45px;background: #292929;margin-left: 0px;margin-right: 0px;}QScrollBar::handle:vertical:hover {background: #3e3e3e;}QScrollBar::handle:vertical:pressed {background: #272727;}QScrollBar::sub-line:vertical {height: 6px;background: transparent;subcontrol-position: top;}QScrollBar::add-line:vertical {height: 6px;background: transparent;subcontrol-position: bottom;}QScrollBar::sub-line:vertical:hover {background: #292929;}QScrollBar::add-line:vertical:hover {background: #292929;}QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {background: transparent;}");
-    vscrollBar->setOrientation(Qt::Vertical);
-    vscrollBar->raise();
-    connect(vscrollBar, SIGNAL(valueChanged(int)), this ,SLOT(slot_scrollbar_value_changed(int)));
+    connect(this, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showContextMenu(QPoint)));
+    connect(this, SIGNAL(doubleClicked(QModelIndex)), SLOT(onDoubleClicked(QModelIndex)));
+
+
+    //this->m_playlistModel->removeRows(0, this->m_playlistModel->rowCount());
 }
 
 PlayListView::~PlayListView()
 {
-    if (vscrollBar != NULL) {
-        delete vscrollBar;
-        vscrollBar = NULL;
+    if (m_playlistDelegate) {
+        delete m_playlistDelegate;
+        m_playlistDelegate = nullptr;
     }
 }
 
-void PlayListView::checkScrollbarSize()
+void PlayListView::onValueChanged(int value)
 {
-    int itemCount = this->model()->rowCount();
-    QSize size = this->size();
-    vscrollBar->resize(scrollBarWidth, size.height() - 2);
-    vscrollBar->move(size.width() - scrollBarWidth , 0);
-    vscrollBar->setSingleStep(1);
-    vscrollBar->setPageStep(size.height() / itemHeight);
+    verticalScrollBar()->setValue(value);
+}
 
-    if (itemCount > size.height() / itemHeight) {
-        vscrollBar->show();
-        vscrollBar->setMaximum(itemCount - size.height() / itemHeight);
+const QModelIndex &PlayListView::currentHoverIndex() const
+{
+    return m_indexCurrent;
+}
+
+void PlayListView::enterEvent(QEvent *event)
+{
+    if (m_indexCurrent.isValid()) {
+        openPersistentEditor(m_indexCurrent);
+    }
+
+    QWidget::enterEvent(event);
+}
+
+void PlayListView::leaveEvent(QEvent *event)
+{
+    if (m_indexCurrent.isValid()) {
+        closePersistentEditor(m_indexCurrent);
+        static_cast<PlaylistModel *>(this->m_playlistModel)->setHoverIndex(QModelIndex());
+    }
+    QWidget::leaveEvent(event);
+}
+
+void PlayListView::onCurrentHoverChanged(const QModelIndex &previous, const QModelIndex &current)
+{
+    if (previous.isValid()) {
+        closePersistentEditor(previous);
+    }
+    openPersistentEditor(current);
+}
+
+void PlayListView::onItemEntered(const QModelIndex &index)
+{
+    m_indexCurrent = index;
+    static_cast<PlaylistModel *>(this->m_playlistModel)->setHoverIndex(m_indexCurrent);
+    if (m_indexPrevious != m_indexCurrent) {
+        emit currentHoverChanged(m_indexPrevious, m_indexCurrent);
+        m_indexPrevious = m_indexCurrent;
+    }
+    m_playlistDelegate->setItemHover(m_indexCurrent);
+}
+
+void PlayListView::updateScrollbarSize()
+{
+    //Attentions: 48 is playlistitem's height, 12 is VerticalScrollBar's width
+    QSize totalSize = this->size();
+
+    int vscrollBarWidth = 12;
+    m_scrollBar->setMinimum(0);
+    m_scrollBar->setSingleStep(1);
+    m_scrollBar->resize(vscrollBarWidth, totalSize.height() - 2);
+    m_scrollBar->move(totalSize.width() - vscrollBarWidth - 2, 0);
+    m_scrollBar->setPageStep(totalSize.height() / 48);
+
+    if (this->m_playlistModel->rowCount() > totalSize.height() / 48) {
+        m_scrollBar->setVisible(true);
+        m_scrollBar->setMaximum(this->m_playlistModel->rowCount() - totalSize.height() / 48);
     } else {
-        vscrollBar->hide();
-        vscrollBar->setMaximum(0);
+        m_scrollBar->setVisible(false);
+        m_scrollBar->setMaximum(0);
     }
-}
-
-void PlayListView::slot_scrollbar_value_changed(int value)
-{
-    this->verticalScrollBar()->setValue(value);
 }
 
 void PlayListView::wheelEvent(QWheelEvent *event)
 {
-    QListWidget::wheelEvent(event);
-    this->vscrollBar->setSliderPosition(verticalScrollBar()->sliderPosition());
+    /*event->accept();
+    if (event->orientation() == Qt::Vertical) {
+        if (event->delta() >= 0)
+            emit wheelUp();
+        else
+            emit wheelDown();
+    }*/
+    QListView::wheelEvent(event);
+    this->m_scrollBar->setSliderPosition(verticalScrollBar()->sliderPosition());
 }
 
 void PlayListView::resizeEvent(QResizeEvent *event)
 {
-    QListWidget::resizeEvent(event);
-    this->checkScrollbarSize();
+    QListView::resizeEvent(event);
+    this->updateScrollbarSize();
 }
 
-void PlayListView::updateScrollbar()
+int PlayListView::getModelRowCount()
 {
-    this->checkScrollbarSize();
+    return this->m_playlistModel->rowCount();
 }
+
+QStandardItem * PlayListView::getItemByRow(int row)
+{
+    QStandardItem *item = this->m_playlistModel->item(row, 0);
+    return item;
+//    PlayListItem *playItem = static_cast<PlayListItem *>(item);
+//    return playItem;
+}
+
+QString PlayListView::getFileNameByRow(int row)
+{
+    return this->m_playlistModel->findFileNameByRow(row);
+
+    /*for (int i = 0; i < this->m_playlistModel->rowCount(); ++i) {
+        auto index = this->m_playlistModel->index(i, 0);
+        auto filepath = this->m_playlistModel->data(index).toString();//没有重写model的data函数时
+        Q_ASSERT(!filepath.isEmpty());
+        return filepath;
+    }*/
+}
+
+void PlayListView::setPlayingInfo(const QString &filepath, int row)
+{
+    this->m_playingFile = filepath;
+    QModelIndex index = this->m_playlistModel->index(row, 0);
+    this->setCurrentIndex(index);
+}
+
+QString PlayListView::getPlayingFile()
+{
+    return this->m_playingFile;
+}
+
+void PlayListView::onDoubleClicked(const QModelIndex & index)
+{
+    /*int row = this->currentIndex().row();
+    if (row != -1 && row != 0) {
+            QList <QStandardItem *>curRow;
+            curRow = this->m_playlistModel->takeRow(row);
+            this->m_playlistModel->insertRow(row-1, curRow);
+            this->selectRow(row-1);
+    }*/
+
+    m_indexCurrent = index;
+//    m_playlistDelegate->setItemHover(index);
+
+    //没有重写model的data函数时
+    QString filepath = this->m_playlistModel->filePathData(index);
+    emit requestPlayVideo(this->currentIndex().row(), filepath);
+    m_playingFile = filepath;
+}
+
+QModelIndex PlayListView::findModelIndex(const VideoPtr video)
+{
+    Q_ASSERT(!video.isNull());
+
+    return this->m_playlistModel->findModelIndex(video);
+}
+
+void PlayListView::removeFilesFromPlayList(const QStringList &filelist)
+{
+    setAutoScroll(false);
+    foreach (QString filepath, filelist) {
+        if (filepath.isEmpty())
+            continue;
+        for (int i = 0; i < this->m_playlistModel->rowCount(); ++i) {
+            auto index = this->m_playlistModel->index(i, 0);
+            QString fileName = this->m_playlistModel->data(index).toString();//没有重写model的data函数时
+            if (fileName == filepath) {
+                this->m_playlistModel->removeRow(i);
+            }
+        }
+    }
+
+    updateScrollbarSize();
+    setAutoScroll(true);
+
+
+    /*QStandardItemModel *m_playlistModel = dynamic_cast<QStandardItemModel*>(this->m_playlistModel);
+    m_playlistModel->removeRow(this->currentIndex().row());*/
+}
+
+void PlayListView::keyPressEvent(QKeyEvent *event)
+{
+    switch (event->modifiers()) {
+    case Qt::NoModifier:
+        switch (event->key()) {
+        case Qt::Key_Delete:
+            QItemSelectionModel *selection = this->selectionModel();
+            this->removeSelection(selection);
+            break;
+        }
+        break;
+    case Qt::ShiftModifier:
+        switch (event->key()) {
+        case Qt::Key_Delete:
+            break;
+        }
+        break;
+    default: break;
+    }
+
+    QAbstractItemView::keyPressEvent(event);
+}
+
+void PlayListView::addPlayListItem(const QString &filepath, QString &name, double duration)
+{
+    //PlayListItem *newItem = new PlayListItem(filepath, name, duration);
+    //m_playlistModel->appendRow(static_cast<QStandardItem *>(newItem));
+    QStandardItem *newItem = new QStandardItem;
+    m_playlistModel->appendRow(newItem);
+    int row = m_playlistModel->rowCount() - 1;
+    QModelIndex index = m_playlistModel->index(row, 0, QModelIndex());
+    m_playlistModel->setData(index, filepath);//TODO: kobe for data(hash), 如果Model中重写的了data()函数，则该设置的值被覆盖，由data()重新设置值
+}
+
+void PlayListView::removeSelection(QItemSelectionModel *selection)
+{
+    Q_ASSERT(selection != NULL);
+
+    QStringList fileList;
+    for (auto index : selection->selectedRows()) {
+        QString filepath = this->m_playlistModel->filePathData(index);
+        fileList.append(filepath);
+    }
+    emit this->requestRemoveVideos(fileList);
+}
+
+void PlayListView::removeSelection(const QModelIndex &index)
+{
+    if (!index.isValid()) {
+        return;
+    }
+    QStringList fileList;
+    QString filepath = this->m_playlistModel->filePathData(index);
+    fileList.append(filepath);
+
+    emit this->requestRemoveVideos(fileList);
+}
+
+void PlayListView::showContextMenu(const QPoint &pos)
+{
+    QItemSelectionModel *selection = this->selectionModel();
+
+    if (selection->selectedRows().length() <= 0) {
+        return;
+    }
+
+    QPoint globalPos = this->mapToGlobal(pos);
+
+    bool singleSelect = (1 == selection->selectedRows().length());
+
+    QMenu myMenu;
+    MyAction *playAct = NULL;
+    if (singleSelect) {
+        playAct = new MyAction(this, "pl_play", false);
+        connect(playAct, SIGNAL(triggered()), this, SLOT(onPlayActionTriggered()));
+        playAct->change(tr("Play"));
+        playAct->setIcon(QPixmap(":/res/playing_normal.png"));//playAct->setIcon(Images::icon("playing_normal"));
+    }
+
+    // Remove actions
+    auto removeSelectedAct = new MyAction(this, "pl_remove_selected", false);
+    connect( removeSelectedAct, SIGNAL(triggered()), this, SLOT(onRemoveAcionTriggered()));
+    removeSelectedAct->change(tr("Remove &selected"));
+    removeSelectedAct->setIcon(QPixmap(":/res/delete.png"));
+
+    auto deleteSelectedFileFromDiskAct = new MyAction(this, "pl_delete_from_disk");
+    connect( deleteSelectedFileFromDiskAct, SIGNAL(triggered()), this, SLOT(onDeleteActionTriggered()));
+    deleteSelectedFileFromDiskAct->change(tr("&Delete file from disk") );
+    deleteSelectedFileFromDiskAct->setIcon(QPixmap(":/res/delete.png"));
+
+    auto index = selection->selectedRows().first();
+    m_selectedModelIndex = index;
+
+    if (playAct) {
+        myMenu.addAction(playAct);
+    }
+
+    if (removeSelectedAct) {
+        myMenu.addAction(removeSelectedAct);
+    }
+
+    if (deleteSelectedFileFromDiskAct) {
+        myMenu.addAction(deleteSelectedFileFromDiskAct);
+    }
+
+    myMenu.exec(globalPos);
+}
+
+void PlayListView::onPlayActionTriggered()
+{
+    QString filepath = this->m_playlistModel->filePathData(m_selectedModelIndex);//TODO: m_selectedModelIndex
+    emit requestPlayVideo(this->currentIndex().row(), filepath);//TODO: currentIndex is right???
+}
+
+void PlayListView::onRemoveAcionTriggered()
+{
+    this->removeSelection(this->selectionModel());
+}
+
+void PlayListView::onDeleteActionTriggered()
+{
+    QItemSelectionModel *selection = this->selectionModel();
+
+    Q_ASSERT(selection != NULL);
+
+    QStringList fileList;
+    for (auto index : selection->selectedRows()) {
+        QString filepath = this->m_playlistModel->filePathData(index);
+        fileList.append(filepath);
+    }
+    emit this->requestDeleteVideos(fileList);
+}
+
+void PlayListView::dragEnterEvent(QDragEnterEvent *event)
+{
+    QListView::dragEnterEvent(event);
+}
+
+void PlayListView::startDrag(Qt::DropActions supportedActions)
+{
+//    QModelIndex index = this->currentIndex();
+
+    setAutoScroll(false);
+    QListView::startDrag(supportedActions);
+    setAutoScroll(true);
+
+    int newCurrentIndex = -1;
+    QStringList newSortList;
+    for (int i = 0; i < this->m_playlistModel->rowCount(); ++i) {
+        auto index = this->m_playlistModel->index(i, 0);
+        auto filepath = this->m_playlistModel->data(index).toString();//没有重写model的data函数时
+        Q_ASSERT(!filepath.isEmpty());
+        if (this->m_playingFile == filepath) {
+            newCurrentIndex = i;
+        }
+        newSortList.append(filepath);
+    }
+    if (!newSortList.isEmpty()) {
+        emit requestResortVideos(newSortList, newCurrentIndex);
+    }
+}
+

@@ -101,7 +101,7 @@ AboutDialog::AboutDialog(const QString &snap, QWidget * parent, Qt::WindowFlags 
 //                tr("Using Qt %1 (compiled with Qt %2)").arg(qVersion()).arg(QT_VERSION_STR) + "<br>" +
 //                tr("Playback engine:") + i->playerVersion() + "<br><br>"
 //                );
-    contributorText->setText("<br>&copy; 2006-2015 Ricardo Villalba &lt;rvm@users.sourceforge.net&gt;<br>&copy; 2017-2018 lixiang &lt;lixiang@kylinos.cn&gt;<br><br>");
+    contributorText->setText("<br>&copy; 2006-2015 Ricardo Villalba &lt;rvm@users.sourceforge.net&gt;<br>&copy; 2017-2019 lixiang &lt;lixiang@kylinos.cn&gt;<br><br>");
     contributorText->hide();
 
 	adjustSize();

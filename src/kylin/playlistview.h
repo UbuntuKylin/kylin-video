@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 ~ 2017 National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
+ * Copyright (C) 2013 ~ 2019 National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
  *
  * Authors:
  *  Kobe Lee    lixiang@kylinos.cn/kobe24_lixiang@126.com
@@ -17,31 +17,93 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QListWidget>
 #include <QScopedPointer>
+#include <QListView>
+#include <QSettings>
+#include <QTime>
+
+#include "datautils.h"
+class PlaylistModel;
+class PlaylistDelegate;
 
 
-class PlayListView : public QListWidget
+#include <QStandardItem>
+class PlayListItem : public QStandardItem {
+
+public:
+    PlayListItem();
+    PlayListItem(const QString filename, const QString name, double duration);
+    ~PlayListItem();
+
+    void setFilename(const QString filename);
+    void setName(const QString name);
+    void setDuration(double duration);
+
+    QString filename();
+    QString name();
+    double duration();
+
+    QString m_filename;
+    QString m_name;
+    double m_duration;
+};
+
+
+class PlayListView : public QListView
 {
     Q_OBJECT
+
 public:
-    explicit PlayListView(QWidget *parent = 0);
+    explicit PlayListView(QSettings *set, QWidget *parent = 0);
     ~PlayListView();
-    void checkScrollbarSize();
+
+    const QModelIndex &currentHoverIndex() const;
+    QModelIndex findModelIndex(const VideoPtr video);
+    void addPlayListItem(const QString &filepath, QString &name, double duration);
+    int getModelRowCount();
+    QStandardItem *getItemByRow(int row);
+    QString getFileNameByRow(int row);
+    void setPlayingInfo(const QString &filepath, int row);
+    QString getPlayingFile();
+    void removeFilesFromPlayList(const QStringList &filelist);
+    void updateScrollbarSize();
+
+    PlaylistModel *m_playlistModel;
 
 public slots:
-    void updateScrollbar();
-    void slot_scrollbar_value_changed(int value);
+    void onDoubleClicked(const QModelIndex & index);
+    void onPlayActionTriggered();
+    void onRemoveAcionTriggered();
+    void onDeleteActionTriggered();
+    void removeSelection(QItemSelectionModel *selection);
+    void removeSelection(const QModelIndex &index);
+    void onValueChanged(int value);
+    void onCurrentHoverChanged(const QModelIndex &previous, const QModelIndex &current);
+    void onItemEntered(const QModelIndex &index);
+    void showContextMenu(const QPoint &pos);
 
 signals:
-    void customResort(const QStringList &uuids);
+    void requestRemoveVideos(const QStringList &filelist);
+    void requestDeleteVideos(const QStringList &filelist);
+    void requestPlayVideo(int row, const QString filepath);
+    void requestResortVideos(const QStringList &sortList, int index);
+    void currentHoverChanged(const QModelIndex &previous, const QModelIndex &current);
 
 protected:
-    virtual void wheelEvent(QWheelEvent *event);
-    virtual void resizeEvent(QResizeEvent *event);
+    virtual void dragEnterEvent(QDragEnterEvent *event) Q_DECL_OVERRIDE;
+    virtual void startDrag(Qt::DropActions supportedActions) Q_DECL_OVERRIDE;
+    virtual void keyPressEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
+    virtual void wheelEvent(QWheelEvent *event) Q_DECL_OVERRIDE;
+    virtual void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
+    virtual void enterEvent(QEvent *event) Q_DECL_OVERRIDE;
+    virtual void leaveEvent(QEvent *event) Q_DECL_OVERRIDE;
 
 private:
-    QScrollBar *vscrollBar;
-    int scrollBarWidth;
-    int itemHeight;
+    QScrollBar *m_scrollBar = nullptr;
+    PlaylistDelegate *m_playlistDelegate = nullptr;
+    QSettings *m_set = nullptr;
+    QModelIndex m_selectedModelIndex;
+    QModelIndex m_indexPrevious;
+    QModelIndex m_indexCurrent;
+    QString m_playingFile;
 };

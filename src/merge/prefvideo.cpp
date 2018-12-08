@@ -86,6 +86,20 @@ void PrefVideo::getData(Preferences * pref) {
 	requires_restart = false;
 	filesettings_method_changed = false;
 
+    /*if (pref->mplayer_bin != mplayerPath()) {
+        requires_restart = true;
+        pref->mplayer_bin = mplayerPath();
+
+        qDebug("PrefGeneral::getData: mplayer binary has changed, getting version number");
+        // Forces to get info from mplayer to update version number
+        InfoReader * i = InfoReader::obj();
+        i->getInfo();
+        // Update the drivers list at the same time
+        vo_list = i->voList();
+        updateDriverCombos();
+    }*/
+
+
 	TEST_AND_SET(pref->vo, VO());
 	TEST_AND_SET(pref->use_soft_video_eq, eq2());
     pref->initial_postprocessing = initialPostprocessing();
@@ -106,7 +120,7 @@ void PrefVideo::update_driver_combobox()
 void PrefVideo::updateDriverCombos() {
 	QString current_vo = VO();
 	vo_combo->clear();
-	vo_combo->addItem(tr("Default"), "player_default");
+    vo_combo->addItem(tr("Default"), "");//vo_combo->addItem(tr("Default"), "player_default");
 	QString vo;
 	for ( int n = 0; n < vo_list.count(); n++ ) {
 		vo = vo_list[n].name();

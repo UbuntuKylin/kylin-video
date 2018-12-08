@@ -83,7 +83,6 @@ HEADERS += smplayer/config.h \
         smplayer/timedialog.h \
         smplayer/cleanconfig.h \
         smplayer/kylinvideo.h \
-        smplayer/myapplication.h \
         smplayer/infofile.h \
         smplayer/translator.h \
         smplayer/languages.h \
@@ -106,7 +105,6 @@ HEADERS += smplayer/config.h \
         smplayer/globalshortcuts/globalshortcutsdialog.h \
         smplayer/discname.h \
         merge/basegui.h \
-        merge/playlist.h \
         merge/lineedit_with_icon.h \
         merge/preferencesdialog.h \
         merge/prefgeneral.h \
@@ -123,8 +121,6 @@ HEADERS += smplayer/config.h \
         kylin/titlewidget.h \
         kylin/bottomwidget.h \
         kylin/soundvolume.h \
-        kylin/playlistview.h \
-        kylin/playlistitem.h \
         kylin/titlebutton.h \
         kylin/aboutdialog.h \
         kylin/playmask.h \
@@ -135,6 +131,12 @@ HEADERS += smplayer/config.h \
         kylin/helpdialog.h \
         kylin/supportformats.h \
         kylin/systembutton.h \
+        kylin/playlist.h \
+        kylin/playlistview.h \
+        kylin/playlistmodel.h \
+        kylin/playlistdelegate.h \
+        kylin/datautils.h \
+        kylin/myapplication.h \
         bottomcontroller.h \
         filterhandler.h
 
@@ -183,7 +185,6 @@ SOURCES	+= smplayer/version.cpp \
         smplayer/timedialog.cpp \
         smplayer/cleanconfig.cpp \
         smplayer/kylinvideo.cpp \
-        smplayer/main.cpp \
         smplayer/infofile.cpp \
         smplayer/translator.cpp \
         smplayer/languages.cpp \
@@ -207,7 +208,6 @@ SOURCES	+= smplayer/version.cpp \
         smplayer/discname.cpp \
         merge/lineedit_with_icon.cpp \
         merge/basegui.cpp \
-        merge/playlist.cpp \
         merge/preferencesdialog.cpp \
         merge/prefgeneral.cpp \
         merge/prefperformance.cpp \
@@ -223,8 +223,6 @@ SOURCES	+= smplayer/version.cpp \
         kylin/titlewidget.cpp \
         kylin/bottomwidget.cpp \
         kylin/soundvolume.cpp \
-        kylin/playlistview.cpp \
-        kylin/playlistitem.cpp \
         kylin/titlebutton.cpp \
         kylin/aboutdialog.cpp \
         kylin/playmask.cpp \
@@ -235,10 +233,13 @@ SOURCES	+= smplayer/version.cpp \
         kylin/helpdialog.cpp \
         kylin/supportformats.cpp \
         kylin/systembutton.cpp \
+        kylin/playlist.cpp \
+        kylin/playlistview.cpp \
+        kylin/playlistmodel.cpp \
+        kylin/playlistdelegate.cpp \
+        kylin/main.cpp \
         bottomcontroller.cpp \
         filterhandler.cpp
-
-
 
 FORMS = smplayer/timedialog.ui \
         merge/preferencesdialog.ui \

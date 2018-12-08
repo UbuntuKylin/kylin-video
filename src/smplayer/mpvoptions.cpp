@@ -49,7 +49,7 @@ void MPVProcess::addArgument(const QString & /*a*/) {
 }
 
 void MPVProcess::initializeOptionVars() {
-    qDebug("MPVProcess::initializeOptionVars");
+    //qDebug("MPVProcess::initializeOptionVars");
     PlayerProcess::initializeOptionVars();
 
 //#ifdef OSD_WITH_TIMER
@@ -109,6 +109,7 @@ void MPVProcess::setMedia(const QString & media, bool is_playlist) {
     arg << "--term-status-msg=STATUS: ${=time-pos} / ${=duration:${=length:0}} P: ${=pause} B: ${=paused-for-cache} I: ${=core-idle} VB: ${=video-bitrate:0} AB: ${=audio-bitrate:0}";
 //#endif
 
+    //qDebug() << "MPVProcess::setMedia file=" << media;
     if (is_playlist) {
         arg << "--playlist=" + media;
     } else {

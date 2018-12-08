@@ -25,9 +25,12 @@
 #include <QString>
 #include <QStringList>
 #include <QSize>
+#include <QMap>
+
 #include "config.h"
 #include "audioequalizerlist.h"
 #include "assstyles.h"
+#include "../kylin/datautils.h"
 
 class Recents;
 class URLHistory;
@@ -57,12 +60,18 @@ public:
 
 	virtual void reset();
 
+    VideoPtr createVedioData(const QString &filepath, QString &name, double duration);
+    const VideoPtr video(const QString &filepath) const;
+    bool isEmpty() const;
+    bool contains(const VideoPtr video) const;
+    bool contains(const QString &filepath) const;
+    void updatePlaylist(QStringList playlist);
+
 	void save();
 	void load();
 
     double monitor_aspect_double();
 	void setupScreenshotFolder();
-
 
 
     /* *******
@@ -450,9 +459,9 @@ public:
        Directories
        *********** */
 
-	QString latest_dir; //!< Directory of the latest file loaded
-    QString last_dvd_directory;
-    bool save_dirs; // Save or not the latest dirs
+    QString latest_dir; //!< Directory of the latest file loaded
+//    QString last_dvd_directory;
+//    bool save_dirs; // Save or not the latest dirs
 
 
     /* **************
@@ -520,6 +529,7 @@ public:
        ********* */
     QString arch_type;
     QString m_snap;
+    QMap<QString, VideoPtr> m_videoMap;
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(Preferences::WheelFunctions)

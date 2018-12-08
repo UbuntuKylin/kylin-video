@@ -100,8 +100,7 @@ void Tracks::list() {
 	while (i.hasNext()) {
 		i.next();
 		TrackData d = i.value();
-        qDebug("Tracks::list: item %d: ID: %d lang: '%s' name: '%s'",
-               i.key(), d.ID(), d.lang().toUtf8().constData(), d.name().toUtf8().constData() );
+        //qDebug("Tracks::list: item %d: ID: %d lang: '%s' name: '%s'", i.key(), d.ID(), d.lang().toUtf8().constData(), d.name().toUtf8().constData() );
 	}
 }
 

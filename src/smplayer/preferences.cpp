@@ -66,6 +66,102 @@ Preferences::~Preferences() {
     delete history_recents;
     delete history_urls;
     delete filters;
+    m_videoMap.clear();
+}
+
+VideoPtr Preferences::createVedioData(const QString &filepath, QString &name, double duration)
+{
+    //filepath.absoluteFilePath()
+    if (m_videoMap.contains(filepath)) {
+        return m_videoMap.value(filepath);
+    }
+
+    VideoPtr video = VideoPtr(new VideoData);
+
+    Q_ASSERT(video != nullptr);
+
+    video->m_localpath = filepath;//filepath.absoluteFilePath();
+    video->m_name = name;
+    video->m_duration = duration;
+
+    return video;
+}
+
+bool Preferences::isEmpty() const
+{
+    return this->m_videoMap.isEmpty();
+}
+
+const VideoPtr Preferences::video(const QString &hash) const
+{
+    return this->m_videoMap.value(hash);
+}
+
+bool Preferences::contains(const VideoPtr video) const
+{
+    if (!video.isNull())
+    return m_videoMap.contains(video->m_localpath);
+}
+
+bool Preferences::contains(const QString &filepath) const
+{
+    return this->m_videoMap.contains(filepath);
+}
+
+void Preferences::updatePlaylist(QStringList playlist)
+{
+    qDebug() << "playlist=" << playlist;
+//    QMap<QString, VideoPtr> videoMap = m_videoMap;
+
+
+
+//    QMap<QString, int> fileMap;
+//    for (int i = 0; i < this->rowCount(); ++i) {
+//        auto index = this->index(i, 0);
+//        auto filepath = this->data(index).toString();//没有重写model的data函数时
+//        Q_ASSERT(!filepath.isEmpty());
+//        fileMap.insert(filepath, i);
+//    }
+
+//    QStringList sortList;
+//    if (fileMap.count() > 0) {
+//        QMap<QString, int>::iterator j;
+//        for (j = fileMap.begin(); j != fileMap.end(); ++j) {
+//            sortList.insert(j.value(), j.key());
+//        }
+//    }
+//    qDebug() << "########sortList=" << sortList;
+
+//    QMap<QString, VideoPtr> videos;
+//    QMap<QString, QString> myvideos;
+//    for(int n=0; n < sortList.size(); ++n) {
+//        qDebug() << "===========" << n;
+//        QMap<QString, VideoPtr>::iterator k;
+//        int mydex = 0;
+//        for (k = pref->m_videoMap.begin(); k != pref->m_videoMap.end(); ++k) {
+//            qDebug() << "mydex===========" << mydex;
+//            mydex ++;
+//            if (sortList.at(n) == k.key()) {
+//                videos.insert(k.key(), k.value());
+//                qDebug() << "$$$$$2" << k.key() << k.value()->localpath();
+//                myvideos.insert(k.key(), k.value()->localpath());
+//                break;
+//            }
+//        }
+//    }
+
+//    QMap<QString, VideoPtr>::iterator m;
+//    for (m = videos.begin(); m != videos.end(); ++m) {
+//        qDebug() << "$$$$$3" << m.key() << m.value()->localpath();
+//    }
+
+////    myvideos.insert("a", "aaa");
+////    myvideos.insert("b", "bbb");
+////    myvideos.insert("c", "ccc");
+//    QMap<QString, QString>::iterator l;
+//    for (l = myvideos.begin(); l != myvideos.end(); ++l) {
+//        qDebug() << "$$$$$4" << l.key() << l.value();
+//    }
 }
 
 void Preferences::reset() {
@@ -335,7 +431,9 @@ void Preferences::reset() {
     compact_mode = false;
     stay_on_top = NeverOnTop;
     size_factor = 100; // 100%
+    play_order = OrderPlay;
 
+//    resize_method = Afterload;//kobe: Never;
     resize_method = Never;//Afterload
 
 //#if STYLE_SWITCHING
@@ -451,9 +549,9 @@ void Preferences::reset() {
     /* ***********
        Directories
        *********** */
-	latest_dir = QDir::homePath();
-    last_dvd_directory="";
-    save_dirs = true;
+    latest_dir = QDir::homePath();
+//    last_dvd_directory="";
+//    save_dirs = true;
 
     /* **************
        Initial values
@@ -506,6 +604,9 @@ void Preferences::reset() {
        ******* */
 
     filters->init();
+
+
+    m_videoMap.clear();
 }
 
 void Preferences::save() {
@@ -812,23 +913,22 @@ void Preferences::save() {
        Directories
        *********** */
 
-    /*set->beginGroup( "directories");
-    if (save_dirs) {
-        set->setValue("latest_dir", latest_dir);
-        set->setValue("last_dvd_directory", last_dvd_directory);
-    } else {
-        set->setValue("latest_dir", "");
-        set->setValue("last_dvd_directory", "");
-    }
-    set->setValue("save_dirs", save_dirs);
+    set->beginGroup( "directories");
+//    if (save_dirs) {
+//        set->setValue("latest_dir", latest_dir);
+//        set->setValue("last_dvd_directory", last_dvd_directory);
+//    } else {
+//        set->setValue("latest_dir", "");
+//        set->setValue("last_dvd_directory", "");
+//    }
+//    set->setValue("save_dirs", save_dirs);
+    set->setValue("latest_dir", latest_dir);
     set->endGroup(); // directories*/
-
 
     /* **************
        Initial values
        ************** */
 	set->beginGroup( "defaults");
-    set->setValue("latest_dir", latest_dir);
 
     set->setValue("initial_sub_scale", initial_sub_scale);
     set->setValue("initial_sub_scale_ass", initial_sub_scale_ass);
@@ -1228,22 +1328,21 @@ void Preferences::load() {
     /* ***********
        Directories
        *********** */
-/*
     set->beginGroup( "directories");
-    save_dirs = set->value("save_dirs", save_dirs).toBool();
-    if (save_dirs) {
-        latest_dir = set->value("latest_dir", latest_dir).toString();
-        last_dvd_directory = set->value("last_dvd_directory", last_dvd_directory).toString();
-    }
+//    save_dirs = set->value("save_dirs", save_dirs).toBool();
+//    if (save_dirs) {
+//        latest_dir = set->value("latest_dir", latest_dir).toString();
+//        last_dvd_directory = set->value("last_dvd_directory", last_dvd_directory).toString();
+//    }
+    latest_dir = set->value("latest_dir", latest_dir).toString();
     set->endGroup(); // directories
-    */
+
 
     /* **************
        Initial values
        ************** */
 
 	set->beginGroup( "defaults");
-    latest_dir = set->value("latest_dir", latest_dir).toString();
     initial_sub_scale = set->value("initial_sub_scale", initial_sub_scale).toDouble();
     initial_sub_scale_ass = set->value("initial_sub_scale_ass", initial_sub_scale_ass).toDouble();
     initial_volume = set->value("initial_volume", initial_volume).toInt();
@@ -1327,7 +1426,7 @@ void Preferences::load() {
 
 
 double Preferences::monitor_aspect_double() {
-    qDebug("Preferences::monitor_aspect_double");
+    //qDebug("Preferences::monitor_aspect_double");
 
     QRegExp exp("(\\d+)[:/](\\d+)");
     if (exp.indexIn( monitor_aspect ) != -1) {

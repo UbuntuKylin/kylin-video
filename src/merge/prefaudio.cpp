@@ -38,10 +38,11 @@ PrefAudio::PrefAudio(QString snap, QWidget * parent, Qt::WindowFlags f)
     InfoReader * i = InfoReader::obj(this->m_snap);//20181212
 	i->getInfo();
 	ao_list = i->aoList();
-//	alsa_devices = DeviceInfo::alsaDevices();
-	xv_adaptors = DeviceInfo::xvAdaptors();
+
+    pa_devices = DeviceInfo::paDevices();
 
 	// Channels combo
+    channels_combo->addItem( "0", MediaSettings::ChDefault );
 	channels_combo->addItem( "2", MediaSettings::ChStereo );
 	channels_combo->addItem( "4", MediaSettings::ChSurround );
 	channels_combo->addItem( "6", MediaSettings::ChFull51 );
@@ -84,6 +85,7 @@ void PrefAudio::retranslateStrings() {
     connect(softvol_check, SIGNAL(toggled(bool)), amplification_label, SLOT(setEnabled(bool)));
     connect(autosync_check, SIGNAL(toggled(bool)), factor_label, SLOT(setEnabled(bool)));
 
+    channels_combo->setItemText(0, tr("Default"));
 	channels_combo->setItemText(0, tr("2 (Stereo)") );
 	channels_combo->setItemText(1, tr("4 (4.0 Surround)") );
 	channels_combo->setItemText(2, tr("6 (5.1 Surround)") );
@@ -110,6 +112,20 @@ void PrefAudio::setData(Preferences *pref) {
 void PrefAudio::getData(Preferences * pref) {
 	requires_restart = false;
 	filesettings_method_changed = false;
+
+    /*if (pref->mplayer_bin != mplayerPath()) {
+        requires_restart = true;
+        pref->mplayer_bin = mplayerPath();
+
+        qDebug("PrefGeneral::getData: mplayer binary has changed, getting version number");
+        // Forces to get info from mplayer to update version number
+        InfoReader * i = InfoReader::obj();
+        i->getInfo();
+        // Update the drivers list at the same time
+        ao_list = i->aoList();
+        updateDriverCombos();
+    }*/
+
     TEST_AND_SET(pref->ao, AO());
 	TEST_AND_SET(pref->use_soft_vol, softVol());
 	pref->global_volume = globalVolume();
@@ -128,8 +144,30 @@ void PrefAudio::update_driver_combobox() {
     updateDriverCombos();
 }
 
-//TODO
 void PrefAudio::updateDriverCombos() {
+    QString current_ao = AO();
+    ao_combo->clear();
+    ao_combo->addItem(tr("Default"), "");
+
+    QString ao;
+    for ( int n = 0; n < ao_list.count(); n++) {
+        ao = ao_list[n].name();
+//        ao_combo->addItem( ao, ao );
+
+        if (ao == "oss" || ao == "alsa" || ao == "pulse") {
+            ao_combo->addItem( ao, ao );
+        }
+        //USE_PULSEAUDIO_DEVICES
+        if ((ao == "pulse") && (!pa_devices.isEmpty())) {
+            for (int n=0; n < pa_devices.count(); n++) {
+                ao_combo->addItem( DeviceInfo::printableName("pulse", pa_devices[n]), DeviceInfo::internalName("pulse", pa_devices[n]) );
+            }
+        }
+    }
+//    ao_combo->addItem( tr("User defined..."), "user_defined" );
+    setAO(current_ao);
+
+
     /*QString current_ao = AO();
 	ao_combo->clear();
 	ao_combo->addItem(tr("Default"), "player_default");
@@ -158,8 +196,8 @@ void PrefAudio::setAO( QString ao_driver ) {
         //kobe
         idx = ao_combo->findData("pulse");
         ao_combo->setCurrentIndex(idx);
-//		ao_combo->setCurrentIndex(ao_combo->findData("user_defined"));
-//		ao_user_defined_edit->setText(ao_driver);
+//        ao_combo->setCurrentIndex(ao_combo->findData("user_defined"));
+//        ao_user_defined_edit->setText(ao_driver);
 	}
 	ao_combo_changed(ao_combo->currentIndex());
 }

@@ -23,7 +23,7 @@
 #include "version.h"
 #include "config.h"
 #include "cleanconfig.h"
-#include "myapplication.h"
+#include "../kylin/myapplication.h"
 #include <QDir>
 #include <QUrl>
 #include <QTime>

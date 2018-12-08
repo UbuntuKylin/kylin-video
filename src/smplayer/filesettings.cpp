@@ -25,7 +25,7 @@
 
 FileSettings::FileSettings(QString directory) : FileSettingsBase(directory) 
 {
-	my_settings = new QSettings(directory + "/smplayer_files.ini", QSettings::IniFormat);
+    my_settings = new QSettings(directory + "/kylin-video-files.ini", QSettings::IniFormat);
 }
 
 FileSettings::~FileSettings() {
@@ -51,13 +51,13 @@ QString FileSettings::filenameToGroupname(const QString & filename, int type) {
 }
 
 bool FileSettings::existSettingsFor(QString filename, int type) {
-	qDebug() << "FileSettings::existSettingsFor" << filename;
+    //qDebug() << "FileSettings::existSettingsFor" << filename;
 
 	if (type != TYPE_FILE && type != TYPE_STREAM) return false;
 
 	QString group_name = filenameToGroupname(filename, type);
 
-	qDebug() << "FileSettings::existSettingsFor: group_name:" << group_name;
+    //qDebug() << "FileSettings::existSettingsFor: group_name:" << group_name;
 
 	my_settings->beginGroup( group_name );
 	bool saved = my_settings->value("saved", false).toBool();
@@ -67,13 +67,13 @@ bool FileSettings::existSettingsFor(QString filename, int type) {
 }
 
 void FileSettings::loadSettingsFor(QString filename, int type, MediaSettings & mset, int player) {
-	qDebug() << "FileSettings::loadSettingsFor:" << filename;
+    //qDebug() << "FileSettings::loadSettingsFor:" << filename;
 
 	if (type != TYPE_FILE && type != TYPE_STREAM) return;
 
 	QString group_name = filenameToGroupname(filename, type);
 
-	qDebug() << "FileSettings::loadSettingsFor: group_name:" << group_name;
+    //qDebug() << "FileSettings::loadSettingsFor: group_name:" << group_name;
 
 	mset.reset();
 
@@ -83,13 +83,15 @@ void FileSettings::loadSettingsFor(QString filename, int type, MediaSettings & m
 }
 
 void FileSettings::saveSettingsFor(QString filename, int type, MediaSettings & mset, int player) {
-	qDebug() << "FileSettings::saveSettingsFor:" << filename;
+    //qDebug() << "FileSettings::saveSettingsFor:" << filename;
+    if (filename.isEmpty())
+        return;
 
 	if (type != TYPE_FILE && type != TYPE_STREAM) return;
 
 	QString group_name = filenameToGroupname(filename, type);
 
-	qDebug() << "FileSettings::saveSettingsFor: group_name:" << group_name;
+    //qDebug() << "FileSettings::saveSettingsFor: group_name:" << group_name;
 
 	my_settings->beginGroup( group_name );
 	my_settings->setValue("saved", true);

@@ -85,9 +85,7 @@ protected:
 	void updateDriverCombos();
 
 	InfoList ao_list;
-
-	DeviceList alsa_devices;
-	DeviceList xv_adaptors;
+    DeviceList pa_devices;
 
 private:
 	bool filesettings_method_changed;

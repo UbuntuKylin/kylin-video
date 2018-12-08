@@ -52,7 +52,7 @@
 #include "../smplayer/translator.h"
 #include "../smplayer/images.h"
 #include "../smplayer/preferences.h"
-#include "playlist.h"
+#include "../kylin/playlist.h"
 #include "filepropertiesdialog.h"
 #include "../smplayer/recents.h"
 #include "../smplayer/urlhistory.h"
@@ -83,6 +83,11 @@
 #include "bottomcontroller.h"
 #include "filterhandler.h"
 
+
+#include "../kylin/datautils.h"
+#include <QVariant>
+#include <QDataStream>
+
 using namespace Global;
 
 inline bool inRectCheck(QPoint point, QRect rect) {
@@ -90,6 +95,27 @@ inline bool inRectCheck(QPoint point, QRect rect) {
     bool y = rect.y() <= point.y() && point.y() <= rect.y() + rect.height();
     return x && y;
 }
+
+
+QDataStream &operator<<(QDataStream &dataStream, const VideoPtr &objectA)
+{
+    auto ptr = objectA.data();
+    auto ptrval = reinterpret_cast<qulonglong>(ptr);//reinterpret_cast是C++里的强制类型转换符
+    auto var = QVariant::fromValue(ptrval);
+    dataStream << var;
+    return  dataStream;
+}
+
+QDataStream &operator>>(QDataStream &dataStream, VideoPtr &objectA)
+{
+    QVariant var;
+    dataStream >> var;
+    qulonglong ptrval = var.toULongLong();
+    auto ptr = reinterpret_cast<VideoData *>(ptrval);
+    objectA = VideoPtr(ptr);
+    return dataStream;
+}
+
 
 BaseGui::BaseGui(QString arch_type, QString snap, QWidget* parent, Qt::WindowFlags flags)
     : QMainWindow( parent, flags )
@@ -109,6 +135,11 @@ BaseGui::BaseGui(QString arch_type, QString snap, QWidget* parent, Qt::WindowFla
     this->setMinimumSize(WINDOW_MIN_WIDTH, WINDOW_MIN_HEIGHT);
     this->resize(900, 600);
     this->setWindowIcon(QIcon(":/res/kylin-video.png"));
+
+    qRegisterMetaType<VideoPtr>();
+    qRegisterMetaTypeStreamOperators<VideoPtr>();
+    qRegisterMetaType<VideoPtrList>();
+    qRegisterMetaType<QList<VideoData>>();
 
     arch = arch_type;
     m_snap = snap;
@@ -1355,7 +1386,7 @@ void BaseGui::createCore() {
 	// Log mplayer output
     connect(core, SIGNAL(aboutToStartPlaying()), this, SLOT(clearMplayerLog()));
     connect(core, SIGNAL(logLineAvailable(QString)), this, SLOT(recordMplayerLog(QString)));
-//    connect(core, SIGNAL(mediaLoaded()), this, SLOT(autosaveMplayerLog()));
+    //connect(core, SIGNAL(mediaLoaded()), this, SLOT(autosaveMplayerLog()));
 	connect(core, SIGNAL(receivedForbidden()), this, SLOT(gotForbidden()));
 }
 
@@ -1662,14 +1693,14 @@ void BaseGui::newMediaLoaded()
 //	qDebug("BaseGui::newMediaLoaded: mdat.stream_title: %s", stream_title.toUtf8().constData());
 
 	if (!stream_title.isEmpty()) {
-		pref->history_recents->addItem( core->mdat.filename, stream_title );
+        pref->history_recents->addItem( core->mdat.m_filename, stream_title );//20181201  m_filename
 		//pref->history_recents->list();
 	} else {
-		pref->history_recents->addItem( core->mdat.filename );
+        pref->history_recents->addItem( core->mdat.m_filename );
 	}
 	updateRecents();
 
-    QFileInfo fi(core->mdat.filename);
+    QFileInfo fi(core->mdat.m_filename);//20181201  m_filename
     if (fi.exists()) {
         QString name = fi.fileName();
         m_topToolbar->set_title_name(name);
@@ -1680,7 +1711,7 @@ void BaseGui::newMediaLoaded()
 		//qDebug("BaseGui::newMediaLoaded: playlist count: %d", playlist->count());
         QStringList files_to_add;
         if (playlistWidget->count() == 1) {
-            files_to_add = Helper::filesForPlaylist(core->mdat.filename, pref->media_to_add_to_playlist);
+            files_to_add = Helper::filesForPlaylist(core->mdat.m_filename, pref->media_to_add_to_playlist);//20181201  m_filename
         }
         if (!files_to_add.empty()) playlistWidget->addFiles(files_to_add);
 	}
@@ -1699,6 +1730,25 @@ void BaseGui::recordMplayerLog(QString line) {
         if ( (line.indexOf("A:")==-1) && (line.indexOf("V:")==-1) ) {
             line.append("\n");
             mplayer_log.append(line);
+        }
+    }
+}
+
+/*!
+    Save the mplayer log to a file, so it can be used by external
+    applications.
+*/
+void BaseGui::autosaveMplayerLog() {
+    qDebug("BaseGui::autosaveMplayerLog");
+
+    if (pref->autosave_mplayer_log) {
+        if (!pref->mplayer_log_saveto.isEmpty()) {
+            QFile file( pref->mplayer_log_saveto );
+            if ( file.open( QIODevice::WriteOnly ) ) {
+                QTextStream strm( &file );
+                strm << mplayer_log;
+                file.close();
+            }
         }
     }
 }
@@ -3252,8 +3302,8 @@ void BaseGui::ready_save_pre_image(int time) {
                 video_preview = new VideoPreview(pref->mplayer_bin, 0);
             }
 
-            if (!core->mdat.filename.isEmpty()) {
-                video_preview->setVideoFile(core->mdat.filename);
+            if (!core->mdat.m_filename.isEmpty()) {//20181201  m_filename
+                video_preview->setVideoFile(core->mdat.m_filename);
             }
 
             video_preview->setMplayerPath(pref->mplayer_bin);

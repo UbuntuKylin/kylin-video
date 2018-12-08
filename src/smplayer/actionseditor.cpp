@@ -617,7 +617,7 @@ void ActionsEditor::saveToConfig(QObject *o, QSettings *set) {
 
 
 void ActionsEditor::loadFromConfig(QObject *o, QSettings *set) {
-	qDebug("ActionsEditor::loadFromConfig");
+    //qDebug("ActionsEditor::loadFromConfig");
 
 	set->beginGroup("actions");
 

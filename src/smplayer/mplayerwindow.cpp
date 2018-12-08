@@ -147,7 +147,7 @@ MplayerLayer::~MplayerLayer() {
 
 //#if REPAINT_BACKGROUND_OPTION
 void MplayerLayer::setRepaintBackground(bool b) {
-    qDebug("MplayerLayer::setRepaintBackground: %d", b);
+    //qDebug("MplayerLayer::setRepaintBackground: %d", b);
     repaint_background = b;
 }
 //#endif
@@ -178,7 +178,7 @@ void MplayerLayer::playingStarted() {
 }
 
 void MplayerLayer::playingStopped() {
-	qDebug("MplayerLayer::playingStopped");
+    //qDebug("MplayerLayer::playingStopped");
 	playing = false;
 
     //kobe:WA_PaintOnScreen该属性设置会导致播放音频文件时界面不刷新，此时如果显示或隐藏播放列表，则播放列表重影

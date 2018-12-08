@@ -318,7 +318,7 @@ void Core::reload() {
 }
 
 void Core::saveMediaInfo() {
-    qDebug("Core::saveMediaInfo");
+    //qDebug("Core::saveMediaInfo");
 
     if (!pref->remember_media_settings) {
         qDebug("Core::saveMediaInfo: saving settings for files is disabled");
@@ -330,9 +330,11 @@ void Core::saveMediaInfo() {
         return;
     }
 
-    if ( (mdat.type == TYPE_FILE || mdat.type == TYPE_STREAM) && (!mdat.filename.isEmpty()) ) {
-        file_settings->saveSettingsFor(mdat.filename, mdat.type, mset, proc->player());
+    //qDebug() << "mdat.type=" << mdat.type;//TYPE_UNKNOWN  -1
+    if ( (mdat.type == TYPE_FILE || mdat.type == TYPE_STREAM) && (!mdat.m_filename.isEmpty()) ) {//20181201  m_filename
+        file_settings->saveSettingsFor(mdat.m_filename, mdat.type, mset, proc->player());
     }
+
 //#ifdef TV_SUPPORT
 //	else
 //	if ( (mdat.type == TYPE_TV) && (!mdat.filename.isEmpty()) ) {
@@ -342,7 +344,7 @@ void Core::saveMediaInfo() {
 }
 
 void Core::restoreSettingsForMedia(const QString & name, int type) {
-    qDebug() << "Core::restoreSettingsForMedia:" << name << "type:" << type;
+    //qDebug() << "Core::restoreSettingsForMedia:" << name << "type:" << type;
 
     if (!pref->remember_media_settings) {
         qDebug("Core::restoreSettingsForMedia: remember settings for files is disabled");
@@ -355,7 +357,7 @@ void Core::restoreSettingsForMedia(const QString & name, int type) {
     }
 
     file_settings->loadSettingsFor(name, type, mset, proc->player());
-    qDebug("Core::restoreSettingsForMedia: media settings read");
+    //qDebug("Core::restoreSettingsForMedia: media settings read");
 
     // Resize the window and set the aspect as soon as possible
     int saved_width = mset.win_width;
@@ -379,7 +381,7 @@ void Core::restoreSettingsForMedia(const QString & name, int type) {
 }
 
 void Core::initializeMenus() {
-    qDebug("Core::initializeMenus");
+    //qDebug("Core::initializeMenus");
 
     emit menusNeedInitialize();
 }
@@ -406,13 +408,13 @@ void Core::open(QString file, int seek) {
 
 	if (file.startsWith("file:")) {
 		file = QUrl(file).toLocalFile();
-		qDebug("Core::open: converting url to local file: %s", file.toUtf8().constData());
+        //qDebug("Core::open: converting url to local file: %s", file.toUtf8().constData());
 	}
 
 	QFileInfo fi(file);
 
 	if ( (fi.exists()) && (fi.suffix().toLower()=="iso") ) {
-		qDebug("Core::open: * identified as a dvd iso");
+        //qDebug("Core::open: * identified as a dvd iso");
 //#if DVDNAV_SUPPORT
 //		openDVD( DiscName::joinDVD(0, file, pref->use_dvdnav) );
 //#else
@@ -421,7 +423,7 @@ void Core::open(QString file, int seek) {
 	}
 	else
 	if ( (fi.exists()) && (!fi.isDir()) ) {
-		qDebug("Core::open: * identified as local file");
+        //qDebug("Core::open: * identified as local file");
 		// Local file
 		file = QFileInfo(file).absoluteFilePath();
 		openFile(file, seek);
@@ -429,11 +431,11 @@ void Core::open(QString file, int seek) {
 	else
     if ((fi.exists()) && (fi.isDir())) {
 		// Directory
-		qDebug("Core::open: * identified as a directory");
-		qDebug("Core::open:   checking if contains a dvd");
+        //qDebug("Core::open: * identified as a directory");
+        //qDebug("Core::open:   checking if contains a dvd");
 		file = QFileInfo(file).absoluteFilePath();
 		if (Helper::directoryContainsDVD(file)) {
-			qDebug("Core::open: * directory contains a dvd");
+            //qDebug("Core::open: * directory contains a dvd");
 //#if DVDNAV_SUPPORT
 //			openDVD( DiscName::joinDVD(firstDVDTitle(), file, pref->use_dvdnav) );
 //#else
@@ -446,7 +448,7 @@ void Core::open(QString file, int seek) {
 	}
 	else 
 	if ((file.toLower().startsWith("dvd:")) || (file.toLower().startsWith("dvdnav:"))) {
-		qDebug("Core::open: * identified as dvd");
+        //qDebug("Core::open: * identified as dvd");
 		openDVD(file);
 		/*
 		QString f = file.lower();
@@ -469,7 +471,7 @@ void Core::open(QString file, int seek) {
 //	else
 //#endif
 	if (file.toLower().startsWith("vcd:")) {
-		qDebug("Core::open: * identified as vcd");
+        //qDebug("Core::open: * identified as vcd");
 
 		QString f = file.toLower();
 		QRegExp s("^vcd://(\\d+)");
@@ -483,7 +485,7 @@ void Core::open(QString file, int seek) {
 	}
 	else
 	if (file.toLower().startsWith("cdda:")) {
-		qDebug("Core::open: * identified as cdda");
+        //qDebug("Core::open: * identified as cdda");
 
 		QString f = file.toLower();
 		QRegExp s("^cdda://(\\d+)");
@@ -509,7 +511,7 @@ void Core::open(QString file, int seek) {
 }
 
 void Core::openFile(QString filename, int seek) {
-    qDebug("Core::openFile: '%s'", filename.toUtf8().data());
+    //qDebug("Core::openFile: '%s'", filename.toUtf8().data());
 	QFileInfo fi(filename);
 	if (fi.exists()) {
 		playNewFile(fi.absoluteFilePath(), seek);
@@ -627,7 +629,7 @@ void Core::openVCD(int title) {
     saveMediaInfo();
 
     mdat.reset();
-    mdat.filename = "vcd://" + QString::number(title);
+    mdat.m_filename = "vcd://" + QString::number(title);//20181201  m_filename
     mdat.type = TYPE_VCD;
 
     mset.reset();
@@ -653,7 +655,7 @@ void Core::openAudioCD(int title) {
     saveMediaInfo();
 
     mdat.reset();
-    mdat.filename = "cdda://" + QString::number(title);
+    mdat.m_filename = "cdda://" + QString::number(title);//20181201  m_filename
     mdat.type = TYPE_AUDIO_CD;
 
     mset.reset();
@@ -698,7 +700,7 @@ void Core::openDVD(QString dvd_url) {
     saveMediaInfo();
 
     mdat.reset();
-    mdat.filename = dvd_url;
+    mdat.m_filename = dvd_url;//20181201  m_filename
     mdat.type = TYPE_DVD;
 
     mset.reset();
@@ -792,7 +794,8 @@ void Core::openStream(QString name, QStringList params) {
     saveMediaInfo();
 
     mdat.reset();
-    mdat.filename = name;
+    mdat.m_filename = name;//20181201  m_filename
+    qDebug() << "###############mdat.m_filename=" << mdat.m_filename;
     mdat.type = TYPE_STREAM;
     mdat.extra_params = params;
 
@@ -828,7 +831,8 @@ void Core::playNewFile(QString file, int seek) {
 //#endif
 
 	mdat.reset();
-	mdat.filename = file;
+    mdat.m_filename = file;//20181201  m_filename
+    //qDebug() << "111###############mdat.m_filename=" << mdat.m_filename;//"/home/lixiang/test_mpeg1.mpg"
 	mdat.type = TYPE_FILE;
 
 	int old_volume = mset.volume;
@@ -843,7 +847,7 @@ void Core::playNewFile(QString file, int seek) {
         // Recover volume
         mset.volume = old_volume;
     }
-    qDebug("Core::playNewFile: volume: %d, old_volume: %d", mset.volume, old_volume);
+    //qDebug("Core::playNewFile: volume: %d, old_volume: %d", mset.volume, old_volume);
 	initPlaying(seek);
 }
 
@@ -883,18 +887,18 @@ void Core::initPlaying(int seek) {
 //	}
 //#endif
 
-	startMplayer( mdat.filename, start_sec );
+    startMplayer( mdat.m_filename, start_sec );//20181201  m_filename
 }
 
 // This is reached when a new video has just started playing
 // and maybe we need to give some defaults
 void Core::newMediaPlaying() {
-//	qDebug("Core::newMediaPlaying: --- start ---");
+    //qDebug("Core::newMediaPlaying: --- start ---");
 
-	QString file = mdat.filename;
+    QString file = mdat.m_filename;//20181201  m_filename
 	int type = mdat.type;
 	mdat = proc->mediaData();
-	mdat.filename = file;
+    mdat.m_filename = file;//20181201  m_filename
 	mdat.type = type;
 
     initializeMenus(); // Old
@@ -1006,8 +1010,8 @@ void Core::finishRestart() {
 		mdat.demuxer = proc->mediaData().demuxer;
 	}
 
-	if (forced_titles.contains(mdat.filename)) {
-		mdat.clip_name = forced_titles[mdat.filename];
+    if (forced_titles.contains(mdat.m_filename)) {//20181201  m_filename
+        mdat.clip_name = forced_titles[mdat.m_filename];
 	}
 
 //#ifdef YOUTUBE_SUPPORT
@@ -1224,7 +1228,7 @@ void Core::play() {
 	}
 	else {
 		// if we're stopped, play it again
-		if ( !mdat.filename.isEmpty() ) {
+        if ( !mdat.m_filename.isEmpty() ) {//20181201  m_filename
 			/*
 			qDebug( "current_sec: %f, duration: %f", mset.current_sec, mdat.duration);
 			if ( (floor(mset.current_sec)) >= (floor(mdat.duration)) ) {
@@ -1456,21 +1460,21 @@ void Core::startMplayer( QString file, double seek ) {
 		file = file.remove("|playlist");
 	} else {
 		QUrl url(file);
-		qDebug("Core::startMplayer: checking if stream is a playlist");
-        qDebug("Core::startMplayer: url path: '%s'", url.path().toUtf8().constData());///home/lixiang/东成西就.rmvb
+        //qDebug("Core::startMplayer: checking if stream is a playlist");
+        //qDebug("Core::startMplayer: url path: '%s'", url.path().toUtf8().constData());///home/lixiang/东成西就.rmvb
 
 		if (url.scheme().toLower() != "ffmpeg") {
 			QRegExp rx("\\.ram$|\\.asx$|\\.m3u$|\\.m3u8$|\\.pls$", Qt::CaseInsensitive);
 			url_is_playlist = (rx.indexIn(url.path()) != -1);
 		}
 	}
-    qDebug("Core::startMplayer: url_is_playlist: %d", url_is_playlist);//0
+    //qDebug("Core::startMplayer: url_is_playlist: %d", url_is_playlist);//0
 
 
     // Hack: don't use -ss with m3u(8) streams
     if (mdat.type == TYPE_STREAM) {
         QString extension = Extensions::extensionFromUrl(file);
-        qDebug() << "Core::startMplayer: URL extension:" << extension;
+        //qDebug() << "Core::startMplayer: URL extension:" << extension;
         if (extension.contains("m3u")) {
             seek = 0;
         }
@@ -1488,7 +1492,7 @@ void Core::startMplayer( QString file, double seek ) {
 					file2 = fi.path() + "/" + fi.completeBaseName() + ".M4A";
 				}
 				if (QFile::exists(file2)) {
-					qDebug("Core::startMplayer: found %s, so it will be used as audio file", file2.toUtf8().constData());
+                    //qDebug("Core::startMplayer: found %s, so it will be used as audio file", file2.toUtf8().constData());
 					mset.external_audio = file2;
 				}
 			}
@@ -2062,7 +2066,7 @@ void Core::startMplayer( QString file, double seek ) {
 
 
     if (pref->mplayer_additional_options.contains("-volume")) {
-        qDebug("Core::startMplayer: don't set volume since -volume is used");
+        //qDebug("Core::startMplayer: don't set volume since -volume is used");
     } else {
 		int vol = (pref->global_volume ? pref->volume : mset.volume);
         if (proc->isMPV()) {
@@ -2085,7 +2089,7 @@ void Core::startMplayer( QString file, double seek ) {
 //			#endif
 			proc->setOption("dvd-device", dvd_folder);
 		} else {
-            qWarning("Core::startMplayer: dvd device is empty!");
+            //qWarning("Core::startMplayer: dvd device is empty!");
 		}
 	}
 
@@ -2201,13 +2205,13 @@ void Core::startMplayer( QString file, double seek ) {
 //#ifndef Q_OS_WIN
 	if (proc->isMPlayer()) {
         if ((pref->vdpau.disable_video_filters) && (pref->vo.startsWith("vdpau"))) {
-            qDebug("Core::startMplayer: using vdpau, video filters are ignored");
+            //qDebug("Core::startMplayer: using vdpau, video filters are ignored");
             goto end_video_filters;
         }
 	} else {
 		// MPV
         if (!pref->hwdec.isEmpty() && pref->hwdec != "no") {//kobe 20180612
-			qDebug("Core::startMplayer: hardware decoding is enabled. The video filters will be ignored");
+            //qDebug("Core::startMplayer: hardware decoding is enabled. The video filters will be ignored");
 			goto end_video_filters;
 		}
 	}
@@ -2540,27 +2544,27 @@ if (screenshot_enabled && proc->isMPlayer()) {
 		if (QFile::exists(basename+".EDL")) 
 			edl_f = basename+".EDL";
 
-		qDebug("Core::startMplayer: edl file: '%s'", edl_f.toUtf8().data());
+        //qDebug("Core::startMplayer: edl file: '%s'", edl_f.toUtf8().data());
 		if (!edl_f.isEmpty()) {
 			proc->setOption("edl", edl_f);
 		}
 	}
 
     // Process extra params
-    qDebug() << "Core::startMplayer: extra_params:" << mdat.extra_params;
+    //qDebug() << "Core::startMplayer: extra_params:" << mdat.extra_params;
     foreach(QString par, mdat.extra_params) {
         QRegExp rx_ref("^http-referrer=(.*)", Qt::CaseInsensitive);
         QRegExp rx_agent("^http-user-agent=(.*)", Qt::CaseInsensitive);
 
         if (rx_ref.indexIn(par) > -1) {
             QString referrer = rx_ref.cap(1);
-            qDebug() << "Core::startMplayer: referrer:" << referrer;
+            //qDebug() << "Core::startMplayer: referrer:" << referrer;
             proc->setOption("referrer", referrer);
         }
         else
         if (rx_agent.indexIn(par) > -1) {
             QString user_agent = rx_agent.cap(1);
-            qDebug() << "Core::startMplayer: user_agent:" << user_agent;
+            //qDebug() << "Core::startMplayer: user_agent:" << user_agent;
             proc->setOption("user-agent", user_agent);
         }
     }
@@ -2661,7 +2665,7 @@ if (screenshot_enabled && proc->isMPlayer()) {
 
 	if ( !proc->start() ) {
 	    // error handling
-        qWarning("Core::startMplayer: mplayer process didn't start");
+        //qWarning("Core::startMplayer: mplayer process didn't start");
 	}
 //    else
 //        qDebug() << "proc start success.....................................";
@@ -2692,9 +2696,9 @@ void Core::stopMplayer() {
 //#else
 	proc->quit();
 
-	qDebug("Core::stopMplayer: Waiting mplayer to finish...");
+    //qDebug("Core::stopMplayer: Waiting mplayer to finish...");
 	if (!proc->waitForFinished(pref->time_to_kill_mplayer)) {
-        qWarning("Core::stopMplayer: process didn't finish. Killing it...");
+        //qWarning("Core::stopMplayer: process didn't finish. Killing it...");
 		proc->kill();
 	}
 //#endif
@@ -3766,7 +3770,7 @@ void Core::changeCurrentSec(double sec) {
 
 	if (state() != Playing) {
 		setState(Playing);
-		qDebug("Core::changeCurrentSec: mplayer reports that now it's playing");
+        //qDebug("Core::changeCurrentSec: mplayer reports that now it's playing");
         emit this->show_logo_signal(false);
 		//emit mediaStartPlay();
 		//emit stateChanged(state());
@@ -3800,8 +3804,8 @@ void Core::changeCurrentSec(double sec) {
 }
 
 void Core::gotStartingTime(double time) {
-	qDebug("Core::gotStartingTime: %f", time);
-	qDebug("Core::gotStartingTime: current_sec: %f", mset.current_sec);
+    //qDebug("Core::gotStartingTime: %f", time);
+    //qDebug("Core::gotStartingTime: current_sec: %f", mset.current_sec);
 //#ifdef MSET_USE_STARTING_TIME
 //    if ((mset.starting_time == -1.0) && (mset.current_sec == 0)) {
 //        mset.starting_time = time;
@@ -4083,7 +4087,7 @@ void Core::changeTitle(int ID) {
 //			proc->setTitle(ID);
 //		} else {
 //		#endif
-            DiscData disc_data = DiscName::split(mdat.filename);
+            DiscData disc_data = DiscName::split(mdat.m_filename);//20181201  m_filename
             disc_data.title = ID;
             QString dvd_url = DiscName::join(disc_data);
 
@@ -4574,31 +4578,30 @@ void Core::displayScreenshotName(QString filename) {
 	if (state() != Paused) {
 		// Dont' show the message on OSD while in pause, otherwise
 		// the video goes forward a frame.
-//        qDebug() << "AAAA text=" << text;
 		displayTextOnOSD(text, 3000, 1, "pausing_keep");
 	}
-//    qDebug() << "BBBB text=" << text;
+
 	emit showMessage(text);
 }
 
 void Core::displayUpdatingFontCache() {
-	qDebug("Core::displayUpdatingFontCache");
+    //qDebug("Core::displayUpdatingFontCache");
 	emit showMessage( tr("Updating the font cache. This may take some seconds...") );
 }
 
 void Core::displayBuffering() {
-        setState(Buffering);
-//      emit showMessage(tr("Buffering..."));
+    setState(Buffering);
+    emit showMessage(tr("Buffering..."));
 }
 
 void Core::displayPlaying() {
-    qDebug("Core::displayPlaying");
+    //qDebug("Core::displayPlaying");
     setState(Buffering);
     emit showMessage(tr("Starting..."), 60000);
 }
 
 void Core::gotWindowResolution(int w, int h) {
-    qDebug("Core::gotWindowResolution: %d, %d", w, h);
+    //qDebug("Core::gotWindowResolution: %d, %d", w, h);
     //double aspect = (double) w/h;
 
     if (pref->use_mplayer_window) {
@@ -4666,7 +4669,7 @@ void Core::streamTitleAndUrlChanged(QString title, QString url) {
 
 void Core::sendMediaInfo() {
 //	qDebug("Core::sendMediaInfo");
-	emit mediaPlaying(mdat.filename, mdat.displayName(pref->show_tag_in_window_title));
+    emit mediaPlaying(mdat.m_filename, mdat.displayName(pref->show_tag_in_window_title));//20181201  m_filename
 }
 
 //!  Called when the state changes
@@ -4694,7 +4697,7 @@ void Core::watchState(Core::State state) {
 }
 
 void Core::checkIfVideoIsHD() {
-	qDebug("Core::checkIfVideoIsHD");
+    //qDebug("Core::checkIfVideoIsHD");
 
 	// Check if the video is in HD and uses ffh264 codec.
 	if ((mdat.video_codec=="ffh264") && (mset.win_height >= pref->HD_height)) {
@@ -4702,7 +4705,7 @@ void Core::checkIfVideoIsHD() {
 		if (!mset.is264andHD) {
 			mset.is264andHD = true;
             if (pref->h264_skip_loop_filter == Preferences::LoopDisabledOnHD) {
-                qDebug("Core::checkIfVideoIsHD: we're about to restart the video");
+                //qDebug("Core::checkIfVideoIsHD: we're about to restart the video");
                 restartPlay();
             }
 		}
@@ -4746,7 +4749,7 @@ void Core::checkIfVideoIsHD() {
 
 //#if NOTIFY_VIDEO_CHANGES
 void Core::initVideoTrack(const Tracks & videos, int selected_id) {
-    qDebug("Core::initVideoTrack: selected_id: %d", selected_id);
+    //qDebug("Core::initVideoTrack: selected_id: %d", selected_id);
     mset.videos = videos;
 
     if (selected_id != -1) mset.current_video_id = selected_id;
@@ -4765,8 +4768,8 @@ void Core::initAudioTrack(const Tracks & audios, int selected_id) {
 
         mset.audios = audios;
 
-        qDebug() << "Core::initAudioTrack: num_items:" << mset.audios.numItems() << "selected_id:" << selected_id;
-        qDebug("Core::initAudioTrack: list of audios:");
+        //qDebug() << "Core::initAudioTrack: num_items:" << mset.audios.numItems() << "selected_id:" << selected_id;
+        //qDebug("Core::initAudioTrack: list of audios:");
         mset.audios.list();
 
 //#if SELECT_TRACKS_ON_STARTUP
@@ -4779,18 +4782,18 @@ void Core::initAudioTrack(const Tracks & audios, int selected_id) {
         updateWidgets();
 
 //#if SELECT_TRACKS_ON_STARTUP
-        qDebug() << "Core::initAudioTrack: preferred audio track:" << pref->initial_audio_track << "previous_selected_id:" << previous_selected_id;
+        //qDebug() << "Core::initAudioTrack: preferred audio track:" << pref->initial_audio_track << "previous_selected_id:" << previous_selected_id;
         if (previous_selected_id == MediaSettings::NoneSelected && pref->initial_audio_track > 0) {
                 if (mset.audios.existsItemAt(pref->initial_audio_track-1)) {
                         int audio_id = mset.audios.itemAt(pref->initial_audio_track-1).ID();
-                        qDebug() << "Core::initAudioTrack: changing audio track to" << audio_id;
+                        //qDebug() << "Core::initAudioTrack: changing audio track to" << audio_id;
                         changeAudio(audio_id);
                 }
         }
 //#endif
 
         emit audioTracksInitialized();
-        qDebug() << "Core::initAudioTrack: current_audio_id:" << mset.current_audio_id;
+        //qDebug() << "Core::initAudioTrack: current_audio_id:" << mset.current_audio_id;
 }
 //#endif // NOTIFY_AUDIO_CHANGES
 
@@ -4798,8 +4801,8 @@ void Core::initAudioTrack(const Tracks & audios, int selected_id) {
 void Core::initSubtitleTrack(const SubTracks & subs, int selected_id) {
     mset.subs = subs;
 
-    qDebug() << "Core::initSubtitleTrack: num_items:" << mset.subs.numItems() << "selected_id:" << selected_id;
-    qDebug("Core::initSubtitleTrack: list of subtitles:");
+    //qDebug() << "Core::initSubtitleTrack: num_items:" << mset.subs.numItems() << "selected_id:" << selected_id;
+    //qDebug("Core::initSubtitleTrack: list of subtitles:");
     mset.subs.list();
 
 //#if SELECT_TRACKS_ON_STARTUP
@@ -4807,7 +4810,7 @@ void Core::initSubtitleTrack(const SubTracks & subs, int selected_id) {
 //#endif
 
     if (proc->isMPlayer()) {
-        qDebug() << "Core::initSubtitleTrack: current_subtitle_track:" << mset.current_subtitle_track;
+        //qDebug() << "Core::initSubtitleTrack: current_subtitle_track:" << mset.current_subtitle_track;
         bool restore_subs = (mset.current_subtitle_track != MediaSettings::NoneSelected);
         if (restore_subs) {
             changeSubtitle(mset.current_subtitle_track);
@@ -4828,11 +4831,11 @@ void Core::initSubtitleTrack(const SubTracks & subs, int selected_id) {
     updateWidgets();
 
 //#if SELECT_TRACKS_ON_STARTUP
-    qDebug() << "Core::initSubtitleTrack: preferred subtitle track:" << pref->initial_subtitle_track << "previous_selected:" << previous_selected;
+    //qDebug() << "Core::initSubtitleTrack: preferred subtitle track:" << pref->initial_subtitle_track << "previous_selected:" << previous_selected;
     if (previous_selected == MediaSettings::NoneSelected && pref->initial_subtitle_track > 0) {
         if (pref->initial_subtitle_track <= mset.subs.numItems()) {
             int subtitle_track = pref->initial_subtitle_track-1;
-            qDebug() << "Core::initSubtitleTrack: changing subtitle track to" << subtitle_track;
+            //qDebug() << "Core::initSubtitleTrack: changing subtitle track to" << subtitle_track;
             changeSubtitle(subtitle_track);
         }
     }
@@ -4843,7 +4846,7 @@ void Core::initSubtitleTrack(const SubTracks & subs, int selected_id) {
 
 //#if NOTIFY_SUB_CHANGES
 void Core::setSubtitleTrackAgain(const SubTracks &) {
-	qDebug("Core::setSubtitleTrackAgain");
+    //qDebug("Core::setSubtitleTrackAgain");
 //	changeSubtitle( mset.current_sub_id );
     changeSubtitle( mset.current_subtitle_track );
 }
@@ -4851,7 +4854,7 @@ void Core::setSubtitleTrackAgain(const SubTracks &) {
 
 //#if NOTIFY_CHAPTER_CHANGES
 void Core::updateChapterInfo(const Chapters & chapters) {
-    qDebug("Core::updateChapterInfo");
+    //qDebug("Core::updateChapterInfo");
     mdat.chapters = chapters;
     initializeMenus();
     updateWidgets();
@@ -4859,7 +4862,7 @@ void Core::updateChapterInfo(const Chapters & chapters) {
 //#endif
 
 QString Core::pausing_prefix() {
-	qDebug("Core::pausing_prefix");
+    //qDebug("Core::pausing_prefix");
 
 //	if (MplayerVersion::isMplayer2()) {
 //		return QString::null;
@@ -4877,7 +4880,7 @@ QString Core::pausing_prefix() {
 
 //#ifdef BOOKMARKS
 void Core::prevBookmark() {
-    qDebug("Core::prevBookmark");
+    //qDebug("Core::prevBookmark");
 
     if (mset.bookmarks.count() > 0) {
         QMapIterator<int, QString> i(mset.bookmarks);
@@ -4897,7 +4900,7 @@ void Core::prevBookmark() {
 }
 
 void Core::nextBookmark() {
-    qDebug("Core::nextBookmark");
+    //qDebug("Core::nextBookmark");
 
     if (mset.bookmarks.count() > 0) {
         QMapIterator<int, QString> i(mset.bookmarks);
@@ -4916,7 +4919,7 @@ void Core::nextBookmark() {
 }
 
 void Core::saveBookmarks() {
-    qDebug("Core::saveBookmarks");
+    //qDebug("Core::saveBookmarks");
     saveMediaInfo();
 }
 //#endif

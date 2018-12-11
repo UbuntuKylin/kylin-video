@@ -107,26 +107,25 @@ PlayListView::PlayListView(QSettings *set, QWidget *parent)
     });
     this->setModel(m_playlistModel);
 
-    this->setDragEnabled(true);
     this->setSpacing(0);
     this->setContentsMargins(0, 0, 0, 0);
     this->setUpdatesEnabled(true);
     this->setMouseTracking(true);
-    this->viewport()->setAcceptDrops(true);//不允许listitem项拖动
-    this->setDropIndicatorShown(true);
-    this->setDragDropOverwriteMode(false);
     this->setVerticalScrollMode(QAbstractItemView::ScrollPerItem);//QListView::ScrollPerPixel
     this->setHorizontalScrollMode(QAbstractItemView::ScrollPerItem);
-    this->setDefaultDropAction(Qt::MoveAction);
-    this->setDragDropMode(QAbstractItemView::InternalMove);
-    this->setMovement(QListView::Free);
-//    setSelectionMode(QListView::ExtendedSelection);
-    this->setSelectionMode(QListView::SingleSelection);//设置为单行选中
     this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     this->setEditTriggers(QAbstractItemView::NoEditTriggers);
     this->setSelectionBehavior(QAbstractItemView::SelectRows);
     this->setContextMenuPolicy(Qt::CustomContextMenu);
+    this->viewport()->setAcceptDrops(true);
+    this->setDragDropOverwriteMode(false);
+    this->setDropIndicatorShown(true);
+    this->setDragEnabled(true);
+    this->setDefaultDropAction(Qt::MoveAction);
+    this->setDragDropMode(QAbstractItemView::InternalMove/*QAbstractItemView::DragOnly*/);
+    this->setMovement(QListView::Free);
+    this->setSelectionMode(QListView::ExtendedSelection);//QListView::SingleSelection
 
     connect(this, &PlayListView::currentHoverChanged, this, &PlayListView::onCurrentHoverChanged);
     connect(this, &PlayListView::entered, this, &PlayListView::onItemEntered);
@@ -478,23 +477,51 @@ void PlayListView::startDrag(Qt::DropActions supportedActions)
 {
 //    QModelIndex index = this->currentIndex();
 
+    // save selected list
+//    VideoPtrList selectedMediaList;
+//    for (QModelIndex index : this->selectionModel()->selectedIndexes()) {
+//        selectedMediaList << this->m_playlistModel->videoData(index);
+//    }
+
     setAutoScroll(false);
     QListView::startDrag(supportedActions);
     setAutoScroll(true);
 
+    QMap<QString, int> maps;
     int newCurrentIndex = -1;
     QStringList newSortList;
     for (int i = 0; i < this->m_playlistModel->rowCount(); ++i) {
         auto index = this->m_playlistModel->index(i, 0);
         auto filepath = this->m_playlistModel->data(index).toString();//没有重写model的data函数时
         Q_ASSERT(!filepath.isEmpty());
+        maps.insert(filepath, i);
         if (this->m_playingFile == filepath) {
             newCurrentIndex = i;
         }
-        newSortList.append(filepath);
+//        newSortList.append(filepath);
     }
+
+    QMap<int, QString> sortMaps;
+    for (QString filepath : maps.keys()) {
+        sortMaps.insert(maps.value(filepath), filepath);
+    }
+    for (int i = 0; i < sortMaps.size(); ++i) {
+        newSortList.append(sortMaps.value(i));
+    }
+    //qDebug() << "newSortList=" << newSortList;
     if (!newSortList.isEmpty()) {
         emit requestResortVideos(newSortList, newCurrentIndex);
     }
-}
 
+    // restore selected list
+//    QItemSelection selections;
+//    for (VideoPtr media : selectedMediaList) {
+//        if (!media.isNull()) {
+//            QModelIndex index = this->findModelIndex(media);
+//            selections.append(QItemSelectionRange(index));
+//        }
+//    }
+//    if (!selections.isEmpty()) {
+//        this->selectionModel()->select(selections, QItemSelectionModel::Select);
+//    }
+}

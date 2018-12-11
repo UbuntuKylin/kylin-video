@@ -87,8 +87,6 @@ Playlist::Playlist(Core *c, QWidget * parent, Qt::WindowFlags f)
     add_Btn = 0;
     title_layout = NULL;
 
-    m_currentItemIndex = 0;
-
     setConfigPath(Paths::configPath());
 
     createNoVideo();
@@ -349,7 +347,6 @@ void Playlist::clear()
 
     emit this->update_playlist_count(0);
     this->setPlaying("", 0);
-    m_currentItemIndex = 0;
     noVideoFrame->show();
     m_playlistView->hide();
     setModified(false);
@@ -1129,8 +1126,9 @@ void Playlist::playNextAuto()
 void Playlist::resumePlay()
 {
     if (this->m_playlistView->getModelRowCount() > 0) {
-        if (m_currentItemIndex < 0)
-            m_currentItemIndex = 0;
+        if (m_currentItemIndex < 0) {
+            this->setPlaying("", 0);
+        }
         playItem(m_currentItemIndex);
     }
 }
@@ -1408,7 +1406,7 @@ void Playlist::onPlayListItemDeleteBtnClicked(const QStringList &filepathlist)
                         emit this->update_playlist_count(pref->m_videoMap.count());
                     }
                     else {
-                        this->m_currentItemIndex = 0;
+                        this->setPlaying("", 0);
                         noVideoFrame->show();
                         this->m_playlistView->hide();
                         emit this->update_playlist_count(0);
@@ -1487,7 +1485,7 @@ void Playlist::deleteSelectedFileFromDisk(const QStringList &filepathlist)
                         emit this->update_playlist_count(pref->m_videoMap.count());
                     }
                     else {
-                        this->m_currentItemIndex = 0;
+                        this->setPlaying("", 0);
                         noVideoFrame->show();
                         this->m_playlistView->hide();
                         emit this->update_playlist_count(0);
@@ -1704,7 +1702,7 @@ void Playlist::dropEvent( QDropEvent *e )
 		QString s;
 		for (int n=0; n < l.count(); n++) {
 			if (l[n].isValid()) {
-				qDebug("Playlist::dropEvent: scheme: '%s'", l[n].scheme().toUtf8().data());
+                //qDebug("Playlist::dropEvent: scheme: '%s'", l[n].scheme().toUtf8().data());
 				if (l[n].scheme() == "file") 
 					s = l[n].toLocalFile();
 				else
@@ -1787,6 +1785,7 @@ void Playlist::maybeSaveSettings()
 void Playlist::onResortVideos(const QStringList &sortList, int index)
 {
     if (!set) return;
+
     if (sortList.isEmpty())
         return;
 
@@ -1906,7 +1905,7 @@ void Playlist::loadSettings()
         m_playlistView->show();
     }
     else {
-        m_currentItemIndex = 0;
+        this->setPlaying("", 0);
         noVideoFrame->show();
         m_playlistView->hide();
     }

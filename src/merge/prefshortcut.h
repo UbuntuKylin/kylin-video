@@ -21,7 +21,7 @@
 #define _PREFSHORTCUT_H_
 
 #include "ui_prefshortcut.h"
-#include "../smplayer/preferences.h"
+#include "../merge/preferences.h"
 #include "../smplayer/prefwidget.h"
 #include <QStringList>
 

@@ -1,34 +1,37 @@
-/*  smplayer, GUI front-end for mplayer.
-    Copyright (C) 2006-2015 Ricardo Villalba <rvm@users.sourceforge.net>
-
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
-*/
+/*
+ * Copyright (C) 2013 ~ 2019 National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
+ *
+ * Authors:
+ *  Kobe Lee    lixiang@kylinos.cn/kobe24_lixiang@126.com
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; version 3.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #include "kylinvideo.h"
-#include "global.h"
-#include "paths.h"
-#include "translator.h"
-#include "version.h"
-#include "config.h"
-#include "cleanconfig.h"
-#include "../kylin/myapplication.h"
+#include "../smplayer/global.h"
+#include "../smplayer/paths.h"
+#include "../smplayer/translator.h"
+#include "../smplayer/version.h"
+#include "../smplayer/config.h"
+#include "../smplayer/cleanconfig.h"
+#include "myapplication.h"
 #include <QDir>
 #include <QUrl>
 #include <QTime>
+#include <QThread>
 #include <stdio.h>
 #include <QDebug>
+#include "infoworker.h"
 
 using namespace Global;
 
@@ -54,13 +57,28 @@ KylinVideo::KylinVideo(const QString &arch, const QString &snap, QObject * paren
 	// Application translations
     translator->load(this->m_snap);
 	showInfo();
+
+    m_infoWorker = new InfoWorker;
+    thread = new QThread;
+    m_infoWorker->moveToThread(thread);
+    connect(thread, SIGNAL(started()), this, SLOT(showWindow()));
+    thread->start();
 }
 
 KylinVideo::~KylinVideo() {
+    if (m_infoWorker) {
+        m_infoWorker->deleteLater();
+    }
+
 	if (main_window != 0) {
 		deleteGUI();
 	}
 	global_end();
+
+    if (thread) {
+        thread->quit();
+        thread->wait(2000);
+    }
 }
 
 BaseGui * KylinVideo::gui() {
@@ -270,9 +288,12 @@ KylinVideo::ExitCode KylinVideo::processArgs(QStringList args) {
     return KylinVideo::NoExit;
 }
 
-void KylinVideo::start() {
+void KylinVideo::showWindow() {
     //kobe:托盘启动时显示主界面与否，与配置文件~/.config/smplayer/smplayer.ini的变量mainwindow_visible和文件列表变量files_to_play有关，可修改BaseGuiPlus的构造函数里面的mainwindow_visible=false让软件第一次使用托盘时显示主界面
-	if (!gui()->startHidden() || !files_to_play.isEmpty() ) gui()->show();
+    if (!gui()->startHidden() || !files_to_play.isEmpty() ) {
+        gui()->show();
+        main_window->bindThreadWorker(this->m_infoWorker);
+    }
 	if (!files_to_play.isEmpty()) {
 		if (!subtitle_file.isEmpty()) gui()->setInitialSubtitle(subtitle_file);
 		if (!media_title.isEmpty()) gui()->getCore()->addForcedTitle(files_to_play[0], media_title);

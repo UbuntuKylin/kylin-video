@@ -21,7 +21,7 @@
 #include "../smplayer/images.h"
 #include "../smplayer/version.h"
 #include "../smplayer/global.h"
-#include "../smplayer/preferences.h"
+#include "../merge/preferences.h"
 #include "../smplayer/paths.h"
 #include "../smplayer/inforeader.h"
 

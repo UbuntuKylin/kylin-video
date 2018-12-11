@@ -27,9 +27,9 @@
 #include <QSize>
 #include <QMap>
 
-#include "config.h"
-#include "audioequalizerlist.h"
-#include "assstyles.h"
+#include "../smplayer/config.h"
+#include "../smplayer/audioequalizerlist.h"
+#include "../smplayer/assstyles.h"
 #include "../kylin/datautils.h"
 
 class Recents;
@@ -60,7 +60,7 @@ public:
 
 	virtual void reset();
 
-    VideoPtr createVedioData(const QString &filepath, QString &name, double duration);
+    VideoPtr generateVedioData(const QString &filepath, QString &name, double duration);
     const VideoPtr video(const QString &filepath) const;
     bool isEmpty() const;
     bool contains(const VideoPtr video) const;

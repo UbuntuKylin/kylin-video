@@ -59,7 +59,7 @@ public:
 
     const QModelIndex &currentHoverIndex() const;
     QModelIndex findModelIndex(const VideoPtr video);
-    void addPlayListItem(const QString &filepath, QString &name, double duration);
+    void addPlayListItem(const QString &filepath, const QString &name, double duration);
     int getModelRowCount();
     QStandardItem *getItemByRow(int row);
     QString getFileNameByRow(int row);
@@ -69,22 +69,23 @@ public:
     void updateScrollbarSize();
 
     PlaylistModel *m_playlistModel;
+    void onPlayListChanged(/*const VideoPtrList medialist*/);
 
 public slots:
     void onDoubleClicked(const QModelIndex & index);
     void onPlayActionTriggered();
     void onRemoveAcionTriggered();
     void onDeleteActionTriggered();
-    void removeSelection(QItemSelectionModel *selection);
-    void removeSelection(const QModelIndex &index);
+    void removeSelectionBySelctionModel(QItemSelectionModel *selection);
+    void removeSelectionByModelIndex(const QModelIndex &index);
     void onValueChanged(int value);
     void onCurrentHoverChanged(const QModelIndex &previous, const QModelIndex &current);
     void onItemEntered(const QModelIndex &index);
     void showContextMenu(const QPoint &pos);
 
 signals:
-    void requestRemoveVideos(const QStringList &filelist);
-    void requestDeleteVideos(const QStringList &filelist);
+    void requestRemoveFiles(const QStringList &filepathlist);
+    void requestDeleteVideos(const QStringList &filepathlist);
     void requestPlayVideo(int row, const QString filepath);
     void requestResortVideos(const QStringList &sortList, int index);
     void currentHoverChanged(const QModelIndex &previous, const QModelIndex &current);

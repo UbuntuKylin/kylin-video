@@ -56,8 +56,10 @@ public:
 
     int count();
 	bool isEmpty();
+    bool rowIsEmpty();
 
     bool isModified() { return modified; };
+    void setPlaying(const QString &filepath, int index);
 
     void setTransparent(bool transparent);
     void setWidgetOpacity(const float &opacity=0.8);
@@ -102,8 +104,8 @@ public:
 //#endif
 
 public slots:
-    void addOneItem(QString filename, QString name, double duration);
-    void addOneItemWithoutUI(QString filename, QString name, double duration);
+    void loadSingleItem(QString filename, QString name, double duration);
+    void loadItemWithoutUI(QString filename, QString name, double duration);
 
 	// Start playing, from item 0 if shuffle is off, or from
 	// a random item otherwise
@@ -118,7 +120,7 @@ public slots:
 
 	virtual void resumePlay();
 	virtual void removeAll();
-    virtual void onPlayListItemDeleteBtnClicked(const QStringList &filelist);
+    virtual void onPlayListItemDeleteBtnClicked(const QStringList &filepathlist);
 
 	virtual void moveItemUp(int);
 	virtual void moveItemDown(int);
@@ -126,7 +128,7 @@ public slots:
     virtual void popupDialogtoSelectFiles();
 	virtual void addDirectory();
 
-    void addCurrentFile();
+//    void addCurrentFile();
     void addFiles();
     void addUrls();
 
@@ -180,6 +182,7 @@ public slots:
 
     void onResortVideos(const QStringList &sortList, int index);
     void onPlayListItemDoubleClicked(int row, const QString &filename);
+    void onPlayListChanged(const VideoPtrList medialist);
 
 signals:
 	void playlistEnded();
@@ -189,9 +192,10 @@ signals:
     void playListFinishedWithError(QString errorStr);
     void showMessage(QString text);
     void finish_list();
-    void requestToAddCurrentFile();
+//    void requestToAddCurrentFile();
     void modifiedChanged(bool);
     void windowTitleChanged(const QString & title);
+    void requestGetMediaInfo(const QStringList &files);
 
 protected:
     virtual void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;

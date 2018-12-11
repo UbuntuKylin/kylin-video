@@ -18,7 +18,7 @@
  */
 
 #include "myapplication.h"
-#include "../smplayer/kylinvideo.h"
+#include "kylinvideo.h"
 
 #include <QDir>
 #include <QFile>
@@ -26,7 +26,7 @@
 //#include <QTranslator>
 //#include <QLibraryInfo>
 
-int main( int argc, char ** argv ) 
+int main(int argc, char **argv)
 {
     MyApplication a("kylin-video", argc, argv );
     a.setQuitOnLastWindowClosed(false);
@@ -89,10 +89,8 @@ int main( int argc, char ** argv )
     if (c != KylinVideo::NoExit) {
 		return c;
 	}
-    player->start();
 
 	int r = a.exec();
-
     delete player;
 
 	return r;

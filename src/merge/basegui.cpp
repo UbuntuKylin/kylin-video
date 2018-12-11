@@ -51,7 +51,7 @@
 #include "../smplayer/global.h"
 #include "../smplayer/translator.h"
 #include "../smplayer/images.h"
-#include "../smplayer/preferences.h"
+#include "../merge/preferences.h"
 #include "../kylin/playlist.h"
 #include "filepropertiesdialog.h"
 #include "../smplayer/recents.h"
@@ -82,13 +82,15 @@
 #include "inputurl.h"
 #include "bottomcontroller.h"
 #include "filterhandler.h"
-
+#include "../kylin/coverwidget.h"
 
 #include "../kylin/datautils.h"
+#include "../kylin/infoworker.h"
 #include <QVariant>
 #include <QDataStream>
 
 using namespace Global;
+
 
 inline bool inRectCheck(QPoint point, QRect rect) {
     bool x = rect.x() <= point.x() && point.x() <= rect.x() + rect.width();
@@ -151,6 +153,8 @@ BaseGui::BaseGui(QString arch_type, QString snap, QWidget* parent, Qt::WindowFla
     this->resizeFlag = false;
     fullscreen = false;
 
+    m_currentWidget = NULL;
+
     popup = 0;
     main_popup = 0;
     pref_dialog = 0;
@@ -162,7 +166,7 @@ BaseGui::BaseGui(QString arch_type, QString snap, QWidget* parent, Qt::WindowFla
     tray = 0;
     play_mask = 0;
     mplayerwindow = 0;
-    playlistWidget = 0;
+    m_playlistWidget = 0;
     panel = 0;
     resizeCorner = 0;
     m_topToolbar = 0;
@@ -198,7 +202,7 @@ BaseGui::BaseGui(QString arch_type, QString snap, QWidget* parent, Qt::WindowFla
     m_topToolbar->setFixedHeight(TOP_TOOLBAR_HEIGHT);
     this->setMenuWidget(m_topToolbar);
 
-    connect(playlistWidget, SIGNAL(sig_playing_title(QString)), m_topToolbar, SLOT(set_title_name(QString)));
+    connect(m_playlistWidget, SIGNAL(sig_playing_title(QString)), m_topToolbar, SLOT(set_title_name(QString)));
     connect(this, SIGNAL(clear_playing_title()), m_topToolbar, SLOT(clear_title_name()));
     connect(m_topToolbar, SIGNAL(sig_menu()), this, SLOT(slot_menu()));
     connect(m_topToolbar, SIGNAL(sig_min()), this, SLOT(slot_min()));
@@ -223,7 +227,7 @@ BaseGui::BaseGui(QString arch_type, QString snap, QWidget* parent, Qt::WindowFla
         disconnect(m_mouseFilterHandler, SIGNAL(mouseMoved()), m_bottomController, SLOT(temporaryShow()));
         m_bottomController->permanentShow();
     });
-    connect(m_bottomToolbar, SIGNAL(signal_prev()), playlistWidget, SLOT(playPrev()));
+    connect(m_bottomToolbar, SIGNAL(signal_prev()), m_playlistWidget, SLOT(playPrev()));
 
     //201810
     //connect(m_bottomToolbar, SIGNAL(signal_play_pause_status()), core, SLOT(play_or_pause()));
@@ -232,7 +236,7 @@ BaseGui::BaseGui(QString arch_type, QString snap, QWidget* parent, Qt::WindowFla
         m_bottomController->temporaryShow();
     });
 
-    connect(m_bottomToolbar, SIGNAL(signal_next()), playlistWidget, SLOT(playNext()));
+    connect(m_bottomToolbar, SIGNAL(signal_next()), m_playlistWidget, SLOT(playNext()));
     connect(m_bottomToolbar, SIGNAL(signal_open_file()), this, SLOT(openFile()));
     connect(m_bottomToolbar, SIGNAL(signal_mute(/*bool*/)), this, SLOT(slot_mute(/*bool*/)));
     connect(this, SIGNAL(sigActionsEnabled(bool)), m_bottomToolbar, SLOT(setActionsEnabled(bool)));
@@ -249,7 +253,7 @@ BaseGui::BaseGui(QString arch_type, QString snap, QWidget* parent, Qt::WindowFla
     connect(m_bottomToolbar, SIGNAL(mouseMovedDiff(QPoint)), this, SLOT(moveWindowDiff(QPoint)), Qt::QueuedConnection );//kobe 0524
     connect(core, SIGNAL(newDuration(double)), m_bottomToolbar, SLOT(setDuration(double)));
     connect(m_bottomToolbar, SIGNAL(sig_show_or_hide_esc(bool)), this, SLOT(showOrHideEscWidget(bool)));
-    connect(playlistWidget, SIGNAL(update_playlist_count(int)), m_bottomToolbar, SLOT(update_playlist_count_label(int)));
+    connect(m_playlistWidget, SIGNAL(update_playlist_count(int)), m_bottomToolbar, SLOT(update_playlist_count_label(int)));
     connect(m_bottomToolbar, SIGNAL(need_to_save_pre_image(int)), this, SLOT(ready_save_pre_image(int)));
     connect(this, SIGNAL(send_save_preview_image_name(int,QString)), m_bottomToolbar, SIGNAL(send_save_preview_image_name(int,QString)));
     resizeCorner = new QPushButton(m_bottomToolbar);
@@ -274,6 +278,8 @@ BaseGui::BaseGui(QString arch_type, QString snap, QWidget* parent, Qt::WindowFla
     });
 
 
+    m_coverWidget = new CoverWidget(this);
+    m_coverWidget->setContentsMargins(0, 0, 0, 0);
 
     mainwindow_pos = pos();
 
@@ -288,6 +294,7 @@ BaseGui::BaseGui(QString arch_type, QString snap, QWidget* parent, Qt::WindowFla
     contentLayout->setSpacing(0);
     contentLayout->addWidget(m_topToolbar);
     contentLayout->addWidget(mplayerwindow);
+    contentLayout->addWidget(m_coverWidget);
     contentLayout->addWidget(m_bottomToolbar);
 
     m_topToolbar->show();
@@ -295,10 +302,12 @@ BaseGui::BaseGui(QString arch_type, QString snap, QWidget* parent, Qt::WindowFla
     m_bottomToolbar->show();
     m_bottomToolbar->setFocus();
 
+    m_currentWidget = mplayerwindow;
+
     this->setActionsEnabled(false);
-    if (playlistWidget->count() > 0) {
+    if (m_playlistWidget->count() > 0) {
         emit this->setPlayOrPauseEnabled(true);
-        m_bottomToolbar->update_playlist_count_label(playlistWidget->count());
+        m_bottomToolbar->update_playlist_count_label(m_playlistWidget->count());
     }
     else {
         m_bottomToolbar->update_playlist_count_label(0);
@@ -330,6 +339,23 @@ BaseGui::BaseGui(QString arch_type, QString snap, QWidget* parent, Qt::WindowFla
 
     connect( this, SIGNAL(videoInfoChanged(int,int,double)), this, SLOT(displayVideoInfo(int,int,double)) );
     connect( core, SIGNAL(bitrateChanged(int,int)), this, SLOT(displayBitrateInfo(int,int)) );
+}
+
+void BaseGui::bindThreadWorker(InfoWorker *worker)
+{
+    connect(m_playlistWidget, SIGNAL(requestGetMediaInfo(QStringList)), worker, SLOT(onGetMediaInfo(QStringList)));
+    connect(worker, SIGNAL(meidaFilesAdded(VideoPtrList)), this, SLOT(onMeidaFilesAdded(VideoPtrList)));
+}
+
+void BaseGui::onMeidaFilesAdded(const VideoPtrList medialist)
+{
+    if (medialist.length() == 0) {
+        QString message = QString(tr("Failed to add files!"));
+        this->displayMessage(message);
+    }
+    else {
+        this->m_playlistWidget->onPlayListChanged(medialist);
+    }
 }
 
 void BaseGui::parseArguments()
@@ -564,7 +590,7 @@ void BaseGui::handleMessageFromOtherInstances(const QString& message) {
 
 		if (command == "open_file") {
 			emit openFileRequested();
-			open(arg);
+            doOpen(arg);
 		} 
 		else
 		if (command == "open_files") {
@@ -620,9 +646,9 @@ BaseGui::~BaseGui() {
         delete mplayerwindow;
         mplayerwindow = 0;
     }
-    if (playlistWidget) {
-        delete playlistWidget;
-        playlistWidget = 0;
+    if (m_playlistWidget) {
+        delete m_playlistWidget;
+        m_playlistWidget = 0;
     }
     if (video_preview) {
         delete video_preview;
@@ -824,10 +850,10 @@ void BaseGui::createActionsAndMenus() {
     playMenu->addSeparator();
     playPrevAct = new MyAction(Qt::Key_Less, this, "play_prev");
     playPrevAct->addShortcut(Qt::Key_MediaPrevious); // MCE remote key
-    connect(playPrevAct, SIGNAL(triggered()), playlistWidget, SLOT(playPrev()));
+    connect(playPrevAct, SIGNAL(triggered()), m_playlistWidget, SLOT(playPrev()));
     playNextAct = new MyAction(Qt::Key_Greater, this, "play_next");
     playNextAct->addShortcut(Qt::Key_MediaNext); // MCE remote key
-    connect(playNextAct, SIGNAL(triggered()), playlistWidget, SLOT(playNext()));
+    connect(playNextAct, SIGNAL(triggered()), m_playlistWidget, SLOT(playNext()));
     playNextAct->change(tr("Next") );
     playPrevAct->change(tr("Previous"));
     playNextAct->setIcon(QPixmap(":/res/next_normal.png"));
@@ -1421,18 +1447,18 @@ void BaseGui::createMplayerWindow() {
 }
 
 void BaseGui::createPlaylist() {
-    playlistWidget = new Playlist(core, this, 0);
-    playlistWidget->setFixedSize(220, this->height() - TOP_TOOLBAR_HEIGHT - BOTTOM_TOOLBAR_HEIGHT);
-    playlistWidget->setViewHeight();
-    playlistWidget->move(this->width()-220, TOP_TOOLBAR_HEIGHT);
-    playlistWidget->hide();
-    connect(playlistWidget, SIGNAL(playlistEnded()), this, SLOT(playlistHasFinished()));
-    connect(playlistWidget, SIGNAL(playlistEnded()), mplayerwindow, SLOT(showLogo()));
-    connect(playlistWidget, SIGNAL(closePlaylist()), this, SLOT(slot_playlist()));
-    connect(playlistWidget, SIGNAL(playListFinishedWithError(QString)), this, SLOT(showErrorFromPlayList(QString)));
-    connect(playlistWidget, SIGNAL(showMessage(QString)), this, SLOT(displayMessage(QString)));
+    m_playlistWidget = new Playlist(core, this, 0);
+    m_playlistWidget->setFixedSize(220, this->height() - TOP_TOOLBAR_HEIGHT - BOTTOM_TOOLBAR_HEIGHT);
+    m_playlistWidget->setViewHeight();
+    m_playlistWidget->move(this->width()-220, TOP_TOOLBAR_HEIGHT);
+    m_playlistWidget->hide();
+    connect(m_playlistWidget, SIGNAL(playlistEnded()), this, SLOT(playlistHasFinished()));
+    connect(m_playlistWidget, SIGNAL(playlistEnded()), mplayerwindow, SLOT(showLogo()));
+    connect(m_playlistWidget, SIGNAL(closePlaylist()), this, SLOT(slot_playlist()));
+    connect(m_playlistWidget, SIGNAL(playListFinishedWithError(QString)), this, SLOT(showErrorFromPlayList(QString)));
+    connect(m_playlistWidget, SIGNAL(showMessage(QString)), this, SLOT(displayMessage(QString)));
 
-//    connect(playlistWidget, SIGNAL(finish_list()),
+//    connect(m_playlistWidget, SIGNAL(finish_list()),
 }
 
 void BaseGui::createPanel() {
@@ -1473,7 +1499,7 @@ void BaseGui::createHelpDialog() {
 }
 
 void BaseGui::slot_playlist() {
-    setPlaylistVisible(!playlistWidget->isVisible());
+    setPlaylistVisible(!m_playlistWidget->isVisible());
 }
 
 void BaseGui::slideEdgeWidget(QWidget *right, QRect start, QRect end, int delay, bool hide) {
@@ -1495,26 +1521,26 @@ void BaseGui::disableControl(int delay) {
 }
 
 void BaseGui::disableSomeComponent() {
-    playlistWidget->setEnabled(true);
+    m_playlistWidget->setEnabled(true);
 }
 
 void BaseGui::setPlaylistProperty() {
-    playlistWidget->setProperty("moving", false);
+    m_playlistWidget->setProperty("moving", false);
 }
 
 void BaseGui::setPlaylistVisible(bool visible) {
-    playlistWidget->setProperty("moving", true);
+    m_playlistWidget->setProperty("moving", true);
     int titleBarHeight = TOP_TOOLBAR_HEIGHT;
 
     double factor = 0.6;
-    QRect start(this->width(), titleBarHeight, playlistWidget->width(), playlistWidget->height());
-    QRect end(this->width() - playlistWidget->width(), titleBarHeight, playlistWidget->width(), playlistWidget->height());
+    QRect start(this->width(), titleBarHeight, m_playlistWidget->width(), m_playlistWidget->height());
+    QRect end(this->width() - m_playlistWidget->width(), titleBarHeight, m_playlistWidget->width(), m_playlistWidget->height());
     if (!visible) {
-        this->slideEdgeWidget(playlistWidget, end, start, ANIMATIONDELAY * factor, true);
+        this->slideEdgeWidget(m_playlistWidget, end, start, ANIMATIONDELAY * factor, true);
         emit this->change_playlist_btn_status(false);
     } else {
-        playlistWidget->setFocus();
-        this->slideEdgeWidget(playlistWidget, start, end, ANIMATIONDELAY * factor);
+        m_playlistWidget->setFocus();
+        this->slideEdgeWidget(m_playlistWidget, start, end, ANIMATIONDELAY * factor);
         emit this->change_playlist_btn_status(true);
     }
     disableControl(ANIMATIONDELAY * factor);
@@ -1710,15 +1736,15 @@ void BaseGui::newMediaLoaded()
     if ((core->mdat.type == TYPE_FILE) /*&& (pref->auto_add_to_playlist)*/) {
 		//qDebug("BaseGui::newMediaLoaded: playlist count: %d", playlist->count());
         QStringList files_to_add;
-        if (playlistWidget->count() == 1) {
+        if (m_playlistWidget->count() == 1) {
             files_to_add = Helper::filesForPlaylist(core->mdat.m_filename, pref->media_to_add_to_playlist);//20181201  m_filename
         }
-        if (!files_to_add.empty()) playlistWidget->addFiles(files_to_add);
+        if (!files_to_add.empty()) m_playlistWidget->addFiles(files_to_add);
 	}
 }
 
 void BaseGui::gotNoFileToPlay() {
-    playlistWidget->resumePlay();//当前播放的文件不存在时，去播放下一个
+    m_playlistWidget->resumePlay();//当前播放的文件不存在时，去播放下一个
 }
 
 void BaseGui::clearMplayerLog() {
@@ -1866,8 +1892,8 @@ void BaseGui::openRecent() {
 		QString file = pref->history_recents->item(item);
         QFileInfo fi(file);
         if (fi.exists()) {
-            playlistWidget->addFile(file, Playlist::NoGetInfo);//20170712
-            open(file);
+            m_playlistWidget->addFile(file, Playlist::NoGetInfo);//20170712
+            doOpen(file);
         }
         else {
             this->showErrorFromPlayList(file);
@@ -1875,7 +1901,7 @@ void BaseGui::openRecent() {
 	}
 }
 
-void BaseGui::open(QString file) {
+void BaseGui::doOpen(QString file) {
 //    qDebug("BaseGui::open: '%s'", file.toUtf8().data());
 	// If file is a playlist, open that playlist
 	QString extension = QFileInfo(file).suffix().toLower();
@@ -1892,6 +1918,7 @@ void BaseGui::open(QString file) {
 	} 
 	else {
 		// Let the core to open it, autodetecting the file type
+        this->m_playlistWidget->setPlaying(file, 0);
         core->open(file/*, 0*/);//每次从头开始播放文件
 	}
 
@@ -1903,11 +1930,11 @@ void BaseGui::openFiles(QStringList files) {
 	if (files.empty()) return;
 
 	if (files.count()==1) {
-        playlistWidget->addFile(files[0], Playlist::NoGetInfo);//20170712
-        open(files[0]);
+        m_playlistWidget->addFile(files[0], Playlist::NoGetInfo);//20170712
+        doOpen(files[0]);
 	} else {
-        playlistWidget->addFiles(files);
-        open(files[0]);
+        m_playlistWidget->addFiles(files);
+        doOpen(files[0]);
 	}
 }
 
@@ -1941,11 +1968,13 @@ void BaseGui::openFile(QString file) {
 		}
 		else
 		if (extension=="iso") {
+            this->m_playlistWidget->setPlaying(file, 0);
             core->open(file/*, 0*/);//每次从头开始播放文件
 		}
         else {//kobe:打开一个本地视频文件
+            this->m_playlistWidget->setPlaying(file, 0);
             core->openFile(file);//开始播放新打开的本地视频文件
-            playlistWidget->addFile(file, Playlist::NoGetInfo);//将新打开的本地视频文件加入到播放列表中
+            m_playlistWidget->addFile(file, Playlist::NoGetInfo);//将新打开的本地视频文件加入到播放列表中
 		}
 		if (QFile::exists(file)) pref->latest_dir = QFileInfo(file).absolutePath();
 	}
@@ -1971,10 +2000,10 @@ void BaseGui::openDirectory(QString directory) {
 	else {
 		QFileInfo fi(directory);
 		if ( (fi.exists()) && (fi.isDir()) ) {
-            //playlistWidget->clear();
-            //playlistWidget->addDirectory(directory);
-            playlistWidget->addDirectory(fi.absoluteFilePath());
-            playlistWidget->startPlayPause();
+            //m_playlistWidget->clear();
+            //m_playlistWidget->addDirectory(directory);
+            m_playlistWidget->addDirectory(fi.absoluteFilePath());
+            m_playlistWidget->startPlayPause();
 		} else {
 			qDebug("BaseGui::openDirectory: directory is not valid");
 		}
@@ -2298,7 +2327,7 @@ void BaseGui::toggleFullscreen(bool b) {
 }
 
 void BaseGui::leftClickFunction() {
-    if (playlistWidget->isVisible()) {//20170713
+    if (m_playlistWidget->isVisible()) {//20170713
         setPlaylistVisible(false);
     }
     //kobe
@@ -2370,7 +2399,7 @@ void BaseGui::processFunction(QString function) {
     //后续会在ActionsEditor::findAction中寻找是否有fullscreen，如果有，则调用绑定fullscreen的菜单项的槽函数。
 
     QAction * action = ActionsEditor::findAction(this, function);
-    if (!action) action = ActionsEditor::findAction(playlistWidget, function);
+    if (!action) action = ActionsEditor::findAction(m_playlistWidget, function);
 
     if (action) {
         qDebug("BaseGui::processFunction: action found");
@@ -2410,18 +2439,28 @@ void BaseGui::gotForbidden() {
 	busy = false;
 }
 
-void BaseGui::dragEnterEvent( QDragEnterEvent *e ) {
+void BaseGui::dragEnterEvent( QDragEnterEvent *event) {
 //	qDebug("BaseGui::dragEnterEvent");
 
-	if (e->mimeData()->hasUrls()) {
-		e->acceptProposedAction();
-	}
+    if (event->mimeData()->hasUrls()) {
+        event->acceptProposedAction();
+    }
+
+
+    /*if (event->mimeData()->hasFormat("text/uri-list")) {
+        event->setDropAction(Qt::CopyAction);
+        event->acceptProposedAction();
+        return;
+    }
+
+    QMainWindow::dragEnterEvent(event);*/
 }
 
 void BaseGui::dropEvent( QDropEvent *e )
 {
 	QStringList files;
 
+//    if (e->mimeData()->hasFormat("text/uri-list")) {
 	if (e->mimeData()->hasUrls()) {
 		QList <QUrl> l = e->mimeData()->urls();
 		QString s;
@@ -2498,23 +2537,23 @@ void BaseGui::dropEvent( QDropEvent *e )
         if (pref->auto_add_to_playlist) {//true
             if (!dir_list.isEmpty()) {
                 // Add directories to the playlist
-                foreach(QString dir, dir_list) playlistWidget->addDirectory(dir);
+                foreach(QString dir, dir_list) m_playlistWidget->addDirectory(dir);
             }
 
             if (!file_list.isEmpty()) {
                 // Add files to the playlist
-                playlistWidget->addFiles(files);
+                m_playlistWidget->addFiles(files);
             }
 
             // All files are in the playlist, let's start to play
-            playlistWidget->startPlayPause();
+            m_playlistWidget->startPlayPause();
         }
         else {
             // It wasn't possible to add files to the list
             // Let's open the first directory or file
             if (!dir_list.isEmpty()) openDirectory(dir_list[0]); // Bug? This actually modifies the playlist...
             else
-            if (!file_list.isEmpty()) open(file_list[0]);
+            if (!file_list.isEmpty()) doOpen(file_list[0]);
         }
     }
 
@@ -2534,16 +2573,16 @@ void BaseGui::dropEvent( QDropEvent *e )
 //			if (fi.isDir()) {
 //				openDirectory( files[0] );
 //			} else {
-//                playlistWidget->addFile(files[0], Playlist::NoGetInfo);//20170712
-//                open(files[0]);
+//                m_playlistWidget->addFile(files[0], Playlist::NoGetInfo);//20170712
+//                doOpen(files[0]);
 //			}
 //		} else {
 //			// More than one file
 //            qDebug("BaseGui::dropEvent: adding files to playlist");
-////            playlistWidget->clear();
-//            playlistWidget->addFiles(files);
+////            m_playlistWidget->clear();
+//            m_playlistWidget->addFiles(files);
 //            //openFile( files[0] );
-//            playlistWidget->startPlayPause();
+//            m_playlistWidget->startPlayPause();
 //		}
 //	}
 }
@@ -2674,13 +2713,13 @@ void BaseGui::loadConfig() {
 //           mplayerwindow->size().width(),
 //           mplayerwindow->size().height());
 //    if (pref->fullscreen) return;
-    this->playlistWidget->setFixedSize(220, panel->size().height() - TOP_TOOLBAR_HEIGHT - BOTTOM_TOOLBAR_HEIGHT);//0531
-    if (this->playlistWidget->isVisible()) {
-        this->playlistWidget->hide();
+    this->m_playlistWidget->setFixedSize(220, panel->size().height() - TOP_TOOLBAR_HEIGHT - BOTTOM_TOOLBAR_HEIGHT);//0531
+    if (this->m_playlistWidget->isVisible()) {
+        this->m_playlistWidget->hide();
         emit this->change_playlist_btn_status(false);//0619
     }
     //test kobe
-//    setPlaylistVisible(!playlistWidget->isVisible());
+//    setPlaylistVisible(!m_playlistWidget->isVisible());
     if (m_topToolbar) {
         m_topToolbar->raise();
 //        m_topToolbar->resize(width(), TOP_TOOLBAR_HEIGHT);
@@ -3128,9 +3167,9 @@ void BaseGui::showAll() {
 
 void BaseGui::showAll(bool b) {
     if (!b) {
-        trayicon_playlist_was_visible = playlistWidget->isVisible();
-        playlist_pos = playlistWidget->pos();
-        playlistWidget->hide();
+        trayicon_playlist_was_visible = m_playlistWidget->isVisible();
+        playlist_pos = m_playlistWidget->pos();
+        m_playlistWidget->hide();
         mainwindow_pos = pos();
         hide();
     } else {
@@ -3138,8 +3177,8 @@ void BaseGui::showAll(bool b) {
         move(mainwindow_pos);
         show();
         if (trayicon_playlist_was_visible) {
-            playlistWidget->move(playlist_pos);
-            playlistWidget->show();
+            m_playlistWidget->move(playlist_pos);
+            m_playlistWidget->show();
         }
     }
 }
@@ -3397,10 +3436,10 @@ void BaseGui::resizeEvent(QResizeEvent *e) {
 //    this->mplayerwindow->setFixedSize(newSize);
     this->mplayerwindow->resize(newSize);
 
-    this->playlistWidget->setFixedSize(220, newSize.height() - BOTTOM_TOOLBAR_HEIGHT - titleBarHeight);
-    this->playlistWidget->setViewHeight();
-    if (this->playlistWidget->isVisible()) {
-        this->playlistWidget->hide();
+    this->m_playlistWidget->setFixedSize(220, newSize.height() - BOTTOM_TOOLBAR_HEIGHT - titleBarHeight);
+    this->m_playlistWidget->setViewHeight();
+    if (this->m_playlistWidget->isVisible()) {
+        this->m_playlistWidget->hide();
         emit this->change_playlist_btn_status(false);
     }
 
@@ -3421,7 +3460,7 @@ void BaseGui::closeWindow() {
         core->stop();
     }
 
-    playlistWidget->close();//kobe
+    m_playlistWidget->close();//kobe
 
     //qApp->quit();
     emit quitSolicited();

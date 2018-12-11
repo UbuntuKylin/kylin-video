@@ -22,7 +22,7 @@
 
 #include "ui_prefperformance.h"
 #include "../smplayer/prefwidget.h"
-#include "../smplayer/preferences.h"
+#include "../merge/preferences.h"
 #include "../smplayer/config.h"
 
 class PrefPerformance : public PrefWidget, public Ui::PrefPerformance

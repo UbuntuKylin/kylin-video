@@ -18,7 +18,7 @@
 
 #include "inforeader.h"
 #include "global.h"
-#include "preferences.h"
+#include "../merge/preferences.h"
 #include "playerprocess.h"
 #include "paths.h"
 #include <QFileInfo>

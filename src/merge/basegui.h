@@ -28,7 +28,7 @@
 
 #include "../smplayer/mediadata.h"
 #include "../smplayer/mediasettings.h"
-#include "../smplayer/preferences.h"
+#include "../merge/preferences.h"
 #include "../smplayer/core.h"
 #include "../smplayer/config.h"
 
@@ -53,6 +53,8 @@ class VideoPreview;
 class BottomController;
 class FilterHandler;
 //class ShortcutsWidget;
+class CoverWidget;
+class InfoWorker;
 
 class BaseGui : public QMainWindow
 {
@@ -69,7 +71,7 @@ public:
     void set_widget_opacity(const float &opacity=0.8);
 
 	Core * getCore() { return core; };
-    Playlist * getPlaylist() { return playlistWidget; };
+    Playlist * getPlaylist() { return m_playlistWidget; };
 
     void setPlaylisshowPlaylisttVisible(bool visible);
     void setPlaylistVisible(bool visible);
@@ -78,13 +80,14 @@ public:
     bool mouseInControlsArea();
 
     void parseArguments();
+    void bindThreadWorker(InfoWorker *worker);
 //    void setResizeCornerFilter();
 
 public slots:
     void slot_mute(/*bool b*/);
     void reset_mute_button();
     void start_top_and_bottom_timer();
-	virtual void open(QString file); // Generic open, autodetect type.
+    virtual void doOpen(QString file); // Generic open, autodetect type.
 	virtual void openFile();
 	virtual void openFile(QString file);
 	virtual void openFiles(QStringList files);
@@ -129,6 +132,7 @@ public slots:
 //    void showShortcuts();
 
     void startPlayPause();
+    void onMeidaFilesAdded(const VideoPtrList medialist);
 
 protected slots:
 	virtual void closeWindow();
@@ -421,7 +425,7 @@ protected:
     HelpDialog *helpDlg;
     Core *core = nullptr;
 	MplayerWindow *mplayerwindow;
-    Playlist * playlistWidget;
+    Playlist *m_playlistWidget;
 	QString pending_actions_to_run;
 
 	// Force settings from command line
@@ -454,6 +458,9 @@ private:
     bool m_leftPressed;
     QPoint m_dragPosition;
     FilterHandler *m_mouseFilterHandler = nullptr;
+
+    CoverWidget *m_coverWidget = nullptr;
+    QWidget *m_currentWidget = nullptr;
 };
     
 #endif

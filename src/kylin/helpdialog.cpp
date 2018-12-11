@@ -28,7 +28,7 @@
 #include "supportformats.h"
 //#include "supportshortcuts.h"
 #include "titlebutton.h"
-#include "../smplayer/preferences.h"
+#include "../merge/preferences.h"
 
 HelpDialog::HelpDialog(QWidget * parent, Qt::WindowFlags f)
 	: QDialog(parent, f )

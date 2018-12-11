@@ -30,7 +30,7 @@
 #include "prefscreenshot.h"
 #include "prefshortcut.h"
 #include "../kylin/titlebutton.h"
-#include "../smplayer/preferences.h"
+#include "../merge/preferences.h"
 #include <QVBoxLayout>
 #include <QTextBrowser>
 #include <QPushButton>

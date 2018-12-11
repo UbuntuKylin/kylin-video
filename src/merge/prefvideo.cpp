@@ -18,7 +18,7 @@
 */
 
 #include "prefvideo.h"
-#include "../smplayer/preferences.h"
+#include "../merge/preferences.h"
 #include "../smplayer/filedialog.h"
 #include "../smplayer/images.h"
 #include "../smplayer/mediasettings.h"

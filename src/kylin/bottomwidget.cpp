@@ -40,7 +40,7 @@
 #include "../smplayer/myaction.h"
 #include "../smplayer/mplayerwindow.h"
 #include "../smplayer/global.h"
-#include "../smplayer/preferences.h"
+#include "../merge/preferences.h"
 
 using namespace Global;
 

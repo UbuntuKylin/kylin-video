@@ -22,7 +22,7 @@
 #include <QResource>
 
 #include "global.h"
-#include "preferences.h"
+#include "../merge/preferences.h"
 #include "paths.h"
 using namespace Global;
 

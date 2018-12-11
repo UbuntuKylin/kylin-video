@@ -18,7 +18,7 @@
 
 #include "infoprovider.h"
 #include "global.h"
-#include "preferences.h"
+#include "../merge/preferences.h"
 #include "playerprocess.h"
 #include "playerid.h"
 #include <QFileInfo>
@@ -26,7 +26,7 @@
 #include <stdlib.h>
 
 MediaData InfoProvider::getInfo(QString mplayer_bin, QString filename) {
-    qDebug("InfoProvider::getInfo: %s", filename.toUtf8().data());
+    //qDebug("InfoProvider::getInfo: %s", filename.toUtf8().data());
 
     //edited by kobe 20180623
     QString bin_path;
@@ -56,7 +56,7 @@ MediaData InfoProvider::getInfo(QString mplayer_bin, QString filename) {
     proc->setMedia(filename);
 
 	QString commandline = proc->arguments().join(" ");
-    qDebug("InfoProvider::getInfo: command: '%s'", commandline.toUtf8().data());
+    //qDebug("InfoProvider::getInfo: command: '%s'", commandline.toUtf8().data());
 
 	proc->start();
 	if (!proc->waitForFinished()) {

@@ -24,7 +24,7 @@
 #include "../smplayer/prefwidget.h"
 #include "../smplayer/inforeader.h"
 #include "../smplayer/deviceinfo.h"
-#include "../smplayer/preferences.h"
+#include "../merge/preferences.h"
 
 class PrefVideo : public PrefWidget, public Ui::PrefVideo
 {

@@ -20,7 +20,7 @@
 #include "prefperformance.h"
 #include "../smplayer/images.h"
 #include "../smplayer/global.h"
-#include "../smplayer/preferences.h"
+#include "../merge/preferences.h"
 #include <QDebug>
 
 using namespace Global;

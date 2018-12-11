@@ -33,7 +33,7 @@
 
 #include "playlistdelegate.h"
 #include "playlistmodel.h"
-#include "../smplayer/preferences.h"
+#include "../merge/preferences.h"
 #include "../smplayer/global.h"
 using namespace Global;
 
@@ -92,6 +92,8 @@ PlayListView::PlayListView(QSettings *set, QWidget *parent)
 {
     this->setStyleSheet("QListView{background-color: #2e2e2e;}");
 
+    m_playingFile = "";
+
     m_scrollBar = new QScrollBar(this);
     m_scrollBar->setOrientation(Qt::Vertical);
     m_scrollBar->raise();
@@ -101,7 +103,7 @@ PlayListView::PlayListView(QSettings *set, QWidget *parent)
     m_playlistDelegate = new PlaylistDelegate;
     this->setItemDelegate(m_playlistDelegate);
     connect(m_playlistDelegate, &PlaylistDelegate::removeBtnClicked, this, [=] {
-        this->removeSelection(this->currentHoverIndex());
+        this->removeSelectionByModelIndex(this->currentHoverIndex());
     });
     this->setModel(m_playlistModel);
 
@@ -131,9 +133,6 @@ PlayListView::PlayListView(QSettings *set, QWidget *parent)
 
     connect(this, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showContextMenu(QPoint)));
     connect(this, SIGNAL(doubleClicked(QModelIndex)), SLOT(onDoubleClicked(QModelIndex)));
-
-
-    //this->m_playlistModel->removeRows(0, this->m_playlistModel->rowCount());
 }
 
 PlayListView::~PlayListView()
@@ -142,6 +141,21 @@ PlayListView::~PlayListView()
         delete m_playlistDelegate;
         m_playlistDelegate = nullptr;
     }
+}
+
+void PlayListView::onPlayListChanged(/*const VideoPtrList medialist*/)
+{
+    //清空原来的列表
+    this->m_playlistModel->removeRows(0, this->m_playlistModel->rowCount());
+
+    //重新加载新的列表
+    for (auto video : pref->m_videoMap) {
+        this->addPlayListItem(video->localpath(), video->name(), video->duration());
+    }
+//    for (auto &media : medialist) {
+//        this->addPlayListItem(media->localpath(), media->name(), media->duration());
+//    }
+    this->updateScrollbarSize();
 }
 
 void PlayListView::onValueChanged(int value)
@@ -259,8 +273,10 @@ QString PlayListView::getFileNameByRow(int row)
 void PlayListView::setPlayingInfo(const QString &filepath, int row)
 {
     this->m_playingFile = filepath;
-    QModelIndex index = this->m_playlistModel->index(row, 0);
-    this->setCurrentIndex(index);
+    if (row <= this->m_playlistModel->rowCount()) {
+        QModelIndex index = this->m_playlistModel->index(row, 0);
+        this->setCurrentIndex(index);
+    }
 }
 
 QString PlayListView::getPlayingFile()
@@ -324,7 +340,7 @@ void PlayListView::keyPressEvent(QKeyEvent *event)
         switch (event->key()) {
         case Qt::Key_Delete:
             QItemSelectionModel *selection = this->selectionModel();
-            this->removeSelection(selection);
+            this->removeSelectionBySelctionModel(selection);
             break;
         }
         break;
@@ -340,7 +356,7 @@ void PlayListView::keyPressEvent(QKeyEvent *event)
     QAbstractItemView::keyPressEvent(event);
 }
 
-void PlayListView::addPlayListItem(const QString &filepath, QString &name, double duration)
+void PlayListView::addPlayListItem(const QString &filepath, const QString &name, double duration)
 {
     //PlayListItem *newItem = new PlayListItem(filepath, name, duration);
     //m_playlistModel->appendRow(static_cast<QStandardItem *>(newItem));
@@ -351,28 +367,31 @@ void PlayListView::addPlayListItem(const QString &filepath, QString &name, doubl
     m_playlistModel->setData(index, filepath);//TODO: kobe for data(hash), 如果Model中重写的了data()函数，则该设置的值被覆盖，由data()重新设置值
 }
 
-void PlayListView::removeSelection(QItemSelectionModel *selection)
+void PlayListView::removeSelectionBySelctionModel(QItemSelectionModel *selection)
 {
     Q_ASSERT(selection != NULL);
 
-    QStringList fileList;
-    for (auto index : selection->selectedRows()) {
+    QStringList filePathList;
+    for (const QModelIndex &index : selection->selectedRows()) {
         QString filepath = this->m_playlistModel->filePathData(index);
-        fileList.append(filepath);
+        filePathList.append(filepath);
     }
-    emit this->requestRemoveVideos(fileList);
+    emit this->requestRemoveFiles(filePathList);
 }
 
-void PlayListView::removeSelection(const QModelIndex &index)
+void PlayListView::removeSelectionByModelIndex(const QModelIndex &index)
 {
     if (!index.isValid()) {
         return;
     }
-    QStringList fileList;
+    QStringList filePathList;
     QString filepath = this->m_playlistModel->filePathData(index);
-    fileList.append(filepath);
+    filePathList.append(filepath);
+//    if (this->m_playingFile == filepath) {
 
-    emit this->requestRemoveVideos(fileList);
+//    }
+
+    emit this->requestRemoveFiles(filePathList);
 }
 
 void PlayListView::showContextMenu(const QPoint &pos)
@@ -433,7 +452,7 @@ void PlayListView::onPlayActionTriggered()
 
 void PlayListView::onRemoveAcionTriggered()
 {
-    this->removeSelection(this->selectionModel());
+    this->removeSelectionBySelctionModel(this->selectionModel());
 }
 
 void PlayListView::onDeleteActionTriggered()

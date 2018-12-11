@@ -31,7 +31,7 @@
 #include "desktopinfo.h"
 #include "helper.h"
 #include "paths.h"
-#include "preferences.h"
+#include "../merge/preferences.h"
 #include "global.h"
 #include "config.h"
 #include "mplayerversion.h"

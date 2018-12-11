@@ -25,7 +25,7 @@
 #define _TRISTATE_COMBO_H_
 
 #include <QComboBox>
-#include "preferences.h"
+#include "../merge/preferences.h"
 
 class TristateCombo : public QComboBox
 {

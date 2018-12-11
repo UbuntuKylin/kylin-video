@@ -19,7 +19,7 @@
 
 #include "prefsubtitles.h"
 #include "../smplayer/images.h"
-#include "../smplayer/preferences.h"
+#include "../merge/preferences.h"
 #include "paths.h"
 #include "../smplayer/filedialog.h"
 #include "../smplayer/languages.h"

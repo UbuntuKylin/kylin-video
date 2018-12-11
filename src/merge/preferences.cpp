@@ -17,14 +17,14 @@
 */
 
 #include "preferences.h"
-#include "global.h"
-#include "paths.h"
-#include "mediasettings.h"
-#include "recents.h"
-#include "urlhistory.h"
-#include "filters.h"
-#include "autohidewidget.h"
-#include "helper.h"
+#include "../smplayer/global.h"
+#include "../smplayer/paths.h"
+#include "../smplayer/mediasettings.h"
+#include "../smplayer/recents.h"
+#include "../smplayer/urlhistory.h"
+#include "../smplayer/filters.h"
+#include "../smplayer/autohidewidget.h"
+#include "../smplayer/helper.h"
 
 #include <QSettings>
 #include <QFileInfo>
@@ -42,7 +42,7 @@
 #endif
 
 //#ifdef GLOBALSHORTCUTS
-#include "globalshortcuts/globalshortcuts.h"
+#include "../smplayer/globalshortcuts/globalshortcuts.h"
 //#endif
 
 #define USE_CONFIG_VERSION
@@ -69,7 +69,7 @@ Preferences::~Preferences() {
     m_videoMap.clear();
 }
 
-VideoPtr Preferences::createVedioData(const QString &filepath, QString &name, double duration)
+VideoPtr Preferences::generateVedioData(const QString &filepath, QString &name, double duration)
 {
     //filepath.absoluteFilePath()
     if (m_videoMap.contains(filepath)) {

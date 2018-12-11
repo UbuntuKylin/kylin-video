@@ -62,7 +62,6 @@ HEADERS += smplayer/config.h \
         smplayer/mplayerwindow.h \
         smplayer/mediadata.h \
         smplayer/mediasettings.h \
-        smplayer/preferences.h \
         smplayer/images.h \
         smplayer/inforeader.h \
         smplayer/deviceinfo.h \
@@ -82,7 +81,6 @@ HEADERS += smplayer/config.h \
         smplayer/filedialog.h \
         smplayer/timedialog.h \
         smplayer/cleanconfig.h \
-        smplayer/kylinvideo.h \
         smplayer/infofile.h \
         smplayer/translator.h \
         smplayer/languages.h \
@@ -118,6 +116,7 @@ HEADERS += smplayer/config.h \
         merge/audiodelaydialog.h \
         merge/inputurl.h \
         merge/errordialog.h \
+        merge/preferences.h \
         kylin/titlewidget.h \
         kylin/bottomwidget.h \
         kylin/soundvolume.h \
@@ -137,6 +136,9 @@ HEADERS += smplayer/config.h \
         kylin/playlistdelegate.h \
         kylin/datautils.h \
         kylin/myapplication.h \
+        kylin/coverwidget.h \
+        kylin/infoworker.h \
+        kylin/kylinvideo.h \
         bottomcontroller.h \
         filterhandler.h
 
@@ -164,7 +166,6 @@ SOURCES	+= smplayer/version.cpp \
         smplayer/mplayerwindow.cpp \
         smplayer/mediadata.cpp \
         smplayer/mediasettings.cpp \
-        smplayer/preferences.cpp \
         smplayer/images.cpp \
         smplayer/inforeader.cpp \
         smplayer/deviceinfo.cpp \
@@ -184,7 +185,6 @@ SOURCES	+= smplayer/version.cpp \
         smplayer/filedialog.cpp \
         smplayer/timedialog.cpp \
         smplayer/cleanconfig.cpp \
-        smplayer/kylinvideo.cpp \
         smplayer/infofile.cpp \
         smplayer/translator.cpp \
         smplayer/languages.cpp \
@@ -220,6 +220,7 @@ SOURCES	+= smplayer/version.cpp \
         merge/audiodelaydialog.cpp \
         merge/inputurl.cpp \
         merge/errordialog.cpp \
+        merge/preferences.cpp \
         kylin/titlewidget.cpp \
         kylin/bottomwidget.cpp \
         kylin/soundvolume.cpp \
@@ -238,6 +239,9 @@ SOURCES	+= smplayer/version.cpp \
         kylin/playlistmodel.cpp \
         kylin/playlistdelegate.cpp \
         kylin/main.cpp \
+        kylin/coverwidget.cpp \
+        kylin/infoworker.cpp \
+        kylin/kylinvideo.cpp \
         bottomcontroller.cpp \
         filterhandler.cpp
 

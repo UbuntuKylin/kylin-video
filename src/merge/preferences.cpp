@@ -23,7 +23,6 @@
 #include "../smplayer/recents.h"
 #include "../smplayer/urlhistory.h"
 #include "../smplayer/filters.h"
-#include "../smplayer/autohidewidget.h"
 #include "../smplayer/helper.h"
 
 #include <QSettings>

@@ -29,7 +29,7 @@
 #include "prefsubtitles.h"
 #include "prefscreenshot.h"
 #include "prefshortcut.h"
-#include "../kylin/titlebutton.h"
+#include "../titlebutton.h"
 #include "../merge/preferences.h"
 #include <QVBoxLayout>
 #include <QTextBrowser>

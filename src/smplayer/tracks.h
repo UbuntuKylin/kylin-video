@@ -22,6 +22,8 @@
 #include <QString>
 #include <QMap>
 
+#include "config.h"
+
 class QSettings;
 
 /* Class to store info about video/audio tracks */

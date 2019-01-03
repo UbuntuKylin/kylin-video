@@ -23,6 +23,8 @@
 #include <QString>
 #include <QList>
 
+class QSettings;
+
 class VideoInfo
 {
 public:
@@ -42,6 +44,7 @@ public:
 	int audio_bitrate;
 	int audio_rate;
 	QString video_format;
+    QString audio_format;
 };
 
 class VideoPreview : public QObject
@@ -60,6 +63,9 @@ public:
 	void setVideoFile(QString file) { prop.input_video = file; };
 	QString videoFile() { return prop.input_video; };
 
+    void setDVDDevice(const QString & dvd_device) { prop.dvd_device = dvd_device; };
+    QString DVDDevice() { return prop.dvd_device; };
+
 	void setInitialStep(int step) { prop.initial_step = step; };
 	int initialStep() { return prop.initial_step; };
 
@@ -77,6 +83,9 @@ public:
 
     bool createPreThumbnail(int time);
 
+    void setSettings(QSettings * settings);
+    QSettings * settings() { return set; };
+
 	VideoInfo getInfo(const QString & mplayer_path, const QString & filename);
 	QString errorMessage() { return error_message; };
 
@@ -84,17 +93,29 @@ public:
 
 protected:
     bool extractImages(int time);
-	bool runPlayer(int seek, double aspect_ratio);
-    void cleanDir(QString directory, bool removeDir=false);
+    bool runPlayer(/*int*/double seek, double aspect_ratio);
+//    void displayVideoInfo(const VideoInfo & i);
+    void cleanDir(QString directory/*, bool removeDir=false*/);
+    void clearThumbnails();
 	QString framePicture();
+
+    void saveSettings();
+    void loadSettings();
+
+//#if defined(Q_OS_LINUX) && !defined(NO_SMPLAYER_SUPPORT)
+    bool isOptionAvailableinMPV(const QString & option);
+//#endif
 
 	QString mplayer_bin;
 
 	QString output_dir;
 	QString full_output_dir;
 
+    QSettings * set;
+
 	struct Properties {
 		QString input_video;
+        QString dvd_device;
         int initial_step, max_width;
 		double aspect_ratio;
 		bool display_osd;
@@ -102,6 +123,7 @@ protected:
 	} prop;
 
 	QString last_directory;
+    bool save_last_directory;
 	QString error_message;
     QString current_picture;
 };

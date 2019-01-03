@@ -42,6 +42,7 @@
 #include <QMimeData>
 #include <QDesktopWidget>
 #include <cmath>
+#include <QtCore/qmath.h>
 
 #include "../smplayer/mplayerwindow.h"
 #include "../smplayer/desktopinfo.h"
@@ -52,20 +53,20 @@
 #include "../smplayer/translator.h"
 #include "../smplayer/images.h"
 #include "../merge/preferences.h"
-#include "../kylin/playlist.h"
+#include "../playlist.h"
 #include "filepropertiesdialog.h"
 #include "../smplayer/recents.h"
 #include "../smplayer/urlhistory.h"
 #include "errordialog.h"
 #include "../smplayer/timedialog.h"
-#include "../kylin/titlewidget.h"
-#include "../kylin/bottomwidget.h"
-#include "../kylin/playmask.h"
-#include "../kylin/aboutdialog.h"
-#include "../kylin/esctip.h"
-#include "../kylin/tipwidget.h"
+#include "../titlewidget.h"
+#include "../bottomwidget.h"
+#include "../playmask.h"
+#include "../aboutdialog.h"
+#include "../esctip.h"
+#include "../tipwidget.h"
 #include "audiodelaydialog.h"
-#include "../kylin/messagedialog.h"
+#include "../messagedialog.h"
 #include <QGraphicsOpacityEffect>
 #include "../smplayer/mplayerversion.h"
 #include "../smplayer/config.h"
@@ -76,16 +77,16 @@
 #include "../smplayer/myactiongroup.h"
 #include "../smplayer/extensions.h"
 #include "../smplayer/version.h"
-#include "../smplayer/videopreview.h"
-//#include "../kylin/shortcutswidget.h"
-#include "../kylin/helpdialog.h"
+#include "../merge/videopreview.h"
+//#include "../shortcutswidget.h"
+#include "../helpdialog.h"
 #include "inputurl.h"
 #include "bottomcontroller.h"
 #include "filterhandler.h"
-#include "../kylin/coverwidget.h"
+#include "../coverwidget.h"
 
-#include "../kylin/datautils.h"
-#include "../kylin/infoworker.h"
+#include "../datautils.h"
+#include "../infoworker.h"
 #include <QVariant>
 #include <QDataStream>
 
@@ -943,6 +944,19 @@ void BaseGui::createActionsAndMenus() {
     connect(screenshotAct, SIGNAL(triggered()), core, SLOT(screenshot()));
     screenshotAct->change(Images::icon("screenshot_normal"), tr("&Screenshot"));
 
+    /*screenshotWithSubsAct = new MyAction( QKeySequence("Ctrl+Shift+S"), this, "screenshot_with_subtitles" );
+    connect( screenshotWithSubsAct, SIGNAL(triggered()),
+             core, SLOT(screenshotWithSubtitles()) );
+
+    screenshotWithNoSubsAct = new MyAction( QKeySequence("Ctrl+Alt+S"), this, "screenshot_without_subtitles" );
+    connect( screenshotWithNoSubsAct, SIGNAL(triggered()),
+             core, SLOT(screenshotWithoutSubtitles()) );
+
+    // Multiple screenshots
+    screenshotsAct = new MyAction( QKeySequence("Shift+D"), this, "multiple_screenshots" );
+    connect( screenshotsAct, SIGNAL(triggered()),
+             core, SLOT(screenshots()) );*/
+
     // On Top
     onTopActionGroup = new MyActionGroup(this);
     onTopAlwaysAct = new MyActionGroupItem(this,onTopActionGroup,"on_top_always",Preferences::AlwaysOnTop);
@@ -975,6 +989,7 @@ void BaseGui::createActionsAndMenus() {
 //    play_order_menu->menuAction()->setIcon(Images::icon("list_cycle_normal"));
 
     // Audio channels
+//    channelsDefaultAct = new MyActionGroupItem(this, channelsGroup, "channels_default", MediaSettings::ChDefault);
     channelsGroup = new MyActionGroup(this);
     channelsStereoAct = new MyActionGroupItem(this, channelsGroup, "channels_stereo", MediaSettings::ChStereo);
     channelsSurroundAct = new MyActionGroupItem(this, channelsGroup, "channels_surround", MediaSettings::ChSurround);
@@ -1054,13 +1069,22 @@ void BaseGui::createActionsAndMenus() {
     audioMenu->addSeparator();
     audioMenu->addAction(audioDelayAct);
 
+
+    // Submenu Filters
+    /*extrastereoAct->change( tr("&Extrastereo") );
+    karaokeAct->change( tr("&Karaoke") );
+    volnormAct->change( tr("Volume &normalization") );
+    earwaxAct->change( tr("&Headphone optimization") + " (earwax)" );*/
+
+
     subtitlesMenu = new QMenu(this);
     subtitlesMenu->menuAction()->setText( tr("Subtitles") );
 //    subtitlesMenuAct->setIcon(Images::icon("subtitles_menu"));
     loadSubsAct = new MyAction(this, "load_subs" );
     connect(loadSubsAct, SIGNAL(triggered()), this, SLOT(loadSub()));
     loadSubsAct->change(tr("Load..."));
-    subVisibilityAct = new MyAction(Qt::Key_V, this, "subtitle_visibility");
+//    subVisibilityAct = new MyAction(Qt::Key_V, this, "subtitle_visibility");
+    subVisibilityAct = new MyAction(this, "sub_visibility");
     subVisibilityAct->setCheckable(true);
     connect(subVisibilityAct, SIGNAL(toggled(bool)), core, SLOT(changeSubVisibility(bool)));
     subVisibilityAct->change(tr("Subtitle &visibility"));
@@ -1301,7 +1325,8 @@ void BaseGui::enableActionsOnPlaying() {
 
     //TODO
     // Disable audio actions if there's not audio track
-    /*if ((core->mdat.audios.numItems()==0) && (core->mset.external_audio.isEmpty())) {
+//    if ((core->mdat.audios.numItems()==0) && (core->mset.external_audio.isEmpty())) {
+    if ((core->mset.audios.numItems()==0) && (core->mset.external_audio.isEmpty())) {
         muteAct->setEnabled(false);
         decVolumeAct->setEnabled(false);
         incVolumeAct->setEnabled(false);
@@ -1310,7 +1335,7 @@ void BaseGui::enableActionsOnPlaying() {
         audioDelayAct->setEnabled(false);
         channelsGroup->setActionsEnabled(false);
         stereoGroup->setActionsEnabled(false);
-    }*/
+    }
 
     // Disable video actions if it's an audio file
     if (core->mdat.novideo) {
@@ -1413,7 +1438,13 @@ void BaseGui::createCore() {
     connect(core, SIGNAL(aboutToStartPlaying()), this, SLOT(clearMplayerLog()));
     connect(core, SIGNAL(logLineAvailable(QString)), this, SLOT(recordMplayerLog(QString)));
     //connect(core, SIGNAL(mediaLoaded()), this, SLOT(autosaveMplayerLog()));
-	connect(core, SIGNAL(receivedForbidden()), this, SLOT(gotForbidden()));
+    connect(core, SIGNAL(receivedForbidden()), this, SLOT(gotForbidden()));\
+
+//#ifdef MOUSE_GESTURES
+//	mplayerwindow->activateMouseDragTracking(true);
+//#else
+//	mplayerwindow->activateMouseDragTracking(pref->drag_function == Preferences::MoveWindow);
+//#endif
 }
 
 void BaseGui::createMplayerWindow() {
@@ -1587,6 +1618,10 @@ void BaseGui::applyNewPreferences() {
     pref_dialog->getData(pref);
     m_bottomToolbar->setPreviewData(pref->preview_when_playing);
     mplayerwindow->activateMouseDragTracking(true/*pref->move_when_dragging*/);
+//#ifndef MOUSE_GESTURES
+//	mplayerwindow->activateMouseDragTracking(pref->drag_function == Preferences::MoveWindow);
+//#endif
+//	mplayerwindow->delayLeftClick(pref->delay_left_click);
 	setJumpTexts(); // Update texts in menus
 	updateWidgets(); // Update the screenshot action
 
@@ -1833,6 +1868,7 @@ void BaseGui::clearRecentsList() {
 }
 
 void BaseGui::updateWidgets() {
+    panel->setFocus();
     m_bottomToolbar->setPreviewData(pref->preview_when_playing);
     muteAct->setChecked((pref->global_volume ? pref->mute : core->mset.mute));//kobe 0606
 
@@ -2197,6 +2233,7 @@ void BaseGui::setStayOnTop(bool b) {
     QPoint old_pos = pos();
 
     if (b) {
+        //TODO:在Mate系列桌面环境上，Qt5编写的程序在启动时设置置顶有效，程序运行过程中动态切换到置顶无效。后续可根据libwnck-dev中x11的接口去实现：./libwnck/window-action-menu.c:wnck_window_make_above (window)------->libwnck/window.c:_wnck_change_state
         setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
     }
     else {
@@ -2220,7 +2257,7 @@ void BaseGui::changeStayOnTop(int stay_on_top) {
     }
 
     pref->stay_on_top = (Preferences::OnTop) stay_on_top;
-//    updateWidgets();
+    updateWidgets();
     // Stay on top
     onTopActionGroup->setChecked((int)pref->stay_on_top);
 }
@@ -2234,6 +2271,7 @@ void BaseGui::checkStayOnTop(Core::State state) {
 
 void BaseGui::changePlayOrder(int play_order) {
     pref->play_order = (Preferences::PlayOrder) play_order;
+    updateWidgets();
     playOrderActionGroup->setChecked((int)pref->play_order);
 }
 
@@ -2665,8 +2703,11 @@ void BaseGui::gotCurrentTime(double sec, bool flag) {
     }
     else {
         static int last_second = 0;
-        if (floor(sec)==last_second) return; // Update only once per second
-        last_second = (int) floor(sec);
+//        if (floor(sec)==last_second) return; // Update only once per second
+//        last_second = (int) floor(sec);
+        if (qFloor(sec) == last_second) return; // Update only once per second
+        last_second = qFloor(sec);
+
 //        time = Helper::formatTime( (int) sec ) + " / " +
 //                               Helper::formatTime( (int) core->mdat.duration );
         time = Helper::formatTime((int) sec);
@@ -3405,6 +3446,21 @@ void BaseGui::ready_save_pre_image(int time) {
 
             if (!core->mdat.m_filename.isEmpty()) {//20181201  m_filename
                 video_preview->setVideoFile(core->mdat.m_filename);
+
+                // DVD
+                /*if (core->mdat.type==TYPE_DVD) {
+                    QString file = core->mdat.filename;
+                    DiscData disc_data = DiscName::split(file);
+                    QString dvd_folder = disc_data.device;
+                    if (dvd_folder.isEmpty()) dvd_folder = pref->dvd_device;
+                    int dvd_title = disc_data.title;
+                    file = disc_data.protocol + "://" + QString::number(dvd_title);
+
+                    video_preview->setVideoFile(file);
+                    video_preview->setDVDDevice(dvd_folder);
+                } else {
+                    video_preview->setDVDDevice("");
+                }*/
             }
 
             video_preview->setMplayerPath(pref->mplayer_bin);

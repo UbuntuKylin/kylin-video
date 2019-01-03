@@ -97,8 +97,10 @@ void EscTip::aniFinished()
     this->hide();
 }
 
-void EscTip::paintEvent(QPaintEvent *)
+void EscTip::paintEvent(QPaintEvent * e)
 {
+    Q_UNUSED(e);
+
     bool outer = true;
 
     QPainter painter(this);

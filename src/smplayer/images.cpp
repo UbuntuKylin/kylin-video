@@ -21,27 +21,81 @@
 #include <QDebug>
 #include <QResource>
 
+//#ifdef SMCODE
 #include "global.h"
 #include "../merge/preferences.h"
 #include "paths.h"
 using namespace Global;
+//#endif
 
 QString Images::current_theme;
 QString Images::themes_path;
 
+bool Images::is_internal = false;
+
+//#ifdef USE_RESOURCES
 QString Images::last_resource_loaded;
 bool Images::has_rcc = false;
 
 QString Images::resourceFilename() {
-	QString filename = QString::null;
+    QString filename = QString::null;
 
-	if ((!themes_path.isEmpty()) && (!current_theme.isEmpty())) {
-		filename = themes_path +"/"+ current_theme +"/"+ current_theme +".rcc";
-	}
+    if ((!themes_path.isEmpty()) && (!current_theme.isEmpty())) {
+        filename = themes_path +"/"+ current_theme +"/"+ current_theme +".rcc";
+    }
 
-	qDebug() << "Images::resourceFilename:" << filename;
+    qDebug() << "Images::resourceFilename:" << filename;
 
-	return filename;
+    return filename;
+}
+//#endif
+
+
+void Images::setTheme(const QString & name) {
+    /*current_theme = name;
+
+    is_internal = (QFile::exists(":/" + current_theme + "/style.qss"));
+    if (is_internal) {
+        qDebug() << "Images::setTheme:" << current_theme << "is an internal theme";
+        setThemesPath("");
+        #ifdef USE_RESOURCES
+        has_rcc = false;
+        #endif
+        return;
+    }
+
+//#ifdef SMCODE
+    QString dir = Paths::configPath() + "/themes/" + name;
+    if (QFile::exists(dir)) {
+        setThemesPath(Paths::configPath() + "/themes/");
+    } else {
+        setThemesPath(Paths::themesPath());
+    }
+//#endif
+
+//#ifdef USE_RESOURCES
+    if (!last_resource_loaded.isEmpty()) {
+        qDebug() << "Images::setTheme: unloading" << last_resource_loaded;
+        QResource::unregisterResource(last_resource_loaded);
+        last_resource_loaded = QString::null;
+    }
+
+    QString rs_file = resourceFilename();
+    if ((!rs_file.isEmpty()) && (QFile::exists(rs_file))) {
+        qDebug() << "Images::setTheme: loading" << rs_file;
+        QResource::registerResource(rs_file);
+        last_resource_loaded = rs_file;
+        has_rcc = true;
+    } else {
+        has_rcc = false;
+    }
+    qDebug() << "Images::setTheme: has_rcc:" << has_rcc;
+//#endif*/
+}
+
+void Images::setThemesPath(const QString & folder) {
+    themes_path = folder;
+    qDebug() << "Images::setThemesPath:" << themes_path;
 }
 
 QString Images::file(const QString & name) {

@@ -17,20 +17,31 @@
 */
 
 #include "infofile.h"
-#include <QFileInfo>
-#include <QCoreApplication>
-#include <QObject>
-#include <QString>
+#include "discname.h"
 #include "images.h"
 
-InfoFile::InfoFile() {
-	row = 0;
+#include <QFileInfo>
+#include <QCoreApplication>
+#include <QFile>
+#include <QDateTime>
+#include <QDebug>
+
+InfoFile::InfoFile()
+//    : QObject(parent)
+//#ifndef INFO_SIMPLE_LAYOUT
+//    , row(0)
+//#endif
+{
+#ifndef INFO_SIMPLE_LAYOUT
+    row = 0;
+#endif
 }
 
-InfoFile::~InfoFile() {
+InfoFile::~InfoFile()
+{
 }
 
-QString InfoFile::getInfo(MediaData md) {
+QString InfoFile::getInfo(MediaData md, Tracks videos, Tracks audios, SubTracks subs) {
     QString s;
 
 	// General
@@ -54,7 +65,7 @@ QString InfoFile::getInfo(MediaData md) {
 		default 		: 	icon = "type_unknown.png";
 	}
 	icon = icon.replace(".png", ""); // FIXME
-	icon = "<img src=\"" + Images::file(icon) + "\"> ";
+//	icon = "<img src=\"" + Images::file(icon) + "\"> ";
 
 //#ifdef BLURAY_SUPPORT
 //	if (md.type == TYPE_DVD || md.type == TYPE_BLURAY)
@@ -63,9 +74,11 @@ QString InfoFile::getInfo(MediaData md) {
 ////#endif
 //	{
 //		DiscData disc_data = DiscName::split(md.filename);
-//		s += title( icon + disc_data.protocol + "://" + QString::number(disc_data.title) );
+////		s += title( icon + disc_data.protocol + "://" + QString::number(disc_data.title) );
+//    s += title(disc_data.protocol + "://" + QString::number(disc_data.title), icon);
 //	} else {
-//		s += title( icon + md.displayName() );
+////		s += title( icon + md.displayName() );
+//    s += title(md.displayName(), icon);
 //	}
 
 //    s += openPar(QObject::tr("General"));
@@ -90,7 +103,16 @@ QString InfoFile::getInfo(MediaData md) {
     if (!md.clip_author.isEmpty()) c+= addItem( kylin_tr("Author"), md.clip_author );
     if (!md.clip_album.isEmpty()) c+= addItem( kylin_tr("Album"), md.clip_album );
     if (!md.clip_genre.isEmpty()) c+= addItem( kylin_tr("Genre"), md.clip_genre );
-    if (!md.clip_date.isEmpty()) c+= addItem( kylin_tr("Date"), md.clip_date );
+//    if (!md.clip_date.isEmpty()) c+= addItem( kylin_tr("Date"), md.clip_date );
+    if (!md.clip_date.isEmpty()) {
+        QString s = md.clip_date;
+        QDateTime d = QDateTime::fromString(md.clip_date, Qt::ISODate);
+        if (d.isValid()) {
+            s = d.toString("yyyy-MM-dd hh:mm:ss");
+            /* s = QLocale::system().toString(d, QLocale::ShortFormat); */
+        }
+        c+= addItem( kylin_tr("Date"), s );
+    }
     if (!md.clip_track.isEmpty()) c+= addItem( kylin_tr("Track"), md.clip_track );
     if (!md.clip_copyright.isEmpty()) c+= addItem( kylin_tr("Copyright"), md.clip_copyright );
     if (!md.clip_comment.isEmpty()) c+= addItem( kylin_tr("Comment"), md.clip_comment );
@@ -126,11 +148,27 @@ QString InfoFile::getInfo(MediaData md) {
     s += closePar();
 
     //TODO
-    /*
+
 	// Audio Tracks
-    if (md.audios.numItems() > 0) {
+//    if (md.audios.numItems() > 0) {
+    if (audios.numItems() > 0) {
         s += openPar( kylin_tr("Audio Streams") );
-        row++;
+        s += addTrackColumns( QStringList() << "#" << kylin_tr("Language") << kylin_tr("Name") << "ID" );
+
+        for (int n = 0; n < audios.numItems(); n++) {
+            #ifndef INFO_SIMPLE_LAYOUT
+            row++;
+            #endif
+            s += openItem();
+            QString lang = audios.itemAt(n).lang();
+            if (lang.isEmpty()) lang = "<i>&lt;"+kylin_tr("undefined")+"&gt;</i>";
+            QString name = audios.itemAt(n).name();
+            if (name.isEmpty()) name = "<i>&lt;"+kylin_tr("undefined")+"&gt;</i>";
+            s += addTrack(n, lang, name, audios.itemAt(n).ID());
+            s += closeItem();
+        }
+        s += closePar();
+        /*row++;
 //		s += openItem();//kobe 20170627
         s += "<td>" + kylin_tr("#", "Info for translators: this is a abbreviation for number") + "</td><td>" +
               kylin_tr("Language") + "</td><td>" + kylin_tr("Name") +"</td><td>" +
@@ -148,11 +186,34 @@ QString InfoFile::getInfo(MediaData md) {
                  .arg(md.audios.itemAt(n).ID());
             s += closeItem();
         }
-        s += closePar();
+        s += closePar();*/
     }
 
 	// Subtitles
-	if (md.subs.numItems() > 0) {
+    if (subs.numItems() > 0) {
+        s += openPar( kylin_tr("Subtitles") );
+        s += addTrackColumns( QStringList() << "#" << kylin_tr("Type") << kylin_tr("Language") << kylin_tr("Name") << "ID" );
+        for (int n = 0; n < subs.numItems(); n++) {
+            #ifndef INFO_SIMPLE_LAYOUT
+            row++;
+            #endif
+            s += openItem();
+            QString t;
+            switch (subs.itemAt(n).type()) {
+                case SubData::File: t = "FILE_SUB"; break;
+                case SubData::Vob:	t = "VOB"; break;
+                default:			t = "SUB";
+            }
+            QString lang = subs.itemAt(n).lang();
+            if (lang.isEmpty()) lang = "<i>&lt;"+kylin_tr("undefined")+"&gt;</i>";
+            QString name = subs.itemAt(n).name();
+            if (name.isEmpty()) name = "<i>&lt;"+kylin_tr("undefined")+"&gt;</i>";
+            s += addTrack(n, lang, name, subs.itemAt(n).ID(), t);
+            s += closeItem();
+        }
+        s += closePar();
+    }
+    /*if (md.subs.numItems() > 0) {
         s += openPar( kylin_tr("Subtitles") );
 		row++;
 //		s += openItem();//kobe 20170627
@@ -183,32 +244,95 @@ QString InfoFile::getInfo(MediaData md) {
 			s += closeItem();
 		}
 		s += closePar();
-	}
-    */
+    }*/
 
-    return "<html><body><font font-size:12px;color=\"#999999\">"+ s + "</font></body></html>";
+
+//    return "<html><body><font font-size:12px;color=\"#999999\">"+ s + "</font></body></html>";
+    QString page = "<html><head><style type=\"text/css\"></style></head><body>"+ s + "</body></html>";
+    return page;
 }
 
-QString InfoFile::title(QString text) {
-	return "<h1>" + text + "</h1>";
+
+#ifdef INFO_SIMPLE_LAYOUT
+QString InfoFile::title(QString text, QString /* icon */) {
+    return QString("<h1>%1</h1>").arg(text);
 }
 
 QString InfoFile::openPar(QString text) {
-    //kobe 20170627
-    return "<h2><font color=#999999>" + text + "</font></h2>"
-            "<table width=\"100%\" cellpadding=0 cellspacing=0>";
-//    return "<h2>" + text + "</h2>"
-//           "<table width=\"100%\">";
+    return "<h2>" + text + "</h2><ul>";
 }
 
 QString InfoFile::closePar() {
-	row = 0;
-	return "</table>";
+    return "</ul>";
 }
 
 QString InfoFile::openItem() {
+    return "<li>";
+}
+
+QString InfoFile::closeItem() {
+    return "</li>";
+}
+
+QString InfoFile::addItem( QString tag, QString value ) {
+    return openItem() + QString("<b>%1</b>: %2").arg(tag).arg(value) + closeItem();
+}
+
+QString InfoFile::addTrackColumns(QStringList /* l */) {
+    return "";
+}
+
+QString InfoFile::addTrack(int n, QString lang, QString name, int ID, QString type) {
+    QString s = "<b>" + kylin_tr("Track %1").arg(n) + "</b>";
+    #if 1
+    s += "<ul>";
+    s += "<li>" + kylin_tr("Language: %1").arg(lang) + "</li>";
+    s += "<li>" + kylin_tr("Name: %1").arg(name) + "</li>";
+    s += "<li>" + kylin_tr("ID: %1").arg(ID) + "</li>";
+    if (!type.isEmpty()) {
+        s += "<li>" + kylin_tr("Type: %1").arg(type) + "</li>";
+    }
+    s += "</ul>";
+    #else
+    s += "<br>&nbsp;&bull; " + kylin_tr("Language: %1").arg(lang);
+    s += "<br>&nbsp;&bull; " + kylin_tr("Name: %1").arg(name);
+    s += "<br>&nbsp;&bull; " + kylin_tr("ID: %1").arg(ID);
+    if (!type.isEmpty()) {
+        s += "<br>&nbsp;&bull; " + kylin_tr("Type: %1").arg(type);
+    }
+    #endif
+    return s;
+}
+
+QString InfoFile::defaultStyle() {
+    return
+        "ul { margin: 0px; }"
+        //"body { background-color: gray; }"
+        "h2 { background-color: whitesmoke; color: navy;}"
+    ;
+}
+
+#else
+
+QString InfoFile::title(QString text, QString icon) {
+    return QString("<h1><img src=\"%1\">%2</h1>").arg(Images::file(icon)).arg(text);
+}
+
+QString InfoFile::openPar(QString text) {
+//	return "<h2>" + text + "</h2>"
+//           "<table width=\"100%\">";
     //kobe 20170627
-    return "<tr bgcolor=\"#171717\">";//height="100" bgColor="red"
+    return "<h2><font color=#999999>" + text + "</font></h2>"
+            "<table width=\"100%\" cellpadding=0 cellspacing=0>";
+}
+
+QString InfoFile::closePar() {
+    row = 0;
+    return "</table>";
+}
+
+QString InfoFile::openItem() {
+    return "<tr bgcolor=\"#171717\">";//height="100" bgColor="red";
 //	if (row % 2 == 1)
 //		return "<tr bgcolor=\"lavender\">";
 //	else
@@ -216,16 +340,36 @@ QString InfoFile::openItem() {
 }
 
 QString InfoFile::closeItem() {
-	return "</tr>";
+    return "</tr>";
+}
+
+QString InfoFile::addTrackColumns(QStringList l) {
+    row = 0;
+    QString s = openItem();
+    foreach(QString i, l) { s += "<td>" + i + "</td>"; }
+    s += closeItem();
+    return s;
 }
 
 QString InfoFile::addItem( QString tag, QString value ) {
-	row++;
+    row++;
     return openItem() +
            "<td><b>" + tag + "</b></td>" +
            "<td>" + value + "</td>" +
-           closeItem();// height=\"100px\"
+           closeItem();
 }
+
+QString InfoFile::addTrack(int n, QString lang, QString name, int ID, QString type) {
+    QString s = "<td>" + QString::number(n) + "</td>";
+    if (!type.isEmpty()) s += "<td>" + type + "</td>";
+    s += QString("<td>%1</td><td>%2</td><td>%3</td>").arg(lang).arg(name).arg(ID);
+    return s;
+}
+
+QString InfoFile::defaultStyle() {
+    return "";
+}
+#endif
 
 /*
 QString QCoreApplication::translate (const char * context, const char * sourceText, const char * disambiguation, Encoding encoding, int n )

@@ -19,8 +19,8 @@
 
 #include "playlist.h"
 #include "../smplayer/paths.h"
-#include "../kylin/playlistmodel.h"
-#include "../kylin/playlistview.h"
+#include "../playlistmodel.h"
+#include "../playlistview.h"
 #include "../smplayer/myaction.h"
 #include "../smplayer/filedialog.h"
 #include "../smplayer/helper.h"
@@ -29,7 +29,7 @@
 #include "../smplayer/global.h"
 #include "../smplayer/core.h"
 #include "../smplayer/extensions.h"
-#include "../kylin/messagedialog.h"
+#include "../messagedialog.h"
 #include "../smplayer/infoprovider.h"
 
 #include <QFile>

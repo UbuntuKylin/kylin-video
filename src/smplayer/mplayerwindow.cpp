@@ -617,7 +617,6 @@ bool MplayerWindow::eventFilter( QObject * object, QEvent * event ) {
 
 
 ////        QPoint p = parent->mapFromGlobal(mouse_event->globalPos());
-//////                qDebug() << "33333AutohideWidget::eventFilter: y:" << p.y();
 ////        if (p.y() > (parent->height() - height() - spacing)) {
 ////            showWidget();
 ////        }

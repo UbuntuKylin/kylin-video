@@ -30,7 +30,7 @@
 #include <QMouseEvent>
 #include <QPoint>
 #include <QScrollBar>
-#include "../kylin/titlebutton.h"
+#include "../titlebutton.h"
 
 #if QT_VERSION >= 0x050000
 #include "../smplayer/scrollermodule.h"
@@ -163,7 +163,8 @@ void FilePropertiesDialog::setMediaData(MediaData md, Tracks videos, Tracks audi
 
 void FilePropertiesDialog::showInfo() {
 	InfoFile info;
-    info_edit->setText(info.getInfo(media_data));
+//    info_edit->setText(info.getInfo(media_data));
+    info_edit->setText(info.getInfo(media_data, video_tracks, audio_tracks, sub_tracks) );
 }
 
 void FilePropertiesDialog::setCurrentID(int id)

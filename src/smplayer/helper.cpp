@@ -57,7 +57,8 @@ QString Helper::dvdForPref(const QString & dvd_id, int title) {
 
 QString Helper::formatTime(int secs) {
 	bool negative = (secs < 0);
-	secs = abs(secs);
+//	secs = abs(secs);
+    secs = qAbs(secs);
 
 	int t = secs;
 	int hours = (int) t / 3600;
@@ -69,6 +70,24 @@ QString Helper::formatTime(int secs) {
 	//qDebug() << "Helper::formatTime:" << hours << ":" << minutes << ":" << seconds;
 
 	return QString("%1%2:%3:%4").arg(negative ? "-" : "").arg(hours, 2, 10, QChar('0')).arg(minutes, 2, 10, QChar('0')).arg(seconds, 2, 10, QChar('0'));
+}
+
+QString Helper::formatTime2(double secs) {
+    bool negative = (secs < 0);
+    secs = qAbs(secs);
+
+    double t = secs;
+    int hours = (int) t / 3600;
+    t -= hours*3600;
+    int minutes = (int) t / 60;
+    t -= minutes*60;
+    int seconds = t;
+    t -= seconds;
+    int milliseconds = t*1000;
+
+    //qDebug() << "Helper::formatTime: secs:" << secs << "="  << hours << ":" << minutes << ":" << seconds << "." << milliseconds;
+
+    return QString("%1%2:%3:%4.%5").arg(negative ? "-" : "").arg(hours, 2, 10, QChar('0')).arg(minutes, 2, 10, QChar('0')).arg(seconds, 2, 10, QChar('0')).arg(milliseconds, 3, 10, QChar('0'));
 }
 
 QString Helper::timeForJumps(int secs) {
@@ -183,12 +202,22 @@ QStringList Helper::searchForConsecutiveFiles(const QString & initial_file) {
 		qDebug("Helper::searchForConsecutiveFiles: adding consecutive files");
 		while ( !matching_files.isEmpty() ) {
 			qDebug("Helper::searchForConsecutiveFiles: '%s' exists, added to the list", matching_files[0].toUtf8().constData());
-			files_to_add << path  + "/" + matching_files[0];
-			current_number++;
-			next_name = basename.left(pos) + QString("%1").arg(current_number, digits, 10, QLatin1Char('0'));
-			next_name.replace(QRegExp("([\\[\\]?*])"), "[\\1]");
-			next_name += "*." + extension;
-			matching_files = dir.entryList((QStringList)next_name);
+//			files_to_add << path  + "/" + matching_files[0];
+//			current_number++;
+//			next_name = basename.left(pos) + QString("%1").arg(current_number, digits, 10, QLatin1Char('0'));
+//			next_name.replace(QRegExp("([\\[\\]?*])"), "[\\1]");
+//			next_name += "*." + extension;
+//			matching_files = dir.entryList((QStringList)next_name);
+
+
+            QString filename = path  + "/" + matching_files[0];
+            files_to_add << filename;
+            current_number++;
+            next_name = basename.left(pos) + QString("%1").arg(current_number, digits, 10, QLatin1Char('0'));
+            next_name.replace(QRegExp("([\\[\\]?*])"), "[\\1]");
+            next_name += "*." + extension;
+            matching_files = dir.entryList((QStringList)next_name);
+
 			qDebug("Helper::searchForConsecutiveFiles: looking for '%s'", next_name.toUtf8().constData());
 		}
 	}

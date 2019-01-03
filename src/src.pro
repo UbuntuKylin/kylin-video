@@ -88,14 +88,12 @@ HEADERS += smplayer/config.h \
         smplayer/filesettingsbase.h \
         smplayer/filesettingshash.h \
         smplayer/filehash.h \
-        smplayer/videopreview.h \
         smplayer/prefwidget.h \
         smplayer/scrollermodule.h \
         smplayer/filters.h \
         smplayer/assstyles.h \
         smplayer/audioequalizer.h \
         smplayer/audioequalizerlist.h \
-        smplayer/autohidewidget.h \
         smplayer/verticaltext.h \
         smplayer/eqslider.h \
         smplayer/chapters.h \
@@ -117,28 +115,29 @@ HEADERS += smplayer/config.h \
         merge/inputurl.h \
         merge/errordialog.h \
         merge/preferences.h \
-        kylin/titlewidget.h \
-        kylin/bottomwidget.h \
-        kylin/soundvolume.h \
-        kylin/titlebutton.h \
-        kylin/aboutdialog.h \
-        kylin/playmask.h \
-        kylin/timetip.h \
-        kylin/esctip.h \
-        kylin/tipwidget.h \
-        kylin/messagedialog.h \
-        kylin/helpdialog.h \
-        kylin/supportformats.h \
-        kylin/systembutton.h \
-        kylin/playlist.h \
-        kylin/playlistview.h \
-        kylin/playlistmodel.h \
-        kylin/playlistdelegate.h \
-        kylin/datautils.h \
-        kylin/myapplication.h \
-        kylin/coverwidget.h \
-        kylin/infoworker.h \
-        kylin/kylinvideo.h \
+        merge/videopreview.h \
+        titlewidget.h \
+        bottomwidget.h \
+        soundvolume.h \
+        titlebutton.h \
+        aboutdialog.h \
+        playmask.h \
+        timetip.h \
+        esctip.h \
+        tipwidget.h \
+        messagedialog.h \
+        helpdialog.h \
+        supportformats.h \
+        systembutton.h \
+        playlist.h \
+        playlistview.h \
+        playlistmodel.h \
+        playlistdelegate.h \
+        datautils.h \
+        myapplication.h \
+        coverwidget.h \
+        infoworker.h \
+        kylinvideo.h \
         bottomcontroller.h \
         filterhandler.h
 
@@ -192,14 +191,12 @@ SOURCES	+= smplayer/version.cpp \
         smplayer/filesettingsbase.cpp \
         smplayer/filesettingshash.cpp \
         smplayer/filehash.cpp \
-        smplayer/videopreview.cpp \
         smplayer/prefwidget.cpp \
         smplayer/scrollermodule.cpp \
         smplayer/filters.cpp \
         smplayer/assstyles.cpp \
         smplayer/audioequalizer.cpp \
         smplayer/audioequalizerlist.cpp \
-        smplayer/autohidewidget.cpp \
         smplayer/verticaltext.cpp \
         smplayer/eqslider.cpp \
         smplayer/chapters.cpp \
@@ -221,27 +218,28 @@ SOURCES	+= smplayer/version.cpp \
         merge/inputurl.cpp \
         merge/errordialog.cpp \
         merge/preferences.cpp \
-        kylin/titlewidget.cpp \
-        kylin/bottomwidget.cpp \
-        kylin/soundvolume.cpp \
-        kylin/titlebutton.cpp \
-        kylin/aboutdialog.cpp \
-        kylin/playmask.cpp \
-        kylin/timetip.cpp \
-        kylin/esctip.cpp \
-        kylin/tipwidget.cpp \
-        kylin/messagedialog.cpp \
-        kylin/helpdialog.cpp \
-        kylin/supportformats.cpp \
-        kylin/systembutton.cpp \
-        kylin/playlist.cpp \
-        kylin/playlistview.cpp \
-        kylin/playlistmodel.cpp \
-        kylin/playlistdelegate.cpp \
-        kylin/main.cpp \
-        kylin/coverwidget.cpp \
-        kylin/infoworker.cpp \
-        kylin/kylinvideo.cpp \
+        merge/videopreview.cpp \
+        titlewidget.cpp \
+        bottomwidget.cpp \
+        soundvolume.cpp \
+        titlebutton.cpp \
+        aboutdialog.cpp \
+        playmask.cpp \
+        timetip.cpp \
+        esctip.cpp \
+        tipwidget.cpp \
+        messagedialog.cpp \
+        helpdialog.cpp \
+        supportformats.cpp \
+        systembutton.cpp \
+        playlist.cpp \
+        playlistview.cpp \
+        playlistmodel.cpp \
+        playlistdelegate.cpp \
+        main.cpp \
+        coverwidget.cpp \
+        infoworker.cpp \
+        kylinvideo.cpp \
         bottomcontroller.cpp \
         filterhandler.cpp
 
@@ -258,9 +256,9 @@ FORMS = smplayer/timedialog.ui \
         merge/inputurl.ui \
         merge/audiodelaydialog.ui \
         merge/errordialog.ui \
-        kylin/helpdialog.ui \
-        kylin/supportformats.ui \
-        kylin/aboutdialog.ui \
+        helpdialog.ui \
+        supportformats.ui \
+        aboutdialog.ui \
         smplayer/globalshortcuts/globalshortcutsdialog.ui
 
 

@@ -25,7 +25,7 @@
 #include <QDebug>
 #include <QPixmapCache>
 #include <QPixmap>
-#include "../kylin/timetip.h"
+#include "../timetip.h"
 
 TimeSlider::TimeSlider( QWidget * parent ) : MySlider(parent)
 	, dont_update(false)
@@ -256,7 +256,6 @@ bool TimeSlider::eventFilter(QObject *obj, QEvent *event)
 
 
 //        QPoint p = parent->mapFromGlobal(mouse_event->globalPos());
-////                qDebug() << "33333AutohideWidget::eventFilter: y:" << p.y();
 //        if (p.y() > (parent->height() - height() - spacing)) {
 //            showWidget();
 //        }

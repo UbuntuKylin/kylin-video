@@ -23,16 +23,32 @@
 #include <QPixmap>
 #include <QIcon>
 
+//#define USE_RESOURCES
+//#define SMCODE
+
 class Images
 {
 
 public:
+    static void setThemesPath(const QString & folder);
+    static void setTheme(const QString & name);
+
     static QPixmap icon(QString name, int size=-1);
 	static QPixmap flippedIcon(QString name, int size=-1);
 
 	//! Returns the filename of the icon
     static QString file(const QString & icon_name);
-	static bool has_rcc;
+
+//#ifdef SMCODE
+//    static QString styleSheet();
+//    static QString themesDirectory();
+//#endif
+
+    static bool is_internal;
+
+//#ifdef USE_RESOURCES
+    static bool has_rcc;
+//#endif
 
 private:
 	static QPixmap resize(QPixmap *p, int size=20);
@@ -41,8 +57,10 @@ private:
 	static QString current_theme;
 	static QString themes_path;
 
-	static QString resourceFilename();
-	static QString last_resource_loaded;
+//#ifdef USE_RESOURCES
+    static QString resourceFilename();
+    static QString last_resource_loaded;
+//#endif
 };
 
 #endif

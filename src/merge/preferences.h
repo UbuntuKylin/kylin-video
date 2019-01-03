@@ -30,7 +30,7 @@
 #include "../smplayer/config.h"
 #include "../smplayer/audioequalizerlist.h"
 #include "../smplayer/assstyles.h"
-#include "../kylin/datautils.h"
+#include "../datautils.h"
 
 class Recents;
 class URLHistory;

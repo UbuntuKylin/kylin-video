@@ -335,6 +335,9 @@ protected:
 
 //    MyAction * shortcutsAct;
     MyAction * screenshotAct;
+    /*MyAction * screenshotsAct;
+    MyAction * screenshotWithSubsAct;
+    MyAction * screenshotWithNoSubsAct;*/
 
     QMenu * ontop_menu;
     // Menu StayOnTop

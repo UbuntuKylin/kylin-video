@@ -24,7 +24,7 @@
 
 #include "colorutils.h"
 #include "global.h"
-#include "../merge/preferences.h"
+#include "preferences.h"
 #include "mplayerversion.h"
 
 using namespace Global;

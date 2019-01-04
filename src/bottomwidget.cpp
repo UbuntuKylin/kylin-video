@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 ~ 2017 National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
+ * Copyright (C) 2013 ~ 2019 National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
  *
  * Authors:
  *  Kobe Lee    lixiang@kylinos.cn/kobe24_lixiang@126.com
@@ -40,7 +40,7 @@
 #include "../smplayer/myaction.h"
 #include "../smplayer/mplayerwindow.h"
 #include "../smplayer/global.h"
-#include "../merge/preferences.h"
+#include "../smplayer/preferences.h"
 
 using namespace Global;
 

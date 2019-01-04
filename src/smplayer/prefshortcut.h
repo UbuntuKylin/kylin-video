@@ -1,6 +1,6 @@
 /*  smplayer, GUI front-end for mplayer.
     Copyright (C) 2006-2015 Ricardo Villalba <rvm@users.sourceforge.net>
-    Copyright (C) 2013 ~ 2017 National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
+    Copyright (C) 2013 ~ 2019 National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -17,56 +17,46 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef _PREFGENERAL_H_
-#define _PREFGENERAL_H_
+#ifndef _PREFSHORTCUT_H_
+#define _PREFSHORTCUT_H_
 
-#include "ui_prefgeneral.h"
+#include "ui_prefshortcut.h"
+#include "../smplayer/preferences.h"
 #include "../smplayer/prefwidget.h"
-#include "../smplayer/inforeader.h"
-#include "../smplayer/deviceinfo.h"
-#include "../merge/preferences.h"
+#include <QStringList>
 
-class PrefGeneral : public PrefWidget, public Ui::PrefGeneral
+class Preferences;
+//class QLabel;
+//class ActionsEditor;
+
+class PrefShortCut : public PrefWidget, public Ui::PrefShortCut
 {
 	Q_OBJECT
 
 public:
-	PrefGeneral( QWidget * parent = 0, Qt::WindowFlags f = 0 );
-	~PrefGeneral();
+    PrefShortCut( QWidget * parent = 0, Qt::WindowFlags f = 0 );
+    ~PrefShortCut();
 
-	// Pass data to the dialog
-	void setData(Preferences * pref);
+	virtual QString sectionName();
+	virtual QPixmap sectionIcon();
 
-	// Apply changes
-	void getData(Preferences * pref);
+    // Pass data to the dialog
+    void setData(Preferences * pref);
 
-    bool fileSettingsMethodChanged() { return filesettings_method_changed; };
+    // Apply changes
+    void getData(Preferences * pref);
 
-public slots:
-    void selectRadioButton();
+//    ActionsEditor *actions_editor = nullptr;
 
 protected:
 	virtual void createHelp();
 
-	// Tab General
-    void setMplayerPath(QString path);
-	QString mplayerPath();
-
-    void setPauseWhenHidden(bool b);
-    bool pauseWhenHidden();
-
-    void setPreviewWhenPlaying(bool b);
-    bool previewWhenPlaying();
-
-signals:
-    void ready_to_update_driver();
-
 protected:
 	virtual void retranslateStrings();
 
-
-private:
-	bool filesettings_method_changed;
+//private:
+//    QLabel *keyboard_icon = nullptr;
+//    QLabel *actioneditor_desc = nullptr;
 };
 
 #endif

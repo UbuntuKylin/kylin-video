@@ -23,7 +23,7 @@
 #include <QObject>
 #include <QString>
 #include <QStringList>
-#include "merge/basegui.h"
+#include "../smplayer/basegui.h"
 
 class InfoWorker;
 

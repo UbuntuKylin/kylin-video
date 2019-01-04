@@ -22,7 +22,7 @@
 
 #include <QString>
 #include <QStringList>
-#include "../merge/preferences.h"
+#include "preferences.h"
 
 class Helper {
 

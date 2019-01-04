@@ -1,6 +1,6 @@
 /*  smplayer, GUI front-end for mplayer.
     Copyright (C) 2006-2015 Ricardo Villalba <rvm@users.sourceforge.net>
-    Copyright (C) 2013 ~ 2017 National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
+    Copyright (C) 2013 ~ 2019 National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -17,33 +17,37 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef _INPUTURL_H_
-#define _INPUTURL_H_
+#ifndef _AUDIODELAYDIALOG_H_
+#define _AUDIODELAYDIALOG_H_
 
-#include "ui_inputurl.h"
+#include "ui_audiodelaydialog.h"
+
 #include <QDialog>
-class QPushButton;
+#include <QPushButton>
 
-enum IDragState {NOT_IDRAGGING, START_IDRAGGING, IDRAGGING};
+enum AADragState {NOT_AADRAGGING, START_AADRAGGING, AADRAGGING};
 
-class InputURL : public QDialog, public Ui::InputURL
+class AudioDelayDialog : public QDialog, public Ui::AudioDelayDialog
 {
 	Q_OBJECT
 
 public:
-	InputURL( QWidget* parent = 0, Qt::WindowFlags f = 0 );
-	~InputURL();
+    AudioDelayDialog( QWidget * parent = 0, Qt::WindowFlags f = 0 );
+    ~AudioDelayDialog();
 
-	void setURL(QString url);
-	QString url();
+    void setDefaultValue(int audio_delay);
+    int getCurrentValue();
 
     void initConnect();
 
     virtual bool eventFilter(QObject *, QEvent *);
     void moveDialog(QPoint diff);
 
+public slots:
+
+
 private:
-    IDragState drag_state;
+    AADragState drag_state;
     QPoint start_drag;
 };
 

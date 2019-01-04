@@ -1,6 +1,6 @@
 /*  smplayer, GUI front-end for mplayer.
     Copyright (C) 2006-2015 Ricardo Villalba <rvm@users.sourceforge.net>
-    Copyright (C) 2013 ~ 2017 National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
+    Copyright (C) 2013 ~ 2019 National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -17,79 +17,97 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include "audiodelaydialog.h"
+#include "errordialog.h"
 #include "../smplayer/images.h"
-#include "../smplayer/version.h"
-#include "../smplayer/global.h"
-#include "../smplayer/paths.h"
+#include <QLayout>
 #include <QDesktopServices>
 #include <QMouseEvent>
 #include <QPoint>
+#include <QScrollBar>
 
-using namespace Global;
-
-AudioDelayDialog::AudioDelayDialog(QWidget * parent, Qt::WindowFlags f)
+ErrorDialog::ErrorDialog( QWidget* parent, Qt::WindowFlags f )
 	: QDialog(parent, f)
-    , drag_state(NOT_AADRAGGING)
+    , drag_state(NOT_EDRAGGING)
     , start_drag(QPoint(0,0))
 {
 	setupUi(this);
+
     this->setWindowFlags(Qt::FramelessWindowHint);
-    this->setFixedSize(380, 170);
+    this->setFixedSize(514, 160);
     this->setStyleSheet("QDialog{border: 1px solid #121212;border-radius:1px;background-color:#1f1f1f;}");
     this->setWindowIcon(QIcon(":/res/kylin-video.png"));//setWindowIcon( Images::icon("logo", 64) );
     this->setAutoFillBackground(true);
     this->setMouseTracking(true);
     installEventFilter(this);
 
+    log->setStyleSheet("QTextEdit {border: 1px solid #000000;color: #999999;background: #0f0f0f;font-family:方正黑体_GBK;font-size: 12px;}");
+    log->verticalScrollBar()->setStyleSheet("QScrollBar:vertical {width: 12px;background: #141414;margin:0px 0px 0px 0px;border:1px solid #141414;}QScrollBar::handle:vertical {width: 12px;min-height: 45px;background: #292929;margin-left: 0px;margin-right: 0px;}QScrollBar::handle:vertical:hover {background: #3e3e3e;}QScrollBar::handle:vertical:pressed {background: #272727;}QScrollBar::sub-line:vertical {height: 6px;background: transparent;subcontrol-position: top;}QScrollBar::add-line:vertical {height: 6px;background: transparent;subcontrol-position: bottom;}QScrollBar::sub-line:vertical:hover {background: #292929;}QScrollBar::add-line:vertical:hover {background: #292929;}QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {background: transparent;}");
+
+    icon->setScaledContents(true);
+	icon->setText("");
+    icon->setPixmap(Images::icon("warn"));
+
+//	intro_label->setText("<html><head/><body><p align=\"left\"><span style=\"font-size:14pt; font-weight:600;\">" + tr("Oops, something wrong happened") +"</span></p></body></html>");
+    intro_label->setStyleSheet("QLabel{background:transparent;font-size:20px;color:#999999;font-family:方正黑体_GBK;}");//font-weight:bold;
     title_label->setStyleSheet("QLabel{background:transparent;font-size:14px;color:#999999;font-family:方正黑体_GBK;}");//font-weight:bold;
-    label->setStyleSheet("QLabel{background:transparent;font-size:12px;color:#999999;font-family:方正黑体_GBK;}");//font-weight:bold;
+    text_label->setStyleSheet("QLabel{background:transparent;font-size:12px;color:#999999;font-family:方正黑体_GBK;}");//font-weight:bold;
+    text_label->setText("");
+	toggleLog(false);
 
-    spinBox->setStyleSheet("QSpinBox {height: 24px;min-width: 40px;border: 1px solid #000000;background: #0f0f0f;font-family:方正黑体_GBK;font-size:12px;color:#999999;}QSpinBox:hover {height: 24px;min-width: 40px;background-color:#0f0f0f;border:1px solid #0a9ff5;font-family:方正黑体_GBK;font-size:12px;color:#999999;}QSpinBox:enabled {color: #999999;}QSpinBox:enabled:hover, QSpinBox:enabled:focus {color: #999999;}QSpinBox:!enabled {color: #383838;background: transparent;}QSpinBox::up-button {border: none;width: 17px;height: 12px;image: url(:/res/spin_top_arrow_normal.png);}QSpinBox::up-button:hover {image: url(:/res/spin_top_arrow_hover.png);}QSpinBox::up-button:pressed {image: url(:/res/spin_top_arrow_press.png);}QSpinBox::up-button:!enabled {background: transparent;}QSpinBox::up-button:enabled:hover {background: rgb(255, 255, 255, 30);}QSpinBox::down-button {border: none;width: 17px;height: 12px;image: url(:/res/spin_bottom_arrow_normal.png);}QSpinBox::down-button:hover {image: url(:/res/spin_bottom_arrow_hover.png);}QSpinBox::down-button:pressed {image: url(:/res/spin_bottom_arrow_press.png);}QSpinBox::down-button:!enabled {background: transparent;}QSpinBox::down-button:hover{background: #0f0f0f;}");
+    connect(viewlog_button, SIGNAL(toggled(bool)), this, SLOT(toggleLog(bool)));
 
-//    baseWidget->setAutoFillBackground(true);
-//    QPalette palette;
-//    palette.setBrush(QPalette::Background, QBrush(QPixmap(":/res/about_bg.png")));
-//    baseWidget->setPalette(palette);
     closeBtn->setFocusPolicy(Qt::NoFocus);
     closeBtn->setStyleSheet("QPushButton{background-image:url(':/res/close_normal.png');border:0px;}QPushButton:hover{background:url(':/res/close_hover.png');}QPushButton:pressed{background:url(':/res/close_press.png');}");
 
+    viewlog_button->setFixedSize(91, 25);
+    viewlog_button->setFocusPolicy(Qt::NoFocus);
+    viewlog_button->setStyleSheet("QPushButton{font-size:12px;background:#0f0f0f;border:1px solid #0a9ff5;color:#999999;}QPushButton:hover{background-color:#0a9ff5;border:1px solid #2db0f6;color:#ffffff;} QPushButton:pressed{background-color:#0993e3;border:1px solid #0a9ff5;color:#ffffff;}");
+
     okBtn->setFixedSize(91, 25);
-    okBtn->setText(tr("OK"));
     okBtn->setFocusPolicy(Qt::NoFocus);
     okBtn->setStyleSheet("QPushButton{font-size:12px;background:#0f0f0f;border:1px solid #0a9ff5;color:#999999;}QPushButton:hover{background-color:#0a9ff5;border:1px solid #2db0f6;color:#ffffff;} QPushButton:pressed{background-color:#0993e3;border:1px solid #0a9ff5;color:#ffffff;}");
 
-    cancelBtn->setFixedSize(91, 25);
-    cancelBtn->setText(tr("Cancel"));
-    cancelBtn->setFocusPolicy(Qt::NoFocus);
-    cancelBtn->setStyleSheet("QPushButton{font-size:12px;background:#0f0f0f;border:1px solid #000000;color:#999999;}QPushButton:hover{background-color:#1f1f1f;border:1px solid #0f0f0f;color:#ffffff;} QPushButton:pressed{background-color:#0d0d0d;border:1px solid #000000;color:#ffffff;}");
+    connect(closeBtn, SIGNAL(clicked()),this, SLOT(close()));
+    connect(okBtn, SIGNAL(clicked()),this, SLOT(accept()));
 
-    this->initConnect();
+//	layout()->setSizeConstraint(QLayout::SetFixedSize);
 }
 
-AudioDelayDialog::~AudioDelayDialog()
+ErrorDialog::~ErrorDialog() {
+}
+
+void ErrorDialog::hideDetailBtn()
 {
-
+    viewlog_button->hide();
 }
 
-void AudioDelayDialog::setDefaultValue(int audio_delay)
-{
-    spinBox->setValue(audio_delay);
+void ErrorDialog::setText(QString error) {
+    text_label->setText(error);
 }
 
-int AudioDelayDialog::getCurrentValue()
-{
-    return spinBox->value();
+void ErrorDialog::setTitleText(QString error) {
+    title_label->setText(error);
 }
 
-void AudioDelayDialog::initConnect()
-{
-    connect(okBtn, SIGNAL(clicked()), this, SLOT(accept()));
-    connect(cancelBtn, SIGNAL(clicked()), this, SLOT(close()));
-    connect(closeBtn, SIGNAL(clicked()), this, SLOT(close()));
+void ErrorDialog::setLog(QString log_text) {
+	log->setPlainText("");
+	log->append(log_text); // To move cursor to the end
 }
 
-void AudioDelayDialog::moveDialog(QPoint diff) {
+void ErrorDialog::toggleLog(bool checked) {
+	log->setVisible(checked);
+
+    if (checked) {
+		viewlog_button->setText(tr("Hide log"));
+        this->setFixedSize(514, 364);
+    }
+    else {
+		viewlog_button->setText(tr("Show log"));
+        this->setFixedSize(514, 160);
+    }
+}
+
+void ErrorDialog::moveDialog(QPoint diff) {
 #if QT_VERSION >= 0x050000
     // Move the window with some delay.
     // Seems to work better with Qt 5
@@ -113,7 +131,7 @@ void AudioDelayDialog::moveDialog(QPoint diff) {
 #endif
 }
 
-bool AudioDelayDialog::eventFilter( QObject * object, QEvent * event ) {
+bool ErrorDialog::eventFilter( QObject * object, QEvent * event ) {
     QEvent::Type type = event->type();
     if (type != QEvent::MouseButtonPress
         && type != QEvent::MouseButtonRelease
@@ -125,52 +143,52 @@ bool AudioDelayDialog::eventFilter( QObject * object, QEvent * event ) {
         return false;
 
     if (mouseEvent->modifiers() != Qt::NoModifier) {
-        drag_state = NOT_AADRAGGING;
+        drag_state = NOT_EDRAGGING;
         return false;
     }
 
     if (type == QEvent::MouseButtonPress) {
         if (mouseEvent->button() != Qt::LeftButton) {
-            drag_state = NOT_AADRAGGING;
+            drag_state = NOT_EDRAGGING;
             return false;
         }
 
-        drag_state = START_AADRAGGING;
+        drag_state = START_EDRAGGING;
         start_drag = mouseEvent->globalPos();
         // Don't filter, so others can have a look at it too
         return false;
     }
 
     if (type == QEvent::MouseButtonRelease) {
-        if (drag_state != AADRAGGING || mouseEvent->button() != Qt::LeftButton) {
-            drag_state = NOT_AADRAGGING;
+        if (drag_state != EDRAGGING || mouseEvent->button() != Qt::LeftButton) {
+            drag_state = NOT_EDRAGGING;
             return false;
         }
 
         // Stop dragging and eat event
-        drag_state = NOT_AADRAGGING;
+        drag_state = NOT_EDRAGGING;
         event->accept();
         return true;
     }
 
     // type == QEvent::MouseMove
-    if (drag_state == NOT_AADRAGGING)
+    if (drag_state == NOT_EDRAGGING)
         return false;
 
     // buttons() note the s
     if (mouseEvent->buttons() != Qt::LeftButton) {
-        drag_state = NOT_AADRAGGING;
+        drag_state = NOT_EDRAGGING;
         return false;
     }
 
     QPoint pos = mouseEvent->globalPos();
     QPoint diff = pos - start_drag;
-    if (drag_state == START_AADRAGGING) {
+    if (drag_state == START_EDRAGGING) {
         // Don't start dragging before moving at least DRAG_THRESHOLD pixels
         if (abs(diff.x()) < 4 && abs(diff.y()) < 4)
             return false;
 
-        drag_state = AADRAGGING;
+        drag_state = EDRAGGING;
     }
     this->moveDialog(diff);
 
@@ -178,3 +196,5 @@ bool AudioDelayDialog::eventFilter( QObject * object, QEvent * event ) {
     event->accept();
     return true;
 }
+
+//#include "moc_errordialog.cpp"

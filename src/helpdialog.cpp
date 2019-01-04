@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 ~ 2017 National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
+ * Copyright (C) 2013 ~ 2019 National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
  *
  * Authors:
  *  Kobe Lee    lixiang@kylinos.cn/kobe24_lixiang@126.com
@@ -28,7 +28,7 @@
 #include "supportformats.h"
 //#include "supportshortcuts.h"
 #include "titlebutton.h"
-#include "../merge/preferences.h"
+#include "../smplayer/preferences.h"
 
 HelpDialog::HelpDialog(QWidget * parent, Qt::WindowFlags f)
 	: QDialog(parent, f )

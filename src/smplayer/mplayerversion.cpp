@@ -18,7 +18,7 @@
 
 #include "mplayerversion.h"
 #include "global.h"
-#include "../merge/preferences.h"
+#include "preferences.h"
 
 #include <QRegExp>
 

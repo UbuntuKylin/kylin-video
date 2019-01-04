@@ -1,6 +1,6 @@
 /*  smplayer, GUI front-end for mplayer.
     Copyright (C) 2006-2015 Ricardo Villalba <rvm@users.sourceforge.net>
-    Copyright (C) 2013 ~ 2017 National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
+    Copyright (C) 2013 ~ 2019 National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -17,44 +17,40 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include "inputurl.h"
+#include "audiodelaydialog.h"
 #include "../smplayer/images.h"
-#include "../smplayer/mylineedit.h"
-#include <QPushButton>
+#include "../smplayer/version.h"
+#include "../smplayer/global.h"
+#include "../smplayer/paths.h"
 #include <QDesktopServices>
 #include <QMouseEvent>
 #include <QPoint>
 
-//http://rbv01.ku6.com/WrTcR6Yik9QIW4XIcxYvDw.mp4
+using namespace Global;
 
-InputURL::InputURL( QWidget* parent, Qt::WindowFlags f ) 
+AudioDelayDialog::AudioDelayDialog(QWidget * parent, Qt::WindowFlags f)
 	: QDialog(parent, f)
-    , drag_state(NOT_IDRAGGING)
+    , drag_state(NOT_AADRAGGING)
     , start_drag(QPoint(0,0))
 {
 	setupUi(this);
     this->setWindowFlags(Qt::FramelessWindowHint);
-    this->setFixedSize(500, 170);
+    this->setFixedSize(380, 170);
     this->setStyleSheet("QDialog{border: 1px solid #121212;border-radius:1px;background-color:#1f1f1f;}");
     this->setWindowIcon(QIcon(":/res/kylin-video.png"));//setWindowIcon( Images::icon("logo", 64) );
     this->setAutoFillBackground(true);
     this->setMouseTracking(true);
     installEventFilter(this);
-//	setMinimumSize( QSize(500,140) );
-//	setMaximumSize( QSize(600,170) );
-    //layout()->setSizeConstraint(QLayout::SetFixedSize);
 
     title_label->setStyleSheet("QLabel{background:transparent;font-size:14px;color:#999999;font-family:方正黑体_GBK;}");//font-weight:bold;
     label->setStyleSheet("QLabel{background:transparent;font-size:12px;color:#999999;font-family:方正黑体_GBK;}");//font-weight:bold;
 
-//	url_icon->setPixmap( Images::icon("url_big", 48) );
-	url_edit->setFocus();
-    url_edit->setFixedHeight(27);
-    url_edit->setStyleSheet("QComboBox{width:150px;height:27px;border:1px solid #000000;background:#0f0f0f;font-size:12px;font-family:方正黑体_GBK;background-position:center left;padding-left:5px;color:#999999;selection-color:#ffffff;selection-background-color:#1f1f1f;}QComboBox::hover{background-color:#0f0f0f;border:1px solid #0a9ff5;font-family:方正黑体_GBK;font-size:12px;color:#999999;}QComboBox:!enabled {background:#0f0f0f;color:#383838;}QComboBox::drop-down {width:17px;border:none;background:transparent;}QComboBox::drop-down:hover {background:transparent;}QComboBox::down-arrow{image:url(:/res/combobox_arrow_normal.png);}QComboBox::down-arrow:hover{image:url(:/res/combobox_arrow_hover.png);}QComboBox::down-arrow:pressed{image:url(:/res/combobox_arrow_press.png);}QComboBox QAbstractItemView{border:1px solid #0a9ff5;background:#262626;outline:none;}");
-    MyLineEdit *edit = new MyLineEdit(this);
-    edit->setFixedHeight(25);
-    url_edit->setLineEdit(edit);
+    spinBox->setStyleSheet("QSpinBox {height: 24px;min-width: 40px;border: 1px solid #000000;background: #0f0f0f;font-family:方正黑体_GBK;font-size:12px;color:#999999;}QSpinBox:hover {height: 24px;min-width: 40px;background-color:#0f0f0f;border:1px solid #0a9ff5;font-family:方正黑体_GBK;font-size:12px;color:#999999;}QSpinBox:enabled {color: #999999;}QSpinBox:enabled:hover, QSpinBox:enabled:focus {color: #999999;}QSpinBox:!enabled {color: #383838;background: transparent;}QSpinBox::up-button {border: none;width: 17px;height: 12px;image: url(:/res/spin_top_arrow_normal.png);}QSpinBox::up-button:hover {image: url(:/res/spin_top_arrow_hover.png);}QSpinBox::up-button:pressed {image: url(:/res/spin_top_arrow_press.png);}QSpinBox::up-button:!enabled {background: transparent;}QSpinBox::up-button:enabled:hover {background: rgb(255, 255, 255, 30);}QSpinBox::down-button {border: none;width: 17px;height: 12px;image: url(:/res/spin_bottom_arrow_normal.png);}QSpinBox::down-button:hover {image: url(:/res/spin_bottom_arrow_hover.png);}QSpinBox::down-button:pressed {image: url(:/res/spin_bottom_arrow_press.png);}QSpinBox::down-button:!enabled {background: transparent;}QSpinBox::down-button:hover{background: #0f0f0f;}");
 
+//    baseWidget->setAutoFillBackground(true);
+//    QPalette palette;
+//    palette.setBrush(QPalette::Background, QBrush(QPixmap(":/res/about_bg.png")));
+//    baseWidget->setPalette(palette);
     closeBtn->setFocusPolicy(Qt::NoFocus);
     closeBtn->setStyleSheet("QPushButton{background-image:url(':/res/close_normal.png');border:0px;}QPushButton:hover{background:url(':/res/close_hover.png');}QPushButton:pressed{background:url(':/res/close_press.png');}");
 
@@ -71,26 +67,29 @@ InputURL::InputURL( QWidget* parent, Qt::WindowFlags f )
     this->initConnect();
 }
 
-InputURL::~InputURL() {
+AudioDelayDialog::~AudioDelayDialog()
+{
+
 }
 
-void InputURL::initConnect()
+void AudioDelayDialog::setDefaultValue(int audio_delay)
+{
+    spinBox->setValue(audio_delay);
+}
+
+int AudioDelayDialog::getCurrentValue()
+{
+    return spinBox->value();
+}
+
+void AudioDelayDialog::initConnect()
 {
     connect(okBtn, SIGNAL(clicked()), this, SLOT(accept()));
     connect(cancelBtn, SIGNAL(clicked()), this, SLOT(close()));
     connect(closeBtn, SIGNAL(clicked()), this, SLOT(close()));
 }
 
-
-void InputURL::setURL(QString url) {
-	url_edit->addItem(url);
-}
-
-QString InputURL::url() {
-	return url_edit->currentText().trimmed();
-}
-
-void InputURL::moveDialog(QPoint diff) {
+void AudioDelayDialog::moveDialog(QPoint diff) {
 #if QT_VERSION >= 0x050000
     // Move the window with some delay.
     // Seems to work better with Qt 5
@@ -114,7 +113,7 @@ void InputURL::moveDialog(QPoint diff) {
 #endif
 }
 
-bool InputURL::eventFilter( QObject * object, QEvent * event ) {
+bool AudioDelayDialog::eventFilter( QObject * object, QEvent * event ) {
     QEvent::Type type = event->type();
     if (type != QEvent::MouseButtonPress
         && type != QEvent::MouseButtonRelease
@@ -126,52 +125,52 @@ bool InputURL::eventFilter( QObject * object, QEvent * event ) {
         return false;
 
     if (mouseEvent->modifiers() != Qt::NoModifier) {
-        drag_state = NOT_IDRAGGING;
+        drag_state = NOT_AADRAGGING;
         return false;
     }
 
     if (type == QEvent::MouseButtonPress) {
         if (mouseEvent->button() != Qt::LeftButton) {
-            drag_state = NOT_IDRAGGING;
+            drag_state = NOT_AADRAGGING;
             return false;
         }
 
-        drag_state = START_IDRAGGING;
+        drag_state = START_AADRAGGING;
         start_drag = mouseEvent->globalPos();
         // Don't filter, so others can have a look at it too
         return false;
     }
 
     if (type == QEvent::MouseButtonRelease) {
-        if (drag_state != IDRAGGING || mouseEvent->button() != Qt::LeftButton) {
-            drag_state = NOT_IDRAGGING;
+        if (drag_state != AADRAGGING || mouseEvent->button() != Qt::LeftButton) {
+            drag_state = NOT_AADRAGGING;
             return false;
         }
 
         // Stop dragging and eat event
-        drag_state = NOT_IDRAGGING;
+        drag_state = NOT_AADRAGGING;
         event->accept();
         return true;
     }
 
     // type == QEvent::MouseMove
-    if (drag_state == NOT_IDRAGGING)
+    if (drag_state == NOT_AADRAGGING)
         return false;
 
     // buttons() note the s
     if (mouseEvent->buttons() != Qt::LeftButton) {
-        drag_state = NOT_IDRAGGING;
+        drag_state = NOT_AADRAGGING;
         return false;
     }
 
     QPoint pos = mouseEvent->globalPos();
     QPoint diff = pos - start_drag;
-    if (drag_state == START_IDRAGGING) {
+    if (drag_state == START_AADRAGGING) {
         // Don't start dragging before moving at least DRAG_THRESHOLD pixels
         if (abs(diff.x()) < 4 && abs(diff.y()) < 4)
             return false;
 
-        drag_state = IDRAGGING;
+        drag_state = AADRAGGING;
     }
     this->moveDialog(diff);
 
@@ -179,5 +178,3 @@ bool InputURL::eventFilter( QObject * object, QEvent * event ) {
     event->accept();
     return true;
 }
-
-//#include "moc_inputurl.cpp"

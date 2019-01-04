@@ -19,7 +19,7 @@
 #include "audioequalizer.h"
 #include "eqslider.h"
 #include "images.h"
-#include "../merge/preferences.h"
+#include "preferences.h"
 #include "global.h"
 #include <QLayout>
 #include <QPushButton>

@@ -1,6 +1,6 @@
 /*  smplayer, GUI front-end for mplayer.
     Copyright (C) 2006-2015 Ricardo Villalba <rvm@users.sourceforge.net>
-    Copyright (C) 2013 ~ 2017 National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
+    Copyright (C) 2013 ~ 2019 National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -17,21 +17,22 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef _PREFPERFORMANCE_H_
-#define _PREFPERFORMANCE_H_
+#ifndef _PREFSUBTITLES_H_
+#define _PREFSUBTITLES_H_
 
-#include "ui_prefperformance.h"
+#include "ui_prefsubtitles.h"
 #include "../smplayer/prefwidget.h"
-#include "../merge/preferences.h"
-#include "../smplayer/config.h"
 
-class PrefPerformance : public PrefWidget, public Ui::PrefPerformance
+class Preferences;
+class Encodings;
+
+class PrefSubtitles : public PrefWidget, public Ui::PrefSubtitles
 {
 	Q_OBJECT
 
 public:
-	PrefPerformance( QWidget * parent = 0, Qt::WindowFlags f = 0 );
-	~PrefPerformance();
+	PrefSubtitles( QWidget * parent = 0, Qt::WindowFlags f = 0 );
+	~PrefSubtitles();
 
 	virtual QString sectionName();
 	virtual QPixmap sectionIcon();
@@ -48,20 +49,24 @@ public slots:
 protected:
 	virtual void createHelp();
 
-	void setCacheForFiles(int n);
-	int cacheForFiles();
+	void setFontEncoding(QString s);
+	QString fontEncoding();
 
-	void setCacheForStreams(int n);
-	int cacheForStreams();
+	void setUseEnca(bool v);
+	bool useEnca();
 
-	void setThreads(int v);
-	int threads();
+	void setEncaLang(QString s);
+	QString encaLang();
 
-	void setHwdec(const QString & v);
-	QString hwdec();
+	void setFreetypeSupport(bool b);
+	bool freetypeSupport();
 
 protected:
 	virtual void retranslateStrings();
+
+private:
+	Encodings * encodings;
+	QString forced_ass_style;
 };
 
 #endif

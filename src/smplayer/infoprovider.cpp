@@ -18,7 +18,7 @@
 
 #include "infoprovider.h"
 #include "global.h"
-#include "../merge/preferences.h"
+#include "preferences.h"
 #include "playerprocess.h"
 #include "playerid.h"
 #include <QFileInfo>

@@ -33,7 +33,7 @@
 
 #include "playlistdelegate.h"
 #include "playlistmodel.h"
-#include "../merge/preferences.h"
+#include "../smplayer/preferences.h"
 #include "../smplayer/global.h"
 using namespace Global;
 

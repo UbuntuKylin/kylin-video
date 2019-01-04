@@ -24,7 +24,7 @@
 #include "../smplayer/myaction.h"
 #include "../smplayer/filedialog.h"
 #include "../smplayer/helper.h"
-#include "../merge/preferences.h"
+#include "../smplayer/preferences.h"
 #include "../smplayer/version.h"
 #include "../smplayer/global.h"
 #include "../smplayer/core.h"

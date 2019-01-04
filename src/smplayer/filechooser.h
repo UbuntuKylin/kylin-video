@@ -19,7 +19,7 @@
 #ifndef _FILECHOOSER_H_
 #define _FILECHOOSER_H_
 
-#include "../merge/lineedit_with_icon.h"
+#include "lineedit_with_icon.h"
 #include <QFileDialog>
 
 class QToolButton;

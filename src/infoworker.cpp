@@ -18,7 +18,7 @@
  */
 
 #include "infoworker.h"
-#include "../merge/preferences.h"
+#include "../smplayer/preferences.h"
 #include "../smplayer/global.h"
 
 #include <QDebug>

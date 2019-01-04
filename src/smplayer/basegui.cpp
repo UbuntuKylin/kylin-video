@@ -1,6 +1,6 @@
 /*  smplayer, GUI front-end for mplayer.
     Copyright (C) 2006-2015 Ricardo Villalba <rvm@users.sourceforge.net>
-    Copyright (C) 2013 ~ 2017 National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
+    Copyright (C) 2013 ~ 2019 National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -52,7 +52,7 @@
 #include "../smplayer/global.h"
 #include "../smplayer/translator.h"
 #include "../smplayer/images.h"
-#include "../merge/preferences.h"
+#include "../smplayer/preferences.h"
 #include "../playlist.h"
 #include "filepropertiesdialog.h"
 #include "../smplayer/recents.h"
@@ -77,7 +77,7 @@
 #include "../smplayer/myactiongroup.h"
 #include "../smplayer/extensions.h"
 #include "../smplayer/version.h"
-#include "../merge/videopreview.h"
+#include "../smplayer/videopreview.h"
 //#include "../shortcutswidget.h"
 #include "../helpdialog.h"
 #include "inputurl.h"

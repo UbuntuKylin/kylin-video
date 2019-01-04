@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 ~ 2017 National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
+ * Copyright (C) 2013 ~ 2019 National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
  *
  * Authors:
  *  Kobe Lee    lixiang@kylinos.cn/kobe24_lixiang@126.com
@@ -21,7 +21,7 @@
 #include "../smplayer/images.h"
 #include "../smplayer/version.h"
 #include "../smplayer/global.h"
-#include "../merge/preferences.h"
+#include "../smplayer/preferences.h"
 #include "../smplayer/paths.h"
 #include "../smplayer/inforeader.h"
 

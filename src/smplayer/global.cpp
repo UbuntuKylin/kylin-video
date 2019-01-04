@@ -18,7 +18,7 @@
 
 
 #include "global.h"
-#include "../merge/preferences.h"
+#include "preferences.h"
 
 #include <QSettings>
 #include "translator.h"

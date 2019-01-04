@@ -1,6 +1,6 @@
 /*  smplayer, GUI front-end for mplayer.
     Copyright (C) 2006-2015 Ricardo Villalba <rvm@users.sourceforge.net>
-    Copyright (C) 2013 ~ 2017 National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
+    Copyright (C) 2013 ~ 2019 National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -17,22 +17,22 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef _PREFAUDIO_H_
-#define _PREFAUDIO_H_
+#ifndef _PREFVIDEO_H_
+#define _PREFVIDEO_H_
 
-#include "ui_prefaudio.h"
+#include "ui_prefvideo.h"
 #include "../smplayer/prefwidget.h"
 #include "../smplayer/inforeader.h"
 #include "../smplayer/deviceinfo.h"
-#include "../merge/preferences.h"
+#include "../smplayer/preferences.h"
 
-class PrefAudio : public PrefWidget, public Ui::PrefAudio
+class PrefVideo : public PrefWidget, public Ui::PrefVideo
 {
 	Q_OBJECT
 
 public:
-    PrefAudio(QString snap, QWidget * parent = 0, Qt::WindowFlags f = 0);
-    ~PrefAudio();
+    PrefVideo(QString arch_type = "", QString snap = "", QWidget * parent = 0, Qt::WindowFlags f = 0 );
+    ~PrefVideo();
 
 	// Pass data to the dialog
 	void setData(Preferences * pref);
@@ -44,29 +44,26 @@ public:
 
 protected:
 	virtual void createHelp();
-	void setAO( QString ao_driver );
-	QString AO();
 
-	void setGlobalVolume(bool b);
-	bool globalVolume();
 
-    void setAutoSyncFactor(int factor);
-    int autoSyncFactor();
+	void setVO( QString vo_driver );
+	QString VO();
 
-    void setAutoSyncActivated(bool b);
-    bool autoSyncActivated();
+	// Tab video and audio
+	void setEq2(bool b);
+	bool eq2();
 
-	void setMc(double value);
-	double mc();
+    void setInitialPostprocessing(bool b);
+    bool initialPostprocessing();
 
-	void setMcActivated(bool b);
-	bool mcActivated();
+	void setDirectRendering(bool b);
+	bool directRendering();
 
-	void setSoftVol(bool b);
-	bool softVol();
+	void setDoubleBuffer(bool b);
+	bool doubleBuffer();
 
-	void setInitialVolNorm(bool b);
-	bool initialVolNorm();
+	void setUseSlices(bool b);
+	bool useSlices();
 
 	void setAmplification(int n);
 	int amplification();
@@ -75,7 +72,7 @@ protected:
 	int audioChannels();
 
 protected slots:
-	void ao_combo_changed(int);
+	void vo_combo_changed(int);
 
 public slots:
     void update_driver_combobox();
@@ -84,11 +81,13 @@ protected:
 	virtual void retranslateStrings();
 	void updateDriverCombos();
 
-	InfoList ao_list;
-    DeviceList pa_devices;
+	InfoList vo_list;
+	DeviceList alsa_devices;
+	DeviceList xv_adaptors;
 
 private:
 	bool filesettings_method_changed;
+    QString arch;
     QString m_snap;
 };
 

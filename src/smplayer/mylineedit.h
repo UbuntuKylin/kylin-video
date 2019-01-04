@@ -19,7 +19,7 @@
 #ifndef MYLINEEDIT_H
 #define MYLINEEDIT_H
 
-#include "../merge/lineedit_with_icon.h"
+#include "lineedit_with_icon.h"
 
 class QToolButton;
 

@@ -100,22 +100,22 @@ HEADERS += smplayer/config.h \
         smplayer/globalshortcuts/globalshortcuts.h \
         smplayer/globalshortcuts/globalshortcutsdialog.h \
         smplayer/discname.h \
-        merge/basegui.h \
-        merge/lineedit_with_icon.h \
-        merge/preferencesdialog.h \
-        merge/prefgeneral.h \
-        merge/prefperformance.h \
-        merge/prefsubtitles.h \
-        merge/prefscreenshot.h \
-        merge/prefshortcut.h \
-        merge/prefvideo.h \
-        merge/prefaudio.h \
-        merge/filepropertiesdialog.h \
-        merge/audiodelaydialog.h \
-        merge/inputurl.h \
-        merge/errordialog.h \
-        merge/preferences.h \
-        merge/videopreview.h \
+        smplayer/basegui.h \
+        smplayer/lineedit_with_icon.h \
+        smplayer/preferencesdialog.h \
+        smplayer/prefgeneral.h \
+        smplayer/prefperformance.h \
+        smplayer/prefsubtitles.h \
+        smplayer/prefscreenshot.h \
+        smplayer/prefshortcut.h \
+        smplayer/prefvideo.h \
+        smplayer/prefaudio.h \
+        smplayer/filepropertiesdialog.h \
+        smplayer/audiodelaydialog.h \
+        smplayer/inputurl.h \
+        smplayer/errordialog.h \
+        smplayer/preferences.h \
+        smplayer/videopreview.h \
         titlewidget.h \
         bottomwidget.h \
         soundvolume.h \
@@ -203,22 +203,22 @@ SOURCES	+= smplayer/version.cpp \
         smplayer/globalshortcuts/globalshortcuts.cpp \
         smplayer/globalshortcuts/globalshortcutsdialog.cpp \
         smplayer/discname.cpp \
-        merge/lineedit_with_icon.cpp \
-        merge/basegui.cpp \
-        merge/preferencesdialog.cpp \
-        merge/prefgeneral.cpp \
-        merge/prefperformance.cpp \
-        merge/prefsubtitles.cpp \
-        merge/prefscreenshot.cpp \
-        merge/prefshortcut.cpp \
-        merge/prefvideo.cpp \
-        merge/prefaudio.cpp \
-        merge/filepropertiesdialog.cpp \
-        merge/audiodelaydialog.cpp \
-        merge/inputurl.cpp \
-        merge/errordialog.cpp \
-        merge/preferences.cpp \
-        merge/videopreview.cpp \
+        smplayer/lineedit_with_icon.cpp \
+        smplayer/basegui.cpp \
+        smplayer/preferencesdialog.cpp \
+        smplayer/prefgeneral.cpp \
+        smplayer/prefperformance.cpp \
+        smplayer/prefsubtitles.cpp \
+        smplayer/prefscreenshot.cpp \
+        smplayer/prefshortcut.cpp \
+        smplayer/prefvideo.cpp \
+        smplayer/prefaudio.cpp \
+        smplayer/filepropertiesdialog.cpp \
+        smplayer/audiodelaydialog.cpp \
+        smplayer/inputurl.cpp \
+        smplayer/errordialog.cpp \
+        smplayer/preferences.cpp \
+        smplayer/videopreview.cpp \
         titlewidget.cpp \
         bottomwidget.cpp \
         soundvolume.cpp \
@@ -244,18 +244,18 @@ SOURCES	+= smplayer/version.cpp \
         filterhandler.cpp
 
 FORMS = smplayer/timedialog.ui \
-        merge/preferencesdialog.ui \
-        merge/prefgeneral.ui \
-        merge/prefperformance.ui \
-        merge/prefsubtitles.ui \
-        merge/prefscreenshot.ui \
-        merge/prefshortcut.ui \
-        merge/prefvideo.ui \
-        merge/prefaudio.ui \
-        merge/filepropertiesdialog.ui \
-        merge/inputurl.ui \
-        merge/audiodelaydialog.ui \
-        merge/errordialog.ui \
+        smplayer/preferencesdialog.ui \
+        smplayer/prefgeneral.ui \
+        smplayer/prefperformance.ui \
+        smplayer/prefsubtitles.ui \
+        smplayer/prefscreenshot.ui \
+        smplayer/prefshortcut.ui \
+        smplayer/prefvideo.ui \
+        smplayer/prefaudio.ui \
+        smplayer/filepropertiesdialog.ui \
+        smplayer/inputurl.ui \
+        smplayer/audiodelaydialog.ui \
+        smplayer/errordialog.ui \
         helpdialog.ui \
         supportformats.ui \
         aboutdialog.ui \

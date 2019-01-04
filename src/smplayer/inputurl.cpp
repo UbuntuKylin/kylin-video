@@ -1,6 +1,6 @@
 /*  smplayer, GUI front-end for mplayer.
     Copyright (C) 2006-2015 Ricardo Villalba <rvm@users.sourceforge.net>
-    Copyright (C) 2013 ~ 2017 National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
+    Copyright (C) 2013 ~ 2019 National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -17,97 +17,80 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include "errordialog.h"
+#include "inputurl.h"
 #include "../smplayer/images.h"
-#include <QLayout>
+#include "../smplayer/mylineedit.h"
+#include <QPushButton>
 #include <QDesktopServices>
 #include <QMouseEvent>
 #include <QPoint>
-#include <QScrollBar>
 
-ErrorDialog::ErrorDialog( QWidget* parent, Qt::WindowFlags f )
+//http://rbv01.ku6.com/WrTcR6Yik9QIW4XIcxYvDw.mp4
+
+InputURL::InputURL( QWidget* parent, Qt::WindowFlags f ) 
 	: QDialog(parent, f)
-    , drag_state(NOT_EDRAGGING)
+    , drag_state(NOT_IDRAGGING)
     , start_drag(QPoint(0,0))
 {
 	setupUi(this);
-
     this->setWindowFlags(Qt::FramelessWindowHint);
-    this->setFixedSize(514, 160);
+    this->setFixedSize(500, 170);
     this->setStyleSheet("QDialog{border: 1px solid #121212;border-radius:1px;background-color:#1f1f1f;}");
     this->setWindowIcon(QIcon(":/res/kylin-video.png"));//setWindowIcon( Images::icon("logo", 64) );
     this->setAutoFillBackground(true);
     this->setMouseTracking(true);
     installEventFilter(this);
+//	setMinimumSize( QSize(500,140) );
+//	setMaximumSize( QSize(600,170) );
+    //layout()->setSizeConstraint(QLayout::SetFixedSize);
 
-    log->setStyleSheet("QTextEdit {border: 1px solid #000000;color: #999999;background: #0f0f0f;font-family:方正黑体_GBK;font-size: 12px;}");
-    log->verticalScrollBar()->setStyleSheet("QScrollBar:vertical {width: 12px;background: #141414;margin:0px 0px 0px 0px;border:1px solid #141414;}QScrollBar::handle:vertical {width: 12px;min-height: 45px;background: #292929;margin-left: 0px;margin-right: 0px;}QScrollBar::handle:vertical:hover {background: #3e3e3e;}QScrollBar::handle:vertical:pressed {background: #272727;}QScrollBar::sub-line:vertical {height: 6px;background: transparent;subcontrol-position: top;}QScrollBar::add-line:vertical {height: 6px;background: transparent;subcontrol-position: bottom;}QScrollBar::sub-line:vertical:hover {background: #292929;}QScrollBar::add-line:vertical:hover {background: #292929;}QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {background: transparent;}");
-
-    icon->setScaledContents(true);
-	icon->setText("");
-    icon->setPixmap(Images::icon("warn"));
-
-//	intro_label->setText("<html><head/><body><p align=\"left\"><span style=\"font-size:14pt; font-weight:600;\">" + tr("Oops, something wrong happened") +"</span></p></body></html>");
-    intro_label->setStyleSheet("QLabel{background:transparent;font-size:20px;color:#999999;font-family:方正黑体_GBK;}");//font-weight:bold;
     title_label->setStyleSheet("QLabel{background:transparent;font-size:14px;color:#999999;font-family:方正黑体_GBK;}");//font-weight:bold;
-    text_label->setStyleSheet("QLabel{background:transparent;font-size:12px;color:#999999;font-family:方正黑体_GBK;}");//font-weight:bold;
-    text_label->setText("");
-	toggleLog(false);
+    label->setStyleSheet("QLabel{background:transparent;font-size:12px;color:#999999;font-family:方正黑体_GBK;}");//font-weight:bold;
 
-    connect(viewlog_button, SIGNAL(toggled(bool)), this, SLOT(toggleLog(bool)));
+//	url_icon->setPixmap( Images::icon("url_big", 48) );
+	url_edit->setFocus();
+    url_edit->setFixedHeight(27);
+    url_edit->setStyleSheet("QComboBox{width:150px;height:27px;border:1px solid #000000;background:#0f0f0f;font-size:12px;font-family:方正黑体_GBK;background-position:center left;padding-left:5px;color:#999999;selection-color:#ffffff;selection-background-color:#1f1f1f;}QComboBox::hover{background-color:#0f0f0f;border:1px solid #0a9ff5;font-family:方正黑体_GBK;font-size:12px;color:#999999;}QComboBox:!enabled {background:#0f0f0f;color:#383838;}QComboBox::drop-down {width:17px;border:none;background:transparent;}QComboBox::drop-down:hover {background:transparent;}QComboBox::down-arrow{image:url(:/res/combobox_arrow_normal.png);}QComboBox::down-arrow:hover{image:url(:/res/combobox_arrow_hover.png);}QComboBox::down-arrow:pressed{image:url(:/res/combobox_arrow_press.png);}QComboBox QAbstractItemView{border:1px solid #0a9ff5;background:#262626;outline:none;}");
+    MyLineEdit *edit = new MyLineEdit(this);
+    edit->setFixedHeight(25);
+    url_edit->setLineEdit(edit);
 
     closeBtn->setFocusPolicy(Qt::NoFocus);
     closeBtn->setStyleSheet("QPushButton{background-image:url(':/res/close_normal.png');border:0px;}QPushButton:hover{background:url(':/res/close_hover.png');}QPushButton:pressed{background:url(':/res/close_press.png');}");
 
-    viewlog_button->setFixedSize(91, 25);
-    viewlog_button->setFocusPolicy(Qt::NoFocus);
-    viewlog_button->setStyleSheet("QPushButton{font-size:12px;background:#0f0f0f;border:1px solid #0a9ff5;color:#999999;}QPushButton:hover{background-color:#0a9ff5;border:1px solid #2db0f6;color:#ffffff;} QPushButton:pressed{background-color:#0993e3;border:1px solid #0a9ff5;color:#ffffff;}");
-
     okBtn->setFixedSize(91, 25);
+    okBtn->setText(tr("OK"));
     okBtn->setFocusPolicy(Qt::NoFocus);
     okBtn->setStyleSheet("QPushButton{font-size:12px;background:#0f0f0f;border:1px solid #0a9ff5;color:#999999;}QPushButton:hover{background-color:#0a9ff5;border:1px solid #2db0f6;color:#ffffff;} QPushButton:pressed{background-color:#0993e3;border:1px solid #0a9ff5;color:#ffffff;}");
 
-    connect(closeBtn, SIGNAL(clicked()),this, SLOT(close()));
-    connect(okBtn, SIGNAL(clicked()),this, SLOT(accept()));
+    cancelBtn->setFixedSize(91, 25);
+    cancelBtn->setText(tr("Cancel"));
+    cancelBtn->setFocusPolicy(Qt::NoFocus);
+    cancelBtn->setStyleSheet("QPushButton{font-size:12px;background:#0f0f0f;border:1px solid #000000;color:#999999;}QPushButton:hover{background-color:#1f1f1f;border:1px solid #0f0f0f;color:#ffffff;} QPushButton:pressed{background-color:#0d0d0d;border:1px solid #000000;color:#ffffff;}");
 
-//	layout()->setSizeConstraint(QLayout::SetFixedSize);
+    this->initConnect();
 }
 
-ErrorDialog::~ErrorDialog() {
+InputURL::~InputURL() {
 }
 
-void ErrorDialog::hideDetailBtn()
+void InputURL::initConnect()
 {
-    viewlog_button->hide();
+    connect(okBtn, SIGNAL(clicked()), this, SLOT(accept()));
+    connect(cancelBtn, SIGNAL(clicked()), this, SLOT(close()));
+    connect(closeBtn, SIGNAL(clicked()), this, SLOT(close()));
 }
 
-void ErrorDialog::setText(QString error) {
-    text_label->setText(error);
+
+void InputURL::setURL(QString url) {
+	url_edit->addItem(url);
 }
 
-void ErrorDialog::setTitleText(QString error) {
-    title_label->setText(error);
+QString InputURL::url() {
+	return url_edit->currentText().trimmed();
 }
 
-void ErrorDialog::setLog(QString log_text) {
-	log->setPlainText("");
-	log->append(log_text); // To move cursor to the end
-}
-
-void ErrorDialog::toggleLog(bool checked) {
-	log->setVisible(checked);
-
-    if (checked) {
-		viewlog_button->setText(tr("Hide log"));
-        this->setFixedSize(514, 364);
-    }
-    else {
-		viewlog_button->setText(tr("Show log"));
-        this->setFixedSize(514, 160);
-    }
-}
-
-void ErrorDialog::moveDialog(QPoint diff) {
+void InputURL::moveDialog(QPoint diff) {
 #if QT_VERSION >= 0x050000
     // Move the window with some delay.
     // Seems to work better with Qt 5
@@ -131,7 +114,7 @@ void ErrorDialog::moveDialog(QPoint diff) {
 #endif
 }
 
-bool ErrorDialog::eventFilter( QObject * object, QEvent * event ) {
+bool InputURL::eventFilter( QObject * object, QEvent * event ) {
     QEvent::Type type = event->type();
     if (type != QEvent::MouseButtonPress
         && type != QEvent::MouseButtonRelease
@@ -143,52 +126,52 @@ bool ErrorDialog::eventFilter( QObject * object, QEvent * event ) {
         return false;
 
     if (mouseEvent->modifiers() != Qt::NoModifier) {
-        drag_state = NOT_EDRAGGING;
+        drag_state = NOT_IDRAGGING;
         return false;
     }
 
     if (type == QEvent::MouseButtonPress) {
         if (mouseEvent->button() != Qt::LeftButton) {
-            drag_state = NOT_EDRAGGING;
+            drag_state = NOT_IDRAGGING;
             return false;
         }
 
-        drag_state = START_EDRAGGING;
+        drag_state = START_IDRAGGING;
         start_drag = mouseEvent->globalPos();
         // Don't filter, so others can have a look at it too
         return false;
     }
 
     if (type == QEvent::MouseButtonRelease) {
-        if (drag_state != EDRAGGING || mouseEvent->button() != Qt::LeftButton) {
-            drag_state = NOT_EDRAGGING;
+        if (drag_state != IDRAGGING || mouseEvent->button() != Qt::LeftButton) {
+            drag_state = NOT_IDRAGGING;
             return false;
         }
 
         // Stop dragging and eat event
-        drag_state = NOT_EDRAGGING;
+        drag_state = NOT_IDRAGGING;
         event->accept();
         return true;
     }
 
     // type == QEvent::MouseMove
-    if (drag_state == NOT_EDRAGGING)
+    if (drag_state == NOT_IDRAGGING)
         return false;
 
     // buttons() note the s
     if (mouseEvent->buttons() != Qt::LeftButton) {
-        drag_state = NOT_EDRAGGING;
+        drag_state = NOT_IDRAGGING;
         return false;
     }
 
     QPoint pos = mouseEvent->globalPos();
     QPoint diff = pos - start_drag;
-    if (drag_state == START_EDRAGGING) {
+    if (drag_state == START_IDRAGGING) {
         // Don't start dragging before moving at least DRAG_THRESHOLD pixels
         if (abs(diff.x()) < 4 && abs(diff.y()) < 4)
             return false;
 
-        drag_state = EDRAGGING;
+        drag_state = IDRAGGING;
     }
     this->moveDialog(diff);
 
@@ -197,4 +180,4 @@ bool ErrorDialog::eventFilter( QObject * object, QEvent * event ) {
     return true;
 }
 
-//#include "moc_errordialog.cpp"
+//#include "moc_inputurl.cpp"

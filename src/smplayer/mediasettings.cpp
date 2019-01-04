@@ -17,7 +17,7 @@
 */
 
 #include "mediasettings.h"
-#include "../merge/preferences.h"
+#include "preferences.h"
 #include "global.h"
 #include <QSettings>
 

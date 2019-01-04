@@ -22,7 +22,7 @@
 #include <QApplication>
 
 #include "global.h"
-#include "../merge/preferences.h"
+#include "preferences.h"
 #include "mplayerversion.h"
 #include "colorutils.h"
 #include <QTextCodec>

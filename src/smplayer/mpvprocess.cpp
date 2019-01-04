@@ -23,7 +23,7 @@
 #include <QDebug>
 
 #include "global.h"
-#include "../merge/preferences.h"
+#include "preferences.h"
 #include "mplayerversion.h"
 #include "colorutils.h"
 

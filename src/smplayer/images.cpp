@@ -23,7 +23,7 @@
 
 //#ifdef SMCODE
 #include "global.h"
-#include "../merge/preferences.h"
+#include "preferences.h"
 #include "paths.h"
 using namespace Global;
 //#endif

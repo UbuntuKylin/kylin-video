@@ -1,6 +1,6 @@
 /*  smplayer, GUI front-end for mplayer.
     Copyright (C) 2006-2015 Ricardo Villalba <rvm@users.sourceforge.net>
-    Copyright (C) 2013 ~ 2017 National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
+    Copyright (C) 2013 ~ 2019 National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -17,29 +17,34 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef LINEEDIT_WITH_ICON_H
-#define LINEEDIT_WITH_ICON_H
+#ifndef _INPUTURL_H_
+#define _INPUTURL_H_
 
-#include <QLineEdit>
+#include "ui_inputurl.h"
+#include <QDialog>
+class QPushButton;
 
-class QToolButton;
+enum IDragState {NOT_IDRAGGING, START_IDRAGGING, IDRAGGING};
 
-class LineEditWithIcon : public QLineEdit
+class InputURL : public QDialog, public Ui::InputURL
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    LineEditWithIcon(QWidget *parent = 0);
+	InputURL( QWidget* parent = 0, Qt::WindowFlags f = 0 );
+	~InputURL();
 
-	void setIcon(const QPixmap & pixmap);
+	void setURL(QString url);
+	QString url();
 
-protected:
-    void resizeEvent(QResizeEvent *);
-	virtual void setupButton();
+    void initConnect();
 
-protected:
-    QToolButton *button;
+    virtual bool eventFilter(QObject *, QEvent *);
+    void moveDialog(QPoint diff);
+
+private:
+    IDragState drag_state;
+    QPoint start_drag;
 };
 
 #endif
-

@@ -1,0 +1,17 @@
+kylin-video (2.0.0-0ubuntu1) disco; urgency=low
+
+  * Updated these modules: preferences, core, mplayerprocess and mpvprocess.
+  * Rewrited playlist with model and delegate.
+  * Added OSD info.
+  * Optimized partial parameters for mpv and mplayer.
+  * Debian/control:
+    - Add qtbase5-private-dev and libcrystalhd-dev to build-depends.
+    - Add libcrystalhd3 | firmware-crystalhd to depends.
+
+ -- handsome_feng <jianfengli@ubuntukylin.com>  Tue, 16 Apr 2019 20:00:09 +0800
+
+kylin-video (1.1.7-1) unstable; urgency=low
+
+  * Initial release. (Closes: #904002)
+
+ -- handsome_feng <jianfengli@ubuntukylin.com>  Tue, 17 Jul 2018 15:52:31 +0800

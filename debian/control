@@ -1,0 +1,33 @@
+Source: kylin-video
+Section: video
+Priority: optional
+Maintainer: Kylin Team <team+kylin@tracker.debian.org>
+Uploaders: Aron Xu <aron@debian.org>,
+           handsome_feng <jianfengli@ubuntukylin.com>,
+           lixiang <xiangli@ubuntukylin.com>
+Build-Depends: debhelper (>= 11),
+               qtbase5-dev (>= 5.1),
+               qt5-qmake,
+               qtscript5-dev,
+               qttools5-dev-tools,
+               qtbase5-private-dev,
+               libcrystalhd-dev [amd64 i386],
+               zlib1g-dev
+Standards-Version: 4.1.5
+Homepage: https://github.com/ukui/kylin-video
+Vcs-Git: https://github.com/ukui/kylin-video.git
+Vcs-Browser: https://github.com/ukui/kylin-video
+
+Package: kylin-video
+Architecture: any
+Depends: mplayer,
+         mpv (>= 0.6.2),
+         mesa-vdpau-drivers,
+         libcrystalhd3 | firmware-crystalhd,
+         ${misc:Depends},
+         ${shlibs:Depends}
+Description: Front-end for MPlayer and MPV
+ Qt5 Mplayer and MPV front-end, with basic features like playing
+ videos and audios to more advanced features.
+ It supports both x86 and ARM platform, and supports most of the
+ audio and video formats.

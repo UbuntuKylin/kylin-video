@@ -38,6 +38,7 @@
 #include <QDesktopWidget>
 #include <QPropertyAnimation>
 
+
 Screen::Screen(QWidget* parent, Qt::WindowFlags f)
 	: QWidget(parent, f )
 	, check_mouse_timer(0)
@@ -130,6 +131,7 @@ void Screen::playingStopped() {
 
 MplayerLayer::MplayerLayer(QWidget* parent, Qt::WindowFlags f)
 	: Screen(parent, f)
+    , repaint_background(false)
 	, playing(false)
 {
 	#if QT_VERSION < 0x050000
@@ -145,12 +147,11 @@ MplayerLayer::MplayerLayer(QWidget* parent, Qt::WindowFlags f)
 MplayerLayer::~MplayerLayer() {
 }
 
-//#if REPAINT_BACKGROUND_OPTION
+
 void MplayerLayer::setRepaintBackground(bool b) {
     //qDebug("MplayerLayer::setRepaintBackground: %d", b);
     repaint_background = b;
 }
-//#endif
 
 void MplayerLayer::paintEvent( QPaintEvent * e ) {
 //    qDebug("MplayerLayer::paintEvent: repaint_background: %d", repaint_background);
@@ -209,6 +210,7 @@ MplayerWindow::MplayerWindow(QWidget* parent, Qt::WindowFlags f)
 	, orig_width(0)
 	, orig_height(0)
 	, allow_video_movement(false)
+    , animated_logo(false)
 	, left_click_timer(0)
 	, double_clicked(false)
 	, corner_widget(0)
@@ -287,6 +289,7 @@ void MplayerWindow::retranslateStrings() {
 }
 
 void MplayerWindow::setLogoVisible( bool b) {
+    if (b) mplayerlayer->setUpdatesEnabled(true);
     if (corner_widget) {
         corner_widget->setVisible(false);
     }
@@ -295,7 +298,26 @@ void MplayerWindow::setLogoVisible( bool b) {
         mplayerlayer->resize(this->size());
     }
     stoped = b;
-    logo->setVisible(b);
+
+    if (b) {
+        logo->show();
+        QPropertyAnimation * animation = new QPropertyAnimation(logo, "pos");
+        animation->setDuration(200);
+        animation->setEasingCurve(QEasingCurve::OutBounce);
+        animation->setStartValue(QPoint(logo->x(), 0 - logo->y()));
+        animation->setEndValue(logo->pos());
+        animation->start();
+    } else {
+        QPropertyAnimation * animation = new QPropertyAnimation(logo, "pos");
+        animation->setDuration(200);
+        animation->setEasingCurve(QEasingCurve::OutBounce);
+        animation->setEndValue(QPoint(width(), logo->y()));
+        animation->setStartValue(logo->pos());
+        animation->start();
+        connect(animation, SIGNAL(finished()), logo, SLOT(hide()));
+        //logo->hide();
+    }
+    //logo->setVisible(b);
 }
 
 //void MplayerWindow::show_or_hide_logo(bool b)
@@ -581,96 +603,10 @@ bool MplayerWindow::eventFilter( QObject * object, QEvent * event ) {
     start_drag = pos;
     event->accept();
     return true;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //0621
-//    switch (event->type()) {
-//    /*case QEvent::Enter: {
-//        if (this->hintWidget) {
-//            this->hintWidget->hide();
-//        }
-
-
-
-////        QPoint p = parent->mapFromGlobal(mouse_event->globalPos());
-////        if (p.y() > (parent->height() - height() - spacing)) {
-////            showWidget();
-////        }
-////        QPoint pos = mapFromGlobal(QCursor::pos());
-
-
-////        QMouseEvent * mouse_event = dynamic_cast<QMouseEvent*>(event);
-////        QWidget * parent = parentWidget();
-////        QPoint p = parent->mapFromGlobal(mouse_event->globalPos());
-
-
-//        QHelpEvent * help_event = static_cast<QHelpEvent *>(event);
-//        qDebug() << "TimeSlider::event: total_time:" << total_time << "x:" << help_event->x();
-//        int pos_in_slider = help_event->x() * maximum() / width();
-//        int time = pos_in_slider * total_time / maximum();
-//        qDebug() << "TimeSlider::event: time:" << time;
-//        if (time >= 0 && time <= total_time) {
-//            qDebug () << "test time=" << Helper::formatTime(time);
-//            hintWidget->setText(Helper::formatTime(time));
-//        }
-
-
-//        QPoint centerPos = this->mapToGlobal(this->rect().center());
-//        QSize sz = this->hintWidget->size();
-//        centerPos.setX(centerPos.x()  - sz.width() / 2);
-//        centerPos.setY(centerPos.y() - 32 - sz.height());
-//        centerPos = this->hintWidget->mapFromGlobal(centerPos);
-//        centerPos = this->hintWidget->mapToParent(centerPos);
-//        this->hintWidget->move(centerPos);
-//        this->hintWidget->show();
-//        this->setCursor(QCursor(Qt::PointingHandCursor));
-//        break;
-//    }*/
-//    case QEvent::Leave: {
-//        if (this->hintWidget) {
-//            this->hintWidget->hide();
-//        }
-//        this->unsetCursor();
-//        break;
-//    }
-//    case QEvent::MouseButtonPress:
-//        if (this->hintWidget) {
-//            this->hintWidget->hide();
-//        }
-//        break;
-//    default:
-//        break;
-//    }
-//    return QObject::eventFilter(obj, event);
 }
 
 QSize MplayerWindow::sizeHint() const {
-	//qDebug("MplayerWindow::sizeHint");
-	return QSize( video_width, video_height );
+    return QSize(video_width, video_height);
 }
 
 QSize MplayerWindow::minimumSizeHint () const {

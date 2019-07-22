@@ -2,7 +2,7 @@ TARGET = kylin-video
 TEMPLATE = app
 LANGUAGE = C++
 
-CONFIG += c++11
+CONFIG += c++14
 CONFIG += qt warn_on
 CONFIG += release
 CONFIG += link_pkgconfig
@@ -20,7 +20,6 @@ inst2.files += ../kylin-video.desktop
 inst2.path = /usr/share/applications
 target.source  += $$TARGET
 target.path = /usr/bin
-#INSTALLS += target
 INSTALLS += inst1 \
     inst2 \
     target
@@ -100,7 +99,6 @@ HEADERS += smplayer/config.h \
         smplayer/globalshortcuts/globalshortcuts.h \
         smplayer/globalshortcuts/globalshortcutsdialog.h \
         smplayer/discname.h \
-        smplayer/basegui.h \
         smplayer/lineedit_with_icon.h \
         smplayer/preferencesdialog.h \
         smplayer/prefgeneral.h \
@@ -139,7 +137,9 @@ HEADERS += smplayer/config.h \
         infoworker.h \
         kylinvideo.h \
         bottomcontroller.h \
-        filterhandler.h
+        filterhandler.h \
+        maskwidget.h \
+        mainwindow.h
 
 SOURCES	+= smplayer/version.cpp \
         smplayer/mplayerversion.cpp \
@@ -204,7 +204,6 @@ SOURCES	+= smplayer/version.cpp \
         smplayer/globalshortcuts/globalshortcutsdialog.cpp \
         smplayer/discname.cpp \
         smplayer/lineedit_with_icon.cpp \
-        smplayer/basegui.cpp \
         smplayer/preferencesdialog.cpp \
         smplayer/prefgeneral.cpp \
         smplayer/prefperformance.cpp \
@@ -241,7 +240,9 @@ SOURCES	+= smplayer/version.cpp \
         infoworker.cpp \
         kylinvideo.cpp \
         bottomcontroller.cpp \
-        filterhandler.cpp
+        filterhandler.cpp \
+        maskwidget.cpp \
+        mainwindow.cpp
 
 FORMS = smplayer/timedialog.ui \
         smplayer/preferencesdialog.ui \
@@ -260,7 +261,6 @@ FORMS = smplayer/timedialog.ui \
         supportformats.ui \
         aboutdialog.ui \
         smplayer/globalshortcuts/globalshortcutsdialog.ui
-
 
 # qtsingleapplication
 contains( DEFINES, SINGLE_INSTANCE ) {

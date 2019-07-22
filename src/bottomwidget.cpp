@@ -18,7 +18,7 @@
  */
 
 #include "bottomwidget.h"
-#include <QPainter>
+
 #include <QProcess>
 #include <QResizeEvent>
 #include <QShortcut>
@@ -67,11 +67,11 @@ BottomWidget::BottomWidget(QWidget *parent)
     this->setMouseTracking(true);
     setAutoFillBackground(true);
     setFocusPolicy(Qt::ClickFocus);
-
+    this->setAttribute(Qt::WA_TranslucentBackground, true);//窗体标题栏不透明，背景透明
     //201810
-    QPalette palette;
-    palette.setColor(QPalette::Background, QColor("#040404"));
-    this->setPalette(palette);
+//    QPalette palette;
+//    palette.setColor(QPalette::Background, QColor("#040404"));
+//    this->setPalette(palette);
 //    this->setStyleSheet("QWidget{background-color:rgba(255, 255, 255, 0.8);}");
 
     setWindowFlags(windowFlags() | Qt::SubWindow);
@@ -271,24 +271,6 @@ BottomWidget::~BottomWidget() {
     }
 }
 
-//void BottomWidget::setData(Preferences *pref) {
-//	QString ao = pref->ao;
-//    setAO(ao);
-//    setGlobalVolume(pref->global_volume);
-//    setSoftVol(pref->use_soft_vol);
-//    setInitialVolNorm(pref->initial_volnorm);
-//    setAmplification(pref->softvol_max);
-//    setAudioChannels(pref->initial_audio_channels);
-//    setAutoSyncActivated(pref->autosync);
-//    setAutoSyncFactor(pref->autosync_factor);
-//}
-
-/*void BottomWidget::setParentWindow(MplayerWindow* window) {
-    p_mainwindow = window;
-    p_mainwindow->installEventFilter(this);
-    p_mainwindow->setMouseTracking(true);
-}*/
-
 void BottomWidget::setPreviewData(bool preview) {
     if (progress) {
         progress->set_preview_flag(preview);
@@ -455,68 +437,14 @@ void BottomWidget::update_widget_qss_property(QWidget *w, const char *name, cons
     w->update();
 }
 
-//void BottomWidget::installFilter(QObject *o) {
-//    QObjectList children = o->children();
-//    for (int n=0; n < children.count(); n++) {
-//        if (children[n]->isWidgetType()) {
-//            if (children[n]->objectName() == "PlayListViewScrollBar") {//kobe:让滚动条可以鼠标拖动
-//                continue;
-//            }
-//            else if (children[n]->objectName() == "min_button" || children[n]->objectName() == "close_button" || children[n]->objectName() == "menu_button" || children[n]->objectName() == "max_button") {
-//                continue;
-//            }
-//            else if (children[n]->objectName() == "StopBtn" || children[n]->objectName() == "PrevBtn" || children[n]->objectName() == "PlayBtn" || children[n]->objectName() == "NextBtn") {
-//                continue;
-//            }
-//            else if (children[n]->objectName() == "SoundBtn" || children[n]->objectName() == "FullScreenBtn" || children[n]->objectName() == "PlayListBtn" || children[n]->objectName() == "VolumeSlider") {
-//                continue;
-//            }
-//            QWidget *w = static_cast<QWidget *>(children[n]);
-//            w->setMouseTracking(true);
-//            w->installEventFilter(this);
-//            installFilter(children[n]);
-//        }
-//    }
-//}
-
-//201810
-void BottomWidget::activate() {
-//    turned_on = true;
-//    if (timer->isActive())
-//        timer->stop();
-//    timer->start();
-}
-
-void BottomWidget::deactivate() {
-//    turned_on = false;
-//    timer->stop();
-//    this->showWidget();
-}
-
-void BottomWidget::showAlways() {
-//    turned_on = false;
-//    timer->stop();
-//    QPoint dest_position = QPoint(0, parentWidget()->size().height() - this->height());
-//    move(dest_position);
-//    controlWidget->show();
-//    QWidget::show();
-}
-
 void BottomWidget::enable_turned_on() {
     turned_on = true;
-}
-
-void BottomWidget::showWidget() {
-//    showSpreadAnimated();
-//    if (timer->isActive())
-//        timer->stop();
-//    timer->start();
 }
 
 void BottomWidget::checkUnderMouse() {
     if ((ctlWidget->isVisible()) && (!underMouse())) {//0616
         this->showGatherAnimated();
-        //0621 tell mainwindow to hide escwidget
+        //tell mainwindow to hide escwidget
         emit this->sig_show_or_hide_esc(false);
     }
 }
@@ -536,39 +464,12 @@ bool BottomWidget::eventFilter(QObject * obj, QEvent * event) {
         return false;
     }
 
-//    if (turned_on) {
         if (event->type() == QEvent::MouseMove) {
             if (!isVisible()) {
-                //201810
-                //showWidget();
                 emit this->requestTemporaryShow();
-
-                /*if (activation_area == Anywhere) {
-                    showWidget();
-                } else {
-                    QMouseEvent * mouse_event = dynamic_cast<QMouseEvent*>(event);
-                    QWidget * parent = parentWidget();
-                    QPoint p = parent->mapFromGlobal(mouse_event->globalPos());
-                    if (p.y() > (parent->height() - height() - spacing)) {
-                        showWidget();
-                    }
-                }*/
             }
             else if (!ctlWidget->isVisible()) {
-                //201810
-                //showWidget();
                 emit this->requestTemporaryShow();
-
-                /*if (activation_area == Anywhere) {
-                    showWidget();
-                } else {
-                    QMouseEvent * mouse_event = dynamic_cast<QMouseEvent*>(event);
-                    QWidget * parent = parentWidget();
-                    QPoint p = parent->mapFromGlobal(mouse_event->globalPos());
-                    if (p.y() > (parent->height() - height() - spacing)) {
-                        showWidget();
-                    }
-                }*/
             }
         }
 
@@ -621,58 +522,6 @@ bool BottomWidget::eventFilter(QObject * obj, QEvent * event) {
 
         event->accept();
         return true;
-    /*}
-    else {
-        if (type == QEvent::MouseButtonPress) {
-            if (mouseEvent->button() != Qt::LeftButton) {
-                drag_state = NOT_BDRAGGING;
-                return false;
-            }
-
-            drag_state = START_BDRAGGING;
-            start_drag = mouseEvent->globalPos();
-            // Don't filter, so others can have a look at it too
-            return false;
-        }
-
-        if (type == QEvent::MouseButtonRelease) {
-            if (drag_state != BDRAGGING || mouseEvent->button() != Qt::LeftButton) {
-                drag_state = NOT_BDRAGGING;
-                return false;
-            }
-
-            // Stop dragging and eat event
-            drag_state = NOT_BDRAGGING;
-            event->accept();
-            return true;
-        }
-
-        // type == QEvent::MouseMove
-        if (drag_state == NOT_BDRAGGING)
-            return false;
-
-        // buttons() note the s
-        if (mouseEvent->buttons() != Qt::LeftButton) {
-            drag_state = NOT_BDRAGGING;
-            return false;
-        }
-
-        QPoint pos = mouseEvent->globalPos();
-        QPoint diff = pos - start_drag;
-        if (drag_state == START_BDRAGGING) {
-            // Don't start dragging before moving at least DRAG_THRESHOLD pixels
-            if (abs(diff.x()) < 4 && abs(diff.y()) < 4)
-                return false;
-
-            drag_state = BDRAGGING;
-        }
-
-        emit mouseMovedDiff(diff);
-        start_drag = pos;
-
-        event->accept();
-        return true;
-    }*/
 }
 
 void BottomWidget::spreadAniFinished() {
@@ -727,85 +576,13 @@ void BottomWidget::showGatherAnimated() {
     gatherAnimation->start();
 }
 
-//--------------------------------------
-/*void BottomWidget::mouseMoveEvent(QMouseEvent *event)
-{
-    QPoint topLeftPoint (0, this->height()-140);
-    QPoint rightBottomPoint(this->width(), this->height());
-    topLeftPoint  = this->mapToGlobal(topLeftPoint);
-    rightBottomPoint = this->mapToGlobal(rightBottomPoint);
-    QPoint mouseGlobalPoint = this->mapToGlobal(event->pos());
-
-    if(isLeftPressDown)  //
-    {
-        QMouseEvent *mouseEvent = dynamic_cast<QMouseEvent*>(event);
-        if (!mouseEvent)
-            return;
-        if (mouseEvent->modifiers() != Qt::NoModifier) {
-            return;
-        }
-        QPoint pos = mouseEvent->globalPos();
-        QPoint diff = pos - start_drag;
-        // Don't start dragging before moving at least DRAG_THRESHOLD pixels
-        if (abs(diff.x()) < 4 && abs(diff.y()) < 4)
-            return;
-
-        emit mouseMovedDiff(diff);
-        start_drag = pos;
-
-//        emit mouseMovedDiff(event->globalPos()-start_drag);
-//         emit signalMovePoint(event->globalPos()-start_drag);
-    }
-}
-
-void BottomWidget::mouseReleaseEvent(QMouseEvent *event)
-{
-    if(event->button() == Qt::LeftButton)
-    {
-        isLeftPressDown = false;
-        this->releaseMouse();
-
-    }
-}
-
-void BottomWidget::mousePressEvent(QMouseEvent *event)
-{
-
-    switch(event->button()) {
-    case Qt::LeftButton:
-    {
-        isLeftPressDown = true;
-//        emit signalLeftPressDown(true);
-        start_drag = event->globalPos();
-        break;
-    }
-    case Qt::RightButton:
-        break;
-    default:
-        break;
-    }
-}*/
-//--------------------------------------
-
-//void BottomWidget::mouseMoveEvent(QMouseEvent *event)
-//{
-//    QWidget::mouseMoveEvent(event);
-
-//    Qt::MouseButton button = event->buttons() & Qt::LeftButton ? Qt::LeftButton : Qt::NoButton;
-//    if (this->enableMove && event->buttons() == Qt::LeftButton) {
-//        emit mouseMoving(button);
-//    }
-//}
-
 void BottomWidget::resizeEvent(QResizeEvent *event)
 {
-    //20170810
     QWidget::resizeEvent(event);
     emit sig_resize_corner();
     progress->resize(this->width(), 24);
 }
 
-//201810
 void BottomWidget::enterEvent(QEvent *event)
 {
     QWidget::enterEvent(event);
@@ -818,4 +595,18 @@ void BottomWidget::leaveEvent(QEvent *event)
     QWidget::leaveEvent(event);
 
     emit mouseLeave();
+}
+
+void BottomWidget::paintEvent(QPaintEvent *event)
+{
+    Q_UNUSED(event);
+
+//    QStyleOption opt;
+//    opt.init(this);
+//    QPainter p(this);
+//    style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+
+    QPainter p(this);
+    p.setCompositionMode(QPainter::CompositionMode_Clear);
+    p.fillRect(rect(), Qt::SolidPattern);//p.fillRect(0, 0, this->width(), this->height(), Qt::SolidPattern);
 }

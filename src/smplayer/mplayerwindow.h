@@ -97,14 +97,12 @@ public:
 	MplayerLayer(QWidget* parent = 0, Qt::WindowFlags f = 0);
 	~MplayerLayer();
 
-//#if REPAINT_BACKGROUND_OPTION
 	//! If b is true, the background of the widget will be repainted as usual.
 	/*! Otherwise the background will not repainted when a video is playing. */
     void setRepaintBackground(bool b);
 
     //! Return true if repainting the background is allowed.
     bool repaintBackground() { return repaint_background; };
-//#endif
 
 public slots:
 	//! Should be called when a file has started. 
@@ -113,15 +111,11 @@ public slots:
 	//! Should be called when a file has stopped.
 	virtual void playingStopped();
 
-//#if REPAINT_BACKGROUND_OPTION
 protected:
     virtual void paintEvent ( QPaintEvent * e );//0522
-//#endif
 
 private:
-//#if REPAINT_BACKGROUND_OPTION
     bool repaint_background;
-//#endif
 	bool playing;
 };
 
@@ -141,9 +135,7 @@ public:
     void setMonitorAspect(double asp);
 	void updateVideoWindow();
 
-//#if USE_COLORKEY
 	void setColorKey(QColor c);
-//#endif
 
 	void setOffsetX( int );
 	int offsetX();
@@ -157,17 +149,15 @@ public:
 	void allowVideoMovement(bool b) { allow_video_movement = b; };
 	bool isVideoMovementAllowed() { return allow_video_movement; };
 
-//	void delayLeftClick(bool b) { delay_left_click = b; };
-//	bool isLeftClickDelayed() { return delay_left_click; };
+    void delayLeftClick(bool b) { delay_left_click = b; };
+    bool isLeftClickDelayed() { return delay_left_click; };
 
 	virtual QSize sizeHint () const;
 	virtual QSize minimumSizeHint() const;
 
 	virtual bool eventFilter(QObject *, QEvent *);
 
-//#if LOGO_ANIMATION
-//	bool animatedLogo() { return animated_logo; }
-//#endif
+    bool animatedLogo() { return animated_logo; }
 
 	void setCornerWidget(QWidget * w);
 	QWidget * cornerWidget() { return corner_widget; };
@@ -180,9 +170,8 @@ public slots:
 //    void show_or_hide_logo(bool b);
     void update_logo_pos();
 
-//#if LOGO_ANIMATION
-//	void setAnimatedLogo(bool b) { animated_logo = b; };
-//#endif
+
+    void setAnimatedLogo(bool b) { animated_logo = b; };
 
 	void moveLeft();
 	void moveRight();
@@ -250,13 +239,11 @@ protected:
 //#endif
 
 	// Delay left click event
-//	bool delay_left_click;
+    bool delay_left_click;
 	QTimer * left_click_timer;
 	bool double_clicked;
 
-//#if LOGO_ANIMATION
-//	bool animated_logo;
-//#endif
+    bool animated_logo;
 
 	QWidget * corner_widget;
 

@@ -1,3 +1,9 @@
+kylin-video (2.0.0-0ubuntu2) eoan; urgency=low
+
+  * Supported Interface Size Tension.
+
+ -- lixiang <lixiang@kylinos.cn>  Mon, 22 Jul 2019 10:51:05 +0800
+
 kylin-video (2.0.0-0ubuntu1) disco; urgency=low
 
   * Updated these modules: preferences, core, mplayerprocess and mpvprocess.

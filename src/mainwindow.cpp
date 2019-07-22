@@ -1,24 +1,24 @@
-/*  smplayer, GUI front-end for mplayer.
-    Copyright (C) 2006-2015 Ricardo Villalba <rvm@users.sourceforge.net>
-    Copyright (C) 2013 ~ 2019 National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
+/*
+ * Copyright (C) 2013 ~ 2019 National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
+ *
+ * Authors:
+ *  Kobe Lee    lixiang@kylinos.cn/kobe24_lixiang@126.com
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; version 3.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
+#include "mainwindow.h"
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
-*/
-
-#include "basegui.h"
-#include "../smplayer/filedialog.h"
 #include <QMessageBox>
 #include <QMouseEvent>
 #include <QLabel>
@@ -43,52 +43,55 @@
 #include <QDesktopWidget>
 #include <cmath>
 #include <QtCore/qmath.h>
-
-#include "../smplayer/mplayerwindow.h"
-#include "../smplayer/desktopinfo.h"
-#include "../smplayer/helper.h"
-#include "../smplayer/paths.h"
-#include "../smplayer/colorutils.h"
-#include "../smplayer/global.h"
-#include "../smplayer/translator.h"
-#include "../smplayer/images.h"
-#include "../smplayer/preferences.h"
-#include "../playlist.h"
-#include "filepropertiesdialog.h"
-#include "../smplayer/recents.h"
-#include "../smplayer/urlhistory.h"
-#include "errordialog.h"
-#include "../smplayer/timedialog.h"
-#include "../titlewidget.h"
-#include "../bottomwidget.h"
-#include "../playmask.h"
-#include "../aboutdialog.h"
-#include "../esctip.h"
-#include "../tipwidget.h"
-#include "audiodelaydialog.h"
-#include "../messagedialog.h"
 #include <QGraphicsOpacityEffect>
-#include "../smplayer/mplayerversion.h"
-#include "../smplayer/config.h"
-#include "../smplayer/actionseditor.h"
-#include "preferencesdialog.h"
-#include "prefshortcut.h"
-#include "../smplayer/myaction.h"
-#include "../smplayer/myactiongroup.h"
-#include "../smplayer/extensions.h"
-#include "../smplayer/version.h"
-#include "../smplayer/videopreview.h"
-//#include "../shortcutswidget.h"
-#include "../helpdialog.h"
-#include "inputurl.h"
-#include "bottomcontroller.h"
-#include "filterhandler.h"
-#include "../coverwidget.h"
-
-#include "../datautils.h"
-#include "../infoworker.h"
 #include <QVariant>
 #include <QDataStream>
+
+#include "playlist.h"
+#include "titlewidget.h"
+#include "bottomwidget.h"
+#include "playmask.h"
+#include "aboutdialog.h"
+#include "esctip.h"
+#include "tipwidget.h"
+#include "messagedialog.h"
+//#include "shortcutswidget.h"
+#include "helpdialog.h"
+#include "bottomcontroller.h"
+#include "filterhandler.h"
+#include "coverwidget.h"
+#include "datautils.h"
+#include "infoworker.h"
+#include "maskwidget.h"
+
+#include "smplayer/mplayerwindow.h"
+#include "smplayer/desktopinfo.h"
+#include "smplayer/helper.h"
+#include "smplayer/paths.h"
+#include "smplayer/colorutils.h"
+#include "smplayer/global.h"
+#include "smplayer/translator.h"
+#include "smplayer/images.h"
+#include "smplayer/preferences.h"
+#include "smplayer/filepropertiesdialog.h"
+#include "smplayer/recents.h"
+#include "smplayer/urlhistory.h"
+#include "smplayer/errordialog.h"
+#include "smplayer/timedialog.h"
+#include "smplayer/audiodelaydialog.h"
+#include "smplayer/filedialog.h"
+#include "smplayer/mplayerversion.h"
+#include "smplayer/config.h"
+#include "smplayer/actionseditor.h"
+#include "smplayer/preferencesdialog.h"
+#include "smplayer/prefshortcut.h"
+#include "smplayer/myaction.h"
+#include "smplayer/myactiongroup.h"
+#include "smplayer/extensions.h"
+#include "smplayer/version.h"
+#include "smplayer/videopreview.h"
+#include "smplayer/inputurl.h"
+
 
 using namespace Global;
 
@@ -98,7 +101,6 @@ inline bool inRectCheck(QPoint point, QRect rect) {
     bool y = rect.y() <= point.y() && point.y() <= rect.y() + rect.height();
     return x && y;
 }
-
 
 QDataStream &operator<<(QDataStream &dataStream, const VideoPtr &objectA)
 {
@@ -119,24 +121,24 @@ QDataStream &operator>>(QDataStream &dataStream, VideoPtr &objectA)
     return dataStream;
 }
 
-
-BaseGui::BaseGui(QString arch_type, QString snap, QWidget* parent, Qt::WindowFlags flags)
-    : QMainWindow( parent, flags )
+MainWindow::MainWindow(QString arch_type, QString snap, QWidget* parent)
+    : QMainWindow( parent)
 #if QT_VERSION >= 0x050000
 	, was_minimized(false)
 #endif
     , m_bottomController(new BottomController(this))
     , m_mouseFilterHandler(new FilterHandler(*this, *qApp))
     , m_leftPressed(false)
+    , m_maskWidget(new MaskWidget(this))
 {
-    this->setWindowTitle(tr("Kylin Video"));
-    this->setMouseTracking(true);
+    this->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);//设置窗体标题栏隐藏并设置位于顶层
+    this->setMouseTracking(true);//可获取鼠标跟踪效果，界面拉伸需要这个属性
     this->setAutoFillBackground(true);
-    //QWidget::setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
-    //this->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowMinimizeButtonHint);
-    this->setWindowFlags(Qt::FramelessWindowHint);
+    this->setFocusPolicy(Qt::ClickFocus);//Qt::StrongFocus
+    this->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
     this->setMinimumSize(WINDOW_MIN_WIDTH, WINDOW_MIN_HEIGHT);
     this->resize(900, 600);
+    this->setWindowTitle(tr("Kylin Video"));
     this->setWindowIcon(QIcon(":/res/kylin-video.png"));
 
     qRegisterMetaType<VideoPtr>();
@@ -152,7 +154,6 @@ BaseGui::BaseGui(QString arch_type, QString snap, QWidget* parent, Qt::WindowFla
     isFinished = false;//kobe
     isPlaying = false;
     this->resizeFlag = false;
-    fullscreen = false;
 
     m_currentWidget = NULL;
 
@@ -181,7 +182,7 @@ BaseGui::BaseGui(QString arch_type, QString snap, QWidget* parent, Qt::WindowFla
 //    shortcuts_widget->set_parent_widget(this);
 
 	createPanel();
-    setCentralWidget(panel);//kobe for QMainWindow 中心窗口部件，panel加载的是视频显示区域
+
 	createMplayerWindow();
 	createCore();
 	createPlaylist();
@@ -196,24 +197,24 @@ BaseGui::BaseGui(QString arch_type, QString snap, QWidget* parent, Qt::WindowFla
 
     setAcceptDrops(true);
 
-    panel->setFocus();
-
     //top
-    m_topToolbar = new TitleWidget(this);
+    m_topToolbar = new TitleWidget(this/*mplayerwindow*/);
     m_topToolbar->setFixedHeight(TOP_TOOLBAR_HEIGHT);
     this->setMenuWidget(m_topToolbar);
+    m_topToolbar->setMouseTracking(true);
 
     connect(m_playlistWidget, SIGNAL(sig_playing_title(QString)), m_topToolbar, SLOT(set_title_name(QString)));
     connect(this, SIGNAL(clear_playing_title()), m_topToolbar, SLOT(clear_title_name()));
     connect(m_topToolbar, SIGNAL(sig_menu()), this, SLOT(slot_menu()));
     connect(m_topToolbar, SIGNAL(sig_min()), this, SLOT(slot_min()));
     connect(m_topToolbar, SIGNAL(sig_close()), this, SLOT(slot_close()));
-    connect(m_topToolbar, SIGNAL(sig_max()), this, SLOT(slot_max()));
+    connect(m_topToolbar, SIGNAL(requestMaxWindow(bool)), this, SLOT(onResponseMaxWindow(bool)));
     connect(m_topToolbar, SIGNAL(mouseMovedDiff(QPoint)), this, SLOT(moveWindowDiff(QPoint)), Qt::QueuedConnection );//kobe 0524
 
     //bottom
-    m_bottomToolbar = new BottomWidget(this);
+    m_bottomToolbar = new BottomWidget(this/*mplayerwindow*/);
     m_bottomToolbar->setFixedHeight(BOTTOM_TOOLBAR_HEIGHT);
+    m_bottomToolbar->setLayoutDirection(Qt::LeftToRight);
 
     connect(m_bottomToolbar, SIGNAL(sig_resize_corner()), this, SLOT(slot_resize_corner()));
     connect(m_bottomToolbar, SIGNAL(volumeChanged(int)), core, SLOT(setVolume(int)));
@@ -221,8 +222,7 @@ BaseGui::BaseGui(QString arch_type, QString snap, QWidget* parent, Qt::WindowFla
     connect(m_bottomToolbar, SIGNAL(toggleFullScreen()), this, SLOT(slot_set_fullscreen()));//0621
     connect(m_bottomToolbar, SIGNAL(togglePlaylist()), this, SLOT(slot_playlist()));
     connect(this, SIGNAL(timeChanged(QString, QString)),m_bottomToolbar, SLOT(displayTime(QString, QString)));
-    //connect(m_bottomToolbar, SIGNAL(signal_stop()), core, SLOT(stop()));
-    //201810
+
     connect(m_bottomToolbar, &BottomWidget::signal_stop, this, [=] {
         core->stop();
         disconnect(m_mouseFilterHandler, SIGNAL(mouseMoved()), m_bottomController, SLOT(temporaryShow()));
@@ -230,25 +230,25 @@ BaseGui::BaseGui(QString arch_type, QString snap, QWidget* parent, Qt::WindowFla
     });
     connect(m_bottomToolbar, SIGNAL(signal_prev()), m_playlistWidget, SLOT(playPrev()));
 
-    //201810
-    //connect(m_bottomToolbar, SIGNAL(signal_play_pause_status()), core, SLOT(play_or_pause()));
-    connect(m_bottomToolbar, &BottomWidget::signal_play_pause_status, this, &BaseGui::startPlayPause);
+    connect(m_bottomToolbar, &BottomWidget::signal_play_pause_status, this, &MainWindow::startPlayPause);
     connect(m_bottomToolbar, &BottomWidget::requestTemporaryShow, this, [=] {
         m_bottomController->temporaryShow();
     });
 
     connect(m_bottomToolbar, SIGNAL(signal_next()), m_playlistWidget, SLOT(playNext()));
     connect(m_bottomToolbar, SIGNAL(signal_open_file()), this, SLOT(openFile()));
-    connect(m_bottomToolbar, SIGNAL(signal_mute(/*bool*/)), this, SLOT(slot_mute(/*bool*/)));
+    connect(m_bottomToolbar, SIGNAL(signal_mute()), this, SLOT(slot_mute()));
     connect(this, SIGNAL(sigActionsEnabled(bool)), m_bottomToolbar, SLOT(setActionsEnabled(bool)));
     connect(this, SIGNAL(setPlayOrPauseEnabled(bool)), m_bottomToolbar, SLOT(setPlayOrPauseEnabled(bool)));
     connect(this, SIGNAL(setStopEnabled(bool)), m_bottomToolbar, SLOT(setStopEnabled(bool)));
     connect(this, SIGNAL(change_playlist_btn_status(bool)), m_bottomToolbar, SLOT(slot_playlist_btn_status(bool)));
     //progress
     connect(m_bottomToolbar, SIGNAL(posChanged(int)), core, SLOT(goToPosition(int)));
+    connect(m_bottomToolbar, SIGNAL(delayedDraggingPos(int)), this, SLOT(goToPosOnDragging(int)));
+
     connect(core, SIGNAL(positionChanged(int)), m_bottomToolbar, SLOT(setPos(int)));
     connect(m_bottomToolbar, SIGNAL(draggingPos(int)), this, SLOT(displayGotoTime(int)));
-    connect(m_bottomToolbar, SIGNAL(delayedDraggingPos(int)), this, SLOT(goToPosOnDragging(int)));
+
     connect(m_bottomToolbar, SIGNAL(wheelUp()), core, SLOT(wheelUp()));
     connect(m_bottomToolbar, SIGNAL(wheelDown()), core, SLOT(wheelDown()));
     connect(m_bottomToolbar, SIGNAL(mouseMovedDiff(QPoint)), this, SLOT(moveWindowDiff(QPoint)), Qt::QueuedConnection );//kobe 0524
@@ -261,13 +261,11 @@ BaseGui::BaseGui(QString arch_type, QString snap, QWidget* parent, Qt::WindowFla
     resizeCorner->setFocusPolicy(Qt::NoFocus);
     resizeCorner->setStyleSheet("QPushButton{background-image:url(':/res/dragbar_normal.png');border:0px;}QPushButton:hover{background-image:url(':/res/dragbar_normal.png')}QPushButton:pressed{background-image:url(':/res/dragbar_normal.png')}");
     resizeCorner->setFixedSize(15, 15);
+    resizeCorner->setCursor(Qt::SizeFDiagCursor);
     resizeCorner->move(m_bottomToolbar->width()-15, m_bottomToolbar->height()-15);
     resizeCorner->installEventFilter(this);
+    resizeCorner->raise();
 
-
-
-
-    //201810
     connect(m_bottomController, &BottomController::requestShow, this, [=] {
         m_bottomToolbar->show();
         m_topToolbar->show();
@@ -278,9 +276,8 @@ BaseGui::BaseGui(QString arch_type, QString snap, QWidget* parent, Qt::WindowFla
         m_topToolbar->hide();
     });
 
-
-    m_coverWidget = new CoverWidget(this);
-    m_coverWidget->setContentsMargins(0, 0, 0, 0);
+//    m_coverWidget = new CoverWidget(this);
+//    m_coverWidget->setContentsMargins(0, 0, 0, 0);
 
     mainwindow_pos = pos();
 
@@ -290,12 +287,12 @@ BaseGui::BaseGui(QString arch_type, QString snap, QWidget* parent, Qt::WindowFla
     tipWidget->hide();
 
     contentLayout = new QStackedLayout(panel);
-    contentLayout->setContentsMargins(0, 0, 0, 0);
-    contentLayout->setMargin(0);
+    contentLayout->setContentsMargins(20, 20, 20, 20);
+    contentLayout->setMargin(1);
     contentLayout->setSpacing(0);
     contentLayout->addWidget(m_topToolbar);
     contentLayout->addWidget(mplayerwindow);
-    contentLayout->addWidget(m_coverWidget);
+//    contentLayout->addWidget(m_coverWidget);
     contentLayout->addWidget(m_bottomToolbar);
 
     m_topToolbar->show();
@@ -328,9 +325,7 @@ BaseGui::BaseGui(QString arch_type, QString snap, QWidget* parent, Qt::WindowFla
     play_mask = new PlayMask(mplayerwindow);
     mplayerwindow->setCornerWidget(play_mask);
     play_mask->hide();
-    //201810
-    //connect(play_mask, SIGNAL(signal_play_continue()), core, SLOT(play_or_pause()));
-    connect(play_mask, &PlayMask::signal_play_continue, this, &BaseGui::startPlayPause);
+    connect(play_mask, &PlayMask::signal_play_continue, this, &MainWindow::startPlayPause);
 
     tip_timer = new QTimer(this);
     connect(tip_timer, SIGNAL(timeout()), this, SLOT(hideTipWidget()));
@@ -339,16 +334,23 @@ BaseGui::BaseGui(QString arch_type, QString snap, QWidget* parent, Qt::WindowFla
     initializeGui();
 
     connect( this, SIGNAL(videoInfoChanged(int,int,double)), this, SLOT(displayVideoInfo(int,int,double)) );
-    connect( core, SIGNAL(bitrateChanged(int,int)), this, SLOT(displayBitrateInfo(int,int)) );
+    connect( core, SIGNAL(bitrateChanged(int,int)), this, SLOT(displayBitrateInfo(int,int)));
+
+
+//    QGraphicsDropShadowEffect *effect = new QGraphicsDropShadowEffect(this);
+//    effect->setBlurRadius(50);
+//    effect->setColor(Qt::red);
+//    effect->setOffset(0);
+//    this->setGraphicsEffect(effect);
 }
 
-void BaseGui::bindThreadWorker(InfoWorker *worker)
+void MainWindow::bindThreadWorker(InfoWorker *worker)
 {
     connect(m_playlistWidget, SIGNAL(requestGetMediaInfo(QStringList)), worker, SLOT(onGetMediaInfo(QStringList)));
     connect(worker, SIGNAL(meidaFilesAdded(VideoPtrList)), this, SLOT(onMeidaFilesAdded(VideoPtrList)));
 }
 
-void BaseGui::onMeidaFilesAdded(const VideoPtrList medialist)
+void MainWindow::onMeidaFilesAdded(const VideoPtrList medialist)
 {
     if (medialist.length() == 0) {
         QString message = QString(tr("Failed to add files!"));
@@ -359,90 +361,14 @@ void BaseGui::onMeidaFilesAdded(const VideoPtrList medialist)
     }
 }
 
-void BaseGui::parseArguments()
+void MainWindow::parseArguments()
 {
     QStringList args = qApp->arguments();
     int index = args.indexOf("--snap");
     qDebug() << index << args;
 }
 
-//0829
-/*void BaseGui::onShowControls()
-{
-    if (turned_on) {
-        if (!m_topToolbar->isVisible()) {
-            m_topToolbar->showSpreadAnimated();
-        }
-        if (!m_bottomToolbar->getCtrlWidgetVisible()) {
-            m_bottomToolbar->showSpreadAnimated();
-        }
-    }
-}
-
-bool BaseGui::mouseInControlsArea() {
-    QPoint mousePos = QCursor::pos();//getCursorPos
-    bool mouseInTitleBar = inRectCheck(QPoint(mousePos.x() - this->x(), mousePos.y() - this->y()),
-                                        QRect(0, 0, this->width(), m_topToolbar->height()));
-    bool mouseInControlBar = inRectCheck(QPoint(mousePos.x() - this->x(), mousePos.y() - this->y()),
-                                        QRect(0, this->height() - m_bottomToolbar->height(),
-                                                this->width(), m_bottomToolbar->height()));
-
-    return mouseInTitleBar || mouseInControlBar;
-}
-void BaseGui::checkUnderMouse() {
-//    if (!underMouse()) {
-        if (m_topToolbar->isVisible()) {
-            m_topToolbar->showGatherAnimated();
-        }
-        if (m_bottomToolbar->getCtrlWidgetVisible()) {
-            this->showOrHideEscWidget(false);
-            m_bottomToolbar->showGatherAnimated();
-        }
-//    }
-}
-void BaseGui::activate_timer() {
-    turned_on = true;
-    if (mouse_timer->isActive())
-        mouse_timer->stop();
-    mouse_timer->start();
-}
-//void BaseGui::deactivate_timer() {
-//    turned_on = false;
-//    if (mouse_timer->isActive())
-//        mouse_timer->stop();
-//    m_topToolbar->showSpreadAnimated();
-//    m_bottomToolbar->showSpreadAnimated();
-//}
-void BaseGui::showAlways() {
-    turned_on = false;
-    if (mouse_timer->isActive())
-        mouse_timer->stop();
-    m_topToolbar->showAlways();
-    m_bottomToolbar->showAlways();
-}*/
-
-/*void BaseGui::enterEvent(QEvent *event) {
-    this->mouseIn = true;
-//    if (turned_on) {
-//    if (!m_topToolbar->isVisible()) {
-//        qDebug() << "------------BaseGui::enterEvent------------111";
-//        m_topToolbar->showWidget();
-//    }
-//    if (!m_bottomToolbar->getCtrlWidgetVisible()) {
-//        qDebug() << "------------BaseGui::enterEvent------------222";
-//        m_bottomToolbar->showWidget();
-//    }
-//    }
-    QWidget::enterEvent(event);
-}
-void BaseGui::leaveEvent(QEvent *event) {
-    this->mouseIn = false;
-    qDebug() << "------------BaseGui::leaveEvent------------";
-    QWidget::leaveEvent(event);
-}*/
-
-//201810
-void BaseGui::startPlayPause()
+void MainWindow::startPlayPause()
 {
     m_topToolbar->show();
     m_bottomToolbar->show();
@@ -450,8 +376,7 @@ void BaseGui::startPlayPause()
     core->play_or_pause();
 }
 
-
-void BaseGui::setTransparent(bool transparent) {
+void MainWindow::setTransparent(bool transparent) {
     if (transparent) {
         setAttribute(Qt::WA_TranslucentBackground);
         setWindowFlags(windowFlags() | Qt::FramelessWindowHint|Qt::X11BypassWindowManagerHint);
@@ -463,20 +388,20 @@ void BaseGui::setTransparent(bool transparent) {
     }
 }
 
-void BaseGui::set_widget_opacity(const float &opacity) {
+void MainWindow::set_widget_opacity(const float &opacity) {
     QGraphicsOpacityEffect* opacityEffect = new QGraphicsOpacityEffect;
     this->setGraphicsEffect(opacityEffect);
     opacityEffect->setOpacity(opacity);
 }
 
-//void BaseGui::showShortcuts()
+//void MainWindow::showShortcuts()
 //{
 //    shortcuts_widget->setPrefData(pref);
 //    shortcuts_widget->show();
 //    shortcuts_widget->restart_timer();
 //}
 
-void BaseGui::keyPressEvent(QKeyEvent *event) {
+void MainWindow::keyPressEvent(QKeyEvent *event) {
 //    if (event->key() == Qt::Key_Up) {
 //    }
 //    if (event->key() == Qt::Key_Down) {
@@ -488,86 +413,63 @@ void BaseGui::keyPressEvent(QKeyEvent *event) {
 //        if (isFullScreen()) {//201810
 
 //        }
-        if (this->fullscreen) {
+        if (pref->fullscreen) {
             toggleFullscreen(false);
         }
     }
 //    if (event->key() == Qt::Key_Question) {
 //        this->showShortcuts();
 //    }
+//    QWidget::keyPressEvent(event);
     QMainWindow::keyPressEvent(event);
 }
 
-void BaseGui::slot_mute(/*bool b*/) {
+void MainWindow::slot_mute(/*bool b*/) {
     bool muted = core->getMute();
     core->mute(!muted);
-    if (muted && core->getVolumn() <= 0) {//0620
+    if (muted && core->getVolumn() <= 0) {
         core->setVolume(50, true);
     }
     updateWidgets();
 }
 
-void BaseGui::reset_mute_button() {
+void MainWindow::reset_mute_button() {
     bool muted = core->getMute();
     m_bottomToolbar->onMutedChanged(muted, core->getVolumn());//0519
 }
 
-void BaseGui::slot_max() {
-//    if (!this->isMaximized()) {
-//            this->showMaximized();
-//            m_topToolbar->show_max_or_normal_button(false);
-//        }
-    /*if(maxOrNormal){
-        setWindowState( Qt::WindowMaximized);
-    }else {
-        setWindowState( Qt::WindowNoState);
-    }
-    maxOrNormal = !maxOrNormal;*/
+void MainWindow::onResponseMaxWindow(bool b) {
+//    this->toggleFullscreen(b);
 
     if (!this->isMaximized()) {
-        m_topToolbar->update_max_status(true);
+        m_topToolbar->updateMaxButtonStatus(true);
         this->showMaximized();
     }
     else {
-        m_topToolbar->update_max_status(false);
+        m_topToolbar->updateMaxButtonStatus(false);
         this->showNormal();
     }
-
-    /*if (this->isMaximized()) {
-//        if (window()->isMaximized())
-//            window()->showNormal();
-        m_topToolbar->update_max_status(false);
-        this->showNormal();
-    }
-    else {
-        m_topToolbar->update_max_status(true);
-        this->showMaximized();
-    }
-    update();*/
 }
 
-void BaseGui::slot_min() {
+void MainWindow::slot_min() {
     /*if( windowState() != Qt::WindowMinimized ){
         setWindowState( Qt::WindowMinimized );
     }*/
     this->showMinimized();
 }
 
-void BaseGui::slot_menu() {
+void MainWindow::slot_menu() {
     QPoint p = rect().topRight();
     p.setX(p.x() - 38*4);
     p.setY(p.y() + 36);
     main_popup->exec(this->mapToGlobal(p));
-//    main_popup->move(QCursor::pos());
-//    main_popup->show();
 }
 
-void BaseGui::slot_close() {
-//    qApp->quit();
+void MainWindow::slot_close() {
     this->quit();
 }
 
-void BaseGui::initializeGui() {
+void MainWindow::initializeGui() {
     changeStayOnTop(pref->stay_on_top);
     changePlayOrder(pref->play_order);
 	updateRecents();
@@ -580,14 +482,11 @@ void BaseGui::initializeGui() {
 }
 
 #ifdef SINGLE_INSTANCE
-void BaseGui::handleMessageFromOtherInstances(const QString& message) {
-//	qDebug("BaseGui::handleMessageFromOtherInstances: '%s'", message.toUtf8().constData());
+void MainWindow::handleMessageFromOtherInstances(const QString& message) {
 	int pos = message.indexOf(' ');
 	if (pos > -1) {
 		QString command = message.left(pos);
 		QString arg = message.mid(pos+1);
-//		qDebug("command: '%s'", command.toUtf8().constData());
-//		qDebug("arg: '%s'", arg.toUtf8().constData());
 
 		if (command == "open_file") {
 			emit openFileRequested();
@@ -625,8 +524,9 @@ void BaseGui::handleMessageFromOtherInstances(const QString& message) {
 }
 #endif
 
-BaseGui::~BaseGui() {
-    this->clearMplayerLog();//add by kobe
+MainWindow::~MainWindow()
+{
+    this->clearMplayerLog();
     if (core) {
         delete core; // delete before mplayerwindow, otherwise, segfault...
         core = nullptr;
@@ -717,7 +617,7 @@ BaseGui::~BaseGui() {
     }
 }
 
-void BaseGui::createActionsAndMenus() {
+void MainWindow::createActionsAndMenus() {
     openMenu = new QMenu(this);
     openMenu->menuAction()->setText(tr("Open"));
     openMenu->setIcon(Images::icon("open_file_normal"));
@@ -1205,7 +1105,7 @@ void BaseGui::createActionsAndMenus() {
     main_popup->addAction(quitAct);
 }
 
-void BaseGui::createTrayActions() {
+void MainWindow::createTrayActions() {
     tray = new QSystemTrayIcon(Images::icon("logo", 22), this);
     tray->setToolTip("Kylin Video");
     tray->show();
@@ -1226,7 +1126,7 @@ void BaseGui::createTrayActions() {
     tray->setContextMenu(tray_menu);
 }
 
-void BaseGui::addTrayActions() {
+void MainWindow::addTrayActions() {
     //添加菜单项
     tray_menu->addAction(action_show);
     tray_menu->addAction(action_openshotsdir);
@@ -1238,7 +1138,7 @@ void BaseGui::addTrayActions() {
     tray_menu->addAction(quitAct);
 }
 
-void BaseGui::createHiddenActions() {
+void MainWindow::createHiddenActions() {
     playlist_action = new MyAction(QKeySequence("F3"), this, "playlist_open_close");
     playlist_action->change(tr("PlayList"));
     connect(playlist_action, SIGNAL(triggered()), this, SLOT(slot_playlist()));
@@ -1247,7 +1147,7 @@ void BaseGui::createHiddenActions() {
     play_pause_aciton->change(tr("Play/Pause"));
     //201810
     //connect(playlist_action, SIGNAL(triggered()), core, SLOT(play_or_pause()));
-    connect(playlist_action, &MyAction::triggered, this, &BaseGui::startPlayPause);
+    connect(playlist_action, &MyAction::triggered, this, &MainWindow::startPlayPause);
 
     stopAct = new MyAction(Qt::Key_MediaStop, this, "stop");
     stopAct->change(tr("Stop"));
@@ -1255,11 +1155,12 @@ void BaseGui::createHiddenActions() {
 
     fullscreenAct = new MyAction(QKeySequence("Ctrl+Return"), this, "fullscreen");
     fullscreenAct->change(tr("Fullscreen"));
-    connect(fullscreenAct, SIGNAL(triggered()), this, SLOT(slot_set_fullscreen()));
+//    connect(fullscreenAct, SIGNAL(triggered()), this, SLOT(slot_set_fullscreen()));
+    connect(fullscreenAct, SIGNAL(toggled(bool)), this, SLOT(toggleFullscreen(bool)));
 }
 
-void BaseGui::setActionsEnabled(bool b) {
-//    qDebug() << "BaseGui::setActionsEnabled  " << b;
+void MainWindow::setActionsEnabled(bool b) {
+//    qDebug() << "MainWindow::setActionsEnabled  " << b;
     emit this->sigActionsEnabled(b);
 
     rewind1Act->setEnabled(b);
@@ -1303,19 +1204,10 @@ void BaseGui::setActionsEnabled(bool b) {
     stereoGroup->setActionsEnabled(b);
 }
 
-void BaseGui::start_top_and_bottom_timer() {
-//    this->activate();//0830
-    m_topToolbar->activate();
-    m_bottomToolbar->activate();
-}
-
-void BaseGui::enableActionsOnPlaying() {
+void MainWindow::enableActionsOnPlaying() {
     this->setActionsEnabled(true);
 
     isPlaying = true;
-//    QTimer::singleShot(100, this, SLOT(start_top_and_bottom_timer()));
-    start_top_and_bottom_timer();
-//    this->activate_timer();
 
     // Screenshot option
     bool screenshots_enabled = ((pref->use_screenshot) &&
@@ -1360,13 +1252,11 @@ void BaseGui::enableActionsOnPlaying() {
     }
 }
 
-void BaseGui::disableActionsOnStop() {
-//    qDebug("BaseGui::disableActionsOnStop");
+void MainWindow::disableActionsOnStop() {
+//    qDebug("MainWindow::disableActionsOnStop");
     this->setActionsEnabled(false);//kobe:此处会让一些按钮处于禁用状态
     emit this->setPlayOrPauseEnabled(true);
 
-//    m_topToolbar->showAlways();
-//    m_bottomToolbar->showAlways();
 //    if (m_bottomController)
 //        m_bottomController->permanentShow();
 
@@ -1376,7 +1266,7 @@ void BaseGui::disableActionsOnStop() {
 //    turned_on = true;//0829
 }
 
-void BaseGui::togglePlayAction(Core::State state) {
+void MainWindow::togglePlayAction(Core::State state) {
     if (state == Core::Playing) {//Stopped = 0, Playing = 1, Paused = 2
         m_bottomToolbar->onMusicPlayed();
         play_mask->hide();//0620
@@ -1394,7 +1284,7 @@ void BaseGui::togglePlayAction(Core::State state) {
     }
 }
 
-void BaseGui::setJumpTexts() {
+void MainWindow::setJumpTexts() {
     rewind1Act->change( tr("-%1").arg(Helper::timeForJumps(pref->seeking1)) );
     rewind2Act->change( tr("-%1").arg(Helper::timeForJumps(pref->seeking2)) );
     rewind3Act->change( tr("-%1").arg(Helper::timeForJumps(pref->seeking3)) );
@@ -1404,7 +1294,7 @@ void BaseGui::setJumpTexts() {
     forward3Act->change( tr("+%1").arg(Helper::timeForJumps(pref->seeking3)) );
 }
 
-void BaseGui::createCore() {
+void MainWindow::createCore() {
     //edited by kobe 20180623
     core = new Core(mplayerwindow, this->m_snap, this);
 
@@ -1417,6 +1307,7 @@ void BaseGui::createCore() {
     connect(core, SIGNAL(stateChanged(Core::State)), this, SLOT(displayState(Core::State)));
     connect(core, SIGNAL(stateChanged(Core::State)), this, SLOT(checkStayOnTop(Core::State)), Qt::QueuedConnection);
     connect(core, SIGNAL(mediaStartPlay()), this, SLOT(enterFullscreenOnPlay()), Qt::QueuedConnection);
+    connect(core, SIGNAL(mediaStartPlay()), this, SLOT(checkMplayerVersion()), Qt::QueuedConnection);
     connect(core, SIGNAL(mediaStoppedByUser()), this, SLOT(exitFullscreenOnStop()));
     connect(core, SIGNAL(mediaStoppedByUser()), mplayerwindow, SLOT(showLogo()));
     connect(core, SIGNAL(show_logo_signal(bool)), mplayerwindow, SLOT(setLogoVisible(bool)));
@@ -1433,12 +1324,12 @@ void BaseGui::createCore() {
     connect(core, SIGNAL(mplayerFailed(QProcess::ProcessError)), this, SLOT(showErrorFromMplayer(QProcess::ProcessError)));
     connect(core, SIGNAL(mplayerFinishedWithError(int)), this, SLOT(showExitCodeFromMplayer(int)));
     //kobe:没有视频的时候进行相关隐藏设置 Hide mplayer window
-    connect(core, SIGNAL(noVideo()), mplayerwindow, SLOT(showLogo()));
+    connect(core, SIGNAL(noVideo()), mplayerwindow, SLOT(showLogo()));//hidePanel():
 	// Log mplayer output
     connect(core, SIGNAL(aboutToStartPlaying()), this, SLOT(clearMplayerLog()));
     connect(core, SIGNAL(logLineAvailable(QString)), this, SLOT(recordMplayerLog(QString)));
     //connect(core, SIGNAL(mediaLoaded()), this, SLOT(autosaveMplayerLog()));
-    connect(core, SIGNAL(receivedForbidden()), this, SLOT(gotForbidden()));\
+    connect(core, SIGNAL(receivedForbidden()), this, SLOT(gotForbidden()));
 
 //#ifdef MOUSE_GESTURES
 //	mplayerwindow->activateMouseDragTracking(true);
@@ -1447,13 +1338,16 @@ void BaseGui::createCore() {
 //#endif
 }
 
-void BaseGui::createMplayerWindow() {
-    //20170720
-    mplayerwindow = new MplayerWindow(this);
+void MainWindow::createMplayerWindow() {
+    mplayerwindow = new MplayerWindow(panel);
     mplayerwindow->setObjectName("mplayerwindow");
     //mplayerwindow->installEventFilter(this);
     mplayerwindow->setColorKey("121212");//121212 mplayerwindow->setColorKey("20202");  0x020202 // pref->color_key kobe:视频显示区域背景色设置为黑色 0d87ca
     mplayerwindow->setContentsMargins(0, 0, 0, 0);
+    mplayerwindow->allowVideoMovement( pref->allow_video_movement );
+    mplayerwindow->delayLeftClick(pref->delay_left_click);
+    mplayerwindow->setAnimatedLogo( pref->animated_logo);
+
     /*
     mplayerwindow = new MplayerWindow(panel);
     mplayerwindow->setObjectName("mplayerwindow");
@@ -1477,7 +1371,7 @@ void BaseGui::createMplayerWindow() {
 //    connect(mplayerwindow, SIGNAL(resize_mainwindow(int,int)), this, SLOT(slot_resize_mainwindow(int,int)));//add by kobe. remove on 20170720 replace by resizeEvent
 }
 
-void BaseGui::createPlaylist() {
+void MainWindow::createPlaylist() {
     m_playlistWidget = new Playlist(core, this, 0);
     m_playlistWidget->setFixedSize(220, this->height() - TOP_TOOLBAR_HEIGHT - BOTTOM_TOOLBAR_HEIGHT);
     m_playlistWidget->setViewHeight();
@@ -1488,18 +1382,18 @@ void BaseGui::createPlaylist() {
     connect(m_playlistWidget, SIGNAL(closePlaylist()), this, SLOT(slot_playlist()));
     connect(m_playlistWidget, SIGNAL(playListFinishedWithError(QString)), this, SLOT(showErrorFromPlayList(QString)));
     connect(m_playlistWidget, SIGNAL(showMessage(QString)), this, SLOT(displayMessage(QString)));
-
-//    connect(m_playlistWidget, SIGNAL(finish_list()),
 }
 
-void BaseGui::createPanel() {
+void MainWindow::createPanel() {
     panel = new QWidget(this);
     panel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     panel->setMinimumSize(QSize(1,1));
     panel->setFocusPolicy(Qt::StrongFocus);
+    this->setCentralWidget(panel);//kobe for QMainWindow 中心窗口部件，panel加载的是视频显示区域
+    panel->setFocus();
 }
 
-void BaseGui::createPreferencesDialog() {
+void MainWindow::createPreferencesDialog() {
     QApplication::setOverrideCursor(Qt::WaitCursor);
     pref_dialog = new PreferencesDialog(arch, this->m_snap/*, this*/);
     pref_dialog->setModal(false);
@@ -1507,7 +1401,7 @@ void BaseGui::createPreferencesDialog() {
     QApplication::restoreOverrideCursor();
 }
 
-void BaseGui::createFilePropertiesDialog() {
+void MainWindow::createFilePropertiesDialog() {
     QApplication::setOverrideCursor(Qt::WaitCursor);
     file_dialog = new FilePropertiesDialog(/*this*/);
     file_dialog->setModal(false);
@@ -1515,25 +1409,25 @@ void BaseGui::createFilePropertiesDialog() {
     QApplication::restoreOverrideCursor();
 }
 
-void BaseGui::createAboutDialog() {
+void MainWindow::createAboutDialog() {
     QApplication::setOverrideCursor(Qt::WaitCursor);
     aboutDlg = new AboutDialog(this->m_snap);
     aboutDlg->setModal(false);
     QApplication::restoreOverrideCursor();
 }
 
-void BaseGui::createHelpDialog() {
+void MainWindow::createHelpDialog() {
     QApplication::setOverrideCursor(Qt::WaitCursor);
     helpDlg = new HelpDialog();
     helpDlg->setModal(false);
     QApplication::restoreOverrideCursor();
 }
 
-void BaseGui::slot_playlist() {
+void MainWindow::slot_playlist() {
     setPlaylistVisible(!m_playlistWidget->isVisible());
 }
 
-void BaseGui::slideEdgeWidget(QWidget *right, QRect start, QRect end, int delay, bool hide) {
+void MainWindow::slideEdgeWidget(QWidget *right, QRect start, QRect end, int delay, bool hide) {
     right->show();
     QPropertyAnimation *animation = new QPropertyAnimation(right, "geometry");
     animation->setEasingCurve(QEasingCurve::InCurve);
@@ -1547,19 +1441,19 @@ void BaseGui::slideEdgeWidget(QWidget *right, QRect start, QRect end, int delay,
     }
 }
 
-void BaseGui::disableControl(int delay) {
+void MainWindow::disableControl(int delay) {
     QTimer::singleShot(delay, this, SLOT(disableSomeComponent()));
 }
 
-void BaseGui::disableSomeComponent() {
+void MainWindow::disableSomeComponent() {
     m_playlistWidget->setEnabled(true);
 }
 
-void BaseGui::setPlaylistProperty() {
+void MainWindow::setPlaylistProperty() {
     m_playlistWidget->setProperty("moving", false);
 }
 
-void BaseGui::setPlaylistVisible(bool visible) {
+void MainWindow::setPlaylistVisible(bool visible) {
     m_playlistWidget->setProperty("moving", true);
     int titleBarHeight = TOP_TOOLBAR_HEIGHT;
 
@@ -1579,12 +1473,12 @@ void BaseGui::setPlaylistVisible(bool visible) {
     QTimer::singleShot(ANIMATIONDELAY * factor * 1, this, SLOT(setPlaylistProperty()));
 }
 
-void BaseGui::slot_resize_corner() {
-    resizeCorner->move(m_bottomToolbar->width()- 16, m_bottomToolbar->height() - 16);//0519
+void MainWindow::slot_resize_corner() {
+    resizeCorner->move(m_bottomToolbar->width()- 15, m_bottomToolbar->height() - 15);
 }
 
-void BaseGui::slot_set_fullscreen() {
-    if (this->fullscreen) {
+void MainWindow::slot_set_fullscreen() {
+    if (pref->fullscreen) {
         toggleFullscreen(false);
     }
     else {
@@ -1592,7 +1486,23 @@ void BaseGui::slot_set_fullscreen() {
     }
 }
 
-void BaseGui::showPreferencesDialog() {
+void MainWindow::hidePanel() {
+    if (panel->isVisible()) {
+        if (isMaximized()) {
+            m_topToolbar->updateMaxButtonStatus(false);
+            showNormal();
+        }
+        // Exit from fullscreen mode
+        if (pref->fullscreen) { toggleFullscreen(false); update(); }
+
+        int width = size().width();
+        if (width > pref->default_size.width()) width = pref->default_size.width();
+        resize( width, size().height() - panel->size().height() );
+        panel->hide();
+    }
+}
+
+void MainWindow::showPreferencesDialog() {
     exitFullscreenIfNeeded();
 	
     if (!pref_dialog) {
@@ -1612,7 +1522,7 @@ void BaseGui::showPreferencesDialog() {
 }
 
 // The user has pressed OK in preferences dialog
-void BaseGui::applyNewPreferences() {
+void MainWindow::applyNewPreferences() {
     //edited by kobe 20180623
     PlayerID::Player old_player_type = PlayerID::player(pref->mplayer_bin/*, this->m_snap*/);
     pref_dialog->getData(pref);
@@ -1636,7 +1546,7 @@ void BaseGui::applyNewPreferences() {
 
     //edited by kobe 20180623
     if (old_player_type != PlayerID::player(pref->mplayer_bin/*, this->m_snap*/)) {
-//        qDebug("BaseGui::applyNewPreferences: player changed!");
+//        qDebug("MainWindow::applyNewPreferences: player changed!");
         // Hack, simulate a change of GUI to restart the interface
         // FIXME: try to create a new Core::proc in the future
         core->stop();
@@ -1648,8 +1558,8 @@ void BaseGui::applyNewPreferences() {
 }
 
 
-void BaseGui::showFilePropertiesDialog() {
-//    qDebug("BaseGui::showFilePropertiesDialog");
+void MainWindow::showFilePropertiesDialog() {
+//    qDebug("MainWindow::showFilePropertiesDialog");
 
     exitFullscreenIfNeeded();
 
@@ -1662,10 +1572,10 @@ void BaseGui::showFilePropertiesDialog() {
     file_dialog->show();
 }
 
-void BaseGui::setDataToFileProperties() {
+void MainWindow::setDataToFileProperties() {
     InfoReader *i = InfoReader::obj(this->m_snap);//20181212
     i->getInfo();
-    file_dialog->setCodecs( i->vcList(), i->acList(), i->demuxerList() );
+    file_dialog->setCodecs(i->vcList(), i->acList(), i->demuxerList());
 
     // Save a copy of the original values
     if (core->mset.original_demuxer.isEmpty())
@@ -1693,14 +1603,12 @@ void BaseGui::setDataToFileProperties() {
     file_dialog->setMediaData(core->mdat, core->mset.videos, core->mset.audios, core->mset.subs);
 }
 
-void BaseGui::applyFileProperties() {
-//    qDebug("BaseGui::applyFileProperties");
-
+void MainWindow::applyFileProperties() {
 	bool need_restart = false;
 
 #undef TEST_AND_SET
 #define TEST_AND_SET( Pref, Dialog ) \
-    if ( Pref != Dialog ) { Pref = Dialog; need_restart = true; qDebug("BaseGui::applyFileProperties====================================111");}
+    if ( Pref != Dialog ) { Pref = Dialog; need_restart = true; qDebug("MainWindow::applyFileProperties====================================111");}
 
     bool demuxer_changed = false;
 
@@ -1724,14 +1632,13 @@ void BaseGui::applyFileProperties() {
 }
 
 
-void BaseGui::updateMediaInfo()
+void MainWindow::updateMediaInfo()
 {
-//	qDebug("BaseGui::updateMediaInfo");
     tray->setToolTip( windowTitle() );
 	emit videoInfoChanged(core->mdat.video_width, core->mdat.video_height, core->mdat.video_fps.toDouble());
 }
 
-void BaseGui::displayVideoInfo(int width, int height, double fps) {
+void MainWindow::displayVideoInfo(int width, int height, double fps) {
     if ((width != 0) && (height != 0)) {
 //		video_info_display->setText(tr("%1x%2 %3 fps", "width + height + fps").arg(width).arg(height).arg(fps));
     } else {
@@ -1744,14 +1651,14 @@ void BaseGui::displayVideoInfo(int width, int height, double fps) {
 //	format_info_display->setText(format.toUpper());
 }
 
-void BaseGui::displayBitrateInfo(int vbitrate, int abitrate) {
+void MainWindow::displayBitrateInfo(int vbitrate, int abitrate) {
 //	bitrate_info_display->setText(tr("V: %1 kbps A: %2 kbps").arg(vbitrate/1000).arg(abitrate/1000));
 }
 
-void BaseGui::newMediaLoaded()
+void MainWindow::newMediaLoaded()
 {
 	QString stream_title = core->mdat.stream_title;
-//	qDebug("BaseGui::newMediaLoaded: mdat.stream_title: %s", stream_title.toUtf8().constData());
+//	qDebug("MainWindow::newMediaLoaded: mdat.stream_title: %s", stream_title.toUtf8().constData());
 
 	if (!stream_title.isEmpty()) {
         pref->history_recents->addItem( core->mdat.m_filename, stream_title );//20181201  m_filename
@@ -1769,7 +1676,7 @@ void BaseGui::newMediaLoaded()
 
 	// Automatically add files to playlist
     if ((core->mdat.type == TYPE_FILE) /*&& (pref->auto_add_to_playlist)*/) {
-		//qDebug("BaseGui::newMediaLoaded: playlist count: %d", playlist->count());
+        //qDebug("MainWindow::newMediaLoaded: playlist count: %d", playlist->count());
         QStringList files_to_add;
         if (m_playlistWidget->count() == 1) {
             files_to_add = Helper::filesForPlaylist(core->mdat.m_filename, pref->media_to_add_to_playlist);//20181201  m_filename
@@ -1778,15 +1685,15 @@ void BaseGui::newMediaLoaded()
 	}
 }
 
-void BaseGui::gotNoFileToPlay() {
+void MainWindow::gotNoFileToPlay() {
     m_playlistWidget->resumePlay();//当前播放的文件不存在时，去播放下一个
 }
 
-void BaseGui::clearMplayerLog() {
+void MainWindow::clearMplayerLog() {
     mplayer_log.clear();
 }
 
-void BaseGui::recordMplayerLog(QString line) {
+void MainWindow::recordMplayerLog(QString line) {
     if (pref->log_mplayer) {
         if ( (line.indexOf("A:")==-1) && (line.indexOf("V:")==-1) ) {
             line.append("\n");
@@ -1799,8 +1706,8 @@ void BaseGui::recordMplayerLog(QString line) {
     Save the mplayer log to a file, so it can be used by external
     applications.
 */
-void BaseGui::autosaveMplayerLog() {
-    qDebug("BaseGui::autosaveMplayerLog");
+void MainWindow::autosaveMplayerLog() {
+    qDebug("MainWindow::autosaveMplayerLog");
 
     if (pref->autosave_mplayer_log) {
         if (!pref->mplayer_log_saveto.isEmpty()) {
@@ -1814,8 +1721,7 @@ void BaseGui::autosaveMplayerLog() {
     }
 }
 
-void BaseGui::updateRecents() {
-//	qDebug("BaseGui::updateRecents");
+void MainWindow::updateRecents() {
     recentfiles_menu->clear();
     int cur_items = 0;
     if (pref->history_recents == NULL) {
@@ -1856,7 +1762,7 @@ void BaseGui::updateRecents() {
     }
 }
 
-void BaseGui::clearRecentsList() {
+void MainWindow::clearRecentsList() {
     MessageDialog msgDialog(0, tr("Confirm deletion - Kylin Video"), tr("Delete the list of recent files?"));
     if (msgDialog.exec() != -1) {
         if (msgDialog.standardButton(msgDialog.clickedButton()) == QMessageBox::Ok) {
@@ -1867,8 +1773,8 @@ void BaseGui::clearRecentsList() {
     }
 }
 
-void BaseGui::updateWidgets() {
-    panel->setFocus();
+void MainWindow::updateWidgets() {
+//    panel->setFocus();//20190707
     m_bottomToolbar->setPreviewData(pref->preview_when_playing);
     muteAct->setChecked((pref->global_volume ? pref->mute : core->mset.mute));//kobe 0606
 
@@ -1920,11 +1826,11 @@ void BaseGui::updateWidgets() {
 //#endif
 }
 
-void BaseGui::openRecent() {
+void MainWindow::openRecent() {
 	QAction *a = qobject_cast<QAction *> (sender());
 	if (a) {
 		int item = a->data().toInt();
-//		qDebug("BaseGui::openRecent: %d", item);
+//		qDebug("MainWindow::openRecent: %d", item);
 		QString file = pref->history_recents->item(item);
         QFileInfo fi(file);
         if (fi.exists()) {
@@ -1937,8 +1843,8 @@ void BaseGui::openRecent() {
 	}
 }
 
-void BaseGui::doOpen(QString file) {
-//    qDebug("BaseGui::open: '%s'", file.toUtf8().data());
+void MainWindow::doOpen(QString file) {
+//    qDebug("MainWindow::open: '%s'", file.toUtf8().data());
 	// If file is a playlist, open that playlist
 	QString extension = QFileInfo(file).suffix().toLower();
 	if ( ((extension=="m3u") || (extension=="m3u8")) && (QFile::exists(file)) ) {
@@ -1961,8 +1867,8 @@ void BaseGui::doOpen(QString file) {
 	if (QFile::exists(file)) pref->latest_dir = QFileInfo(file).absolutePath();
 }
 
-void BaseGui::openFiles(QStringList files) {
-//	qDebug("BaseGui::openFiles");
+void MainWindow::openFiles(QStringList files) {
+//	qDebug("MainWindow::openFiles");
 	if (files.empty()) return;
 
 	if (files.count()==1) {
@@ -1974,7 +1880,7 @@ void BaseGui::openFiles(QStringList files) {
 	}
 }
 
-void BaseGui::openFile() {
+void MainWindow::openFile() {
 	exitFullscreenIfNeeded();
 
 	Extensions e;
@@ -1990,8 +1896,7 @@ void BaseGui::openFile() {
 	}
 }
 
-void BaseGui::openFile(QString file) {
-//    qDebug("BaseGui::openFile: '%s'", file.toUtf8().data());
+void MainWindow::openFile(QString file) {
    if ( !file.isEmpty() ) {
 		// If file is a playlist, open that playlist
 		QString extension = QFileInfo(file).suffix().toLower();
@@ -2016,8 +1921,8 @@ void BaseGui::openFile(QString file) {
 	}
 }
 
-void BaseGui::openDirectory() {
-	qDebug("BaseGui::openDirectory");
+void MainWindow::openDirectory() {
+    qDebug("MainWindow::openDirectory");
 
 	QString s = MyFileDialog::getExistingDirectory(
                     this, tr("Choose a directory"),
@@ -2028,8 +1933,8 @@ void BaseGui::openDirectory() {
 	}
 }
 
-void BaseGui::openDirectory(QString directory) {
-//	qDebug("BaseGui::openDirectory: '%s'", directory.toUtf8().data());
+void MainWindow::openDirectory(QString directory) {
+//	qDebug("MainWindow::openDirectory: '%s'", directory.toUtf8().data());
 	if (Helper::directoryContainsDVD(directory)) {
 		core->open(directory);
 	} 
@@ -2041,12 +1946,12 @@ void BaseGui::openDirectory(QString directory) {
             m_playlistWidget->addDirectory(fi.absoluteFilePath());
             m_playlistWidget->startPlayPause();
 		} else {
-			qDebug("BaseGui::openDirectory: directory is not valid");
+            qDebug("MainWindow::openDirectory: directory is not valid");
 		}
 	}
 }
 
-void BaseGui::openURL() {
+void MainWindow::openURL() {
     exitFullscreenIfNeeded();
 
     /*
@@ -2093,7 +1998,7 @@ void BaseGui::openURL() {
     }
 }
 
-void BaseGui::openURL(QString url) {
+void MainWindow::openURL(QString url) {
     if (!url.isEmpty()) {
         pref->history_urls->addUrl(url);
         core->openStream(url);
@@ -2111,8 +2016,8 @@ void BaseGui::openURL(QString url) {
     }
 }
 
-void BaseGui::loadSub() {
-	qDebug("BaseGui::loadSub");
+void MainWindow::loadSub() {
+    qDebug("MainWindow::loadSub");
 
 	exitFullscreenIfNeeded();
 
@@ -2126,14 +2031,14 @@ void BaseGui::loadSub() {
 	if (!s.isEmpty()) core->loadSub(s);
 }
 
-void BaseGui::setInitialSubtitle(const QString & subtitle_file) {
-	qDebug("BaseGui::setInitialSubtitle: '%s'", subtitle_file.toUtf8().constData());
+void MainWindow::setInitialSubtitle(const QString & subtitle_file) {
+    qDebug("MainWindow::setInitialSubtitle: '%s'", subtitle_file.toUtf8().constData());
 
 	core->setInitialSubtitle(subtitle_file);
 }
 
-void BaseGui::loadAudioFile() {
-	qDebug("BaseGui::loadAudioFile");
+void MainWindow::loadAudioFile() {
+    qDebug("MainWindow::loadAudioFile");
 
 	exitFullscreenIfNeeded();
 
@@ -2147,11 +2052,11 @@ void BaseGui::loadAudioFile() {
 	if (!s.isEmpty()) core->loadAudioFile(s);
 }
 
-void BaseGui::setDataToAboutDialog() {
+void MainWindow::setDataToAboutDialog() {
     aboutDlg->setVersions();
 }
 
-void BaseGui::showAboutDialog() {
+void MainWindow::showAboutDialog() {
     if (!aboutDlg) {
         createAboutDialog();
     }
@@ -2162,7 +2067,7 @@ void BaseGui::showAboutDialog() {
     aboutDlg->show();
 }
 
-void BaseGui::showHelpDialog() {
+void MainWindow::showHelpDialog() {
     if (!helpDlg) {
         createHelpDialog();
     }
@@ -2174,7 +2079,7 @@ void BaseGui::showHelpDialog() {
     helpDlg->show();
 }
 
-void BaseGui::showGotoDialog() {
+void MainWindow::showGotoDialog() {
     TimeDialog d;
 	d.setLabel(tr("&Jump to:"));
     d.setWindowTitle(tr("Kylin Video - Seek"));
@@ -2188,7 +2093,7 @@ void BaseGui::showGotoDialog() {
 	}
 }
 
-void BaseGui::showAudioDelayDialog() {
+void MainWindow::showAudioDelayDialog() {
     AudioDelayDialog dlg;
     dlg.setDefaultValue(core->mset.audio_delay);
     int w_x = this->frameGeometry().topLeft().x() + (this->width() / 2) - (380  / 2);
@@ -2200,7 +2105,7 @@ void BaseGui::showAudioDelayDialog() {
     }
 }
 
-void BaseGui::showSubDelayDialog() {
+void MainWindow::showSubDelayDialog() {
 	bool ok;
 	#if QT_VERSION >= 0x050000
     int delay = QInputDialog::getInt(this, tr("Kylin Video - Subtitle delay"),
@@ -2216,13 +2121,12 @@ void BaseGui::showSubDelayDialog() {
 	}
 }
 
-void BaseGui::setStayOnTop(bool b) {
-//    qDebug("BaseGui::setStayOnTop: %d", b);
+void MainWindow::setStayOnTop(bool b) {
     if ( (b && (windowFlags() & Qt::WindowStaysOnTopHint)) ||
          (!b && (!(windowFlags() & Qt::WindowStaysOnTopHint))) )
     {
         // identical do nothing
-//        qDebug("BaseGui::setStayOnTop: nothing to do");
+//        qDebug("MainWindow::setStayOnTop: nothing to do");
         return;
     }
 
@@ -2249,7 +2153,7 @@ void BaseGui::setStayOnTop(bool b) {
     ignore_show_hide_events = false;
 }
 
-void BaseGui::changeStayOnTop(int stay_on_top) {
+void MainWindow::changeStayOnTop(int stay_on_top) {
     switch (stay_on_top) {
         case Preferences::AlwaysOnTop : setStayOnTop(true); break;
         case Preferences::NeverOnTop  : setStayOnTop(false); break;
@@ -2262,117 +2166,91 @@ void BaseGui::changeStayOnTop(int stay_on_top) {
     onTopActionGroup->setChecked((int)pref->stay_on_top);
 }
 
-void BaseGui::checkStayOnTop(Core::State state) {
-//    qDebug("BaseGui::checkStayOnTop");
+void MainWindow::checkStayOnTop(Core::State state) {
     if ((!pref->fullscreen) && (pref->stay_on_top == Preferences::WhilePlayingOnTop)) {
         setStayOnTop((state == Core::Playing));
     }
 }
 
-void BaseGui::changePlayOrder(int play_order) {
+void MainWindow::changePlayOrder(int play_order) {
     pref->play_order = (Preferences::PlayOrder) play_order;
     updateWidgets();
     playOrderActionGroup->setChecked((int)pref->play_order);
 }
 
-void BaseGui::exitFullscreen() {
+void MainWindow::exitFullscreen() {
 	if (pref->fullscreen) {
 		toggleFullscreen(false);
 	}
 }
 
-void BaseGui::toggleFullscreen(bool b) {
-    //201810
-    /*const bool orgIsNormal = isMaximized() || isFullScreen();
-    if (!orgIsNormal) {
-        showNormal();
-        m_bottomToolbar->onUnFullScreen();
-    }
-    else {
-        showFullScreen();
-        //showMaximized();
-        m_bottomToolbar->onFullScreen();
-    }*/
-
-
-
-    if (b==this->fullscreen) {//kobe:b==pref->fullscreen
+void MainWindow::toggleFullscreen(bool b) {
+    if (b == pref->fullscreen) {
         // Nothing to do
-        qDebug("BaseGui::toggleFullscreen: nothing to do, returning");
+        qDebug("MainWindow::toggleFullscreen: nothing to do, returning");
         return;
     }
 
-    this->fullscreen = b;
+    pref->fullscreen = b;
+
+    if (!panel->isVisible()) {
+        qDebug() << "panel is not visible";
+        return;
+    }
 
     mplayerwindow->hideLogoForTemporary();
 
-    if (this->fullscreen) {
+    if (pref->fullscreen) {
         if (m_bottomController)
             m_bottomController->permanentShow();
-//        m_topToolbar->showAlways();
-//        m_bottomToolbar->showAlways();
-//        m_topToolbar->hide();
-//        m_bottomToolbar->hide();
-//        this->showAlways();
         was_maximized = isMaximized();
+
+        if (pref->stay_on_top == Preferences::WhilePlayingOnTop && core->state() == Core::Playing) {
+            setStayOnTop(false);
+        }
+
         showFullScreen();
         this->mplayerwindow->resize(QMainWindow::size());
         m_bottomToolbar->onFullScreen();//让全屏/取消全屏的按钮更换图片为取消全屏
         this->resizeCorner->hide();
-//        if (core->state())//0811
-//        QTimer::singleShot(100, this, SLOT(start_top_and_bottom_timer()));
+        m_topToolbar->updateMaxButtonStatus(true);
+
         QString state = core->stateToString().toUtf8().data();
-//        this->showAlways();
         if (state == "Playing" || state == "Paused") {//全屏的时候如果不是正在播放或暂停，则显示标题栏和控制栏
-//            this->activate_timer();
-            start_top_and_bottom_timer();
         }
-        //kobe:全屏的时候让所有视频大小的设置菜单禁用
-        // Make all not checkable
-//        sizeGroup->setActionsEnabled(false);
-//        doubleSizeAct->setEnabled(false);
     }
     else {
-//        this->showAlways();
         if (m_bottomController)
             m_bottomController->permanentShow();
-//        m_topToolbar->showAlways();
-//        m_bottomToolbar->showAlways();
+        m_topToolbar->updateMaxButtonStatus(false);
         showNormal();
-        if (was_maximized) showMaximized(); // It has to be called after showNormal()
+        if (was_maximized) {
+            m_topToolbar->updateMaxButtonStatus(true);
+            showMaximized(); // It has to be called after showNormal()
+        }
         this->mplayerwindow->resize(QMainWindow::size());
-        m_bottomToolbar->onUnFullScreen();//让全屏/取消全屏的按钮更换图片为全屏//0519
-        this->resizeCorner->show();//0519
+        m_bottomToolbar->onUnFullScreen();//让全屏/取消全屏的按钮更换图片为全屏
+        this->resizeCorner->show();
         if (this->escWidget->isVisible())
             this->escWidget->hide();
 
         QString state = core->stateToString().toUtf8().data();
         if (state == "Playing" || state == "Paused") {//kobe: Stopped Playing Paused
-    //        QTimer::singleShot(100, this, SLOT(start_top_and_bottom_timer()));
-//            this->activate_timer();
-            start_top_and_bottom_timer();
+
         }
-        //kobe:退出全屏的时候如果视频仍然在播放，则让所有视频大小的设置菜单恢复使用
-        // Make all checkable
-//        if (isFinished == false) {
-//            sizeGroup->setActionsEnabled(true);
-//            doubleSizeAct->setEnabled(true);
-//        }
     }
     updateWidgets();
-    setFocus(); // Fixes bug #2493415
+    setFocus();
     QTimer::singleShot(100, mplayerwindow, SLOT(update_logo_pos()));
 }
 
-void BaseGui::leftClickFunction() {
+void MainWindow::leftClickFunction() {
     if (m_playlistWidget->isVisible()) {//20170713
         setPlaylistVisible(false);
     }
-    //kobe
+
     QString state = core->stateToString().toUtf8().data();
     if (state == "Playing" || state == "Paused") {//kobe: Stopped Playing Paused
-        //201810
-        //core->play_or_pause();
         this->startPlayPause();
     }
 //	if (!pref->mouse_left_click_function.isEmpty()) {
@@ -2380,45 +2258,45 @@ void BaseGui::leftClickFunction() {
 //	}
 }
 
-void BaseGui::rightClickFunction() {
+void MainWindow::rightClickFunction() {
     showPopupMenu();//kobe
 //	if (!pref->mouse_right_click_function.isEmpty()) {
 //        processFunction(pref->mouse_right_click_function);
 //	}
 }
 
-void BaseGui::doubleClickFunction() {
+void MainWindow::doubleClickFunction() {
     this->slot_set_fullscreen();//kobe
 //	if (!pref->mouse_double_click_function.isEmpty()) {
 //		processFunction(pref->mouse_double_click_function);
 //	}
 }
 
-void BaseGui::middleClickFunction() {
+void MainWindow::middleClickFunction() {
     processFunction("mute");//kobe
 //	if (!pref->mouse_middle_click_function.isEmpty()) {
 //		processFunction(pref->mouse_middle_click_function);
 //	}
 }
 
-void BaseGui::xbutton1ClickFunction() {
-	qDebug("BaseGui::xbutton1ClickFunction");
+void MainWindow::xbutton1ClickFunction() {
+    qDebug("MainWindow::xbutton1ClickFunction");
 
 //	if (!pref->mouse_xbutton1_click_function.isEmpty()) {
 //		processFunction(pref->mouse_xbutton1_click_function);
 //	}
 }
 
-void BaseGui::xbutton2ClickFunction() {
-	qDebug("BaseGui::xbutton2ClickFunction");
+void MainWindow::xbutton2ClickFunction() {
+    qDebug("MainWindow::xbutton2ClickFunction");
 
 //	if (!pref->mouse_xbutton2_click_function.isEmpty()) {
 //		processFunction(pref->mouse_xbutton2_click_function);
 //	}
 }
 
-void BaseGui::processFunction(QString function) {
-//    qDebug("##########################BaseGui::processFunction: '%s'", function.toUtf8().data());
+void MainWindow::processFunction(QString function) {
+//    qDebug("##########################MainWindow::processFunction: '%s'", function.toUtf8().data());
 
     //parse args for checkable actions
     QRegExp func_rx("(.*) (true|false)");
@@ -2440,10 +2318,10 @@ void BaseGui::processFunction(QString function) {
     if (!action) action = ActionsEditor::findAction(m_playlistWidget, function);
 
     if (action) {
-        qDebug("BaseGui::processFunction: action found");
+        qDebug("MainWindow::processFunction: action found");
 
         if (!action->isEnabled()) {
-            qDebug("BaseGui::processFunction: action is disabled, doing nothing");
+            qDebug("MainWindow::processFunction: action is disabled, doing nothing");
             return;
         }
 
@@ -2458,12 +2336,12 @@ void BaseGui::processFunction(QString function) {
         }
     }
     else {
-        qDebug("BaseGui::processFunction: action not found");
+        qDebug("MainWindow::processFunction: action not found");
     }
 }
 
-void BaseGui::gotForbidden() {
-	qDebug("BaseGui::gotForbidden");
+void MainWindow::gotForbidden() {
+    qDebug("MainWindow::gotForbidden");
 
 	static bool busy = false;
 
@@ -2477,8 +2355,8 @@ void BaseGui::gotForbidden() {
 	busy = false;
 }
 
-void BaseGui::dragEnterEvent( QDragEnterEvent *event) {
-//	qDebug("BaseGui::dragEnterEvent");
+void MainWindow::dragEnterEvent( QDragEnterEvent *event) {
+//	qDebug("MainWindow::dragEnterEvent");
 
     if (event->mimeData()->hasUrls()) {
         event->acceptProposedAction();
@@ -2494,7 +2372,7 @@ void BaseGui::dragEnterEvent( QDragEnterEvent *event) {
     QMainWindow::dragEnterEvent(event);*/
 }
 
-void BaseGui::dropEvent( QDropEvent *e )
+void MainWindow::dropEvent( QDropEvent *e )
 {
 	QStringList files;
 
@@ -2504,7 +2382,7 @@ void BaseGui::dropEvent( QDropEvent *e )
 		QString s;
 		for (int n=0; n < l.count(); n++) {
 			if (l[n].isValid()) {
-				qDebug("BaseGui::dropEvent: scheme: '%s'", l[n].scheme().toUtf8().data());
+                qDebug("MainWindow::dropEvent: scheme: '%s'", l[n].scheme().toUtf8().data());
 				if (l[n].scheme() == "file") 
 					s = l[n].toLocalFile();
 				else
@@ -2513,7 +2391,7 @@ void BaseGui::dropEvent( QDropEvent *e )
 				qDebug(" * '%s'", l[n].toString().toUtf8().data());
 				qDebug(" * '%s'", l[n].toLocalFile().toUtf8().data());
 				*/
-                //qDebug("BaseGui::dropEvent: file: '%s'", s.toUtf8().data());
+                //qDebug("MainWindow::dropEvent: file: '%s'", s.toUtf8().data());
                 if (pref->m_videoMap.contains(s)) {
                     continue;
                 }
@@ -2526,7 +2404,7 @@ void BaseGui::dropEvent( QDropEvent *e )
     QStringList dir_list;
     QString sub_file;
 
-	qDebug( "BaseGui::dropEvent: count: %d", files.count());
+    qDebug( "MainWindow::dropEvent: count: %d", files.count());
 	if (files.count() > 0) {
 		files.sort();
 
@@ -2604,7 +2482,7 @@ void BaseGui::dropEvent( QDropEvent *e )
 //			QRegExp ext_sub(e.subtitles().forRegExp());
 //			ext_sub.setCaseSensitivity(Qt::CaseInsensitive);
 //			if (ext_sub.indexIn(fi.suffix()) > -1) {
-//				qDebug( "BaseGui::dropEvent: loading sub: '%s'", files[0].toUtf8().data());
+//				qDebug( "MainWindow::dropEvent: loading sub: '%s'", files[0].toUtf8().data());
 //				core->loadSub( files[0] );
 //			}
 //			else
@@ -2616,7 +2494,7 @@ void BaseGui::dropEvent( QDropEvent *e )
 //			}
 //		} else {
 //			// More than one file
-//            qDebug("BaseGui::dropEvent: adding files to playlist");
+//            qDebug("MainWindow::dropEvent: adding files to playlist");
 ////            m_playlistWidget->clear();
 //            m_playlistWidget->addFiles(files);
 //            //openFile( files[0] );
@@ -2625,19 +2503,19 @@ void BaseGui::dropEvent( QDropEvent *e )
 //	}
 }
 
-void BaseGui::showPopupMenu() {
+void MainWindow::showPopupMenu() {
     showPopupMenu(QCursor::pos());
 }
 
-void BaseGui::showPopupMenu( QPoint p ) {
-//	//qDebug("BaseGui::showPopupMenu: %d, %d", p.x(), p.y());
+void MainWindow::showPopupMenu( QPoint p ) {
+//	//qDebug("MainWindow::showPopupMenu: %d, %d", p.x(), p.y());
     popup->move(p);
     popup->show();
 }
 
 // Called when a video has started to play
-void BaseGui::enterFullscreenOnPlay() {
-//	qDebug("BaseGui::enterFullscreenOnPlay: arg_start_in_fullscreen: %d, pref->start_in_fullscreen: %d", arg_start_in_fullscreen, pref->start_in_fullscreen);
+void MainWindow::enterFullscreenOnPlay() {
+//	qDebug("MainWindow::enterFullscreenOnPlay: arg_start_in_fullscreen: %d, pref->start_in_fullscreen: %d", arg_start_in_fullscreen, pref->start_in_fullscreen);
 	if (arg_start_in_fullscreen != 0) {
         if ( (arg_start_in_fullscreen == 1)/* || (pref->start_in_fullscreen) */) {
             if (!pref->fullscreen) {
@@ -2648,52 +2526,43 @@ void BaseGui::enterFullscreenOnPlay() {
 }
 
 // Called when the playlist has stopped
-void BaseGui::exitFullscreenOnStop() {
-//    qDebug("BaseGui::exitFullscreenOnStop");
+void MainWindow::exitFullscreenOnStop() {
+//    qDebug("MainWindow::exitFullscreenOnStop");
     if (pref->fullscreen) {
 		toggleFullscreen(false);
 	}
     emit this->clear_playing_title();
 }
 
-void BaseGui::playlistHasFinished() {
-//	qDebug("BaseGui::playlistHasFinished");
+void MainWindow::playlistHasFinished() {
+//	qDebug("MainWindow::playlistHasFinished");
 	core->stop();
 
 	exitFullscreenOnStop();
 }
 
-void BaseGui::displayState(Core::State state) {
-//    qDebug("BaseGui::displayState: %s", core->stateToString().toUtf8().data());
+void MainWindow::displayState(Core::State state) {
     switch (state) {//0830
         case Core::Playing://播放时开启自动隐藏标题栏和控制栏的定时器
-            start_top_and_bottom_timer();
-//            this->activate_timer();
             break;
         case Core::Paused://暂停时显示标题栏和控制栏
-//            this->showAlways();
-//            m_bottomToolbar->showAlways();
-//            m_topToolbar->showAlways();
             if (m_bottomController)
                 m_bottomController->permanentShow();
             break;
         case Core::Stopped:
-//            this->showAlways();
         if (m_bottomController)
             m_bottomController->permanentShow();
-//            m_bottomToolbar->showAlways();
             m_topToolbar->set_title_name("");
-//            m_topToolbar->showAlways();
             break;
     }
 }
 
-void BaseGui::displayMessage(QString message) {
+void MainWindow::displayMessage(QString message) {
     this->showTipWidget(message);
 }
 
 //kobe 0606 flag=true时表示充值时间显示label的值为初始值
-void BaseGui::gotCurrentTime(double sec, bool flag) {
+void MainWindow::gotCurrentTime(double sec, bool flag) {
 	//qDebug( "DefaultGui::displayTime: %f", sec);
     QString time;
     QString all_time;
@@ -2719,7 +2588,7 @@ void BaseGui::gotCurrentTime(double sec, bool flag) {
     emit timeChanged(time, all_time);
 }
 
-void BaseGui::loadConfig() {
+void MainWindow::loadConfig() {
 //    qDebug("DefaultGui::loadConfig");
     QSettings * set = settings;
 
@@ -2742,97 +2611,29 @@ void BaseGui::loadConfig() {
     updateWidgets();
 }
 
-//add by kobe, remove on 20170720 replace by resizeEvent
-/*void BaseGui::slot_resize_mainwindow(int w, int h)
-{
-//    qDebug("==============================aaaBaseGui::slot_resize_mainwindow: %d, %d", w, h);
-
-//    qDebug("BaseGui::slot_resize_mainwindow: done: panel->size: %d, %d",
-//           panel->size().width(),
-//           panel->size().height() );
-//    qDebug("BaseGui::slot_resize_mainwindow: done: mplayerwindow->size: %d, %d",
-//           mplayerwindow->size().width(),
-//           mplayerwindow->size().height());
-//    if (pref->fullscreen) return;
-    this->m_playlistWidget->setFixedSize(220, panel->size().height() - TOP_TOOLBAR_HEIGHT - BOTTOM_TOOLBAR_HEIGHT);//0531
-    if (this->m_playlistWidget->isVisible()) {
-        this->m_playlistWidget->hide();
-        emit this->change_playlist_btn_status(false);//0619
-    }
-    //test kobe
-//    setPlaylistVisible(!m_playlistWidget->isVisible());
-    if (m_topToolbar) {
-        m_topToolbar->raise();
-//        m_topToolbar->resize(width(), TOP_TOOLBAR_HEIGHT);
-        m_topToolbar->resize(panel->size().width(), TOP_TOOLBAR_HEIGHT);
-//        m_topToolbar->show_title_widget();
-//        m_topSeparatorLine->setVisible(true);
-    }
-    if (m_bottomToolbar) {//0519
-//        if (this->isFullScreen())
-//            return;
-        m_bottomToolbar->raise();
-        m_bottomToolbar->resize(panel->size().width(), BOTTOM_TOOLBAR_HEIGHT);
-//        qDebug() << "height()="<<height();
-//        qDebug() << "m_bottomToolbar->pos().y()="<<m_bottomToolbar->pos().y();
-        m_bottomToolbar->move(0, height() - BOTTOM_TOOLBAR_HEIGHT);
-        m_bottomToolbar->show_control_widget();
-        //kobe:设置一个临界值判断界面拉伸时底部工具栏是全显示模式还是只显示进度条模式,正常拉伸界面有效，但是点击最大化后再切换回正常尺寸显示会有异常，下方会显示不出来
-//        int h_interval = qAbs(height() - m_bottomToolbar->pos().y());
-//        if (h_interval < 30) {
-//            m_bottomToolbar->move(0, height() - 6);
-//        }
-//        else {
-//            m_bottomToolbar->move(0, height() - BOTTOM_TOOLBAR_HEIGHT);
-//        }
-        resizeCorner->move(m_bottomToolbar->width()- 16, m_bottomToolbar->height() - 16);
-    }
-    this->update();
-//    if (m_topSeparatorLine) {//0519
-//        m_topSeparatorLine->resize(window()->width(), 1);
-//        m_topSeparatorLine->move(0, TOP_TOOLBAR_HEIGHT);
-//    }
-
-//    if (window()->isFullScreen()) {//0519
-//        m_topSeparatorLine->setVisible(false);
-//    } else {
-//        m_topSeparatorLine->setVisible(true);
-//    }
-
-//    if (m_btmSeparatorLine) {//0519
-////        m_btmSeparatorLine->resize(window()->width(), 1);
-////        m_btmSeparatorLine->move(0, window()->height() - m_bottomToolbar->height() - 1);
-//        m_btmSeparatorLine->resize(panel->size().width(), 1);
-//        m_btmSeparatorLine->move(0, panel->size().height() - BOTTOM_TOOLBAR_HEIGHT - 1);
-//    }
-}*/
-
-void BaseGui::resizeWindow(int w, int h) {
-//    qDebug("BaseGui::resizeWindow: %d, %d", w, h);
-
+void MainWindow::resizeWindow(int w, int h) {
 	// If fullscreen, don't resize!
 	if (pref->fullscreen) return;
 
-	if ( (pref->resize_method==Preferences::Never) && (panel->isVisible()) ) {
+    if ( (pref->resize_method==Preferences::Never) && (panel->isVisible()) ) {
 		return;
 	}
 
 	if (!panel->isVisible()) {
 		panel->show();
-	}
+    }
 
     resizeMainWindow(w, h);
 }
 
-void BaseGui::resizeMainWindow(int w, int h) {
-//	qDebug("BaseGui::resizeWindow: size to scale: %d, %d", w, h);
-
+void MainWindow::resizeMainWindow(int w, int h) {
 	QSize video_size(w,h);
 
-	if (video_size == panel->size()) {
-		qDebug("BaseGui::resizeWindow: the panel size is already the required size. Doing nothing.");
+    //20190717
+    if (video_size == panel->size()) {
+        qDebug("MainWindow::resizeWindow: the panel size is already the required size. Doing nothing.");
 		return;
-	}
+    }
 
 	int diff_width = this->width() - panel->width();
 	int diff_height = this->height() - panel->height();
@@ -2842,26 +2643,26 @@ void BaseGui::resizeMainWindow(int w, int h) {
 
 	int minimum_width = minimumSizeHint().width();
 	if (new_width < minimum_width) {
-		qDebug("BaseGui::resizeWindow: width is too small, setting width to %d", minimum_width);
+        qDebug("MainWindow::resizeWindow: width is too small, setting width to %d", minimum_width);
 		new_width = minimum_width;
 	}
 
-//	qDebug("BaseGui::resizeWindow: new_width: %d new_height: %d", new_width, new_height);
-	resize(new_width, new_height);
+//	qDebug("MainWindow::resizeWindow: new_width: %d new_height: %d", new_width, new_height);
+    resize(new_width, new_height);
 }
 
-void BaseGui::centerWindow() {//kobe:播放后界面调整至屏幕中央
+void MainWindow::centerWindow() {//kobe:播放后界面调整至屏幕中央
     if (/*pref->center_window && */!pref->fullscreen && isVisible()) {
 		QRect r = QApplication::desktop()->screenGeometry(this);
 		// r.setX(500); r.setY(150); // Test
-//		qDebug() << "BaseGui::centerWindow: desktop rect:" << r;
+//		qDebug() << "MainWindow::centerWindow: desktop rect:" << r;
 		int x = r.x() + ((r.width() - width()) / 2);
 		int y = r.y() + ((r.height() - height()) / 2);
 		move(x, y);
 	}
 }
 
-void BaseGui::displayGotoTime(int t) {
+void MainWindow::displayGotoTime(int t) {
     int jump_time = (int)core->mdat.duration * t / SEEKBAR_RESOLUTION;
     QString s = tr("Jump to %1").arg( Helper::formatTime(jump_time) );
     if (pref->fullscreen) {
@@ -2869,33 +2670,29 @@ void BaseGui::displayGotoTime(int t) {
     }
 }
 
-void BaseGui::goToPosOnDragging(int t) {
-//		#ifdef SEEKBAR_RESOLUTION
-//		core->goToPosition(t);
-//		#else
-//		core->goToPos(t);
-//		#endif
+void MainWindow::goToPosOnDragging(int t) {
+//		core->goToPosition(t);//core->goToPos(t);
 }
 
 // Called when a new window (equalizer, preferences..) is opened.
-void BaseGui::exitFullscreenIfNeeded() {
+void MainWindow::exitFullscreenIfNeeded() {
 	if (pref->fullscreen) {
 		toggleFullscreen(false);
 	}
 }
 
-void BaseGui::loadActions() {
-//    qDebug("BaseGui::loadActions");
+void MainWindow::loadActions() {
+//    qDebug("MainWindow::loadActions");
     ActionsEditor::loadFromConfig(this, settings);
 //	actions_list = ActionsEditor::actionsNames(this);
 }
 
-void BaseGui::saveActions() {
-//    qDebug("BaseGui::saveActions");
+void MainWindow::saveActions() {
+//    qDebug("MainWindow::saveActions");
     ActionsEditor::saveToConfig(this, settings);
 }
 
-/*void BaseGui::moveEvent(QMoveEvent *event)
+/*void MainWindow::moveEvent(QMoveEvent *event)
 {
     if (!isMaximized() && !isFullScreen() && !pref->fullscreen) {
         //const QPoint gPos = pos();
@@ -2905,7 +2702,7 @@ void BaseGui::saveActions() {
     QMainWindow::moveEvent(event);
 }*/
 
-void BaseGui::moveWindowDiff(QPoint diff) {
+void MainWindow::moveWindowDiff(QPoint diff) {
 	if (pref->fullscreen || isMaximized()) {
 		return;
 	}
@@ -2924,7 +2721,7 @@ void BaseGui::moveWindowDiff(QPoint diff) {
 		QPoint new_pos = pos() + d;
 		if (new_pos.y() < 0) new_pos.setY(0);
 		if (new_pos.x() < 0) new_pos.setX(0);
-//        qDebug() << "BaseGui::moveWindowDiff: new_pos:" << new_pos;
+//        qDebug() << "MainWindow::moveWindowDiff: new_pos:" << new_pos;
 		move(new_pos);
 		count = 0;
 		d = QPoint(0,0);
@@ -2935,73 +2732,58 @@ void BaseGui::moveWindowDiff(QPoint diff) {
 }
 
 #if QT_VERSION < 0x050000
-void BaseGui::showEvent( QShowEvent * ) {
-	qDebug("BaseGui::showEvent");
+void MainWindow::showEvent( QShowEvent * ) {
+    qDebug("MainWindow::showEvent");
 
 	if (ignore_show_hide_events) return;
 
-	//qDebug("BaseGui::showEvent: pref->pause_when_hidden: %d", pref->pause_when_hidden);
+    //qDebug("MainWindow::showEvent: pref->pause_when_hidden: %d", pref->pause_when_hidden);
 	if ((pref->pause_when_hidden) && (core->state() == Core::Paused)) {
-		qDebug("BaseGui::showEvent: unpausing");
+        qDebug("MainWindow::showEvent: unpausing");
 		core->pause(); // Unpauses
 	}
 }
 
-void BaseGui::hideEvent( QHideEvent * ) {
-	qDebug("BaseGui::hideEvent");
+void MainWindow::hideEvent( QHideEvent * ) {
+    qDebug("MainWindow::hideEvent");
 
 	if (ignore_show_hide_events) return;
 
-	//qDebug("BaseGui::hideEvent: pref->pause_when_hidden: %d", pref->pause_when_hidden);
+    //qDebug("MainWindow::hideEvent: pref->pause_when_hidden: %d", pref->pause_when_hidden);
 	if ((pref->pause_when_hidden) && (core->state() == Core::Playing)) {
-		qDebug("BaseGui::hideEvent: pausing");
+        qDebug("MainWindow::hideEvent: pausing");
 		core->pause();
 	}
 }
 #else
 // Qt 5 doesn't call showEvent / hideEvent when the window is minimized or unminimized
-bool BaseGui::event(QEvent * e) {//kobe 0522 QWidget::paintEngine: Should no longer be called
-//    qDebug("BaseGui::event: %d", e->type());
+bool MainWindow::event(QEvent * e) {//kobe 0522 QWidget::paintEngine: Should no longer be called
+//    qDebug("MainWindow::event: %d", e->type());
 
 	bool result = QWidget::event(e);
 //    if ((ignore_show_hide_events)/* || (!pref->pause_when_hidden)*/) return result;
     if ((ignore_show_hide_events) || (!pref->pause_when_hidden)) return result;//20170627 kobe
 
     if (e->type() == QEvent::WindowStateChange) {//窗口的状态（最小化、最大化或全屏）发生改变（QWindowStateChangeEvent）
-        //qDebug() << "BaseGui::event: WindowStateChange";
+        //qDebug() << "MainWindow::event: WindowStateChange";
 
 		if (isMinimized()) {
 			was_minimized = true;
 			if (core->state() == Core::Playing) {
-                qDebug("BaseGui::event: pausing......");
+                qDebug("MainWindow::event: pausing......");
 				core->pause();
-//                this->showAlways();
-//                this->deactivate();//0829
-//                m_topToolbar->show();
-//                m_bottomToolbar->show();
-                m_topToolbar->deactivate();
-                m_bottomToolbar->deactivate();
 			}
 		}
 	}
 
     if ((e->type() == QEvent::ActivationChange) && (isActiveWindow())) {//Widget 的顶层窗口激活状态发生了变化
-//        qDebug("BaseGui::event: ActivationChange: %d", was_minimized);
+//        qDebug("MainWindow::event: ActivationChange: %d", was_minimized);
 
         if ((!isMinimized()) && (was_minimized)) {
             was_minimized = false;
             if (core->state() == Core::Paused) {
-                qDebug("BaseGui::showEvent: unpausing");
+                qDebug("MainWindow::showEvent: unpausing");
                 core->pause(); // Unpauses
-
-                //kobe:在函数displayState已经处理了
-                /*m_topToolbar->deactivate();
-                m_bottomToolbar->deactivate();
-                QString state = core->stateToString().toUtf8().data();
-                if (state == "Playing" || state == "Paused") {//kobe: Stopped Playing Paused
-//                    QTimer::singleShot(100, this, SLOT(start_top_and_bottom_timer()));
-                    start_top_and_bottom_timer();
-                }*/
             }
         }
     }
@@ -3009,177 +2791,14 @@ bool BaseGui::event(QEvent * e) {//kobe 0522 QWidget::paintEngine: Should no lon
 
 	return result;
 }
-
-
-/*
-枚举QEvent::Type：      这个枚举类型定义了Qt中有效的事件类型。事件类型和每个类型的专门类如下：
-常量	值	描述
-QEvent::None 	0 	不是一个事件
-QEvent::ActionAdded 	114 	一个新 action 被添加（QActionEvent）
-QEvent::ActionChanged 	113 	一个 action 被改变（QActionEvent）
-QEvent::ActionRemoved 	115 	一个 action 被移除（QActionEvent）
-QEvent::ActivationChange 	99 	Widget 的顶层窗口激活状态发生了变化
-QEvent::ApplicationActivate 	121 	这个枚举已被弃用，使用 ApplicationStateChange 代替
-QEvent::ApplicationActivated 	ApplicationActivate 	这个枚举已被弃用，使用 ApplicationStateChange 代替
-QEvent::ApplicationDeactivate 	122 	这个枚举已被弃用，使用 ApplicationStateChange 代替
-QEvent::ApplicationFontChange 	36 	应用程序的默认字体发生了变化
-QEvent::ApplicationLayoutDirectionChange 	37 	应用程序的默认布局方向发生了变化
-QEvent::ApplicationPaletteChange 	38 	应用程序的默认调色板发生了变化
-QEvent::ApplicationStateChange 	214 	应用程序的状态发生了变化
-QEvent::ApplicationWindowIconChange 	35 	应用程序的图标发生了变化
-QEvent::ChildAdded 	68 	一个对象获得孩子（QChildEvent）
-QEvent::ChildPolished 	69 	一个部件的孩子被抛光（QChildEvent）
-QEvent::ChildRemoved 	71 	一个对象时区孩子（QChildEvent）
-QEvent::Clipboard 	40 	剪贴板的内容发生改变
-QEvent::Close 	19 	Widget 被关闭（QCloseEvent）
-QEvent::CloseSoftwareInputPanel 	200 	一个部件要关闭软件输入面板（SIP）
-QEvent::ContentsRectChange 	178 	部件内容区域的外边距发生改变
-QEvent::ContextMenu 	82 	上下文弹出菜单（QContextMenuEvent）
-QEvent::CursorChange 	183 	部件的鼠标发生改变
-QEvent::DeferredDelete 	52 	对象被清除后将被删除（QDeferredDeleteEvent）
-QEvent::DragEnter 	60 	在拖放操作期间鼠标进入窗口部件（QDragEnterEvent）
-QEvent::DragLeave 	62 	在拖放操作期间鼠标离开窗口部件（QDragLeaveEvent）
-QEvent::DragMove 	61 	拖放操作正在进行（QDragMoveEvent）
-QEvent::Drop 	63 	拖放操作完成（QDropEvent）
-QEvent::DynamicPropertyChange 	170 	动态属性已添加、更改或从对象中删除
-QEvent::EnabledChange 	98 	部件的 enabled 状态已更改
-QEvent::Enter 	10 	鼠标进入部件的边界（QEnterEvent）
-QEvent::EnterEditFocus 	150 	编辑部件获得焦点进行编辑，必须定义 QT_KEYPAD_NAVIGATION
-QEvent::EnterWhatsThisMode 	124 	当应用程序进入“What’s This?”模式，发送到 toplevel 顶层部件
-QEvent::Expose 	206 	当其屏幕上的内容无效，发送到窗口，并需要从后台存储刷新
-QEvent::FileOpen 	116 	文件打开请求（QFileOpenEvent）
-QEvent::FocusIn 	8 	部件或窗口获得键盘焦点（QFocusEvent）
-QEvent::FocusOut 	9 	部件或窗口失去键盘焦点（QFocusEvent）
-QEvent::FocusAboutToChange 	23 	部件或窗口焦点即将改变（QFocusEvent）
-QEvent::FontChange 	97 	部件的字体发生改变
-QEvent::Gesture 	198 	触发了一个手势（QGestureEvent）
-QEvent::GestureOverride 	202 	触发了手势覆盖（QGestureEvent）
-QEvent::GrabKeyboard 	188 	Item 获得键盘抓取（仅限 QGraphicsItem）
-QEvent::GrabMouse 	186 	项目获得鼠标抓取（仅限 QGraphicsItem）
-QEvent::GraphicsSceneContextMenu 	159 	在图形场景上的上下文弹出菜单（QGraphicsScene ContextMenuEvent）
-QEvent::GraphicsSceneDragEnter 	164 	在拖放操作期间，鼠标进入图形场景（QGraphicsSceneDragDropEvent）
-QEvent::GraphicsSceneDragLeave 	166 	在拖放操作期间鼠标离开图形场景（QGraphicsSceneDragDropEvent）
-QEvent::GraphicsSceneDragMove 	165 	在场景上正在进行拖放操作（QGraphicsSceneDragDropEvent）
-QEvent::GraphicsSceneDrop 	167 	在场景上完成拖放操作（QGraphicsSceneDragDropEvent）
-QEvent::GraphicsSceneHelp 	163 	用户请求图形场景的帮助（QHelpEvent）
-QEvent::GraphicsSceneHoverEnter 	160 	鼠标进入图形场景中的悬停项（QGraphicsSceneHoverEvent）
-QEvent::GraphicsSceneHoverLeave 	162 	鼠标离开图形场景中一个悬停项（QGraphicsSceneHoverEvent）
-QEvent::GraphicsSceneHoverMove 	161 	鼠标在图形场景中的悬停项内移动（QGraphicsSceneHoverEvent）
-QEvent::GraphicsSceneMouseDoubleClick 	158 	鼠标在图形场景中再次按下（双击）（QGraphicsSceneMouseEvent）
-QEvent::GraphicsSceneMouseMove 	155 	鼠标在图形场景中移动（QGraphicsSceneMouseEvent）
-QEvent::GraphicsSceneMousePress 	156 	鼠标在图形场景中按下（QGraphicsSceneMouseEvent）
-QEvent::GraphicsSceneMouseRelease 	157 	鼠标在图形场景中释放（QGraphicsSceneMouseEvent）
-QEvent::GraphicsSceneMove 	182 	部件被移动（QGraphicsSceneMoveEvent）
-QEvent::GraphicsSceneResize 	181 	部件已调整大小（QGraphicsSceneResizeEvent）
-QEvent::GraphicsSceneWheel 	168 	鼠标滚轮在图形场景中滚动（QGraphicsSceneWheelEvent）
-QEvent::Hide 	18 	部件被隐藏（QHideEvent）
-QEvent::HideToParent 	27 	子部件被隐藏（QHideEvent）
-QEvent::HoverEnter 	127 	鼠标进入悬停部件（QHoverEvent）
-QEvent::HoverLeave 	128 	鼠标留离开悬停部件（QHoverEvent）
-QEvent::HoverMove 	129 	鼠标在悬停部件内移动（QHoverEvent）
-QEvent::IconDrag 	96 	窗口的主图标被拖走（QIconDragEvent）
-QEvent::IconTextChange 	101 	部件的图标文本发生改变（已弃用）
-QEvent::InputMethod 	83 	正在使用输入法（QInputMethodEvent）
-QEvent::InputMethodQuery 	207 	输入法查询事件（QInputMethodQueryEvent）
-QEvent::KeyboardLayoutChange 	169 	键盘布局已更改
-QEvent::KeyPress 	6 	键盘按下（QKeyEvent）
-QEvent::KeyRelease 	7 	键盘释放（QKeyEvent）
-QEvent::LanguageChange 	89 	应用程序翻译发生改变
-QEvent::LayoutDirectionChange 	90 	布局的方向发生改变
-QEvent::LayoutRequest 	76 	部件的布局需要重做
-QEvent::Leave 	11 	鼠标离开部件的边界
-QEvent::LeaveEditFocus 	151 	编辑部件失去编辑的焦点，必须定义 QT_KEYPAD_NAVIGATION
-QEvent::LeaveWhatsThisMode 	125 	当应用程序离开“What’s This?”模式，发送到顶层部件
-QEvent::LocaleChange 	88 	系统区域设置发生改变
-QEvent::NonClientAreaMouseButtonDblClick 	176 	鼠标双击发生在客户端区域外
-QEvent::NonClientAreaMouseButtonPress 	174 	鼠标按钮按下发生在客户端区域外
-QEvent::NonClientAreaMouseButtonRelease 	175 	鼠标按钮释放发生在客户端区域外
-QEvent::NonClientAreaMouseMove 	173 	鼠标移动发生在客户区域外
-QEvent::MacSizeChange 	177 	用户更改了部件的大小（仅限 OS X）
-QEvent::MetaCall 	43 	通过 QMetaObject::invokeMethod() 调用异步方法
-QEvent::ModifiedChange 	102 	部件修改状态发生改变
-QEvent::MouseButtonDblClick 	4 	鼠标再次按下（QMouseEvent）
-QEvent::MouseButtonPress 	2 	鼠标按下（QMouseEvent）
-QEvent::MouseButtonRelease 	3 	鼠标释放（QMouseEvent）
-QEvent::MouseMove 	5 	鼠标移动（QMouseEvent）
-QEvent::MouseTrackingChange 	109 	鼠标跟踪状态发生改变
-QEvent::Move 	13 	部件的位置发生改变（QMoveEvent）
-QEvent::NativeGesture 	197 	系统检测到手势（QNativeGestureEvent）
-QEvent::OrientationChange 	208 	屏幕方向发生改变（QScreenOrientationChangeEvent）
-QEvent::Paint 	12 	需要屏幕更新（QPaintEvent）
-QEvent::PaletteChange 	39 	部件的调色板发生改变
-QEvent::ParentAboutToChange 	131 	部件的 parent 将要更改
-QEvent::ParentChange 	21 	部件的 parent 发生改变
-QEvent::PlatformPanel 	212 	请求一个特定于平台的面板
-QEvent::PlatformSurface 	217 	原生平台表面已创建或即将被销毁（QPlatformSurfaceEvent）
-QEvent::Polish 	75 	部件被抛光
-QEvent::PolishRequest 	74 	部件应该被抛光
-QEvent::QueryWhatsThis 	123 	如果部件有“What’s This?”帮助，应该接受事件
-QEvent::ReadOnlyChange 	106 	部件的 read-only 状态发生改变
-QEvent::RequestSoftwareInputPanel 	199 	部件想要打开软件输入面板（SIP）
-QEvent::Resize 	14 	部件的大小发生改变（QResizeEvent）
-QEvent::ScrollPrepare 	204 	对象需要填充它的几何信息（QScrollPrepareEvent）
-QEvent::Scroll 	205 	对象需要滚动到提供的位置（QScrollEvent）
-QEvent::Shortcut 	117 	快捷键处理（QShortcutEvent）
-QEvent::ShortcutOverride 	51 	按下按键，用于覆盖快捷键（QKeyEvent）
-QEvent::Show 	17 	部件显示在屏幕上（QShowEvent）
-QEvent::ShowToParent 	26 	子部件被显示
-QEvent::SockAct 	50 	Socket 激活，用于实现 QSocketNotifier
-QEvent::StateMachineSignal 	192 	信号被传递到状态机（QStateMachine::SignalEvent）
-QEvent::StateMachineWrapped 	193 	事件是一个包装器，用于包含另一个事件（QStateMachine::WrappedEvent）
-QEvent::StatusTip 	112 	状态提示请求（QStatusTipEvent）
-QEvent::StyleChange 	100 	部件的样式发生改变
-QEvent::TabletMove 	87 	Wacom 写字板移动（QTabletEvent）
-QEvent::TabletPress 	92 	Wacom 写字板按下（QTabletEvent）
-QEvent::TabletRelease 	93 	Wacom 写字板释放（QTabletEvent）
-QEvent::OkRequest 	94 	Ok 按钮在装饰前被按下，仅支持 Windows CE
-QEvent::TabletEnterProximity 	171 	Wacom 写字板进入接近事件（QTabletEvent），发送到 QApplication
-QEvent::TabletLeaveProximity 	172 	Wacom 写字板离开接近事件（QTabletEvent），发送到 QApplication
-QEvent::ThreadChange 	22 	对象被移动到另一个线程。这是发送到此对象的最后一个事件在上一个线程中，参见：QObject::moveToThread()
-QEvent::Timer 	1 	定时器事件（QTimerEvent）
-QEvent::ToolBarChange 	120 	工具栏按钮在 OS X 上进行切换
-QEvent::ToolTip 	110 	一个 tooltip 请求（QHelpEvent）
-QEvent::ToolTipChange 	184 	部件的 tooltip 发生改变
-QEvent::TouchBegin 	194 	触摸屏或轨迹板事件序列的开始（QTouchEvent）
-QEvent::TouchCancel 	209 	取消触摸事件序列（QTouchEvent）
-QEvent::TouchEnd 	196 	触摸事件序列结束（QTouchEvent）
-QEvent::TouchUpdate 	195 	触摸屏事件（QTouchEvent）
-QEvent::UngrabKeyboard 	189 	Item 失去键盘抓取（QGraphicsItem）
-QEvent::UngrabMouse 	187 	Item 失去鼠标抓取（QGraphicsItem、QQuickItem）
-QEvent::UpdateLater 	78 	部件应该排队在以后重新绘制
-QEvent::UpdateRequest 	77 	部件应该被重绘
-QEvent::WhatsThis 	111 	部件应该显示“What’s This”帮助（QHelpEvent）
-QEvent::WhatsThisClicked 	118 	部件的“What’s This”帮助链接被点击
-QEvent::Wheel 	31 	鼠标滚轮滚动（QWheelEvent）
-QEvent::WinEventAct 	132 	发生了 Windows 特定的激活事件
-QEvent::WindowActivate 	24 	窗口已激活
-QEvent::WindowBlocked 	103 	窗口被模态对话框阻塞
-QEvent::WindowDeactivate 	25 	窗户被停用
-QEvent::WindowIconChange 	34 	窗口的图标发生改变
-QEvent::WindowStateChange 	105 	窗口的状态（最小化、最大化或全屏）发生改变（QWindowStateChangeEvent）
-QEvent::WindowTitleChange 	33 	窗口的标题发生改变
-QEvent::WindowUnblocked 	104 	一个模态对话框退出后，窗口将不被阻塞
-QEvent::WinIdChange 	203 	本地窗口的系统标识符发生改变
-QEvent::ZOrderChange 	126 	部件的 z 值发生了改变，该事件不会发送给顶层窗口
-
-用户事件的值应该介于 User 和 MaxUser 之间。
-常量	值	描述
-QEvent::User 	1000 	用户定义的事件
-QEvent::MaxUser 	65535 	最后的用户事件 ID
-
-为方便起见，可以使用 registerEventType() 函数来注册和存储一个自定义事件类型，这样做会避免意外地重用一个自定义事件类型。
- */
-
 #endif
 
-void BaseGui::quit() {
-//    qDebug("BaseGui::quit");
+void MainWindow::quit()
+{
     closeWindow();
 }
 
-void BaseGui::trayIconActivated(QSystemTrayIcon::ActivationReason reason) {
-//    qDebug("DefaultGui::trayIconActivated: %d", reason);
-
+void MainWindow::trayIconActivated(QSystemTrayIcon::ActivationReason reason) {
     switch(reason) {
         case QSystemTrayIcon::Trigger:
             toggleShowAll();
@@ -3195,18 +2814,18 @@ void BaseGui::trayIconActivated(QSystemTrayIcon::ActivationReason reason) {
     }
 }
 
-void BaseGui::toggleShowAll() {
+void MainWindow::toggleShowAll() {
     // Ignore if tray is not visible
     if (tray->isVisible()) {
         showAll( !isVisible() );
     }
 }
 
-void BaseGui::showAll() {
+void MainWindow::showAll() {
     if (!isVisible()) showAll(true);
 }
 
-void BaseGui::showAll(bool b) {
+void MainWindow::showAll(bool b) {
     if (!b) {
         trayicon_playlist_was_visible = m_playlistWidget->isVisible();
         playlist_pos = m_playlistWidget->pos();
@@ -3224,11 +2843,11 @@ void BaseGui::showAll(bool b) {
     }
 }
 
-void BaseGui::askForMplayerVersion(QString line) {
-	qDebug("BaseGui::askForMplayerVersion: %s", line.toUtf8().data());
+void MainWindow::askForMplayerVersion(QString line) {
+    qDebug("MainWindow::askForMplayerVersion: %s", line.toUtf8().data());
 }
 
-void BaseGui::showErrorFromPlayList(QString errorStr)
+void MainWindow::showErrorFromPlayList(QString errorStr)
 {
     ErrorDialog d;
     d.setWindowTitle(tr("%1 Error").arg(PLAYER_NAME));
@@ -3238,8 +2857,8 @@ void BaseGui::showErrorFromPlayList(QString errorStr)
     d.exec();
 }
 
-void BaseGui::showExitCodeFromMplayer(int exit_code) {
-	qDebug("BaseGui::showExitCodeFromMplayer: %d", exit_code);
+void MainWindow::showExitCodeFromMplayer(int exit_code) {
+    qDebug("MainWindow::showExitCodeFromMplayer: %d", exit_code);
 
 	if (exit_code != 255 ) {
         ErrorDialog d;//kobe
@@ -3253,8 +2872,8 @@ void BaseGui::showExitCodeFromMplayer(int exit_code) {
     this->clearMplayerLog();//add by kobe
 }
 
-void BaseGui::showErrorFromMplayer(QProcess::ProcessError e) {
-//	qDebug("BaseGui::showErrorFromMplayer");
+void MainWindow::showErrorFromMplayer(QProcess::ProcessError e) {
+//	qDebug("MainWindow::showErrorFromMplayer");
     /*QProcess::FailedToStart        0        进程启动失败
     QProcess::Crashed                1        进程成功启动后崩溃
     QProcess::Timedout               2        最后一次调用waitFor...()函数超时.此时QProcess状态不变,并可以再次             调用waitFor()类型的函数
@@ -3293,7 +2912,7 @@ void BaseGui::showErrorFromMplayer(QProcess::ProcessError e) {
 //    }
 }
 
-void BaseGui::showTipWidget(const QString text) {
+void MainWindow::showTipWidget(const QString text) {
     if (this->tipWidget->isVisible())
         this->tipWidget->hide();
     if (tip_timer->isActive())
@@ -3304,27 +2923,28 @@ void BaseGui::showTipWidget(const QString text) {
     this->tipWidget->show();
 }
 
-void BaseGui::hideTipWidget() {
+void MainWindow::hideTipWidget() {
     this->tipWidget->hide();
 }
 
-void BaseGui::showOrHideEscWidget(bool b) {
+void MainWindow::showOrHideEscWidget(bool b) {
     if (escWidget) {
         if (b) {
             if (!escWidget->isVisible() && this->isFullScreen()) {
                 this->escWidget->show();
+                m_maskWidget->showMask();
             }
         }
         else {
             if (escWidget->isVisible() && this->isFullScreen()) {
                 this->escWidget->hide();
+                m_maskWidget->hide();
             }
         }
     }
 }
 
-bool BaseGui::eventFilter(QObject *obj, QEvent *event) {
-//    qDebug() << "BaseGui::eventFilter" << obj->objectName();
+bool MainWindow::eventFilter(QObject *obj, QEvent *event) {
     if (obj == this->resizeCorner) {
         if (!this->isMaximized()) {
             if (event->type() == QEvent::MouseButtonPress) {
@@ -3334,76 +2954,23 @@ bool BaseGui::eventFilter(QObject *obj, QEvent *event) {
                 this->resizeFlag = false;
             }
         }
+//        return false;
     }
-
-    //201810
-    /*if (event->type() == QEvent::MouseMove) {
-        if (core && m_bottomController) {
-            if (core->state() == Core::Playing) {
-                m_bottomController->temporaryShow();
-                return true;
-            }
-        }
-
-        return false;
-    }*/
-
-    /*else if (obj == this->panel || obj == this->mplayerwindow || obj == this->m_bottomToolbar || obj == this->m_topToolbar) {
-        QEvent::Type type = event->type();
-        if (type != QEvent::MouseButtonPress
-            && type != QEvent::MouseButtonRelease
-            && type != QEvent::MouseMove) {
-            return false;
-        }
-        QMouseEvent *mouseEvent = dynamic_cast<QMouseEvent*>(event);
-        if (!mouseEvent) {
-            return false;
-        }
-        if (mouseEvent->modifiers() != Qt::NoModifier) {
-            return false;
-        }
-
-        if (event->type() == QEvent::MouseMove && turned_on) {
-            if (!m_topToolbar->isVisible()) {
-                m_topToolbar->showSpreadAnimated();
-            }
-            if (!m_bottomToolbar->getCtrlWidgetVisible()) {
-                m_bottomToolbar->showSpreadAnimated();
-            }
-        }
-    }*/
+//    else
+//        return false;
 
     return qApp->eventFilter(obj, event);
 }
 
-void BaseGui::mousePressEvent(QMouseEvent *event) {
-    switch(event->button()) {
-    case Qt::LeftButton:
-        m_leftPressed = true;
-        //m_dragPosition = event->pos();
-//        m_dragPosition = event->globalPos() - this->frameGeometry().topLeft();
-        break;
-    default:
-        QWidget::mousePressEvent(event);
-    }
-}
-
-void BaseGui::mouseReleaseEvent(QMouseEvent *event)
+void MainWindow::mouseMoveEvent(QMouseEvent *event)
 {
-    Q_UNUSED(event);
+    QMainWindow::mouseMoveEvent(event);
 
-    m_leftPressed = false;
-}
-
-void BaseGui::mouseMoveEvent(QMouseEvent *event) {
-
-//    if (m_leftPressed) {
-//        move(event->pos() - m_dragPosition + pos());
-//    }
-
-
+    if (this->isMaximized()) {
+        return;
+    }
     if (event->buttons() == Qt::LeftButton) {
-        if (this->resizeFlag) {//resize
+        if (this->resizeFlag) {
             int targetWidth = event->globalX() - this->frameGeometry().topLeft().x();
             int targetHeight = event->globalY() - this->frameGeometry().topLeft().y();
             if(targetWidth < WINDOW_MIN_WIDTH) {
@@ -3422,18 +2989,10 @@ void BaseGui::mouseMoveEvent(QMouseEvent *event) {
             }
             event->accept();
         }
-        //此处如果移动将会导致一些控件拖动时主界面乱动
-        /*else {//# drag move
-//            if(m_dragPosition != QPoint(-1, -1)) {
-                this->move((event->globalPos().x() - this->m_dragPosition.x()), (event->globalPos().y() - this->m_dragPosition.y()));
-                event->accept();
-//            }
-        }*/
     }
-    QWidget::mouseMoveEvent(event);
 }
 
-void BaseGui::ready_save_pre_image(int time) {
+void MainWindow::ready_save_pre_image(int time) {
 //    QString state = core->stateToString().toUtf8().data();
 //    if (state == "Playing" || state == "Paused") {
 
@@ -3479,10 +3038,11 @@ void BaseGui::ready_save_pre_image(int time) {
 }
 
 //20170720
-void BaseGui::resizeEvent(QResizeEvent *e) {
+void MainWindow::resizeEvent(QResizeEvent *e) {
+//    QWidget::resizeEvent(e);
+//    QSize newSize = QWidget::size();
     QMainWindow::resizeEvent(e);
     QSize newSize = QMainWindow::size();
-//    qDebug() << "new Size=" << newSize;
 
     int titleBarHeight = this->m_topToolbar->height();
     this->m_topToolbar->raise();
@@ -3503,15 +3063,15 @@ void BaseGui::resizeEvent(QResizeEvent *e) {
     this->m_bottomToolbar->resize(newSize.width(), BOTTOM_TOOLBAR_HEIGHT);
     this->m_bottomToolbar->move(0, newSize.height() - BOTTOM_TOOLBAR_HEIGHT);
     this->m_bottomToolbar->show_control_widget();
-    resizeCorner->move(this->m_bottomToolbar->width()- 16, this->m_bottomToolbar->height() - 16);
+    resizeCorner->move(this->m_bottomToolbar->width()- 15, this->m_bottomToolbar->height() - 15);
 }
 
-void BaseGui::closeEvent( QCloseEvent * e )  {
+void MainWindow::closeEvent( QCloseEvent * e )  {
     this->closeWindow();
     e->accept();
 }
 
-void BaseGui::closeWindow() {
+void MainWindow::closeWindow() {
     if (core->state() != Core::Stopped) {
         core->stop();
     }
@@ -3522,7 +3082,7 @@ void BaseGui::closeWindow() {
     emit quitSolicited();
 }
 
-void BaseGui::open_screenshot_directory() {
+void MainWindow::open_screenshot_directory() {
     bool open_enabled = ((!pref->screenshot_directory.isEmpty()) && (QFileInfo(pref->screenshot_directory).isDir()));
     if (open_enabled) {
         QDesktopServices::openUrl(QUrl(QString("file:%1").arg(pref->screenshot_directory), QUrl::TolerantMode));
@@ -3532,4 +3092,50 @@ void BaseGui::open_screenshot_directory() {
     }
 }
 
-//#include "moc_basegui.cpp"
+void MainWindow::checkMplayerVersion() {
+    // Qt 4.3.5 is crazy, I can't popup a messagebox here, it calls
+    // this function once and again when the messagebox is shown
+
+    if ( (pref->mplayer_detected_version > 0) && (!MplayerVersion::isMplayerAtLeast(25158)) ) {
+        QTimer::singleShot(1000, this, SLOT(displayWarningAboutOldMplayer()));
+    }
+}
+
+void MainWindow::displayWarningAboutOldMplayer() {
+    if (!pref->reported_mplayer_is_old) {
+        QMessageBox::warning(this, tr("Warning - Using old MPlayer"),
+            tr("The version of MPlayer (%1) installed on your system "
+               "is obsolete. SMPlayer can't work well with it: some "
+               "options won't work, subtitle selection may fail...")
+               .arg(MplayerVersion::toString(pref->mplayer_detected_version)) +
+            "<br><br>" +
+            tr("Please, update your MPlayer.") +
+            "<br><br>" +
+            tr("(This warning won't be displayed anymore)") );
+
+        pref->reported_mplayer_is_old = true;
+    }
+}
+
+//void MainWindow::paintEvent(QPaintEvent *)
+//{
+//    QPainter painter(this);
+//    painter.drawPixmap(rect(), currentBackground);
+
+////QPalette palette;
+////palette.setBrush(QPalette::Background, image);
+////setPalette(palette);
+//}
+
+void MainWindow::setBackgroudPixmap(QString pixmapDir)
+{
+    try {
+        if (!pixmapDir.isEmpty()) {
+            currentBackground = QPixmap(pixmapDir);
+            this->update();
+        }
+    }
+    catch (QString e) {
+
+    }
+}

@@ -38,13 +38,9 @@ MplayerProcess::MplayerProcess(QObject * parent)
 	, received_end_of_file(false)
 	, last_sub_id(-1)
     , mplayer_svn(-1) // Not found yet
-//#if NOTIFY_SUB_CHANGES
 	, subtitle_info_received(false)
 	, subtitle_info_changed(false)
-//#endif
-//#if NOTIFY_AUDIO_CHANGES
 	, audio_info_changed(false)
-//#endif
     , video_info_changed(false)
 	, dvd_current_title(-1)
 	, br_current_title(-1)
@@ -73,21 +69,15 @@ bool MplayerProcess::start() {
     mplayer_svn = -1; // Not found yet
 	received_end_of_file = false;
 
-//#if NOTIFY_SUB_CHANGES
 	subs.clear();
 	subtitle_info_received = false;
 	subtitle_info_changed = false;
-//#endif
 
-//#if NOTIFY_AUDIO_CHANGES
 	audios.clear();
 	audio_info_changed = false;
-//#endif
 
-//#if NOTIFY_VIDEO_CHANGES
     videos.clear();
     video_info_changed = false;
-//#endif
 
 	dvd_current_title = -1;
 	br_current_title = -1;
@@ -102,20 +92,11 @@ bool MplayerProcess::start() {
 static QRegExp rx_av("^[AV]: *([0-9,:.-]+)");
 static QRegExp rx_frame("^[AV]:.* (\\d+)\\/.\\d+");// [0-9,.]+");
 static QRegExp rx("^(.*)=(.*)");
-//#if !NOTIFY_AUDIO_CHANGES
-//static QRegExp rx_audio_mat("^ID_AID_(\\d+)_(LANG|NAME)=(.*)");
-//#endif
-//#if !NOTIFY_VIDEO_CHANGES
-//static QRegExp rx_video("^ID_VID_(\\d+)_(LANG|NAME)=(.*)");
-//#endif
 static QRegExp rx_title("^ID_(DVD|BLURAY)_TITLE_(\\d+)_(LENGTH|CHAPTERS|ANGLES)=(.*)");
 static QRegExp rx_chapters("^ID_CHAPTER_(\\d+)_(START|END|NAME)=(.+)");
 static QRegExp rx_winresolution("^VO: \\[(.*)\\] (\\d+)x(\\d+) => (\\d+)x(\\d+)");
 static QRegExp rx_ao("^AO: \\[(.*)\\]");
 static QRegExp rx_paused("^ID_PAUSED");
-//#if !CHECK_VIDEO_CODEC_FOR_NO_VIDEO
-//static QRegExp rx_novideo("^Video: no video");
-//#endif
 static QRegExp rx_cache("^Cache fill:.*");
 static QRegExp rx_cache_empty("^Cache empty.*|^Cache not filling.*");
 static QRegExp rx_create_index("^Generating Index:.*");
@@ -148,20 +129,12 @@ static QRegExp rx_sid("^ID_(SID|VSID)_(\\d+)_(LANG|NAME)=(.*)");
 static QRegExp rx_subtitle_file("^ID_FILE_SUB_FILENAME=(.*)");
 
 // Audio
-//#if NOTIFY_AUDIO_CHANGES
 static QRegExp rx_audio("^ID_AUDIO_ID=(\\d+)");
 static QRegExp rx_audio_info("^ID_AID_(\\d+)_(LANG|NAME)=(.*)");
-//#endif
 
 // Video
-//#if NOTIFY_VIDEO_CHANGES
 static QRegExp rx_video("^ID_VIDEO_ID=(\\d+)");
 static QRegExp rx_video_info("^ID_VID_(\\d+)_(LANG|NAME)=(.*)");
-//#endif
-
-//#if PROGRAM_SWITCH
-//static QRegExp rx_program("^PROGRAM_ID=(\\d+)");
-//#endif
 
 //Clip info
 static QRegExp rx_clip_name("^ (name|title): (.*)", Qt::CaseInsensitive);
@@ -203,9 +176,6 @@ void MplayerProcess::parseLine(QByteArray ba) {
     if (rx_av.indexIn(line) > -1) {
         double sec = rx_av.cap(1).toDouble();
         //qDebug("cap(1): '%s'", rx_av.cap(1).toUtf8().data() );
-        //qDebug("sec: %f", sec);
-
-//#if NOTIFY_SUB_CHANGES
         if (notified_mplayer_is_running) {
             if (subtitle_info_changed) {
                 qDebug("MplayerProcess::parseLine: subtitle_info_changed");
@@ -219,9 +189,7 @@ void MplayerProcess::parseLine(QByteArray ba) {
                 emit subtitleInfoReceivedAgain(subs);
             }
         }
-//#endif
 
-//#if NOTIFY_AUDIO_CHANGES
         if (notified_mplayer_is_running) {
             if (audio_info_changed) {
                 qDebug("MplayerProcess::parseLine: audio_info_changed");
@@ -229,9 +197,8 @@ void MplayerProcess::parseLine(QByteArray ba) {
                 emit audioInfoChanged(audios, -1);
             }
         }
-//#endif
 
-//#if NOTIFY_VIDEO_CHANGES
+
         if (notified_mplayer_is_running) {
             if (video_info_changed) {
                 qDebug("MplayerProcess::parseLine: video_info_changed");
@@ -239,7 +206,6 @@ void MplayerProcess::parseLine(QByteArray ba) {
                 emit videoInfoChanged(videos, -1);
             }
         }
-//#endif
 
         if (!notified_mplayer_is_running) {
             qDebug("MplayerProcess::parseLine: starting sec: %f", sec);
@@ -250,14 +216,11 @@ void MplayerProcess::parseLine(QByteArray ba) {
                 md.n_chapters = md.titles.itemAt(idx).chapters();
                 qDebug("MplayerProcess::parseLine: setting chapters to %d", md.n_chapters);
             }
-
-//#if CHECK_VIDEO_CODEC_FOR_NO_VIDEO
-            // Another way to find out if there's no video
+            // Another way to find out if there's no video, the another way is: static QRegExp rx_novideo("^Video: no video");
             if (md.video_codec.isEmpty()) {
                 md.novideo = true;
                 emit receivedNoVideo();
             }
-//#endif
 
             emit receivedStartingTime(sec);
             emit mplayerFullyLoaded();
@@ -334,20 +297,8 @@ void MplayerProcess::parseLine(QByteArray ba) {
             emit receivedWindowResolution( w, h );
             //emit mplayerFullyLoaded();
         }
-        else
-
-//#if !CHECK_VIDEO_CODEC_FOR_NO_VIDEO
-//		// No video
-//		if (rx_novideo.indexIn(line) > -1) {
-//			md.novideo = true;
-//			emit receivedNoVideo();
-//			//emit mplayerFullyLoaded();
-//		}
-//		else
-//#endif
-
         // Pause
-        if (rx_paused.indexIn(line) > -1) {
+        else if (rx_paused.indexIn(line) > -1) {
             emit receivedPause();
         }
 
@@ -369,7 +320,6 @@ void MplayerProcess::parseLine(QByteArray ba) {
             emit receivedStreamTitle( s );
         }
 
-//#if NOTIFY_SUB_CHANGES
         // Subtitles
         if ((rx_subtitle.indexIn(line) > -1) || (rx_sid.indexIn(line) > -1) || (rx_subtitle_file.indexIn(line) > -1)) {
             int r = subs.parse(line);
@@ -377,9 +327,7 @@ void MplayerProcess::parseLine(QByteArray ba) {
             subtitle_info_received = true;
             if ((r == SubTracks::SubtitleAdded) || (r == SubTracks::SubtitleChanged)) subtitle_info_changed = true;
         }
-//#endif
 
-//#if NOTIFY_AUDIO_CHANGES
         // Audio
         if (rx_audio.indexIn(line) > -1) {
             int ID = rx_audio.cap(1).toInt();
@@ -422,9 +370,7 @@ void MplayerProcess::parseLine(QByteArray ba) {
                 }
             }
         }
-//#endif
 
-//#if NOTIFY_AUDIO_CHANGES
         // Video
         if (rx_video.indexIn(line) > -1) {
             int ID = rx_video.cap(1).toInt();
@@ -432,7 +378,6 @@ void MplayerProcess::parseLine(QByteArray ba) {
             if (videos.find(ID) == -1) video_info_changed = true;
             videos.addID( ID );
         }
-//#endif
 
 //#if DVDNAV_SUPPORT
 //		if (rx_dvdnav_switch_title.indexIn(line) > -1) {
@@ -475,71 +420,11 @@ void MplayerProcess::parseLine(QByteArray ba) {
                 emit failedToParseMplayerVersion(line);
             }
         }
-
-//#if !NOTIFY_SUB_CHANGES
-//		// Subtitles
-//		if (rx_subtitle.indexIn(line) > -1) {
-//			md.tsubs.parse(line);
-//		}
-//		else
-//		if (rx_sid.indexIn(line) > -1) {
-//			md.tsubs.parse(line);
-//		}
-//		else
-//		if (rx_subtitle_file.indexIn(line) > -1) {
-//			md.tsubs.parse(line);
-//		}
-//#endif
         // AO
         if (rx_ao.indexIn(line) > -1) {
             emit receivedAO( rx_ao.cap(1) );
         }
         else
-
-//#if !NOTIFY_AUDIO_CHANGES
-//		// Matroska audio
-//		if (rx_audio_mat.indexIn(line) > -1) {
-//			int ID = rx_audio_mat.cap(1).toInt();
-//			QString lang = rx_audio_mat.cap(3);
-//			QString t = rx_audio_mat.cap(2);
-//			qDebug("MplayerProcess::parseLine: Audio: ID: %d, Lang: '%s' Type: '%s'",
-//                    ID, lang.toUtf8().data(), t.toUtf8().data());
-
-//			if ( t == "NAME" )
-//				md.taudios.addName(ID, lang);
-//			else
-//				md.taudios.addLang(ID, lang);
-//		}
-//		else
-//#endif
-
-//#if PROGRAM_SWITCH
-//		// Program
-//		if (rx_program.indexIn(line) > -1) {
-//			int ID = rx_program.cap(1).toInt();
-//			qDebug("MplayerProcess::parseLine: Program: ID: %d", ID);
-//			md.programs.addID( ID );
-//		}
-//		else
-//#endif
-
-//#if !NOTIFY_VIDEO_CHANGES
-//		// Video tracks
-//		if (rx_video.indexIn(line) > -1) {
-//			int ID = rx_video.cap(1).toInt();
-//			QString lang = rx_video.cap(3);
-//			QString t = rx_video.cap(2);
-//			qDebug("MplayerProcess::parseLine: Video: ID: %d, Lang: '%s' Type: '%s'",
-//                    ID, lang.toUtf8().data(), t.toUtf8().data());
-
-//			if ( t == "NAME" )
-//				md.tvideos.addName(ID, lang);
-//			else
-//				md.tvideos.addLang(ID, lang);
-//		}
-//		else
-//#endif
-
         // Matroshka chapters
         if (rx_mkvchapters.indexIn(line)!=-1) {
             int c = rx_mkvchapters.cap(1).toInt();
@@ -774,26 +659,6 @@ void MplayerProcess::parseLine(QByteArray ba) {
             tag = rx.cap(1);
             value = rx.cap(2);
             //qDebug("MplayerProcess::parseLine: tag: %s, value: %s", tag.toUtf8().data(), value.toUtf8().data());
-
-//#if !NOTIFY_AUDIO_CHANGES
-//			// Generic audio
-//			if (tag == "ID_AUDIO_ID") {
-//				int ID = value.toInt();
-//				qDebug("MplayerProcess::parseLine: ID_AUDIO_ID: %d", ID);
-//				md.taudios.addID( ID );
-//			}
-//			else
-//#endif
-
-//#if !NOTIFY_VIDEO_CHANGES
-//			// Video
-//			if (tag == "ID_VIDEO_ID") {
-//				int ID = value.toInt();
-//				qDebug("MplayerProcess::parseLine: ID_VIDEO_ID: %d", ID);
-//				md.tvideos.addID( ID );
-//			}
-//			else
-//#endif
 
             if (tag == "ID_LENGTH") {
                 md.duration = value.toDouble();

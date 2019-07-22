@@ -18,12 +18,12 @@
  */
 
 #include "filterhandler.h"
-#include "./smplayer/basegui.h"
+#include "mainwindow.h"
 
 #include <QApplication>
 #include <QEvent>
 
-FilterHandler::FilterHandler(BaseGui &gui, QObject &obj) : QObject(&gui),
+FilterHandler::FilterHandler(MainWindow &gui, QObject &obj) : QObject(&gui),
    m_baseGui(&gui)
 {
     obj.installEventFilter(this);
@@ -39,7 +39,7 @@ bool FilterHandler::eventFilter(QObject *obj, QEvent *event)
 {
     (void) obj;
 
-    /*if (event->type() == QEvent::WindowStateChange) {// BaseGui::event
+    /*if (event->type() == QEvent::WindowStateChange) {// MainWindow::event
         Qt::WindowStates winState = m_baseGui->windowState();
         switch(winState)
         {
@@ -50,7 +50,7 @@ bool FilterHandler::eventFilter(QObject *obj, QEvent *event)
         }
         return false;
     }
-    if (event->type() == QEvent::KeyPress) {// BaseGui::keyPressEvent
+    if (event->type() == QEvent::KeyPress) {// MainWindow::keyPressEvent
         QKeyEvent *e = static_cast<QKeyEvent *>(event);
         switch (e->key())
         {

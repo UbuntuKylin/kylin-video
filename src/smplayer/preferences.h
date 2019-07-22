@@ -70,7 +70,6 @@ public:
 	void save();
 	void load();
 
-    double monitor_aspect_double();
 	void setupScreenshotFolder();
 
 
@@ -95,13 +94,8 @@ public:
     bool remember_time_pos;
     bool remember_stream_settings;
 
-//#if SIMPLE_TRACK_SELECTION
     QString alang;
     QString slang;
-//#else
-//	QString audio_lang; 		// Preferred audio language
-//	QString subtitle_lang;		// Preferred subtitle language
-//#endif
 
 	// Video
 	bool use_direct_rendering;
@@ -253,13 +247,7 @@ public:
        Advanced
        ******** */
 
-//#if USE_ADAPTER
-//    int adapter; //Screen for overlay. If -1 it won't be used.
-//#endif
-
     bool use_mplayer_window;
-
-    QString monitor_aspect;
 
 	bool use_idx; //!< Use -idx
 	bool use_lavf_demuxer;
@@ -281,10 +269,8 @@ public:
     bool save_smplayer_log;
 //#endif
 
-//#if REPAINT_BACKGROUND_OPTION
     //! If true, mplayerlayer erases its background
     bool repaint_video_background;
-//#endif
 
 	//! If true it will autoload edl files with the same name of the file
     //! to play
@@ -347,10 +333,6 @@ public:
 
 	int resize_method; 	//!< Mainwindow resize method
 
-//#if STYLE_SWITCHING
-    QString style; 	//!< SMPlayer look
-//#endif
-
     bool center_window; //!< Center the main window when playback starts
     bool center_window_if_outside; //!< Center the main window after an autoresize if it's outside of the screen
 
@@ -384,11 +366,10 @@ public:
     int time_slider_drag_delay;
 //#endif
 
-//#if SEEKBAR_RESOLUTION
     //! If true, seeking will be done using a
     //! percentage (with fractions) instead of time.
     bool relative_seeking;
-//#endif
+
     bool precise_seeking; //! Enable precise_seeking (only available with mpv)
 
     bool reset_stop; //! Pressing the stop button resets the position
@@ -428,27 +409,17 @@ public:
 
     QString gui; //!< The name of the GUI to use
 
-//#if USE_MINIMUMSIZE
     int gui_minimum_width;
-//#endif
     QSize default_size; // Default size of the main window
-
-//#if ALLOW_TO_HIDE_VIDEO_WINDOW_ON_AUDIO_FILES
-    bool hide_video_window_on_audio_files;
-//#endif
 
     bool report_mplayer_crashes;
 
-//#if REPORT_OLD_MPLAYER
     bool reported_mplayer_is_old;
-//#endif
 
     bool auto_add_to_playlist; //!< Add files to open to playlist
     AutoAddToPlaylistFilter media_to_add_to_playlist;
 
-//#if LOGO_ANIMATION
-//    bool animated_logo;
-//#endif
+    bool animated_logo;
 
     bool preview_when_playing;
 //    QString playlist_key;
@@ -497,10 +468,8 @@ public:
     int initial_audio_channels;
     int initial_stereo_mode;
 
-//#if SELECT_TRACKS_ON_STARTUP
     int initial_audio_track;
     int initial_subtitle_track;
-//#endif
 
 
     /* ************

@@ -67,10 +67,6 @@ public:
     int current_secondary_subtitle_track;
 //#endif
 
-//#if PROGRAM_SWITCH
-//	int current_program_id;
-//#endif
-
 	int current_video_id;
 	int current_audio_id;
 

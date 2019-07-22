@@ -41,9 +41,7 @@ void MediaSettings::reset() {
 //	current_secondary_sub_id = NoneSelected;
     current_secondary_subtitle_track = NoneSelected;
 //#endif
-//#if PROGRAM_SWITCH
-//	current_program_id = NoneSelected;
-//#endif
+
 	current_video_id = NoneSelected;
 	current_audio_id = NoneSelected;
 	current_title_id = NoneSelected;
@@ -210,9 +208,7 @@ void MediaSettings::list() {
 ////#ifdef MPV_SUPPORT
 ////	qDebug("  current_secondary_sub_id: %d", current_secondary_sub_id);
 ////#endif
-//#if PROGRAM_SWITCH
-//	qDebug("  current_program_id: %d", current_program_id);
-//#endif
+
 //	qDebug("  current_video_id: %d", current_video_id);
 //	qDebug("  current_audio_id: %d", current_audio_id);
 //	qDebug("  current_title_id: %d", current_title_id);
@@ -337,9 +333,7 @@ void MediaSettings::save(QSettings * set, int player_id) {
 //	set->setValue( "current_secondary_sub_id", current_secondary_sub_id );
     set->setValue( "current_secondary_subtitle_track", current_secondary_subtitle_track );
 //	#endif
-//	#if PROGRAM_SWITCH
-//	set->setValue( "current_program_id", current_program_id );
-//	#endif
+
 	set->setValue( "current_video_id", current_video_id );
 	set->setValue( "current_audio_id", current_audio_id );
 	set->endGroup();
@@ -484,9 +478,7 @@ void MediaSettings::load(QSettings * set, int player_id) {
 //	current_secondary_sub_id = set->value( "current_secondary_sub_id", NoneSelected ).toInt();
     current_secondary_subtitle_track = set->value( "current_secondary_subtitle_track", NoneSelected ).toInt();
 //	#endif
-//	#if PROGRAM_SWITCH
-//	current_program_id = set->value( "current_program_id", NoneSelected ).toInt();
-//	#endif
+
 	current_video_id = set->value( "current_video_id", NoneSelected ).toInt();
 	current_audio_id = set->value( "current_audio_id", NoneSelected ).toInt();
 	set->endGroup();

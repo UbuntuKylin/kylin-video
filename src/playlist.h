@@ -99,9 +99,6 @@ public:
     void allowDeleteFromDisk(bool enabled) { allow_delete_from_disk = enabled; };
     bool isDeleteFromDiskAllowed() { return allow_delete_from_disk; };
 
-//#ifdef YT_PLAYLIST_SUPPORT
-//	static bool isYTPlaylist(const QString & url);
-//#endif
 
 public slots:
     void loadSingleItem(QString filename, QString name, double duration);

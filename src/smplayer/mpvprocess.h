@@ -129,9 +129,7 @@ public:
 //#endif
 	void setAspect(double aspect);
 	void setFullscreen(bool b);
-//#if PROGRAM_SWITCH
-//	void setTSProgram(int ID);
-//#endif
+
 	void toggleDeinterlace();
 	void askForLength();
 	void setOSDScale(double value);
@@ -178,16 +176,10 @@ signals:
 protected:
     virtual void initializeOptionVars();
 
-//#if NOTIFY_AUDIO_CHANGES
     void updateAudioTrack(int ID, const QString & name, const QString & lang, bool selected);
-//#endif
-//#if NOTIFY_SUB_CHANGES
     void updateSubtitleTrack(int ID, const QString & name, const QString & lang, bool selected);
-//#endif
-
-//#if NOTIFY_VIDEO_CHANGES
     void updateVideoTrack(int ID, const QString & name, const QString & lang, bool selected);
-//#endif
+
 
 private:
 	bool notified_mplayer_is_running;
@@ -201,29 +193,26 @@ private:
 	QString mpv_version;
 	bool verbose;
 
-//#if NOTIFY_SUB_CHANGES
+
+    //字幕
 	SubTracks subs;
 	bool subtitle_info_received;
 	bool subtitle_info_changed;
     int selected_subtitle;
-//#endif
 
-//#if NOTIFY_AUDIO_CHANGES
+    //音频
 	Tracks audios;
 	bool audio_info_changed;
     int selected_audio;
-//#endif
 
-//#if NOTIFY_VIDEO_CHANGES
+    //视频
 	Tracks videos;
 	bool video_info_changed;
     int selected_video;
-//#endif
 
-//#if NOTIFY_CHAPTER_CHANGES
+    //章节
     Chapters chapters;
     bool chapter_info_changed;
-//#endif
 
 	int dvd_current_title;
 	int br_current_title;
@@ -262,10 +251,6 @@ private:
 
     QRegExp rx_videocodec;
     QRegExp rx_audiocodec;
-
-//#if !NOTIFY_VIDEO_CHANGES
-//    QRegExp rx_video;
-//#endif
 
     QRegExp rx_chaptername;
     QRegExp rx_trackinfo;

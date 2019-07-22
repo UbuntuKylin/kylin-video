@@ -31,7 +31,7 @@
 #define EQ_SUPEREQUALIZER 4
 #define EQ_FEQUALIZER 5
 
-#define USE_EQUALIZER EQ_FIREQUALIZER
+//#define USE_EQUALIZER EQ_FIREQUALIZER
 
 #define LETTERBOX_OLD 1
 #define LETTERBOX_PAD 2
@@ -128,6 +128,14 @@ void MPVProcess::setFixedOptions() {
     arg << "--terminal";
     arg << "--no-msg-color";
     arg << "--input-file=/dev/stdin";
+
+    static QStringList option_list;
+    InfoReader * ir = InfoReader::obj(this->m_snap, executable());
+    ir->getInfo();
+    option_list = ir->optionList();
+    if (option_list.contains("--gpu-context")) {
+	arg << "--gpu-context=x11egl";
+    }
     //arg << "--no-osc";
     //arg << "--msg-level=vd=v";
     //arg << "--video-stereo-mode=no";
@@ -481,7 +489,7 @@ void MPVProcess::setOption(const QString & option_name, const QVariant & value) 
     else
     if (option_name == "afm") {
         QString s = value.toString();
-        if (s == "hwac3") arg << "--audio-spdif=ac3,dts-hd";
+        if (s == "hwac3") arg << "--audio-spdif=ac3,dts-hd,truehd";
     }
     else
     if (option_name == "enable_streaming_sites_support") {
@@ -973,39 +981,8 @@ void MPVProcess::enableVolnorm(bool b, const QString & option) {
 void MPVProcess::enableEarwax(bool b) {
     changeAF("earwax", b);
 }
-//void MPVProcess::setAudioEqualizer(const QString & values) {
-//    if (values == previous_eq) return;
-
-//    if (!previous_eq.isEmpty()) {
-//        writeToStdin("af del equalizer=" + previous_eq);
-//    }
-//    writeToStdin("af add equalizer=" + values);
-//    previous_eq = values;
-//}
 
 void MPVProcess::setAudioEqualizer(AudioEqualizerList l) {
-    qDebug("MPVProcess::setAudioEqualizer");
-
-    /*#if !defined(SIMPLE_EQUALIZER) && USE_EQUALIZER == EQ_ANEQUALIZER
-
-    QStringList commands = AudioEqualizerHelper::equalizerListForCommand(l, previous_eq_list, AudioEqualizerHelper::Anequalizer);
-    foreach(QString command, commands) {
-        writeToStdin("af-command \"anequalizer\" \"change\" \"" + command + "\"");
-    }
-
-    previous_eq_list = l;
-
-    #elif !defined(SIMPLE_EQUALIZER) && USE_EQUALIZER == EQ_FIREQUALIZER
-
-    QStringList commands = AudioEqualizerHelper::equalizerListForCommand(l, previous_eq_list, AudioEqualizerHelper::Firequalizer);
-    foreach(QString command, commands) {
-        writeToStdin("af-command \"firequalizer\" \"gain_entry\" \"" + command + "\"");
-    }
-
-    previous_eq_list = l;
-
-    #else*/
-
     QString eq_filter = audioEqualizerFilter(l);
     if (previous_eq == eq_filter) return;
 
@@ -1015,8 +992,6 @@ void MPVProcess::setAudioEqualizer(AudioEqualizerList l) {
 
     writeToStdin("af add \"" + eq_filter + "\"");
     previous_eq = eq_filter;
-
-//#endif
 }
 
 void MPVProcess::setAudioDelay(double delay) {
@@ -1106,12 +1081,6 @@ void MPVProcess::setFullscreen(bool b) {
     writeToStdin(QString("set fullscreen %1").arg(b ? "yes" : "no"));
 }
 
-//#if PROGRAM_SWITCH
-//void MPVProcess::setTSProgram(int ID) {
-//    qDebug("MPVProcess::setTSProgram: function not supported");
-//}
-//#endif
-
 void MPVProcess::toggleDeinterlace() {
     writeToStdin("cycle deinterlace");
 }
@@ -1129,8 +1098,6 @@ void MPVProcess::setOSDFractions(bool active) {
 }
 
 void MPVProcess::changeVF(const QString & filter, bool enable, const QVariant & option) {
-    qDebug() << "MPVProcess::changeVF:" << filter << enable;
-
     QString f;
 
     QString lavfi_filter = lavfi(filter, option);
@@ -1185,16 +1152,11 @@ void MPVProcess::changeStereo3DFilter(bool enable, const QString & in, const QSt
     writeToStdin(QString("vf %1 \"%2\"").arg(enable ? "add" : "del").arg(filter));
 }
 
-//#if 0
-//#define SUBOPTION(name, alternative1, alternative2) \
-//	QString name = alternative2;
-//#else
 #define SUBOPTION(name, alternative1, alternative2) \
     QString name; \
     if (isOptionAvailable(alternative1)) name = alternative1; \
     else \
     if (isOptionAvailable(alternative2)) name = alternative2;
-//#endif
 
 void MPVProcess::setSubStyles(const AssStyles & styles, const QString &) {
     SUBOPTION(sub_font, "--sub-font", "--sub-text-font");
@@ -1398,60 +1360,13 @@ QString MPVProcess::lavfi(const QString & filter_name, const QVariant & option) 
 }
 
 QString MPVProcess::audioEqualizerFilter(AudioEqualizerList l) {
+    //USE_EQUALIZER: 2   EQ_FIREQUALIZER:2    EQ_FIREQUALIZER_LIST: 3   EQ_FEQUALIZER: 5   EQ_OLD: 0   EQ_ANEQUALIZER: 1   EQ_SUPEREQUALIZER: 4
     QString f;
-//USE_EQUALIZER: 2   EQ_FIREQUALIZER:2    EQ_FIREQUALIZER_LIST: 3   EQ_FEQUALIZER: 5   EQ_OLD: 0   EQ_ANEQUALIZER: 1   EQ_SUPEREQUALIZER: 4
-
-//#if USE_EQUALIZER == EQ_OLD
-//    QString values = AudioEqualizerHelper::equalizerListToString(l);
-//    f = "equalizer=" + values;
-//#endif
-
-//#if USE_EQUALIZER == EQ_ANEQUALIZER
-//    QString values = AudioEqualizerHelper::equalizerListToString(l, AudioEqualizerHelper::Anequalizer);
-//    f = "lavfi=[anequalizer=" + values + "]";
-//    #ifndef SIMPLE_EQUALIZER
-//    f = "@anequalizer:" + f;
-//    #endif
-//#endif
-
-//#if USE_EQUALIZER == EQ_FIREQUALIZER
-    qDebug() << "equalizerListToString start 1111";
     QString values = AudioEqualizerHelper::equalizerListToString(l, AudioEqualizerHelper::Firequalizer);
     f = "lavfi=[firequalizer=gain='cubic_interpolate(f)':zero_phase=on:wfunc=tukey:delay=0.027:" + values + "]";
-    #ifndef SIMPLE_EQUALIZER
-    f = "@firequalizer:" + f;
-    #endif
-//#endif
-
-//#ifndef SIMPLE_EQUALIZER
-//#if USE_EQUALIZER == EQ_SUPEREQUALIZER
-//    QString values = AudioEqualizerHelper::equalizerListToString(l, AudioEqualizerHelper::Superequalizer);
-//    f = "lavfi=[superequalizer=" + values + "]";
-//#endif
-
-//#if USE_EQUALIZER == EQ_FIREQUALIZER_LIST
-//    QStringList e = AudioEqualizerHelper::equalizerListToStringList(l, AudioEqualizerHelper::Firequalizer);
-//    foreach(QString option, e) {
-//        if (!f.isEmpty()) f += ",";
-//        f += "firequalizer=" + option;
-//    }
-//    f = "@firequalizer:lavfi=[" + f + "]";
-//#endif
-
-//#if USE_EQUALIZER == EQ_FEQUALIZER
-//    QStringList e = AudioEqualizerHelper::equalizerListToStringList(l, AudioEqualizerHelper::FEqualizer);
-//    foreach(QString option, e) {
-//        if (!f.isEmpty()) f += ",";
-//        f += "equalizer=" + option;
-//    }
-//    f = "lavfi=[aresample=44100," + f + "]";
-//#endif
-//#endif
-
     return f;
 }
 
-//#ifndef USE_OLD_VIDEO_EQ
 QString MPVProcess::videoEqualizerFilter(SoftVideoEq eq) {
     QString f;
 
@@ -1478,4 +1393,3 @@ void MPVProcess::updateSoftVideoEqualizerFilter() {
 
     previous_soft_eq = current_soft_eq;
 }
-//#endif

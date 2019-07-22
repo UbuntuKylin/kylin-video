@@ -23,7 +23,7 @@
 #include <QObject>
 #include <QString>
 #include <QStringList>
-#include "../smplayer/basegui.h"
+#include "mainwindow.h"
 
 class InfoWorker;
 
@@ -40,18 +40,18 @@ public:
 	//! Process arguments. If ExitCode != NoExit the application must be exited.
 	ExitCode processArgs(QStringList args);
 
-    BaseGui *gui();
+    MainWindow *gui();
 
 public slots:
     void changeGUI();
     void showWindow();
 
 private:
-    BaseGui *createGUI(QString arch_type, QString snap);
+    MainWindow *createGUI(QString arch_type, QString snap);
 	void deleteGUI();
 	void showInfo();
 	void deleteConfig();
-    static BaseGui *main_window;
+    static MainWindow *main_window;
 	QStringList files_to_play;
 	QString subtitle_file;
 	QString media_title; //!< Force a title for the first file

@@ -305,12 +305,9 @@ void Preferences::reset() {
 //	fast_audio_change = Detect;
 //#endif
 
-//#if !SMART_DVD_CHAPTERS
-//	fast_chapter_change = false;
-//#endif
-
     threads = 4;//1
     hwdec = "no";//"auto"
+    //hwdec = "rkmpp-copy";
 
     cache_auto = true;
     cache_for_files = 2048;
@@ -357,13 +354,7 @@ void Preferences::reset() {
     /* ********
        Advanced
        ******** */
-//#if USE_ADAPTER
-//    adapter = -1;
-//#endif
-
     use_mplayer_window = false;
-
-    monitor_aspect=""; // Autodetect
 
 	use_idx = false;
 	use_lavf_demuxer = false;
@@ -383,17 +374,14 @@ void Preferences::reset() {
     log_filter = ".*";
     save_smplayer_log = false;
 
-//#if REPAINT_BACKGROUND_OPTION
+
     // "Repaint video background" in the preferences dialog
 //    #ifndef Q_OS_WIN
     // Note: on linux there could be flickering when using mplayer if this option is true
     // but setting it to false could display a corrupted window
     // from the moment the user press play until playback actually starts
     repaint_video_background = true;
-//    #else
-//    repaint_video_background = true;
-//    #endif
-//#endif
+
 
 	use_edl_files = true;
 
@@ -435,14 +423,6 @@ void Preferences::reset() {
 //    resize_method = Afterload;//kobe: Never;
     resize_method = Never;//Afterload
 
-//#if STYLE_SWITCHING
-    #if QT_VERSION >= 0x050000
-    style = "Fusion";
-    #else
-    style="";
-    #endif
-//#endif
-
     center_window = false;
     center_window_if_outside = false;
 
@@ -482,9 +462,8 @@ void Preferences::reset() {
     time_slider_drag_delay = 100;
 //#endif
 
-//#if SEEKBAR_RESOLUTION
     relative_seeking = false;
-//#endif
+
     precise_seeking = true;
 
     reset_stop = false;
@@ -513,15 +492,8 @@ void Preferences::reset() {
     gui = "DefaultGUI";
     iconset = "H2O";
 
-
-//#if USE_MINIMUMSIZE
     gui_minimum_width = 0; // 0 == disabled
-//#endif
     default_size = QSize(683, 509);
-
-//#if ALLOW_TO_HIDE_VIDEO_WINDOW_ON_AUDIO_FILES
-    hide_video_window_on_audio_files = true;
-//#endif
 
 //#ifdef Q_OS_WIN
 //	report_mplayer_crashes = false;
@@ -529,16 +501,14 @@ void Preferences::reset() {
     report_mplayer_crashes = true;
 //#endif
 
-//#if REPORT_OLD_MPLAYER
+
     reported_mplayer_is_old = false;
-//#endif
+
 
     auto_add_to_playlist = true;
     media_to_add_to_playlist = NoFiles;
 
-//#if LOGO_ANIMATION
-//	animated_logo = true;
-//#endif
+    animated_logo = true;
 
 //    preview_when_playing = true;
 //    playlist_key = "F3";
@@ -782,7 +752,6 @@ void Preferences::save() {
        ******** */
 	set->beginGroup( "advanced");
 //    set->setValue("use_mplayer_window", use_mplayer_window);
-//	set->setValue("monitor_aspect", monitor_aspect);
 	set->setValue("use_idx", use_idx);
 	set->setValue("use_lavf_demuxer", use_lavf_demuxer);
 //    set->setValue("mplayer_additional_options", mplayer_additional_options);
@@ -798,9 +767,9 @@ void Preferences::save() {
     set->setValue("log_filter", log_filter);
     set->setValue("save_smplayer_log", save_smplayer_log);*/
 
-//#if REPAINT_BACKGROUND_OPTION
+
 //	set->setValue("repaint_video_background", repaint_video_background);
-//#endif
+
     set->setValue("use_edl_files", use_edl_files);
 
 //#ifdef MPLAYER_SUPPORT
@@ -835,15 +804,12 @@ void Preferences::save() {
        GUI stuff
        ********* */
 	set->beginGroup("gui");
-	set->setValue("fullscreen", fullscreen);
+    set->setValue("fullscreen", fullscreen);
 //    set->setValue("start_in_fullscreen", start_in_fullscreen);
 //    set->setValue("compact_mode", compact_mode);
     set->setValue("stay_on_top", (int) stay_on_top);
 //    set->setValue("size_factor", size_factor);
 //	set->setValue("resize_method", resize_method);
-//#if STYLE_SWITCHING
-//	set->setValue("qt_style", style);
-//#endif
 //    set->setValue("center_window", center_window);
 //	set->setValue("center_window_if_outside", center_window_if_outside);
 //#ifdef GLOBALSHORTCUTS
@@ -868,9 +834,9 @@ void Preferences::save() {
 //#if ENABLE_DELAYED_DRAGGING
     set->setValue("time_slider_drag_delay", time_slider_drag_delay);
 //#endif
-////#if SEEKBAR_RESOLUTION
+
 //	set->setValue("relative_seeking", relative_seeking);
-////#endif
+
 //	set->setValue("precise_seeking", precise_seeking);
 //    set->setValue("reset_stop", reset_stop);
 //	set->setValue("delay_left_click", delay_left_click);
@@ -887,18 +853,13 @@ void Preferences::save() {
     set->setValue("pause_when_hidden", pause_when_hidden);
     set->setValue("allow_video_movement", allow_video_movement);
 //	set->setValue("gui", gui);
-////#if USE_MINIMUMSIZE
 //	set->setValue("gui_minimum_width", gui_minimum_width);
-////#endif
 //	set->setValue("default_size", default_size);
 
-////#if ALLOW_TO_HIDE_VIDEO_WINDOW_ON_AUDIO_FILES
-//	set->setValue("hide_video_window_on_audio_files", hide_video_window_on_audio_files);
-////#endif
 //	set->setValue("report_player_crashes", report_mplayer_crashes);
-////#if REPORT_OLD_MPLAYER
+
 //	set->setValue("reported_mplayer_is_old", reported_mplayer_is_old);
-////#endif
+
 //	set->setValue("auto_add_to_playlist", auto_add_to_playlist);
     set->setValue("media_to_add_to_playlist", media_to_add_to_playlist);
 
@@ -956,10 +917,8 @@ void Preferences::save() {
     set->setValue("audio_channels", initial_audio_channels);
     set->setValue("initial_stereo_mode", initial_stereo_mode);
 
-//#if SELECT_TRACKS_ON_STARTUP
     set->setValue("preferred_audio_track", initial_audio_track);
     set->setValue("preferred_subtitle_track", initial_subtitle_track);
-//#endif
 
 	set->endGroup(); // defaults
 
@@ -1027,7 +986,7 @@ void Preferences::load() {
 //	remember_stream_settings = set->value("remember_stream_settings", remember_stream_settings).toBool();
 
 //    alang = set->value("alang", alang).toString();
-//	slang = set->value("slang", slang).toString();
+//    slang = set->value("slang", slang).toString();
 
 	use_direct_rendering = set->value("use_direct_rendering", use_direct_rendering).toBool();
 	use_double_buffer = set->value("use_double_buffer", use_double_buffer).toBool();
@@ -1171,7 +1130,7 @@ void Preferences::load() {
 	set->beginGroup( "advanced");
 //    use_mplayer_window = set->value("use_mplayer_window", use_mplayer_window).toBool();
 
-//	monitor_aspect = set->value("monitor_aspect", monitor_aspect).toString();
+
 	use_idx = set->value("use_idx", use_idx).toBool();
 	use_lavf_demuxer = set->value("use_lavf_demuxer", use_lavf_demuxer).toBool();
 //    mplayer_additional_options = set->value("mplayer_additional_options", mplayer_additional_options).toString();
@@ -1233,9 +1192,6 @@ void Preferences::load() {
     stay_on_top = (Preferences::OnTop) set->value("stay_on_top", (int) stay_on_top).toInt();
 //	size_factor = set->value("size_factor", size_factor).toInt();
 //	resize_method = set->value("resize_method", resize_method).toInt();
-////#if STYLE_SWITCHING
-//	style = set->value("qt_style", style).toString();
-////#endif
 
 
 //    center_window = set->value("center_window", center_window).toBool();
@@ -1269,9 +1225,9 @@ void Preferences::load() {
 //#if ENABLE_DELAYED_DRAGGING
     time_slider_drag_delay = set->value("time_slider_drag_delay", time_slider_drag_delay).toInt();
 //#endif
-//#if SEEKBAR_RESOLUTION
+
 //	relative_seeking = set->value("relative_seeking", relative_seeking).toBool();
-//#endif
+
 //	precise_seeking = set->value("precise_seeking", precise_seeking).toBool();
 
 //	reset_stop = set->value("reset_stop", reset_stop).toBool();
@@ -1299,20 +1255,13 @@ void Preferences::load() {
 
 //	gui = set->value("gui", gui).toString();
 
-//#if USE_MINIMUMSIZE
 //	gui_minimum_width = set->value("gui_minimum_width", gui_minimum_width).toInt();
-//#endif
 //	default_size = set->value("default_size", default_size).toSize();
 
-//#if ALLOW_TO_HIDE_VIDEO_WINDOW_ON_AUDIO_FILES
-//	hide_video_window_on_audio_files = set->value("hide_video_window_on_audio_files", hide_video_window_on_audio_files).toBool();
-//#endif
 
 //	report_mplayer_crashes = set->value("report_player_crashes", report_mplayer_crashes).toBool();
 
-//#if REPORT_OLD_MPLAYER
     reported_mplayer_is_old = set->value("reported_mplayer_is_old", reported_mplayer_is_old).toBool();
-//#endif
 
 //	auto_add_to_playlist = set->value("auto_add_to_playlist", auto_add_to_playlist).toBool();
     media_to_add_to_playlist = (AutoAddToPlaylistFilter) set->value("media_to_add_to_playlist", media_to_add_to_playlist).toInt();
@@ -1369,10 +1318,8 @@ void Preferences::load() {
     initial_audio_channels = set->value("audio_channels", initial_audio_channels).toInt();
     initial_stereo_mode = set->value("initial_stereo_mode", initial_stereo_mode).toInt();
 
-//#if SELECT_TRACKS_ON_STARTUP
     initial_audio_track = set->value("preferred_audio_track", initial_audio_track).toInt();
     initial_subtitle_track = set->value("preferred_subtitle_track", initial_subtitle_track).toInt();
-//#endif
 	set->endGroup(); // defaults
 
 
@@ -1421,30 +1368,6 @@ void Preferences::load() {
 			}
 		}
     }*/
-}
-
-
-double Preferences::monitor_aspect_double() {
-    //qDebug("Preferences::monitor_aspect_double");
-
-    QRegExp exp("(\\d+)[:/](\\d+)");
-    if (exp.indexIn( monitor_aspect ) != -1) {
-        int w = exp.cap(1).toInt();
-        int h = exp.cap(2).toInt();
-        qDebug(" monitor_aspect parsed successfully: %d:%d", w, h);
-        return (double) w/h;
-    }
-
-    bool ok;
-    double res = monitor_aspect.toDouble(&ok);
-    if (ok) {
-        qDebug(" monitor_aspect parsed successfully: %f", res);
-        return res;
-    } else {
-        qDebug(" warning: monitor_aspect couldn't be parsed!");
-        qDebug(" monitor_aspect set to 0");
-        return 0;
-    }
 }
 
 void Preferences::setupScreenshotFolder() {

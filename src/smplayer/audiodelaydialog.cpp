@@ -44,13 +44,8 @@ AudioDelayDialog::AudioDelayDialog(QWidget * parent, Qt::WindowFlags f)
 
     title_label->setStyleSheet("QLabel{background:transparent;font-size:14px;color:#999999;font-family:方正黑体_GBK;}");//font-weight:bold;
     label->setStyleSheet("QLabel{background:transparent;font-size:12px;color:#999999;font-family:方正黑体_GBK;}");//font-weight:bold;
-
     spinBox->setStyleSheet("QSpinBox {height: 24px;min-width: 40px;border: 1px solid #000000;background: #0f0f0f;font-family:方正黑体_GBK;font-size:12px;color:#999999;}QSpinBox:hover {height: 24px;min-width: 40px;background-color:#0f0f0f;border:1px solid #0a9ff5;font-family:方正黑体_GBK;font-size:12px;color:#999999;}QSpinBox:enabled {color: #999999;}QSpinBox:enabled:hover, QSpinBox:enabled:focus {color: #999999;}QSpinBox:!enabled {color: #383838;background: transparent;}QSpinBox::up-button {border: none;width: 17px;height: 12px;image: url(:/res/spin_top_arrow_normal.png);}QSpinBox::up-button:hover {image: url(:/res/spin_top_arrow_hover.png);}QSpinBox::up-button:pressed {image: url(:/res/spin_top_arrow_press.png);}QSpinBox::up-button:!enabled {background: transparent;}QSpinBox::up-button:enabled:hover {background: rgb(255, 255, 255, 30);}QSpinBox::down-button {border: none;width: 17px;height: 12px;image: url(:/res/spin_bottom_arrow_normal.png);}QSpinBox::down-button:hover {image: url(:/res/spin_bottom_arrow_hover.png);}QSpinBox::down-button:pressed {image: url(:/res/spin_bottom_arrow_press.png);}QSpinBox::down-button:!enabled {background: transparent;}QSpinBox::down-button:hover{background: #0f0f0f;}");
 
-//    baseWidget->setAutoFillBackground(true);
-//    QPalette palette;
-//    palette.setBrush(QPalette::Background, QBrush(QPixmap(":/res/about_bg.png")));
-//    baseWidget->setPalette(palette);
     closeBtn->setFocusPolicy(Qt::NoFocus);
     closeBtn->setStyleSheet("QPushButton{background-image:url(':/res/close_normal.png');border:0px;}QPushButton:hover{background:url(':/res/close_hover.png');}QPushButton:pressed{background:url(':/res/close_press.png');}");
 

@@ -517,7 +517,7 @@ void Playlist::load_m3u(QString file, M3UFormat format)
         //list();
 
         setPlaylistFilename(file);
-        setModified( false );
+        setModified(false);
 
         if (start_play_on_load) startPlayPause();
     }*/
@@ -573,7 +573,7 @@ void Playlist::load_pls(QString file)
     //list();
 
     setPlaylistFilename(file);
-    setModified( false );
+    setModified(false);
 
     if (set.status() == QSettings::NoError && start_play_on_load) startPlayPause();*/
 }
@@ -623,52 +623,6 @@ void Playlist::loadXSPF(const QString & filename)
 
 //    this->m_playlistView->updateScrollbarSize();
 }
-
-//#ifdef YT_PLAYLIST_SUPPORT
-///// youtube list support
-//void Playlist::loadYoutubeList(QByteArray & data) {
-//	qDebug() << "Playlist::loadYoutubeList:";
-
-//	QDomDocument dom_document;
-//	bool ok = dom_document.setContent(data);
-//	qDebug() << "Playlist::loadYoutubeList: success:" << ok;
-//	if (!ok) return;
-
-//	QDomNode root = dom_document.documentElement();
-//	if (!root.isNull()) {
-//		clear();
-
-//		QDomNode track = root.firstChildElement("video");
-//		while (!track.isNull()) {
-//			QString filename;
-//			QStringList extra_params;
-
-//			QString title = track.firstChildElement("title").text(); // toCDATASection().data();
-//			QString video_url = QString("https://www.youtube.com/watch?v=").append(track.firstChildElement("encrypted_id").text().toLatin1());
-//			QString icon_url  = track.firstChildElement("thumbnail").text().toLatin1();
-//			int duration = track.firstChildElement("length_seconds").text().toInt();
-
-//			qDebug() << "Playlist::loadYoutubeList: title:" << title;
-//			qDebug() << "Playlist::loadYoutubeList: video_url:" << video_url;
-//			qDebug() << "Playlist::loadYoutubeList: icon_url:" << icon_url;
-//			qDebug() << "Playlist::loadYoutubeList: duration:" << duration;
-
-//			addItem( video_url, title, duration, extra_params, video_url, icon_url );
-
-//			track = track.nextSiblingElement("video");
-//		}
-
-//		//list();
-//		setPlaylistFilename(root.firstChildElement("title").text());
-//		setModified( false );
-//		if (start_play_on_load) startPlayPause();
-//	}
-//}
-
-//bool Playlist::isYTPlaylist(const QString & url) {
-//	return ((url.contains("http:") || url.contains("https:")) && url.contains("youtube") && url.contains("list=") && !url.contains("index="));
-//}
-//#endif
 
 bool Playlist::save_m3u(QString file)
 {
@@ -894,14 +848,11 @@ void Playlist::load()
 
 bool Playlist::saveCurrentPlaylist()
 {
-    //qDebug("Playlist::saveCurrentPlaylist");
     return save(playlistFilename());
 }
 
 bool Playlist::save(const QString & filename)
 {
-    //qDebug() << "Playlist::save:" << filename;
-
     QString s = filename;
 
     if (s.isEmpty()) {

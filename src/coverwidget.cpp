@@ -26,7 +26,7 @@
 CoverWidget::CoverWidget(QWidget *parent)
     : QFrame(parent)
 {
-    }
+}
 
 CoverWidget::~CoverWidget()
 {

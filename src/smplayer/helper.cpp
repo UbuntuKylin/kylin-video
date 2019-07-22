@@ -28,14 +28,8 @@
 #include "config.h"
 #include "extensions.h"
 
-#if EXTERNAL_SLEEP
-#include <unistd.h>
-#else
 #include <qthread.h>
-#endif
 
-
-#if !EXTERNAL_SLEEP
 class Sleeper : public QThread
 {
 public:
@@ -47,7 +41,6 @@ public:
 	}
 	static void usleep(unsigned long usecs) {QThread::usleep(usecs);}
 };
-#endif
 
 /*
 QString Helper::dvdForPref(const QString & dvd_id, int title) {
@@ -108,13 +101,8 @@ QString Helper::timeForJumps(int secs) {
 }
 
 void Helper::msleep(int ms) {
-#if EXTERNAL_SLEEP
-	//qDebug("Helper::msleep: %d (using usleep)", ms);
-	usleep(ms*1000);
-#else
 	//qDebug("Helper::msleep: %d (using QThread::msleep)", ms);
-	Sleeper::msleep( ms );
-#endif
+    Sleeper::msleep(ms);//usleep(ms*1000);
 }
 
 QString Helper::changeSlashes(QString filename) {

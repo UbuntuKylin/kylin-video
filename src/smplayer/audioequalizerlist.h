@@ -23,8 +23,6 @@
 #include <QStringList>
 #include <QVariant>
 
-#define SIMPLE_EQUALIZER
-
 typedef QList<QVariant> AudioEqualizerList;
 
 class AudioEqualizerHelper {
@@ -34,11 +32,6 @@ public:
 
 	//! Returns a string to be passed to mplayer/mpv with the audio equalizer values.
 	static QString equalizerListToString(AudioEqualizerList values, AudioEqualizerType type = Equalizer);
-
-#ifndef SIMPLE_EQUALIZER
-	static QStringList equalizerListToStringList(AudioEqualizerList values, AudioEqualizerType type);
-	static QStringList equalizerListForCommand(AudioEqualizerList values, AudioEqualizerList old_values, AudioEqualizerType type);
-#endif
 };
 
 #endif

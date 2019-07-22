@@ -302,8 +302,6 @@ void AudioEqualizer::applyButtonClicked() {
 }
 
 void AudioEqualizer::updatePresetCombo() {
-	qDebug("AudioEqualizer::updatePresetCombo");
-
 	AudioEqualizerList l;
 	for (int n = 0; n < 10; n++) {
 		l << eq[n]->value();

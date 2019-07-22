@@ -35,7 +35,7 @@
 
 using namespace Global;
 
-BaseGui * KylinVideo::main_window = 0;
+MainWindow * KylinVideo::main_window = 0;
 
 KylinVideo::KylinVideo(const QString &arch, const QString &snap, QObject * parent )
 	: QObject(parent) 
@@ -81,7 +81,7 @@ KylinVideo::~KylinVideo() {
     }
 }
 
-BaseGui * KylinVideo::gui() {
+MainWindow * KylinVideo::gui() {
 	if (main_window == 0) {
 		// Changes to app path, so smplayer can find a relative mplayer path
 		QDir::setCurrent(Paths::appPath());
@@ -101,9 +101,9 @@ BaseGui * KylinVideo::gui() {
 	return main_window;
 }
 
-BaseGui * KylinVideo::createGUI(QString arch_type, QString snap/*QString gui_name*/) {
-    BaseGui * gui = 0;
-    gui = new BaseGui(arch_type, snap, 0);//kobe:forced to go here always
+MainWindow * KylinVideo::createGUI(QString arch_type, QString snap/*QString gui_name*/) {
+    MainWindow * gui = 0;
+    gui = new MainWindow(arch_type, snap, 0);//kobe:forced to go here always
 	gui->setForceCloseOnFinish(close_at_end);
 	gui->setForceStartInFullscreen(start_in_fullscreen);
 	connect(gui, SIGNAL(quitSolicited()), qApp, SLOT(quit()));
@@ -311,7 +311,7 @@ void KylinVideo::showInfo() {
 #endif
            ;
 
-	printf("%s\n", s.toLocal8Bit().data() );
+    //printf("%s\n", s.toLocal8Bit().data() );
 	qDebug("%s", s.toUtf8().data() );
 	qDebug("Compiled with Qt v. %s, using %s", QT_VERSION_STR, qVersion());
 

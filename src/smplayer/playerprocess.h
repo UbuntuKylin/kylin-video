@@ -127,9 +127,7 @@ public:
 //#endif
 	virtual void setAspect(double aspect) = 0;
 	virtual void setFullscreen(bool b) = 0;
-//#if PROGRAM_SWITCH
-//	virtual void setTSProgram(int ID) = 0;
-//#endif
+
 	virtual void toggleDeinterlace() = 0;
 	virtual void askForLength() = 0;
 	virtual void setOSDScale(double value) = 0;
@@ -192,24 +190,19 @@ signals:
 
 	void failedToParseMplayerVersion(QString line_with_mplayer_version);
 
-//#if NOTIFY_SUB_CHANGES
+
     //! Emitted if a new subtitle has been added or an old one changed
     void subtitleInfoChanged(const SubTracks &, int selected_id);
-
 	//! Emitted when subtitle info has been received but there wasn't anything new
 	void subtitleInfoReceivedAgain(const SubTracks &);
-//#endif
-//#if NOTIFY_AUDIO_CHANGES
+
 	//! Emitted if a new audio track been added or an old one changed
     void audioInfoChanged(const Tracks &, int selected_id);
-//#endif
-//#if NOTIFY_VIDEO_CHANGES
+
 	//! Emitted if a new video track been added or an old one changed
     void videoInfoChanged(const Tracks &, int selected_id);
-//#endif
-//#if NOTIFY_CHAPTER_CHANGES
+
     void chaptersChanged(const Chapters &);
-//#endif
 
 //#if DVDNAV_SUPPORT
 //	void receivedDVDTitle(int);

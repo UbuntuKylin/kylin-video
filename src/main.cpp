@@ -23,8 +23,6 @@
 #include <QDir>
 #include <QFile>
 #include <QTextCodec>
-//#include <QTranslator>
-//#include <QLibraryInfo>
 
 int main(int argc, char **argv)
 {
@@ -42,22 +40,6 @@ int main(int argc, char **argv)
 
 	QStringList args = a.arguments();
 
-//    QString locale = QLocale::system().name();
-//    QTranslator translator;
-//    if(locale == "zh_CN") {
-//        if(!translator.load("kylin-video_" + locale + ".qm", ":/qm/translations/"))
-//            qDebug() << "Load translation file："<< "kylin-video_" + locale + ".qm" << " failed!";
-//        else
-//            a.installTranslator(&translator);
-//    }
-
-//    //加载Qt对话框默认的国际化
-//    QTranslator qtTranslator;
-//    if (!qtTranslator.load("qt_" + locale, QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
-//        qDebug() << "Load Qt translations file："<< "/usr/share/qt5/translations/qt_" + locale + ".qm" << " failed!";
-//    else
-//        a.installTranslator(&qtTranslator);
-
     QFile qss(":/qss/res/style.qss");
     qss.open(QFile::ReadOnly);
     qApp->setStyleSheet(qss.readAll());
@@ -73,15 +55,10 @@ int main(int argc, char **argv)
         arch = "aarch64";
 #endif
 
-    //edited by kobe 20180623
-    QString snap_path;
     const char *snap;
     if ((snap = getenv("SNAP")) != NULL) {///snap/kylin-video/x1/
-        snap_path = QString::fromStdString(std::string(snap));
-        qDebug() << "SNAP=====" << snap_path;
-    }
-    else {
-        qDebug() << "Get SNAP path failed!!!";
+        QString snap_path = QString::fromStdString(std::string(snap));
+        qDebug() << "SNAP: " << snap_path;
     }
 
     KylinVideo *player = new KylinVideo(arch, snap);

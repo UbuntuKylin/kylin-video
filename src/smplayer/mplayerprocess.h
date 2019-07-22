@@ -116,9 +116,7 @@ public:
 //#endif
 	void setAspect(double aspect);
 	void setFullscreen(bool b);
-//#if PROGRAM_SWITCH
-//	void setTSProgram(int ID);
-//#endif
+
 	void toggleDeinterlace();
 	void askForLength();
 	void setOSDScale(double value);
@@ -150,21 +148,16 @@ private:
 
     int mplayer_svn;
 
-//#if NOTIFY_SUB_CHANGES
 	SubTracks subs;
 	bool subtitle_info_received;
 	bool subtitle_info_changed;
-//#endif
 
-//#if NOTIFY_AUDIO_CHANGES
 	Tracks audios;
 	bool audio_info_changed;
-//#endif
 
-//#if NOTIFY_VIDEO_CHANGES
     Tracks videos;
     bool video_info_changed;
-//#endif
+
 
 	int dvd_current_title;
 	int br_current_title;

@@ -25,17 +25,9 @@
 #include "mplayerprocess.h"
 
 PlayerProcess::PlayerProcess(QObject * parent) : MyProcess(parent) {
-//#if NOTIFY_SUB_CHANGES
-	qRegisterMetaType<SubTracks>("SubTracks");
-//#endif
-
-//#if NOTIFY_AUDIO_CHANGES
-	qRegisterMetaType<Tracks>("Tracks");
-//#endif
-
-//#if NOTIFY_CHAPTER_CHANGES
-    qRegisterMetaType<Chapters>("Chapters");
-//#endif
+    qRegisterMetaType<SubTracks>("SubTracks");//字幕
+    qRegisterMetaType<Tracks>("Tracks");//音频和视频使用的数据类型
+    qRegisterMetaType<Chapters>("Chapters");//章节
 }
 
 void PlayerProcess::writeToStdin(QString text) {

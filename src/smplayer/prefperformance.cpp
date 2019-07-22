@@ -34,6 +34,7 @@ PrefPerformance::PrefPerformance(QWidget * parent, Qt::WindowFlags f)
     hwdec_combo->addItem("vdpau", "vdpau");
 	hwdec_combo->addItem("vaapi", "vaapi");
 	hwdec_combo->addItem("vaapi-copy", "vaapi-copy");
+	//hwdec_combo->addItem("rkmpp-copy", "rkmpp-copy");
 
 	retranslateStrings();
 }

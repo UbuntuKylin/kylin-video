@@ -46,12 +46,12 @@ TitleWidget::TitleWidget(QWidget *parent)
     this->setMouseTracking(true);
     setAutoFillBackground(true);
     setFocusPolicy(Qt::ClickFocus);
+    this->setAttribute(Qt::WA_TranslucentBackground, true);//窗体标题栏不透明，背景透明
+//    this->setStyleSheet("QWidget{background:transparent;}");//20170615   rgba(255, 255, 255, 20%);
 
-    this->setStyleSheet("QWidget{background:transparent;}");//20170615   rgba(255, 255, 255, 20%);
-
-    QPalette palette;
-    palette.setColor(QPalette::Background, QColor("#040404"));
-    this->setPalette(palette);
+//    QPalette palette;
+//    palette.setColor(QPalette::Background, QColor("#040404"));
+//    this->setPalette(palette);
 
     initWidgets();
 
@@ -107,10 +107,14 @@ void TitleWidget::initWidgets() {
 //20170810
 void TitleWidget::mouseDoubleClickEvent(QMouseEvent *event) {
     if (event->button() == Qt::LeftButton) {
-        if (window()->isMaximized())
+        if (window()->isMaximized()) {
+            this->updateMaxButtonStatus(false);
             window()->showNormal();
-        else if (! window()->isFullScreen())  // It would be normal state
+        }
+        else if (! window()->isFullScreen()) {// It would be normal state
+            this->updateMaxButtonStatus(true);
             window()->showMaximized();
+        }
     }
 
     QWidget::mouseDoubleClickEvent(event);
@@ -152,7 +156,7 @@ void TitleWidget::initMiddleContent()
     m_layout->addWidget(w);
 }
 
-void TitleWidget::set_title_name(QString title){
+void TitleWidget::set_title_name(QString title) {
     QFont ft;
     QFontMetrics fm(ft);
     QString elided_text = fm.elidedText(title, Qt::ElideRight, this->title_label->maximumWidth());
@@ -216,10 +220,10 @@ void TitleWidget::initRightContent() {
     connect(menu_button, SIGNAL(clicked()), this, SIGNAL(sig_menu()));
     connect(min_button, SIGNAL(clicked()), this, SLOT(onMinBtnClicked()));
     connect(close_button, SIGNAL(clicked()), this, SIGNAL(sig_close()));
-    connect(max_button, SIGNAL(clicked()), this, SLOT(onMaxOrNormal()));
+    connect(max_button, SIGNAL(clicked(bool)), this, SIGNAL(requestMaxWindow(bool)));
 }
 
-void TitleWidget::update_max_status(bool is_maxed) {
+void TitleWidget::updateMaxButtonStatus(bool is_maxed) {
     if (is_maxed) {
         max_button->loadPixmap(":/res/unmax.png");
 //        max_button->setStyleSheet("QPushButton{background-image:url(':/res/unmax_normal.png');border:0px;}QPushButton:hover{background:url(':/res/unmax_hover.png');}QPushButton:pressed{background:url(':/res/unmax_press.png');}");
@@ -228,11 +232,6 @@ void TitleWidget::update_max_status(bool is_maxed) {
         max_button->loadPixmap(":/res/max.png");
 //        max_button->setStyleSheet("QPushButton{background-image:url(':/res/max_normal.png');border:0px;}QPushButton:hover{background:url(':/res/max_hover.png');}QPushButton:pressed{background:url(':/res/max_press.png');}");
     }
-}
-
-void TitleWidget::onMaxOrNormal() {
-
-    emit this->sig_max();
 }
 
 void TitleWidget::onMinBtnClicked() {
@@ -249,60 +248,8 @@ int TitleWidget::hideDelay() {
     return timer->interval();
 }
 
-//void TitleWidget::installFilter(QObject *o) {
-//    QObjectList children = o->children();
-//    for (int n=0; n < children.count(); n++) {
-//        if (children[n]->isWidgetType()) {
-//            if (children[n]->objectName() == "PlayListViewScrollBar") {//kobe:让滚动条可以鼠标拖动
-//                continue;
-//            }
-//            else if (children[n]->objectName() == "min_button" || children[n]->objectName() == "close_button" || children[n]->objectName() == "menu_button" || children[n]->objectName() == "max_button") {
-//                continue;
-//            }
-//            else if (children[n]->objectName() == "StopBtn" || children[n]->objectName() == "PrevBtn" || children[n]->objectName() == "PlayBtn" || children[n]->objectName() == "NextBtn") {
-//                continue;
-//            }
-//            else if (children[n]->objectName() == "SoundBtn" || children[n]->objectName() == "FullScreenBtn" || children[n]->objectName() == "PlayListBtn" || children[n]->objectName() == "VolumeSlider") {
-//                continue;
-//            }
-//            QWidget *w = static_cast<QWidget *>(children[n]);
-//            w->setMouseTracking(true);
-//            w->installEventFilter(this);
-//            installFilter(children[n]);
-//        }
-//    }
-//}
-
-//201810
-void TitleWidget::activate() {
-//    turned_on = true;
-//    if (timer->isActive())
-//        timer->stop();
-//    timer->start();
-}
-
-void TitleWidget::deactivate() {
-//    turned_on = false;
-//    timer->stop();
-//    this->showWidget();
-}
-
-void TitleWidget::showAlways() {
-//    timer->stop();
-//    QPoint dest_position = QPoint(0, 0);
-//    move(dest_position);
-//    QWidget::show();
-}
-
 void TitleWidget::enable_turned_on() {
     turned_on = true;
-}
-
-void TitleWidget::showWidget() {
-//    showSpreadAnimated();
-//    if (timer->isActive())
-//        timer->stop();
-//    timer->start();
 }
 
 void TitleWidget::checkUnderMouse() {
@@ -328,19 +275,7 @@ bool TitleWidget::eventFilter(QObject * obj, QEvent * event) {
 
     if (turned_on) {
         if (event->type() == QEvent::MouseMove) {
-    //        qDebug() << "TitleWidget::eventFilter: mouse move" << obj;
             if (!isVisible()) {
-                showWidget();
-                /*if (activation_area == Anywhere) {
-                    showWidget();
-                } else {
-                    QMouseEvent * mouse_event = dynamic_cast<QMouseEvent*>(event);
-                    QWidget * parent = parentWidget();
-                    QPoint p = parent->mapFromGlobal(mouse_event->globalPos());
-                    if (p.y() > (parent->height() - height() - spacing)) {
-                        showWidget();
-                    }
-                }*/
             }
         }
 

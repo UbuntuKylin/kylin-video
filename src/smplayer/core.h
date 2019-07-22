@@ -79,9 +79,6 @@ public slots:
 	void openAudioCD(int title = -1);
 //	void openTV(QString channel_id);
 
-//#ifdef YOUTUBE_SUPPORT
-//	void openYT(const QString & url);
-//#endif
 
 	void loadSub(const QString & sub);
 	void unloadSub();
@@ -117,12 +114,9 @@ public slots:
 	//! Reopens the file (no restart)
 	void reload();
 
-//#ifdef SEEKBAR_RESOLUTION
 	void goToPosition( int value );
 	void goToPos( double perc );
-//#else
-//	void goToPos( int perc );
-//#endif
+
 	void goToSec( double sec );
 	void goToSec(int sec) { goToSec( (double) sec); }
 
@@ -294,10 +288,7 @@ public slots:
 	void nextAudio();
 	void changeVideo(int ID, bool allow_restart = true);
 	void nextVideo();
-//#if PROGRAM_SWITCH
-//	void changeProgram(int ID);
-//	void nextProgram();
-//#endif
+
 	void changeTitle(int);
 	void changeChapter(int);
 	void prevChapter();
@@ -322,10 +313,6 @@ public slots:
 	void changeZoom(double); // Zoom on mplayerwindow
 
 	void changeRotate(int r);
-
-//#if USE_ADAPTER
-//    void changeAdapter(int n);
-//#endif
 
     void changeAO(const QString & new_ao);
 
@@ -420,22 +407,13 @@ protected slots:
 	//! the resolution is HD
 	void checkIfVideoIsHD();
 
-//#if DELAYED_AUDIO_SETUP_ON_STARTUP
-//	void initAudioTrack();
-//#endif
-//#if NOTIFY_AUDIO_CHANGES
     void initAudioTrack(const Tracks &, int selected_id);
-//#endif
-//#if NOTIFY_VIDEO_CHANGES
+
     void initVideoTrack(const Tracks &, int selected_id);
-//#endif
-//#if NOTIFY_SUB_CHANGES
+
     void initSubtitleTrack(const SubTracks &, int selected_id);
 	void setSubtitleTrackAgain(const SubTracks &);
-//#endif
-//#if NOTIFY_CHAPTER_CHANGES
     void updateChapterInfo(const Chapters &);
-//#endif
 
 //#if DVDNAV_SUPPORT
 //	void dvdTitleChanged(int);
@@ -448,11 +426,6 @@ protected slots:
 
 	void initializeOSD();
 
-//#ifdef YOUTUBE_SUPPORT
-//	void connectingToYT(QString host);
-//	void YTFailed(int error_number, QString error_str);
-//	void YTNoVideoUrl();
-//#endif
 
 //#if defined(Q_OS_WIN) || defined(Q_OS_OS2)
 //#ifdef SCREENSAVER_OFF
@@ -503,11 +476,9 @@ signals:
 	void videoEqualizerNeedsUpdate();
 	void audioEqualizerNeedsUpdate();
     void showTime(double sec, bool flag);//kobe
-//#ifdef SEEKBAR_RESOLUTION
+
 	void positionChanged(int); // To connect a slider
-//#else
-//	void posChanged(int); // To connect a slider
-//#endif
+
 	void newDuration(double); // Duration has changed
 	void showFrame(int frame);
 	void ABMarkersChanged(int secs_a, int secs_b);
@@ -515,10 +486,8 @@ signals:
 	void needResize(int w, int h);
 	void noVideo();
 	void volumeChanged(int);
-//#if NOTIFY_AUDIO_CHANGES
-//	void audioTracksChanged();
+
     void audioTracksInitialized();
-//#endif
 
 	//! Sent when requested to play, but there is no file to play
 	void noFileToPlay();
@@ -534,11 +503,6 @@ signals:
 
 	//! A new line from the mplayer output is available
 	void logLineAvailable(QString);
-
-//#ifdef YOUTUBE_SUPPORT
-//	void signatureNotFound(const QString &);
-//	void noSslSupport();
-//#endif
 
 	void receivedForbidden();
 
@@ -556,10 +520,6 @@ protected:
 //#ifdef SCREENSAVER_OFF
 //	WinScreenSaver * win_screensaver;
 //#endif
-//#endif
-
-//#ifdef YOUTUBE_SUPPORT
-//	RetrieveYoutubeUrl * yt;
 //#endif
 
 private:

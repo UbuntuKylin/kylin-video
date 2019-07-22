@@ -1,23 +1,24 @@
-/*  smplayer, GUI front-end for mplayer.
-    Copyright (C) 2006-2015 Ricardo Villalba <rvm@users.sourceforge.net>
-    Copyright (C) 2013 ~ 2019 National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
+/*
+ * Copyright (C) 2013 ~ 2019 National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
+ *
+ * Authors:
+ *  Kobe Lee    lixiang@kylinos.cn/kobe24_lixiang@126.com
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; version 3.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
-*/
-#ifndef _BASEGUI_H_
-#define _BASEGUI_H_
+#ifndef _MAINWINDOW_H_
+#define _MAINWINDOW_H_
 
 #include <QMainWindow>
 #include <QSystemTrayIcon>
@@ -26,11 +27,11 @@
 #include <QGraphicsProxyWidget>
 #include <QStackedLayout>
 
-#include "../smplayer/mediadata.h"
-#include "../smplayer/mediasettings.h"
-#include "../smplayer/preferences.h"
-#include "../smplayer/core.h"
-#include "../smplayer/config.h"
+#include "smplayer/mediadata.h"
+#include "smplayer/mediasettings.h"
+#include "smplayer/preferences.h"
+#include "smplayer/core.h"
+#include "smplayer/config.h"
 
 class QPushButton;
 class QWidget;
@@ -55,14 +56,15 @@ class FilterHandler;
 //class ShortcutsWidget;
 class CoverWidget;
 class InfoWorker;
+class MaskWidget;
 
-class BaseGui : public QMainWindow
+class MainWindow : public QMainWindow
 {
     Q_OBJECT
     
 public:
-    BaseGui(QString arch_type = "", QString snap = "", QWidget* parent = 0, Qt::WindowFlags flags = 0);
-	~BaseGui();
+    MainWindow(QString arch_type = "", QString snap = "", QWidget* parent = 0);
+    ~MainWindow();
 
 	/* Return true if the window shouldn't show on startup */
 	virtual bool startHidden() { return false; };
@@ -81,12 +83,10 @@ public:
 
     void parseArguments();
     void bindThreadWorker(InfoWorker *worker);
-//    void setResizeCornerFilter();
 
 public slots:
     void slot_mute(/*bool b*/);
     void reset_mute_button();
-    void start_top_and_bottom_timer();
     virtual void doOpen(QString file); // Generic open, autodetect type.
 	virtual void openFile();
 	virtual void openFile(QString file);
@@ -116,7 +116,7 @@ public slots:
 	void setForceStartInFullscreen(int n) { arg_start_in_fullscreen = n; };
 	int forceStartInFullscreen() { return arg_start_in_fullscreen; };
     void slot_min();
-    void slot_max();
+    void onResponseMaxWindow(bool b);
     void slot_close();
     void slot_menu();
     void disableSomeComponent();
@@ -133,6 +133,8 @@ public slots:
 
     void startPlayPause();
     void onMeidaFilesAdded(const VideoPtrList medialist);
+
+    void setBackgroudPixmap(QString pixmapDir);
 
 protected slots:
 	virtual void closeWindow();
@@ -161,6 +163,7 @@ protected slots:
 	virtual void enableActionsOnPlaying();
 	virtual void disableActionsOnStop();
 	virtual void togglePlayAction(Core::State);
+    virtual void hidePanel();
 	void resizeMainWindow(int w, int h);
 	void resizeWindow(int w, int h);
 	void centerWindow();
@@ -208,6 +211,9 @@ protected slots:
     //! Saves the mplayer log to a file every time a file is loaded
     void autosaveMplayerLog();
 
+    void checkMplayerVersion();
+    void displayWarningAboutOldMplayer();
+
 signals:
     void sigActionsEnabled(bool);
     void setPlayOrPauseEnabled(bool);
@@ -237,12 +243,13 @@ protected:
 	virtual bool event(QEvent * e);
 	bool was_minimized;
 #endif
-    void closeEvent(QCloseEvent *event);
-    void mousePressEvent(QMouseEvent *event);
-    void mouseReleaseEvent(QMouseEvent *event);
-    void mouseMoveEvent(QMouseEvent *event);
-    virtual bool eventFilter(QObject *obj, QEvent *event) override;
-    virtual void resizeEvent(QResizeEvent *e) override;//20170720
+    void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
+//    void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+//    void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+    virtual void mouseMoveEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+    virtual bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;
+    virtual void resizeEvent(QResizeEvent *e) Q_DECL_OVERRIDE;
+    //    void paintEvent(QPaintEvent *);
 	void createCore();
 	void createMplayerWindow();
 	void createPlaylist();
@@ -266,7 +273,7 @@ protected:
 
 protected:
     QStackedLayout *contentLayout;
-	QWidget * panel;
+    QWidget * panel = nullptr;
     TitleWidget *m_topToolbar;
     BottomWidget *m_bottomToolbar;
     BottomController *m_bottomController = nullptr;
@@ -441,7 +448,6 @@ private:
 	bool ignore_show_hide_events;
     bool isFinished;
     bool isPlaying;
-    bool fullscreen;
     QPoint mainwindow_pos;
     QPoint playlist_pos;
     bool trayicon_playlist_was_visible;
@@ -458,13 +464,15 @@ private:
 //    ShortcutsWidget *shortcuts_widget;
 
     QString m_snap;
-    bool m_leftPressed;
-    QPoint m_dragPosition;
     FilterHandler *m_mouseFilterHandler = nullptr;
 
-    CoverWidget *m_coverWidget = nullptr;
+//    CoverWidget *m_coverWidget = nullptr;
     QWidget *m_currentWidget = nullptr;
+    MaskWidget *m_maskWidget = nullptr;
+
+    bool  m_leftPressed;// 鼠标是否按下
+    QPixmap currentBackground;
 };
     
-#endif
+#endif // _MAINWINDOW_H_
 

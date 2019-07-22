@@ -17,29 +17,44 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _FILTERHANDLER_H_
-#define _FILTERHANDLER_H_
+#ifndef MASKWIDGET_H
+#define MASKWIDGET_H
 
-#include <QObject>
+#include <QWidget>
+#include <QMutex>
 
-class MainWindow;
+class QMovie;
+class QLabel;
 
-class FilterHandler : public QObject
+class MaskWidget : public QWidget
 {
     Q_OBJECT
-
 public:
-    FilterHandler(MainWindow &gui, QObject &obj);
-    ~FilterHandler();
+    explicit MaskWidget(QWidget *parent = 0);
+    ~MaskWidget();
+    static MaskWidget *Instance()
+    {
+        static QMutex mutex;
+        if (!self) {
+            QMutexLocker locker(&mutex);
+            if (!self) {
+                self = new MaskWidget;
+            }
+        }
+        return self;
+    }
 
-signals:
-    void mouseMoved();
+    void showMask();
 
 protected:
-    bool eventFilter(QObject *obj, QEvent *event);
+    void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
+    void hideEvent(QHideEvent* event) Q_DECL_OVERRIDE;
 
 private:
-    MainWindow *m_baseGui;
+    static MaskWidget *self;
+    QMovie *m_movie = nullptr;
+    QLabel *m_iconLabel = nullptr;
+    QLabel *m_textLabel = nullptr;
 };
 
-#endif // _FILTERHANDLER_H_
+#endif // MASKWIDGET_H

@@ -244,51 +244,9 @@ bool TimeSlider::event(QEvent *event) {
 	return QWidget::event(event);
 }
 
-//kobe 0620
 bool TimeSlider::eventFilter(QObject *obj, QEvent *event)
 {
     switch (event->type()) {
-    /*case QEvent::Enter: {
-        if (this->hintWidget) {
-            this->hintWidget->hide();
-        }
-
-
-
-//        QPoint p = parent->mapFromGlobal(mouse_event->globalPos());
-//        if (p.y() > (parent->height() - height() - spacing)) {
-//            showWidget();
-//        }
-//        QPoint pos = mapFromGlobal(QCursor::pos());
-
-
-//        QMouseEvent * mouse_event = dynamic_cast<QMouseEvent*>(event);
-//        QWidget * parent = parentWidget();
-//        QPoint p = parent->mapFromGlobal(mouse_event->globalPos());
-
-
-        QHelpEvent * help_event = static_cast<QHelpEvent *>(event);
-        qDebug() << "TimeSlider::event: total_time:" << total_time << "x:" << help_event->x();
-        int pos_in_slider = help_event->x() * maximum() / width();
-        int time = pos_in_slider * total_time / maximum();
-        qDebug() << "TimeSlider::event: time:" << time;
-        if (time >= 0 && time <= total_time) {
-            qDebug () << "test time=" << Helper::formatTime(time);
-            hintWidget->setText(Helper::formatTime(time));
-        }
-
-
-        QPoint centerPos = this->mapToGlobal(this->rect().center());
-        QSize sz = this->hintWidget->size();
-        centerPos.setX(centerPos.x()  - sz.width() / 2);
-        centerPos.setY(centerPos.y() - 32 - sz.height());
-        centerPos = this->hintWidget->mapFromGlobal(centerPos);
-        centerPos = this->hintWidget->mapToParent(centerPos);
-        this->hintWidget->move(centerPos);
-        this->hintWidget->show();
-        this->setCursor(QCursor(Qt::PointingHandCursor));
-        break;
-    }*/
     case QEvent::Leave: {
         if (this->hintWidget) {
             this->hintWidget->hide();

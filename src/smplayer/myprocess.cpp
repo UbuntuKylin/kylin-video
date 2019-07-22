@@ -83,7 +83,7 @@ void MyProcess::genericRead(QByteArray buffer) {
 		from_pos = pos + 1;
 		start = from_pos;
 
-		emit lineAvailable(line);
+		emit lineAvailable(line);//准备解析line
 
 		pos = canReadLine(ba, from_pos);
 	}

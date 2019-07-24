@@ -31,12 +31,11 @@
 #include "smplayer/mediasettings.h"
 #include "smplayer/preferences.h"
 #include "smplayer/core.h"
-#include "smplayer/config.h"
 
 class QPushButton;
 class QWidget;
 class QMenu;
-class MplayerWindow;
+class VideoWindow;
 class QLabel;
 class FilePropertiesDialog;
 class AboutDialog;
@@ -66,27 +65,54 @@ public:
     MainWindow(QString arch_type = "", QString snap = "", QWidget* parent = 0);
     ~MainWindow();
 
-	/* Return true if the window shouldn't show on startup */
-	virtual bool startHidden() { return false; };
+    void initRegisterMeta();
+    void createPanel();
+    void createVideoWindow();
+    void createCore();
+    void createPlaylist();
+    void createTopTitleBar();
+    void createBottomToolBar();
+    void createActionsAndMenus();
+    void createTrayActions();
+    void createTipWidget();
+    void createEscWidget();
+    void createMaskWidget();
+    void createPreferencesDialog();
+    void createFilePropertiesDialog();
 
-    void setTransparent(bool transparent);
-    void set_widget_opacity(const float &opacity=0.8);
+    void loadConfigForUI();
+    void setStayOnTop(bool b);
 
-	Core * getCore() { return core; };
-    Playlist * getPlaylist() { return m_playlistWidget; };
+    void setDataToFileProperties();
+    void createAboutDialog();
+    void createHelpDialog();
+    void setDataToAboutDialog();
 
-    void setPlaylisshowPlaylisttVisible(bool visible);
+
+    void setActionsEnabled(bool);
+    void updateRecents();
+
+    void updateMuteWidgets();
+    void updateOnTopWidgets();
+    void updatePlayOrderWidgets();
+
     void setPlaylistVisible(bool visible);
     void slideEdgeWidget(QWidget *right, QRect start, QRect end, int delay, bool hide = false);
     void disableControl(int delay = 350);
-    bool mouseInControlsArea();
 
     void parseArguments();
     void bindThreadWorker(InfoWorker *worker);
 
+    Core * getCore() { return core; };
+
 public slots:
+    void changeStayOnTop(int);
+    void checkStayOnTop(Core::State);
+    void changePlayOrder(int play_order);
+    void powerOffPC();
+
+
     void slot_mute(/*bool b*/);
-    void reset_mute_button();
     virtual void doOpen(QString file); // Generic open, autodetect type.
 	virtual void openFile();
 	virtual void openFile(QString file);
@@ -107,10 +133,7 @@ public slots:
 	virtual void showAudioDelayDialog();
 	virtual void exitFullscreen();
 	virtual void toggleFullscreen(bool);
-    void setStayOnTop(bool b);
-    virtual void changeStayOnTop(int);
-    virtual void checkStayOnTop(Core::State);
-    void changePlayOrder(int play_order);
+
 	void setForceCloseOnFinish(int n) { arg_close_on_finish = n; };
 	int forceCloseOnFinish() { return arg_close_on_finish; };
 	void setForceStartInFullscreen(int n) { arg_start_in_fullscreen = n; };
@@ -122,13 +145,11 @@ public slots:
     void disableSomeComponent();
     void setPlaylistProperty();
     void slot_playlist();
-    void slot_resize_corner();
     void slot_set_fullscreen();
     void showTipWidget(const QString text);
-    void hideTipWidget();
-    void showOrHideEscWidget(bool b);
+    void onShowOrHideEscWidget(bool b);
     void open_screenshot_directory();
-    void ready_save_pre_image(int time);
+    void onSavePreviewImage(int time);
 //    void showShortcuts();
 
     void startPlayPause();
@@ -139,55 +160,53 @@ public slots:
 protected slots:
 	virtual void closeWindow();
     virtual void trayIconActivated(QSystemTrayIcon::ActivationReason);
-    virtual void toggleShowAll();
-    virtual void showAll(bool b);
-    virtual void showAll();
-    virtual void quit();
-	virtual void setJumpTexts();
-	virtual void openRecent();
-	virtual void enterFullscreenOnPlay();
-	virtual void exitFullscreenOnStop();
-	virtual void exitFullscreenIfNeeded();
-	virtual void playlistHasFinished();
-	virtual void displayState(Core::State state);
-	virtual void displayMessage(QString message);
-    virtual void gotCurrentTime(double, bool);
-	virtual void updateWidgets();
-	virtual void newMediaLoaded();
-	virtual void updateMediaInfo();
-//    virtual void displayABSection(int secs_a, int secs_b);
-    virtual void displayVideoInfo(int width, int height, double fps);
-    virtual void displayBitrateInfo(int vbitrate, int abitrate);
+    void toggleShowAll();
+    void showAll(bool b);
+    void showAll();
+    void quit();
+    void setJumpTexts();
+    void openRecent();
+    void enterFullscreenOnPlay();
+    void exitFullscreenOnStop();
+    void exitFullscreenIfNeeded();
+    void playlistHasFinished();
+    void displayState(Core::State state);
+    void displayMessage(QString message);
+    void gotCurrentTime(double, bool);
+    void updateWidgets();
+    void newMediaLoaded();
+    void updateMediaInfo();
+//    void displayABSection(int secs_a, int secs_b);
+    void displayVideoInfo(int width, int height, double fps);
+    void displayBitrateInfo(int vbitrate, int abitrate);
 	void gotNoFileToPlay();
 	void gotForbidden();
-	virtual void enableActionsOnPlaying();
-	virtual void disableActionsOnStop();
-	virtual void togglePlayAction(Core::State);
-    virtual void hidePanel();
+    void enableActionsOnPlaying();
+    void disableActionsOnStop();
+    void togglePlayAction(Core::State);
+    void hidePanel();
 	void resizeMainWindow(int w, int h);
 	void resizeWindow(int w, int h);
-	void centerWindow();
 	virtual void displayGotoTime(int);
 	//! You can call this slot to jump to the specified percentage in the video, while dragging the slider.
-	virtual void goToPosOnDragging(int);
-	virtual void showPopupMenu();
-	virtual void showPopupMenu( QPoint p );
-	virtual void leftClickFunction();
-	virtual void rightClickFunction();
-	virtual void doubleClickFunction();
-	virtual void middleClickFunction();
-	virtual void xbutton1ClickFunction();
-	virtual void xbutton2ClickFunction();
-	virtual void processFunction(QString function);
-	virtual void dragEnterEvent( QDragEnterEvent * ) ;
-	virtual void dropEvent ( QDropEvent * );
-	virtual void applyNewPreferences();
-	virtual void applyFileProperties();
-	virtual void clearRecentsList();
-	virtual void moveWindowDiff(QPoint diff);
-
-    virtual void loadActions();
-    virtual void saveActions();
+    void goToPosOnDragging(int);
+    void showPopupMenu();
+    void showPopupMenu( QPoint p );
+    void leftClickFunction();
+    void rightClickFunction();
+    void doubleClickFunction();
+    void middleClickFunction();
+    void xbutton1ClickFunction();
+    void xbutton2ClickFunction();
+    void processFunction(QString function);
+    void dragEnterEvent( QDragEnterEvent * ) ;
+    void dropEvent ( QDropEvent * );
+    void applyNewPreferences();
+    void applyFileProperties();
+    void clearRecentsList();
+    void moveWindowDiff(QPoint diff);
+    void loadActions();
+    void saveActions();
 
 	// Single instance stuff
 #ifdef SINGLE_INSTANCE
@@ -220,25 +239,21 @@ signals:
     void setStopEnabled(bool);
     void frameChanged(int);
     void ABMarkersChanged(int secs_a, int secs_b);
-    void videoInfoChanged(int width, int height, double fps);
     void timeChanged(QString time_ready_to_print, QString all_time);
-    void clear_playing_title();
 
 	//! Sent when the user wants to close the main window
 	void quitSolicited();
 
 	//! Sent when another instance requested to play a file
 	void openFileRequested();
-
-    void change_playlist_btn_status(bool);//0619
-
-    void guiChanged();//kobe 20170710
+    void requestUpdatePlaylistBtnQssProperty(bool);
+    void guiChanged();
     void send_save_preview_image_name(int time, QString filepath);
 
 protected:
 #if QT_VERSION < 0x050000
-	virtual void hideEvent( QHideEvent * );
-	virtual void showEvent( QShowEvent * );
+    virtual void hideEvent(QHideEvent *);
+    virtual void showEvent(QShowEvent *);
 #else
 	virtual bool event(QEvent * e);
 	bool was_minimized;
@@ -250,192 +265,176 @@ protected:
     virtual bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;
     virtual void resizeEvent(QResizeEvent *e) Q_DECL_OVERRIDE;
     //    void paintEvent(QPaintEvent *);
-	void createCore();
-	void createMplayerWindow();
-	void createPlaylist();
-	void createPanel();
-	void createPreferencesDialog();
-	void createFilePropertiesDialog();
-	void setDataToFileProperties();
-    void createAboutDialog();
-    void createHelpDialog();
-    void setDataToAboutDialog();
-	void initializeGui();
-    void createActionsAndMenus();
-    void createTrayActions();
-    void addTrayActions();
-    void createHiddenActions();
-	void setActionsEnabled(bool);
-	void updateRecents();
-    void loadConfig();
+
+
     virtual void keyPressEvent(QKeyEvent *event);
-    //void moveEvent(QMoveEvent *event);
 
 protected:
-    QStackedLayout *contentLayout;
+    QStackedLayout *contentLayout = nullptr;
     QWidget * panel = nullptr;
-    TitleWidget *m_topToolbar;
-    BottomWidget *m_bottomToolbar;
+    TitleWidget *m_topToolbar = nullptr;
+    BottomWidget *m_bottomToolbar = nullptr;
     BottomController *m_bottomController = nullptr;
 
     // Menu File
-    QMenu *openMenu;//打开
-    MyAction *openFileAct;//打开文件
-    MyAction *openDirectoryAct;//打开文件夹
-    MyAction *openURLAct;//打开URL
-    MyAction *clearRecentsAct;//清空最近的文件
-    QMenu *recentfiles_menu;//打开最近的文件
+    QMenu *openMenu = nullptr;//打开
+    MyAction *openFileAct = nullptr;//打开文件
+    MyAction *openDirectoryAct = nullptr;//打开文件夹
+    MyAction *openURLAct = nullptr;//打开URL
+    MyAction *clearRecentsAct = nullptr;//清空最近的文件
+    QMenu *recentfiles_menu = nullptr;//打开最近的文件
 
-    QMenu *playMenu;//播放控制
-    QMenu * control_menu;
-    MyAction * rewind1Act;
-    MyAction * rewind2Act;
-    MyAction * rewind3Act;
-    MyAction * forward1Act;
-    MyAction * forward2Act;
-    MyAction * forward3Act;
-    QMenu * speed_menu;
-    MyAction * gotoAct;
+    QMenu *playMenu = nullptr;//播放控制
+    QMenu * control_menu = nullptr;
+    MyAction * rewind1Act = nullptr;
+    MyAction * rewind2Act = nullptr;
+    MyAction * rewind3Act = nullptr;
+    MyAction * forward1Act = nullptr;
+    MyAction * forward2Act = nullptr;
+    MyAction * forward3Act = nullptr;
+    QMenu * speed_menu = nullptr;
+    MyAction * gotoAct = nullptr;
     // Menu Speed
-    MyAction * normalSpeedAct;
-    MyAction * halveSpeedAct;
-    MyAction * doubleSpeedAct;
-    MyAction * decSpeed10Act;
-    MyAction * incSpeed10Act;
-    MyAction * decSpeed4Act;
-    MyAction * incSpeed4Act;
-    MyAction * decSpeed1Act;
-    MyAction * incSpeed1Act;
-    MyAction * playPrevAct;
-    MyAction * playNextAct;
+    MyAction * normalSpeedAct = nullptr;
+    MyAction * halveSpeedAct = nullptr;
+    MyAction * doubleSpeedAct = nullptr;
+    MyAction * decSpeed10Act = nullptr;
+    MyAction * incSpeed10Act = nullptr;
+    MyAction * decSpeed4Act = nullptr;
+    MyAction * incSpeed4Act = nullptr;
+    MyAction * decSpeed1Act = nullptr;
+    MyAction * incSpeed1Act = nullptr;
+    MyAction * playPrevAct = nullptr;
+    MyAction * playNextAct = nullptr;
 
-    QMenu * aspect_menu;
+    QMenu * aspect_menu = nullptr;
     // Aspect Action Group
-    MyActionGroup * aspectGroup;
-    MyAction * aspectDetectAct;
-    MyAction * aspectNoneAct;
-    MyAction * aspect11Act;		// 1:1
-    MyAction * aspect32Act;		// 3:2
-    MyAction * aspect43Act;		// 4:3
-    MyAction * aspect118Act;	// 11:8
-    MyAction * aspect54Act;		// 5:4
-    MyAction * aspect149Act;	// 14:9
-    MyAction * aspect1410Act;	// 14:10
-    MyAction * aspect169Act;	// 16:9
-    MyAction * aspect1610Act;	// 16:10
-    MyAction * aspect235Act;	// 2.35:1
+    MyActionGroup * aspectGroup = nullptr;
+    MyAction * aspectDetectAct = nullptr;
+    MyAction * aspectNoneAct = nullptr;
+    MyAction * aspect11Act = nullptr;		// 1:1
+    MyAction * aspect32Act = nullptr;		// 3:2
+    MyAction * aspect43Act = nullptr;		// 4:3
+    MyAction * aspect118Act = nullptr;	// 11:8
+    MyAction * aspect54Act = nullptr;		// 5:4
+    MyAction * aspect149Act = nullptr;	// 14:9
+    MyAction * aspect1410Act = nullptr;	// 14:10
+    MyAction * aspect169Act = nullptr;	// 16:9
+    MyAction * aspect1610Act = nullptr;	// 16:10
+    MyAction * aspect235Act = nullptr;	// 2.35:1
 
     // Rotate Group
-    MyActionGroup * rotateGroup;
-    MyAction * rotateNoneAct;
-    MyAction * rotateClockwiseFlipAct;
-    MyAction * rotateClockwiseAct;
-    MyAction * rotateCounterclockwiseAct;
-    MyAction * rotateCounterclockwiseFlipAct;
+    MyActionGroup * rotateGroup = nullptr;
+    MyAction * rotateNoneAct = nullptr;
+    MyAction * rotateClockwiseFlipAct = nullptr;
+    MyAction * rotateClockwiseAct = nullptr;
+    MyAction * rotateCounterclockwiseAct = nullptr;
+    MyAction * rotateCounterclockwiseFlipAct = nullptr;
 
-    MyAction * flipAct;
-    MyAction * mirrorAct;
+    MyAction * flipAct = nullptr;
+    MyAction * mirrorAct = nullptr;
 
     // Rotate menu
-    QMenu * rotate_flip_menu;
-    QMenu * rotate_menu;
+    QMenu * rotate_flip_menu = nullptr;
+    QMenu * rotate_menu = nullptr;
 
 //    MyAction * shortcutsAct;
-    MyAction * screenshotAct;
+    MyAction * screenshotAct = nullptr;
     /*MyAction * screenshotsAct;
     MyAction * screenshotWithSubsAct;
     MyAction * screenshotWithNoSubsAct;*/
 
-    QMenu * ontop_menu;
+    QMenu * ontop_menu = nullptr;
     // Menu StayOnTop
-    MyActionGroup * onTopActionGroup;
-    MyAction * onTopAlwaysAct;
-    MyAction * onTopNeverAct;
-    MyAction * onTopWhilePlayingAct;
+    MyActionGroup * onTopActionGroup = nullptr;
+    MyAction * onTopAlwaysAct = nullptr;
+    MyAction * onTopNeverAct = nullptr;
+    MyAction * onTopWhilePlayingAct = nullptr;
 
     //play order
-    QMenu * play_order_menu;
-    MyActionGroup * playOrderActionGroup;
-    MyAction * orderPlaysAct;
-    MyAction * randomPlayAct;
-    MyAction * listLoopPlayAct;
+    QMenu * play_order_menu = nullptr;
+    MyActionGroup * playOrderActionGroup = nullptr;
+    MyAction * orderPlaysAct = nullptr;
+    MyAction * randomPlayAct = nullptr;
+    MyAction * listLoopPlayAct = nullptr;
 
-    QMenu *audioMenu;//声音
-    MyAction * muteAct;
-    MyAction * decVolumeAct;
-    MyAction * incVolumeAct;
-    MyAction * decAudioDelayAct;
-    MyAction * incAudioDelayAct;
-    MyAction * audioDelayAct; // Ask for delay
+    QMenu *audioMenu = nullptr;//声音
+    MyAction * muteAct = nullptr;
+    MyAction * decVolumeAct = nullptr;
+    MyAction * incVolumeAct = nullptr;
+    MyAction * decAudioDelayAct = nullptr;
+    MyAction * incAudioDelayAct = nullptr;
+    MyAction * audioDelayAct = nullptr; // Ask for delay
 
     // Stereo Mode Action Group
-    MyActionGroup * stereoGroup;
-    MyAction * stereoAct;
-    MyAction * leftChannelAct;
-    MyAction * rightChannelAct;
-    MyAction * monoAct;
-    MyAction * reverseAct;
+    MyActionGroup * stereoGroup = nullptr;
+    MyAction * stereoAct = nullptr;
+    MyAction * leftChannelAct = nullptr;
+    MyAction * rightChannelAct = nullptr;
+    MyAction * monoAct = nullptr;
+    MyAction * reverseAct = nullptr;
 
-    QMenu * stereomode_menu;
+    QMenu * stereomode_menu = nullptr;
 
-    QMenu *subtitlesMenu;//字幕
-    MyAction * loadSubsAct;
-    MyAction * subVisibilityAct;
+    QMenu *subtitlesMenu = nullptr;//字幕
+    MyAction * loadSubsAct = nullptr;
+    MyAction * subVisibilityAct = nullptr;
 
-    MyAction *showPreferencesAct;//设置
-    MyAction *showPropertiesAct;//信息和属性
-    MyAction *aboutAct;
-    MyAction *helpAct;
-    MyAction *quitAct;
+    MyAction *showPreferencesAct = nullptr;//设置
+    MyAction *showPropertiesAct = nullptr;//信息和属性
+    MyAction *aboutAct = nullptr;
+    MyAction *helpAct = nullptr;
+    MyAction *quitAct = nullptr;
+    MyAction *m_poweroffAct = nullptr;
     //MyAction *openDirAct;
 
     //20181120
-    QMenu * osd_menu;
+    QMenu * osd_menu = nullptr;
     //MyAction *showFilenameAct;
-    MyAction *showMediaInfoAct;
+    MyAction *showMediaInfoAct = nullptr;
     //MyAction *showTimeAct;
     // OSD
-    MyAction *incOSDScaleAct;
-    MyAction *decOSDScaleAct;
+    MyAction *incOSDScaleAct = nullptr;
+    MyAction *decOSDScaleAct = nullptr;
 //#ifdef MPV_SUPPORT
-    MyAction *OSDFractionsAct;
+    MyAction *OSDFractionsAct = nullptr;
 //#endif
     // OSD Action Group
-    MyActionGroup * osdGroup;
-    MyAction * osdNoneAct;
-    MyAction * osdSeekAct;
-    MyAction * osdTimerAct;
-    MyAction * osdTotalAct;
+    MyActionGroup * osdGroup = nullptr;
+    MyAction * osdNoneAct = nullptr;
+    MyAction * osdSeekAct = nullptr;
+    MyAction * osdTimerAct = nullptr;
+    MyAction * osdTotalAct = nullptr;
 
-    QMenu *popup;
-    QMenu *main_popup;
-    QMenu * audiochannels_menu;
-    MyActionGroup * channelsGroup;
-    MyAction * channelsStereoAct;
-    MyAction * channelsSurroundAct;
-    MyAction * channelsFull51Act;
-    MyAction * channelsFull61Act;
-    MyAction * channelsFull71Act;
+    QMenu *popup = nullptr;
+    QMenu *main_popup = nullptr;
+    QMenu *audiochannels_menu = nullptr;
+    MyActionGroup *channelsGroup = nullptr;
+    MyAction *channelsStereoAct = nullptr;
+    MyAction *channelsSurroundAct = nullptr;
+    MyAction *channelsFull51Act = nullptr;
+    MyAction *channelsFull61Act = nullptr;
+    MyAction *channelsFull71Act = nullptr;
 
     //tray menu and actions
-    QMenu *tray_menu;
-    MyAction *action_show;
-    MyAction *action_openshotsdir;
+    QMenu *tray_menu = nullptr;
+    MyAction *action_show = nullptr;
+    MyAction *action_openshotsdir = nullptr;
 
 
     //Hide actions
-    MyAction *playlist_action;
-    MyAction *play_pause_aciton;
-    MyAction *stopAct;
-    MyAction *fullscreenAct;
+    MyAction *playlist_action = nullptr;
+    MyAction *play_pause_aciton = nullptr;
+    MyAction *stopAct = nullptr;
+    MyAction *fullscreenAct = nullptr;
 
-    PreferencesDialog *pref_dialog;
-    FilePropertiesDialog *file_dialog;
-    AboutDialog *aboutDlg;
-    HelpDialog *helpDlg;
+    PreferencesDialog *pref_dialog = nullptr;
+    FilePropertiesDialog *file_dialog = nullptr;
+    AboutDialog *aboutDlg = nullptr;
+    HelpDialog *helpDlg = nullptr;
     Core *core = nullptr;
-	MplayerWindow *mplayerwindow;
-    Playlist *m_playlistWidget;
+    VideoWindow *mplayerwindow = nullptr;
+    Playlist *m_playlistWidget = nullptr;
 	QString pending_actions_to_run;
 
 	// Force settings from command line
@@ -451,23 +450,22 @@ private:
     QPoint mainwindow_pos;
     QPoint playlist_pos;
     bool trayicon_playlist_was_visible;
-    QPushButton *resizeCorner;
+    QPushButton *resizeCorner = nullptr;
     bool resizeFlag;
-    QSystemTrayIcon *tray;
+    QSystemTrayIcon *tray = nullptr;
 
-    PlayMask *play_mask;
-    EscTip *escWidget;
-    TipWidget *tipWidget;
-    QTimer *tip_timer;
-    QString arch;
-    VideoPreview *video_preview;
+    PlayMask *play_mask = nullptr;
+    EscTip *escWidget = nullptr;
+    TipWidget *tipWidget = nullptr;
+    QTimer *tip_timer = nullptr;
+    QString m_arch;
+    VideoPreview *video_preview = nullptr;
 //    ShortcutsWidget *shortcuts_widget;
 
     QString m_snap;
     FilterHandler *m_mouseFilterHandler = nullptr;
 
 //    CoverWidget *m_coverWidget = nullptr;
-    QWidget *m_currentWidget = nullptr;
     MaskWidget *m_maskWidget = nullptr;
 
     bool  m_leftPressed;// 鼠标是否按下

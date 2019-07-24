@@ -21,8 +21,7 @@
 #define _ERRORDIALOG_H_
 
 #include "ui_errordialog.h"
-
-enum EDragState {NOT_EDRAGGING, START_EDRAGGING, EDRAGGING};
+#include "../utils.h"
 
 class ErrorDialog : public QDialog, public Ui::ErrorDialog
 {
@@ -45,8 +44,8 @@ protected slots:
 	void toggleLog(bool);
 
 private:
-    EDragState drag_state;
-    QPoint start_drag;
+    DragState m_dragState;
+    QPoint m_startDrag;
 };
 
 #endif

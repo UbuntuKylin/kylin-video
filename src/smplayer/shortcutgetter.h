@@ -28,13 +28,13 @@
 #ifndef SHORTCUTGETTER_H
 #define SHORTCUTGETTER_H
 
+#include "../utils.h"
+
 #include <QDialog>
 #include <QListWidget>
 
 class QLineEdit;
 
-
-enum SCDragState {NOT_SCDRAGGING, START_SCDRAGGING, SCDRAGGING};
 
 class ShortcutGetter : public QDialog
 {
@@ -72,8 +72,8 @@ private:
 	QPushButton * addItem;
 	QPushButton * removeItem;
     QPushButton *closeBtn;
-    SCDragState drag_state;
-    QPoint start_drag;
+    DragState m_dragState;
+    QPoint m_startDrag;
 };
 
 #endif

@@ -38,25 +38,25 @@ SoundVolume::SoundVolume(QWidget *parent) : QWidget(parent)
     layout->setSpacing(0);
 
 
-    volSlider  = 0;
+    m_volSlider  = 0;
     tborderColor = QColor(0, 0, 0,  255 * 2 / 10);
     tradius      = 4;
     mouseIn     = false;
 
-    volSlider = new QSlider(Qt::Horizontal);//Qt::Vertical
-    volSlider->setMinimum(0);
-    volSlider->setMaximum(100);
-    volSlider->setSingleStep(10);//VolumeStep
-    volSlider->setValue(50);
-    volSlider->setFocusPolicy(Qt::NoFocus);
-    volSlider->setObjectName("VolumeProgress");
+    m_volSlider = new QSlider(Qt::Horizontal);//Qt::Vertical
+    m_volSlider->setMinimum(0);
+    m_volSlider->setMaximum(100);
+    m_volSlider->setSingleStep(10);//VolumeStep
+    m_volSlider->setValue(50);
+    m_volSlider->setFocusPolicy(Qt::NoFocus);
+    m_volSlider->setObjectName("VolumeProgress");
 
     layout->addStretch();
-    layout->addWidget(volSlider, 0, Qt::AlignCenter);
+    layout->addWidget(m_volSlider, 0, Qt::AlignCenter);
     layout->addStretch();
     setFixedSize(106, 24);
 
-    connect(volSlider, SIGNAL(valueChanged(int)), this, SIGNAL(volumeChanged(int)));
+    connect(m_volSlider, SIGNAL(valueChanged(int)), this, SIGNAL(volumeChanged(int)));
 }
 
 SoundVolume::~SoundVolume()
@@ -65,13 +65,13 @@ SoundVolume::~SoundVolume()
 }
 
 void SoundVolume::setValue(int vol) {
-    bool was_blocked = volSlider->blockSignals(true);
-    volSlider->setValue(vol);
-    volSlider->blockSignals(was_blocked);
+    bool was_blocked = m_volSlider->blockSignals(true);
+    m_volSlider->setValue(vol);
+    m_volSlider->blockSignals(was_blocked);
 }
 
 int SoundVolume::volume() const {
-    return volSlider->value();
+    return m_volSlider->value();
 }
 
 QBrush SoundVolume::background() const {
@@ -110,9 +110,9 @@ void SoundVolume::slot_deley() {
 }
 
 void SoundVolume::onVolumeChanged(int vol) {
-    this->volSlider->blockSignals(true);
-    this->volSlider->setValue(vol);
-    this->volSlider->blockSignals(false);
+    this->m_volSlider->blockSignals(true);
+    this->m_volSlider->setValue(vol);
+    this->m_volSlider->blockSignals(false);
 }
 
 void SoundVolume::showEvent(QShowEvent *event) {

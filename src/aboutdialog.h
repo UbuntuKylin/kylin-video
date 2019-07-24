@@ -21,12 +21,12 @@
 #define _ABOUTDIALOG_H_
 
 #include "ui_aboutdialog.h"
+#include "utils.h"
 
 #include <QDialog>
 #include <QPushButton>
 class QParallelAnimationGroup;
 
-enum ADragState {NOT_ADRAGGING, START_ADRAGGING, ADRAGGING};
 enum TabState {TAB_ABOUT, TAB_CONTRIBUTOR};
 
 class AboutDialog : public QDialog, public Ui::AboutDialog
@@ -53,13 +53,12 @@ public slots:
     void onContributorBtnClicked();
 
 private:
-    QPushButton *okBtn;
-    QParallelAnimationGroup *aboutGroup;
-    QParallelAnimationGroup *contributorGroup;
-    ADragState drag_state;
+    QPushButton *m_okBtn = nullptr;
+    QParallelAnimationGroup *m_aboutGroup = nullptr;
+    QParallelAnimationGroup *m_contributorGroup = nullptr;
+    DragState m_dragState;
     TabState tab_state;
-    QPoint start_drag;
-
+    QPoint m_startDrag;
     QString m_snap;
 };
 

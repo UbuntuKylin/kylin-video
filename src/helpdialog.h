@@ -21,8 +21,7 @@
 #define _HELPDIALOG_H_
 
 #include "ui_helpdialog.h"
-
-enum HDragState {NOT_HDRAGGING, START_HDRAGGING, HDRAGGING};
+#include "utils.h"
 
 class QTextBrowser;
 class QPushButton;
@@ -69,12 +68,12 @@ private:
     QList<TitleButton *> m_buttonList;
 
 protected:
-    SupportFormats *page_formats;
+    SupportFormats *m_pageFormats = nullptr;
 //    SupportShortcuts *page_shortcuts;
 
 private:
-    HDragState drag_state;
-    QPoint start_drag;
+    DragState m_dragState;
+    QPoint m_startDrag;
 };
 
 #endif

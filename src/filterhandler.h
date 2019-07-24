@@ -39,7 +39,7 @@ protected:
     bool eventFilter(QObject *obj, QEvent *event);
 
 private:
-    MainWindow *m_baseGui;
+    MainWindow *m_mainWindow = nullptr;
 };
 
 #endif // _FILTERHANDLER_H_

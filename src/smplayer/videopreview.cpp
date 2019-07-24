@@ -17,7 +17,7 @@
 */
 
 #include "videopreview.h"
-#include "../smplayer/playerid.h"
+#include "../utils.h"
 #include <QProcess>
 #include <QRegExp>
 #include <QDir>
@@ -154,20 +154,17 @@ bool VideoPreview::extractImages(int time) {
 
     qApp->processEvents();
 
-//    qDebug() << "current_time=" << current_time << " and aspect_ratio=" << aspect_ratio;//current_time= 470  and aspect_ratio= 1.33333
     if (!runPlayer(current_time, aspect_ratio)) return false;
 
     QString frame_picture = full_output_dir + "/" + framePicture();
     if (!QFile::exists(frame_picture)) {
         error_message = QString(tr("The file %1 doesn't exist").arg(frame_picture));
-//        qDebug() << "error_message=" << error_message;//error_message= "文件 /tmp/kylin_video_preview/00000001.jpg 不存在"
         return false;
     }
 
     QString extension = (extractFormat()==PNG) ? "png" : "jpg";
     QString output_file = output_dir + QString("/picture_%1.%2").arg(current_time, 8, 10, QLatin1Char('0')).arg(extension);
-//    qDebug() << "1111111111 dir=" << output_dir + "/" + framePicture();//1111111111 dir= "kylin_video_preview/00000001.jpg"
-//    qDebug() << "2222222222 dir=" << output_file;//2222222222 dir= "kylin_video_preview/picture_00006068.jpg"
+
     d.rename(output_dir + "/" + framePicture(), output_file);
     current_picture = QDir::tempPath() + "/" + output_file;
 
@@ -202,7 +199,7 @@ bool VideoPreview::runPlayer(/*int*/double seek, double aspect_ratio) {
 	QStringList args;
 
     //edited by kobe 20180623
-    if (PlayerID::player(mplayer_bin/*, this->m_snap*/) == PlayerID::MPV) {
+    if (Utils::player(mplayer_bin/*, this->m_snap*/) == Utils::MPV) {
 		// MPV
         /*args << "--no-config" << "--no-audio" << "--no-cache";
 		args << "--frames=" + QString::number(N_OUTPUT_FRAMES);
@@ -277,83 +274,6 @@ bool VideoPreview::runPlayer(/*int*/double seek, double aspect_ratio) {
 	return true;
 }
 
-/*#define ADD_INFO( data) \
-    { \
-    text += data; \
-    if (count++ % 3 == 0) text += "</td><td>"; else text += "<br>"; \
-    }
-
-void VideoPreview::displayVideoInfo(const VideoInfo & i) {
-    // Display info about the video
-    QTime t(0,0);
-    t = t.addSecs(i.length);
-
-    QString aspect = QString::number(i.aspect);
-    if (fabs(1.77 - i.aspect) < 0.1) aspect = "16:9";
-    else
-    if (fabs(1.33 - i.aspect) < 0.1) aspect = "4:3";
-    else
-    if (fabs(2.35 - i.aspect) < 0.1) aspect = "2.35:1";
-
-    QString no_info = tr("No info");
-
-    QString fps = (i.fps==0 || i.fps==1000) ? no_info : QString("%1").arg(i.fps);
-    QString video_bitrate = (i.video_bitrate==0) ? no_info : tr("%1 kbps").arg(i.video_bitrate/1000);
-    QString audio_bitrate = (i.audio_bitrate==0) ? no_info : tr("%1 kbps").arg(i.audio_bitrate/1000);
-    QString audio_rate = (i.audio_rate==0) ? no_info : tr("%1 Hz").arg(i.audio_rate);
-
-    title->setText("<h2 " FONT_STYLE ">" + i.filename + "</h2>");
-
-    int count = 1;
-
-    QString text =
-        "<table cellspacing=4 cellpadding=4 " HEADER_STYLE ">"
-        "<tr><td>";
-
-    ADD_INFO(tr("Size: %1 MB").arg(i.size / (1024*1024)));
-    ADD_INFO(tr("Resolution: %1x%2").arg(i.width).arg(i.height));
-    ADD_INFO(tr("Length: %1").arg(t.toString("hh:mm:ss")));
-
-    if (i.fps && i.fps != 1000) ADD_INFO(tr("FPS: %1").arg(fps));
-    if (!i.video_format.isEmpty()) ADD_INFO(tr("Video format: %1").arg(i.video_format));
-    if (!i.audio_format.isEmpty()) ADD_INFO(tr("Audio format: %1").arg(i.audio_format));
-
-    ADD_INFO(tr("Aspect ratio: %1").arg(aspect));
-
-    if (i.video_bitrate) ADD_INFO(tr("Video bitrate: %1").arg(video_bitrate));
-    if (i.audio_bitrate) ADD_INFO(tr("Audio bitrate: %1").arg(audio_bitrate));
-    if (i.audio_rate) ADD_INFO(tr("Audio rate: %1").arg(audio_rate));
-
-    text += "</td></tr></table>";
-
-    //qDebug() << "VideoPreview::displayVideoInfo: text:" << text;
-
-    info->setText(text);
-    setWindowTitle( tr("Video preview") + " - " + i.filename );
-}*/
-
-/*void VideoPreview::cleanDir(QString directory, bool removeDir) {
-    QDir dir(directory);
-    if (dir.exists()) {
-        QStringList filter;
-        if (prop.extract_format == PNG) {
-            filter.append("*.png");
-        } else {
-            filter.append("*.jpg");
-        }
-
-        QDir d(directory);
-        QStringList l = d.entryList( filter, QDir::Files, QDir::Unsorted);
-
-        for (int n = 0; n < l.count(); n++) {
-//            qDebug("VideoPreview::cleanDir: deleting '%s'", l[n].toUtf8().constData());
-            d.remove(l[n]);
-        }
-//        qDebug("VideoPreview::cleanDir: removing directory '%s'", directory.toUtf8().constData());
-        if (removeDir)
-            d.rmpath(directory);
-    }
-}*/
 void VideoPreview::cleanDir(QString directory) {
     QStringList filter;
     if (prop.extract_format == PNG) {
@@ -395,7 +315,7 @@ VideoInfo VideoPreview::getInfo(const QString & mplayer_path, const QString & fi
 	QStringList args;
 
     //edited by kobe 20180623
-    if (PlayerID::player(mplayer_path/*, this->m_snap*/) == PlayerID::MPV) {
+    if (Utils::player(mplayer_path/*, this->m_snap*/) == Utils::MPV) {
 //		args << "--term-playing-msg="
 //                "ID_LENGTH=${=length}\n"
 //                "ID_VIDEO_WIDTH=${=width}\n"

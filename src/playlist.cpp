@@ -23,7 +23,6 @@
 #include "../playlistview.h"
 #include "../smplayer/myaction.h"
 #include "../smplayer/filedialog.h"
-#include "../smplayer/helper.h"
 #include "../smplayer/preferences.h"
 #include "../smplayer/version.h"
 #include "../smplayer/global.h"
@@ -134,6 +133,15 @@ Playlist::Playlist(Core *c, QWidget * parent, Qt::WindowFlags f)
     connect(core, SIGNAL(mplayerFailed(QProcess::ProcessError)), this, SLOT(playerFailed(QProcess::ProcessError)) );
     connect(core, SIGNAL(mplayerFinishedWithError(int)), this, SLOT(playerFinishedWithError(int)) );
     connect(core, SIGNAL(mediaDataReceived(const MediaData &)), this, SLOT(getMediaInfo(const MediaData &)));
+
+
+//    connect(playlist, SIGNAL(requestToPlayFile(const QString &, int)),
+//            core, SLOT(open(const QString &, int)));
+
+//	connect(playlist, SIGNAL(requestToPlayStream(const QString &, QStringList)),
+//            core, SLOT(openStream(const QString &, QStringList)));
+
+//	connect(playlist, SIGNAL(requestToAddCurrentFile()), this, SLOT(addToPlaylistCurrentFile()));
 
 	// Ugly hack to avoid to play next item automatically
     /*if (!automatically_play_next) {
@@ -251,26 +259,6 @@ void Playlist::setPlaylistFilename(const QString & f)
 {
     //playlist_filename = f;
     //updateWindowTitle();
-}
-
-void Playlist::setTransparent(bool transparent)
-{
-    if (transparent) {
-        setAttribute(Qt::WA_TranslucentBackground);
-        setWindowFlags(windowFlags() | Qt::FramelessWindowHint|Qt::X11BypassWindowManagerHint);
-        setWidgetOpacity(0.5);
-    }
-    else {
-        setAttribute(Qt::WA_TranslucentBackground,false);
-        setWindowFlags(windowFlags() & ~Qt::FramelessWindowHint);
-    }
-}
-
-void Playlist::setWidgetOpacity(const float &opacity)
-{
-    QGraphicsOpacityEffect* opacityEffect = new QGraphicsOpacityEffect;
-    this->setGraphicsEffect(opacityEffect);
-    opacityEffect->setOpacity(opacity);
 }
 
 void Playlist::setModified(bool mod)
@@ -634,7 +622,7 @@ bool Playlist::save_m3u(QString file)
     if (!dir_path.endsWith("/")) dir_path += "/";
 
 //	#if defined(Q_OS_WIN) || defined(Q_OS_OS2)
-//	dir_path = Helper::changeSlashes(dir_path);
+//	dir_path = Utils::changeSlashes(dir_path);
 //	#endif
 
     qDebug() << "Playlist::save_m3u: dir_path:" << dir_path;
@@ -660,7 +648,7 @@ bool Playlist::save_m3u(QString file)
             PlayListItem * i = itemData(n);
             filename = i->filename();
 //			#if defined(Q_OS_WIN) || defined(Q_OS_OS2)
-//			filename = Helper::changeSlashes(filename);
+//			filename = Utils::changeSlashes(filename);
 //			#endif
             name = i->name();
             name.replace(",", "&#44;");
@@ -705,7 +693,7 @@ bool Playlist::save_pls(QString file)
     if (!dir_path.endsWith("/")) dir_path += "/";
 
 //	#if defined(Q_OS_WIN) || defined(Q_OS_OS2)
-//	dir_path = Helper::changeSlashes(dir_path);
+//	dir_path = Utils::changeSlashes(dir_path);
 //	#endif
 
     qDebug() << "Playlist::save_pls: dir_path:" << dir_path;
@@ -719,7 +707,7 @@ bool Playlist::save_pls(QString file)
         PlayListItem * i = itemData(n);
         filename = i->filename();
 //		#if defined(Q_OS_WIN) || defined(Q_OS_OS2)
-//		filename = Helper::changeSlashes(filename);
+//		filename = Utils::changeSlashes(filename);
 //		#endif
 
         // Try to save the filename as relative instead of absolute
@@ -1700,12 +1688,12 @@ void Playlist::dropEvent( QDropEvent *e )
 
 void Playlist::hideEvent( QHideEvent * )
 {
-    //emit change_playlist_btn_status(false);
+
 }
 
 void Playlist::showEvent( QShowEvent * )
 {
-    //emit change_playlist_btn_status(true);
+
 }
 
 void Playlist::playerFailed(QProcess::ProcessError e)

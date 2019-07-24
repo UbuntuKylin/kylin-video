@@ -20,7 +20,8 @@
 #include "playlistdelegate.h"
 #include "playlistview.h"
 #include "playlistmodel.h"
-#include "../smplayer/helper.h"
+#include "utils.h"
+
 #include "../smplayer/preferences.h"
 #include "../smplayer/global.h"
 using namespace Global;
@@ -206,7 +207,7 @@ void PlaylistDelegate::paint(QPainter *painter, const QStyleOptionViewItem &opti
         }
         case Length:
             painter->setFont(m_font);
-            painter->drawText(rect, flag, Helper::formatTime((int)video->m_duration));
+            painter->drawText(rect, flag, Utils::formatTime((int)video->m_duration));
             break;
         default:
             break;

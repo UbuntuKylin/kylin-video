@@ -45,7 +45,7 @@ signals:
     void signal_play_continue();
 
 private:
-    QPushButton *play_Btn;
+    QPushButton *play_Btn = nullptr;
 };
 
 #endif // PLAYMASK_H

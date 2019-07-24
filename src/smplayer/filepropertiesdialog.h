@@ -23,12 +23,10 @@
 #include "ui_filepropertiesdialog.h"
 #include "../smplayer/inforeader.h"
 #include "../smplayer/mediadata.h"
-#include "../smplayer/config.h"
+#include "../utils.h"
 
 class QPushButton;
 class TitleButton;
-
-enum FDragState {NOT_FDRAGGING, START_FDRAGGING, FDRAGGING};
 
 class FilePropertiesDialog : public QDialog, public Ui::FilePropertiesDialog
 {
@@ -94,8 +92,8 @@ private:
     SubTracks sub_tracks;
 
     QList<TitleButton *> m_buttonList;
-    FDragState drag_state;
-    QPoint start_drag;
+    DragState m_dragState;
+    QPoint m_startDrag;
 };
 
 #endif

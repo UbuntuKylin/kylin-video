@@ -24,7 +24,7 @@
 #include <QEvent>
 
 FilterHandler::FilterHandler(MainWindow &gui, QObject &obj) : QObject(&gui),
-   m_baseGui(&gui)
+   m_mainWindow(&gui)
 {
     obj.installEventFilter(this);
     qApp->installEventFilter(this);
@@ -40,7 +40,7 @@ bool FilterHandler::eventFilter(QObject *obj, QEvent *event)
     (void) obj;
 
     /*if (event->type() == QEvent::WindowStateChange) {// MainWindow::event
-        Qt::WindowStates winState = m_baseGui->windowState();
+        Qt::WindowStates winState = m_mainWindow->windowState();
         switch(winState)
         {
         case Qt::WindowMinimized:

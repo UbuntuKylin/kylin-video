@@ -35,22 +35,22 @@ EscTip::EscTip(QWidget *parent) : QFrame(parent)
     setObjectName("EscTip");//设置背景色
 
     m_radius = 4;
-    w_shadow = 20;
-    shadow_margins = QMargins(20, 20, 20, 20);
+    m_shadow = 20;
+    m_shadowMargins = QMargins(20, 20, 20, 20);
     m_borderColor = QColor(0, 0, 0, 0.2 * 255);
 
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
 
-    text_label = new QLabel(this);
-    text_label->adjustSize();
-    text_label->setStyleSheet("QLabel{font-size: 16px;color: #ffffff;}");
-    text_label->setAlignment(Qt::AlignCenter);
-    text_label->setText(tr("Press ESC to exit full screen mode"));
+    m_textLabel = new QLabel(this);
+    m_textLabel->adjustSize();
+    m_textLabel->setStyleSheet("QLabel{font-size: 16px;color: #ffffff;}");
+    m_textLabel->setAlignment(Qt::AlignCenter);
+    m_textLabel->setText(tr("Press ESC to exit full screen mode"));
 
     layout->addStretch();
-    layout->addWidget(text_label);
+    layout->addWidget(m_textLabel);
     layout->addStretch();
     this->setLayout(layout);
 
@@ -110,10 +110,10 @@ void EscTip::paintEvent(QPaintEvent * e)
     QBrush background =  this->m_background;
     QColor border_color = this->m_borderColor;
     double margin = 2.0;
-    QMarginsF shadow_margins = QMarginsF(margin, margin, margin, margin);
+    QMarginsF m_shadowMargins = QMarginsF(margin, margin, margin, margin);
 
     //background
-    QRectF bg_rect = QRectF(rect()).marginsRemoved(shadow_margins);
+    QRectF bg_rect = QRectF(rect()).marginsRemoved(m_shadowMargins);
     QPainterPath bg_path;
     bg_path.addRoundedRect(bg_rect, radius, radius);
     painter.fillPath(bg_path, background);
@@ -125,10 +125,10 @@ void EscTip::paintEvent(QPaintEvent * e)
     QMarginsF border_margin(w_pen / 2, w_pen / 2, w_pen / 2, w_pen / 2);
     if (outer) {
         border_radius += w_pen / 2;
-        border_rect = border_rect.marginsAdded(border_margin).marginsRemoved(shadow_margins);
+        border_rect = border_rect.marginsAdded(border_margin).marginsRemoved(m_shadowMargins);
     } else {
         border_radius -= w_pen / 2;
-        border_rect = border_rect.marginsRemoved(border_margin).marginsRemoved(shadow_margins);
+        border_rect = border_rect.marginsRemoved(border_margin).marginsRemoved(m_shadowMargins);
     }
     border_path.addRoundedRect(border_rect, border_radius, border_radius);
     QPen border_pen(border_color);

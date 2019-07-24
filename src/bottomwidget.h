@@ -20,6 +20,8 @@
 #ifndef BOTTOMWIDGET_H
 #define BOTTOMWIDGET_H
 
+#include "utils.h"
+
 #include <QWidget>
 #include <QSplitter>
 #include <QToolButton>
@@ -34,15 +36,11 @@
 #include <QGraphicsOpacityEffect>
 #include <QPointer>
 
-class MplayerWindow;
-class QTimer;
+class VideoWindow;
 class QPropertyAnimation;
 class TimeSlider;
 class SoundVolume;
 class MyAction;
-
-enum BottomDragState {NOT_BDRAGGING, START_BDRAGGING, BDRAGGING};
-
 
 class BottomWidget : public QWidget
 {
@@ -51,28 +49,22 @@ class BottomWidget : public QWidget
 public:
     explicit BottomWidget(QWidget *parent = 0);
     ~BottomWidget();
-//    enum Activation { Anywhere = 1, Bottom = 2 };
-    void enable_turned_on();
-    void update_widget_qss_property(QWidget *w, const char *name, const QVariant &value);
-    QString get_status();
-    void show_control_widget();
+
+    void updateWidgetQssProperty(QWidget *w, const char *name, const QVariant &value);
+    QString getActiveStatus();
+    void onShowControlWidget();
     void setPreviewData(bool preview);
-//    void setParentWindow(MplayerWindow* window) { p_mainwindow = window;}
-//    void setParentWindow(MplayerWindow* window);
+    void savePreviewImageName(int time, QString filepath);
 
 signals:
-    void sig_resize_corner();
-    void changeProgress(qint64 value, qint64 m_duration);
-    void volumeChanged(int volume);
-    void toggleMute();
+    void requestVolumeChanged(int volume);
     void togglePlaylist();
     void toggleFullScreen();
-    void signal_stop();
-    void signal_prev();
-    void signal_play_pause_status();
-    void signal_next();
-    void signal_open_file();
-    void signal_mute(/*bool*/);
+    void toggleStop();
+    void togglePrev();
+    void togglePlayPause();
+    void toggleNext();
+    void toggleMute();
     void mouseMoving(Qt::MouseButton botton);
     void start_open_file();
     void valueChanged(int);
@@ -81,22 +73,16 @@ signals:
     void delayedDraggingPos(int);
     void wheelUp();
     void wheelDown();
-    void mouseMovedDiff(QPoint);//kobe
-    void sig_show_or_hide_esc(bool b);
+    void mouseMovedDiff(QPoint);
+    void requestShowOrHideEscWidget(bool b);
     void resize_bottom_widget_height(bool b);
-    void need_to_save_pre_image(int time);//kobe
-    void send_save_preview_image_name(int time, QString filepath);//kobe
-
+    void requestSavePreviewImage(int time);
     void mouseEnter();
     void mouseLeave();
     void requestTemporaryShow();
 
 public slots:
-    void setMargin(int margin) { spacing = margin; };
-//    void setActivationArea(Activation m) { activation_area = m; }
-    void setHideDelay(int ms);
-    void slot_volumn_changed(int vol);
-    void slot_playlist_btn_status(bool b);
+    void updatePlaylistBtnQssProperty(bool b);
     void onMusicPlayed();
     void onMusicPause();
     void onMusicStoped();
@@ -105,45 +91,28 @@ public slots:
     void onFullScreen();
     void onUnFullScreen();
     void displayTime(QString cur_time, QString all_time);
-    void setActionsEnabled(bool b);
+    void onSetActionsEnabled(bool b);
     void setPlayOrPauseEnabled(bool b);
     void setStopEnabled(bool b);
+
     //progress
-    virtual void setPos(int);
-    virtual int ppos();
-    virtual void setDuration(double);
-    virtual double duration() { return total_time; };
+    void setPos(int);
+    int ppos();
+    void setDuration(double);
+    double duration() { return m_totalTime; };
     void setDragDelay(int);
     int dragDelay();
-    void slot_active_status(bool b);
-
+    void onProgressActiveStatus(bool b);
     void spreadAniFinished();
     void gatherAniFinished();
-
-    void update_playlist_count_label(int count);
-
-public:
-    bool isActive() { return turned_on; };
-    int margin() { return spacing; };
-//    Activation activationArea() { return activation_area; }
-    int hideDelay();
-    void setTransparent(bool transparent);
-    void set_widget_opacity(const float &opacity=0.8);
+    void updateLabelCountNumber(int count);
 
 protected:
-    bool eventFilter(QObject * obj, QEvent * event);
+    virtual bool eventFilter(QObject * obj, QEvent * event);
     virtual void resizeEvent(QResizeEvent *event);
-
     virtual void leaveEvent(QEvent *event);
     virtual void enterEvent(QEvent *event);
-
-    void paintEvent(QPaintEvent *event);
-//    virtual void mouseMoveEvent(QMouseEvent *event);
-//        void mousePressEvent(QMouseEvent *);
-//        void mouseMoveEvent(QMouseEvent *);
-//        void mouseReleaseEvent(QMouseEvent *);
-//    signals:
-//        void signalMovePoint(QPoint);
+    virtual void paintEvent(QPaintEvent *event);
 
 private slots:
     void checkUnderMouse();
@@ -151,40 +120,29 @@ private slots:
     void showGatherAnimated();
 
 private:
-//    void installFilter(QObject *o);
-
-private:
-    bool turned_on;
-    int spacing;
-//    Activation activation_area;
-    QWidget * internal_widget;
-    QTimer * timer;
-    QPropertyAnimation *spreadAnimation;
-    QPropertyAnimation *gatherAnimation;
-    QLabel          *playtime_label;
-    QLabel          *alltime_label;
-    QPushButton     *btStop;
-    QPushButton     *btPrev;
-    QPushButton     *btPlayPause;
-    QPushButton     *btNext;
-    QPushButton     *btSound;
-    QPushButton     *btFullScreen;
-    QPushButton     *btPlayList;
-    QLabel          *listCountLabel;
-    TimeSlider      *progress;
-    QWidget         *controlWidget;
-    SoundVolume     *volSlider;
-    QFrame          *metaWidget;
-    QFrame          *ctlWidget;
-    QWidget         *actWidget;
-    bool            enableMove;
-    double total_time;
-    int drag_delay;
-    BottomDragState drag_state;
-    QPoint start_drag;
-//    bool isLeftPressDown;  // 判断左键是否按下
-    QVBoxLayout *vboxlayout;
-//    MplayerWindow *p_mainwindow;
+    QPropertyAnimation *m_spreadAnimation = nullptr;
+    QPropertyAnimation *m_gatherAnimation = nullptr;
+    QLabel *m_playtimeLabel = nullptr;
+    QLabel *m_totaltimeLabel = nullptr;
+    QPushButton *m_btnStop = nullptr;
+    QPushButton *m_btnPrev = nullptr;
+    QPushButton *m_btnPlayPause = nullptr;
+    QPushButton *m_btnNext = nullptr;
+    QPushButton *m_btnSound = nullptr;
+    QPushButton *m_btnFullScreen = nullptr;
+    QPushButton *m_btnPlayList = nullptr;
+    QLabel *m_listCountLabel = nullptr;
+    TimeSlider *m_timeProgress = nullptr;
+    QWidget *m_controlWidget = nullptr;
+    SoundVolume *m_volSlider = nullptr;
+    QFrame *m_metaWidget = nullptr;
+    QFrame *m_ctlWidget = nullptr;
+    QWidget *m_actWidget = nullptr;
+    double m_totalTime;
+    int m_dragDelay;
+    DragState m_dragState;
+    QPoint m_startDrag;
+    QVBoxLayout *vboxlayout = nullptr;
 };
 
 #endif // BOTTOMWIDGET_H

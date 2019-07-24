@@ -27,13 +27,13 @@
 #include <cmath>
 #include <unistd.h>
 
-#include "mplayerwindow.h"
+#include "../videowindow.h"
+#include "../displaylayercomposer.h"
+
 #include "desktopinfo.h"
-#include "helper.h"
 #include "paths.h"
 #include "preferences.h"
 #include "global.h"
-#include "config.h"
 #include "mplayerversion.h"
 #include "colorutils.h"
 #include "discname.h"
@@ -43,10 +43,9 @@
 #include "mediadata.h"
 #include "filters.h"
 
-
 using namespace Global;
 
-Core::Core(MplayerWindow *mpw, const QString &snap, QWidget* parent)
+Core::Core(VideoWindow *mpw, const QString &snap, QWidget* parent)
 	: QObject( parent ) 
 {
 	qRegisterMetaType<Core::State>("Core::State");
@@ -75,11 +74,8 @@ Core::Core(MplayerWindow *mpw, const QString &snap, QWidget* parent)
     proc = PlayerProcess::createPlayerProcess(pref->mplayer_bin, this->m_snap);
 
 	// Do this the first
-	connect( proc, SIGNAL(processExited()),
-             mplayerwindow->videoLayer(), SLOT(playingStopped()) );
-
-	connect( proc, SIGNAL(error(QProcess::ProcessError)),
-             mplayerwindow->videoLayer(), SLOT(playingStopped()) );
+    connect( proc, SIGNAL(processExited()), mplayerwindow->displayLayer(), SLOT(playingStopped()) );
+    connect( proc, SIGNAL(error(QProcess::ProcessError)), mplayerwindow->displayLayer(), SLOT(playingStopped()) );
 
 	// Necessary to hide/unhide mouse cursor on black borders
 	connect( proc, SIGNAL(processExited()),
@@ -229,19 +225,16 @@ Core::Core(MplayerWindow *mpw, const QString &snap, QWidget* parent)
 	mset.reset();
 
 	// Mplayerwindow
-	connect( this, SIGNAL(aboutToStartPlaying()),
-             mplayerwindow->videoLayer(), SLOT(playingStarted()) );
+    connect( this, SIGNAL(aboutToStartPlaying()), mplayerwindow->displayLayer(), SLOT(playingStarted()) );
 
 	// Necessary to hide/unhide mouse cursor on black borders
-	connect( this, SIGNAL(aboutToStartPlaying()),
-             mplayerwindow, SLOT(playingStarted()) );
+    connect(this, SIGNAL(aboutToStartPlaying()), mplayerwindow, SLOT(playingStarted()));
 
 //#if DVDNAV_SUPPORT
-//	connect( mplayerwindow->videoLayer(), SIGNAL(mouseMoved(QPoint)),
-//             this, SLOT(dvdnavUpdateMousePos(QPoint)) );
+//	connect(mplayerwindow->displayLayer(), SIGNAL(mouseMoved(QPoint)), this, SLOT(dvdnavUpdateMousePos(QPoint)));
 //#endif
 
-    mplayerwindow->videoLayer()->setRepaintBackground(pref->repaint_video_background);
+    mplayerwindow->displayLayer()->setRepaintBackground(pref->repaint_video_background);
 
 	connect(this, SIGNAL(buffering()), this, SLOT(displayBuffering()));
 }
@@ -426,7 +419,7 @@ void Core::open(QString file, int seek) {
         //qDebug("Core::open: * identified as a directory");
         //qDebug("Core::open:   checking if contains a dvd");
 		file = QFileInfo(file).absoluteFilePath();
-		if (Helper::directoryContainsDVD(file)) {
+        if (Utils::directoryContainsDVD(file)) {
             //qDebug("Core::open: * directory contains a dvd");
 //#if DVDNAV_SUPPORT
 //			openDVD( DiscName::joinDVD(firstDVDTitle(), file, pref->use_dvdnav) );
@@ -564,14 +557,6 @@ void Core::loadSub(const QString & sub ) {
 
         if ((pref->fast_load_sub) && (!is_idx) && (mset.external_subtitles_fps == MediaSettings::SFPS_None)) {
 			QString sub_file = sub;
-//			#ifdef Q_OS_WIN
-//			if (pref->use_short_pathnames) {
-//				sub_file = Helper::shortPathName(sub);
-//				// For some reason it seems it's necessary to change the path separator to unix style
-//				// otherwise mplayer fails to load it
-//				sub_file = sub_file.replace("\\","/");
-//			}
-//			#endif
 			proc->setExternalSubtitleFile(sub_file);
 		} else {
 			restartPlay();
@@ -1246,7 +1231,7 @@ void Core::fileReachedEnd() {
 	mset.current_sec = 0;
 	updateWidgets();
 
-    emit mediaFinished();//kobe:播放结束后发送信号去播放下一个
+    emit mediaFinished();//播放结束后发送信号去播放下一个
 }
 
 void Core::goToPosition(int value) {
@@ -1377,16 +1362,7 @@ void Core::startMplayer( QString file, double seek ) {
 	proc->clearArguments();
 
     // Set the screenshot directory
-    /* deleted (done later) */
-//	#ifdef Q_OS_WIN
-//	if (pref->use_short_pathnames) {
-//		proc->setScreenshotDirectory(Helper::shortPathName(pref->screenshot_directory));
-//	}
-//	else
-//	#endif
-//	{
-//        proc->setScreenshotDirectory(pref->screenshot_directory);//kobe //TODO
-//	}
+    proc->setScreenshotDirectory(pref->screenshot_directory);
 
 	// Use absolute path, otherwise after changing to the screenshot directory
 	// the mplayer path might not be found if it's a relative path
@@ -1644,10 +1620,10 @@ void Core::startMplayer( QString file, double seek ) {
 
 //#if defined(Q_OS_OS2)
 //		#define WINIDFROMHWND(hwnd) ( ( hwnd ) - 0x80000000UL )
-//		proc->setOption("wid", QString::number( WINIDFROMHWND( (int) mplayerwindow->videoLayer()->winId() ) ));
+//		proc->setOption("wid", QString::number( WINIDFROMHWND( (int) mplayerwindow->displayLayer()->winId() ) ));
 //#else
         //kobe 将视频输出到控件: mplayer -wid WINDOWID
-        proc->setOption("wid", QString::number( (qint64) mplayerwindow->videoLayer()->winId() ) );//kobe 0615:将视频输出定位到widget窗体部件中,-wid参数只在X11、directX和OpenGL中适用
+        proc->setOption("wid", QString::number( (qint64) mplayerwindow->displayLayer()->winId() ) );//kobe 0615:将视频输出定位到widget窗体部件中,-wid参数只在X11、directX和OpenGL中适用
 //#endif
 
 		// Square pixels
@@ -1809,25 +1785,14 @@ void Core::startMplayer( QString file, double seek ) {
 			// sub/idx subtitles
 			QFileInfo fi;
 
-//			#ifdef Q_OS_WIN
-//			if (pref->use_short_pathnames)
-//				fi.setFile(Helper::shortPathName(mset.external_subtitles));
-//			else
-//			#endif
 			fi.setFile(mset.external_subtitles);
 
 			QString s = fi.path() +"/"+ fi.completeBaseName();
 			qDebug("Core::startMplayer: subtitle file without extension: '%s'", s.toUtf8().data());
 			proc->setOption("vobsub", s);
-		} else {
-//			#ifdef Q_OS_WIN
-//			if (pref->use_short_pathnames)
-//				proc->setOption("sub", Helper::shortPathName(mset.external_subtitles));
-//			else
-//			#endif
-			{
-				proc->setOption("sub", mset.external_subtitles);
-			}
+        }
+        else {
+            proc->setOption("sub", mset.external_subtitles);
 		}
 		if (mset.external_subtitles_fps != MediaSettings::SFPS_None) {
 			QString fps;
@@ -1845,14 +1810,7 @@ void Core::startMplayer( QString file, double seek ) {
 	}
 
 	if (!mset.external_audio.isEmpty()) {
-//		#ifdef Q_OS_WIN
-//		if (pref->use_short_pathnames)
-//			proc->setOption("audiofile", Helper::shortPathName(mset.external_audio));
-//		else
-//		#endif
-		{
-			proc->setOption("audiofile", mset.external_audio);
-		}
+        proc->setOption("audiofile", mset.external_audio);
 	}
 
 	proc->setOption("subpos", QString::number(mset.sub_pos));
@@ -1906,12 +1864,6 @@ void Core::startMplayer( QString file, double seek ) {
 
 	if (mdat.type==TYPE_DVD) {
 		if (!dvd_folder.isEmpty()) {
-//			#ifdef Q_OS_WIN
-//			if (pref->use_short_pathnames) {
-//				proc->setOption("dvd-device", Helper::shortPathName(dvd_folder));
-//			}
-//			else
-//			#endif
 			proc->setOption("dvd-device", dvd_folder);
 		} else {
             //qWarning("Core::startMplayer: dvd device is empty!");
@@ -2183,9 +2135,6 @@ void Core::startMplayer( QString file, double seek ) {
 //#ifdef MPLAYER_SUPPORT
 if (screenshot_enabled && proc->isMPlayer()) {
     QString dir = pref->screenshot_directory;
-//    #ifdef Q_OS_WIN
-//    if (pref->use_short_pathnames) dir = Helper::shortPathName(pref->screenshot_directory);
-//    #endif
     proc->enableScreenshots(dir);
 }
 //#endif
@@ -2197,9 +2146,6 @@ if (screenshot_enabled && proc->isMPlayer()) {
 //    #ifdef MPV_SUPPORT
     if (screenshot_enabled && proc->isMPV()) {
             QString dir = pref->screenshot_directory;
-//            #ifdef Q_OS_WIN
-//            if (pref->use_short_pathnames) dir = Helper::shortPathName(pref->screenshot_directory);
-//            #endif
             proc->enableScreenshots(dir, pref->screenshot_template, pref->screenshot_format);
     }
 //    #endif
@@ -2416,12 +2362,6 @@ if (screenshot_enabled && proc->isMPlayer()) {
 //	}
 //#endif
 
-//#ifdef Q_OS_WIN
-//	if (pref->use_short_pathnames) {
-//		file = Helper::shortPathName(file);
-//	}
-//#endif
-
 	if (proc->isMPlayer()) {
         proc->setMedia(file, pref->use_playlist_option ? url_is_playlist : false);
 //        proc->setMedia(file, false);//20170712
@@ -2613,7 +2553,7 @@ void Core::setAMarker(int sec) {
 	qDebug("Core::setAMarker: %d", sec);
 
 	mset.A_marker = sec;
-	displayMessage( tr("\"A\" marker set to %1").arg(Helper::formatTime(sec)) );
+    displayMessage( tr("\"A\" marker set to %1").arg(Utils::formatTime(sec)) );
 
 //    #ifdef MPV_SUPPORT
     if (proc->isMPV() && !pref->emulate_mplayer_ab_section) {
@@ -2638,7 +2578,7 @@ void Core::setBMarker(int sec) {
 	qDebug("Core::setBMarker: %d", sec);
 
 	mset.B_marker = sec;
-	displayMessage( tr("\"B\" marker set to %1").arg(Helper::formatTime(sec)) );
+    displayMessage( tr("\"B\" marker set to %1").arg(Utils::formatTime(sec)) );
 
 //    #ifdef MPV_SUPPORT
     if (proc->isMPV() && !pref->emulate_mplayer_ab_section) {
@@ -3236,18 +3176,14 @@ void Core::switchMute() {
 	mute(mset.mute);
 }
 
-//add by kobe
 int Core::getVolumn()
 {
     return pref->volume;
 }
 
-//add by kobe
 bool Core::getMute()
 {
-//    return mset.mute;
-//    return pref->mute;
-    return (pref->global_volume ? pref->mute : mset.mute);//kobe 0606
+    return (pref->global_volume ? pref->mute : mset.mute);
 }
 
 void Core::mute(bool b) {
@@ -4115,7 +4051,7 @@ void Core::autoZoom() {
 	double video_aspect = mset.aspectToNum( (MediaSettings::Aspect) mset.aspect_ratio_id);
 
 	if (video_aspect <= 0) {
-		QSize w = mplayerwindow->videoLayer()->size();
+        QSize w = mplayerwindow->displayLayer()->size();
 		video_aspect = (double) w.width() / w.height();
 	}
 
@@ -4144,7 +4080,7 @@ void Core::autoZoomFromLetterbox(double aspect) {
 	double video_aspect = mset.aspectToNum( (MediaSettings::Aspect) mset.aspect_ratio_id);
 
 	if (video_aspect <= 0) {
-		QSize w = mplayerwindow->videoLayer()->size();
+        QSize w = mplayerwindow->displayLayer()->size();
 		video_aspect = (double) w.width() / w.height();
 	}
 

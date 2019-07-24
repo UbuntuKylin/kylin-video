@@ -20,6 +20,8 @@
 #ifndef _MESSAGEDIALOG_H_
 #define _MESSAGEDIALOG_H_
 
+#include "utils.h"
+
 #include <QString>
 #include <QMessageBox>
 #include <QGridLayout>
@@ -28,7 +30,6 @@
 class QPushButton;
 class QPoint;
 
-enum MDragState {NOT_MDRAGGING, START_MDRAGGING, MDRAGGING};
 
 class MessageDialog : public QDialog
 {
@@ -56,17 +57,17 @@ private:
     int returnCodeByRun(QAbstractButton *button);
 
 private:
-    QLabel *title_label;
-    QLabel *icon_label;
-    QLabel *msg_label;
-    QPushButton *close_Btn;
+    QLabel *title_label = nullptr;
+    QLabel *icon_label = nullptr;
+    QLabel *msg_label = nullptr;
+    QPushButton *close_Btn = nullptr;
 //    QGridLayout *gridLayout;
-    QVBoxLayout *main_layout;
-    QDialogButtonBox *buttonBox;
-    QAbstractButton *clickedBtn;
-    QAbstractButton *defaultBtn;
-    MDragState drag_state;
-    QPoint start_drag;
+    QVBoxLayout *main_layout = nullptr;
+    QDialogButtonBox *buttonBox = nullptr;
+    QAbstractButton *clickedBtn = nullptr;
+    QAbstractButton *defaultBtn = nullptr;
+    DragState m_dragState;
+    QPoint m_startDrag;
 };
 
 #endif

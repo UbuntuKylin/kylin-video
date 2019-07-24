@@ -23,7 +23,6 @@
 #include <QObject>
 #include <QList>
 #include <QStringList>
-#include "config.h"
 
 class InfoData {
 

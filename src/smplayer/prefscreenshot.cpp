@@ -23,7 +23,7 @@
 #include "../smplayer/images.h"
 #include "../smplayer/mediasettings.h"
 #include "../smplayer/paths.h"
-#include "../smplayer/playerid.h"
+#include "../utils.h"
 #include <QDebug>
 #include "../smplayer/deviceinfo.h"
 //#include <QWindowsStyle>//qt4

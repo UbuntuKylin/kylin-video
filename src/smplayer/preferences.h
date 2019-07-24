@@ -27,7 +27,6 @@
 #include <QSize>
 #include <QMap>
 
-#include "../smplayer/config.h"
 #include "../smplayer/audioequalizerlist.h"
 #include "../smplayer/assstyles.h"
 #include "../datautils.h"
@@ -269,7 +268,6 @@ public:
     bool save_smplayer_log;
 //#endif
 
-    //! If true, mplayerlayer erases its background
     bool repaint_video_background;
 
 	//! If true it will autoload edl files with the same name of the file
@@ -394,10 +392,6 @@ public:
 
     //! Close the main window when a file or playlist finish
     bool close_on_finish;
-
-//#ifdef AUTO_SHUTDOWN_PC
-    bool auto_shutdown_pc;
-//#endif
 
     QString default_font;
 

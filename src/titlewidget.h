@@ -31,15 +31,12 @@
 #include <QPointer>
 
 #include "systembutton.h"
+#include "utils.h"
 
 class QHBoxLayout;
 class QProcess;
 class QMenu;
-class QTimer;
 class QPropertyAnimation;
-
-enum TitleDragState {NOT_TDRAGGING, START_TDRAGGING, TDRAGGING};
-
 
 class TitleWidget : public QWidget
 {
@@ -47,16 +44,14 @@ class TitleWidget : public QWidget
 public:
     explicit TitleWidget(QWidget *parent = 0);
     ~TitleWidget();
-//    enum Activation { Anywhere = 1, Bottom = 2 };
-    void enable_turned_on();
+
     void updateMaxButtonStatus(bool is_maxed);
-    void show_title_widget();
 
 signals:
-    void sig_min();
+    void requestMinWindow();
     void requestMaxWindow(bool b);
-    void sig_menu();
-    void sig_close();
+    void requestShowMenu();
+    void requestCloseWindow();
     void mouseMovedDiff(QPoint);
 
 protected:
@@ -80,44 +75,27 @@ private:
     void initMenu();
     void initWidgets();
 
-private slots:
-    void onMinBtnClicked();
-
 private:
     QColor m_coverBrush;
     QColor m_topBorderColor;
     QColor m_bottomBorderColor;
     QPointer<QProcess> m_manualPro;
-    QHBoxLayout *m_layout;
-    QHBoxLayout *m_lLayout;
-    QHBoxLayout *m_mLayout;
-    QHBoxLayout *m_rLayout;
-//    QPushButton *menu_button;
-//    QPushButton *min_button;
-//    QPushButton *max_button;
-//    QPushButton *close_button;
-    SystemButton *min_button;
-    SystemButton *close_button;
-    SystemButton *max_button;
-    SystemButton *menu_button;
-
+    QHBoxLayout *m_layout = nullptr;
+    QHBoxLayout *m_lLayout = nullptr;
+    QHBoxLayout *m_mLayout = nullptr;
+    QHBoxLayout *m_rLayout = nullptr;
+    SystemButton *min_button = nullptr;
+    SystemButton *close_button = nullptr;
+    SystemButton *max_button = nullptr;
+    SystemButton *menu_button = nullptr;
 
 public slots:
-    void setMargin(int margin) { spacing = margin; };
-//    void setActivationArea(Activation m) { activation_area = m; }
-    void setHideDelay(int ms);
-    void set_title_name(QString title);
-    void clear_title_name();
+    void setTitleName(const QString &name);
+    void cleaTitleName();
     void showSpreadAnimated();
     void showGatherAnimated();
     void spreadAniFinished();
     void gatherAniFinished();
-
-public:
-    bool isActive() { return turned_on; };
-    int margin() { return spacing; };
-//    Activation activationArea() { return activation_area; }
-    int hideDelay();
 
 protected:
     bool eventFilter(QObject * obj, QEvent * event);
@@ -127,20 +105,13 @@ private slots:
     void checkUnderMouse();
 
 private:
-//    void installFilter(QObject *o);
-private:
-    bool turned_on;
-    int spacing;
-//    Activation activation_area;
-    QWidget * internal_widget;
-    QTimer * timer;
-    QPropertyAnimation *spreadAnimation;
-    QPropertyAnimation *gatherAnimation;
-    QLabel *logo_label;
-    QLabel *soft_label;
-    QLabel *title_label;
-    TitleDragState drag_state;
-    QPoint start_drag;
+    QPropertyAnimation *m_spreadAnimation = nullptr;
+    QPropertyAnimation *m_gatherAnimation = nullptr;
+    QLabel *m_logoLabel = nullptr;
+    QLabel *m_softLabel = nullptr;
+    QLabel *m_titleLabel = nullptr;
+    DragState m_dragState;
+    QPoint m_startDrag;
 };
 
 #endif // TITLEWIDGET_H

@@ -22,7 +22,6 @@
 #include <QString>
 #include <QRegExp>
 #include "playerprocess.h"
-#include "config.h"
 
 #define OSD_WITH_TIMER
 

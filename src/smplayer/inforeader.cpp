@@ -71,7 +71,7 @@ void InfoReader::setPlayerBin(const QString & bin) {
 	}
 #ifdef Q_OS_LINUX
 	else {
-		QString fplayer = Helper::findExecutable(mplayerbin);
+        QString fplayer = Utils::findExecutable(mplayerbin);
 		qDebug() << "InfoReader::setPlayerBin: fplayer:" << fplayer;
 		if (!fplayer.isEmpty()) mplayerbin = fplayer;
 	}
@@ -120,7 +120,7 @@ void InfoReader::getInfo() {
 	}
 
     //edited by kobe 20180623
-    if (PlayerID::player(mplayerbin/*, this->m_snap*/) == PlayerID::MPV) {
+    if (Utils::player(mplayerbin/*, this->m_snap*/) == Utils::MPV) {
 //        qDebug("InfoReader::getInfo: mpv");
         InfoReaderMPV ir(mplayerbin, this->m_snap, this);
         ir.getInfo();

@@ -91,7 +91,7 @@ QString InfoFile::getInfo(MediaData md, Tracks videos, Tracks audios, SubTracks 
         QString url = md.m_filename;//20181201  m_filename
         s += addItem(kylin_tr("URL"), url);
     }
-    s += addItem(kylin_tr("Length"), Helper::formatTime((int)md.duration));
+    s += addItem(kylin_tr("Length"), Utils::formatTime((int)md.duration));
     s += addItem(kylin_tr("Demuxer"), md.demuxer);
     s += closePar();
 

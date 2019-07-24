@@ -22,7 +22,6 @@
 #include <QString>
 #include "playerprocess.h"
 #include "mediadata.h"
-#include "config.h"
 
 class QStringList;
 

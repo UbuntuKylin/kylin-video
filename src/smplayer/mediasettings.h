@@ -25,7 +25,6 @@
 
 #include <QString>
 #include <QSize>
-#include "config.h"
 
 #include "audioequalizerlist.h"
 #include "tracks.h"

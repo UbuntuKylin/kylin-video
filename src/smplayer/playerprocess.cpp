@@ -42,7 +42,7 @@ void PlayerProcess::writeToStdin(QString text) {
 PlayerProcess * PlayerProcess::createPlayerProcess(const QString & player_bin, const QString & snap, QObject * parent) {
     PlayerProcess * proc = 0;
     //edited by kobe 20180623
-    if (PlayerID::player(player_bin/*, snap*/) == PlayerID::MPLAYER) {//kobe:go here
+    if (Utils::player(player_bin/*, snap*/) == Utils::MPLAYER) {//kobe:go here
         proc = new MplayerProcess(parent);
     } else {
         proc = new MPVProcess(snap, parent);

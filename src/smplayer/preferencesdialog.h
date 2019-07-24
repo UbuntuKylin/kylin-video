@@ -21,12 +21,10 @@
 #define _PREFERENCESDIALOG_H_
 
 #include "ui_preferencesdialog.h"
-
-enum PDragState {NOT_PDRAGGING, START_PDRAGGING, PDRAGGING};
+#include "../utils.h"
 
 class QTextBrowser;
 class QPushButton;
-
 class PrefWidget;
 class PrefGeneral;
 class PrefVideo;
@@ -35,19 +33,8 @@ class PrefPerformance;
 class PrefSubtitles;
 class PrefScreenShot;
 class PrefShortCut;
-
-//class PrefInterface;
-//class PrefAdvanced;
-//class PrefPlaylist;
-//class PrefTV;
-//class PrefUpdates;
-//class PrefNetwork;
-//class PrefAssociations;
-
 class Preferences;
-
 class TitleButton;
-
 
 class PreferencesDialog : public QDialog, public Ui::PreferencesDialog
 {
@@ -113,8 +100,8 @@ protected:
     PrefShortCut *page_shortcut;
 
 private:
-    PDragState drag_state;
-    QPoint start_drag;
+    DragState m_dragState;
+    QPoint m_startDrag;
 };
 
 #endif

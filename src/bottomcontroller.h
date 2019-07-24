@@ -42,7 +42,7 @@ signals:
     void requestHide();
 
 private:
-    QTimer *timer = nullptr;
+    QTimer *m_timer = nullptr;
 };
 
 #endif // _BOTTOMCONTROLLER_H_

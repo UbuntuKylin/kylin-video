@@ -21,11 +21,10 @@
 #define _AUDIODELAYDIALOG_H_
 
 #include "ui_audiodelaydialog.h"
+#include "../utils.h"
 
 #include <QDialog>
 #include <QPushButton>
-
-enum AADragState {NOT_AADRAGGING, START_AADRAGGING, AADRAGGING};
 
 class AudioDelayDialog : public QDialog, public Ui::AudioDelayDialog
 {
@@ -43,12 +42,9 @@ public:
     virtual bool eventFilter(QObject *, QEvent *);
     void moveDialog(QPoint diff);
 
-public slots:
-
-
 private:
-    AADragState drag_state;
-    QPoint start_drag;
+    DragState m_dragState;
+    QPoint m_startDrag;
 };
 
 #endif

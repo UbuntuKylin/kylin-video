@@ -61,8 +61,6 @@ public:
     bool isModified() { return modified; };
     void setPlaying(const QString &filepath, int index);
 
-    void setTransparent(bool transparent);
-    void setWidgetOpacity(const float &opacity=0.8);
     void setViewHeight();
 
     void createNoVideo();
@@ -206,24 +204,21 @@ private:
     QString playlist_filename;
     QString latest_dir;
 
-	Core * core;
-    QFrame      *noVideoFrame;
-    QLabel      *novideo_icon;
-    QLabel      *novideo_text;
-    QPushButton *add_Btn;
-    PlayListView *m_playlistView;
-    QLabel      *titleLabel;
-    QFrame *btAddFrame;
-    QPushButton *btDel;
-    QPushButton *btAdd;
-
-    QSettings *set;
+    Core * core = nullptr;
+    QFrame *noVideoFrame = nullptr;
+    QLabel *novideo_icon = nullptr;
+    QLabel *novideo_text = nullptr;
+    QPushButton *add_Btn = nullptr;
+    PlayListView *m_playlistView = nullptr;
+    QLabel *titleLabel = nullptr;
+    QFrame *btAddFrame = nullptr;
+    QPushButton *btDel = nullptr;
+    QPushButton *btAdd = nullptr;
+    QSettings *set = nullptr;
     bool modified;
     int m_currentItemIndex;
-
-    QTimer *save_timer;
-
-    QHBoxLayout *title_layout;
+    QTimer *save_timer = nullptr;
+    QHBoxLayout *title_layout = nullptr;
 
     //Preferences
     bool recursive_add_directory;

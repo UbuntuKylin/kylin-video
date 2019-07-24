@@ -40,10 +40,10 @@ protected:
     virtual void paintEvent(QPaintEvent *event);
 
 private:
-    QFrame          *text_frame;
-    QLabel          *text_label;
-    QLabel          *split_line;
-    bool            repaint_flag;
+    QFrame *text_frame = nullptr;
+    QLabel *m_textLabel = nullptr;
+    QLabel *split_line = nullptr;
+    bool repaint_flag;
 };
 
 #endif

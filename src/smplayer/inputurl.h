@@ -21,10 +21,10 @@
 #define _INPUTURL_H_
 
 #include "ui_inputurl.h"
+#include "../utils.h"
+
 #include <QDialog>
 class QPushButton;
-
-enum IDragState {NOT_IDRAGGING, START_IDRAGGING, IDRAGGING};
 
 class InputURL : public QDialog, public Ui::InputURL
 {
@@ -43,8 +43,8 @@ public:
     void moveDialog(QPoint diff);
 
 private:
-    IDragState drag_state;
-    QPoint start_drag;
+    DragState m_dragState;
+    QPoint m_startDrag;
 };
 
 #endif

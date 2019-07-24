@@ -117,6 +117,7 @@
         <file>res/max.png</file>
         <file>res/plus.png</file>
         <file>res/osd.png</file>
+        <file>res/poweroff.png</file>
     </qresource>
     <qresource prefix="/qss">
         <file>res/style.qss</file>

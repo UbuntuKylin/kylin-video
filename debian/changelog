@@ -1,6 +1,8 @@
 kylin-video (2.0.0-0ubuntu2) eoan; urgency=low
 
   * Supported Interface Size Tension.
+  * Added new files, such as videowindow.cpp, autohidecursorwidget.cpp and
+    displaylayercomposer.cpp.
 
  -- lixiang <lixiang@kylinos.cn>  Mon, 22 Jul 2019 10:51:05 +0800
 

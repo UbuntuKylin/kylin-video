@@ -44,9 +44,9 @@ using namespace Global;
 
 AboutDialog::AboutDialog(const QString &snap, QWidget * parent, Qt::WindowFlags f)
 	: QDialog(parent, f)
-    , drag_state(NOT_ADRAGGING)
+    , m_dragState(NOT_DRAGGING)
     , tab_state(TAB_ABOUT)
-    , start_drag(QPoint(0,0))
+    , m_startDrag(QPoint(0,0))
     , m_snap(snap)
 {
 	setupUi(this);
@@ -64,8 +64,8 @@ AboutDialog::AboutDialog(const QString &snap, QWidget * parent, Qt::WindowFlags 
 #endif
 
 //	logo->setPixmap( QPixmap(":/default-theme/logo.png").scaledToHeight(64, Qt::SmoothTransformation) );//setPixmap( Images::icon("contributors" ) );
-    aboutGroup = NULL;
-    contributorGroup = NULL;
+    m_aboutGroup = NULL;
+    m_contributorGroup = NULL;
 
     baseWidget->setAutoFillBackground(true);
     QPalette palette;
@@ -82,11 +82,11 @@ AboutDialog::AboutDialog(const QString &snap, QWidget * parent, Qt::WindowFlags 
     aboutBtn->setStyleSheet("QPushButton{background:transparent;border:none;text-align:center;font-family: 方正黑体_GBK;font-size:14px;color:#ffffff;}");
     contributorBtn->setStyleSheet("QPushButton{background:transparent;border:none;text-align:center;font-family: 方正黑体_GBK;font-size:14px;color:#ffffff;}");
 
-    okBtn = buttonBox->button(QDialogButtonBox::Ok);
-    okBtn->setFixedSize(91, 25);
-    okBtn->setText(tr("OK"));
-    okBtn->setFocusPolicy(Qt::NoFocus);
-    okBtn->setStyleSheet("QPushButton{font-size:12px;background:#ffffff;border:1px solid #0a9ff5;color:#000000;}QPushButton:hover{background-color:#ffffff;border:1px solid #3f96e4;color:#000000;} QPushButton:pressed{background-color:#ffffff;border:1px solid #3f96e4;color:#000000;}");
+    m_okBtn = buttonBox->button(QDialogButtonBox::Ok);
+    m_okBtn->setFixedSize(91, 25);
+    m_okBtn->setText(tr("OK"));
+    m_okBtn->setFocusPolicy(Qt::NoFocus);
+    m_okBtn->setStyleSheet("QPushButton{font-size:12px;background:#ffffff;border:1px solid #0a9ff5;color:#000000;}QPushButton:hover{background-color:#ffffff;border:1px solid #3f96e4;color:#000000;} QPushButton:pressed{background-color:#ffffff;border:1px solid #3f96e4;color:#000000;}");
 
     this->initConnect();
     this->initAnimation();
@@ -128,22 +128,22 @@ AboutDialog::AboutDialog(const QString &snap, QWidget * parent, Qt::WindowFlags 
 
 AboutDialog::~AboutDialog()
 {
-    if(aboutGroup != NULL)
+    if(m_aboutGroup != NULL)
     {
-        delete aboutGroup;
-        aboutGroup = NULL;
+        delete m_aboutGroup;
+        m_aboutGroup = NULL;
     }
-    if(contributorGroup != NULL)
+    if(m_contributorGroup != NULL)
     {
-        delete contributorGroup;
-        contributorGroup = NULL;
+        delete m_contributorGroup;
+        m_contributorGroup = NULL;
     }
 }
 
 void AboutDialog::initConnect()
 {
     connect(closeBtn, SIGNAL(clicked()), this, SLOT(accept()));
-    connect(okBtn, SIGNAL(clicked()), this, SLOT(accept()));
+    connect(m_okBtn, SIGNAL(clicked()), this, SLOT(accept()));
     connect(aboutBtn, SIGNAL(clicked()), this, SLOT(onAboutBtnClicked()));
     connect(contributorBtn, SIGNAL(clicked()), this, SLOT(onContributorBtnClicked()));
 }
@@ -158,16 +158,16 @@ void AboutDialog::initAnimation()
     aboutAnimation->setStartValue(origAcitonRect);
     aboutAnimation->setEndValue(mainAcitonRect);
 
-    aboutGroup = new QParallelAnimationGroup(this);
-    aboutGroup->addAnimation(aboutAnimation);
+    m_aboutGroup = new QParallelAnimationGroup(this);
+    m_aboutGroup->addAnimation(aboutAnimation);
 
     QPropertyAnimation *contributorAnimation = new QPropertyAnimation(indicator, "geometry");
     contributorAnimation->setDuration(300);
     contributorAnimation->setStartValue(mainAcitonRect);
     contributorAnimation->setEndValue(origAcitonRect);
 
-    contributorGroup = new QParallelAnimationGroup(this);
-    contributorGroup->addAnimation(contributorAnimation);
+    m_contributorGroup = new QParallelAnimationGroup(this);
+    m_contributorGroup->addAnimation(contributorAnimation);
 }
 
 void AboutDialog::setVersions()
@@ -196,7 +196,7 @@ void AboutDialog::onAboutBtnClicked()
 {
     if (tab_state != TAB_ABOUT) {
         tab_state = TAB_ABOUT;
-        aboutGroup->start();
+        m_aboutGroup->start();
         aboutText->show();
         contributorText->hide();
     }
@@ -206,7 +206,7 @@ void AboutDialog::onContributorBtnClicked()
 {
     if (tab_state != TAB_CONTRIBUTOR) {
         tab_state = TAB_CONTRIBUTOR;
-        contributorGroup->start();
+        m_contributorGroup->start();
         contributorText->show();
         aboutText->hide();
     }
@@ -253,56 +253,56 @@ bool AboutDialog::eventFilter( QObject * object, QEvent * event ) {
         return false;
 
     if (mouseEvent->modifiers() != Qt::NoModifier) {
-        drag_state = NOT_ADRAGGING;
+        m_dragState = NOT_DRAGGING;
         return false;
     }
 
     if (type == QEvent::MouseButtonPress) {
         if (mouseEvent->button() != Qt::LeftButton) {
-            drag_state = NOT_ADRAGGING;
+            m_dragState = NOT_DRAGGING;
             return false;
         }
 
-        drag_state = START_ADRAGGING;
-        start_drag = mouseEvent->globalPos();
+        m_dragState = START_DRAGGING;
+        m_startDrag = mouseEvent->globalPos();
         // Don't filter, so others can have a look at it too
         return false;
     }
 
     if (type == QEvent::MouseButtonRelease) {
-        if (drag_state != ADRAGGING || mouseEvent->button() != Qt::LeftButton) {
-            drag_state = NOT_ADRAGGING;
+        if (m_dragState != DRAGGING || mouseEvent->button() != Qt::LeftButton) {
+            m_dragState = NOT_DRAGGING;
             return false;
         }
 
         // Stop dragging and eat event
-        drag_state = NOT_ADRAGGING;
+        m_dragState = NOT_DRAGGING;
         event->accept();
         return true;
     }
 
     // type == QEvent::MouseMove
-    if (drag_state == NOT_ADRAGGING)
+    if (m_dragState == NOT_DRAGGING)
         return false;
 
     // buttons() note the s
     if (mouseEvent->buttons() != Qt::LeftButton) {
-        drag_state = NOT_ADRAGGING;
+        m_dragState = NOT_DRAGGING;
         return false;
     }
 
     QPoint pos = mouseEvent->globalPos();
-    QPoint diff = pos - start_drag;
-    if (drag_state == START_ADRAGGING) {
+    QPoint diff = pos - m_startDrag;
+    if (m_dragState == START_DRAGGING) {
         // Don't start dragging before moving at least DRAG_THRESHOLD pixels
         if (abs(diff.x()) < 4 && abs(diff.y()) < 4)
             return false;
 
-        drag_state = ADRAGGING;
+        m_dragState = DRAGGING;
     }
     this->moveDialog(diff);
 
-    start_drag = pos;
+    m_startDrag = pos;
     event->accept();
     return true;
 }

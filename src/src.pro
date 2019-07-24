@@ -12,7 +12,6 @@ QT += network xml
 RESOURCES = res.qrc
 
 DEFINES += SINGLE_INSTANCE
-DEFINES += AUTO_SHUTDOWN_PC
 
 inst1.files += res/kylin-video.png
 inst1.path = /usr/share/pixmaps
@@ -34,12 +33,11 @@ isEqual(QT_MAJOR_VERSION, 5) {
 }
 
 unix {
-        QT += gui-private
+        QT += gui-private dbus
         LIBS += $${QMAKE_LIBS_X11}
 }
 
-HEADERS += smplayer/config.h \
-        smplayer/mplayerversion.h \
+HEADERS += smplayer/mplayerversion.h \
         smplayer/mplayerprocess.h \
         smplayer/inforeadermplayer.h \
         smplayer/mpvprocess.h \
@@ -47,7 +45,6 @@ HEADERS += smplayer/config.h \
         smplayer/version.h \
         smplayer/global.h \
         smplayer/paths.h \
-        smplayer/helper.h \
         smplayer/colorutils.h \
         smplayer/subtracks.h \
         smplayer/tracks.h \
@@ -55,10 +52,8 @@ HEADERS += smplayer/config.h \
         smplayer/extensions.h \
         smplayer/desktopinfo.h \
         smplayer/myprocess.h \
-        smplayer/playerid.h \
         smplayer/playerprocess.h \
         smplayer/infoprovider.h \
-        smplayer/mplayerwindow.h \
         smplayer/mediadata.h \
         smplayer/mediasettings.h \
         smplayer/images.h \
@@ -139,7 +134,12 @@ HEADERS += smplayer/config.h \
         bottomcontroller.h \
         filterhandler.h \
         maskwidget.h \
-        mainwindow.h
+        mainwindow.h \
+        autohidecursorwidget.h \
+        displaylayercomposer.h \
+        videowindow.h \
+        poweroffdialog.h \
+        utils.h
 
 SOURCES	+= smplayer/version.cpp \
         smplayer/mplayerversion.cpp \
@@ -150,7 +150,6 @@ SOURCES	+= smplayer/version.cpp \
         smplayer/mpvoptions.cpp \
         smplayer/global.cpp \
         smplayer/paths.cpp \
-        smplayer/helper.cpp \
         smplayer/colorutils.cpp \
         smplayer/subtracks.cpp \
         smplayer/tracks.cpp \
@@ -158,11 +157,9 @@ SOURCES	+= smplayer/version.cpp \
         smplayer/extensions.cpp \
         smplayer/desktopinfo.cpp \
         smplayer/myprocess.cpp \
-        smplayer/playerid.cpp \
         smplayer/playerprocess.cpp \
         smplayer/mplayeroptions.cpp \
         smplayer/infoprovider.cpp \
-        smplayer/mplayerwindow.cpp \
         smplayer/mediadata.cpp \
         smplayer/mediasettings.cpp \
         smplayer/images.cpp \
@@ -242,7 +239,12 @@ SOURCES	+= smplayer/version.cpp \
         bottomcontroller.cpp \
         filterhandler.cpp \
         maskwidget.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+        autohidecursorwidget.cpp \
+        displaylayercomposer.cpp \
+        videowindow.cpp \
+        poweroffdialog.cpp \
+        utils.cpp
 
 FORMS = smplayer/timedialog.ui \
         smplayer/preferencesdialog.ui \
@@ -269,14 +271,6 @@ contains( DEFINES, SINGLE_INSTANCE ) {
 
 	SOURCES += qtsingleapplication/qtsingleapplication.cpp qtsingleapplication/qtlocalpeer.cpp
 	HEADERS += qtsingleapplication/qtsingleapplication.h qtsingleapplication/qtlocalpeer.h
-}
-
-contains( DEFINES, AUTO_SHUTDOWN_PC ) {
-        HEADERS += smplayer/shutdowndialog.h smplayer/shutdown.h
-        SOURCES += smplayer/shutdowndialog.cpp smplayer/shutdown.cpp
-        FORMS += smplayer/shutdowndialog.ui
-
-        unix { QT += dbus }
 }
 
 #contains( DEFINES, GLOBALSHORTCUTS ) {

@@ -20,7 +20,7 @@
 #include "global.h"
 #include "preferences.h"
 #include "playerprocess.h"
-#include "playerid.h"
+#include "../utils.h"
 #include <QFileInfo>
 
 #include <stdlib.h>

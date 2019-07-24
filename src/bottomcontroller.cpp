@@ -22,46 +22,46 @@
 #include <QTimer>
 
 BottomController::BottomController(QObject *parent) : QObject(parent)
-   , timer(new QTimer(this))
+   , m_timer(new QTimer(this))
 {
-    timer->setSingleShot(true);
-    timer->setInterval(3 * 1000);
-    connect(timer, SIGNAL(timeout()), this, SLOT(onTimeout()));
+    m_timer->setSingleShot(true);
+    m_timer->setInterval(3 * 1000);
+    connect(m_timer, SIGNAL(timeout()), this, SLOT(onTimeout()));
 }
 
 BottomController::~BottomController()
 {
-    if (timer) {
-        disconnect(timer, SIGNAL(timeout()), this, SLOT(onTimeout()));
-        if(timer->isActive()) {
-            timer->stop();
+    if (m_timer) {
+        disconnect(m_timer, SIGNAL(timeout()), this, SLOT(onTimeout()));
+        if(m_timer->isActive()) {
+            m_timer->stop();
         }
-        delete timer;
-        timer = nullptr;
+        delete m_timer;
+        m_timer = nullptr;
     }
 }
 
 void BottomController::temporaryShow()
 {
-    if (timer->isActive()) {
-        timer->start();
+    if (m_timer->isActive()) {
+        m_timer->start();
         return;
     }
 
-    timer->start();
+    m_timer->start();
     emit requestShow();
 }
 
 void BottomController::permanentShow()
 {
-    timer->stop();
+    m_timer->stop();
 
     emit requestShow();
 }
 
 void BottomController::onTimeout()
 {
-    timer->stop();
+    m_timer->stop();
 
     emit requestHide();
 }

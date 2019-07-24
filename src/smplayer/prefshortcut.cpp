@@ -19,8 +19,6 @@
 
 #include "prefshortcut.h"
 #include "../smplayer/images.h"
-#include "../smplayer/config.h"
-
 
 PrefShortCut::PrefShortCut(QWidget * parent, Qt::WindowFlags f)
 	: PrefWidget(parent, f )

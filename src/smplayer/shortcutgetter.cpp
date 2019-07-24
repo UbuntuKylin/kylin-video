@@ -265,8 +265,8 @@ static QStringList modToString(Qt::KeyboardModifiers k)
 
 
 ShortcutGetter::ShortcutGetter(/*bool isbtn, */QWidget *parent) : QDialog(parent)
-  , drag_state(NOT_SCDRAGGING)
-  , start_drag(QPoint(0,0))
+  , m_dragState(NOT_DRAGGING)
+  , m_startDrag(QPoint(0,0))
 {
     this->setWindowFlags(Qt::FramelessWindowHint);
     this->setFixedSize(438, 320);
@@ -544,105 +544,3 @@ void ShortcutGetter::setText()
 	leKey->setText(seq.join("+"));
 	//leKey->selectAll();
 }
-
-/*void ShortcutGetter::moveDialog(QPoint diff) {
-#if QT_VERSION >= 0x050000
-    // Move the window with some delay.
-    // Seems to work better with Qt 5
-
-    static QPoint d;
-    static int count = 0;
-
-    d += diff;
-    count++;
-
-    if (count > 3) {
-        QPoint new_pos = pos() + d;
-        if (new_pos.y() < 0) new_pos.setY(0);
-        if (new_pos.x() < 0) new_pos.setX(0);
-        move(new_pos);
-        count = 0;
-        d = QPoint(0,0);
-    }
-#else
-    move(pos() + diff);
-#endif
-}
-
-bool ShortcutGetter::eventFilter( QObject * object, QEvent * event ) {
-//    if (!capture) return QDialog::eventFilter(o, e);
-
-//	if (	e->type() == QEvent::KeyPress ||
-//			e->type() ==QEvent::KeyRelease )
-//		return event(e);
-//	else
-//		return QDialog::eventFilter(o, e);
-
-
-
-    QEvent::Type type = event->type();
-    if (type != QEvent::MouseButtonPress
-        && type != QEvent::MouseButtonRelease
-        && type != QEvent::MouseMove)
-        return false;
-
-    QMouseEvent *mouseEvent = dynamic_cast<QMouseEvent*>(event);
-    if (!mouseEvent)
-        return false;
-
-    if (mouseEvent->modifiers() != Qt::NoModifier) {
-        drag_state = NOT_SCDRAGGING;
-        return false;
-    }
-
-    if (type == QEvent::MouseButtonPress) {
-        if (mouseEvent->button() != Qt::LeftButton) {
-            drag_state = NOT_SCDRAGGING;
-            return false;
-        }
-
-        drag_state = START_SCDRAGGING;
-        start_drag = mouseEvent->globalPos();
-        // Don't filter, so others can have a look at it too
-        return false;
-    }
-
-    if (type == QEvent::MouseButtonRelease) {
-        if (drag_state != SCDRAGGING || mouseEvent->button() != Qt::LeftButton) {
-            drag_state = NOT_SCDRAGGING;
-            return false;
-        }
-
-        // Stop dragging and eat event
-        drag_state = NOT_SCDRAGGING;
-        event->accept();
-        return true;
-    }
-
-    // type == QEvent::MouseMove
-    if (drag_state == NOT_SCDRAGGING)
-        return false;
-
-    // buttons() note the s
-    if (mouseEvent->buttons() != Qt::LeftButton) {
-        drag_state = NOT_SCDRAGGING;
-        return false;
-    }
-
-    QPoint pos = mouseEvent->globalPos();
-    QPoint diff = pos - start_drag;
-    if (drag_state == START_SCDRAGGING) {
-        // Don't start dragging before moving at least DRAG_THRESHOLD pixels
-        if (abs(diff.x()) < 4 && abs(diff.y()) < 4)
-            return false;
-
-        drag_state = SCDRAGGING;
-    }
-    this->moveDialog(diff);
-
-    start_drag = pos;
-    event->accept();
-    return true;
-}*/
-		
-//#include "moc_shortcutgetter.cpp"

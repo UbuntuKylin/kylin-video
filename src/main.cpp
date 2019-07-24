@@ -24,6 +24,7 @@
 #include <QFile>
 #include <QTextCodec>
 
+
 int main(int argc, char **argv)
 {
     MyApplication a("kylin-video", argc, argv );
@@ -38,7 +39,7 @@ int main(int argc, char **argv)
 	QCoreApplication::setAttribute(Qt::AA_DontShowIconsInMenus, false);
 #endif
 
-	QStringList args = a.arguments();
+    QStringList args = a.arguments();
 
     QFile qss(":/qss/res/style.qss");
     qss.open(QFile::ReadOnly);

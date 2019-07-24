@@ -17,7 +17,7 @@
 */
 
 #include "timeslider.h"
-#include "helper.h"
+#include "../utils.h"
 
 #include <QWheelEvent>
 #include <QTimer>
@@ -142,19 +142,19 @@ void TimeSlider::wheelEvent(QWheelEvent * e) {
 
 void TimeSlider::enterEvent(QEvent *)
 {
-    emit this->active_status(true);//kobe
+    emit this->active_status(true);
 }
 
 void TimeSlider::leaveEvent(QEvent *)
 {
-    emit this->active_status(false);//kobe
+    emit this->active_status(false);
 }
 
 void TimeSlider::show_time_value(int time)
 {
 //    hintWidget->setFixedHeight(60);
     hintWidget->setFixedSize(67,60);//kobe: 如果不设置固定宽度，则宽度初始值默认为100,后续自动变为67,导致第一次使用默认值时显示的时间信息的坐标有偏移
-    hintWidget->setText(Helper::formatTime(time));
+    hintWidget->setText(Utils::formatTime(time));
     QPoint curPos = this->mapToGlobal(cur_pos);
     QSize sz = this->hintWidget->size();
     curPos.setX(curPos.x()  - sz.width() / 2);
@@ -189,7 +189,7 @@ void TimeSlider::show_save_preview_image(int time, QString filepath)
         QPixmap scaled_picture = picture.scaledToWidth(200, Qt::SmoothTransformation);
 //        hintWidget->setFixedHeight(200);
         hintWidget->setFixedSize(200, scaled_picture.size().height() + 30);//kobe: 如果不设置固定宽度，则宽度初始值默认为100,后续自动变为67,导致第一次使用默认值时显示的时间信息的坐标有偏移
-        hintWidget->setPixMapAndTime(scaled_picture, Helper::formatTime(time));
+        hintWidget->setPixMapAndTime(scaled_picture, Utils::formatTime(time));
         QPoint curPos = this->mapToGlobal(cur_pos);
         QSize sz = this->hintWidget->size();
         curPos.setX(curPos.x()  - sz.width() / 2);
@@ -210,12 +210,12 @@ bool TimeSlider::event(QEvent *event) {
         cur_pos = help_event->pos();
 		int time = pos_in_slider * total_time / maximum();
 		if (time >= 0 && time <= total_time) {
-            //QToolTip::showText(help_event->globalPos(), Helper::formatTime(time), this);
+            //QToolTip::showText(help_event->globalPos(), Utils::formatTime(time), this);
             if (preview) {
-                emit this->need_to_save_pre_image(time);
+                emit this->requestSavePreviewImage(time);
             }
             else {
-                hintWidget->setText(Helper::formatTime(time));
+                hintWidget->setText(Utils::formatTime(time));
     //            QPoint centerPos = this->mapToGlobal(this->rect().center());
     //            QSize sz = this->hintWidget->size();
     //            centerPos.setX(centerPos.x()  - sz.width() / 2);

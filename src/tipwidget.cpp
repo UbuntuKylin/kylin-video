@@ -39,8 +39,8 @@ TipWidget::TipWidget(const QString &text, QWidget *parent) : QFrame(parent)//: Q
     setObjectName("TipWidget");//kobe:设置背景色
 
     m_radius              = 4;
-    w_shadow         = 20;
-    shadow_margins       = QMargins(20, 20, 20, 20);
+    m_shadow         = 20;
+    m_shadowMargins       = QMargins(20, 20, 20, 20);
     m_borderColor         = QColor(0, 0, 0, 0.2 * 255);
 
     QVBoxLayout *layout = new QVBoxLayout(this);
@@ -48,13 +48,13 @@ TipWidget::TipWidget(const QString &text, QWidget *parent) : QFrame(parent)//: Q
     layout->setSpacing(0);
 
 
-    text_label = new QLabel(text);
-    text_label->adjustSize();
-    text_label->setStyleSheet("QLabel{font-size: 16px;color: #ffffff;}");
-    text_label->setAlignment(Qt::AlignCenter);
+    m_textLabel = new QLabel(text);
+    m_textLabel->adjustSize();
+    m_textLabel->setStyleSheet("QLabel{font-size: 16px;color: #ffffff;}");
+    m_textLabel->setAlignment(Qt::AlignCenter);
 
     layout->addStretch();
-    layout->addWidget(text_label);
+    layout->addWidget(m_textLabel);
     layout->addStretch();
     this->setLayout(layout);
     layout->setSizeConstraint(QLayout::SetFixedSize);
@@ -91,7 +91,7 @@ void TipWidget::set_widget_opacity(const float &opacity)
 
 void TipWidget::setText(const QString text)
 {
-    this->text_label->setText(text);
+    this->m_textLabel->setText(text);
 }
 
 QBrush TipWidget::background() const

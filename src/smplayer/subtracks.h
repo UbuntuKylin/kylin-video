@@ -24,8 +24,6 @@
 #include <QFileInfo>
 #include <QList>
 
-#include "config.h"
-
 class QSettings;
 
 class SubData 

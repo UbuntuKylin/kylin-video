@@ -26,8 +26,8 @@
 
 MessageDialog::MessageDialog(QWidget *parent, const QString &title, const QString &text, QMessageBox::StandardButtons buttons, QMessageBox::StandardButton defaultButton)
     : QDialog(parent)
-    , drag_state(NOT_MDRAGGING)
-    , start_drag(QPoint(0,0))
+    , m_dragState(NOT_DRAGGING)
+    , m_startDrag(QPoint(0,0))
 {
     this->setWindowFlags(Qt::FramelessWindowHint);
     this->setStyleSheet("QDialog{border: 1px solid #121212;border-radius:1px;background-color:#1f1f1f;}");
@@ -132,7 +132,8 @@ MessageDialog::MessageDialog(QWidget *parent, const QString &title, const QStrin
     this->initConnect();
 }
 
-MessageDialog::~MessageDialog() {
+MessageDialog::~MessageDialog()
+{
 }
 
 void MessageDialog::setDialogSize(int w, int h)
@@ -223,56 +224,56 @@ bool MessageDialog::eventFilter( QObject * object, QEvent * event ) {
         return false;
 
     if (mouseEvent->modifiers() != Qt::NoModifier) {
-        drag_state = NOT_MDRAGGING;
+        m_dragState = NOT_DRAGGING;
         return false;
     }
 
     if (type == QEvent::MouseButtonPress) {
         if (mouseEvent->button() != Qt::LeftButton) {
-            drag_state = NOT_MDRAGGING;
+            m_dragState = NOT_DRAGGING;
             return false;
         }
 
-        drag_state = START_MDRAGGING;
-        start_drag = mouseEvent->globalPos();
+        m_dragState = START_DRAGGING;
+        m_startDrag = mouseEvent->globalPos();
         // Don't filter, so others can have a look at it too
         return false;
     }
 
     if (type == QEvent::MouseButtonRelease) {
-        if (drag_state != MDRAGGING || mouseEvent->button() != Qt::LeftButton) {
-            drag_state = NOT_MDRAGGING;
+        if (m_dragState != DRAGGING || mouseEvent->button() != Qt::LeftButton) {
+            m_dragState = NOT_DRAGGING;
             return false;
         }
 
         // Stop dragging and eat event
-        drag_state = NOT_MDRAGGING;
+        m_dragState = NOT_DRAGGING;
         event->accept();
         return true;
     }
 
     // type == QEvent::MouseMove
-    if (drag_state == NOT_MDRAGGING)
+    if (m_dragState == NOT_DRAGGING)
         return false;
 
     // buttons() note the s
     if (mouseEvent->buttons() != Qt::LeftButton) {
-        drag_state = NOT_MDRAGGING;
+        m_dragState = NOT_DRAGGING;
         return false;
     }
 
     QPoint pos = mouseEvent->globalPos();
-    QPoint diff = pos - start_drag;
-    if (drag_state == START_MDRAGGING) {
+    QPoint diff = pos - m_startDrag;
+    if (m_dragState == START_DRAGGING) {
         // Don't start dragging before moving at least DRAG_THRESHOLD pixels
         if (abs(diff.x()) < 4 && abs(diff.y()) < 4)
             return false;
 
-        drag_state = MDRAGGING;
+        m_dragState = DRAGGING;
     }
     this->moveDialog(diff);
 
-    start_drag = pos;
+    m_startDrag = pos;
     event->accept();
     return true;
 }

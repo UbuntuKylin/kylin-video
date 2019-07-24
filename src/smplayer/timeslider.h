@@ -20,7 +20,7 @@
 #define TIMESLIDER_H
 
 #include "myslider.h"
-#include "config.h"
+
 class TimeTip;
 
 class TimeSlider : public MySlider 
@@ -36,6 +36,7 @@ public:
 //    bool isStatus() const { return status; }//kobe
     void show_time_value(int time);
     void set_preview_flag(bool b);
+    void show_save_preview_image(int time, QString filepath);
 
 public slots:
 	virtual void setPos(int); // Don't use setValue!
@@ -45,7 +46,7 @@ public slots:
     void setDragDelay(int);
     int dragDelay();
 
-    void hideTip();//kobe
+    void hideTip();
 
 signals:
 	void posChanged(int);
@@ -55,8 +56,8 @@ signals:
 	void wheelUp();
 	void wheelDown();
 
-    void active_status(bool);//kobe
-    void need_to_save_pre_image(int time);//kobe
+    void active_status(bool);
+    void requestSavePreviewImage(int time);
 
 protected slots:
 	void stopUpdate();
@@ -66,16 +67,16 @@ protected slots:
     void checkDragging(int);
     void sendDelayedPos();
 
-    void show_save_preview_image(int time, QString filepath);
+
 
 protected:
 	virtual void wheelEvent(QWheelEvent * e);
 	virtual bool event(QEvent *event);
 
-    void enterEvent(QEvent *event);//kobe
-    void leaveEvent(QEvent *event);//kobe
+    void enterEvent(QEvent *event);
+    void leaveEvent(QEvent *event);
 
-    bool eventFilter(QObject *obj, QEvent *event);//kobe
+    bool eventFilter(QObject *obj, QEvent *event);
 
 private:
 	bool dont_update;

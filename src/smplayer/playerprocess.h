@@ -21,8 +21,7 @@
 
 #include "myprocess.h"
 #include "mediadata.h"
-#include "playerid.h"
-#include "config.h"
+#include "../utils.h"
 #include "assstyles.h"
 #include <QVariant>
 #include <QDebug>
@@ -36,9 +35,9 @@ public:
 
 	PlayerProcess(QObject * parent = 0);
 
-	PlayerID::Player player() { return player_id; }
-	bool isMPlayer() { return (player_id == PlayerID::MPLAYER); }
-	bool isMPV() { return (player_id == PlayerID::MPV); }
+    Utils::PlayerId player() { return m_playerId; }
+    bool isMPlayer() { return (m_playerId == Utils::MPLAYER); }
+    bool isMPV() { return (m_playerId == Utils::MPV); }
 
 	virtual bool start() = 0;
 
@@ -225,7 +224,7 @@ protected:
 //	QString capture_filename;
 //#endif
 
-	PlayerID::Player player_id;
+    Utils::PlayerId m_playerId;
     QString osd_media_info;
 };
 

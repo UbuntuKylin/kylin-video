@@ -105,7 +105,7 @@
     <string>Oops, something wrong happened</string>
    </property>
   </widget>
-  <widget class="QLabel" name="text_label">
+  <widget class="QLabel" name="m_textLabel">
    <property name="geometry">
     <rect>
      <x>81</x>

@@ -47,30 +47,25 @@ public slots:
     void showWindow();
 
 private:
-    MainWindow *createGUI(QString arch_type, QString snap);
+    MainWindow *createGUI(QString arch, QString snap);
 	void deleteGUI();
 	void showInfo();
 	void deleteConfig();
     static MainWindow *main_window;
-	QStringList files_to_play;
-	QString subtitle_file;
-	QString media_title; //!< Force a title for the first file
-
+    QStringList m_filesToPlay;
+    QString m_subtitleFile;
+    QString m_mediaTitle; //!< Force a title for the first file
 	// Change position and size
-	bool move_gui;
-	QPoint gui_position;
-
-	bool resize_gui;
-	QSize gui_size;
-
+    bool m_moveGui;
+    QPoint m_guiPosition;
+    bool m_resizeGui;
+    QSize m_guiSize;
 	// Options to pass to gui
-	int close_at_end; // -1 = not set, 1 = true, 0 false
-	int start_in_fullscreen; // -1 = not set, 1 = true, 0 false
-    QString arch_type;
-
+    int m_closeAtEnd; // -1 = not set, 1 = true, 0 false
+    int m_startInFullscreen; // -1 = not set, 1 = true, 0 false
+    QString m_arch;
     QString m_snap;
-
-    QThread *thread = nullptr;
+    QThread *m_thread = nullptr;
     InfoWorker *m_infoWorker = nullptr;
 };
 

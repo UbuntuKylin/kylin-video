@@ -45,16 +45,16 @@ TimeTip::TimeTip(const QString &text, QWidget *parent) : QFrame(parent)
 //    textlayout->setContentsMargins(0, 0, 0, 0);
     textlayout->setSpacing(0);
 
-    text_label = new QLabel(text);
-    text_label->setObjectName("WhiteTipText");
-    text_label->setAlignment(Qt::AlignCenter);
+    m_textLabel = new QLabel(text);
+    m_textLabel->setObjectName("WhiteTipText");
+    m_textLabel->setAlignment(Qt::AlignCenter);
 
     split_line = new QLabel;
     split_line->setObjectName("SplitText");
     split_line->setFixedWidth(1);
 //    split_line->setFixedSize(1,20);
 
-    textlayout->addWidget(text_label, 0, Qt::AlignVCenter);
+    textlayout->addWidget(m_textLabel, 0, Qt::AlignVCenter);
 
     QVBoxLayout *vlayout = new QVBoxLayout;
     vlayout->setContentsMargins(0, 0, 0, 0);
@@ -74,7 +74,7 @@ TimeTip::~TimeTip()
 void TimeTip::setText(const QString text)
 {
     repaint_flag = false;
-    this->text_label->setText(text);
+    this->m_textLabel->setText(text);
 }
 
 
@@ -85,7 +85,7 @@ void TimeTip::setPixMapAndTime(QPixmap pixmap, const QString time)
     QPainter painter(&pixmap);
     painter.setPen(Qt::white);
     painter.drawText(pixmap.rect(), Qt::AlignHCenter | Qt::AlignBottom, time);
-    this->text_label->setPixmap(pixmap);
+    this->m_textLabel->setPixmap(pixmap);
 }
 
 void TimeTip::paintEvent(QPaintEvent *event)
@@ -102,10 +102,10 @@ void TimeTip::paintEvent(QPaintEvent *event)
     QBrush background(QColor(255, 255, 255, 70));
     QColor borderColor = QColor(0, 0, 0, 0.2 * 255);
     double margin = 9.0;
-    QMarginsF shadow_margins = QMarginsF(margin, 0, margin, 26);
+    QMarginsF m_shadowMargins = QMarginsF(margin, 0, margin, 26);
 
     //background
-    QRectF bg_rect = QRectF(rect()).marginsRemoved(shadow_margins);
+    QRectF bg_rect = QRectF(rect()).marginsRemoved(m_shadowMargins);
     QPainterPath bg_path;
     bg_path.addRoundedRect(bg_rect, 2, 2);
     painter.fillPath(bg_path, background);
@@ -117,7 +117,7 @@ void TimeTip::paintEvent(QPaintEvent *event)
     QMarginsF border_margin(w_pen / 2, w_pen / 2, w_pen / 2, w_pen / 2);
 
     border_radius += w_pen / 2;
-    border_rect = border_rect.marginsAdded(border_margin).marginsRemoved(shadow_margins);
+    border_rect = border_rect.marginsAdded(border_margin).marginsRemoved(m_shadowMargins);
 
     border_path.addRoundedRect(border_rect, border_radius, border_radius);
     QPen border_pen(borderColor);

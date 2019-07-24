@@ -20,9 +20,9 @@
 #define _TIMEDIALOG_H_
 
 #include "ui_timedialog.h"
-class QPushButton;
+#include "../utils.h"
 
-enum TDDragState {NOT_TDDRAGGING, START_TDDRAGGING, TDDRAGGING};
+class QPushButton;
 
 class TimeDialog : public QDialog, public Ui::TimeDialog
 {
@@ -46,8 +46,8 @@ public slots:
 	void setLabel(const QString & label);
 
 private:
-    TDDragState drag_state;
-    QPoint start_drag;
+    DragState m_dragState;
+    QPoint m_startDrag;
 };
 
 #endif

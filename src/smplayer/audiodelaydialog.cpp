@@ -30,8 +30,8 @@ using namespace Global;
 
 AudioDelayDialog::AudioDelayDialog(QWidget * parent, Qt::WindowFlags f)
 	: QDialog(parent, f)
-    , drag_state(NOT_AADRAGGING)
-    , start_drag(QPoint(0,0))
+    , m_dragState(NOT_DRAGGING)
+    , m_startDrag(QPoint(0,0))
 {
 	setupUi(this);
     this->setWindowFlags(Qt::FramelessWindowHint);
@@ -120,56 +120,56 @@ bool AudioDelayDialog::eventFilter( QObject * object, QEvent * event ) {
         return false;
 
     if (mouseEvent->modifiers() != Qt::NoModifier) {
-        drag_state = NOT_AADRAGGING;
+        m_dragState = NOT_DRAGGING;
         return false;
     }
 
     if (type == QEvent::MouseButtonPress) {
         if (mouseEvent->button() != Qt::LeftButton) {
-            drag_state = NOT_AADRAGGING;
+            m_dragState = NOT_DRAGGING;
             return false;
         }
 
-        drag_state = START_AADRAGGING;
-        start_drag = mouseEvent->globalPos();
+        m_dragState = START_DRAGGING;
+        m_startDrag = mouseEvent->globalPos();
         // Don't filter, so others can have a look at it too
         return false;
     }
 
     if (type == QEvent::MouseButtonRelease) {
-        if (drag_state != AADRAGGING || mouseEvent->button() != Qt::LeftButton) {
-            drag_state = NOT_AADRAGGING;
+        if (m_dragState != DRAGGING || mouseEvent->button() != Qt::LeftButton) {
+            m_dragState = NOT_DRAGGING;
             return false;
         }
 
         // Stop dragging and eat event
-        drag_state = NOT_AADRAGGING;
+        m_dragState = NOT_DRAGGING;
         event->accept();
         return true;
     }
 
     // type == QEvent::MouseMove
-    if (drag_state == NOT_AADRAGGING)
+    if (m_dragState == NOT_DRAGGING)
         return false;
 
     // buttons() note the s
     if (mouseEvent->buttons() != Qt::LeftButton) {
-        drag_state = NOT_AADRAGGING;
+        m_dragState = NOT_DRAGGING;
         return false;
     }
 
     QPoint pos = mouseEvent->globalPos();
-    QPoint diff = pos - start_drag;
-    if (drag_state == START_AADRAGGING) {
+    QPoint diff = pos - m_startDrag;
+    if (m_dragState == START_DRAGGING) {
         // Don't start dragging before moving at least DRAG_THRESHOLD pixels
         if (abs(diff.x()) < 4 && abs(diff.y()) < 4)
             return false;
 
-        drag_state = AADRAGGING;
+        m_dragState = DRAGGING;
     }
     this->moveDialog(diff);
 
-    start_drag = pos;
+    m_startDrag = pos;
     event->accept();
     return true;
 }

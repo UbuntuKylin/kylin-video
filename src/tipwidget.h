@@ -51,13 +51,12 @@ public slots:
     void aniFinished();
 
 private:
-    QLabel          *text_label;
-
-    QBrush          m_background;
-    int             m_radius;
-    int             w_shadow;
-    QMargins        shadow_margins;
-    QColor          m_borderColor;
+    QLabel *m_textLabel = nullptr;
+    QBrush  m_background;
+    int m_radius;
+    int m_shadow;
+    QMargins m_shadowMargins;
+    QColor  m_borderColor;
 };
 
 #endif

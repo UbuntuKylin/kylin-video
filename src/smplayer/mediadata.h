@@ -25,7 +25,6 @@
 #include "subtracks.h"
 #include "titletracks.h"
 #include "chapters.h"
-#include "config.h"
 
 #include <QString>
 #include <QSettings>

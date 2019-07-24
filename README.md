@@ -3,12 +3,15 @@ kylin-video
 
 Kylin Video utilizes MPV and MPlayer as background play engine (use MPV by default). Its GUI front end is written by Qt5. Plus, it supports both x86 and ARM platform. As a powerful video player, Kylin Video supports most of the audio and video formats. Functions of shortcut keys/ preview/ screenshot/ sound settings/ subtitles and so on are provided. Users can even customize settings as they like.
 
+![image](./doc/appearence.png)
 
 Installation
 ============
 
 qmake
+
 make
+
 sudo make install
 
 
@@ -63,3 +66,9 @@ sudo apt install translate-toolkit
 ts2po -i kylin-video_fr.ts -o kylin-video.pot
 
 po2ts -i kylin-video_fr.po kylin-video_fr.ts
+
+
+TODO
+==================
+
++ playlist: load_m3u load_pls  loadXSPF 

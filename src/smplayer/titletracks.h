@@ -20,7 +20,8 @@
 #define _TITLETRACKS_H_
 
 #include <QMap>
-#include "helper.h"
+
+#include "../utils.h"
 
 /* Class to store info about DVD titles */
 
@@ -52,7 +53,7 @@ public:
 	    dname = QString::number(_ID);
 
 		if (_duration > 0) {
-			dname += " ("+ Helper::formatTime( (int) _duration ) +")";
+            dname += " ("+ Utils::formatTime( (int) _duration ) +")";
 		}
 
 		return dname;

@@ -58,10 +58,10 @@ protected:
     virtual void wheelEvent(QWheelEvent *event);
 
 private:
-    int         tradius;
-    QBrush      tbackground;
-    QColor      tborderColor;
-    QSlider     *volSlider;
-    bool        mouseIn;
+    int tradius;
+    QBrush tbackground;
+    QColor tborderColor;
+    QSlider *m_volSlider = nullptr;
+    bool mouseIn;
 };
 

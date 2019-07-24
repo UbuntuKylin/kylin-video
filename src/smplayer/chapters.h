@@ -20,7 +20,6 @@
 #define CHAPTERS_H
 
 #include <QMap>
-#include "helper.h"
 
 /* Class to store info about chapters */
 

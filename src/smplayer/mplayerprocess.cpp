@@ -45,7 +45,7 @@ MplayerProcess::MplayerProcess(QObject * parent)
 	, dvd_current_title(-1)
 	, br_current_title(-1)
 {
-	player_id = PlayerID::MPLAYER;
+    m_playerId = Utils::MPLAYER;
 
 	connect( this, SIGNAL(lineAvailable(QByteArray)),
 			 this, SLOT(parseLine(QByteArray)) );

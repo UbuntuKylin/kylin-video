@@ -56,7 +56,7 @@ MPVProcess::MPVProcess(const QString &snap, QObject * parent)
 {
     this->m_snap = snap;
 
-	player_id = PlayerID::MPV;
+    m_playerId = Utils::MPV;
 
 	connect( this, SIGNAL(lineAvailable(QByteArray)),
 			 this, SLOT(parseLine(QByteArray)) );

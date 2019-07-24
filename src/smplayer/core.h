@@ -25,13 +25,11 @@
 #include "mediasettings.h"
 #include "playerprocess.h"
 
-#include "config.h"
-
 class FileSettingsBase;
 
 //class FileSettings;
 class PlayerProcess;
-class MplayerWindow;
+class VideoWindow;
 class QSettings;
 
 class Core : public QObject
@@ -41,7 +39,7 @@ class Core : public QObject
 public:
     enum State { Stopped = 0, Playing = 1, Paused = 2, Buffering = 3 };
 
-    Core(MplayerWindow *mpw, const QString &snap = QString::null, QWidget* parent = 0);
+    Core(VideoWindow *mpw, const QString &snap = QString::null, QWidget* parent = 0);
 	~Core();
 
 	MediaData mdat;
@@ -211,8 +209,8 @@ public slots:
     void incVolume();
     void decVolume();
 
-    bool getMute();//kobe
-    int getVolumn();//kobe
+    bool getMute();
+    int getVolumn();
 
 	void setBrightness(int value);
 	void setContrast(int value);
@@ -508,7 +506,7 @@ signals:
 
 protected:
 	PlayerProcess * proc;
-	MplayerWindow * mplayerwindow;
+	VideoWindow * mplayerwindow;
 
 //#ifndef NO_USE_INI_FILES
     FileSettingsBase * file_settings;

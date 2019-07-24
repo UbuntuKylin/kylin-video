@@ -18,12 +18,12 @@
  */
 
 #include "bottomwidget.h"
+#include "soundvolume.h"
 
 #include <QProcess>
 #include <QResizeEvent>
 #include <QShortcut>
 #include <QStyleFactory>
-#include <QTimer>
 #include <QDebug>
 #include <QPropertyAnimation>
 #include <QStyle>
@@ -34,11 +34,10 @@
 #include <QProgressBar>
 #include <QStackedLayout>
 #include <QPoint>
+
 #include "../smplayer/timeslider.h"
-#include "soundvolume.h"
 #include "../smplayer/colorutils.h"
 #include "../smplayer/myaction.h"
-#include "../smplayer/mplayerwindow.h"
 #include "../smplayer/global.h"
 #include "../smplayer/preferences.h"
 
@@ -54,350 +53,324 @@ static const char *property_PlayListStatus = "playliststatus";
 
 BottomWidget::BottomWidget(QWidget *parent)
     : QWidget(parent, Qt::SubWindow)
-    , turned_on(false)
-    , spacing(0)
-//    , activation_area(Anywhere)
-    , internal_widget(0)
-    , timer(0)
-    , spreadAnimation(0)
-    , gatherAnimation(0)
-    , drag_state(NOT_BDRAGGING)
-    , start_drag(QPoint(0,0))
+    , m_spreadAnimation(0)
+    , m_gatherAnimation(0)
+    , m_dragState(NOT_DRAGGING)
+    , m_startDrag(QPoint(0,0))
+    , m_dragDelay(200)
 {
     this->setMouseTracking(true);
-    setAutoFillBackground(true);
-    setFocusPolicy(Qt::ClickFocus);
+    this->setAutoFillBackground(true);
+    this->setFocusPolicy(Qt::ClickFocus);
     this->setAttribute(Qt::WA_TranslucentBackground, true);//窗体标题栏不透明，背景透明
-    //201810
-//    QPalette palette;
-//    palette.setColor(QPalette::Background, QColor("#040404"));
-//    this->setPalette(palette);
-//    this->setStyleSheet("QWidget{background-color:rgba(255, 255, 255, 0.8);}");
-
-    setWindowFlags(windowFlags() | Qt::SubWindow);
-    setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
-
-    drag_delay = 200;
-    enableMove      = false;
-
-    //201810
-//    parent->installEventFilter(this);
-////    parent->setMouseTracking(true);
-//    installFilter(parent);
+    this->setWindowFlags(windowFlags() | Qt::SubWindow | Qt::WindowStaysOnTopHint);
     this->installEventFilter(this);
 
-    timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(checkUnderMouse()));
-    timer->setInterval(3000);
+    m_controlWidget = new QWidget(this);
+    m_controlWidget->setFixedHeight(61);
 
-    controlWidget = new QWidget(this);
-    controlWidget->setFixedHeight(61);
-    progress = NULL;
-    progress = new TimeSlider(this);
-    progress->setMouseTracking(true);
-//    progress->installEventFilter(this);
-//    progress->setParent(this);
-    progress->setDragDelay(100);//pref->time_slider_drag_delay
-    connect(progress, SIGNAL(posChanged(int)), this, SIGNAL(posChanged(int)));
-    connect(progress, SIGNAL(draggingPos(int)), this, SIGNAL(draggingPos(int)));
-    connect(progress, SIGNAL(delayedDraggingPos(int)), this, SIGNAL(delayedDraggingPos(int)));
-    connect(progress, SIGNAL(wheelUp()), this, SIGNAL(wheelUp()));
-    connect(progress, SIGNAL(wheelDown()), this, SIGNAL(wheelDown()));
-    connect(progress, SIGNAL(need_to_save_pre_image(int)), this, SIGNAL(need_to_save_pre_image(int)));
-    connect(this, SIGNAL(send_save_preview_image_name(int,QString)), progress, SLOT(show_save_preview_image(int,QString)));
-    progress->setObjectName("processProgress");
-    progress->setProperty("status", "");
-    connect(progress, SIGNAL(active_status(bool)), this, SLOT(slot_active_status(bool)));
-    progress->setFixedHeight(24);
-    progress->move(0,0);
-    playtime_label = new QLabel;
-    playtime_label->setText("00:00:00");
-    playtime_label->setFrameShape(QFrame::NoFrame);
-    ColorUtils::setBackgroundColor(playtime_label, QColor(0,0,0) );
-    ColorUtils::setForegroundColor(playtime_label, QColor(255,255,255) );
-    playtime_label->setStyleSheet("QLabel{font-size:12px;color:#ffffff;}");
-    playtime_label->adjustSize();
-    alltime_label = new QLabel;
-    alltime_label->setText(" / 00:00:00");
-    alltime_label->setFrameShape(QFrame::NoFrame);
-    ColorUtils::setBackgroundColor( alltime_label, QColor(0,0,0) );
-    ColorUtils::setForegroundColor( alltime_label, QColor(255,255,255) );
-    alltime_label->setStyleSheet("QLabel{font-size:12px;color:#808080;}");
-    alltime_label->adjustSize();
-    btStop = new QPushButton;
-    btStop->setObjectName("StopBtn");
-    btStop->setFixedSize(24, 24);
-    btPrev = new QPushButton;
-    btPrev->setObjectName("PrevBtn");
-    btPrev->setFixedSize(24, 24);
-    btPlayPause = new QPushButton;
-//    btPlayPause->setShortcut(Qt::Key_Space);
-    btPlayPause->setObjectName("PlayBtn");
-    btPlayPause->setFixedSize(61, 61);
-    btNext = new QPushButton;
-    btNext->setObjectName("NextBtn");
-    btNext->setFixedSize(24, 24);
-    btSound = new QPushButton;
-    btSound->setObjectName("SoundBtn");
-    btSound->setFixedSize(24, 24);
-    btSound->setProperty("volume", "mid");
-    btFullScreen = new QPushButton;
-//    btFullScreen->setShortcut(QKeySequence("Ctrl+Return"));
-    btFullScreen->setObjectName("FullScreenBtn");
-    btFullScreen->setFixedSize(24, 24);
-    btPlayList = new QPushButton;
-//    btPlayList->setShortcut(QKeySequence("F3"));
-    btPlayList->setObjectName("PlayListBtn");
-    btPlayList->setFixedSize(24, 24);
-    listCountLabel = new QLabel;
-    ColorUtils::setBackgroundColor(listCountLabel, QColor("#141414") );
-    listCountLabel->setStyleSheet("QLabel{font-size:12px;color:#ffffff;}");
-    this->listCountLabel->setText("0");
-    volSlider = new SoundVolume(this);
-    volSlider->setObjectName("VolumeSlider");
-    connect(this, SIGNAL(valueChanged(int)), volSlider, SLOT(setValue(int)));
-    connect(btStop, SIGNAL(released()), this, SIGNAL(signal_stop()));
-    connect(btPrev, SIGNAL(released()), this, SIGNAL(signal_prev()));
-    connect(btPlayPause, SIGNAL(released()), this, SIGNAL(signal_play_pause_status()));
-    connect(btNext, SIGNAL(released()), this, SIGNAL(signal_next()));
-    connect(btSound, SIGNAL(pressed()), this, SIGNAL(signal_mute(/*bool*/)));
-    connect(volSlider, SIGNAL(volumeChanged(int)), this, SLOT(slot_volumn_changed(int)));
-    connect(btFullScreen, SIGNAL(pressed()), this, SIGNAL(toggleFullScreen()));
-    connect(btPlayList, SIGNAL(released()), this, SIGNAL(togglePlaylist()));
-    connect(this, SIGNAL(mouseMoving(Qt::MouseButton)), progress, SLOT(hideTip()));//20170714
+    m_timeProgress = new TimeSlider(this);
+    m_timeProgress->setMouseTracking(true);
+    m_timeProgress->setDragDelay(100);//pref->time_slider_drag_delay
+    connect(m_timeProgress, SIGNAL(posChanged(int)), this, SIGNAL(posChanged(int)));
+    connect(m_timeProgress, SIGNAL(draggingPos(int)), this, SIGNAL(draggingPos(int)));
+    connect(m_timeProgress, SIGNAL(delayedDraggingPos(int)), this, SIGNAL(delayedDraggingPos(int)));
+    connect(m_timeProgress, SIGNAL(wheelUp()), this, SIGNAL(wheelUp()));
+    connect(m_timeProgress, SIGNAL(wheelDown()), this, SIGNAL(wheelDown()));
+    connect(m_timeProgress, SIGNAL(requestSavePreviewImage(int)), this, SIGNAL(requestSavePreviewImage(int)));
+    m_timeProgress->setObjectName("processProgress");
+    m_timeProgress->setProperty("status", "");
+    connect(m_timeProgress, SIGNAL(active_status(bool)), this, SLOT(onProgressActiveStatus(bool)));
+    m_timeProgress->setFixedHeight(24);
+    m_timeProgress->move(0,0);
+    m_playtimeLabel = new QLabel;
+    m_playtimeLabel->setText("00:00:00");
+    m_playtimeLabel->setFrameShape(QFrame::NoFrame);
+    ColorUtils::setBackgroundColor(m_playtimeLabel, QColor(0,0,0) );
+    ColorUtils::setForegroundColor(m_playtimeLabel, QColor(255,255,255) );
+    m_playtimeLabel->setStyleSheet("QLabel{font-size:12px;color:#ffffff;}");
+    m_playtimeLabel->adjustSize();
+    m_totaltimeLabel = new QLabel;
+    m_totaltimeLabel->setText(" / 00:00:00");
+    m_totaltimeLabel->setFrameShape(QFrame::NoFrame);
+    ColorUtils::setBackgroundColor( m_totaltimeLabel, QColor(0,0,0) );
+    ColorUtils::setForegroundColor( m_totaltimeLabel, QColor(255,255,255) );
+    m_totaltimeLabel->setStyleSheet("QLabel{font-size:12px;color:#808080;}");
+    m_totaltimeLabel->adjustSize();
+    m_btnStop = new QPushButton;
+    m_btnStop->setObjectName("StopBtn");
+    m_btnStop->setFixedSize(24, 24);
+    m_btnPrev = new QPushButton;
+    m_btnPrev->setObjectName("PrevBtn");
+    m_btnPrev->setFixedSize(24, 24);
+    m_btnPlayPause = new QPushButton;
+//    m_btnPlayPause->setShortcut(Qt::Key_Space);
+    m_btnPlayPause->setObjectName("PlayBtn");
+    m_btnPlayPause->setFixedSize(61, 61);
+    m_btnNext = new QPushButton;
+    m_btnNext->setObjectName("NextBtn");
+    m_btnNext->setFixedSize(24, 24);
+    m_btnSound = new QPushButton;
+    m_btnSound->setObjectName("SoundBtn");
+    m_btnSound->setFixedSize(24, 24);
+    m_btnSound->setProperty("volume", "mid");
+    m_btnFullScreen = new QPushButton;
+//    m_btnFullScreen->setShortcut(QKeySequence("Ctrl+Return"));
+    m_btnFullScreen->setObjectName("FullScreenBtn");
+    m_btnFullScreen->setFixedSize(24, 24);
+    m_btnPlayList = new QPushButton;
+//    m_btnPlayList->setShortcut(QKeySequence("F3"));
+    m_btnPlayList->setObjectName("PlayListBtn");
+    m_btnPlayList->setFixedSize(24, 24);
+    m_listCountLabel = new QLabel;
+    ColorUtils::setBackgroundColor(m_listCountLabel, QColor("#141414") );
+    m_listCountLabel->setStyleSheet("QLabel{font-size:12px;color:#ffffff;}");
+    this->m_listCountLabel->setText("0");
+    m_volSlider = new SoundVolume(this);
+    m_volSlider->setObjectName("VolumeSlider");
+    connect(this, SIGNAL(valueChanged(int)), m_volSlider, SLOT(setValue(int)));
+    connect(m_btnStop, SIGNAL(released()), this, SIGNAL(toggleStop()));
+    connect(m_btnPrev, SIGNAL(released()), this, SIGNAL(togglePrev()));
+    connect(m_btnPlayPause, SIGNAL(released()), this, SIGNAL(togglePlayPause()));
+    connect(m_btnNext, SIGNAL(released()), this, SIGNAL(toggleNext()));
+    connect(m_btnSound, SIGNAL(pressed()), this, SIGNAL(toggleMute()));
+    connect(m_btnFullScreen, SIGNAL(pressed()), this, SIGNAL(toggleFullScreen()));
+    connect(m_btnPlayList, SIGNAL(released()), this, SIGNAL(togglePlaylist()));
+    connect(this, SIGNAL(mouseMoving(Qt::MouseButton)), m_timeProgress, SLOT(hideTip()));
+    connect(m_volSlider, &SoundVolume::volumeChanged, this, [=] (int vol) {
+        this->onVolumeChanged(vol);
+        emit this->requestVolumeChanged(vol);
+    });
 
     QHBoxLayout *time_layout = new QHBoxLayout();
     time_layout->setMargin(0);
     time_layout->setSpacing(2);
-    time_layout->addWidget(playtime_label, 0, Qt::AlignLeft | Qt::AlignVCenter);
-    time_layout->addWidget(alltime_label, 0, Qt::AlignLeft | Qt::AlignVCenter);
+    time_layout->addWidget(m_playtimeLabel, 0, Qt::AlignLeft | Qt::AlignVCenter);
+    time_layout->addWidget(m_totaltimeLabel, 0, Qt::AlignLeft | Qt::AlignVCenter);
 
-    metaWidget = new QFrame(this);
-    metaWidget->setFixedHeight(61);
-    QHBoxLayout *metaLayout = new QHBoxLayout(metaWidget);
+    m_metaWidget = new QFrame(this);
+    m_metaWidget->setFixedHeight(61);
+    QHBoxLayout *metaLayout = new QHBoxLayout(m_metaWidget);
     metaLayout->setMargin(0);
     metaLayout->setSpacing(10);
-    metaLayout->addWidget(btPlayPause, 0, Qt::AlignVCenter);
+    metaLayout->addWidget(m_btnPlayPause, 0, Qt::AlignVCenter);
     metaLayout->addLayout(time_layout);
 
-    ctlWidget = new QFrame(this);
-    ctlWidget->setFixedHeight(61);
-    QHBoxLayout *ctlLayout = new QHBoxLayout(ctlWidget);
+    m_ctlWidget = new QFrame(this);
+    m_ctlWidget->setFixedHeight(61);
+    QHBoxLayout *ctlLayout = new QHBoxLayout(m_ctlWidget);
     ctlLayout->setMargin(0);
     ctlLayout->setSpacing(30);
 
-    ctlLayout->addWidget(btPrev, 0, Qt::AlignCenter);
-    ctlLayout->addWidget(btStop, 0, Qt::AlignCenter);
-    ctlLayout->addWidget(btNext, 0, Qt::AlignCenter);
-    ctlWidget->adjustSize();
+    ctlLayout->addWidget(m_btnPrev, 0, Qt::AlignCenter);
+    ctlLayout->addWidget(m_btnStop, 0, Qt::AlignCenter);
+    ctlLayout->addWidget(m_btnNext, 0, Qt::AlignCenter);
+    m_ctlWidget->adjustSize();
 
     QHBoxLayout *volume_layout = new QHBoxLayout();
     volume_layout->setMargin(0);
     volume_layout->setSpacing(2);
-    volume_layout->addWidget(btSound, 0, Qt::AlignRight | Qt::AlignVCenter);
-    volume_layout->addWidget(volSlider, 0, Qt::AlignRight | Qt::AlignVCenter);
+    volume_layout->addWidget(m_btnSound, 0, Qt::AlignRight | Qt::AlignVCenter);
+    volume_layout->addWidget(m_volSlider, 0, Qt::AlignRight | Qt::AlignVCenter);
 
     QHBoxLayout *list_layout = new QHBoxLayout();
     list_layout->setMargin(0);
     list_layout->setSpacing(2);
-    list_layout->addWidget(btPlayList, 0, Qt::AlignRight | Qt::AlignVCenter);
-    list_layout->addWidget(listCountLabel, 0, Qt::AlignRight | Qt::AlignVCenter);
+    list_layout->addWidget(m_btnPlayList, 0, Qt::AlignRight | Qt::AlignVCenter);
+    list_layout->addWidget(m_listCountLabel, 0, Qt::AlignRight | Qt::AlignVCenter);
 
-    actWidget = new QWidget(this);
-    actWidget->setFixedHeight(61);
-    QHBoxLayout *actLayout = new QHBoxLayout(actWidget);
+    m_actWidget = new QWidget(this);
+    m_actWidget->setFixedHeight(61);
+    QHBoxLayout *actLayout = new QHBoxLayout(m_actWidget);
     actLayout->setMargin(0);
     actLayout->setSpacing(20);
     actLayout->addLayout(volume_layout);
-    actLayout->addWidget(btFullScreen, 0, Qt::AlignRight | Qt::AlignVCenter);
+    actLayout->addWidget(m_btnFullScreen, 0, Qt::AlignRight | Qt::AlignVCenter);
     actLayout->addLayout(list_layout);
 
     QSizePolicy sp(QSizePolicy::Preferred, QSizePolicy::Preferred);
     sp.setHorizontalStretch(33);
-    metaWidget->setSizePolicy(sp);
-    actWidget->setSizePolicy(sp);
+    m_metaWidget->setSizePolicy(sp);
+    m_actWidget->setSizePolicy(sp);
 
     QHBoxLayout *layout = new QHBoxLayout();
     layout->setContentsMargins(10, 0, 20, 0);
     layout->setSpacing(20);
-    layout->addWidget(metaWidget, 0, Qt::AlignLeft/* | Qt::AlignVCenter*/);
+    layout->addWidget(m_metaWidget, 0, Qt::AlignLeft/* | Qt::AlignVCenter*/);
     layout->addStretch();
-    layout->addWidget(ctlWidget, 0, Qt::AlignHCenter/*Qt::AlignCenter*/);
+    layout->addWidget(m_ctlWidget, 0, Qt::AlignHCenter/*Qt::AlignCenter*/);
     layout->addStretch();
-    layout->addWidget(actWidget, 0, Qt::AlignRight/* | Qt::AlignVCenter*/);
-    controlWidget->setLayout(layout);
+    layout->addWidget(m_actWidget, 0, Qt::AlignRight/* | Qt::AlignVCenter*/);
+    m_controlWidget->setLayout(layout);
 
     vboxlayout = new QVBoxLayout(this);
     vboxlayout->setSpacing(0);
     vboxlayout->setContentsMargins(0, 18, 0, 2);
-    vboxlayout->addWidget(controlWidget);
+    vboxlayout->addWidget(m_controlWidget);
 
-    btStop->setFocusPolicy(Qt::NoFocus);
-    btPrev->setFocusPolicy(Qt::NoFocus);
-    btPlayPause->setFocusPolicy(Qt::NoFocus);
-    btNext->setFocusPolicy(Qt::NoFocus);
-    btFullScreen->setFocusPolicy(Qt::NoFocus);
-    btSound->setFocusPolicy(Qt::NoFocus);
-    volSlider->setFocusPolicy(Qt::NoFocus);
-    btPlayList->setFocusPolicy(Qt::NoFocus);
+    m_btnStop->setFocusPolicy(Qt::NoFocus);
+    m_btnPrev->setFocusPolicy(Qt::NoFocus);
+    m_btnPlayPause->setFocusPolicy(Qt::NoFocus);
+    m_btnNext->setFocusPolicy(Qt::NoFocus);
+    m_btnFullScreen->setFocusPolicy(Qt::NoFocus);
+    m_btnSound->setFocusPolicy(Qt::NoFocus);
+    m_volSlider->setFocusPolicy(Qt::NoFocus);
+    m_btnPlayList->setFocusPolicy(Qt::NoFocus);
 
-    btStop->setToolTip(tr("Stop"));
-    btPrev->setToolTip(tr("Prev"));
-    btPlayPause->setToolTip(tr("Play / Pause"));
-    btNext->setToolTip(tr("Next"));
-    btSound->setToolTip(tr("Mute"));
-    btPlayList->setToolTip(tr("Play List"));
+    m_btnStop->setToolTip(tr("Stop"));
+    m_btnPrev->setToolTip(tr("Prev"));
+    m_btnPlayPause->setToolTip(tr("Play / Pause"));
+    m_btnNext->setToolTip(tr("Next"));
+    m_btnSound->setToolTip(tr("Mute"));
+    m_btnPlayList->setToolTip(tr("Play List"));
 
-    this->update_widget_qss_property(btPlayPause, property_PlayStatus, playStatusPause);
-    this->update_widget_qss_property(this, property_PlayStatus, playStatusPause);
+    this->updateWidgetQssProperty(m_btnPlayPause, property_PlayStatus, playStatusPause);
+    this->updateWidgetQssProperty(this, property_PlayStatus, playStatusPause);
+
+    Utils::setWidgetOpacity(this, true, 0.8);
 }
 
-BottomWidget::~BottomWidget() {
-    if (spreadAnimation) delete spreadAnimation;
-    if (gatherAnimation) delete gatherAnimation;
-
-    if (metaWidget) delete metaWidget;
-    if (ctlWidget) delete ctlWidget;
-    if (actWidget) delete actWidget;
-    if (controlWidget) delete controlWidget;
-
-    if (timer != NULL) {
-        disconnect(timer,SIGNAL(timeout()),this,SLOT(checkUnderMouse()));
-        if(timer->isActive()) {
-            timer->stop();
-        }
-        delete timer;
-        timer = NULL;
-    }
-}
-
-void BottomWidget::setPreviewData(bool preview) {
-    if (progress) {
-        progress->set_preview_flag(preview);
-    }
-}
-
-QString BottomWidget::get_status()
+BottomWidget::~BottomWidget()
 {
-    QString status = progress->property("active").toString();
+    if (m_spreadAnimation) delete m_spreadAnimation;
+    if (m_gatherAnimation) delete m_gatherAnimation;
+
+    if (m_metaWidget) delete m_metaWidget;
+    if (m_ctlWidget) delete m_ctlWidget;
+    if (m_actWidget) delete m_actWidget;
+    if (m_controlWidget) delete m_controlWidget;
+}
+
+void BottomWidget::setPreviewData(bool preview)
+{
+    if (m_timeProgress) {
+        m_timeProgress->set_preview_flag(preview);
+    }
+}
+
+void BottomWidget::savePreviewImageName(int time, QString filepath)
+{
+    if (m_timeProgress) {
+        m_timeProgress->show_save_preview_image(time, filepath);
+    }
+}
+
+QString BottomWidget::getActiveStatus()
+{
+    QString status = m_timeProgress->property("active").toString();
     return status;
 }
 
-void BottomWidget::update_playlist_count_label(int count) {
-    this->listCountLabel->setText(QString::number(count));
+void BottomWidget::updateLabelCountNumber(int count)
+{
+    this->m_listCountLabel->setText(QString::number(count));
 }
 
-void BottomWidget::setTransparent(bool transparent) {
-    if (transparent) {
-        setAttribute(Qt::WA_TranslucentBackground);
-        setWindowFlags(windowFlags() | Qt::FramelessWindowHint|Qt::X11BypassWindowManagerHint);
-        set_widget_opacity(0.5);
-    }
-    else {
-        setAttribute(Qt::WA_TranslucentBackground,false);
-        setWindowFlags(windowFlags() & ~Qt::FramelessWindowHint);
-    }
-}
-
-void BottomWidget::set_widget_opacity(const float &opacity) {
-    QGraphicsOpacityEffect* opacityEffect = new QGraphicsOpacityEffect;
-    this->setGraphicsEffect(opacityEffect);
-    opacityEffect->setOpacity(opacity);
-}
-
-void BottomWidget::slot_active_status(bool b) {
+void BottomWidget::onProgressActiveStatus(bool b)
+{
     if (b) {
-        this->update_widget_qss_property(progress, "status", "active");
+        this->updateWidgetQssProperty(m_timeProgress, "status", "active");
     }
     else {
-        this->update_widget_qss_property(progress, "status", "");
+        this->updateWidgetQssProperty(m_timeProgress, "status", "");
     }
 }
 
-void BottomWidget::setPos(int v) {
-    bool was_blocked= progress->blockSignals(true);
-    progress->setPos(v);
-    progress->blockSignals(was_blocked);
+void BottomWidget::setPos(int v)
+{
+    bool was_blocked= m_timeProgress->blockSignals(true);
+    m_timeProgress->setPos(v);
+    m_timeProgress->blockSignals(was_blocked);
 }
 
-int BottomWidget::ppos() {
-    return progress->pos();
+int BottomWidget::ppos()
+{
+    return m_timeProgress->pos();
 }
 
-void BottomWidget::setDuration(double t) {
-    total_time = t;
-    progress->setDuration(t);
+void BottomWidget::setDuration(double t)
+{
+    m_totalTime = t;
+    m_timeProgress->setDuration(t);
 }
 
-void BottomWidget::setDragDelay(int d) {
-    drag_delay = d;
-    progress->setDragDelay(drag_delay);
+void BottomWidget::setDragDelay(int d)
+{
+    m_dragDelay = d;
+    m_timeProgress->setDragDelay(m_dragDelay);
 }
 
-int BottomWidget::dragDelay() {
-    return drag_delay;
+int BottomWidget::dragDelay()
+{
+    return m_dragDelay;
 }
 
-void BottomWidget::setActionsEnabled(bool b) {
-    btPrev->setEnabled(b);
-    btPlayPause->setEnabled(b);
-    btNext->setEnabled(b);
-    btSound->setEnabled(b);
-    btStop->setEnabled(b);
-    progress->setEnabled(b);
+void BottomWidget::onSetActionsEnabled(bool b)
+{
+    m_btnPrev->setEnabled(b);
+    m_btnPlayPause->setEnabled(b);
+    m_btnNext->setEnabled(b);
+    m_btnSound->setEnabled(b);
+    m_btnStop->setEnabled(b);
+    m_timeProgress->setEnabled(b);
 }
 
-void BottomWidget::setPlayOrPauseEnabled(bool b) {
-    btPlayPause->setEnabled(b);
+void BottomWidget::setPlayOrPauseEnabled(bool b)
+{
+    m_btnPlayPause->setEnabled(b);
 }
 
-void BottomWidget::setStopEnabled(bool b) {
-    btStop->setEnabled(b);
+void BottomWidget::setStopEnabled(bool b)
+{
+    m_btnStop->setEnabled(b);
 }
 
-void BottomWidget::displayTime(QString cur_time, QString all_time) {
-    playtime_label->setText(cur_time);
-    alltime_label->setText(all_time);
+void BottomWidget::displayTime(QString cur_time, QString all_time)
+{
+    m_playtimeLabel->setText(cur_time);
+    m_totaltimeLabel->setText(all_time);
 }
 
-void BottomWidget::slot_playlist_btn_status(bool b) {
+void BottomWidget::updatePlaylistBtnQssProperty(bool b)
+{
     if (b) {
-        this->update_widget_qss_property(btPlayList, property_PlayListStatus, playStatusPlayList);
+        this->updateWidgetQssProperty(m_btnPlayList, property_PlayListStatus, playStatusPlayList);
     }
     else {
-        this->update_widget_qss_property(btPlayList, property_PlayListStatus, "");
+        this->updateWidgetQssProperty(m_btnPlayList, property_PlayListStatus, "");
     }
 }
 
-void BottomWidget::slot_volumn_changed(int vol) {
-    this->onVolumeChanged(vol);
-    emit this->volumeChanged(vol);
+void BottomWidget::onMusicPlayed()
+{
+    this->updateWidgetQssProperty(m_btnPlayPause, property_PlayStatus, playStatusPlaying);
+    this->updateWidgetQssProperty(this, property_PlayStatus, playStatusPlaying);
 }
 
-void BottomWidget::onMusicPlayed() {
-    this->update_widget_qss_property(btPlayPause, property_PlayStatus, playStatusPlaying);
-    this->update_widget_qss_property(this, property_PlayStatus, playStatusPlaying);
+void BottomWidget::onMusicPause()
+{
+    this->updateWidgetQssProperty(m_btnPlayPause, property_PlayStatus, playStatusPause);
+    this->updateWidgetQssProperty(this, property_PlayStatus, playStatusPause);
 }
 
-void BottomWidget::onMusicPause() {
-    this->update_widget_qss_property(btPlayPause, property_PlayStatus, playStatusPause);
-    this->update_widget_qss_property(this, property_PlayStatus, playStatusPause);
+void BottomWidget::onMusicStoped()
+{
+    this->updateWidgetQssProperty(m_btnPlayPause, property_PlayStatus, playStatusStop);
+    this->updateWidgetQssProperty(this, property_PlayStatus, playStatusStop);
 }
 
-void BottomWidget::onMusicStoped() {
-    this->update_widget_qss_property(btPlayPause, property_PlayStatus, playStatusStop);
-    this->update_widget_qss_property(this, property_PlayStatus, playStatusStop);
+void BottomWidget::onFullScreen()
+{
+    this->updateWidgetQssProperty(m_btnFullScreen, property_FullScreen, true);
 }
 
-void BottomWidget::onFullScreen() {
-    this->update_widget_qss_property(btFullScreen, property_FullScreen, true);
+void BottomWidget::onUnFullScreen()
+{
+    this->updateWidgetQssProperty(m_btnFullScreen, property_FullScreen, false);
 }
 
-void BottomWidget::onUnFullScreen() {
-    this->update_widget_qss_property(btFullScreen, property_FullScreen, false);
-}
-
-void BottomWidget::onVolumeChanged(int volume) {
+void BottomWidget::onVolumeChanged(int volume)
+{
     QString status = "mid";
     if (volume > 77) {
         status = "high";
@@ -408,139 +381,57 @@ void BottomWidget::onVolumeChanged(int volume) {
     } else  {
         status = "mute";
     }
-    this->update_widget_qss_property(btSound, "volume", status);
-    this->volSlider->onVolumeChanged(volume);
+    this->updateWidgetQssProperty(m_btnSound, "volume", status);
+    this->m_volSlider->onVolumeChanged(volume);
 }
 
-void BottomWidget::onMutedChanged(bool muted, int volumn) {
+void BottomWidget::onMutedChanged(bool muted, int volumn)
+{
     if (muted) {
-        this->update_widget_qss_property(btSound, "volume", "mute");
-        this->volSlider->onVolumeChanged(0);
+        this->updateWidgetQssProperty(m_btnSound, "volume", "mute");
+        this->m_volSlider->onVolumeChanged(0);
     }
     else {
         this->onVolumeChanged(volumn);
     }
 }
 
-void BottomWidget::setHideDelay(int ms) {
-    timer->setInterval(ms);
-}
-
-int BottomWidget::hideDelay() {
-    return timer->interval();
-}
-
-void BottomWidget::update_widget_qss_property(QWidget *w, const char *name, const QVariant &value) {
+void BottomWidget::updateWidgetQssProperty(QWidget *w, const char *name, const QVariant &value)
+{
     w->setProperty(name, value);
     this->style()->unpolish(w);
     this->style()->polish(w);
     w->update();
 }
 
-void BottomWidget::enable_turned_on() {
-    turned_on = true;
-}
-
-void BottomWidget::checkUnderMouse() {
-    if ((ctlWidget->isVisible()) && (!underMouse())) {//0616
+void BottomWidget::checkUnderMouse()
+{
+    if ((m_ctlWidget->isVisible()) && (!underMouse())) {
         this->showGatherAnimated();
         //tell mainwindow to hide escwidget
-        emit this->sig_show_or_hide_esc(false);
+        emit this->requestShowOrHideEscWidget(false);
     }
 }
 
-bool BottomWidget::eventFilter(QObject * obj, QEvent * event) {
-    QEvent::Type type = event->type();
-    if (type != QEvent::MouseButtonPress
-        && type != QEvent::MouseButtonRelease
-        && type != QEvent::MouseMove)
-        return false;
-
-    QMouseEvent *mouseEvent = dynamic_cast<QMouseEvent*>(event);
-    if (!mouseEvent)
-        return false;
-    if (mouseEvent->modifiers() != Qt::NoModifier) {
-        drag_state = NOT_BDRAGGING;
-        return false;
-    }
-
-        if (event->type() == QEvent::MouseMove) {
-            if (!isVisible()) {
-                emit this->requestTemporaryShow();
-            }
-            else if (!ctlWidget->isVisible()) {
-                emit this->requestTemporaryShow();
-            }
-        }
-
-        if (type == QEvent::MouseButtonPress) {
-            if (mouseEvent->button() != Qt::LeftButton) {
-                drag_state = NOT_BDRAGGING;
-                return false;
-            }
-
-            drag_state = START_BDRAGGING;
-            start_drag = mouseEvent->globalPos();
-            // Don't filter, so others can have a look at it too
-            return false;
-        }
-
-        if (type == QEvent::MouseButtonRelease) {
-            if (drag_state != BDRAGGING || mouseEvent->button() != Qt::LeftButton) {
-                drag_state = NOT_BDRAGGING;
-                return false;
-            }
-
-            // Stop dragging and eat event
-            drag_state = NOT_BDRAGGING;
-            event->accept();
-            return true;
-        }
-
-        // type == QEvent::MouseMove
-        if (drag_state == NOT_BDRAGGING)
-            return false;
-
-        // buttons() note the s
-        if (mouseEvent->buttons() != Qt::LeftButton) {
-            drag_state = NOT_BDRAGGING;
-            return false;
-        }
-
-        QPoint pos = mouseEvent->globalPos();
-        QPoint diff = pos - start_drag;
-        if (drag_state == START_BDRAGGING) {
-            // Don't start dragging before moving at least DRAG_THRESHOLD pixels
-            if (abs(diff.x()) < 4 && abs(diff.y()) < 4)
-                return false;
-
-            drag_state = BDRAGGING;
-        }
-
-        emit mouseMovedDiff(diff);
-        start_drag = pos;
-
-        event->accept();
-        return true;
-}
-
-void BottomWidget::spreadAniFinished() {
+void BottomWidget::spreadAniFinished()
+{
 }
 
 void BottomWidget::gatherAniFinished()
 {
-    controlWidget->hide();
+    m_controlWidget->hide();
 }
 
-void BottomWidget::show_control_widget()
+void BottomWidget::onShowControlWidget()
 {
-    controlWidget->show();
+    m_controlWidget->show();
 }
 
-void BottomWidget::showSpreadAnimated() {
-    if (!spreadAnimation) {
-        spreadAnimation = new QPropertyAnimation(this, "pos");
-        connect(spreadAnimation, SIGNAL(finished()), this, SLOT(spreadAniFinished()));
+void BottomWidget::showSpreadAnimated()
+{
+    if (!m_spreadAnimation) {
+        m_spreadAnimation = new QPropertyAnimation(this, "pos");
+        connect(m_spreadAnimation, SIGNAL(finished()), this, SLOT(spreadAniFinished()));
     }
 
     QPoint initial_position = QPoint(pos().x(), parentWidget()->size().height());
@@ -548,39 +439,38 @@ void BottomWidget::showSpreadAnimated() {
     move(initial_position);
 
     QWidget::show();
-    controlWidget->show();
+    m_controlWidget->show();
 
-    spreadAnimation->setDuration(300);
-    spreadAnimation->setStartValue(initial_position);
-    spreadAnimation->setEndValue(final_position);
-    spreadAnimation->start();
+    m_spreadAnimation->setDuration(300);
+    m_spreadAnimation->setStartValue(initial_position);
+    m_spreadAnimation->setEndValue(final_position);
+    m_spreadAnimation->start();
 
-    //kobe: tell mainwindow to show escwidget
-    emit this->sig_show_or_hide_esc(true);
+    //tell mainwindow to show escwidget
+    emit this->requestShowOrHideEscWidget(true);
 }
 
-
-void BottomWidget::showGatherAnimated() {
-    if (!gatherAnimation) {
-        gatherAnimation = new QPropertyAnimation(this, "pos");
-        connect(gatherAnimation, SIGNAL(finished()), this, SLOT(gatherAniFinished()));
+void BottomWidget::showGatherAnimated()
+{
+    if (!m_gatherAnimation) {
+        m_gatherAnimation = new QPropertyAnimation(this, "pos");
+        connect(m_gatherAnimation, SIGNAL(finished()), this, SLOT(gatherAniFinished()));
     }
 
     QPoint initial_position = QPoint(0, parentWidget()->size().height() - this->height());
     QPoint final_position = QPoint(pos().x(), parentWidget()->size().height() - 4);//kobe 0616:给最底下的进度条留下空间
     move(initial_position);
 
-    gatherAnimation->setDuration(300);
-    gatherAnimation->setStartValue(initial_position);
-    gatherAnimation->setEndValue(final_position);
-    gatherAnimation->start();
+    m_gatherAnimation->setDuration(300);
+    m_gatherAnimation->setStartValue(initial_position);
+    m_gatherAnimation->setEndValue(final_position);
+    m_gatherAnimation->start();
 }
 
 void BottomWidget::resizeEvent(QResizeEvent *event)
 {
     QWidget::resizeEvent(event);
-    emit sig_resize_corner();
-    progress->resize(this->width(), 24);
+    m_timeProgress->resize(this->width(), 24);
 }
 
 void BottomWidget::enterEvent(QEvent *event)
@@ -609,4 +499,80 @@ void BottomWidget::paintEvent(QPaintEvent *event)
     QPainter p(this);
     p.setCompositionMode(QPainter::CompositionMode_Clear);
     p.fillRect(rect(), Qt::SolidPattern);//p.fillRect(0, 0, this->width(), this->height(), Qt::SolidPattern);
+}
+
+bool BottomWidget::eventFilter(QObject * obj, QEvent * event)
+{
+    QEvent::Type type = event->type();
+    if (type != QEvent::MouseButtonPress
+        && type != QEvent::MouseButtonRelease
+        && type != QEvent::MouseMove)
+        return false;
+
+    QMouseEvent *mouseEvent = dynamic_cast<QMouseEvent*>(event);
+    if (!mouseEvent)
+        return false;
+    if (mouseEvent->modifiers() != Qt::NoModifier) {
+        m_dragState = NOT_DRAGGING;
+        return false;
+    }
+
+    if (event->type() == QEvent::MouseMove) {
+        if (!isVisible()) {
+            emit this->requestTemporaryShow();
+        }
+        else if (!m_ctlWidget->isVisible()) {
+            emit this->requestTemporaryShow();
+        }
+    }
+
+    if (type == QEvent::MouseButtonPress) {
+        if (mouseEvent->button() != Qt::LeftButton) {
+            m_dragState = NOT_DRAGGING;
+            return false;
+        }
+
+        m_dragState = START_DRAGGING;
+        m_startDrag = mouseEvent->globalPos();
+        // Don't filter, so others can have a look at it too
+        return false;
+    }
+
+    if (type == QEvent::MouseButtonRelease) {
+        if (m_dragState != DRAGGING || mouseEvent->button() != Qt::LeftButton) {
+            m_dragState = NOT_DRAGGING;
+            return false;
+        }
+
+        // Stop dragging and eat event
+        m_dragState = NOT_DRAGGING;
+        event->accept();
+        return true;
+    }
+
+    // type == QEvent::MouseMove
+    if (m_dragState == NOT_DRAGGING)
+        return false;
+
+    // buttons() note the s
+    if (mouseEvent->buttons() != Qt::LeftButton) {
+        m_dragState = NOT_DRAGGING;
+        return false;
+    }
+
+    QPoint pos = mouseEvent->globalPos();
+    QPoint diff = pos - m_startDrag;
+    if (m_dragState == START_DRAGGING) {
+        // Don't start dragging before moving at least DRAG_THRESHOLD pixels
+        if (abs(diff.x()) < 4 && abs(diff.y()) < 4)
+            return false;
+
+        m_dragState = DRAGGING;
+    }
+
+    emit mouseMovedDiff(diff);
+    m_startDrag = pos;
+
+    event->accept();
+    return true;
 }

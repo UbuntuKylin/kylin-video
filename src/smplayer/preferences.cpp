@@ -23,7 +23,8 @@
 #include "../smplayer/recents.h"
 #include "../smplayer/urlhistory.h"
 #include "../smplayer/filters.h"
-#include "../smplayer/helper.h"
+
+#include "../utils.h"
 
 #include <QSettings>
 #include <QFileInfo>
@@ -479,10 +480,6 @@ void Preferences::reset() {
 
     close_on_finish = false;
 
-//#ifdef AUTO_SHUTDOWN_PC
-    auto_shutdown_pc = false;
-//#endif
-
     default_font = "";
 
     pause_when_hidden = false;
@@ -846,9 +843,7 @@ void Preferences::save() {
 //	set->setValue("restore_pos_after_fullscreen", restore_pos_after_fullscreen);
 //	set->setValue("save_window_size_on_exit", save_window_size_on_exit);
 //	set->setValue("close_on_finish", close_on_finish);
-////#ifdef AUTO_SHUTDOWN_PC
-//	set->setValue("auto_shutdown_pc", auto_shutdown_pc);
-////#endif
+
 //	set->setValue("default_font", default_font);
     set->setValue("pause_when_hidden", pause_when_hidden);
     set->setValue("allow_video_movement", allow_video_movement);
@@ -1243,10 +1238,6 @@ void Preferences::load() {
 
 //	close_on_finish = set->value("close_on_finish", close_on_finish).toBool();
 
-//#ifdef AUTO_SHUTDOWN_PC
-//	auto_shutdown_pc = set->value("auto_shutdown_pc", auto_shutdown_pc).toBool();
-//#endif
-
 //	default_font = set->value("default_font", default_font).toString();
 
     pause_when_hidden = set->value("pause_when_hidden", pause_when_hidden).toBool();
@@ -1351,26 +1342,27 @@ void Preferences::load() {
 
     //edited by kobe 20180623
     /*if (!QFile::exists(mplayer_bin)) {
-		QString app_path = Helper::findExecutable(mplayer_bin);
+        QString app_path = Utils::findExecutable(mplayer_bin);
 		//qDebug("Preferences::load: app_path: %s", app_path.toUtf8().constData());
 		if (!app_path.isEmpty()) {
 			mplayer_bin = app_path;
 		} else {
 			// Executable not found, try to find an alternative
 			if (mplayer_bin.startsWith("mplayer")) {
-				app_path = Helper::findExecutable("mpv");
+                app_path = Utils::findExecutable("mpv");
 				if (!app_path.isEmpty()) mplayer_bin = app_path;
 			}
 			else
 			if (mplayer_bin.startsWith("mpv")) {
-				app_path = Helper::findExecutable("mplayer");
+                app_path = Utils::findExecutable("mplayer");
 				if (!app_path.isEmpty()) mplayer_bin = app_path;
 			}
 		}
     }*/
 }
 
-void Preferences::setupScreenshotFolder() {
+void Preferences::setupScreenshotFolder()
+{
 #if QT_VERSION >= 0x040400
 	if (screenshot_directory.isEmpty()) {
 		#if QT_VERSION >= 0x050000

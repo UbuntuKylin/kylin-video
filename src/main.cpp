@@ -19,11 +19,15 @@
 
 #include "myapplication.h"
 #include "kylinvideo.h"
+#include "remotecontroller.h"
+#include "controllerworker.h"
 
 #include <QDir>
 #include <QFile>
 #include <QTextCodec>
+#include <QtDBus>
 
+#define CONTROL_DBUS_SERVICE_NAME  "com.kylin.kylinvideo.controller"
 
 int main(int argc, char **argv)
 {
@@ -38,6 +42,26 @@ int main(int argc, char **argv)
 	// Enable icons in menus
 	QCoreApplication::setAttribute(Qt::AA_DontShowIconsInMenus, false);
 #endif
+
+    //----------------register controller dbus service----------------
+    QDBusConnection connection = QDBusConnection::sessionBus();
+    if (!connection.isConnected()) {
+        fprintf(stderr, "Cannot connect to the D-Bus session bus.\n"
+                "To start it, run:\n"
+                "\teval `dbus-launch --auto-syntax`\n");
+        return 1;
+    }
+
+    if (!connection.registerService(CONTROL_DBUS_SERVICE_NAME)) {
+        fprintf(stderr, "%s\n", qPrintable(connection.lastError().message()));
+        exit(1);
+    }
+
+    ControllerWorker *controller = new ControllerWorker;
+    ControllerAdaptor *adaptor = new ControllerAdaptor(controller);
+//    connection(&a, &QApplication::aboutToQuit, adaptor, &ControllerAdaptor::aboutToQuit);
+    QDBusConnection::sessionBus().registerObject("/", controller);
+    //-------------------------------------------------------------------
 
     QStringList args = a.arguments();
 
@@ -62,7 +86,7 @@ int main(int argc, char **argv)
         qDebug() << "SNAP: " << snap_path;
     }
 
-    KylinVideo *player = new KylinVideo(arch, snap);
+    KylinVideo *player = new KylinVideo(arch, snap, controller);
     KylinVideo::ExitCode c = player->processArgs(args);
     if (c != KylinVideo::NoExit) {
 		return c;

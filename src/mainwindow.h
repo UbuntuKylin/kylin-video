@@ -56,13 +56,14 @@ class FilterHandler;
 class CoverWidget;
 class InfoWorker;
 class MaskWidget;
+class ControllerWorker;
 
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
     
 public:
-    MainWindow(QString arch_type = "", QString snap = "", QWidget* parent = 0);
+    MainWindow(QString arch_type = "", QString snap = "", ControllerWorker *controller = NULL, QWidget* parent = 0);
     ~MainWindow();
 
     void initRegisterMeta();
@@ -79,7 +80,7 @@ public:
     void createMaskWidget();
     void createPreferencesDialog();
     void createFilePropertiesDialog();
-
+    void initRemoteControllerConnections();
     void loadConfigForUI();
     void setStayOnTop(bool b);
 
@@ -470,6 +471,8 @@ private:
 
     bool  m_leftPressed;// 鼠标是否按下
     QPixmap currentBackground;
+
+    ControllerWorker *m_controller = nullptr;
 };
     
 #endif // _MAINWINDOW_H_

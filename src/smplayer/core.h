@@ -90,7 +90,7 @@ public slots:
 
     void stop(); 
     void play();
-	void play_or_pause();
+	void playOrPause();
     void pause_and_frame_step();
 	void pause();
 	void frameStep();

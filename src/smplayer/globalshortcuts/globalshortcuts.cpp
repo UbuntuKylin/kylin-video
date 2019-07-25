@@ -115,7 +115,7 @@ void GlobalShortcuts::activateShortcut(Qt::Key key) {
 				}
 				if (match && action->isEnabled()) {
 					// SkinGui changes the play/pause action to checkable, which doesn't work if called toggle
-					if (action->isCheckable() && action->objectName() != "play_or_pause") {
+					if (action->isCheckable() && action->objectName() != "playOrPause") {
 						action->toggle(); 
 					} else { 
 						action->trigger();

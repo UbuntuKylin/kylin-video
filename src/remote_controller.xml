@@ -1,0 +1,21 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+  <interface name="com.kylin.kylinvideo.controller">
+    <method name="seek_forward">
+      <arg type="b" direction="out"/>
+      <arg name="seconds" type="i" direction="in"/>
+    </method>
+    <method name="seek_rewind">
+      <arg type="b" direction="out"/>
+      <arg name="seconds" type="i" direction="in"/>
+    </method>
+    <method name="playPause">
+    </method>
+    <method name="stop">
+    </method>
+    <method name="quit">
+    </method>
+    <signal name="aboutToQuit">
+    </signal>
+  </interface>
+</node>

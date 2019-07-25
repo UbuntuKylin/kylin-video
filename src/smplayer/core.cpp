@@ -1125,7 +1125,7 @@ void Core::pause() {
 	}
 }
 
-void Core::play_or_pause() {
+void Core::playOrPause() {
 	if (proc->isRunning()) {
 		pause();
 	} else {
@@ -2468,12 +2468,12 @@ void Core::seek_cmd(double secs, int mode) {
 }
 
 void Core::sforward() {
-//	qDebug("Core::sforward");
+    qDebug("Core::sforward");
 	seek( pref->seeking1 ); // +10s
 }
 
 void Core::srewind() {
-//	qDebug("Core::srewind");
+    qDebug("Core::srewind");
 	seek( -pref->seeking1 ); // -10s
 }
 

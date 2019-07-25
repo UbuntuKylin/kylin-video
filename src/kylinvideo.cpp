@@ -20,6 +20,7 @@
 #include "kylinvideo.h"
 #include "myapplication.h"
 #include "infoworker.h"
+#include "controllerworker.h"
 
 #include "../smplayer/global.h"
 #include "../smplayer/paths.h"
@@ -37,8 +38,9 @@ using namespace Global;
 
 MainWindow * KylinVideo::main_window = 0;
 
-KylinVideo::KylinVideo(const QString &arch, const QString &snap, QObject *parent)
+KylinVideo::KylinVideo(const QString &arch, const QString &snap, ControllerWorker *controller, QObject *parent)
     : QObject(parent)
+    , m_controller(controller)
     , m_moveGui(false)
     , m_resizeGui(false)
     , m_closeAtEnd(-1)
@@ -99,7 +101,7 @@ MainWindow * KylinVideo::gui()
 MainWindow * KylinVideo::createGUI(QString arch, QString snap)
 {
     MainWindow * gui = 0;
-    gui = new MainWindow(arch, snap, 0);
+    gui = new MainWindow(arch, snap, m_controller, 0);
     gui->setForceCloseOnFinish(m_closeAtEnd);
     gui->setForceStartInFullscreen(m_startInFullscreen);
 	connect(gui, SIGNAL(quitSolicited()), qApp, SLOT(quit()));

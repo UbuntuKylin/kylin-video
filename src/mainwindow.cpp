@@ -65,6 +65,7 @@
 #include "maskwidget.h"
 #include "videowindow.h"
 #include "poweroffdialog.h"
+#include "controllerworker.h"
 
 #include "smplayer/desktopinfo.h"
 #include "smplayer/paths.h"
@@ -112,7 +113,7 @@ QDataStream &operator>>(QDataStream &dataStream, VideoPtr &objectA)
     return dataStream;
 }
 
-MainWindow::MainWindow(QString arch_type, QString snap, QWidget* parent)
+MainWindow::MainWindow(QString arch_type, QString snap, ControllerWorker *controller, QWidget* parent)
     : QMainWindow( parent)
 #if QT_VERSION >= 0x050000
 	, was_minimized(false)
@@ -129,6 +130,7 @@ MainWindow::MainWindow(QString arch_type, QString snap, QWidget* parent)
     , m_arch(arch_type)
     , m_snap(snap)
     , m_maskWidget(new MaskWidget(this))
+    , m_controller(controller)
 {
     this->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);//设置窗体标题栏隐藏并设置位于顶层
     this->setMouseTracking(true);//可获取鼠标跟踪效果，界面拉伸需要这个属性
@@ -160,6 +162,7 @@ MainWindow::MainWindow(QString arch_type, QString snap, QWidget* parent)
     createTipWidget();
     createEscWidget();
     createMaskWidget();
+    initRemoteControllerConnections();
 
 //    m_coverWidget = new CoverWidget(this);
 //    m_coverWidget->setContentsMargins(0, 0, 0, 0);
@@ -964,7 +967,7 @@ void MainWindow::createActionsAndMenus()
     play_pause_aciton = new MyAction(QKeySequence(Qt::Key_Space), this, "play_pause");
     play_pause_aciton->change(tr("Play/Pause"));
     //201810
-    //connect(playlist_action, SIGNAL(triggered()), core, SLOT(play_or_pause()));
+    //connect(playlist_action, SIGNAL(triggered()), core, SLOT(playOrPause()));
     connect(playlist_action, &MyAction::triggered, this, &MainWindow::startPlayPause);
 
     stopAct = new MyAction(Qt::Key_MediaStop, this, "stop");
@@ -1038,6 +1041,14 @@ void MainWindow::createMaskWidget()
     mplayerwindow->setCornerWidget(play_mask);
     play_mask->hide();
     connect(play_mask, &PlayMask::signal_play_continue, this, &MainWindow::startPlayPause);
+}
+
+void MainWindow::initRemoteControllerConnections()
+{
+    connect(m_controller, &ControllerWorker::requestSeekForward, core, &Core::sforward);
+    connect(m_controller, &ControllerWorker::requestSeekRewind, core, &Core::srewind);
+    connect(m_controller, &ControllerWorker::requestPlayPause, core, &Core::playOrPause);
+    connect(m_controller, &ControllerWorker::requestStop, core, &Core::stop);
 }
 
 void MainWindow::setStayOnTop(bool b)
@@ -1126,7 +1137,7 @@ void MainWindow::startPlayPause()
     m_topToolbar->show();
     m_bottomToolbar->show();
     connect(m_mouseFilterHandler, SIGNAL(mouseMoved()), m_bottomController, SLOT(temporaryShow()));
-    core->play_or_pause();
+    core->playOrPause();
 }
 
 //void MainWindow::showShortcuts()

@@ -101,7 +101,18 @@ AboutDialog::AboutDialog(const QString &snap, QWidget * parent, Qt::WindowFlags 
 //                tr("Using Qt %1 (compiled with Qt %2)").arg(qVersion()).arg(QT_VERSION_STR) + "<br>" +
 //                tr("Playback engine:") + i->playerVersion() + "<br><br>"
 //                );
+
+
+
+//    QString AboutDialog::link(const QString & url, QString name)
+//    {
+//            if (name.isEmpty()) name = url;
+//            return QString("<a href=\"" + url + "\">" + name +"</a>");
+//    }
+//    <a href=\"http://www.smplayer.info\">SMPlayer</a>
+
     contributorText->setText("<br>&copy; 2006-2015 Ricardo Villalba &lt;rvm@users.sourceforge.net&gt;<br>&copy; 2017-2019 lixiang &lt;lixiang@kylinos.cn&gt;<br><br>");
+    //contributorText->setText(QString("<br>&copy; 2006-2015 Ricardo Villalba &lt;rvm@users.sourceforge.net&gt;<br>&copy; 2017-2019 lixiang &lt;lixiang@kylinos.cn&gt; %1<br><br>").arg("<a href=\"https://eightplus.github.io\">https://eightplus.github.io</a>"));
     contributorText->hide();
 
 	adjustSize();
@@ -182,7 +193,8 @@ void AboutDialog::setVersions()
                 tr("Using Qt %1 (compiled with Qt %2)").arg(qVersion()).arg(QT_VERSION_STR) + "<br>" +
                 tr("Playback engine:") + i->playerVersion() + "<br><br>" +
                 "<b>"+ tr("Links:") + "</b><br>" +
-                tr("Code website:") + " " +  link(URL_HOMEPAGE) + "<br>"
+                tr("Code website:") + " " +  link(URL_HOMEPAGE) + "<br>" +
+                tr("Developer's personal home page:") + " " +  link("https://eightplus.github.io") + "<br>"
                 );
 }
 

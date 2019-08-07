@@ -25,16 +25,6 @@
 
 //! MyProcess is a specialized QProcess designed to properly work with mplayer.
 
-/*!
- It can split the mplayer status line into lines.
- It also provides some Qt 3 like functions like addArgument().
-
- There are two working modes, controlled by the USE_TEMP_FILE define.
- If USE_TEMP_FILE is 1 it will send the output of mplayer to a temporary
- file, and then it will be read from it. Otherwise it will read from
- standard ouput as usual.
-*/
-
 class MyProcess : public QProcess
 {
 	Q_OBJECT

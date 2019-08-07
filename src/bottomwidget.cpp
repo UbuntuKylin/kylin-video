@@ -61,7 +61,7 @@ BottomWidget::BottomWidget(QWidget *parent)
 {
     this->setMouseTracking(true);
     this->setAutoFillBackground(true);
-    this->setFocusPolicy(Qt::ClickFocus);
+    this->setFocusPolicy(Qt::StrongFocus);
     this->setAttribute(Qt::WA_TranslucentBackground, true);//窗体标题栏不透明，背景透明
     this->setWindowFlags(windowFlags() | Qt::SubWindow | Qt::WindowStaysOnTopHint);
     this->installEventFilter(this);

@@ -55,6 +55,10 @@ p, li { white-space: pre-wrap; }
         <source>Code website:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Developer&apos;s personal home page:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ActionsEditor</name>
@@ -124,462 +128,553 @@ Do you want to overwrite?</source>
     </message>
 </context>
 <context>
-    <name>BaseGui</name>
+    <name>AudioEqualizer</name>
     <message>
-        <source>Kylin Video</source>
-        <translation>Kylin Vidéo</translation>
+        <source>Audio Equalizer</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Open</source>
-        <translation>Ouvrir</translation>
+        <source>%1 Hz</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Open &amp;File...</source>
-        <translation>Fichier ouvert...</translation>
+        <source>%1 kHz</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Directory...</source>
-        <translation>Annuaire...</translation>
+        <source>&amp;Preset</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;URL...</source>
-        <translation>&amp; URL ...</translation>
+        <source>&amp;Apply</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Clear</source>
-        <translation>&amp;Clair</translation>
+        <source>&amp;Reset</source>
+        <translation type="unfinished">&amp;Réinitialiser</translation>
     </message>
     <message>
-        <source>Recent files</source>
-        <translation>Fichiers récents</translation>
+        <source>&amp;Set as default values</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Play control</source>
-        <translation>Contrôle de jeu</translation>
+        <source>&amp;Close</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Forward and rewind</source>
-        <translation>Avancer et rembobiner</translation>
+        <source>Flat</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Jump to...</source>
-        <translation>&amp;Sauter à...</translation>
+        <source>Classical</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Play Speed</source>
-        <translation>Vitesse de lecture</translation>
+        <source>Club</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Normal speed</source>
-        <translation>Vitesse normale</translation>
+        <source>Dance</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Half speed</source>
-        <translation>Demi vitesse</translation>
+        <source>Full bass</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Double speed</source>
-        <translation>Double vitesse</translation>
+        <source>Full bass and treble</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Speed -10%</source>
-        <translation>Vitesse -10%</translation>
+        <source>Full treble</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Speed +10%</source>
-        <translation>Vitesse + 10%</translation>
+        <source>Headphones</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Speed -4%</source>
-        <translation>Vitesse -4%</translation>
+        <source>Large hall</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Speed +4%</source>
-        <translation>Vitesse + 4%</translation>
+        <source>Live</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Speed -1%</source>
-        <translation>Vitesse -1%</translation>
+        <source>Party</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Speed +1%</source>
-        <translation>Vitesse + 1%</translation>
+        <source>Pop</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Next</source>
-        <translation>Prochain</translation>
+        <source>Reggae</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Previous</source>
-        <translation>précédent</translation>
+        <source>Rock</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Auto</source>
-        <translation>&amp;Auto</translation>
+        <source>Ska</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Disabled</source>
-        <translation>&amp;Désactivé</translation>
+        <source>Soft</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Aspect ratio</source>
-        <translation>Ratio d&apos;aspect</translation>
+        <source>Soft rock</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Off</source>
-        <translation>&amp;De</translation>
+        <source>Techno</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Rotate by 90 degrees clockwise and flip</source>
-        <translation>&amp; Rotation de 90 degrés dans le sens des aiguilles d&apos;une montre et retournez</translation>
+        <source>Custom</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Rotate by 90 degrees &amp;clockwise</source>
-        <translation>Faire pivoter de 90 degrés et dans le sens des aiguilles d&apos;une montre</translation>
+        <source>Use the current values as default values for new videos.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Rotate by 90 degrees counterclock&amp;wise</source>
-        <translation>Faire pivoter de 90 degrés dans le sens inverse des aiguilles d&apos;une montre</translation>
-    </message>
-    <message>
-        <source>Rotate by 90 degrees counterclockwise and &amp;flip</source>
-        <translation>Faire pivoter de 90 degrés dans le sens antihoraire et &amp; retourner</translation>
-    </message>
-    <message>
-        <source>Fli&amp;p image</source>
-        <translation>Fli &amp; p image</translation>
-    </message>
-    <message>
-        <source>Mirr&amp;or image</source>
-        <translation>Image miroir</translation>
-    </message>
-    <message>
-        <source>Frame rotation</source>
-        <translation>Rotation du cadre</translation>
-    </message>
-    <message>
-        <source>&amp;Rotate</source>
-        <translation>&amp;Tourner</translation>
-    </message>
-    <message>
-        <source>&amp;Screenshot</source>
-        <translation>&amp;Capture d&apos;écran</translation>
-    </message>
-    <message>
-        <source>&amp;Always</source>
-        <translation>&amp;Toujours</translation>
-    </message>
-    <message>
-        <source>&amp;Never</source>
-        <translation>&amp;Jamais</translation>
-    </message>
-    <message>
-        <source>While &amp;playing</source>
-        <translation>Pendant que je jouais</translation>
-    </message>
-    <message>
-        <source>S&amp;tay on top</source>
-        <translation>S &amp; tay sur le dessus</translation>
-    </message>
-    <message>
-        <source>Order play</source>
-        <translation>Jeu d&apos;ordre</translation>
-    </message>
-    <message>
-        <source>Random play</source>
-        <translation>Jeu aléatoire</translation>
-    </message>
-    <message>
-        <source>List loop play</source>
-        <translation>Lecture en boucle de liste</translation>
-    </message>
-    <message>
-        <source>Play order</source>
-        <translation>Ordre de jeu</translation>
-    </message>
-    <message>
-        <source>&amp;Stereo</source>
-        <translation>&amp;Stéréo</translation>
-    </message>
-    <message>
-        <source>&amp;4.0 Surround</source>
-        <translation>&amp; 4.0 Surround</translation>
-    </message>
-    <message>
-        <source>&amp;5.1 Surround</source>
-        <translation>&amp; 5.1 Surround</translation>
-    </message>
-    <message>
-        <source>&amp;6.1 Surround</source>
-        <translation>&amp; 6.1 Surround</translation>
-    </message>
-    <message>
-        <source>&amp;7.1 Surround</source>
-        <translation>&amp; 7.1 Surround</translation>
-    </message>
-    <message>
-        <source>&amp;Channels</source>
-        <translation>Et chaînes</translation>
-    </message>
-    <message>
-        <source>Audio</source>
-        <translation>l&apos;audio</translation>
-    </message>
-    <message>
-        <source>&amp;Mute</source>
-        <translation>&amp;Muet</translation>
-    </message>
-    <message>
-        <source>Volume -</source>
-        <translation>Le volume -</translation>
-    </message>
-    <message>
-        <source>Volume +</source>
-        <translation>Volume +</translation>
-    </message>
-    <message>
-        <source>Delay -</source>
-        <translation>Retard -</translation>
-    </message>
-    <message>
-        <source>Delay +</source>
-        <translation>Retard +</translation>
-    </message>
-    <message>
-        <source>Set dela&amp;y...</source>
-        <translation>Régler le délai...</translation>
-    </message>
-    <message>
-        <source>&amp;Left channel</source>
-        <translation>&amp; Canal gauche</translation>
-    </message>
-    <message>
-        <source>&amp;Right channel</source>
-        <translation>&amp; Canal droit</translation>
-    </message>
-    <message>
-        <source>&amp;Mono</source>
-        <translation>&amp;Mono</translation>
-    </message>
-    <message>
-        <source>Re&amp;verse</source>
-        <translation>Sens inverse</translation>
-    </message>
-    <message>
-        <source>&amp;Stereo mode</source>
-        <translation>&amp; Mode stéréo</translation>
-    </message>
-    <message>
-        <source>Subtitles</source>
-        <translation>Les sous-titres</translation>
-    </message>
-    <message>
-        <source>Load...</source>
-        <translation>Charge...</translation>
-    </message>
-    <message>
-        <source>Subtitle &amp;visibility</source>
-        <translation>Sous-titre et visibilité</translation>
-    </message>
-    <message>
-        <source>Preferences</source>
-        <translation>Préférences</translation>
-    </message>
-    <message>
-        <source>View &amp;info and properties...</source>
-        <translation>Voir &amp; info et propriétés ...</translation>
-    </message>
-    <message>
-        <source>Help</source>
-        <translation>Aidez-moi</translation>
-    </message>
-    <message>
-        <source>About &amp;Kylin Video</source>
-        <translation>À propos de &amp; Kylin Video</translation>
-    </message>
-    <message>
-        <source>Quit</source>
-        <translation>Quitter</translation>
-    </message>
-    <message>
-        <source>Open Homepage</source>
-        <translation>Ouvrir la page d&apos;accueil</translation>
-    </message>
-    <message>
-        <source>Open screenshots folder</source>
-        <translation>Ouvrir le dossier des captures d&apos;écran</translation>
-    </message>
-    <message>
-        <source>PlayList</source>
-        <translation>Playlist</translation>
-    </message>
-    <message>
-        <source>Play/Pause</source>
-        <translation>Jouer pause</translation>
-    </message>
-    <message>
-        <source>Stop</source>
-        <translation>Arrêtez</translation>
-    </message>
-    <message>
-        <source>Fullscreen</source>
-        <translation>Plein écran</translation>
-    </message>
-    <message>
-        <source>Video filters are disabled when using vdpau</source>
-        <translation>Les filtres vidéo sont désactivés lors de l&apos;utilisation de vdpau</translation>
-    </message>
-    <message>
-        <source>-%1</source>
-        <translation>-%1</translation>
-    </message>
-    <message>
-        <source>+%1</source>
-        <translation>+% 1</translation>
-    </message>
-    <message>
-        <source>&lt;empty&gt;</source>
-        <translation>&lt;vide&gt;</translation>
-    </message>
-    <message>
-        <source>Confirm deletion - Kylin Video</source>
-        <translation>Confirmer la suppression - Kylin Video</translation>
-    </message>
-    <message>
-        <source>Delete the list of recent files?</source>
-        <translation>Supprimer la liste des fichiers récents?</translation>
-    </message>
-    <message>
-        <source>Choose a file</source>
-        <translation>Choisissez un fichier</translation>
-    </message>
-    <message>
-        <source>Multimedia</source>
-        <translation>Multimédia</translation>
-    </message>
-    <message>
-        <source>Video</source>
-        <translation>Vidéo</translation>
-    </message>
-    <message>
-        <source>Playlists</source>
-        <translation>Playlists</translation>
-    </message>
-    <message>
-        <source>All files</source>
-        <translation>Tous les fichiers</translation>
-    </message>
-    <message>
-        <source>Choose a directory</source>
-        <translation>Choisissez un répertoire</translation>
-    </message>
-    <message>
-        <source>&amp;Jump to:</source>
-        <translation>&amp;Sauter à:</translation>
-    </message>
-    <message>
-        <source>Kylin Video - Seek</source>
-        <translation>Kylin Video - Recherche</translation>
-    </message>
-    <message>
-        <source>Kylin Video - Subtitle delay</source>
-        <translation>Kylin Video - Retard sous-titre</translation>
-    </message>
-    <message>
-        <source>Subtitle delay (in milliseconds):</source>
-        <translation>Délai des sous-titres (en millisecondes):</translation>
-    </message>
-    <message>
-        <source>Error detected</source>
-        <translation>Erreur détectée</translation>
-    </message>
-    <message>
-        <source>Unfortunately this video can&apos;t be played.</source>
-        <translation>Malheureusement, cette vidéo ne peut pas être lue.</translation>
-    </message>
-    <message>
-        <source>The server returned &apos;%1&apos;</source>
-        <translation>Le serveur a renvoyé &apos;% 1&apos;</translation>
-    </message>
-    <message>
-        <source>Jump to %1</source>
-        <translation>Aller à% 1</translation>
-    </message>
-    <message>
-        <source>%1 Error</source>
-        <translation>% 1 erreur</translation>
-    </message>
-    <message>
-        <source>&apos;%1&apos; was not found!</source>
-        <translation>&apos;% 1&apos; n&apos;a pas été trouvé!</translation>
-    </message>
-    <message>
-        <source>%1 has finished unexpectedly.</source>
-        <translation>% 1 a terminé de manière inattendue.</translation>
-    </message>
-    <message>
-        <source>Exit code: %1</source>
-        <translation>Code de sortie:% 1</translation>
-    </message>
-    <message>
-        <source>%1 failed to start.</source>
-        <translation>% 1 n&apos;a pas pu démarrer.</translation>
-    </message>
-    <message>
-        <source>Please check the %1 path in preferences.</source>
-        <translation>Veuillez vérifier le chemin d&apos;accès% 1 dans les préférences.</translation>
-    </message>
-    <message>
-        <source>%1 has crashed.</source>
-        <translation>% 1 s&apos;est écrasé.</translation>
-    </message>
-    <message>
-        <source>See the log for more info.</source>
-        <translation>Voir le journal pour plus d&apos;informations.</translation>
+        <source>Set all controls to zero.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Information</source>
-        <translation>Information</translation>
+        <translation type="unfinished">Information</translation>
+    </message>
+    <message>
+        <source>The current values have been stored to be used as default.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>BaseGui</name>
+    <message>
+        <source>Kylin Video</source>
+        <translation type="vanished">Kylin Vidéo</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="vanished">Ouvrir</translation>
+    </message>
+    <message>
+        <source>Open &amp;File...</source>
+        <translation type="vanished">Fichier ouvert...</translation>
+    </message>
+    <message>
+        <source>Directory...</source>
+        <translation type="vanished">Annuaire...</translation>
+    </message>
+    <message>
+        <source>&amp;URL...</source>
+        <translation type="vanished">&amp; URL ...</translation>
+    </message>
+    <message>
+        <source>&amp;Clear</source>
+        <translation type="vanished">&amp;Clair</translation>
+    </message>
+    <message>
+        <source>Recent files</source>
+        <translation type="vanished">Fichiers récents</translation>
+    </message>
+    <message>
+        <source>Play control</source>
+        <translation type="vanished">Contrôle de jeu</translation>
+    </message>
+    <message>
+        <source>Forward and rewind</source>
+        <translation type="vanished">Avancer et rembobiner</translation>
+    </message>
+    <message>
+        <source>&amp;Jump to...</source>
+        <translation type="vanished">&amp;Sauter à...</translation>
+    </message>
+    <message>
+        <source>Play Speed</source>
+        <translation type="vanished">Vitesse de lecture</translation>
+    </message>
+    <message>
+        <source>Normal speed</source>
+        <translation type="vanished">Vitesse normale</translation>
+    </message>
+    <message>
+        <source>Half speed</source>
+        <translation type="vanished">Demi vitesse</translation>
+    </message>
+    <message>
+        <source>Double speed</source>
+        <translation type="vanished">Double vitesse</translation>
+    </message>
+    <message>
+        <source>Speed -10%</source>
+        <translation type="vanished">Vitesse -10%</translation>
+    </message>
+    <message>
+        <source>Speed +10%</source>
+        <translation type="vanished">Vitesse + 10%</translation>
+    </message>
+    <message>
+        <source>Speed -4%</source>
+        <translation type="vanished">Vitesse -4%</translation>
+    </message>
+    <message>
+        <source>Speed +4%</source>
+        <translation type="vanished">Vitesse + 4%</translation>
+    </message>
+    <message>
+        <source>Speed -1%</source>
+        <translation type="vanished">Vitesse -1%</translation>
+    </message>
+    <message>
+        <source>Speed +1%</source>
+        <translation type="vanished">Vitesse + 1%</translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation type="vanished">Prochain</translation>
+    </message>
+    <message>
+        <source>Previous</source>
+        <translation type="vanished">précédent</translation>
+    </message>
+    <message>
+        <source>&amp;Auto</source>
+        <translation type="vanished">&amp;Auto</translation>
+    </message>
+    <message>
+        <source>&amp;Disabled</source>
+        <translation type="vanished">&amp;Désactivé</translation>
+    </message>
+    <message>
+        <source>Aspect ratio</source>
+        <translation type="vanished">Ratio d&apos;aspect</translation>
+    </message>
+    <message>
+        <source>&amp;Off</source>
+        <translation type="vanished">&amp;De</translation>
+    </message>
+    <message>
+        <source>&amp;Rotate by 90 degrees clockwise and flip</source>
+        <translation type="vanished">&amp; Rotation de 90 degrés dans le sens des aiguilles d&apos;une montre et retournez</translation>
+    </message>
+    <message>
+        <source>Rotate by 90 degrees &amp;clockwise</source>
+        <translation type="vanished">Faire pivoter de 90 degrés et dans le sens des aiguilles d&apos;une montre</translation>
+    </message>
+    <message>
+        <source>Rotate by 90 degrees counterclock&amp;wise</source>
+        <translation type="vanished">Faire pivoter de 90 degrés dans le sens inverse des aiguilles d&apos;une montre</translation>
+    </message>
+    <message>
+        <source>Rotate by 90 degrees counterclockwise and &amp;flip</source>
+        <translation type="vanished">Faire pivoter de 90 degrés dans le sens antihoraire et &amp; retourner</translation>
+    </message>
+    <message>
+        <source>Fli&amp;p image</source>
+        <translation type="vanished">Fli &amp; p image</translation>
+    </message>
+    <message>
+        <source>Mirr&amp;or image</source>
+        <translation type="vanished">Image miroir</translation>
+    </message>
+    <message>
+        <source>Frame rotation</source>
+        <translation type="vanished">Rotation du cadre</translation>
+    </message>
+    <message>
+        <source>&amp;Rotate</source>
+        <translation type="vanished">&amp;Tourner</translation>
+    </message>
+    <message>
+        <source>&amp;Screenshot</source>
+        <translation type="vanished">&amp;Capture d&apos;écran</translation>
+    </message>
+    <message>
+        <source>&amp;Always</source>
+        <translation type="vanished">&amp;Toujours</translation>
+    </message>
+    <message>
+        <source>&amp;Never</source>
+        <translation type="vanished">&amp;Jamais</translation>
+    </message>
+    <message>
+        <source>While &amp;playing</source>
+        <translation type="vanished">Pendant que je jouais</translation>
+    </message>
+    <message>
+        <source>S&amp;tay on top</source>
+        <translation type="vanished">S &amp; tay sur le dessus</translation>
+    </message>
+    <message>
+        <source>Order play</source>
+        <translation type="vanished">Jeu d&apos;ordre</translation>
+    </message>
+    <message>
+        <source>Random play</source>
+        <translation type="vanished">Jeu aléatoire</translation>
+    </message>
+    <message>
+        <source>List loop play</source>
+        <translation type="vanished">Lecture en boucle de liste</translation>
+    </message>
+    <message>
+        <source>Play order</source>
+        <translation type="vanished">Ordre de jeu</translation>
+    </message>
+    <message>
+        <source>&amp;Stereo</source>
+        <translation type="vanished">&amp;Stéréo</translation>
+    </message>
+    <message>
+        <source>&amp;4.0 Surround</source>
+        <translation type="vanished">&amp; 4.0 Surround</translation>
+    </message>
+    <message>
+        <source>&amp;5.1 Surround</source>
+        <translation type="vanished">&amp; 5.1 Surround</translation>
+    </message>
+    <message>
+        <source>&amp;6.1 Surround</source>
+        <translation type="vanished">&amp; 6.1 Surround</translation>
+    </message>
+    <message>
+        <source>&amp;7.1 Surround</source>
+        <translation type="vanished">&amp; 7.1 Surround</translation>
+    </message>
+    <message>
+        <source>&amp;Channels</source>
+        <translation type="vanished">Et chaînes</translation>
+    </message>
+    <message>
+        <source>Audio</source>
+        <translation type="vanished">l&apos;audio</translation>
+    </message>
+    <message>
+        <source>&amp;Mute</source>
+        <translation type="vanished">&amp;Muet</translation>
+    </message>
+    <message>
+        <source>Volume -</source>
+        <translation type="vanished">Le volume -</translation>
+    </message>
+    <message>
+        <source>Volume +</source>
+        <translation type="vanished">Volume +</translation>
+    </message>
+    <message>
+        <source>Delay -</source>
+        <translation type="vanished">Retard -</translation>
+    </message>
+    <message>
+        <source>Delay +</source>
+        <translation type="vanished">Retard +</translation>
+    </message>
+    <message>
+        <source>Set dela&amp;y...</source>
+        <translation type="vanished">Régler le délai...</translation>
+    </message>
+    <message>
+        <source>&amp;Left channel</source>
+        <translation type="vanished">&amp; Canal gauche</translation>
+    </message>
+    <message>
+        <source>&amp;Right channel</source>
+        <translation type="vanished">&amp; Canal droit</translation>
+    </message>
+    <message>
+        <source>&amp;Mono</source>
+        <translation type="vanished">&amp;Mono</translation>
+    </message>
+    <message>
+        <source>Re&amp;verse</source>
+        <translation type="vanished">Sens inverse</translation>
+    </message>
+    <message>
+        <source>&amp;Stereo mode</source>
+        <translation type="vanished">&amp; Mode stéréo</translation>
+    </message>
+    <message>
+        <source>Subtitles</source>
+        <translation type="vanished">Les sous-titres</translation>
+    </message>
+    <message>
+        <source>Load...</source>
+        <translation type="vanished">Charge...</translation>
+    </message>
+    <message>
+        <source>Subtitle &amp;visibility</source>
+        <translation type="vanished">Sous-titre et visibilité</translation>
+    </message>
+    <message>
+        <source>Preferences</source>
+        <translation type="vanished">Préférences</translation>
+    </message>
+    <message>
+        <source>View &amp;info and properties...</source>
+        <translation type="vanished">Voir &amp; info et propriétés ...</translation>
+    </message>
+    <message>
+        <source>Help</source>
+        <translation type="vanished">Aidez-moi</translation>
+    </message>
+    <message>
+        <source>About &amp;Kylin Video</source>
+        <translation type="vanished">À propos de &amp; Kylin Video</translation>
+    </message>
+    <message>
+        <source>Quit</source>
+        <translation type="vanished">Quitter</translation>
+    </message>
+    <message>
+        <source>Open Homepage</source>
+        <translation type="vanished">Ouvrir la page d&apos;accueil</translation>
+    </message>
+    <message>
+        <source>Open screenshots folder</source>
+        <translation type="vanished">Ouvrir le dossier des captures d&apos;écran</translation>
+    </message>
+    <message>
+        <source>PlayList</source>
+        <translation type="vanished">Playlist</translation>
+    </message>
+    <message>
+        <source>Play/Pause</source>
+        <translation type="vanished">Jouer pause</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation type="vanished">Arrêtez</translation>
+    </message>
+    <message>
+        <source>Fullscreen</source>
+        <translation type="vanished">Plein écran</translation>
+    </message>
+    <message>
+        <source>Video filters are disabled when using vdpau</source>
+        <translation type="vanished">Les filtres vidéo sont désactivés lors de l&apos;utilisation de vdpau</translation>
+    </message>
+    <message>
+        <source>-%1</source>
+        <translation type="vanished">-%1</translation>
+    </message>
+    <message>
+        <source>+%1</source>
+        <translation type="vanished">+% 1</translation>
+    </message>
+    <message>
+        <source>&lt;empty&gt;</source>
+        <translation type="vanished">&lt;vide&gt;</translation>
+    </message>
+    <message>
+        <source>Confirm deletion - Kylin Video</source>
+        <translation type="vanished">Confirmer la suppression - Kylin Video</translation>
+    </message>
+    <message>
+        <source>Delete the list of recent files?</source>
+        <translation type="vanished">Supprimer la liste des fichiers récents?</translation>
+    </message>
+    <message>
+        <source>Choose a file</source>
+        <translation type="vanished">Choisissez un fichier</translation>
+    </message>
+    <message>
+        <source>Multimedia</source>
+        <translation type="vanished">Multimédia</translation>
+    </message>
+    <message>
+        <source>Video</source>
+        <translation type="vanished">Vidéo</translation>
+    </message>
+    <message>
+        <source>Playlists</source>
+        <translation type="vanished">Playlists</translation>
+    </message>
+    <message>
+        <source>All files</source>
+        <translation type="vanished">Tous les fichiers</translation>
+    </message>
+    <message>
+        <source>Choose a directory</source>
+        <translation type="vanished">Choisissez un répertoire</translation>
+    </message>
+    <message>
+        <source>&amp;Jump to:</source>
+        <translation type="vanished">&amp;Sauter à:</translation>
+    </message>
+    <message>
+        <source>Kylin Video - Seek</source>
+        <translation type="vanished">Kylin Video - Recherche</translation>
+    </message>
+    <message>
+        <source>Kylin Video - Subtitle delay</source>
+        <translation type="vanished">Kylin Video - Retard sous-titre</translation>
+    </message>
+    <message>
+        <source>Subtitle delay (in milliseconds):</source>
+        <translation type="vanished">Délai des sous-titres (en millisecondes):</translation>
+    </message>
+    <message>
+        <source>Error detected</source>
+        <translation type="vanished">Erreur détectée</translation>
+    </message>
+    <message>
+        <source>Unfortunately this video can&apos;t be played.</source>
+        <translation type="vanished">Malheureusement, cette vidéo ne peut pas être lue.</translation>
+    </message>
+    <message>
+        <source>The server returned &apos;%1&apos;</source>
+        <translation type="vanished">Le serveur a renvoyé &apos;% 1&apos;</translation>
+    </message>
+    <message>
+        <source>Jump to %1</source>
+        <translation type="vanished">Aller à% 1</translation>
+    </message>
+    <message>
+        <source>%1 Error</source>
+        <translation type="vanished">% 1 erreur</translation>
+    </message>
+    <message>
+        <source>&apos;%1&apos; was not found!</source>
+        <translation type="vanished">&apos;% 1&apos; n&apos;a pas été trouvé!</translation>
+    </message>
+    <message>
+        <source>%1 has finished unexpectedly.</source>
+        <translation type="vanished">% 1 a terminé de manière inattendue.</translation>
+    </message>
+    <message>
+        <source>Exit code: %1</source>
+        <translation type="vanished">Code de sortie:% 1</translation>
+    </message>
+    <message>
+        <source>%1 failed to start.</source>
+        <translation type="vanished">% 1 n&apos;a pas pu démarrer.</translation>
+    </message>
+    <message>
+        <source>Please check the %1 path in preferences.</source>
+        <translation type="vanished">Veuillez vérifier le chemin d&apos;accès% 1 dans les préférences.</translation>
+    </message>
+    <message>
+        <source>%1 has crashed.</source>
+        <translation type="vanished">% 1 s&apos;est écrasé.</translation>
+    </message>
+    <message>
+        <source>See the log for more info.</source>
+        <translation type="vanished">Voir le journal pour plus d&apos;informations.</translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <translation type="vanished">Information</translation>
     </message>
     <message>
         <source>The screenshot folder does not exist!</source>
-        <translation>Le dossier de capture d&apos;écran n&apos;existe pas!</translation>
-    </message>
-    <message>
-        <source>Show &amp;info on OSD</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Size &amp;+</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Size &amp;-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show times with &amp;milliseconds</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Subtitles onl&amp;y</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Volume + &amp;Seek</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Volume + Seek + &amp;Timer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Volume + Seek + Timer + T&amp;otal time</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;OSD</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">Le dossier de capture d&apos;écran n&apos;existe pas!</translation>
     </message>
 </context>
 <context>
@@ -715,6 +810,10 @@ Do you want to overwrite?</source>
         <source>Starting...</source>
         <translation>Départ...</translation>
     </message>
+    <message>
+        <source>Font scale: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ErrorDialog</name>
@@ -818,6 +917,53 @@ Do you want to overwrite?</source>
     <message>
         <source>Audio codec</source>
         <translation>Un codec audio</translation>
+    </message>
+</context>
+<context>
+    <name>GlobalShortcutsDialog</name>
+    <message>
+        <source>Media &amp;Play</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Media &amp;Stop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Media Pre&amp;vious</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Media &amp;Next</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Media P&amp;ause</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Media &amp;Record</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Volume &amp;Mute</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Volume &amp;Down</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Volume &amp;Up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Global Shortcuts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select the multimedia keys that kylin-video will capture.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1764,6 +1910,492 @@ Do you want to overwrite?</source>
     </message>
 </context>
 <context>
+    <name>MainWindow</name>
+    <message>
+        <source>Kylin Video</source>
+        <translation type="unfinished">Kylin Vidéo</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished">Ouvrir</translation>
+    </message>
+    <message>
+        <source>Open &amp;File...</source>
+        <translation type="unfinished">Fichier ouvert...</translation>
+    </message>
+    <message>
+        <source>Directory...</source>
+        <translation type="unfinished">Annuaire...</translation>
+    </message>
+    <message>
+        <source>&amp;URL...</source>
+        <translation type="unfinished">&amp; URL ...</translation>
+    </message>
+    <message>
+        <source>&amp;Clear</source>
+        <translation type="unfinished">&amp;Clair</translation>
+    </message>
+    <message>
+        <source>Recent files</source>
+        <translation type="unfinished">Fichiers récents</translation>
+    </message>
+    <message>
+        <source>Play control</source>
+        <translation type="unfinished">Contrôle de jeu</translation>
+    </message>
+    <message>
+        <source>Forward and rewind</source>
+        <translation type="unfinished">Avancer et rembobiner</translation>
+    </message>
+    <message>
+        <source>&amp;Jump to...</source>
+        <translation type="unfinished">&amp;Sauter à...</translation>
+    </message>
+    <message>
+        <source>Play Speed</source>
+        <translation type="unfinished">Vitesse de lecture</translation>
+    </message>
+    <message>
+        <source>Normal speed</source>
+        <translation type="unfinished">Vitesse normale</translation>
+    </message>
+    <message>
+        <source>Half speed</source>
+        <translation type="unfinished">Demi vitesse</translation>
+    </message>
+    <message>
+        <source>Double speed</source>
+        <translation type="unfinished">Double vitesse</translation>
+    </message>
+    <message>
+        <source>Speed -10%</source>
+        <translation type="unfinished">Vitesse -10%</translation>
+    </message>
+    <message>
+        <source>Speed +10%</source>
+        <translation type="unfinished">Vitesse + 10%</translation>
+    </message>
+    <message>
+        <source>Speed -4%</source>
+        <translation type="unfinished">Vitesse -4%</translation>
+    </message>
+    <message>
+        <source>Speed +4%</source>
+        <translation type="unfinished">Vitesse + 4%</translation>
+    </message>
+    <message>
+        <source>Speed -1%</source>
+        <translation type="unfinished">Vitesse -1%</translation>
+    </message>
+    <message>
+        <source>Speed +1%</source>
+        <translation type="unfinished">Vitesse + 1%</translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation type="unfinished">Prochain</translation>
+    </message>
+    <message>
+        <source>Previous</source>
+        <translation type="unfinished">précédent</translation>
+    </message>
+    <message>
+        <source>&amp;Auto</source>
+        <translation type="unfinished">&amp;Auto</translation>
+    </message>
+    <message>
+        <source>&amp;Disabled</source>
+        <translation type="unfinished">&amp;Désactivé</translation>
+    </message>
+    <message>
+        <source>Aspect ratio</source>
+        <translation type="unfinished">Ratio d&apos;aspect</translation>
+    </message>
+    <message>
+        <source>&amp;Off</source>
+        <translation type="unfinished">&amp;De</translation>
+    </message>
+    <message>
+        <source>&amp;Rotate by 90 degrees clockwise and flip</source>
+        <translation type="unfinished">&amp; Rotation de 90 degrés dans le sens des aiguilles d&apos;une montre et retournez</translation>
+    </message>
+    <message>
+        <source>Rotate by 90 degrees &amp;clockwise</source>
+        <translation type="unfinished">Faire pivoter de 90 degrés et dans le sens des aiguilles d&apos;une montre</translation>
+    </message>
+    <message>
+        <source>Rotate by 90 degrees counterclock&amp;wise</source>
+        <translation type="unfinished">Faire pivoter de 90 degrés dans le sens inverse des aiguilles d&apos;une montre</translation>
+    </message>
+    <message>
+        <source>Rotate by 90 degrees counterclockwise and &amp;flip</source>
+        <translation type="unfinished">Faire pivoter de 90 degrés dans le sens antihoraire et &amp; retourner</translation>
+    </message>
+    <message>
+        <source>Fli&amp;p image</source>
+        <translation type="unfinished">Fli &amp; p image</translation>
+    </message>
+    <message>
+        <source>Mirr&amp;or image</source>
+        <translation type="unfinished">Image miroir</translation>
+    </message>
+    <message>
+        <source>Frame rotation</source>
+        <translation type="unfinished">Rotation du cadre</translation>
+    </message>
+    <message>
+        <source>&amp;Rotate</source>
+        <translation type="unfinished">&amp;Tourner</translation>
+    </message>
+    <message>
+        <source>&amp;Screenshot</source>
+        <translation type="unfinished">&amp;Capture d&apos;écran</translation>
+    </message>
+    <message>
+        <source>&amp;Always</source>
+        <translation type="unfinished">&amp;Toujours</translation>
+    </message>
+    <message>
+        <source>&amp;Never</source>
+        <translation type="unfinished">&amp;Jamais</translation>
+    </message>
+    <message>
+        <source>While &amp;playing</source>
+        <translation type="unfinished">Pendant que je jouais</translation>
+    </message>
+    <message>
+        <source>S&amp;tay on top</source>
+        <translation type="unfinished">S &amp; tay sur le dessus</translation>
+    </message>
+    <message>
+        <source>Order play</source>
+        <translation type="unfinished">Jeu d&apos;ordre</translation>
+    </message>
+    <message>
+        <source>Random play</source>
+        <translation type="unfinished">Jeu aléatoire</translation>
+    </message>
+    <message>
+        <source>List loop play</source>
+        <translation type="unfinished">Lecture en boucle de liste</translation>
+    </message>
+    <message>
+        <source>Play order</source>
+        <translation type="unfinished">Ordre de jeu</translation>
+    </message>
+    <message>
+        <source>&amp;Stereo</source>
+        <translation type="unfinished">&amp;Stéréo</translation>
+    </message>
+    <message>
+        <source>&amp;4.0 Surround</source>
+        <translation type="unfinished">&amp; 4.0 Surround</translation>
+    </message>
+    <message>
+        <source>&amp;5.1 Surround</source>
+        <translation type="unfinished">&amp; 5.1 Surround</translation>
+    </message>
+    <message>
+        <source>&amp;6.1 Surround</source>
+        <translation type="unfinished">&amp; 6.1 Surround</translation>
+    </message>
+    <message>
+        <source>&amp;7.1 Surround</source>
+        <translation type="unfinished">&amp; 7.1 Surround</translation>
+    </message>
+    <message>
+        <source>&amp;Channels</source>
+        <translation type="unfinished">Et chaînes</translation>
+    </message>
+    <message>
+        <source>Audio</source>
+        <translation type="unfinished">l&apos;audio</translation>
+    </message>
+    <message>
+        <source>&amp;Mute</source>
+        <translation type="unfinished">&amp;Muet</translation>
+    </message>
+    <message>
+        <source>Volume -</source>
+        <translation type="unfinished">Le volume -</translation>
+    </message>
+    <message>
+        <source>Volume +</source>
+        <translation type="unfinished">Volume +</translation>
+    </message>
+    <message>
+        <source>Delay -</source>
+        <translation type="unfinished">Retard -</translation>
+    </message>
+    <message>
+        <source>Delay +</source>
+        <translation type="unfinished">Retard +</translation>
+    </message>
+    <message>
+        <source>Set dela&amp;y...</source>
+        <translation type="unfinished">Régler le délai...</translation>
+    </message>
+    <message>
+        <source>&amp;Left channel</source>
+        <translation type="unfinished">&amp; Canal gauche</translation>
+    </message>
+    <message>
+        <source>&amp;Right channel</source>
+        <translation type="unfinished">&amp; Canal droit</translation>
+    </message>
+    <message>
+        <source>&amp;Mono</source>
+        <translation type="unfinished">&amp;Mono</translation>
+    </message>
+    <message>
+        <source>Re&amp;verse</source>
+        <translation type="unfinished">Sens inverse</translation>
+    </message>
+    <message>
+        <source>&amp;Stereo mode</source>
+        <translation type="unfinished">&amp; Mode stéréo</translation>
+    </message>
+    <message>
+        <source>Subtitles</source>
+        <translation type="unfinished">Les sous-titres</translation>
+    </message>
+    <message>
+        <source>Load...</source>
+        <translation type="unfinished">Charge...</translation>
+    </message>
+    <message>
+        <source>Subtitle &amp;visibility</source>
+        <translation type="unfinished">Sous-titre et visibilité</translation>
+    </message>
+    <message>
+        <source>Preferences</source>
+        <translation type="unfinished">Préférences</translation>
+    </message>
+    <message>
+        <source>View &amp;info and properties...</source>
+        <translation type="unfinished">Voir &amp; info et propriétés ...</translation>
+    </message>
+    <message>
+        <source>Help</source>
+        <translation type="unfinished">Aidez-moi</translation>
+    </message>
+    <message>
+        <source>About &amp;Kylin Video</source>
+        <translation type="unfinished">À propos de &amp; Kylin Video</translation>
+    </message>
+    <message>
+        <source>Quit</source>
+        <translation type="unfinished">Quitter</translation>
+    </message>
+    <message>
+        <source>Show &amp;info on OSD</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Size &amp;+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Size &amp;-</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show times with &amp;milliseconds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Subtitles onl&amp;y</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Volume + &amp;Seek</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Volume + Seek + &amp;Timer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Volume + Seek + Timer + T&amp;otal time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OSD</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PlayList</source>
+        <translation type="unfinished">Playlist</translation>
+    </message>
+    <message>
+        <source>Play/Pause</source>
+        <translation type="unfinished">Jouer pause</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation type="unfinished">Arrêtez</translation>
+    </message>
+    <message>
+        <source>Fullscreen</source>
+        <translation type="unfinished">Plein écran</translation>
+    </message>
+    <message>
+        <source>Open Homepage</source>
+        <translation type="unfinished">Ouvrir la page d&apos;accueil</translation>
+    </message>
+    <message>
+        <source>Open screenshots folder</source>
+        <translation type="unfinished">Ouvrir le dossier des captures d&apos;écran</translation>
+    </message>
+    <message>
+        <source>Failed to add files!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Video filters are disabled when using vdpau</source>
+        <translation type="unfinished">Les filtres vidéo sont désactivés lors de l&apos;utilisation de vdpau</translation>
+    </message>
+    <message>
+        <source>-%1</source>
+        <translation type="unfinished">-%1</translation>
+    </message>
+    <message>
+        <source>+%1</source>
+        <translation type="unfinished">+% 1</translation>
+    </message>
+    <message>
+        <source>&lt;empty&gt;</source>
+        <translation type="unfinished">&lt;vide&gt;</translation>
+    </message>
+    <message>
+        <source>Confirm deletion - Kylin Video</source>
+        <translation type="unfinished">Confirmer la suppression - Kylin Video</translation>
+    </message>
+    <message>
+        <source>Delete the list of recent files?</source>
+        <translation type="unfinished">Supprimer la liste des fichiers récents?</translation>
+    </message>
+    <message>
+        <source>Choose a file</source>
+        <translation type="unfinished">Choisissez un fichier</translation>
+    </message>
+    <message>
+        <source>Multimedia</source>
+        <translation type="unfinished">Multimédia</translation>
+    </message>
+    <message>
+        <source>Video</source>
+        <translation type="unfinished">Vidéo</translation>
+    </message>
+    <message>
+        <source>Playlists</source>
+        <translation type="unfinished">Playlists</translation>
+    </message>
+    <message>
+        <source>All files</source>
+        <translation type="unfinished">Tous les fichiers</translation>
+    </message>
+    <message>
+        <source>Choose a directory</source>
+        <translation type="unfinished">Choisissez un répertoire</translation>
+    </message>
+    <message>
+        <source>&amp;Jump to:</source>
+        <translation type="unfinished">&amp;Sauter à:</translation>
+    </message>
+    <message>
+        <source>Kylin Video - Seek</source>
+        <translation type="unfinished">Kylin Video - Recherche</translation>
+    </message>
+    <message>
+        <source>Kylin Video - Subtitle delay</source>
+        <translation type="unfinished">Kylin Video - Retard sous-titre</translation>
+    </message>
+    <message>
+        <source>Subtitle delay (in milliseconds):</source>
+        <translation type="unfinished">Délai des sous-titres (en millisecondes):</translation>
+    </message>
+    <message>
+        <source>Error detected</source>
+        <translation type="unfinished">Erreur détectée</translation>
+    </message>
+    <message>
+        <source>Unfortunately this video can&apos;t be played.</source>
+        <translation type="unfinished">Malheureusement, cette vidéo ne peut pas être lue.</translation>
+    </message>
+    <message>
+        <source>The server returned &apos;%1&apos;</source>
+        <translation type="unfinished">Le serveur a renvoyé &apos;% 1&apos;</translation>
+    </message>
+    <message>
+        <source>Jump to %1</source>
+        <translation type="unfinished">Aller à% 1</translation>
+    </message>
+    <message>
+        <source>%1 Error</source>
+        <translation type="unfinished">% 1 erreur</translation>
+    </message>
+    <message>
+        <source>&apos;%1&apos; was not found!</source>
+        <translation type="unfinished">&apos;% 1&apos; n&apos;a pas été trouvé!</translation>
+    </message>
+    <message>
+        <source>%1 has finished unexpectedly.</source>
+        <translation type="unfinished">% 1 a terminé de manière inattendue.</translation>
+    </message>
+    <message>
+        <source>Exit code: %1</source>
+        <translation type="unfinished">Code de sortie:% 1</translation>
+    </message>
+    <message>
+        <source>%1 failed to start.</source>
+        <translation type="unfinished">% 1 n&apos;a pas pu démarrer.</translation>
+    </message>
+    <message>
+        <source>Please check the %1 path in preferences.</source>
+        <translation type="unfinished">Veuillez vérifier le chemin d&apos;accès% 1 dans les préférences.</translation>
+    </message>
+    <message>
+        <source>%1 has crashed.</source>
+        <translation type="unfinished">% 1 s&apos;est écrasé.</translation>
+    </message>
+    <message>
+        <source>See the log for more info.</source>
+        <translation type="unfinished">Voir le journal pour plus d&apos;informations.</translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <translation type="unfinished">Information</translation>
+    </message>
+    <message>
+        <source>The screenshot folder does not exist!</source>
+        <translation type="unfinished">Le dossier de capture d&apos;écran n&apos;existe pas!</translation>
+    </message>
+    <message>
+        <source>Warning - Using old MPlayer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please, update your MPlayer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(This warning won&apos;t be displayed anymore)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The version of MPlayer (%1) installed on your system is obsolete. kylin-video can&apos;t work well with it: some options won&apos;t work, subtitle selection may fail...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>MaskWidget</name>
+    <message>
+        <source>Loading...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>MessageDialog</name>
     <message>
         <source>Ok</source>
@@ -1790,6 +2422,21 @@ Do you want to overwrite?</source>
     </message>
 </context>
 <context>
+    <name>PlayListView</name>
+    <message>
+        <source>Play</source>
+        <translation type="unfinished">Jouer</translation>
+    </message>
+    <message>
+        <source>Remove &amp;selected</source>
+        <translation type="unfinished">Enlever la sélection</translation>
+    </message>
+    <message>
+        <source>&amp;Delete file from disk</source>
+        <translation type="unfinished">&amp; Supprimer le fichier du disque</translation>
+    </message>
+</context>
+<context>
     <name>Playlist</name>
     <message>
         <source>Playlist is empty</source>
@@ -1813,15 +2460,15 @@ Do you want to overwrite?</source>
     </message>
     <message>
         <source>Play</source>
-        <translation>Jouer</translation>
+        <translation type="vanished">Jouer</translation>
     </message>
     <message>
         <source>Remove &amp;selected</source>
-        <translation>Enlever la sélection</translation>
+        <translation type="vanished">Enlever la sélection</translation>
     </message>
     <message>
         <source>&amp;Delete file from disk</source>
-        <translation>&amp; Supprimer le fichier du disque</translation>
+        <translation type="vanished">&amp; Supprimer le fichier du disque</translation>
     </message>
     <message>
         <source>Reached the end of the playlist</source>
@@ -1849,7 +2496,7 @@ Do you want to overwrite?</source>
     </message>
     <message>
         <source>You&apos;re about to remove the file &apos;%1&apos; from the playlist.</source>
-        <translation>Vous êtes sur le point de supprimer le fichier &apos;% 1&apos; de la liste de lecture.</translation>
+        <translation type="vanished">Vous êtes sur le point de supprimer le fichier &apos;% 1&apos; de la liste de lecture.</translation>
     </message>
     <message>
         <source>Are you sure you want to proceed?</source>
@@ -1861,7 +2508,7 @@ Do you want to overwrite?</source>
     </message>
     <message>
         <source>You&apos;re about to DELETE the file &apos;%1&apos; from your drive.</source>
-        <translation>Vous êtes sur le point de supprimer le fichier &apos;% 1&apos; de votre lecteur.</translation>
+        <translation type="vanished">Vous êtes sur le point de supprimer le fichier &apos;% 1&apos; de votre lecteur.</translation>
     </message>
     <message>
         <source>This action cannot be undone. Are you sure you want to proceed?</source>
@@ -1869,19 +2516,71 @@ Do you want to overwrite?</source>
     </message>
     <message>
         <source>Deletion failed</source>
-        <translation>La suppression a échoué</translation>
+        <translation type="vanished">La suppression a échoué</translation>
     </message>
     <message>
         <source>It wasn&apos;t possible to delete &apos;%1&apos;</source>
-        <translation>Il n&apos;était pas possible de supprimer &apos;% 1&apos;</translation>
+        <translation type="vanished">Il n&apos;était pas possible de supprimer &apos;% 1&apos;</translation>
     </message>
     <message>
         <source>Error deleting the file</source>
-        <translation>Erreur lors de la suppression du fichier</translation>
+        <translation type="vanished">Erreur lors de la suppression du fichier</translation>
     </message>
     <message>
         <source>It&apos;s not possible to delete &apos;%1&apos; from the filesystem.</source>
-        <translation>Il n&apos;est pas possible de supprimer &apos;% 1&apos; du système de fichiers.</translation>
+        <translation type="vanished">Il n&apos;est pas possible de supprimer &apos;% 1&apos; du système de fichiers.</translation>
+    </message>
+    <message>
+        <source>Choose a filename</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Playlists</source>
+        <translation type="unfinished">Playlists</translation>
+    </message>
+    <message>
+        <source>Confirm overwrite?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The file %1 already exists.
+Do you want to overwrite?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You&apos;re about to remove the file from the playlist.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You&apos;re about to Delete the files from your drive.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Confirm remove all</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You&apos;re about to empty the playlist.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PoweroffDialog</name>
+    <message>
+        <source>The computer will shut down in %1 seconds.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Press &lt;b&gt;Cancel&lt;/b&gt; to abort shutdown.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ok</source>
+        <translation type="unfinished">D&apos;accord</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Annuler</translation>
     </message>
 </context>
 <context>

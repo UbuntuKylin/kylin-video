@@ -55,16 +55,16 @@ static inline QRect cellRect(int column, const QStyleOptionViewItem &option)
     static int iconWidth = 20;
     static int timeWidth = fm.width("00:00:00") + leftRightMargin;
     static int delWidth = 20;
-    int w = option.rect.width() - timeWidth - delWidth;
+    int w = option.rect.width() - timeWidth - delWidth - leftRightMargin - iconWidth;
 
     PlaylistDelegate::PlayListColumn p_column = static_cast<PlaylistDelegate::PlayListColumn>(column);
     switch (p_column) {
     case PlaylistDelegate::Icon:
         return QRect(leftRightMargin, option.rect.y(), iconWidth, option.rect.height());
     case PlaylistDelegate::Name:
-        return QRect(leftRightMargin + iconWidth, option.rect.y(), w - leftRightMargin, option.rect.height());
+        return QRect(leftRightMargin + iconWidth, option.rect.y(), w - 2, option.rect.height());
     case PlaylistDelegate::Length:
-        return QRect(w, option.rect.y(), timeWidth - leftRightMargin, option.rect.height());
+        return QRect(leftRightMargin + iconWidth + w, option.rect.y(), timeWidth - leftRightMargin, option.rect.height());
     case PlaylistDelegate::Invalid:
         break;
     }

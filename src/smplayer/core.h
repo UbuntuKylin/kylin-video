@@ -89,8 +89,8 @@ public slots:
 	void unloadAudioFile();
 
     void stop(); 
-    void play();
-	void playOrPause();
+    void play(int seek = -1);
+    void playOrPause(int seek = -1);
     void pause_and_frame_step();
 	void pause();
 	void frameStep();
@@ -424,17 +424,9 @@ protected slots:
 
 	void initializeOSD();
 
-
-//#if defined(Q_OS_WIN) || defined(Q_OS_OS2)
-//#ifdef SCREENSAVER_OFF
-//	void enableScreensaver();
-//	void disableScreensaver();
-//#endif
-//#endif
-
 protected:
 	void playNewFile(QString file, int seek=-1);
-	void restartPlay();
+    void restartPlay(int seek=-1);
 	void initPlaying(int seek=-1);
 	void newMediaPlaying();
 
@@ -466,7 +458,7 @@ signals:
 	void mediaStartPlay();
 	void mediaFinished(); // Media has arrived to the end.
 	void mediaStoppedByUser();
-    void show_logo_signal(bool b);
+    void requestShowLogo(bool b);
 	void showMessage(QString text);
 	void showMessage(QString text, int time);
 	void menusNeedInitialize();
@@ -512,12 +504,6 @@ protected:
     FileSettingsBase * file_settings;
 //    FileSettings * file_settings;
 //	FileSettingsBase * tv_settings;
-//#endif
-
-//#if defined(Q_OS_WIN) || defined(Q_OS_OS2)
-//#ifdef SCREENSAVER_OFF
-//	WinScreenSaver * win_screensaver;
-//#endif
 //#endif
 
 private:

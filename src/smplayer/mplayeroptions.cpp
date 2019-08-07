@@ -48,11 +48,9 @@ void MplayerProcess::setFixedOptions() {
 void MplayerProcess::disableInput() {
 	arg << "-nomouseinput";
 
-//#if !defined(Q_OS_WIN) && !defined(Q_OS_OS2)
     arg << "-input" << "nodefault-bindings:conf=/dev/null";
 //    arg << "-input" << "conf=/usr/share/kylin-video/input.conf";
 //    arg << "-input" << "nodefault-bindings:conf=/usr/share/kylin-video/input.conf";
-//#endif
 }
 
 //#ifdef CAPTURE_STREAM

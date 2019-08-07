@@ -621,10 +621,6 @@ bool Playlist::save_m3u(QString file)
     /*QString dir_path = QFileInfo(file).path();
     if (!dir_path.endsWith("/")) dir_path += "/";
 
-//	#if defined(Q_OS_WIN) || defined(Q_OS_OS2)
-//	dir_path = Utils::changeSlashes(dir_path);
-//	#endif
-
     qDebug() << "Playlist::save_m3u: dir_path:" << dir_path;
 
     bool utf8 = (QFileInfo(file).suffix().toLower() == "m3u8");
@@ -642,14 +638,11 @@ bool Playlist::save_m3u(QString file)
         QString name;
 
         stream << "#EXTM3U" << "\n";
-        stream << "# Playlist created by SMPlayer " << Version::printable() << " \n";
+        stream << "# Playlist created by kylin-video " << Version::printable() << " \n";
 
         for (int n = 0; n < count(); n++) {
             PlayListItem * i = itemData(n);
             filename = i->filename();
-//			#if defined(Q_OS_WIN) || defined(Q_OS_OS2)
-//			filename = Utils::changeSlashes(filename);
-//			#endif
             name = i->name();
             name.replace(",", "&#44;");
             QString icon_url = i->iconURL();
@@ -692,10 +685,6 @@ bool Playlist::save_pls(QString file)
     QString dir_path = QFileInfo(file).path();
     if (!dir_path.endsWith("/")) dir_path += "/";
 
-//	#if defined(Q_OS_WIN) || defined(Q_OS_OS2)
-//	dir_path = Utils::changeSlashes(dir_path);
-//	#endif
-
     qDebug() << "Playlist::save_pls: dir_path:" << dir_path;
 
     QSettings set(file, QSettings::IniFormat);
@@ -706,9 +695,6 @@ bool Playlist::save_pls(QString file)
     for (int n = 0; n < count(); n++) {
         PlayListItem * i = itemData(n);
         filename = i->filename();
-//		#if defined(Q_OS_WIN) || defined(Q_OS_OS2)
-//		filename = Utils::changeSlashes(filename);
-//		#endif
 
         // Try to save the filename as relative instead of absolute
         if (filename.startsWith( dir_path )) {

@@ -240,7 +240,8 @@ Core::Core(VideoWindow *mpw, const QString &snap, QWidget* parent)
 }
 
 
-Core::~Core() {
+Core::~Core()
+{
 	saveMediaInfo();
 	if (proc->isRunning()) stopMplayer();
 	proc->terminate();
@@ -527,24 +528,6 @@ void Core::openFile(QString filename, int seek) {
 //}
 //#endif
 
-//#if defined(Q_OS_WIN) || defined(Q_OS_OS2)
-//#ifdef SCREENSAVER_OFF
-//void Core::enableScreensaver() {
-//	qDebug("Core::enableScreensaver");
-//	if (pref->turn_screensaver_off) {
-//		win_screensaver->enable();
-//	}
-//}
-
-//void Core::disableScreensaver() {
-//	qDebug("Core::disableScreensaver");
-//	if (pref->turn_screensaver_off) {
-//		win_screensaver->disable();
-//	}
-//}
-//#endif
-//#endif
-
 void Core::loadSub(const QString & sub ) {
     if ( (!sub.isEmpty()) && (QFile::exists(sub)) ) {
 //#if NOTIFY_SUB_CHANGES
@@ -829,9 +812,9 @@ void Core::playNewFile(QString file, int seek) {
 }
 
 
-void Core::restartPlay() {
+void Core::restartPlay(int seek) {
 	we_are_restarting = true;
-	initPlaying();
+    initPlaying(seek);
 }
 
 void Core::initPlaying(int seek) {
@@ -1055,17 +1038,15 @@ void Core::initializeOSD() {
 
 void Core::stop()
 {
-    qDebug("Core::stop");
 	qDebug("Core::stop: state: %s", stateToString().toUtf8().data());
 	
-    if (state()==Stopped) {
+    if (state() == Stopped) {
 		// if pressed stop twice, reset video to the beginning
 		qDebug("Core::stop: mset.current_sec: %f", mset.current_sec);
 		mset.current_sec = 0;
 		qDebug("Core::stop: mset.current_sec set to 0");
         emit showTime(mset.current_sec, true);//kobe 0606
         emit positionChanged(0);
-		//updateWidgets();
 	}
 
     stopMplayer();
@@ -1074,11 +1055,11 @@ void Core::stop()
     if (pref->reset_stop) {
         mset.current_sec = 0;
         emit showTime( mset.current_sec, true);
-        emit positionChanged( 0 );
+        emit positionChanged(0);
     }
 }
 
-void Core::play() {
+void Core::play(int seek) {
 	qDebug("Core::play");
 
 	if ((proc->isRunning()) && (state()==Paused)) {
@@ -1097,7 +1078,7 @@ void Core::play() {
 				mset.current_sec = 0;
 			}
 			*/
-			restartPlay();
+            restartPlay(seek);
 		} else {
             emit noFileToPlay();//kobe:当前播放的文件不存在时，去播放下一个
 		}
@@ -1125,11 +1106,11 @@ void Core::pause() {
 	}
 }
 
-void Core::playOrPause() {
+void Core::playOrPause(int seek) {
 	if (proc->isRunning()) {
 		pause();
 	} else {
-		play();
+        play(seek);
 	}
 }
 
@@ -1202,18 +1183,13 @@ void Core::screenshotWithoutSubtitles() {
 
 void Core::processFinished()
 {
-//    qDebug("Core::processFinished");
-//	qDebug("Core::processFinished: we_are_restarting: %d", we_are_restarting);
-
-	//mset.current_sec = 0;
+    qDebug("Core::processFinished: we_are_restarting: %d", we_are_restarting);
 
 	if (!we_are_restarting) {
         qDebug("Core::processFinished: play has finished!");
 		setState(Stopped);
-//        emit this->mediaStoppedByUser();
-		//emit stateChanged(state());
 	}
-    emit this->show_logo_signal(true);
+    emit this->requestShowLogo(true);
 
 	int exit_code = proc->exitCode();
 //    qDebug("Core::processFinished: exit_code: %d", exit_code);
@@ -1221,7 +1197,6 @@ void Core::processFinished()
         setState(Stopped);
         emit stateChanged(Stopped);
 		emit mplayerFinishedWithError(exit_code);
-        //emit this->mediaStoppedByUser();
 	}
 }
 
@@ -1544,11 +1519,9 @@ void Core::startMplayer( QString file, double seek ) {
         proc->setOption("ao", ao);
     }
 
-//#if !defined(Q_OS_WIN) && !defined(Q_OS_OS2)
 	if (pref->vo.startsWith("x11")) {
 		proc->setOption("zoom");
 	}
-//#endif
 
 	// Performance options
 //	#ifdef Q_OS_WIN
@@ -1618,13 +1591,8 @@ void Core::startMplayer( QString file, double seek ) {
 		proc->disableInput();
 		proc->setOption("keepaspect", false);
 
-//#if defined(Q_OS_OS2)
-//		#define WINIDFROMHWND(hwnd) ( ( hwnd ) - 0x80000000UL )
-//		proc->setOption("wid", QString::number( WINIDFROMHWND( (int) mplayerwindow->displayLayer()->winId() ) ));
-//#else
         //kobe 将视频输出到控件: mplayer -wid WINDOWID
         proc->setOption("wid", QString::number( (qint64) mplayerwindow->displayLayer()->winId() ) );//kobe 0615:将视频输出定位到widget窗体部件中,-wid参数只在X11、directX和OpenGL中适用
-//#endif
 
 		// Square pixels
 		proc->setOption("monitorpixelaspect", "1");
@@ -2411,37 +2379,20 @@ if (screenshot_enabled && proc->isMPlayer()) {
 //        qDebug() << "proc start success.....................................";
 }
 
-void Core::stopMplayer() {
-//    qDebug("Core::stopMplayer");
-
+void Core::stopMplayer()
+{
 	if (!proc->isRunning()) {
         qWarning("Core::stopMplayer: mplayer is not running!");
 		return;
 	}
 
-//#ifdef Q_OS_OS2
-//	QEventLoop eventLoop;
-
-//	connect(proc, SIGNAL(processExited()), &eventLoop, SLOT(quit()));
-
-//	proc->quit();
-
-//	QTimer::singleShot(5000, &eventLoop, SLOT(quit()));
-//	eventLoop.exec(QEventLoop::ExcludeUserInputEvents);
-
-//	if (proc->isRunning()) {
-////		qWarning("Core::stopMplayer: process didn't finish. Killing it...");
-//		proc->kill();
-//	}
-//#else
 	proc->quit();
 
-    //qDebug("Core::stopMplayer: Waiting mplayer to finish...");
+    qDebug("Core::stopMplayer: Waiting mplayer to finish...");
 	if (!proc->waitForFinished(pref->time_to_kill_mplayer)) {
         //qWarning("Core::stopMplayer: process didn't finish. Killing it...");
 		proc->kill();
 	}
-//#endif
 
     qDebug("Core::stopMplayer: Finished. (I hope)");
 }
@@ -3507,9 +3458,7 @@ void Core::changeCurrentSec(double sec) {
 	if (state() != Playing) {
 		setState(Playing);
         //qDebug("Core::changeCurrentSec: mplayer reports that now it's playing");
-        emit this->show_logo_signal(false);
-		//emit mediaStartPlay();
-		//emit stateChanged(state());
+        //emit this->requestShowLogo(false);
 	}
 
     emit showTime(mset.current_sec, false);//kobe
@@ -3975,7 +3924,7 @@ void Core::changeOSD(int v) {
 void Core::nextOSD() {
 	int osd = pref->osd + 1;
 	if (osd > Preferences::SeekTimerTotal) {
-		osd = Preferences::None;	
+        osd = Preferences::NoneOsd;
 	}
 	changeOSD( osd );
 }

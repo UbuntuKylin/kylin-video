@@ -29,13 +29,15 @@ QMAKE_CXXFLAGS *= $(shell dpkg-buildflags --get CXXFLAGS)
 QMAKE_LFLAGS   *= $(shell dpkg-buildflags --get LDFLAGS)
 
 isEqual(QT_MAJOR_VERSION, 5) {
-	QT += widgets gui
+    QT += widgets gui x11extras
 }
 
 unix {
-        QT += gui-private dbus
-        LIBS += $${QMAKE_LIBS_X11}
+    QT += gui-private dbus
+    LIBS += $${QMAKE_LIBS_X11}
 }
+
+LIBS += -lX11
 
 HEADERS += smplayer/mplayerversion.h \
         smplayer/mplayerprocess.h \
@@ -283,7 +285,6 @@ contains( DEFINES, SINGLE_INSTANCE ) {
 #                message("GLOBALSHORTCUTS requires Qt 5. Disabled.")
 #        }
 #}
-
 
 unix {
     UI_DIR = .ui

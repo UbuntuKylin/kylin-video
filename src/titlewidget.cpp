@@ -37,8 +37,8 @@ TitleWidget::TitleWidget(QWidget *parent)
     , m_startDrag(QPoint(0,0))
 {
     this->setMouseTracking(true);
-    setAutoFillBackground(true);
-    setFocusPolicy(Qt::ClickFocus);
+    this->setAutoFillBackground(true);
+    this->setFocusPolicy(Qt::StrongFocus);
     this->setAttribute(Qt::WA_TranslucentBackground, true);//窗体标题栏不透明，背景透明
 
     initWidgets();
@@ -156,6 +156,7 @@ void TitleWidget::initRightContent()
     m_layout->addWidget(w, 1, Qt::AlignRight);
 
     menu_button = new SystemButton();
+    menu_button->setMouseTracking(true);
     menu_button->loadPixmap(":/res/option.png");
     menu_button->setObjectName("menu_button");
     min_button = new SystemButton();

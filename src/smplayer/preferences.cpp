@@ -1393,6 +1393,11 @@ void Preferences::setupScreenshotFolder()
 	}
 	else {
 		screenshot_directory = QDir::toNativeSeparators(screenshot_directory);
+        if (!QFile::exists(screenshot_directory)) {
+            if (!QDir().mkdir(screenshot_directory)) {
+                qWarning("Preferences::setupScreenshotFolder: failed to create '%s'", screenshot_directory.toUtf8().constData());
+            }
+        }
 	}
 #endif
 }

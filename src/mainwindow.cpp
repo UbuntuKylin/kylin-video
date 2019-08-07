@@ -46,6 +46,10 @@
 #include <QGraphicsOpacityEffect>
 #include <QVariant>
 #include <QDataStream>
+#include <QtX11Extras/QX11Info>
+#include <QtDBus>
+#include <QDBusConnection>
+
 
 #include "playlist.h"
 #include "titlewidget.h"
@@ -92,6 +96,9 @@
 #include "smplayer/videopreview.h"
 #include "smplayer/inputurl.h"
 
+//注意: x11的头文件需要放置在QJson/QDbus的后面
+#include <X11/Xlib.h>
+
 using namespace Global;
 
 QDataStream &operator<<(QDataStream &dataStream, const VideoPtr &objectA)
@@ -131,6 +138,8 @@ MainWindow::MainWindow(QString arch_type, QString snap, ControllerWorker *contro
     , m_snap(snap)
     , m_maskWidget(new MaskWidget(this))
     , m_controller(controller)
+    , m_dragWindow(false)
+    , m_lastPos(0)
 {
     this->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);//设置窗体标题栏隐藏并设置位于顶层
     this->setMouseTracking(true);//可获取鼠标跟踪效果，界面拉伸需要这个属性
@@ -199,6 +208,9 @@ MainWindow::MainWindow(QString arch_type, QString snap, ControllerWorker *contro
 //    effect->setColor(Qt::red);
 //    effect->setOffset(0);
 //    this->setGraphicsEffect(effect);
+
+    QDBusConnection::systemBus().connect(QString("org.freedesktop.login1"), QString("/org/freedesktop/login1"), QString("org.freedesktop.login1.Manager"), QString("PrepareForShutdown"), this, SLOT(onPrepareForShutdown(bool)));
+    QDBusConnection::systemBus().connect(QString("org.freedesktop.login1"), QString("/org/freedesktop/login1"), QString("org.freedesktop.login1.Manager"), QString("PrepareForSleep"), this, SLOT(onPrepareForSleep(bool)));
 }
 
 MainWindow::~MainWindow()
@@ -297,6 +309,32 @@ MainWindow::~MainWindow()
 
 }
 
+void MainWindow::onPrepareForShutdown(bool start)
+{
+    //qDebug() << "onPrepareForShutdown:" << start;
+}
+
+//可以调用org.freedesktop.login1的Suspend函数进行测试
+void MainWindow::onPrepareForSleep(bool start)
+{
+    //qDebug() << "onPrepareForSleep:" << start;
+    /*if (core) {
+        if (start) {//sleep
+            //qDebug() << "onPrepareForSleep rewind";
+            m_lastPos = (int) core->mset.current_sec;
+            core->stop();
+            //core->pause();
+        }
+        else {//active
+            //qDebug() << "onPrepareForSleep forward";
+//            core->play();
+//            core->rewind(1);
+//            core->forward(1);
+            core->play(m_lastPos);
+        }
+    }*/
+}
+
 void MainWindow::initRegisterMeta()
 {
     qRegisterMetaType<VideoPtr>();
@@ -353,14 +391,15 @@ void MainWindow::createCore()
     connect(core, SIGNAL(stateChanged(Core::State)), this, SLOT(checkStayOnTop(Core::State)), Qt::QueuedConnection);
     connect(core, SIGNAL(mediaStartPlay()), this, SLOT(enterFullscreenOnPlay()), Qt::QueuedConnection);
     connect(core, SIGNAL(mediaStartPlay()), this, SLOT(checkMplayerVersion()), Qt::QueuedConnection);
-    connect(core, SIGNAL(mediaStoppedByUser()), this, SLOT(exitFullscreenOnStop()));
-    connect(core, SIGNAL(mediaStoppedByUser()), mplayerwindow, SLOT(showLogo()));
-    connect(core, SIGNAL(show_logo_signal(bool)), mplayerwindow, SLOT(setLogoVisible(bool)));
+    connect(core, SIGNAL(mediaStoppedByUser()), this, SLOT(onMediaStoppedByUser()));
+    connect(core, SIGNAL(requestShowLogo(bool)), mplayerwindow, SLOT(setLogoVisible(bool)));
     connect(core, SIGNAL(mediaLoaded()), this, SLOT(enableActionsOnPlaying()));
     connect(core, SIGNAL(noFileToPlay()), this, SLOT(gotNoFileToPlay()));
     connect(core, SIGNAL(audioTracksInitialized()), this, SLOT(enableActionsOnPlaying()));
-    connect(core, SIGNAL(mediaFinished()), this, SLOT(disableActionsOnStop()));
-    connect(core, SIGNAL(mediaStoppedByUser()), this, SLOT(disableActionsOnStop()));
+    connect(core, &Core::mediaFinished, this, [=] () {
+        m_lastPos = 0;
+        this->disableActionsOnStop();
+    });
     connect(core, SIGNAL(stateChanged(Core::State)), this, SLOT(togglePlayAction(Core::State)));
     connect(core, SIGNAL(mediaStartPlay()), this, SLOT(newMediaLoaded()), Qt::QueuedConnection);
     connect(core, SIGNAL(mediaInfoChanged()), this, SLOT(updateMediaInfo()));
@@ -417,6 +456,7 @@ void MainWindow::createBottomToolBar()
     connect(this, SIGNAL(timeChanged(QString, QString)),m_bottomToolbar, SLOT(displayTime(QString, QString)));
 
     connect(m_bottomToolbar, &BottomWidget::toggleStop, this, [=] {
+        m_lastPos = (int) core->mset.current_sec;
         core->stop();
         disconnect(m_mouseFilterHandler, SIGNAL(mouseMoved()), m_bottomController, SLOT(temporaryShow()));
         m_bottomController->permanentShow();
@@ -862,9 +902,9 @@ void MainWindow::createActionsAndMenus()
     connect(quitAct, SIGNAL(triggered()), this, SLOT(slot_close()));
 
 
-    m_poweroffAct = new MyAction(this, "poweroff");
+    /*m_poweroffAct = new MyAction(this, "poweroff");
     m_poweroffAct->change(Images::icon("poweroff"), tr("PowerOff"));
-    connect(m_poweroffAct, SIGNAL(triggered()), this, SLOT(powerOffPC()));
+    connect(m_poweroffAct, SIGNAL(triggered()), this, SLOT(powerOffPC()));*/
 
     //20181120
     //showFilenameAct = new MyAction(Qt::SHIFT | Qt::Key_O, this, "show_filename_osd");
@@ -895,7 +935,7 @@ void MainWindow::createActionsAndMenus()
     connect(OSDFractionsAct, SIGNAL(toggled(bool)), core, SLOT(setOSDFractions(bool)));
 //#endif
     osdGroup = new MyActionGroup(this);
-    osdNoneAct = new MyActionGroupItem(this, osdGroup, "osd_none", Preferences::None);
+    osdNoneAct = new MyActionGroupItem(this, osdGroup, "osd_none", Preferences::NoneOsd);
     osdSeekAct = new MyActionGroupItem(this, osdGroup, "osd_seek", Preferences::Seek);
     osdTimerAct = new MyActionGroupItem(this, osdGroup, "osd_timer", Preferences::SeekTimer);
     osdTotalAct = new MyActionGroupItem(this, osdGroup, "osd_total", Preferences::SeekTimerTotal);
@@ -1008,7 +1048,7 @@ void MainWindow::createTrayActions()
     tray_menu->addSeparator();
     tray_menu->addAction(showPreferencesAct);
     tray_menu->addAction(quitAct);
-    tray_menu->addAction(m_poweroffAct);
+//    tray_menu->addAction(m_poweroffAct);
 
     tray->setContextMenu(tray_menu);
 }
@@ -1045,9 +1085,11 @@ void MainWindow::createMaskWidget()
 
 void MainWindow::initRemoteControllerConnections()
 {
-    connect(m_controller, &ControllerWorker::requestSeekForward, core, &Core::sforward);
-    connect(m_controller, &ControllerWorker::requestSeekRewind, core, &Core::srewind);
-    connect(m_controller, &ControllerWorker::requestPlayPause, core, &Core::playOrPause);
+    connect(m_controller, SIGNAL(requestSeekForward(int)), core, SLOT(forward(int)));
+    connect(m_controller, SIGNAL(requestSeekRewind(int)), core, SLOT(rewind(int)));
+    connect(m_controller, &ControllerWorker::requestPlayPause, this, [=] () {
+        core->playOrPause(m_lastPos);
+    });
     connect(m_controller, &ControllerWorker::requestStop, core, &Core::stop);
 }
 
@@ -1082,7 +1124,6 @@ void MainWindow::setStayOnTop(bool b)
 
     ignore_show_hide_events = false;
 }
-
 void MainWindow::changeStayOnTop(int stay_on_top)
 {
     switch (stay_on_top) {
@@ -1137,7 +1178,7 @@ void MainWindow::startPlayPause()
     m_topToolbar->show();
     m_bottomToolbar->show();
     connect(m_mouseFilterHandler, SIGNAL(mouseMoved()), m_bottomController, SLOT(temporaryShow()));
-    core->playOrPause();
+    core->playOrPause(m_lastPos);
 }
 
 //void MainWindow::showShortcuts()
@@ -1168,6 +1209,13 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
 //    }
 //    QWidget::keyPressEvent(event);
     QMainWindow::keyPressEvent(event);
+}
+
+void MainWindow::onMediaStoppedByUser()
+{
+    this->exitFullscreenOnStop();
+    mplayerwindow->showLogo();
+    this->disableActionsOnStop();
 }
 
 void MainWindow::slot_mute(/*bool b*/) {
@@ -1333,13 +1381,13 @@ void MainWindow::enableActionsOnPlaying()
         rotateGroup->setActionsEnabled(false);
     }
 
-    if (pref->hwdec.startsWith("vdpau") && pref->mplayer_bin.contains("/usr/bin/mpv")) {
-        screenshotAct->setEnabled(false);
-    }
+//    if (pref->hwdec.startsWith("vdpau") && pref->mplayer_bin.contains("/usr/bin/mpv")) {
+//        screenshotAct->setEnabled(false);
+//    }
 
     // Disable video filters if using vdpau
     if ((pref->vdpau.disable_video_filters) && (pref->vo.startsWith("vdpau"))) {
-        screenshotAct->setEnabled(false);
+//        screenshotAct->setEnabled(false);
         flipAct->setEnabled(false);
         mirrorAct->setEnabled(false);
         rotateGroup->setActionsEnabled(false);
@@ -1552,6 +1600,7 @@ void MainWindow::applyNewPreferences()
     if (old_player_type != Utils::player(pref->mplayer_bin)) {
         // Hack, simulate a change of GUI to restart the interface
         // FIXME: try to create a new Core::proc in the future
+        m_lastPos = 0;
         core->stop();
         if (pref_dialog && pref_dialog->isVisible()) {//add by kobe to hide the pref_dialog
             pref_dialog->accept();
@@ -2509,6 +2558,7 @@ void MainWindow::exitFullscreenOnStop()
 
 void MainWindow::playlistHasFinished()
 {
+    m_lastPos = 0;
 	core->stop();
 
 	exitFullscreenOnStop();
@@ -2670,31 +2720,83 @@ void MainWindow::saveActions()
     ActionsEditor::saveToConfig(this, settings);
 }
 
-void MainWindow::moveWindowDiff(QPoint diff) {
-	if (pref->fullscreen || isMaximized()) {
-		return;
-	}
+void MainWindow::moveWindow()
+{
+//    Display *display = QX11Info::display();
+//    Atom netMoveResize = XInternAtom(display, "_NET_WM_MOVERESIZE", False);
+//    XEvent xEvent;
+//    const auto pos = QCursor::pos();
+
+//    memset(&xEvent, 0, sizeof(XEvent));
+//    xEvent.xclient.type = ClientMessage;
+//    xEvent.xclient.message_type = netMoveResize;
+//    xEvent.xclient.display = display;
+//    xEvent.xclient.window = this->winId();
+//    xEvent.xclient.format = 32;
+//    xEvent.xclient.data.l[0] = pos.x();
+//    xEvent.xclient.data.l[1] = pos.y();
+//    xEvent.xclient.data.l[2] = 8;
+//    xEvent.xclient.data.l[3] = Button1;
+//    xEvent.xclient.data.l[4] = 0;
+
+//    XUngrabPointer(display, CurrentTime);
+//    XSendEvent(display, QX11Info::appRootWindow(QX11Info::appScreen()),
+//               False, SubstructureNotifyMask | SubstructureRedirectMask,
+//               &xEvent);
+//    XFlush(display);
+}
+
+void MainWindow::moveWindowDiff(QPoint diff)
+{
+    if (pref->fullscreen || isMaximized()) {
+        return;
+    }
 
 #if QT_VERSION >= 0x050000
-	// Move the window with some delay.
-	// Seems to work better with Qt 5
+    // Move the window with some delay.
+    // Seems to work better with Qt 5
 
-	static QPoint d;
-	static int count = 0;
+    static QPoint d;
+    static int count = 0;
 
-	d += diff;
-	count++;
+    d += diff;
+    count++;
 
-	if (count > 3) {
-		QPoint new_pos = pos() + d;
-		if (new_pos.y() < 0) new_pos.setY(0);
-		if (new_pos.x() < 0) new_pos.setX(0);
-		move(new_pos);
-		count = 0;
-		d = QPoint(0,0);
-	}
+    if (count > 3) {
+        QPoint new_pos = pos() + d;
+        if (new_pos.y() < 0) new_pos.setY(0);
+        if (new_pos.x() < 0) new_pos.setX(0);
+        move(new_pos);
+        count = 0;
+        d = QPoint(0,0);
+
+        //TODO：将会导致标题栏和播放控制栏失去焦点
+        /*Display *display = QX11Info::display();
+        Atom netMoveResize = XInternAtom(display, "_NET_WM_MOVERESIZE", False);
+        XEvent xEvent;
+        const auto pos = QCursor::pos();
+        memset(&xEvent, 0, sizeof(XEvent));
+        xEvent.xclient.type = ClientMessage;
+        xEvent.xclient.message_type = netMoveResize;
+        xEvent.xclient.display = display;
+        xEvent.xclient.window = this->winId();
+        xEvent.xclient.format = 32;
+        xEvent.xclient.data.l[0] = pos.x();
+        xEvent.xclient.data.l[1] = pos.y();
+        xEvent.xclient.data.l[2] = 8;
+        xEvent.xclient.data.l[3] = Button1;
+        xEvent.xclient.data.l[4] = 0;
+
+        XUngrabPointer(display, CurrentTime);
+        XSendEvent(display, QX11Info::appRootWindow(QX11Info::appScreen()),
+                   False, SubstructureNotifyMask | SubstructureRedirectMask,
+                   &xEvent);
+        XFlush(display);
+        count = 0;
+        d = QPoint(0,0);*/
+    }
 #else
-	move(pos() + diff);
+    move(pos() + diff);
 #endif
 }
 
@@ -2938,6 +3040,18 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *event)
     return qApp->eventFilter(obj, event);
 }
 
+void MainWindow::mousePressEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::LeftButton)
+        m_dragWindow = true;
+}
+
+void MainWindow::mouseReleaseEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::LeftButton)
+        m_dragWindow = false;
+}
+
 void MainWindow::mouseMoveEvent(QMouseEvent *event)
 {
     QMainWindow::mouseMoveEvent(event);
@@ -2946,6 +3060,9 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event)
         return;
     }
     if (event->buttons() == Qt::LeftButton) {
+        if (m_dragWindow) {
+            moveWindow();
+        }
         if (this->resizeFlag) {
             int targetWidth = event->globalX() - this->frameGeometry().topLeft().x();
             int targetHeight = event->globalY() - this->frameGeometry().topLeft().y();
@@ -3054,6 +3171,7 @@ void MainWindow::closeEvent(QCloseEvent * e)
 void MainWindow::closeWindow()
 {
     if (core->state() != Core::Stopped) {
+        m_lastPos = 0;
         core->stop();
     }
 
@@ -3085,7 +3203,7 @@ void MainWindow::displayWarningAboutOldMplayer()
     if (!pref->reported_mplayer_is_old) {
         QMessageBox::warning(this, tr("Warning - Using old MPlayer"),
             tr("The version of MPlayer (%1) installed on your system "
-               "is obsolete. SMPlayer can't work well with it: some "
+               "is obsolete. kylin-video can't work well with it: some "
                "options won't work, subtitle selection may fail...")
                .arg(MplayerVersion::toString(pref->mplayer_detected_version)) +
             "<br><br>" +

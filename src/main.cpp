@@ -66,9 +66,13 @@ int main(int argc, char **argv)
     QStringList args = a.arguments();
 
     QFile qss(":/qss/res/style.qss");
-    qss.open(QFile::ReadOnly);
-    qApp->setStyleSheet(qss.readAll());
-    qss.close();
+    if (!qss.open(QIODevice::ReadOnly)) {
+        qWarning("Can't open the style sheet file: :/qss/res/style.qss.");
+    }
+    else {
+        qApp->setStyleSheet(qss.readAll());
+        qss.close();
+    }
 
     QString arch = "";
 

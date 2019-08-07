@@ -38,7 +38,7 @@ class Filters;
 class Preferences {
 
 public:
-	enum OSD { None = 0, Seek = 1, SeekTimer = 2, SeekTimerTotal = 3 };
+    enum OSD { NoneOsd = 0, Seek = 1, SeekTimer = 2, SeekTimerTotal = 3 };
 	enum OnTop { NeverOnTop = 0, AlwaysOnTop = 1, WhilePlayingOnTop = 2 };
     enum PlayOrder { OrderPlay = 0, RandomPlay = 1, ListLoopPlay = 2 };
 	enum Resize { Never = 0, Always = 1, Afterload = 2 };

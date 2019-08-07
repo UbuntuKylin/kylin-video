@@ -97,7 +97,7 @@ FilePropertiesDialog::FilePropertiesDialog( QWidget* parent, Qt::WindowFlags f )
     resetACButton->setStyleSheet("QPushButton{font-size:12px;background:#0f0f0f;border:1px solid #0a9ff5;color:#999999;}QPushButton:hover{background-color:#0a9ff5;border:1px solid #2db0f6;color:#ffffff;} QPushButton:pressed{background-color:#0993e3;border:1px solid #0a9ff5;color:#ffffff;}");
     resetVCButton->setStyleSheet("QPushButton{font-size:12px;background:#0f0f0f;border:1px solid #0a9ff5;color:#999999;}QPushButton:hover{background-color:#0a9ff5;border:1px solid #2db0f6;color:#ffffff;} QPushButton:pressed{background-color:#0993e3;border:1px solid #0a9ff5;color:#ffffff;}");
 
-    title_label->setStyleSheet("QLabel{background:transparent;font-family:方正黑体_GBK;font-size:20px;color:#999999;}");
+    title_label->setStyleSheet("QLabel{background:transparent;font-family:方正黑体_GBK;font-size:18px;color:#999999;}");
 
     demuxer_label->setStyleSheet("QLabel{background:transparent;font-size:12px;color:#999999;font-family:方正黑体_GBK;}");
     video_codec_label->setStyleSheet("QLabel{background:transparent;font-size:12px;color:#999999;font-family:方正黑体_GBK;}");

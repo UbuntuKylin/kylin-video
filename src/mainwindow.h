@@ -106,11 +106,15 @@ public:
 
     Core * getCore() { return core; };
 
+    void onPrepareForShutdown(bool start);
+    void onPrepareForSleep(bool start);
+
 public slots:
     void changeStayOnTop(int);
     void checkStayOnTop(Core::State);
     void changePlayOrder(int play_order);
     void powerOffPC();
+    void onMediaStoppedByUser();
 
 
     void slot_mute(/*bool b*/);
@@ -208,6 +212,7 @@ protected slots:
     void moveWindowDiff(QPoint diff);
     void loadActions();
     void saveActions();
+    void moveWindow();
 
 	// Single instance stuff
 #ifdef SINGLE_INSTANCE
@@ -259,9 +264,9 @@ protected:
 	virtual bool event(QEvent * e);
 	bool was_minimized;
 #endif
-    void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
-//    void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
-//    void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+    virtual void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
+    virtual void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+    virtual void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
     virtual void mouseMoveEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
     virtual bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;
     virtual void resizeEvent(QResizeEvent *e) Q_DECL_OVERRIDE;
@@ -386,7 +391,7 @@ protected:
     MyAction *aboutAct = nullptr;
     MyAction *helpAct = nullptr;
     MyAction *quitAct = nullptr;
-    MyAction *m_poweroffAct = nullptr;
+//    MyAction *m_poweroffAct = nullptr;
     //MyAction *openDirAct;
 
     //20181120
@@ -473,6 +478,8 @@ private:
     QPixmap currentBackground;
 
     ControllerWorker *m_controller = nullptr;
+    bool m_dragWindow;
+    int m_lastPos;
 };
     
 #endif // _MAINWINDOW_H_

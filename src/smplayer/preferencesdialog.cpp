@@ -71,7 +71,7 @@ PreferencesDialog::PreferencesDialog(QString arch_type, QString snap, QWidget * 
     cancelButton->setStyleSheet("QPushButton{font-size:12px;background:#0f0f0f;border:1px solid #000000;color:#999999;}QPushButton:hover{background-color:#1f1f1f;border:1px solid #0f0f0f;color:#ffffff;} QPushButton:pressed{background-color:#0d0d0d;border:1px solid #000000;color:#ffffff;}");
     applyButton->setStyleSheet("QPushButton{font-size:12px;background:#0f0f0f;border:1px solid #0a9ff5;color:#999999;}QPushButton:hover{background-color:#0a9ff5;border:1px solid #2db0f6;color:#ffffff;} QPushButton:pressed{background-color:#0993e3;border:1px solid #0a9ff5;color:#ffffff;}");
 
-    title_label->setStyleSheet("QLabel{background:transparent;font-family: 方正黑体_GBK;font-size:20px;color:#999999;}");
+    title_label->setStyleSheet("QLabel{background:transparent;font-family: 方正黑体_GBK;font-size:18px;color:#999999;}");
 
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->setContentsMargins(0, 5, 0, 0);

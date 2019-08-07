@@ -116,16 +116,18 @@ void VideoWindow::setColorKey( QColor c )
 void VideoWindow::setLogoVisible( bool b)
 {
     if (b) m_displayLayer->setUpdatesEnabled(true);
-    if (m_cornerWidget) {
-        m_cornerWidget->setVisible(false);
-    }
+    /*if (m_cornerWidget) {// m_cornerWidget is playmask widget
+        m_cornerWidget->setVisible(b);
+    }*/
     if (b) {
         m_displayLayer->move(0,0);
         m_displayLayer->resize(this->size());
     }
     m_stoped = b;
 
-    if (b) {
+    m_logoLabel->setVisible(b);
+
+    /*if (b) {
         m_logoLabel->show();
         QPropertyAnimation * animation = new QPropertyAnimation(m_logoLabel, "pos");
         animation->setDuration(200);
@@ -142,7 +144,7 @@ void VideoWindow::setLogoVisible( bool b)
         animation->setStartValue(m_logoLabel->pos());
         animation->start();
         connect(animation, SIGNAL(finished()), m_logoLabel, SLOT(hide()));
-    }
+    }*/
 }
 
 void VideoWindow::setResolution( int w, int h)

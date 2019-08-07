@@ -11,6 +11,8 @@ Build-Depends: debhelper (>= 11),
                qtscript5-dev,
                qttools5-dev-tools,
                qtbase5-private-dev,
+               libqt5x11extras5-dev,
+               libx11-dev,
                libcrystalhd-dev [amd64 i386],
                zlib1g-dev
 Standards-Version: 4.1.5

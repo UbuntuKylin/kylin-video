@@ -256,18 +256,7 @@ public:
     QString mplayer_additional_video_filters;
     QString mplayer_additional_audio_filters;
 
-//#ifdef LOG_MPLAYER
-    bool log_mplayer;
     bool verbose_log;
-    bool autosave_mplayer_log;
-    QString mplayer_log_saveto;
-//#endif
-//#ifdef LOG_SMPLAYER
-    bool log_smplayer;
-    QString log_filter;
-    bool save_smplayer_log;
-//#endif
-
     bool repaint_video_background;
 
 	//! If true it will autoload edl files with the same name of the file

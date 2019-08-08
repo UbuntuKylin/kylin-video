@@ -75,7 +75,7 @@ Playlist::Playlist(Core *c, QWidget * parent, Qt::WindowFlags f)
     setAcceptDrops(true);
     setAttribute(Qt::WA_NoMousePropagation);
 
-	core = c;
+    m_core = c;
     playlist_path = "";
     latest_dir = QDir::homePath();
     titleLabel = 0;
@@ -129,23 +129,23 @@ Playlist::Playlist(Core *c, QWidget * parent, Qt::WindowFlags f)
 
     clear();
 
-    connect(core, SIGNAL(mediaFinished()), this, SLOT(playNextAuto()), Qt::QueuedConnection);
-    connect(core, SIGNAL(mplayerFailed(QProcess::ProcessError)), this, SLOT(playerFailed(QProcess::ProcessError)) );
-    connect(core, SIGNAL(mplayerFinishedWithError(int)), this, SLOT(playerFinishedWithError(int)) );
-    connect(core, SIGNAL(mediaDataReceived(const MediaData &)), this, SLOT(getMediaInfo(const MediaData &)));
+    connect(m_core, SIGNAL(mediaFinished()), this, SLOT(playNextAuto()), Qt::QueuedConnection);
+    connect(m_core, SIGNAL(mplayerFailed(QProcess::ProcessError)), this, SLOT(playerFailed(QProcess::ProcessError)) );
+    connect(m_core, SIGNAL(mplayerFinishedWithError(int)), this, SLOT(playerFinishedWithError(int)) );
+    connect(m_core, SIGNAL(mediaDataReceived(const MediaData &)), this, SLOT(getMediaInfo(const MediaData &)));
 
 
 //    connect(playlist, SIGNAL(requestToPlayFile(const QString &, int)),
-//            core, SLOT(open(const QString &, int)));
+//            m_core, SLOT(open(const QString &, int)));
 
 //	connect(playlist, SIGNAL(requestToPlayStream(const QString &, QStringList)),
-//            core, SLOT(openStream(const QString &, QStringList)));
+//            m_core, SLOT(openStream(const QString &, QStringList)));
 
 //	connect(playlist, SIGNAL(requestToAddCurrentFile()), this, SLOT(addToPlaylistCurrentFile()));
 
 	// Ugly hack to avoid to play next item automatically
     /*if (!automatically_play_next) {
-		disconnect( core, SIGNAL(mediaFinished()), this, SLOT(playNext()) );
+        disconnect( m_core, SIGNAL(mediaFinished()), this, SLOT(playNext()) );
     }*/
 
 	// Save config every 5 minutes.
@@ -912,7 +912,7 @@ void Playlist::onPlayListItemDoubleClicked(int row, const QString &filename)
         //保存当前播放文件的索引和文件路径名
         this->setPlaying(filename, row);
 
-        core->open(filename/*, 0*/);//每次从头开始播放文件
+        m_core->open(filename/*, 0*/);//每次从头开始播放文件
     }
     else {
         emit this->playListFinishedWithError(filename);
@@ -964,18 +964,18 @@ void Playlist::playItem( int n )
             // Local file
             QString name = fi.fileName();
             emit this->sig_playing_title(name);
-            //0621 kobe:  core->open(filename, 0): 每次从头开始播放文件，    core->open(filename):每次从上次播放停止位置开始播放文件
+            //0621 kobe:  m_core->open(filename, 0): 每次从头开始播放文件，    m_core->open(filename):每次从上次播放停止位置开始播放文件
 
             //保存当前播放文件的索引和文件路径名
             this->setPlaying(filename, n);
 
             if (play_files_from_start) {
                 emit this->sig_playing_title(name);
-                core->open(filename, 0);
+                m_core->open(filename, 0);
             }
             else {
                 emit this->sig_playing_title(name);
-                core->open(filename, 0);
+                m_core->open(filename, 0);
             }
         }
         else {

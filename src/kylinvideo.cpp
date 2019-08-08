@@ -40,11 +40,9 @@ MainWindow * KylinVideo::main_window = 0;
 
 KylinVideo::KylinVideo(const QString &arch, const QString &snap, ControllerWorker *controller, QObject *parent)
     : QObject(parent)
-    , m_controller(controller)
+    , m_controllerWorker(controller)
     , m_moveGui(false)
     , m_resizeGui(false)
-    , m_closeAtEnd(-1)
-    , m_startInFullscreen(-1)
     , m_arch(arch)
     , m_snap(snap)
 {
@@ -57,7 +55,17 @@ KylinVideo::KylinVideo(const QString &arch, const QString &snap, ControllerWorke
     m_infoWorker = new InfoWorker;
     m_thread = new QThread;
     m_infoWorker->moveToThread(m_thread);
-    connect(m_thread, SIGNAL(started()), this, SLOT(showWindow()));
+    connect(m_thread, &QThread::started, this, [=] () {
+        // 托盘启动时显示主界面与否，与配置文件~/.config/kylin-video/kylin-video.ini的变量mainwindow_visible和文件列表变量files_to_play有关，可修改构造函数里面的mainwindow_visible=false让软件第一次使用托盘时显示主界面
+        gui()->show();
+        main_window->bindThreadWorker(this->m_infoWorker);
+
+        if (!m_filesToPlay.isEmpty()) {
+            if (!m_subtitleFile.isEmpty()) gui()->setInitialSubtitle(m_subtitleFile);
+            if (!m_mediaTitle.isEmpty()) gui()->getCore()->addForcedTitle(m_filesToPlay[0], m_mediaTitle);
+            gui()->openFiles(m_filesToPlay);
+        }
+    });
     m_thread->start();
 
     showInfo();
@@ -101,11 +109,12 @@ MainWindow * KylinVideo::gui()
 MainWindow * KylinVideo::createGUI(QString arch, QString snap)
 {
     MainWindow * gui = 0;
-    gui = new MainWindow(arch, snap, m_controller, 0);
-    gui->setForceCloseOnFinish(m_closeAtEnd);
-    gui->setForceStartInFullscreen(m_startInFullscreen);
-	connect(gui, SIGNAL(quitSolicited()), qApp, SLOT(quit()));
-    connect(gui, SIGNAL(guiChanged()), this, SLOT(changeGUI()));
+    gui = new MainWindow(arch, snap, m_controllerWorker, 0);
+    connect(gui, &MainWindow::requestGuiChanged, this, [=] () {
+        deleteGUI();
+        main_window = createGUI(this->m_arch, this->m_snap);
+        main_window->show();
+    });
 
 #if SINGLE_INSTANCE
 	MyApplication * app = MyApplication::instance();
@@ -120,13 +129,6 @@ void KylinVideo::deleteGUI()
 {
     delete main_window;
     main_window = 0;
-}
-
-void KylinVideo::changeGUI()
-{
-	deleteGUI();
-    main_window = createGUI(this->m_arch, this->m_snap);
-	main_window->show();
 }
 
 KylinVideo::ExitCode KylinVideo::processArgs(QStringList args)
@@ -209,22 +211,6 @@ KylinVideo::ExitCode KylinVideo::processArgs(QStringList args)
 			show_help = true;
 		}
 		else
-		if (argument == "-close-at-end") {
-            m_closeAtEnd = 1;
-		}
-		else
-		if (argument == "-no-close-at-end") {
-            m_closeAtEnd = 0;
-		}
-		else
-		if (argument == "-fullscreen") {
-            m_startInFullscreen = 1;
-		}
-		else
-		if (argument == "-no-fullscreen") {
-            m_startInFullscreen = 0;
-		}
-		else
 		if (argument == "-add-to-playlist") {
 			add_to_playlist = true;
 		}
@@ -283,18 +269,6 @@ KylinVideo::ExitCode KylinVideo::processArgs(QStringList args)
     }
 
     return KylinVideo::NoExit;
-}
-
-void KylinVideo::showWindow() {
-    // 托盘启动时显示主界面与否，与配置文件~/.config/kylin-video/kylin-video.ini的变量mainwindow_visible和文件列表变量files_to_play有关，可修改构造函数里面的mainwindow_visible=false让软件第一次使用托盘时显示主界面
-    gui()->show();
-    main_window->bindThreadWorker(this->m_infoWorker);
-
-    if (!m_filesToPlay.isEmpty()) {
-        if (!m_subtitleFile.isEmpty()) gui()->setInitialSubtitle(m_subtitleFile);
-        if (!m_mediaTitle.isEmpty()) gui()->getCore()->addForcedTitle(m_filesToPlay[0], m_mediaTitle);
-        gui()->openFiles(m_filesToPlay);
-	}
 }
 
 void KylinVideo::showInfo()

@@ -93,7 +93,6 @@ public slots:
     void displayTime(QString cur_time, QString all_time);
     void onSetActionsEnabled(bool b);
     void setPlayOrPauseEnabled(bool b);
-    void setStopEnabled(bool b);
 
     //progress
     void setPos(int);

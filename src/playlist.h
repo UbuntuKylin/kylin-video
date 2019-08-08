@@ -204,7 +204,7 @@ private:
     QString playlist_filename;
     QString latest_dir;
 
-    Core * core = nullptr;
+    Core * m_core = nullptr;
     QFrame *noVideoFrame = nullptr;
     QLabel *novideo_icon = nullptr;
     QLabel *novideo_text = nullptr;

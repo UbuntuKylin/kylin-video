@@ -308,7 +308,7 @@ public slots:
 //	void changeSize(int); // Size of the window
 //	void toggleDoubleSize();
 //	#endif
-	void changeZoom(double); // Zoom on mplayerwindow
+	void changeZoom(double); // Zoom on m_mplayerWindow
 
 	void changeRotate(int r);
 
@@ -498,7 +498,7 @@ signals:
 
 protected:
 	PlayerProcess * proc;
-	VideoWindow * mplayerwindow;
+	VideoWindow * m_mplayerWindow;
 
 //#ifndef NO_USE_INI_FILES
     FileSettingsBase * file_settings;

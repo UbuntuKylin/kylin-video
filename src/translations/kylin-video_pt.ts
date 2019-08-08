@@ -2387,6 +2387,50 @@ Do you want to overwrite?</source>
         <source>The version of MPlayer (%1) installed on your system is obsolete. kylin-video can&apos;t work well with it: some options won&apos;t work, subtitle selection may fail...</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>A:%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>B:%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Extrastereo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Karaoke</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Volume &amp;normalization</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Headphone optimization</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Filters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Load external file...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>U&amp;nload</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>E&amp;qualizer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset audio equalizer</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MaskWidget</name>

@@ -320,11 +320,6 @@ void BottomWidget::setPlayOrPauseEnabled(bool b)
     m_btnPlayPause->setEnabled(b);
 }
 
-void BottomWidget::setStopEnabled(bool b)
-{
-    m_btnStop->setEnabled(b);
-}
-
 void BottomWidget::displayTime(QString cur_time, QString all_time)
 {
     m_playtimeLabel->setText(cur_time);

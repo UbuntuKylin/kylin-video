@@ -67,7 +67,6 @@ VideoWindow::VideoWindow(QWidget* parent, Qt::WindowFlags f)
     m_displayLayer->setAutoFillBackground(true);
 
     m_logoLabel = new QLabel(m_displayLayer);
-    m_logoLabel->setObjectName("mplayerwindow logo");
     m_logoLabel->setAutoFillBackground(true);
     ColorUtils::setBackgroundColor(m_logoLabel, QColor(0,0,0) );
 

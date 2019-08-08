@@ -24,6 +24,10 @@
 #include <QHideEvent>
 #include <QShowEvent>
 #include "audioequalizerlist.h"
+#include <QWidget>
+#include <QHideEvent>
+#include <QShowEvent>
+#include "audioequalizerlist.h"
 
 class QLabel;
 class QComboBox;
@@ -32,53 +36,52 @@ class EqSlider;
 
 class AudioEqualizer : public QWidget
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	enum Preset { User_defined = 0, Flat = 1, Pop = 2, Rock = 3, Classical = 4, Club = 5, Dance = 6, Fullbass = 7,
+    enum Preset { User_defined = 0, Flat = 1, Pop = 2, Rock = 3, Classical = 4, Club = 5, Dance = 6, Fullbass = 7,
                   FullbassTreble = 8, Fulltreble = 9, Headphones = 10, LargeHall = 11, Live = 12,
                   Party = 13, Reggae = 14, Ska = 15, Soft = 16, SoftRock = 17, Techno = 18 };
 
-	AudioEqualizer( QWidget* parent = 0, Qt::WindowFlags f = Qt::Dialog );
-	~AudioEqualizer();
+    AudioEqualizer( QWidget* parent = 0, Qt::WindowFlags f = Qt::Dialog );
+    ~AudioEqualizer();
 
     EqSlider * eq[10];
 
-	void setEqualizer(AudioEqualizerList l);
+    void setEqualizer(AudioEqualizerList l);
 
 signals:
-	void visibilityChanged();
-	void applyClicked(AudioEqualizerList new_values);
-	void valuesChanged(AudioEqualizerList values);
+    void visibilityChanged();
+    void applyClicked(AudioEqualizerList new_values);
+    void valuesChanged(AudioEqualizerList values);
 
 public slots:
-	void reset();
-	void setDefaults();
+    void reset();
+    void setDefaults();
 
 protected slots:
-	void applyButtonClicked();
-	void presetChanged(int index);
-	void updatePresetCombo();
+    void applyButtonClicked();
+    void presetChanged(int index);
+    void updatePresetCombo();
 
 protected:
-	virtual void hideEvent( QHideEvent * );
-	virtual void showEvent( QShowEvent * );
-	virtual void changeEvent( QEvent * event );
-	virtual void retranslateStrings();
+    virtual void hideEvent( QHideEvent * );
+    virtual void showEvent( QShowEvent * );
+    virtual void changeEvent( QEvent * event );
+    virtual void retranslateStrings();
 
-	void createPresets();
-	void setValues(AudioEqualizerList l);
-	int findPreset(AudioEqualizerList l);
+    void createPresets();
+    void setValues(AudioEqualizerList l);
+    int findPreset(AudioEqualizerList l);
 
 protected:
-	QLabel * presets_label;
-	QComboBox * presets_combo;
-	QPushButton * apply_button;
-	QPushButton * reset_button;
-	QPushButton * set_default_button;
-	QPushButton * close_button;
-	QMap<int,AudioEqualizerList> preset_list;
+    QLabel * presets_label;
+    QComboBox * presets_combo;
+    QPushButton * apply_button;
+    QPushButton * reset_button;
+    QPushButton * set_default_button;
+    QPushButton * close_button;
+    QMap<int,AudioEqualizerList> preset_list;
 };
-
 
 #endif

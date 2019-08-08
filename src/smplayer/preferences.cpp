@@ -232,7 +232,7 @@ void Preferences::reset() {
 	softvol_max = 110; // 110 = default value in mplayer
     use_scaletempo = Detect;
     use_hwac3 = false;
-    use_audio_equalizer = false;
+    use_audio_equalizer = true;
 
 	global_volume = true;
 	volume = 50;
@@ -367,14 +367,7 @@ void Preferences::reset() {
     mplayer_additional_video_filters="";
     mplayer_additional_audio_filters="";
 
-    log_mplayer = true;
     verbose_log = false;
-    autosave_mplayer_log = false;
-    mplayer_log_saveto = "";
-    log_smplayer = true;
-    log_filter = ".*";
-    save_smplayer_log = false;
-
 
     // "Repaint video background" in the preferences dialog
 //    #ifndef Q_OS_WIN
@@ -629,7 +622,7 @@ void Preferences::save() {
 	set->setValue("softvol_max", softvol_max);
     set->setValue("use_scaletempo", use_scaletempo);
     set->setValue("use_hwac3", use_hwac3 );
-    set->setValue("use_audio_equalizer", use_audio_equalizer );
+//    set->setValue("use_audio_equalizer", use_audio_equalizer );
 
 	set->setValue("global_volume", global_volume);
 	set->setValue("volume", volume);
@@ -754,16 +747,6 @@ void Preferences::save() {
 //    set->setValue("mplayer_additional_options", mplayer_additional_options);
 //	set->setValue("mplayer_additional_video_filters", mplayer_additional_video_filters);
 //	set->setValue("mplayer_additional_audio_filters", mplayer_additional_audio_filters);
-
-    /*set->setValue("log_mplayer", log_mplayer);
-    set->setValue("verbose_log", verbose_log);
-    set->setValue("autosave_mplayer_log", autosave_mplayer_log);
-    set->setValue("mplayer_log_saveto", mplayer_log_saveto);
-
-    set->setValue("log_smplayer", log_smplayer);
-    set->setValue("log_filter", log_filter);
-    set->setValue("save_smplayer_log", save_smplayer_log);*/
-
 
 //	set->setValue("repaint_video_background", repaint_video_background);
 
@@ -1005,7 +988,8 @@ void Preferences::load() {
 	softvol_max = set->value("softvol_max", softvol_max).toInt();
     use_scaletempo = (OptionState) set->value("use_scaletempo", use_scaletempo).toInt();
     use_hwac3 = set->value("use_hwac3", use_hwac3 ).toBool();
-    use_audio_equalizer = set->value("use_audio_equalizer", use_audio_equalizer ).toBool();
+//    use_audio_equalizer = set->value("use_audio_equalizer", use_audio_equalizer ).toBool();
+    use_audio_equalizer = true;
 
 	global_volume = set->value("global_volume", global_volume).toBool();
 	volume = set->value("volume", volume).toInt();
@@ -1132,14 +1116,8 @@ void Preferences::load() {
 //	mplayer_additional_video_filters = set->value("mplayer_additional_video_filters", mplayer_additional_video_filters).toString();
 //	mplayer_additional_audio_filters = set->value("mplayer_additional_audio_filters", mplayer_additional_audio_filters).toString();
 
-//	log_mplayer = set->value("log_mplayer", log_mplayer).toBool();
 //	verbose_log = set->value("verbose_log", verbose_log).toBool();
-//	autosave_mplayer_log = set->value("autosave_mplayer_log", autosave_mplayer_log).toBool();
-//	mplayer_log_saveto = set->value("mplayer_log_saveto", mplayer_log_saveto).toString();
 
-//	log_smplayer = set->value("log_smplayer", log_smplayer).toBool();
-//	log_filter = set->value("log_filter", log_filter).toString();
-//	save_smplayer_log = set->value("save_smplayer_log", save_smplayer_log).toBool();
 
 //	repaint_video_background = set->value("repaint_video_background", repaint_video_background).toBool();
 

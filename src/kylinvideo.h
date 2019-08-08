@@ -43,10 +43,6 @@ public:
 
     MainWindow *gui();
 
-public slots:
-    void changeGUI();
-    void showWindow();
-
 private:
     MainWindow *createGUI(QString arch, QString snap);
 	void deleteGUI();
@@ -61,14 +57,11 @@ private:
     QPoint m_guiPosition;
     bool m_resizeGui;
     QSize m_guiSize;
-	// Options to pass to gui
-    int m_closeAtEnd; // -1 = not set, 1 = true, 0 false
-    int m_startInFullscreen; // -1 = not set, 1 = true, 0 false
     QString m_arch;
     QString m_snap;
     QThread *m_thread = nullptr;
     InfoWorker *m_infoWorker = nullptr;
-    ControllerWorker *m_controller = nullptr;
+    ControllerWorker *m_controllerWorker = nullptr;
 };
 
 #endif

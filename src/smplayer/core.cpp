@@ -50,7 +50,7 @@ Core::Core(VideoWindow *mpw, const QString &snap, QWidget* parent)
 {
 	qRegisterMetaType<Core::State>("Core::State");
 
-	mplayerwindow = mpw;
+    m_mplayerWindow = mpw;
     m_snap = snap;
 
 	_state = Stopped;
@@ -74,22 +74,21 @@ Core::Core(VideoWindow *mpw, const QString &snap, QWidget* parent)
     proc = PlayerProcess::createPlayerProcess(pref->mplayer_bin, this->m_snap);
 
 	// Do this the first
-    connect( proc, SIGNAL(processExited()), mplayerwindow->displayLayer(), SLOT(playingStopped()) );
-    connect( proc, SIGNAL(error(QProcess::ProcessError)), mplayerwindow->displayLayer(), SLOT(playingStopped()) );
+    connect( proc, SIGNAL(processExited()), m_mplayerWindow->displayLayer(), SLOT(playingStopped()) );
+    connect( proc, SIGNAL(error(QProcess::ProcessError)), m_mplayerWindow->displayLayer(), SLOT(playingStopped()) );
 
 	// Necessary to hide/unhide mouse cursor on black borders
 	connect( proc, SIGNAL(processExited()),
-             mplayerwindow, SLOT(playingStopped()) );
+             m_mplayerWindow, SLOT(playingStopped()) );
 
 	connect( proc, SIGNAL(error(QProcess::ProcessError)),
-             mplayerwindow, SLOT(playingStopped()) );
+             m_mplayerWindow, SLOT(playingStopped()) );
 
 
 	connect( proc, SIGNAL(receivedCurrentSec(double)),
              this, SLOT(changeCurrentSec(double)) );
 
-	connect( proc, SIGNAL(receivedCurrentFrame(int)),
-             this, SIGNAL(showFrame(int)) );
+    connect(proc, SIGNAL(receivedCurrentFrame(int)), this, SIGNAL(showFrame(int)));
 
 	connect( proc, SIGNAL(receivedPause()),
 			 this, SLOT(changePause()) );
@@ -225,16 +224,16 @@ Core::Core(VideoWindow *mpw, const QString &snap, QWidget* parent)
 	mset.reset();
 
 	// Mplayerwindow
-    connect( this, SIGNAL(aboutToStartPlaying()), mplayerwindow->displayLayer(), SLOT(playingStarted()) );
+    connect( this, SIGNAL(aboutToStartPlaying()), m_mplayerWindow->displayLayer(), SLOT(playingStarted()) );
 
 	// Necessary to hide/unhide mouse cursor on black borders
-    connect(this, SIGNAL(aboutToStartPlaying()), mplayerwindow, SLOT(playingStarted()));
+    connect(this, SIGNAL(aboutToStartPlaying()), m_mplayerWindow, SLOT(playingStarted()));
 
 //#if DVDNAV_SUPPORT
-//	connect(mplayerwindow->displayLayer(), SIGNAL(mouseMoved(QPoint)), this, SLOT(dvdnavUpdateMousePos(QPoint)));
+//	connect(m_mplayerWindow->displayLayer(), SIGNAL(mouseMoved(QPoint)), this, SLOT(dvdnavUpdateMousePos(QPoint)));
 //#endif
 
-    mplayerwindow->displayLayer()->setRepaintBackground(pref->repaint_video_background);
+    m_mplayerWindow->displayLayer()->setRepaintBackground(pref->repaint_video_background);
 
 	connect(this, SIGNAL(buffering()), this, SLOT(displayBuffering()));
 }
@@ -399,23 +398,21 @@ void Core::open(QString file, int seek) {
 
 	QFileInfo fi(file);
 
-	if ( (fi.exists()) && (fi.suffix().toLower()=="iso") ) {
+    if ((fi.exists()) && (fi.suffix().toLower() == "iso") ) {
         //qDebug("Core::open: * identified as a dvd iso");
 //#if DVDNAV_SUPPORT
-//		openDVD( DiscName::joinDVD(0, file, pref->use_dvdnav) );
+//		openDVD(DiscName::joinDVD(0, file, pref->use_dvdnav));
 //#else
-        openDVD( DiscName::joinDVD(firstDVDTitle(), file, false) );
+        openDVD(DiscName::joinDVD(firstDVDTitle(), file, false));
 //#endif
 	}
-	else
-	if ( (fi.exists()) && (!fi.isDir()) ) {
+    else if ((fi.exists()) && (!fi.isDir())) {
         //qDebug("Core::open: * identified as local file");
 		// Local file
 		file = QFileInfo(file).absoluteFilePath();
 		openFile(file, seek);
 	} 
-	else
-    if ((fi.exists()) && (fi.isDir())) {
+    else if ((fi.exists()) && (fi.isDir())) {
 		// Directory
         //qDebug("Core::open: * identified as a directory");
         //qDebug("Core::open:   checking if contains a dvd");
@@ -425,15 +422,15 @@ void Core::open(QString file, int seek) {
 //#if DVDNAV_SUPPORT
 //			openDVD( DiscName::joinDVD(firstDVDTitle(), file, pref->use_dvdnav) );
 //#else
-            openDVD( DiscName::joinDVD(firstDVDTitle(), file, false) );
+            openDVD(DiscName::joinDVD(firstDVDTitle(), file, false));
 //#endif
-		} else {
+        }
+        else {
 			qDebug("Core::open: * directory doesn't contain a dvd");
 			qDebug("Core::open:   opening nothing");
 		}
 	}
-	else 
-	if ((file.toLower().startsWith("dvd:")) || (file.toLower().startsWith("dvdnav:"))) {
+	else if ((file.toLower().startsWith("dvd:")) || (file.toLower().startsWith("dvdnav:"))) {
         //qDebug("Core::open: * identified as dvd");
 		openDVD(file);
 		/*
@@ -469,8 +466,7 @@ void Core::open(QString file, int seek) {
 			openVCD();
 		}
 	}
-	else
-	if (file.toLower().startsWith("cdda:")) {
+    else if (file.toLower().startsWith("cdda:")) {
         //qDebug("Core::open: * identified as cdda");
 
 		QString f = file.toLower();
@@ -496,7 +492,8 @@ void Core::open(QString file, int seek) {
 	}
 }
 
-void Core::openFile(QString filename, int seek) {
+void Core::openFile(QString filename, int seek)
+{
     //qDebug("Core::openFile: '%s'", filename.toUtf8().data());
 	QFileInfo fi(filename);
 	if (fi.exists()) {
@@ -827,7 +824,7 @@ void Core::initPlaying(int seek) {
 
 	/* updateWidgets(); */
 
-	mplayerwindow->hideLogo();
+    m_mplayerWindow->hideLogo();
 
 	if (proc->isRunning()) {
 		stopMplayer();
@@ -1592,7 +1589,7 @@ void Core::startMplayer( QString file, double seek ) {
 		proc->setOption("keepaspect", false);
 
         //kobe 将视频输出到控件: mplayer -wid WINDOWID
-        proc->setOption("wid", QString::number( (qint64) mplayerwindow->displayLayer()->winId() ) );//kobe 0615:将视频输出定位到widget窗体部件中,-wid参数只在X11、directX和OpenGL中适用
+        proc->setOption("wid", QString::number( (qint64) m_mplayerWindow->displayLayer()->winId() ) );//kobe 0615:将视频输出定位到widget窗体部件中,-wid参数只在X11、directX和OpenGL中适用
 
 		// Square pixels
 		proc->setOption("monitorpixelaspect", "1");
@@ -2019,7 +2016,7 @@ void Core::startMplayer( QString file, double seek ) {
 
 	// Upscale
 	if (mset.upscaling_filter) {
-		int width = DesktopInfo::desktop_size(mplayerwindow).width();
+        int width = DesktopInfo::desktop_size(m_mplayerWindow).width();
 		proc->setOption("sws", "9");
 		proc->addVF("scale", QString::number(width) + ":-2");
 	}
@@ -2038,14 +2035,14 @@ void Core::startMplayer( QString file, double seek ) {
 
 	// Letterbox (expand)
 //	if ((mset.add_letterbox) || (pref->fullscreen && pref->add_blackborders_on_fullscreen)) {
-//		proc->addVF("expand", QString("aspect=%1").arg( DesktopInfo::desktop_aspectRatio(mplayerwindow)));
+//		proc->addVF("expand", QString("aspect=%1").arg( DesktopInfo::desktop_aspectRatio(m_mplayerWindow)));
 //	}
     if ((mset.add_letterbox)
 //     #ifdef ADD_BLACKBORDERS_FS
      || (pref->fullscreen && pref->add_blackborders_on_fullscreen)
 //     #endif
 ) {
-            proc->addVF("letterbox", DesktopInfo::desktop_size(mplayerwindow));
+            proc->addVF("letterbox", DesktopInfo::desktop_size(m_mplayerWindow));
     }
 
 
@@ -2861,7 +2858,7 @@ void Core::changeUpscale(bool b) {
 	qDebug( "Core::changeUpscale: %d", b );
 	if (mset.upscaling_filter != b) {
 		mset.upscaling_filter = b;
-		int width = DesktopInfo::desktop_size(mplayerwindow).width();
+        int width = DesktopInfo::desktop_size(m_mplayerWindow).width();
 		CHANGE_VF("scale", b, QString::number(width) + ":-2");
 	}
 }
@@ -3388,7 +3385,8 @@ void Core::setAudioEqualizer(AudioEqualizerList values, bool restart) {
     //emit audioEqualizerNeedsUpdate();
 }
 
-void Core::updateAudioEqualizer() {
+void Core::updateAudioEqualizer()
+{
     setAudioEqualizer(pref->global_audio_equalizer ? pref->audio_equalizer : mset.audio_equalizer);
 }
 
@@ -3815,7 +3813,7 @@ void Core::changeAspectRatio( int ID ) {
 	double asp = mset.aspectToNum( (MediaSettings::Aspect) ID);
 
     if (!pref->use_mplayer_window) {
-		mplayerwindow->setAspect(asp);
+        m_mplayerWindow->setAspect(asp);
     } else {
         // Using mplayer own window
         if (!mdat.novideo) {
@@ -3895,16 +3893,16 @@ void Core::changeLetterbox(bool b) {
 
 	if (mset.add_letterbox != b) {
 		mset.add_letterbox = b;
-        //CHANGE_VF("letterbox", b, DesktopInfo::desktop_aspectRatio(mplayerwindow));
-        CHANGE_VF("letterbox", b, DesktopInfo::desktop_size(mplayerwindow));
+        //CHANGE_VF("letterbox", b, DesktopInfo::desktop_aspectRatio(m_mplayerWindow));
+        CHANGE_VF("letterbox", b, DesktopInfo::desktop_size(m_mplayerWindow));
 	}
 }
 
 //#ifdef ADD_BLACKBORDERS_FS
 void Core::changeLetterboxOnFullscreen(bool b) {
 	qDebug("Core::changeLetterboxOnFullscreen: %d", b);
-//	CHANGE_VF("letterbox", b, DesktopInfo::desktop_aspectRatio(mplayerwindow));
-    CHANGE_VF("letterbox", b, DesktopInfo::desktop_size(mplayerwindow));
+//	CHANGE_VF("letterbox", b, DesktopInfo::desktop_aspectRatio(m_mplayerWindow));
+    CHANGE_VF("letterbox", b, DesktopInfo::desktop_size(m_mplayerWindow));
 }
 //#endif
 
@@ -3988,7 +3986,7 @@ void Core::changeZoom(double p) {
 	if (p < ZOOM_MIN) p = ZOOM_MIN;
 
 	mset.zoom_factor = p;
-	mplayerwindow->setZoom(p);
+    m_mplayerWindow->setZoom(p);
 	displayMessage( tr("Zoom: %1").arg(mset.zoom_factor) );
 }
 
@@ -4000,11 +3998,11 @@ void Core::autoZoom() {
 	double video_aspect = mset.aspectToNum( (MediaSettings::Aspect) mset.aspect_ratio_id);
 
 	if (video_aspect <= 0) {
-        QSize w = mplayerwindow->displayLayer()->size();
+        QSize w = m_mplayerWindow->displayLayer()->size();
 		video_aspect = (double) w.width() / w.height();
 	}
 
-	double screen_aspect = DesktopInfo::desktop_aspectRatio(mplayerwindow);
+    double screen_aspect = DesktopInfo::desktop_aspectRatio(m_mplayerWindow);
 	double zoom_factor;
 
 	if (video_aspect > screen_aspect)
@@ -4024,12 +4022,12 @@ void Core::autoZoomFromLetterbox(double aspect) {
 
 	// Probably there's a much easy way to do this, but I'm not good with maths...
 
-	QSize desktop =  DesktopInfo::desktop_size(mplayerwindow);
+    QSize desktop =  DesktopInfo::desktop_size(m_mplayerWindow);
 
 	double video_aspect = mset.aspectToNum( (MediaSettings::Aspect) mset.aspect_ratio_id);
 
 	if (video_aspect <= 0) {
-        QSize w = mplayerwindow->displayLayer()->size();
+        QSize w = m_mplayerWindow->displayLayer()->size();
 		video_aspect = (double) w.width() / w.height();
 	}
 
@@ -4259,8 +4257,8 @@ void Core::gotWindowResolution(int w, int h) {
     //Override aspect ratio, is this ok?
     //mdat.video_aspect = mset.win_aspect();
 
-    mplayerwindow->setResolution( w, h );
-    mplayerwindow->setAspect( mset.win_aspect() );
+    m_mplayerWindow->setResolution( w, h );
+    m_mplayerWindow->setAspect( mset.win_aspect() );
 }
 
 void Core::gotNoVideo() {
@@ -4268,12 +4266,12 @@ void Core::gotNoVideo() {
 
 	// Reduce size of window
 	/*
-	mset.win_width = mplayerwindow->size().width();
+    mset.win_width = m_mplayerWindow->size().width();
 	mset.win_height = 0;
-	mplayerwindow->setResolution( mset.win_width, mset.win_height );
+    m_mplayerWindow->setResolution( mset.win_width, mset.win_height );
 	emit needResize( mset.win_width, mset.win_height );
 	*/
-	//mplayerwindow->showLogo(true);
+    //m_mplayerWindow->showLogo(true);
 	emit noVideo();
 }
 

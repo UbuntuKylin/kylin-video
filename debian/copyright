@@ -10,18 +10,20 @@ Files: AUTHORS
        README.md
        autogen.sh
        debian/*
-       gui/kylin-video.desktop
-       gui/kylin-video.png
+       snap/gui/kylin-video.desktop
+       snap/gui/kylin-video.png
+       snap/snapcraft.yaml
        kylin-video.desktop
        kylin-video.pro
        man/*
-       snapcraft.yaml
+       doc/*
        src/src.pro
        src/res/*.png
        src/res.qrc
        src/res/style.qss
        src/input.conf
        src/translations/*
+       controllertest/*
 Copyright: lixiang <lixiang@kylinos.cn>
            handsome_feng <jianfengli@ubuntukylin.com>
            2013-2019, National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
@@ -32,13 +34,19 @@ Comment:
 Files: src/aboutdialog.cpp
        src/aboutdialog.h
        src/aboutdialog.ui
+       src/autohidecursorwidget.cpp
+       src/autohidecursorwidget.h
        src/bottomcontroller.cpp
        src/bottomcontroller.h
        src/bottomwidget.cpp
        src/bottomwidget.h
+       src/controllerworker.cpp
+       src/controllerworker.h
        src/coverwidget.cpp
        src/coverwidget.h
        src/datautils.h
+       src/displaylayercomposer.cpp
+       src/displaylayercomposer.h
        src/esctip.cpp
        src/esctip.h
        src/filterhandler.cpp
@@ -51,6 +59,10 @@ Files: src/aboutdialog.cpp
        src/kylinvideo.cpp
        src/kylinvideo.h
        src/main.cpp
+       src/mainwindow.cpp
+       src/mainwindow.h
+       src/maskwidget.cpp
+       src/maskwidget.h
        src/messagedialog.cpp
        src/messagedialog.h
        src/myapplication.h
@@ -66,6 +78,11 @@ Files: src/aboutdialog.cpp
        src/playlistview.h
        src/playmask.cpp
        src/playmask.h
+       src/poweroffdialog.cpp
+       src/poweroffdialog.h
+       src/remote_controller.xml
+       src/remotecontroller.cpp
+       src/remotecontroller.h
        src/shortcutswidget.cpp
        src/shortcutswidget.h
        src/soundvolume.cpp
@@ -86,6 +103,10 @@ Files: src/aboutdialog.cpp
        src/titlebutton.h
        src/titlewidget.cpp
        src/titlewidget.h
+       src/utils.cpp
+       src/utils.h
+       src/videowindow.cpp
+       src/videowindow.h
 Copyright: 2013-2019 National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
 License: GPL-3
 

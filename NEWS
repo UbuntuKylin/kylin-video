@@ -1,4 +1,16 @@
 ==============
+Version  2.0.0
+==============
+
+- Updated these modules: preferences, core, mplayerprocess and mpvprocess.
+- Rewrited playlist with model and delegate.
+- Added OSD info.
+- Optimized partial parameters for mpv and mplayer.
+- Supported Interface Size Tension.
+- Added new files, such as videowindow.cpp, autohidecursorwidget.cpp and displaylayercomposer.cpp.
+- Add remote controller dbus.
+
+==============
 Version  1.1.0
 ==============
 

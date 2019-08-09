@@ -181,7 +181,7 @@ public slots:
 
 signals:
 	void playlistEnded();
-    void sig_playing_title(QString title);
+    void requestSetPlayingTitle(QString title);
     void update_playlist_count(int count);
     void closePlaylist();
     void playListFinishedWithError(QString errorStr);

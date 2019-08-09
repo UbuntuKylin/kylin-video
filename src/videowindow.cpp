@@ -168,7 +168,7 @@ void VideoWindow::hideLogoForTemporary()
     m_logoLabel->setVisible(false);
 }
 
-void VideoWindow::update_logo_pos()
+void VideoWindow::updateLogoPosition()
 {
     if (m_stoped) {
         m_displayLayer->move(0,0);

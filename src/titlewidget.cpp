@@ -31,8 +31,8 @@
 
 TitleWidget::TitleWidget(QWidget *parent)
     : QWidget(parent)
-    , m_spreadAnimation(0)
-    , m_gatherAnimation(0)
+//    , m_spreadAnimation(0)
+//    , m_gatherAnimation(0)
     , m_dragState(NOT_DRAGGING)
     , m_startDrag(QPoint(0,0))
 {
@@ -48,8 +48,8 @@ TitleWidget::TitleWidget(QWidget *parent)
 
 TitleWidget::~TitleWidget()
 {
-    if (m_spreadAnimation) delete m_spreadAnimation;
-    if (m_gatherAnimation) delete m_gatherAnimation;
+//    if (m_spreadAnimation) delete m_spreadAnimation;
+//    if (m_gatherAnimation) delete m_gatherAnimation;
     if (menu_button) {
         delete menu_button;
         menu_button = NULL;
@@ -67,6 +67,11 @@ TitleWidget::~TitleWidget()
         close_button = NULL;
     }
 }
+
+//void TitleWidget::showWidget()
+//{
+//    showSpreadAnimated();
+//}
 
 void TitleWidget::initWidgets()
 {
@@ -132,7 +137,7 @@ void TitleWidget::initMiddleContent()
     m_layout->addWidget(w);
 }
 
-void TitleWidget::setTitleName(const QString &name)
+void TitleWidget::onSetPlayingTitleName(const QString &name)
 {
     QFont ft;
     QFontMetrics fm(ft);
@@ -207,57 +212,57 @@ void TitleWidget::updateMaxButtonStatus(bool is_maxed)
     }
 }
 
-void TitleWidget::checkUnderMouse()
-{
-    if ((isVisible()) && (!underMouse())) {
-        this->showGatherAnimated();
-    }
-}
+//void TitleWidget::checkUnderMouse()
+//{
+//    if ((isVisible()) && (!underMouse())) {
+//        this->showGatherAnimated();
+//    }
+//}
 
-void TitleWidget::spreadAniFinished()
-{
-}
+//void TitleWidget::spreadAniFinished()
+//{
+//}
 
-void TitleWidget::gatherAniFinished()
-{
-    QWidget::hide();
-}
+//void TitleWidget::gatherAniFinished()
+//{
+//    QWidget::hide();
+//}
 
-void TitleWidget::showSpreadAnimated()
-{
-    if (!m_spreadAnimation) {
-        m_spreadAnimation = new QPropertyAnimation(this, "pos");
-        connect(m_spreadAnimation, SIGNAL(finished()), this, SLOT(spreadAniFinished()));
-    }
+//void TitleWidget::showSpreadAnimated()
+//{
+//    if (!m_spreadAnimation) {
+//        m_spreadAnimation = new QPropertyAnimation(this, "pos");
+//        connect(m_spreadAnimation, SIGNAL(finished()), this, SLOT(spreadAniFinished()));
+//    }
 
-    QPoint initial_position = QPoint(pos().x(), -this->height());
-    QPoint final_position = QPoint(0, 0);
-    move(initial_position);
+//    QPoint initial_position = QPoint(pos().x(), -this->height());
+//    QPoint final_position = QPoint(0, 0);
+//    move(initial_position);
 
-    QWidget::show();
+//    QWidget::show();
 
-    m_spreadAnimation->setDuration(300);
-    m_spreadAnimation->setEndValue(final_position);
-    m_spreadAnimation->setStartValue(initial_position);
-    m_spreadAnimation->start();
-}
+//    m_spreadAnimation->setDuration(300);
+//    m_spreadAnimation->setEndValue(final_position);
+//    m_spreadAnimation->setStartValue(initial_position);
+//    m_spreadAnimation->start();
+//}
 
-void TitleWidget::showGatherAnimated()
-{
-    if (!m_gatherAnimation) {
-        m_gatherAnimation = new QPropertyAnimation(this, "pos");
-        connect(m_gatherAnimation, SIGNAL(finished()), this, SLOT(gatherAniFinished()));
-    }
+//void TitleWidget::showGatherAnimated()
+//{
+//    if (!m_gatherAnimation) {
+//        m_gatherAnimation = new QPropertyAnimation(this, "pos");
+//        connect(m_gatherAnimation, SIGNAL(finished()), this, SLOT(gatherAniFinished()));
+//    }
 
-    QPoint initial_position = QPoint(0, 0);
-    QPoint final_position = QPoint(pos().x(), -this->height());
-    move(initial_position);
+//    QPoint initial_position = QPoint(0, 0);
+//    QPoint final_position = QPoint(pos().x(), -this->height());
+//    move(initial_position);
 
-    m_gatherAnimation->setDuration(300);
-    m_gatherAnimation->setStartValue(initial_position);
-    m_gatherAnimation->setEndValue(final_position);
-    m_gatherAnimation->start();
-}
+//    m_gatherAnimation->setDuration(300);
+//    m_gatherAnimation->setStartValue(initial_position);
+//    m_gatherAnimation->setEndValue(final_position);
+//    m_gatherAnimation->start();
+//}
 
 void TitleWidget::paintEvent(QPaintEvent *event)
 {

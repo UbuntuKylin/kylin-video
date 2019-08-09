@@ -78,7 +78,7 @@ public slots:
     void showLogo() { setLogoVisible(true);};
     void hideLogo() { setLogoVisible(false); };
     void hideLogoForTemporary();
-    void update_logo_pos();
+    void updateLogoPosition();
     void setAnimatedLogo(bool b) { m_animatedLogo = b; };
     void moveLeft();
     void moveRight();

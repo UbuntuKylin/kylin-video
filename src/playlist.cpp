@@ -251,7 +251,7 @@ void Playlist::updateWindowTitle()
     if (title.isEmpty()) title = tr("Untitled playlist");
     if (modified) title += " (*)";
 
-    emit sig_playing_title(title);//emit windowTitleChanged(title);
+    emit requestSetPlayingTitle(title);//emit windowTitleChanged(title);
 */
 }
 
@@ -901,13 +901,13 @@ void Playlist::onPlayListItemDoubleClicked(int row, const QString &filename)
     if (fi.exists()) {
         // Local file
         if ((row >= this->m_playlistView->getModelRowCount()) || (row < 0)) {
-            emit this->sig_playing_title("");
+            emit this->requestSetPlayingTitle("");
             return;
         }
 
 
         QString name = fi.fileName();
-        emit this->sig_playing_title(name);
+        emit this->requestSetPlayingTitle(name);
 
         //保存当前播放文件的索引和文件路径名
         this->setPlaying(filename, row);
@@ -951,7 +951,7 @@ void Playlist::playItem( int n )
     if ( (n >= this->m_playlistView->getModelRowCount()) || (n < 0) ) {
         qDebug("Playlist::playItem: out of range");
         emit playlistEnded();
-        emit this->sig_playing_title("");
+        emit this->requestSetPlayingTitle("");
         return;
     }
 
@@ -963,18 +963,18 @@ void Playlist::playItem( int n )
 
             // Local file
             QString name = fi.fileName();
-            emit this->sig_playing_title(name);
+            emit this->requestSetPlayingTitle(name);
             //0621 kobe:  m_core->open(filename, 0): 每次从头开始播放文件，    m_core->open(filename):每次从上次播放停止位置开始播放文件
 
             //保存当前播放文件的索引和文件路径名
             this->setPlaying(filename, n);
 
             if (play_files_from_start) {
-                emit this->sig_playing_title(name);
+                emit this->requestSetPlayingTitle(name);
                 m_core->open(filename, 0);
             }
             else {
-                emit this->sig_playing_title(name);
+                emit this->requestSetPlayingTitle(name);
                 m_core->open(filename, 0);
             }
         }
@@ -986,7 +986,7 @@ void Playlist::playItem( int n )
 
 void Playlist::playNext()
 {
-//    emit this->sig_playing_title("");
+//    emit this->requestSetPlayingTitle("");
 //    qDebug("Playlist::playNext  pl[m_currentItemIndex]->name()=%s", pl[m_currentItemIndex]->name());
     //qDebug() << "playNext m_currentItemIndex=" << m_currentItemIndex;
     if (pref->play_order == Preferences::RandomPlay) {//随机播放
@@ -1684,7 +1684,7 @@ void Playlist::showEvent( QShowEvent * )
 
 void Playlist::playerFailed(QProcess::ProcessError e)
 {
-    emit this->sig_playing_title("");
+    emit this->requestSetPlayingTitle("");
     if (ignore_player_errors) {
         if (e != QProcess::FailedToStart) {
             playNext();
@@ -1694,7 +1694,7 @@ void Playlist::playerFailed(QProcess::ProcessError e)
 
 void Playlist::playerFinishedWithError(int e)
 {
-    emit this->sig_playing_title("");
+    emit this->requestSetPlayingTitle("");
     if (ignore_player_errors) {
         playNext();
     }

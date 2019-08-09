@@ -83,8 +83,8 @@ void MyAction::change(const QString & text ) {
 	QString s = text;
 	s.replace("&","");
 	if (!accel_text.isEmpty()) {
-		setToolTip( s + " ("+ accel_text +")");
-		setIconText( s );
+        setToolTip(s + " ("+ accel_text +")");
+        setIconText(s);
 	}
 
 	/*
@@ -94,11 +94,11 @@ void MyAction::change(const QString & text ) {
 		setText( s );
 
 		if (!accel_text.isEmpty())
-			setToolTip( s + " ("+ accel_text +")");
+            setToolTip(s + " ("+ accel_text +")");
 	} else {
 		setText( text );
 		if (!accel_text.isEmpty())
-			setToolTip( text + " ("+ accel_text +")");
+            setToolTip(text + " ("+ accel_text +")");
 	}
 	*/
 }

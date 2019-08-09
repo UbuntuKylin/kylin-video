@@ -173,8 +173,7 @@ Core::Core(VideoWindow *mpw, const QString &snap, QWidget* parent)
 	connect( proc, SIGNAL(receivedStreamTitleAndUrl(QString,QString)),
              this, SLOT(streamTitleAndUrlChanged(QString,QString)) );
 
-	connect( proc, SIGNAL(failedToParseMplayerVersion(QString)),
-             this, SIGNAL(failedToParseMplayerVersion(QString)) );
+    connect(proc, SIGNAL(failedToParseMplayerVersion(QString)), this, SIGNAL(failedToParseMplayerVersion(QString)));
 
 	connect( this, SIGNAL(mediaLoaded()), this, SLOT(checkIfVideoIsHD()), Qt::QueuedConnection );
 

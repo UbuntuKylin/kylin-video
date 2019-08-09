@@ -119,6 +119,13 @@ public slots:
     void onCloseWindow();
     void onShowMenu();
     void onMaxWindow(bool b);
+    void onFullScreen();
+    void onShowOrHidePlaylist();
+    void exitFullscreen();
+    void exitFullscreenOnStop();
+    void exitFullscreenIfNeeded();
+    void toggleFullscreen(bool);
+    void onPlayPause();
 
     void showAboutDialog();
     void showHelpDialog();
@@ -143,30 +150,13 @@ public slots:
     void openURL();
     void loadSub();
 	void setInitialSubtitle(const QString & subtitle_file);
-
-    void exitFullscreen();
-    void toggleFullscreen(bool);
-    void disableSomeComponent();
-    void setPlaylistProperty();
-    void slot_playlist();
-    void slot_set_fullscreen();
-
-    void open_screenshot_directory();
     void onSavePreviewImage(int time);
 //    void showShortcuts();
-
-    void startPlayPause();
     void onMeidaFilesAdded(const VideoPtrList medialist);
     void setBackgroudPixmap(QString pixmapDir);
-
-
-    void closeWindow();
     void trayIconActivated(QSystemTrayIcon::ActivationReason);
-    void quit();
     void setJumpTexts();
     void openRecent();
-    void exitFullscreenOnStop();
-    void exitFullscreenIfNeeded();
     void playlistHasFinished();
     void displayState(Core::State state);
     void displayMessage(QString message);
@@ -181,9 +171,8 @@ public slots:
     void enableActionsOnPlaying();
     void disableActionsOnStop();
     void togglePlayAction(Core::State);
-    void hidePanel();
-	void resizeMainWindow(int w, int h);
-	void resizeWindow(int w, int h);
+    void hideCentralWidget();
+    void resizeMainWindow(int w, int h);
     void displayGotoTime(int);
     void goToPosOnDragging(int);
     void showPopupMenu();
@@ -208,26 +197,15 @@ public slots:
 	void handleMessageFromOtherInstances(const QString& message);
 #endif
 
-	//! Called when core can't parse the mplayer version and there's no
-	//! version supplied by the user
-	void askForMplayerVersion(QString);
-
 	void showExitCodeFromMplayer(int exit_code);
 	void showErrorFromMplayer(QProcess::ProcessError);
     void showErrorFromPlayList(QString errorStr);
-
-//	//! Clears the mplayer log
     void clearMplayerLog();
-//	//! Saves the line from the mplayer output
     void recordMplayerLog(QString line);
-
-    void checkMplayerVersion();
-    void displayWarningAboutOldMplayer();
 
 signals:
     void requestActionsEnabled(bool);
     void requestPlayOrPauseEnabled(bool);
-    void timeChanged(QString time_ready_to_print, QString all_time);
     void requestUpdatePlaylistBtnQssProperty(bool);
     void requestGuiChanged();
 
@@ -275,9 +253,8 @@ private:
     MaskWidget *m_maskWidget = nullptr;
     ControllerWorker *m_controllerWorker = nullptr;
 
-
     QWidget *m_centralWidget = nullptr;
-    QStackedLayout *m_centralLayout = nullptr;
+    QStackedLayout/*QVBoxLayout*/ *m_centralLayout = nullptr;
     TitleWidget *m_topToolbar = nullptr;
     BottomWidget *m_bottomToolbar = nullptr;
     BottomController *m_bottomController = nullptr;
@@ -431,8 +408,8 @@ private:
     MyAction * osdTimerAct = nullptr;
     MyAction * osdTotalAct = nullptr;
 
-    QMenu *popup = nullptr;
-    QMenu *main_popup = nullptr;
+    QMenu *m_mainMenu = nullptr;
+    QMenu *m_toolbarMenu = nullptr;
     QMenu *audiochannels_menu = nullptr;
     MyActionGroup *channelsGroup = nullptr;
     MyAction *channelsStereoAct = nullptr;

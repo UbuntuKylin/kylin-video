@@ -363,7 +363,7 @@ ShortcutGetter::ShortcutGetter(/*bool isbtn, */QWidget *parent) : QDialog(parent
 	QPushButton * captureButton = new QPushButton(tr("Capture"), this);
     captureButton->setStyleSheet("QPushButton{font-size:12px;background:#0f0f0f;border:1px solid #0a9ff5;color:#999999;}QPushButton:hover{background-color:#0a9ff5;border:1px solid #2db0f6;color:#ffffff;} QPushButton:pressed{background-color:#0993e3;border:1px solid #0a9ff5;color:#ffffff;}");
     captureButton->setFixedSize(91, 25);
-	captureButton->setToolTip( tr("Capture keystrokes") );
+    captureButton->setToolTip(tr("Capture keystrokes") );
 	captureButton->setCheckable( captureKeyboard() );
 	captureButton->setChecked( captureKeyboard() );
 	connect(captureButton, SIGNAL(toggled(bool)), 

@@ -42,7 +42,7 @@ FileChooser::~FileChooser() {
 
 void FileChooser::setupButton() {
     setIcon(Images::icon("folder_open") );
-	button->setToolTip( tr("Click to select a file or folder") );
+    button->setToolTip(tr("Click to select a file or folder") );
 }
 
 void FileChooser::openFileDialog() {

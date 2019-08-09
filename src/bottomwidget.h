@@ -55,6 +55,7 @@ public:
     void onShowControlWidget();
     void setPreviewData(bool preview);
     void savePreviewImageName(int time, QString filepath);
+//    void showWidget();
 
 signals:
     void requestVolumeChanged(int volume);
@@ -74,7 +75,7 @@ signals:
     void wheelUp();
     void wheelDown();
     void mouseMovedDiff(QPoint);
-    void requestShowOrHideEscWidget(bool b);
+//    void requestShowOrHideEscWidget(bool b);
     void resize_bottom_widget_height(bool b);
     void requestSavePreviewImage(int time);
     void mouseEnter();
@@ -102,8 +103,8 @@ public slots:
     void setDragDelay(int);
     int dragDelay();
     void onProgressActiveStatus(bool b);
-    void spreadAniFinished();
-    void gatherAniFinished();
+//    void spreadAniFinished();
+//    void gatherAniFinished();
     void updateLabelCountNumber(int count);
 
 protected:
@@ -114,13 +115,13 @@ protected:
     virtual void paintEvent(QPaintEvent *event);
 
 private slots:
-    void checkUnderMouse();
-    void showSpreadAnimated();
-    void showGatherAnimated();
+//    void checkUnderMouse();
+//    void showSpreadAnimated();
+//    void showGatherAnimated();
 
 private:
-    QPropertyAnimation *m_spreadAnimation = nullptr;
-    QPropertyAnimation *m_gatherAnimation = nullptr;
+//    QPropertyAnimation *m_spreadAnimation = nullptr;
+//    QPropertyAnimation *m_gatherAnimation = nullptr;
     QLabel *m_playtimeLabel = nullptr;
     QLabel *m_totaltimeLabel = nullptr;
     QPushButton *m_btnStop = nullptr;

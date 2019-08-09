@@ -53,8 +53,8 @@ static const char *property_PlayListStatus = "playliststatus";
 
 BottomWidget::BottomWidget(QWidget *parent)
     : QWidget(parent, Qt::SubWindow)
-    , m_spreadAnimation(0)
-    , m_gatherAnimation(0)
+//    , m_spreadAnimation(0)
+//    , m_gatherAnimation(0)
     , m_dragState(NOT_DRAGGING)
     , m_startDrag(QPoint(0,0))
     , m_dragDelay(200)
@@ -232,14 +232,19 @@ BottomWidget::BottomWidget(QWidget *parent)
 
 BottomWidget::~BottomWidget()
 {
-    if (m_spreadAnimation) delete m_spreadAnimation;
-    if (m_gatherAnimation) delete m_gatherAnimation;
+//    if (m_spreadAnimation) delete m_spreadAnimation;
+//    if (m_gatherAnimation) delete m_gatherAnimation;
 
     if (m_metaWidget) delete m_metaWidget;
     if (m_ctlWidget) delete m_ctlWidget;
     if (m_actWidget) delete m_actWidget;
     if (m_controlWidget) delete m_controlWidget;
 }
+
+//void BottomWidget::showWidget()
+//{
+//    showSpreadAnimated();
+//}
 
 void BottomWidget::setPreviewData(bool preview)
 {
@@ -399,68 +404,70 @@ void BottomWidget::updateWidgetQssProperty(QWidget *w, const char *name, const Q
     w->update();
 }
 
-void BottomWidget::checkUnderMouse()
-{
-    if ((m_ctlWidget->isVisible()) && (!underMouse())) {
-        this->showGatherAnimated();
-        //tell mainwindow to hide escwidget
-        emit this->requestShowOrHideEscWidget(false);
-    }
-}
+//void BottomWidget::checkUnderMouse()
+//{
+//    if ((m_ctlWidget->isVisible()) && (!underMouse())) {
+//        this->showGatherAnimated();
+//        //tell mainwindow to hide escwidget
+//        qDebug() << "AAAAAAAAAAAAAAAAAA";
+//        emit this->requestShowOrHideEscWidget(false);
+//    }
+//}
 
-void BottomWidget::spreadAniFinished()
-{
-}
+//void BottomWidget::spreadAniFinished()
+//{
+//}
 
-void BottomWidget::gatherAniFinished()
-{
-    m_controlWidget->hide();
-}
+//void BottomWidget::gatherAniFinished()
+//{
+//    m_controlWidget->hide();
+//}
 
 void BottomWidget::onShowControlWidget()
 {
     m_controlWidget->show();
 }
 
-void BottomWidget::showSpreadAnimated()
-{
-    if (!m_spreadAnimation) {
-        m_spreadAnimation = new QPropertyAnimation(this, "pos");
-        connect(m_spreadAnimation, SIGNAL(finished()), this, SLOT(spreadAniFinished()));
-    }
+//void BottomWidget::showSpreadAnimated()
+//{
+//    if (!m_spreadAnimation) {
+//        m_spreadAnimation = new QPropertyAnimation(this, "pos");
+//        connect(m_spreadAnimation, SIGNAL(finished()), this, SLOT(spreadAniFinished()));
+//    }
 
-    QPoint initial_position = QPoint(pos().x(), parentWidget()->size().height());
-    QPoint final_position = QPoint(0, parentWidget()->size().height() - this->height());
-    move(initial_position);
+//    QPoint initial_position = QPoint(pos().x(), parentWidget()->size().height());
+//    QPoint final_position = QPoint(0, parentWidget()->size().height() - this->height());
+//    move(initial_position);
 
-    QWidget::show();
-    m_controlWidget->show();
+//    QWidget::show();
+//    m_controlWidget->show();
 
-    m_spreadAnimation->setDuration(300);
-    m_spreadAnimation->setStartValue(initial_position);
-    m_spreadAnimation->setEndValue(final_position);
-    m_spreadAnimation->start();
+//    m_spreadAnimation->setDuration(300);
+//    m_spreadAnimation->setStartValue(initial_position);
+//    m_spreadAnimation->setEndValue(final_position);
+//    m_spreadAnimation->start();
 
-    //tell mainwindow to show escwidget
-    emit this->requestShowOrHideEscWidget(true);
-}
+//    qDebug() << "BBBBBBBBBBBBBBBBBBB";
+//    //tell mainwindow to show escwidget
+//    emit this->requestShowOrHideEscWidget(true);
+//}
 
-void BottomWidget::showGatherAnimated()
-{
-    if (!m_gatherAnimation) {
-        m_gatherAnimation = new QPropertyAnimation(this, "pos");
-        connect(m_gatherAnimation, SIGNAL(finished()), this, SLOT(gatherAniFinished()));
-    }
+//void BottomWidget::showGatherAnimated()
+//{
+//    if (!m_gatherAnimation) {
+//        m_gatherAnimation = new QPropertyAnimation(this, "pos");
+//        connect(m_gatherAnimation, SIGNAL(finished()), this, SLOT(gatherAniFinished()));
+//    }
 
-    QPoint initial_position = QPoint(0, parentWidget()->size().height() - this->height());
-    QPoint final_position = QPoint(pos().x(), parentWidget()->size().height() - 4);//kobe 0616:给最底下的进度条留下空间
-    move(initial_position);
+//    QPoint initial_position = QPoint(0, parentWidget()->size().height() - this->height());
+//    QPoint final_position = QPoint(pos().x(), parentWidget()->size().height() - 4);//kobe 0616:给最底下的进度条留下空间
+//    move(initial_position);
 
-    m_gatherAnimation->setDuration(300);
-    m_gatherAnimation->setStartValue(initial_position);
-    m_gatherAnimation->setEndValue(final_position);
-    m_gatherAnimation->start();
-}
+//    m_gatherAnimation->setDuration(300);
+//    m_gatherAnimation->setStartValue(initial_position);
+//    m_gatherAnimation->setEndValue(final_position);
+//    m_gatherAnimation->start();
+//}
 
 void BottomWidget::resizeEvent(QResizeEvent *event)
 {

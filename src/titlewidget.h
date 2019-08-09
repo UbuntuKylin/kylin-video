@@ -46,6 +46,7 @@ public:
     ~TitleWidget();
 
     void updateMaxButtonStatus(bool is_maxed);
+//    void showWidget();
 
 signals:
     void requestMinWindow();
@@ -90,23 +91,23 @@ private:
     SystemButton *menu_button = nullptr;
 
 public slots:
-    void setTitleName(const QString &name);
+    void onSetPlayingTitleName(const QString &name);
     void cleaTitleName();
-    void showSpreadAnimated();
-    void showGatherAnimated();
-    void spreadAniFinished();
-    void gatherAniFinished();
+//    void showSpreadAnimated();
+//    void showGatherAnimated();
+//    void spreadAniFinished();
+//    void gatherAniFinished();
 
 protected:
     bool eventFilter(QObject * obj, QEvent * event);
     void paintEvent(QPaintEvent *event);
 
 private slots:
-    void checkUnderMouse();
+//    void checkUnderMouse();
 
 private:
-    QPropertyAnimation *m_spreadAnimation = nullptr;
-    QPropertyAnimation *m_gatherAnimation = nullptr;
+//    QPropertyAnimation *m_spreadAnimation = nullptr;
+//    QPropertyAnimation *m_gatherAnimation = nullptr;
     QLabel *m_logoLabel = nullptr;
     QLabel *m_softLabel = nullptr;
     QLabel *m_titleLabel = nullptr;

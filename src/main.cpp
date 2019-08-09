@@ -27,10 +27,14 @@
 #include <QTextCodec>
 #include <QtDBus>
 
+#include <signal.h>
+
 #define CONTROL_DBUS_SERVICE_NAME  "com.kylin.kylinvideo.controller"
 
 int main(int argc, char **argv)
 {
+    signal(SIGINT, [](int) { QApplication::quit(); });// 设置退出信号
+
     MyApplication a("kylin-video", argc, argv );
     a.setQuitOnLastWindowClosed(false);
 

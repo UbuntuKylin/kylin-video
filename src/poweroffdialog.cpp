@@ -17,7 +17,8 @@ PoweroffDialog::PoweroffDialog(QWidget * parent, Qt::WindowFlags f)
     this->setWindowFlags(Qt::FramelessWindowHint);
     setMinimumSize(QSize(438, 100));
     this->setStyleSheet("QDialog{border: 1px solid #121212;border-radius:1px;background-color: #ffffff;}");
-    this->setWindowIcon(QIcon(":/res/kylin-video.png"));
+    this->setWindowIcon(QIcon::fromTheme("kylin-video", QIcon(":/res/kylin-video.png")));
+//    this->setWindowIcon(QIcon::fromTheme("kylin-video", QIcon(":/res/kylin-video.png")).pixmap(QSize(64, 64)).scaled(64, 64, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
     this->setAutoFillBackground(true);
     this->setMouseTracking(true);
     this->installEventFilter(this);

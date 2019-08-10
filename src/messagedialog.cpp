@@ -32,7 +32,8 @@ MessageDialog::MessageDialog(QWidget *parent, const QString &title, const QStrin
     this->setWindowFlags(Qt::FramelessWindowHint);
     this->setStyleSheet("QDialog{border: 1px solid #121212;border-radius:1px;background-color:#1f1f1f;}");
     this->setWindowTitle(title);
-    this->setWindowIcon(QIcon(":/res/kylin-video.png"));//setWindowIcon( Images::icon("logo", 64) );
+    this->setWindowIcon(QIcon::fromTheme("kylin-video", QIcon(":/res/kylin-video.png")));
+//    this->setWindowIcon(QIcon::fromTheme("kylin-video", QIcon(":/res/kylin-video.png")).pixmap(QSize(64, 64)).scaled(64, 64, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
     this->setAutoFillBackground(true);
     this->setMouseTracking(true);
     installEventFilter(this);

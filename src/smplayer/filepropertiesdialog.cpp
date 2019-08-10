@@ -202,8 +202,8 @@ void FilePropertiesDialog::onButtonClicked(int id)
 void FilePropertiesDialog::retranslateStrings() {
 	retranslateUi(this);
 
-//	setWindowIcon( Images::icon("logo") );
-    this->setWindowIcon(QIcon(":/res/kylin-video.png"));
+    this->setWindowIcon(QIcon::fromTheme("kylin-video", QIcon(":/res/kylin-video.png")));
+//    this->setWindowIcon(QIcon::fromTheme("kylin-video", QIcon(":/res/kylin-video.png")).pixmap(QSize(64, 64)).scaled(64, 64, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
     icon_label->setPixmap(QPixmap(":/res/info.png"));
 
 	showInfo();

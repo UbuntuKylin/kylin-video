@@ -5,17 +5,20 @@ Maintainer: Kylin Team <team+kylin@tracker.debian.org>
 Uploaders: Aron Xu <aron@debian.org>,
            handsome_feng <jianfengli@ubuntukylin.com>,
            lixiang <xiangli@ubuntukylin.com>
-Build-Depends: debhelper (>= 11),
+Build-Depends: debhelper (>= 12),
+               build-essential,
                qtbase5-dev (>= 5.1),
                qt5-qmake,
+               qtchooser,
                qtscript5-dev,
                qttools5-dev-tools,
+               qtbase5-dev-tools,
                qtbase5-private-dev,
                libqt5x11extras5-dev,
                libx11-dev,
                libcrystalhd-dev [amd64 i386],
-               zlib1g-dev
-Standards-Version: 4.1.5
+               zlib1g-dev,
+Standards-Version: 4.3.0
 Homepage: https://github.com/ukui/kylin-video
 Vcs-Git: https://github.com/ukui/kylin-video.git
 Vcs-Browser: https://github.com/ukui/kylin-video

@@ -5,6 +5,7 @@ kylin-video (2.0.0-0ubuntu2) eoan; urgency=low
   * Add remote controller dbus.
   * Add equalizer and filter for audio.
   * Fixed the exception of the esctip.
+  * Access icon from theme.
 
  -- lixiang <lixiang@kylinos.cn>  Mon, 22 Jul 2019 10:51:05 +0800
 

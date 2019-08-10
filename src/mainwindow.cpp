@@ -147,7 +147,8 @@ MainWindow::MainWindow(QString arch_type, QString snap, ControllerWorker *contro
     this->setMinimumSize(WINDOW_MIN_WIDTH, WINDOW_MIN_HEIGHT);
     this->resize(900, 600);
     this->setWindowTitle(tr("Kylin Video"));
-    this->setWindowIcon(QIcon(":/res/kylin-video.png"));
+    this->setWindowIcon(QIcon::fromTheme("kylin-video", QIcon(":/res/kylin-video.png")));
+//    this->setWindowIcon(QIcon::fromTheme("kylin-video", QIcon(":/res/kylin-video.png")).pixmap(QSize(64, 64)).scaled(64, 64, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
     this->setAcceptDrops(true);
 
     m_windowPos = pos();

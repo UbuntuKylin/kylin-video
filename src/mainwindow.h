@@ -76,35 +76,38 @@ public:
     void createBottomToolBar();
     void createAudioEqualizer();
     void createActionsAndMenus();
+    void createOpenActionsAndMenus();
+    void createRecentsActionsAndMenus();
+    void createTopActionsAndMenus();
+    void createPlayCommandActionsAndMenus();
+    void createPlayOrderActionsAndMenus();
+    void createVideoAspectActionsAndMenus();
+    void createVideoRotateActionsAndMenus();
+    void createAudioActionsAndMenus();
+    void createScreenshotActionsAndMenus();
+    void createSubtitleActionsAndMenus();
+    void createOsdActionsAndMenus();
+    void createOthersActionsAndMenus();
     void createTrayActions();
     void createTipWidget();
     void createEscWidget();
     void createMaskWidget();
     void createPreferencesDialog();
     void createFilePropertiesDialog();
-    void initRemoteControllerConnections();
-    void loadConfigForUI();
-    void setStayOnTop(bool b);
-
     void setDataToFileProperties();
     void createAboutDialog();
     void createHelpDialog();
-    void setDataToAboutDialog();
-
+    void initRemoteControllerConnections();
+    void setStayOnTop(bool b);
     void setActionsEnabled(bool);
     void updateRecents();
-
     void updateMuteWidgets();
     void updateOnTopWidgets();
     void updatePlayOrderWidgets();
-
     void setPlaylistVisible(bool visible);
     void slideEdgeWidget(QWidget *right, QRect start, QRect end, int delay, bool hide = false);
-
     void bindThreadWorker(InfoWorker *worker);
-
     Core * getCore() { return m_core; };
-
     void onPrepareForShutdown(bool start);
     void onPrepareForSleep(bool start);
 
@@ -139,6 +142,8 @@ public slots:
     void toggleShowOrHideMainWindow();
     void showMainWindow();
     void showAudioEqualizer(bool b);
+
+    void updateWidgets();
     void updateAudioEqualizer();
 
     void doOpen(QString file);
@@ -161,7 +166,7 @@ public slots:
     void displayState(Core::State state);
     void displayMessage(QString message);
     void gotCurrentTime(double, bool);
-    void updateWidgets();
+
     void newMediaLoaded();
     void updateMediaInfo();
     void displayVideoInfo(int width, int height, double fps);
@@ -423,7 +428,7 @@ private:
     MyAction *action_show = nullptr;
     MyAction *action_openshotsdir = nullptr;
 
-    //Hide actions
+    // The actions which are invisible shortcuts
     MyAction *playlist_action = nullptr;
     MyAction *play_pause_aciton = nullptr;
     MyAction *stopAct = nullptr;

@@ -199,8 +199,11 @@ MainWindow::MainWindow(QString arch_type, QString snap, ControllerWorker *contro
     }
 
     QTimer::singleShot(20, this, SLOT(loadActions()));
-    this->loadConfigForUI();
-    this->updateRecents();
+
+    this->move((QApplication::desktop()->screenGeometry(0).width() - this->width()) / 2, (QApplication::desktop()->screenGeometry(0).height() - this->height()) / 2);
+
+    this->changeStayOnTop(pref->stay_on_top);
+    this->changePlayOrder(pref->play_order);
 
 //    QGraphicsDropShadowEffect *effect = new QGraphicsDropShadowEffect(this);
 //    effect->setBlurRadius(50);
@@ -558,7 +561,57 @@ void MainWindow::createAudioEqualizer()
     connect(audio_equalizer, SIGNAL(visibilityChanged()), this, SLOT(updateWidgets()));
 }
 
+
 void MainWindow::createActionsAndMenus()
+{
+    if (!m_mainMenu)
+        m_mainMenu = new QMenu(this);
+    else
+        m_mainMenu->clear();
+
+    this->createOpenActionsAndMenus();
+    this->createRecentsActionsAndMenus();
+    this->createTopActionsAndMenus();
+    this->createPlayCommandActionsAndMenus();
+    this->createPlayOrderActionsAndMenus();
+    this->createVideoAspectActionsAndMenus();
+    this->createVideoRotateActionsAndMenus();
+    this->createAudioActionsAndMenus();
+    this->createScreenshotActionsAndMenus();
+    this->createSubtitleActionsAndMenus();
+    this->createOsdActionsAndMenus();
+    this->createOthersActionsAndMenus();
+
+    m_mainMenu->addMenu(openMenu);
+    m_mainMenu->addMenu(recentfiles_menu);
+    m_mainMenu->addMenu(ontop_menu);
+    m_mainMenu->addMenu(playMenu);
+    m_mainMenu->addMenu(play_order_menu);
+    m_mainMenu->addMenu(aspect_menu);
+    m_mainMenu->addMenu(rotate_flip_menu);
+    m_mainMenu->addMenu(audioMenu);
+    m_mainMenu->addMenu(subtitlesMenu);
+    m_mainMenu->addMenu(osd_menu);
+//    m_mainMenu->addAction(shortcutsAct);
+    m_mainMenu->addAction(screenshotAct);
+    m_mainMenu->addAction(showPreferencesAct);
+    m_mainMenu->addAction(showPropertiesAct);
+    m_mainMenu->addAction(aboutAct);
+
+    if (!m_toolbarMenu)
+        m_toolbarMenu = new QMenu(this);
+    else
+        m_toolbarMenu->clear();
+    m_toolbarMenu->addAction(openFileAct);
+    m_toolbarMenu->addAction(screenshotAct);
+    m_toolbarMenu->addAction(showPreferencesAct);
+    m_toolbarMenu->addAction(helpAct);
+    m_toolbarMenu->addAction(aboutAct);
+    m_toolbarMenu->addSeparator();
+    m_toolbarMenu->addAction(quitAct);
+}
+
+void MainWindow::createOpenActionsAndMenus()
 {
     openMenu = new QMenu(this);
     openMenu->menuAction()->setText(tr("Open"));
@@ -580,7 +633,10 @@ void MainWindow::createActionsAndMenus()
     openMenu->addAction(openFileAct);
     openMenu->addAction(openDirectoryAct);
     openMenu->addAction(openURLAct);
+}
 
+void MainWindow::createRecentsActionsAndMenus()
+{
     clearRecentsAct = new MyAction(this, "clear_recents");
     connect(clearRecentsAct, SIGNAL(triggered()), this, SLOT(clearRecentsList()));
     clearRecentsAct->change(QPixmap(":/res/delete_normal.png"), tr("&Clear"));
@@ -591,6 +647,30 @@ void MainWindow::createActionsAndMenus()
     recentfiles_menu->menuAction()->setText(tr("Recent files"));
 //    recentfiles_menu->menuAction()->setIcon(QPixmap(":/res/delete.png"));
 
+    this->updateRecents();
+}
+
+void MainWindow::createTopActionsAndMenus()
+{
+    // On Top
+    onTopActionGroup = new MyActionGroup(this);
+    onTopAlwaysAct = new MyActionGroupItem(this,onTopActionGroup,"on_top_always",Preferences::AlwaysOnTop);
+    onTopNeverAct = new MyActionGroupItem(this,onTopActionGroup,"on_top_never",Preferences::NeverOnTop);
+    onTopWhilePlayingAct = new MyActionGroupItem(this,onTopActionGroup,"on_top_playing",Preferences::WhilePlayingOnTop);
+    onTopAlwaysAct->change(tr("&Always"));
+    onTopNeverAct->change(tr("&Never"));
+    onTopWhilePlayingAct->change(tr("While &playing"));
+    connect(onTopActionGroup, SIGNAL(activated(int)), this, SLOT(changeStayOnTop(int)));
+    // Ontop submenu
+    ontop_menu = new QMenu(this);
+    ontop_menu->menuAction()->setObjectName("ontop_menu");
+    ontop_menu->addActions(onTopActionGroup->actions());
+    ontop_menu->menuAction()->setText(tr("S&tay on top"));
+//	ontop_menu->menuAction()->setIcon(Images::icon("ontop"));
+}
+
+void MainWindow::createPlayCommandActionsAndMenus()
+{
     playMenu = new QMenu(this);
     playMenu->menuAction()->setText(tr("Play control"));
     control_menu = new QMenu(this);
@@ -703,6 +783,30 @@ void MainWindow::createActionsAndMenus()
     playPrevAct->setIcon(QPixmap(":/res/previous_normal.png"));
     playMenu->addAction(playPrevAct);
     playMenu->addAction(playNextAct);
+
+    this->setJumpTexts();
+}
+
+void MainWindow::createPlayOrderActionsAndMenus()
+{
+    //play order
+    playOrderActionGroup = new MyActionGroup(this);
+    orderPlaysAct = new MyActionGroupItem(this,playOrderActionGroup,"order_play",Preferences::OrderPlay);
+    randomPlayAct = new MyActionGroupItem(this,playOrderActionGroup,"random_play",Preferences::RandomPlay);
+    listLoopPlayAct = new MyActionGroupItem(this,playOrderActionGroup,"list_loop_play",Preferences::ListLoopPlay);
+    orderPlaysAct->change(tr("Order play"));
+    randomPlayAct->change(tr("Random play"));
+    listLoopPlayAct->change(tr("List loop play"));
+    connect(playOrderActionGroup, SIGNAL(activated(int)), this, SLOT(changePlayOrder(int)));
+    play_order_menu = new QMenu(this);
+    play_order_menu->menuAction()->setObjectName("play_order_menu");
+    play_order_menu->addActions(playOrderActionGroup->actions());
+    play_order_menu->menuAction()->setText(tr("Play order"));
+    //    play_order_menu->menuAction()->setIcon(Images::icon("list_cycle_normal"));
+}
+
+void MainWindow::createVideoAspectActionsAndMenus()
+{
     // Video aspect
     aspectGroup = new MyActionGroup(this);
     aspectDetectAct = new MyActionGroupItem(this, aspectGroup, "aspect_detect", MediaSettings::AspectAuto);
@@ -715,11 +819,11 @@ void MainWindow::createActionsAndMenus()
     aspect149Act = new MyActionGroupItem(this, aspectGroup, "aspect_14:9", MediaSettings::Aspect149 );
     aspect1610Act = new MyActionGroupItem(this, aspectGroup, "aspect_16:10", MediaSettings::Aspect1610 );
     aspect169Act = new MyActionGroupItem(this, aspectGroup, "aspect_16:9", MediaSettings::Aspect169 );
-    aspect235Act = new MyActionGroupItem(this, aspectGroup, "aspect_2.35:1", MediaSettings::Aspect235 );
-    {
-        QAction * sep = new QAction(aspectGroup);
-        sep->setSeparator(true);
-    }
+    aspect235Act = new MyActionGroupItem(this, aspectGroup, "aspect_2.35:1", MediaSettings::Aspect235);
+
+    QAction * sep = new QAction(aspectGroup);
+    sep->setSeparator(true);
+
     aspectNoneAct = new MyActionGroupItem(this, aspectGroup, "aspect_none", MediaSettings::AspectNone);
     connect(aspectGroup, SIGNAL(activated(int)), m_core, SLOT(changeAspectRatio(int)));
     aspectDetectAct->change(tr("&Auto"));
@@ -734,12 +838,16 @@ void MainWindow::createActionsAndMenus()
     aspect1610Act->change("1&6:10");
     aspect235Act->change("&2.35:1");
     aspectNoneAct->change(tr("&Disabled"));
+
     // Aspect submenu
     aspect_menu = new QMenu(this);
     aspect_menu->menuAction()->setObjectName("aspect_menu");
     aspect_menu->addActions(aspectGroup->actions());
     aspect_menu->menuAction()->setText(tr("Aspect ratio"));//宽高比  画面比例
+}
 
+void MainWindow::createVideoRotateActionsAndMenus()
+{
     // Rotate
     rotateGroup = new MyActionGroup(this);
     rotateNoneAct = new MyActionGroupItem(this, rotateGroup, "rotate_none", MediaSettings::NoRotate);
@@ -775,62 +883,10 @@ void MainWindow::createActionsAndMenus()
     rotate_flip_menu->addMenu(rotate_menu);
     rotate_flip_menu->addAction(flipAct);
     rotate_flip_menu->addAction(mirrorAct);
+}
 
-//    shortcutsAct = new MyAction(QKeySequence("Shift+?"), this, "Shortcuts");//快捷键  Qt::Key_Question
-////    shortcutsAct->addShortcut(QKeySequence("Shift+Ctrl+?"));
-//    connect(shortcutsAct, SIGNAL(triggered()), this, SLOT(showShortcuts()));
-//    shortcutsAct->change(tr("Shortcuts"));
-
-    // Single screenshot
-    screenshotAct = new MyAction(Qt::Key_S, this, "screenshot");//屏幕截图
-    connect(screenshotAct, SIGNAL(triggered()), m_core, SLOT(screenshot()));
-    screenshotAct->change(Images::icon("screenshot_normal"), tr("&Screenshot"));
-
-    /*screenshotWithSubsAct = new MyAction( QKeySequence("Ctrl+Shift+S"), this, "screenshot_with_subtitles" );
-    connect( screenshotWithSubsAct, SIGNAL(triggered()),
-             m_core, SLOT(screenshotWithSubtitles()) );
-
-    screenshotWithNoSubsAct = new MyAction( QKeySequence("Ctrl+Alt+S"), this, "screenshot_without_subtitles" );
-    connect( screenshotWithNoSubsAct, SIGNAL(triggered()),
-             m_core, SLOT(screenshotWithoutSubtitles()) );
-
-    // Multiple screenshots
-    screenshotsAct = new MyAction( QKeySequence("Shift+D"), this, "multiple_screenshots" );
-    connect( screenshotsAct, SIGNAL(triggered()),
-             m_core, SLOT(screenshots()) );*/
-
-    // On Top
-    onTopActionGroup = new MyActionGroup(this);
-    onTopAlwaysAct = new MyActionGroupItem(this,onTopActionGroup,"on_top_always",Preferences::AlwaysOnTop);
-    onTopNeverAct = new MyActionGroupItem(this,onTopActionGroup,"on_top_never",Preferences::NeverOnTop);
-    onTopWhilePlayingAct = new MyActionGroupItem(this,onTopActionGroup,"on_top_playing",Preferences::WhilePlayingOnTop);
-    onTopAlwaysAct->change(tr("&Always"));
-    onTopNeverAct->change(tr("&Never"));
-    onTopWhilePlayingAct->change(tr("While &playing"));
-    connect(onTopActionGroup, SIGNAL(activated(int)), this, SLOT(changeStayOnTop(int)));
-    // Ontop submenu
-    ontop_menu = new QMenu(this);
-    ontop_menu->menuAction()->setObjectName("ontop_menu");
-    ontop_menu->addActions(onTopActionGroup->actions());
-    ontop_menu->menuAction()->setText(tr("S&tay on top"));
-//	ontop_menu->menuAction()->setIcon(Images::icon("ontop"));
-
-    //play order
-    playOrderActionGroup = new MyActionGroup(this);
-    orderPlaysAct = new MyActionGroupItem(this,playOrderActionGroup,"order_play",Preferences::OrderPlay);
-    randomPlayAct = new MyActionGroupItem(this,playOrderActionGroup,"random_play",Preferences::RandomPlay);
-    listLoopPlayAct = new MyActionGroupItem(this,playOrderActionGroup,"list_loop_play",Preferences::ListLoopPlay);
-    orderPlaysAct->change(tr("Order play"));
-    randomPlayAct->change(tr("Random play"));
-    listLoopPlayAct->change(tr("List loop play"));
-    connect(playOrderActionGroup, SIGNAL(activated(int)), this, SLOT(changePlayOrder(int)));
-    play_order_menu = new QMenu(this);
-    play_order_menu->menuAction()->setObjectName("play_order_menu");
-    play_order_menu->addActions(playOrderActionGroup->actions());
-    play_order_menu->menuAction()->setText(tr("Play order"));
-//    play_order_menu->menuAction()->setIcon(Images::icon("list_cycle_normal"));
-
-
+void MainWindow::createAudioActionsAndMenus()
+{
     // Menu Audio
     // Audio channels
 //    channelsDefaultAct = new MyActionGroupItem(this, channelsGroup, "channels_default", MediaSettings::ChDefault);
@@ -975,15 +1031,36 @@ void MainWindow::createActionsAndMenus()
     audioMenu->addAction(incAudioDelayAct);
     audioMenu->addSeparator();
     audioMenu->addAction(audioDelayAct);
+}
 
+void MainWindow::createScreenshotActionsAndMenus()
+{
+    //    shortcutsAct = new MyAction(QKeySequence("Shift+?"), this, "Shortcuts");//快捷键  Qt::Key_Question
+    ////    shortcutsAct->addShortcut(QKeySequence("Shift+Ctrl+?"));
+    //    connect(shortcutsAct, SIGNAL(triggered()), this, SLOT(showShortcuts()));
+    //    shortcutsAct->change(tr("Shortcuts"));
 
-    // Submenu Filters
-    /*extrastereoAct->change( tr("&Extrastereo") );
-    karaokeAct->change( tr("&Karaoke") );
-    volnormAct->change( tr("Volume &normalization") );
-    earwaxAct->change( tr("&Headphone optimization") + " (earwax)" );*/
+    // Single screenshot
+    screenshotAct = new MyAction(Qt::Key_S, this, "screenshot");//屏幕截图
+    connect(screenshotAct, SIGNAL(triggered()), m_core, SLOT(screenshot()));
+    screenshotAct->change(Images::icon("screenshot_normal"), tr("&Screenshot"));
 
+    /*screenshotWithSubsAct = new MyAction( QKeySequence("Ctrl+Shift+S"), this, "screenshot_with_subtitles" );
+    connect( screenshotWithSubsAct, SIGNAL(triggered()),
+             m_core, SLOT(screenshotWithSubtitles()) );
 
+    screenshotWithNoSubsAct = new MyAction( QKeySequence("Ctrl+Alt+S"), this, "screenshot_without_subtitles" );
+    connect( screenshotWithNoSubsAct, SIGNAL(triggered()),
+             m_core, SLOT(screenshotWithoutSubtitles()) );
+
+    // Multiple screenshots
+    screenshotsAct = new MyAction( QKeySequence("Shift+D"), this, "multiple_screenshots" );
+    connect( screenshotsAct, SIGNAL(triggered()),
+             m_core, SLOT(screenshots()) );*/
+}
+
+void MainWindow::createSubtitleActionsAndMenus()
+{
     subtitlesMenu = new QMenu(this);
     subtitlesMenu->menuAction()->setText( tr("Subtitles") );
 //    subtitlesMenuAct->setIcon(Images::icon("subtitles_menu"));
@@ -997,37 +1074,10 @@ void MainWindow::createActionsAndMenus()
     subVisibilityAct->change(tr("Subtitle &visibility"));
     subtitlesMenu->addAction(loadSubsAct);
     subtitlesMenu->addAction(subVisibilityAct);
+}
 
-    showPreferencesAct = new MyAction(QKeySequence("Ctrl+P"), this, "show_preferences");
-    connect(showPreferencesAct, SIGNAL(triggered()), this, SLOT(showPreferencesDialog()));
-    showPreferencesAct->change(QPixmap(":/res/prefs.png"), tr("Preferences"));//首选项
-
-    showPropertiesAct = new MyAction(QKeySequence("Ctrl+I"), this, "show_file_properties");
-    connect(showPropertiesAct, SIGNAL(triggered()), this, SLOT(showFilePropertiesDialog()));
-    showPropertiesAct->change(QPixmap(":/res/info.png"), tr("View &info and properties..."));//查看信息和属性
-
-    helpAct = new MyAction(QKeySequence("Ctrl+H"), this, "show_help" );
-    connect(helpAct, SIGNAL(triggered()), this, SLOT(showHelpDialog()));
-    helpAct->change(QPixmap(":/res/help_normal.png"), tr("Help"));
-
-    aboutAct = new MyAction(QKeySequence("Ctrl+A"), this, "about_kylin_video");
-    connect(aboutAct, SIGNAL(triggered()), this, SLOT(showAboutDialog()));
-    aboutAct->change(Images::icon("about_normal"), tr("About &Kylin Video"));
-
-    quitAct = new MyAction(QKeySequence("Ctrl+Q"), this, "quit");
-    quitAct->change(Images::icon("quit_normal"), tr("Quit"));
-    connect(quitAct, SIGNAL(triggered()), this, SLOT(onCloseWindow()));
-
-
-    /*m_poweroffAct = new MyAction(this, "poweroff");
-    m_poweroffAct->change(Images::icon("poweroff"), tr("PowerOff"));
-    connect(m_poweroffAct, SIGNAL(triggered()), this, SLOT(powerOffPC()));*/
-
-    //20181120
-    //showFilenameAct = new MyAction(Qt::SHIFT | Qt::Key_O, this, "show_filename_osd");
-    //connect( showFilenameAct, SIGNAL(triggered()), m_core, SLOT(showFilenameOnOSD()) );
-//    showFilenameAct->change( tr("Show filename on OSD") );//在OSD中显示文件名
-
+void MainWindow::createOsdActionsAndMenus()
+{
     showMediaInfoAct = new MyAction(Qt::SHIFT | Qt::Key_I, this, "show_info_osd");
     connect( showMediaInfoAct, SIGNAL(triggered()), m_core, SLOT(showMediaInfoOnOSD()) );
     showMediaInfoAct->change( tr("Show &info on OSD") );
@@ -1072,65 +1122,62 @@ void MainWindow::createActionsAndMenus()
     osd_menu->addSeparator();
     osd_menu->addAction(decOSDScaleAct);
     osd_menu->addAction(incOSDScaleAct);
-//#ifdef MPV_SUPPORT
     osd_menu->addSeparator();
     osd_menu->addAction(OSDFractionsAct);
-//#endif
     // Menu Options
     osd_menu->menuAction()->setText( tr("&OSD") );
     osd_menu->menuAction()->setIcon( Images::icon("osd") );
+}
 
-    this->setJumpTexts();
+void MainWindow::createOthersActionsAndMenus()
+{
+    showPreferencesAct = new MyAction(QKeySequence("Ctrl+P"), this, "show_preferences");
+    connect(showPreferencesAct, SIGNAL(triggered()), this, SLOT(showPreferencesDialog()));
+    showPreferencesAct->change(QPixmap(":/res/prefs.png"), tr("Preferences"));//首选项
 
-    if (!m_mainMenu)
-        m_mainMenu = new QMenu(this);
-    else
-        m_mainMenu->clear();
-    m_mainMenu->addMenu(openMenu);
-    m_mainMenu->addMenu(recentfiles_menu);
-    m_mainMenu->addMenu(ontop_menu);
-    m_mainMenu->addMenu(playMenu);
-    m_mainMenu->addMenu(play_order_menu);
-    m_mainMenu->addMenu(aspect_menu);
-    m_mainMenu->addMenu(rotate_flip_menu);
-    m_mainMenu->addMenu(audioMenu);
-    m_mainMenu->addMenu(subtitlesMenu);
-    m_mainMenu->addMenu(osd_menu);
-//    m_mainMenu->addAction(shortcutsAct);
-    m_mainMenu->addAction(screenshotAct);
-    m_mainMenu->addAction(showPreferencesAct);
-    m_mainMenu->addAction(showPropertiesAct);
-    m_mainMenu->addAction(aboutAct);
+    showPropertiesAct = new MyAction(QKeySequence("Ctrl+I"), this, "show_file_properties");
+    connect(showPropertiesAct, SIGNAL(triggered()), this, SLOT(showFilePropertiesDialog()));
+    showPropertiesAct->change(QPixmap(":/res/info.png"), tr("View &info and properties..."));//查看信息和属性
 
-    if (!m_toolbarMenu)
-        m_toolbarMenu = new QMenu(this);
-    else
-        m_toolbarMenu->clear();
-    m_toolbarMenu->addAction(openFileAct);
-    m_toolbarMenu->addAction(screenshotAct);
-    m_toolbarMenu->addAction(showPreferencesAct);
-    m_toolbarMenu->addAction(helpAct);
-    m_toolbarMenu->addAction(aboutAct);
-    m_toolbarMenu->addSeparator();
-    m_toolbarMenu->addAction(quitAct);
+    helpAct = new MyAction(QKeySequence("Ctrl+H"), this, "show_help" );
+    connect(helpAct, SIGNAL(triggered()), this, SLOT(showHelpDialog()));
+    helpAct->change(QPixmap(":/res/help_normal.png"), tr("Help"));
+
+    aboutAct = new MyAction(QKeySequence("Ctrl+A"), this, "about_kylin_video");
+    connect(aboutAct, SIGNAL(triggered()), this, SLOT(showAboutDialog()));
+    aboutAct->change(Images::icon("about_normal"), tr("About &Kylin Video"));
+
+    quitAct = new MyAction(QKeySequence("Ctrl+Q"), this, "quit");
+    quitAct->change(Images::icon("quit_normal"), tr("Quit"));
+    connect(quitAct, SIGNAL(triggered()), this, SLOT(onCloseWindow()));
 
 
+    /*m_poweroffAct = new MyAction(this, "poweroff");
+    m_poweroffAct->change(Images::icon("poweroff"), tr("PowerOff"));
+    connect(m_poweroffAct, SIGNAL(triggered()), this, SLOT(powerOffPC()));*/
+
+    //20181120
+    //showFilenameAct = new MyAction(Qt::SHIFT | Qt::Key_O, this, "show_filename_osd");
+    //connect( showFilenameAct, SIGNAL(triggered()), m_core, SLOT(showFilenameOnOSD()) );
+//    showFilenameAct->change( tr("Show filename on OSD") );//在OSD中显示文件名
+
+
+    // The invisible shortcuts: playlist_action, play_pause_aciton, stopAct and fullscreenAct
     playlist_action = new MyAction(QKeySequence("F3"), this, "playlist_open_close");
     playlist_action->change(tr("PlayList"));
     connect(playlist_action, SIGNAL(triggered()), this, SLOT(onShowOrHidePlaylist()));
 
     play_pause_aciton = new MyAction(QKeySequence(Qt::Key_Space), this, "play_pause");
     play_pause_aciton->change(tr("Play/Pause"));
-    //201810
-    //connect(playlist_action, SIGNAL(triggered()), m_core, SLOT(playOrPause()));
     connect(playlist_action, &MyAction::triggered, this, &MainWindow::onPlayPause);
 
     stopAct = new MyAction(Qt::Key_MediaStop, this, "stop");
     stopAct->change(tr("Stop"));
     connect(stopAct, SIGNAL(triggered()), m_core, SLOT(stop()));
 
-    fullscreenAct = new MyAction(QKeySequence("Ctrl+Return"), this, "fullscreen");
+    fullscreenAct = new MyAction(QKeySequence("Ctrl+Return")/*Qt::Key_F*/, this, "fullscreen");
     fullscreenAct->change(tr("Fullscreen"));
+    fullscreenAct->setCheckable(true);
     connect(fullscreenAct, SIGNAL(toggled(bool)), this, SLOT(toggleFullscreen(bool)));
 }
 
@@ -1205,47 +1252,6 @@ void MainWindow::createMaskWidget()
     connect(m_playMaskWidget, &PlayMask::signal_play_continue, this, &MainWindow::onPlayPause);
 }
 
-void MainWindow::initRemoteControllerConnections()
-{
-    connect(m_controllerWorker, SIGNAL(requestSeekForward(int)), m_core, SLOT(forward(int)));
-    connect(m_controllerWorker, SIGNAL(requestSeekRewind(int)), m_core, SLOT(rewind(int)));
-    connect(m_controllerWorker, &ControllerWorker::requestPlayPause, this, [=] () {
-        m_core->playOrPause(m_lastPlayingSeek);
-    });
-    connect(m_controllerWorker, &ControllerWorker::requestStop, m_core, &Core::stop);
-}
-
-void MainWindow::setStayOnTop(bool b)
-{
-    if ((b && (windowFlags() & Qt::WindowStaysOnTopHint)) || (!b && (!(windowFlags() & Qt::WindowStaysOnTopHint))))
-    {
-        // identical do nothing
-//        qDebug("MainWindow::setStayOnTop: nothing to do");
-        return;
-    }
-
-    m_ignoreShowHideEvents = true;
-
-    bool visible = isVisible();
-
-    QPoint old_pos = pos();
-
-    if (b) {
-        //TODO:在Mate系列桌面环境上，Qt5编写的程序在启动时设置置顶有效，程序运行过程中动态切换到置顶无效。后续可根据libwnck-dev中x11的接口去实现：./libwnck/window-action-menu.c:wnck_window_make_above (window)------->libwnck/window.c:_wnck_change_state
-        setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
-    }
-    else {
-        setWindowFlags(windowFlags() & ~Qt::WindowStaysOnTopHint);
-    }
-
-    move(old_pos);
-
-    if (visible) {
-        show();
-    }
-
-    m_ignoreShowHideEvents = false;
-}
 void MainWindow::changeStayOnTop(int stay_on_top)
 {
     switch (stay_on_top) {
@@ -1312,9 +1318,6 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
         this->leftClickFunction();
     }
     if (event->key() == Qt::Key_Escape) {
-//        if (isFullScreen()) {//201810
-
-//        }
         if (pref->fullscreen) {
             toggleFullscreen(false);
         }
@@ -1365,6 +1368,7 @@ void MainWindow::onMinWindow()
         setWindowState( Qt::WindowMinimized );
     }*/
     this->onShowOrHideEscWidget(false);
+    pref->fullscreen = false;
     this->showMinimized();
 }
 
@@ -1490,7 +1494,6 @@ void MainWindow::toggleFullscreen(bool b)
         this->onShowOrHideEscWidget(true);
     }
     else {
-        this->onShowOrHideEscWidget(false);
         if (m_bottomController)
             m_bottomController->permanentShow();
         m_topToolbar->updateMaxButtonStatus(false);
@@ -1501,8 +1504,9 @@ void MainWindow::toggleFullscreen(bool b)
         }
         m_bottomToolbar->onUnFullScreen();//让全屏/取消全屏的按钮更换图片为全屏
         this->m_resizeCornerBtn->show();
-        if (this->m_escWidget->isVisible())
+        if (this->m_escWidget->isVisible()) {//For Esc Key：不能用this->onShowOrHideEscWidget(false)
             this->m_escWidget->hide();
+        }
 
         QString state = m_core->stateToString().toUtf8().data();
         if (state == "Playing" || state == "Paused") {// Stopped Playing Paused
@@ -1556,59 +1560,6 @@ void MainWindow::handleMessageFromOtherInstances(const QString& message) {
 	}
 }
 #endif
-
-void MainWindow::setActionsEnabled(bool b)
-{
-    emit this->requestActionsEnabled(b);
-
-    rewind1Act->setEnabled(b);
-    rewind2Act->setEnabled(b);
-    rewind3Act->setEnabled(b);
-    forward1Act->setEnabled(b);
-    forward2Act->setEnabled(b);
-    forward3Act->setEnabled(b);
-    gotoAct->setEnabled(b);
-
-    // Menu Speed
-    normalSpeedAct->setEnabled(b);
-    halveSpeedAct->setEnabled(b);
-    doubleSpeedAct->setEnabled(b);
-    decSpeed10Act->setEnabled(b);
-    incSpeed10Act->setEnabled(b);
-    decSpeed4Act->setEnabled(b);
-    incSpeed4Act->setEnabled(b);
-    decSpeed1Act->setEnabled(b);
-    incSpeed1Act->setEnabled(b);
-    screenshotAct->setEnabled(b);
-    showPropertiesAct->setEnabled(b);
-
-    // Menu Audio
-    audioEqualizerAct->setEnabled(b);
-    muteAct->setEnabled(b);
-    decVolumeAct->setEnabled(b);
-    incVolumeAct->setEnabled(b);
-    decAudioDelayAct->setEnabled(b);
-    incAudioDelayAct->setEnabled(b);
-    audioDelayAct->setEnabled(b);
-
-    extrastereoAct->setEnabled(b);
-    karaokeAct->setEnabled(b);
-    volnormAct->setEnabled(b);
-    earwaxAct->setEnabled(b);
-    loadAudioAct->setEnabled(b);
-
-
-    flipAct->setEnabled(b);
-    mirrorAct->setEnabled(b);
-
-    // Menu Subtitles
-    loadSubsAct->setEnabled(b);
-    aspectGroup->setActionsEnabled(b);
-    rotateGroup->setActionsEnabled(b);
-    channelsGroup->setActionsEnabled(b);
-
-    stereoGroup->setActionsEnabled(b);
-}
 
 void MainWindow::enableActionsOnPlaying()
 {
@@ -1720,6 +1671,38 @@ void MainWindow::createFilePropertiesDialog()
     QApplication::restoreOverrideCursor();
 }
 
+void MainWindow::setDataToFileProperties()
+{
+    InfoReader *i = InfoReader::obj(this->m_snap);
+    i->getInfo();
+    m_propertyDialog->setCodecs(i->vcList(), i->acList(), i->demuxerList());
+
+    // Save a copy of the original values
+    if (m_core->mset.original_demuxer.isEmpty())
+        m_core->mset.original_demuxer = m_core->mdat.demuxer;
+
+    if (m_core->mset.original_video_codec.isEmpty())
+        m_core->mset.original_video_codec = m_core->mdat.video_codec;
+
+    if (m_core->mset.original_audio_codec.isEmpty())
+        m_core->mset.original_audio_codec = m_core->mdat.audio_codec;
+
+    QString demuxer = m_core->mset.forced_demuxer;
+    if (demuxer.isEmpty()) demuxer = m_core->mdat.demuxer;
+
+    QString ac = m_core->mset.forced_audio_codec;
+    if (ac.isEmpty()) ac = m_core->mdat.audio_codec;
+
+    QString vc = m_core->mset.forced_video_codec;
+    if (vc.isEmpty()) vc = m_core->mdat.video_codec;
+
+    m_propertyDialog->setDemuxer(demuxer, m_core->mset.original_demuxer);
+    m_propertyDialog->setAudioCodec(ac, m_core->mset.original_audio_codec);
+    m_propertyDialog->setVideoCodec(vc, m_core->mset.original_video_codec);
+    //m_propertyDialog->setMediaData(m_core->mdat);
+    m_propertyDialog->setMediaData(m_core->mdat, m_core->mset.videos, m_core->mset.audios, m_core->mset.subs);
+}
+
 void MainWindow::createAboutDialog()
 {
     QApplication::setOverrideCursor(Qt::WaitCursor);
@@ -1734,6 +1717,213 @@ void MainWindow::createHelpDialog()
     m_helpDialog = new HelpDialog();
     m_helpDialog->setModal(false);
     QApplication::restoreOverrideCursor();
+}
+
+void MainWindow::initRemoteControllerConnections()
+{
+    connect(m_controllerWorker, SIGNAL(requestSeekForward(int)), m_core, SLOT(forward(int)));
+    connect(m_controllerWorker, SIGNAL(requestSeekRewind(int)), m_core, SLOT(rewind(int)));
+    connect(m_controllerWorker, &ControllerWorker::requestPlayPause, this, [=] () {
+        m_core->playOrPause(m_lastPlayingSeek);
+    });
+    connect(m_controllerWorker, &ControllerWorker::requestStop, m_core, &Core::stop);
+}
+
+void MainWindow::setStayOnTop(bool b)
+{
+    if ((b && (windowFlags() & Qt::WindowStaysOnTopHint)) || (!b && (!(windowFlags() & Qt::WindowStaysOnTopHint)))) {
+        return;
+    }
+
+    m_ignoreShowHideEvents = true;
+
+    bool visible = isVisible();
+    QPoint old_pos = pos();
+    if (b) {
+        //TODO:在Mate系列桌面环境上，Qt5编写的程序在启动时设置置顶有效，程序运行过程中动态切换到置顶无效。后续可根据libwnck-dev中x11的接口去实现：./libwnck/window-action-menu.c:wnck_window_make_above (window)------->libwnck/window.c:_wnck_change_state
+        setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
+    }
+    else {
+        setWindowFlags(windowFlags() & ~Qt::WindowStaysOnTopHint);
+    }
+
+    move(old_pos);
+
+    if (visible) {
+        show();
+    }
+
+    m_ignoreShowHideEvents = false;
+}
+
+void MainWindow::setActionsEnabled(bool b)
+{
+    emit this->requestActionsEnabled(b);
+
+    rewind1Act->setEnabled(b);
+    rewind2Act->setEnabled(b);
+    rewind3Act->setEnabled(b);
+    forward1Act->setEnabled(b);
+    forward2Act->setEnabled(b);
+    forward3Act->setEnabled(b);
+    gotoAct->setEnabled(b);
+
+    // Menu Speed
+    normalSpeedAct->setEnabled(b);
+    halveSpeedAct->setEnabled(b);
+    doubleSpeedAct->setEnabled(b);
+    decSpeed10Act->setEnabled(b);
+    incSpeed10Act->setEnabled(b);
+    decSpeed4Act->setEnabled(b);
+    incSpeed4Act->setEnabled(b);
+    decSpeed1Act->setEnabled(b);
+    incSpeed1Act->setEnabled(b);
+    screenshotAct->setEnabled(b);
+    showPropertiesAct->setEnabled(b);
+
+    // Menu Audio
+    audioEqualizerAct->setEnabled(b);
+    muteAct->setEnabled(b);
+    decVolumeAct->setEnabled(b);
+    incVolumeAct->setEnabled(b);
+    decAudioDelayAct->setEnabled(b);
+    incAudioDelayAct->setEnabled(b);
+    audioDelayAct->setEnabled(b);
+
+    extrastereoAct->setEnabled(b);
+    karaokeAct->setEnabled(b);
+    volnormAct->setEnabled(b);
+    earwaxAct->setEnabled(b);
+    loadAudioAct->setEnabled(b);
+
+
+    flipAct->setEnabled(b);
+    mirrorAct->setEnabled(b);
+
+    // Menu Subtitles
+    loadSubsAct->setEnabled(b);
+    aspectGroup->setActionsEnabled(b);
+    rotateGroup->setActionsEnabled(b);
+    channelsGroup->setActionsEnabled(b);
+
+    stereoGroup->setActionsEnabled(b);
+}
+
+void MainWindow::updateRecents()
+{
+    recentfiles_menu->clear();
+    int cur_items = 0;
+    if (pref->history_recents == NULL) {
+        return;
+    }
+    if (pref->history_recents->count() > 0) {
+        for (int n=0; n < pref->history_recents->count(); n++) {
+            QString i = QString::number( n+1 );
+            QString fullname = pref->history_recents->item(n);
+            QString filename = fullname;
+            QFileInfo fi(fullname);
+            //if (fi.exists()) filename = fi.fileName(); // Can be slow
+            // Let's see if it looks like a file (no dvd://1 or something)
+            if (fullname.indexOf(QRegExp("^.*://.*")) == -1) filename = fi.fileName();
+
+            if (filename.size() > 85) {
+                filename = filename.left(80) + "...";
+            }
+
+            QString show_name = filename;
+            QString title = pref->history_recents->title(n);
+            if (!title.isEmpty()) show_name = title;
+//            qDebug() << "kobe recents=" << QString("%1. " + show_name ).arg( i.insert( i.size()-1, '&' ), 3, ' ' );
+            QAction * a = recentfiles_menu->addAction( QString("%1. " + show_name ).arg( i.insert( i.size()-1, '&' ), 3, ' ' ));
+            a->setStatusTip(fullname);
+            a->setData(n);
+            connect(a, SIGNAL(triggered()), this, SLOT(openRecent()));
+            cur_items++;
+        }
+    } else {
+        QAction * a = recentfiles_menu->addAction( tr("<empty>") );
+        a->setEnabled(false);
+    }
+    recentfiles_menu->menuAction()->setVisible( cur_items > 0 );
+    if (cur_items  > 0) {
+        recentfiles_menu->addSeparator();
+        recentfiles_menu->addAction( clearRecentsAct );
+    }
+}
+
+void MainWindow::updateMuteWidgets()
+{
+    muteAct->setChecked((pref->global_volume ? pref->mute : m_core->mset.mute));
+
+    bool muted = pref->global_volume ? pref->mute : m_core->mset.mute;
+    m_bottomToolbar->onMutedChanged(muted, pref->volume);
+}
+
+void MainWindow::updateOnTopWidgets()
+{
+    // Stay on top
+    onTopActionGroup->setChecked((int)pref->stay_on_top);
+}
+
+void MainWindow::updatePlayOrderWidgets()
+{
+    playOrderActionGroup->setChecked((int)pref->play_order);
+}
+
+void MainWindow::updateWidgets()
+{
+    m_centralWidget->setFocus();
+
+    this->updateMuteWidgets();
+    this->updateOnTopWidgets();
+
+    m_bottomToolbar->setPreviewData(pref->preview_when_playing);
+//	// Aspect ratio
+    aspectGroup->setChecked(m_core->mset.aspect_ratio_id);
+    // Rotate
+    rotateGroup->setChecked(m_core->mset.rotate);
+    // Flip
+    flipAct->setChecked(m_core->mset.flip);
+    // Mirror
+    mirrorAct->setChecked(m_core->mset.mirror);
+    // Audio menu
+    stereoGroup->setChecked(m_core->mset.stereo_mode);
+    channelsGroup->setChecked(m_core->mset.audio_use_channels);
+    unloadAudioAct->setEnabled(!m_core->mset.external_audio.isEmpty());
+    // Karaoke menu option
+    karaokeAct->setChecked(m_core->mset.karaoke_filter);
+    // Extrastereo menu option
+    extrastereoAct->setChecked(m_core->mset.extrastereo_filter);
+    // Volnorm menu option
+    volnormAct->setChecked(m_core->mset.volnorm_filter);
+    // Earwax menu option
+    earwaxAct->setChecked(m_core->mset.earwax_filter);
+    // Audio equalizer
+    audioEqualizerAct->setChecked(audio_equalizer->isVisible());
+    // Subtitle visibility
+    subVisibilityAct->setChecked(pref->sub_visibility);
+    // OSD
+    osdGroup->setChecked(pref->osd);
+    OSDFractionsAct->setChecked(pref->osd_fractions);
+
+    if (Utils::player(pref->mplayer_bin) == Utils::MPLAYER) {
+        //secondary_subtitles_track_menu->setEnabled(false);
+        //frameBackStepAct->setEnabled(false);
+        OSDFractionsAct->setEnabled(false);
+        earwaxAct->setEnabled(false);
+    }
+    else {
+        //karaokeAct->setEnabled(false);
+    }
+}
+
+void MainWindow::updateAudioEqualizer()
+{
+    // Audio Equalizer
+    AudioEqualizerList l = pref->global_audio_equalizer ? pref->audio_equalizer : m_core->mset.audio_equalizer;
+    audio_equalizer->blockSignals(true);
+    audio_equalizer->setEqualizer(l);
+    audio_equalizer->blockSignals(false);
 }
 
 void MainWindow::slideEdgeWidget(QWidget *right, QRect start, QRect end, int delay, bool hide)
@@ -1851,38 +2041,6 @@ void MainWindow::showFilePropertiesDialog()
     m_propertyDialog->show();
 }
 
-void MainWindow::setDataToFileProperties()
-{
-    InfoReader *i = InfoReader::obj(this->m_snap);
-    i->getInfo();
-    m_propertyDialog->setCodecs(i->vcList(), i->acList(), i->demuxerList());
-
-    // Save a copy of the original values
-    if (m_core->mset.original_demuxer.isEmpty())
-        m_core->mset.original_demuxer = m_core->mdat.demuxer;
-
-    if (m_core->mset.original_video_codec.isEmpty())
-        m_core->mset.original_video_codec = m_core->mdat.video_codec;
-
-    if (m_core->mset.original_audio_codec.isEmpty())
-        m_core->mset.original_audio_codec = m_core->mdat.audio_codec;
-
-    QString demuxer = m_core->mset.forced_demuxer;
-    if (demuxer.isEmpty()) demuxer = m_core->mdat.demuxer;
-
-    QString ac = m_core->mset.forced_audio_codec;
-    if (ac.isEmpty()) ac = m_core->mdat.audio_codec;
-
-    QString vc = m_core->mset.forced_video_codec;
-    if (vc.isEmpty()) vc = m_core->mdat.video_codec;
-
-    m_propertyDialog->setDemuxer(demuxer, m_core->mset.original_demuxer);
-    m_propertyDialog->setAudioCodec(ac, m_core->mset.original_audio_codec);
-    m_propertyDialog->setVideoCodec(vc, m_core->mset.original_video_codec);
-    //m_propertyDialog->setMediaData(m_core->mdat);
-    m_propertyDialog->setMediaData(m_core->mdat, m_core->mset.videos, m_core->mset.audios, m_core->mset.subs);
-}
-
 void MainWindow::applyFileProperties()
 {
 	bool need_restart = false;
@@ -1985,48 +2143,6 @@ void MainWindow::recordMplayerLog(QString line)
     }
 }
 
-void MainWindow::updateRecents()
-{
-    recentfiles_menu->clear();
-    int cur_items = 0;
-    if (pref->history_recents == NULL) {
-        return;
-    }
-    if (pref->history_recents->count() > 0) {
-        for (int n=0; n < pref->history_recents->count(); n++) {
-            QString i = QString::number( n+1 );
-            QString fullname = pref->history_recents->item(n);
-            QString filename = fullname;
-            QFileInfo fi(fullname);
-            //if (fi.exists()) filename = fi.fileName(); // Can be slow
-            // Let's see if it looks like a file (no dvd://1 or something)
-            if (fullname.indexOf(QRegExp("^.*://.*")) == -1) filename = fi.fileName();
-
-            if (filename.size() > 85) {
-                filename = filename.left(80) + "...";
-            }
-
-            QString show_name = filename;
-            QString title = pref->history_recents->title(n);
-            if (!title.isEmpty()) show_name = title;
-//            qDebug() << "kobe recents=" << QString("%1. " + show_name ).arg( i.insert( i.size()-1, '&' ), 3, ' ' );
-            QAction * a = recentfiles_menu->addAction( QString("%1. " + show_name ).arg( i.insert( i.size()-1, '&' ), 3, ' ' ));
-            a->setStatusTip(fullname);
-            a->setData(n);
-            connect(a, SIGNAL(triggered()), this, SLOT(openRecent()));
-            cur_items++;
-        }
-    } else {
-        QAction * a = recentfiles_menu->addAction( tr("<empty>") );
-        a->setEnabled(false);
-    }
-    recentfiles_menu->menuAction()->setVisible( cur_items > 0 );
-    if (cur_items  > 0) {
-        recentfiles_menu->addSeparator();
-        recentfiles_menu->addAction( clearRecentsAct );
-    }
-}
-
 void MainWindow::clearRecentsList()
 {
     MessageDialog msgDialog(0, tr("Confirm deletion - Kylin Video"), tr("Delete the list of recent files?"));
@@ -2037,98 +2153,6 @@ void MainWindow::clearRecentsList()
             updateRecents();
         }
     }
-}
-
-void MainWindow::updateMuteWidgets()
-{
-    muteAct->setChecked((pref->global_volume ? pref->mute : m_core->mset.mute));
-
-    bool muted = pref->global_volume ? pref->mute : m_core->mset.mute;
-    m_bottomToolbar->onMutedChanged(muted, pref->volume);
-}
-
-void MainWindow::updateOnTopWidgets()
-{
-    // Stay on top
-    onTopActionGroup->setChecked((int)pref->stay_on_top);
-}
-
-void MainWindow::updatePlayOrderWidgets()
-{
-    playOrderActionGroup->setChecked((int)pref->play_order);
-}
-
-void MainWindow::updateWidgets()
-{
-    m_centralWidget->setFocus();
-
-    this->updateMuteWidgets();
-    this->updateOnTopWidgets();
-
-    m_bottomToolbar->setPreviewData(pref->preview_when_playing);
-
-//	// Aspect ratio
-    aspectGroup->setChecked(m_core->mset.aspect_ratio_id);
-
-    // Rotate
-    rotateGroup->setChecked(m_core->mset.rotate);
-
-    // Flip
-    flipAct->setChecked(m_core->mset.flip);
-
-    // Mirror
-    mirrorAct->setChecked(m_core->mset.mirror);
-
-    // Audio menu
-    stereoGroup->setChecked(m_core->mset.stereo_mode);
-    channelsGroup->setChecked(m_core->mset.audio_use_channels);
-    unloadAudioAct->setEnabled(!m_core->mset.external_audio.isEmpty());
-
-    // Karaoke menu option
-    karaokeAct->setChecked(m_core->mset.karaoke_filter);
-
-    // Extrastereo menu option
-    extrastereoAct->setChecked(m_core->mset.extrastereo_filter);
-
-    // Volnorm menu option
-    volnormAct->setChecked(m_core->mset.volnorm_filter);
-
-    // Earwax menu option
-    earwaxAct->setChecked(m_core->mset.earwax_filter);
-
-    // Audio equalizer
-    audioEqualizerAct->setChecked(audio_equalizer->isVisible());
-
-    // Subtitle visibility
-    subVisibilityAct->setChecked(pref->sub_visibility);
-
-    // OSD
-    osdGroup->setChecked(pref->osd);
-
-//#ifdef MPV_SUPPORT
-    OSDFractionsAct->setChecked(pref->osd_fractions);
-//#endif
-
-//#if defined(MPV_SUPPORT) && defined(MPLAYER_SUPPORT)
-    if (Utils::player(pref->mplayer_bin) == Utils::MPLAYER) {
-        //secondary_subtitles_track_menu->setEnabled(false);
-        //frameBackStepAct->setEnabled(false);
-        OSDFractionsAct->setEnabled(false);
-        earwaxAct->setEnabled(false);
-    } else {
-        //karaokeAct->setEnabled(false);
-    }
-//#endif
-}
-
-
-void MainWindow::updateAudioEqualizer()
-{
-    // Audio Equalizer
-    AudioEqualizerList l = pref->global_audio_equalizer ? pref->audio_equalizer : m_core->mset.audio_equalizer;
-    audio_equalizer->blockSignals(true);
-    audio_equalizer->setEqualizer(l);
-    audio_equalizer->blockSignals(false);
 }
 
 void MainWindow::openRecent()
@@ -2355,17 +2379,12 @@ void MainWindow::onSavePreviewImage(int time)
     }
 }
 
-void MainWindow::setDataToAboutDialog()
-{
-    m_aboutDialog->setVersions();
-}
-
 void MainWindow::showAboutDialog()
 {
     if (!m_aboutDialog) {
         createAboutDialog();
     }
-    setDataToAboutDialog();
+    m_aboutDialog->setVersions();
     int w_x = this->frameGeometry().topLeft().x() + (this->width() / 2) - (438  / 2);
     int w_y = this->frameGeometry().topLeft().y() + (this->height() /2) - (320  / 2);
     m_aboutDialog->move(w_x, w_y);
@@ -2759,34 +2778,6 @@ void MainWindow::gotCurrentTime(double sec, bool flag)
     if (m_bottomToolbar) {
         m_bottomToolbar->displayTime(time, all_time);
     }
-}
-
-void MainWindow::loadConfigForUI()
-{
-    /*QSettings * set = settings;
-
-    set->beginGroup("default_gui");
-
-    QPoint p = set->value("pos", pos()).toPoint();
-//    QSize s = set->value("size", size()).toSize();
-
-    this->move(p);
-
-    setWindowState((Qt::WindowStates) set->value("state", 0).toInt());
-
-    if (!DesktopInfo::isInsideScreen(this)) {
-        move(0,0);
-        qWarning("window is outside of the screen, moved to 0x0");
-    }
-
-    set->endGroup();*/
-
-    int windowWidth = QApplication::desktop()->screenGeometry(0).width();
-    int windowHeight = QApplication::desktop()->screenGeometry(0).height();
-    this->move((windowWidth - this->width()) / 2,(windowHeight - this->height()) / 2);
-
-    this->changeStayOnTop(pref->stay_on_top);
-    this->changePlayOrder(pref->play_order);
 }
 
 void MainWindow::resizeMainWindow(int w, int h)

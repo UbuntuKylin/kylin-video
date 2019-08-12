@@ -13,6 +13,9 @@ RESOURCES = res.qrc
 
 DEFINES += SINGLE_INSTANCE
 
+!system($$PWD/translations/generate_translations_pm.sh): error("Failed to generate pm")
+qm_files.files = translations/*.qm
+qm_files.path = /usr/share/kylin-video/translations/
 inst1.files += res/kylin-video.png
 inst1.path = /usr/share/pixmaps
 inst2.files += ../kylin-video.desktop
@@ -21,6 +24,7 @@ target.source  += $$TARGET
 target.path = /usr/bin
 INSTALLS += inst1 \
     inst2 \
+    qm_files \
     target
 
 QMAKE_CPPFLAGS *= $(shell dpkg-buildflags --get CPPFLAGS)

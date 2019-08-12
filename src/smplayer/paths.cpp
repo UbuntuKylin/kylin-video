@@ -37,16 +37,14 @@ QString Paths::appPath() {
 
 QString Paths::translationPath()
 {
-    return ":/qm/translations";
-
-    /*QString path;
+    QString path;
     if (QDir("/usr/share/kylin-video/translations").exists()) {
         path = "/usr/share/kylin-video/translations";
         return path;
     }
     else {
         return appPath() + "/translations";
-    }*/
+    }
 }
 
 QString Paths::shortcutsPath() {

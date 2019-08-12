@@ -170,7 +170,7 @@ public slots:
     void newMediaLoaded();
     void updateMediaInfo();
     void displayVideoInfo(int width, int height, double fps);
-    void displayBitrateInfo(int vbitrate, int abitrate);
+    void displayBitrateInfo(int vbitrate, int arbitrate);
 	void gotNoFileToPlay();
 	void gotForbidden();
     void enableActionsOnPlaying();

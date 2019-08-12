@@ -3,7 +3,7 @@ Version  2.0.0
 ==============
 
 - Updated these modules: preferences, core, mplayerprocess and mpvprocess.
-- Rewrited playlist with model and delegate.
+- Rewrote playlist with model and delegate.
 - Added OSD info.
 - Optimized partial parameters for mpv and mplayer.
 - Supported Interface Size Tension.

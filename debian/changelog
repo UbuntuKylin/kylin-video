@@ -1,27 +1,26 @@
-kylin-video (2.0.0-0ubuntu2) eoan; urgency=low
+kylin-video (2.0.0-1) unstable; urgency=medium
 
   * Supported Interface Size Tension.
-  * Added new files, such as videowindow.cpp, autohidecursorwidget.cpp and 
-    displaylayercomposer.cpp.
+  * Added new files, such as videowindow.cpp, autohidecursorwidget.cpp
+    and displaylayercomposer.cpp.
   * Add remote controller dbus.
   * Add equalizer and filter for audio.
   * Fixed the exception of the esctip.
   * Access icon from theme.
-  * Modified the path of translated pm files and the timing of generation.
-
- -- lixiang <lixiang@kylinos.cn>  Mon, 22 Jul 2019 10:51:05 +0800
-
-kylin-video (2.0.0-0ubuntu1) disco; urgency=low
-
-  * Updated these modules: preferences, core, mplayerprocess and mpvprocess.
-  * Rewrited playlist with model and delegate.
+  * Modified the path of translated pm files and the timing of
+    generation.
+  * Updated these modules: preferences, core, mplayerprocess and
+    mpvprocess.
+  * Rewrote playlist with model and delegate.
   * Added OSD info.
   * Optimized partial parameters for mpv and mplayer.
   * Debian/control:
     - Add qtbase5-private-dev and libcrystalhd-dev to build-depends.
     - Add libcrystalhd3 | firmware-crystalhd to depends.
+    - Bump standards vertion to 4.4.0.
+    - Bump compat level to 12.
 
- -- handsome_feng <jianfengli@ubuntukylin.com>  Tue, 16 Apr 2019 20:00:09 +0800
+ -- handsome_feng <jianfengli@ubuntukylin.com>  Mon, 12 Aug 2019 15:10:39 +0800
 
 kylin-video (1.1.7-1) unstable; urgency=low
 

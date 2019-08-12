@@ -2091,9 +2091,9 @@ void MainWindow::displayVideoInfo(int width, int height, double fps)
 //	format_info_display->setText(format.toUpper());
 }
 
-void MainWindow::displayBitrateInfo(int vbitrate, int abitrate)
+void MainWindow::displayBitrateInfo(int vbitrate, int arbitrate)
 {
-//	bitrate_info_display->setText(tr("V: %1 kbps A: %2 kbps").arg(vbitrate/1000).arg(abitrate/1000));
+//	bitrate_info_display->setText(tr("V: %1 kbps A: %2 kbps").arg(vbitrate/1000).arg(arbitrate/1000));
 }
 
 void MainWindow::newMediaLoaded()

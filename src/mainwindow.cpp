@@ -211,9 +211,6 @@ MainWindow::MainWindow(QString arch_type, QString snap, ControllerWorker *contro
 //    effect->setColor(Qt::red);
 //    effect->setOffset(0);
 //    this->setGraphicsEffect(effect);
-
-    QDBusConnection::systemBus().connect(QString("org.freedesktop.login1"), QString("/org/freedesktop/login1"), QString("org.freedesktop.login1.Manager"), QString("PrepareForShutdown"), this, SLOT(onPrepareForShutdown(bool)));
-    QDBusConnection::systemBus().connect(QString("org.freedesktop.login1"), QString("/org/freedesktop/login1"), QString("org.freedesktop.login1.Manager"), QString("PrepareForSleep"), this, SLOT(onPrepareForSleep(bool)));
 }
 
 MainWindow::~MainWindow()
@@ -310,32 +307,6 @@ MainWindow::~MainWindow()
         m_centralWidget = nullptr;
     }
 
-}
-
-void MainWindow::onPrepareForShutdown(bool start)
-{
-    //qDebug() << "onPrepareForShutdown:" << start;
-}
-
-//可以调用org.freedesktop.login1的Suspend函数进行测试
-void MainWindow::onPrepareForSleep(bool start)
-{
-    //qDebug() << "onPrepareForSleep:" << start;
-    /*if (m_core) {
-        if (start) {//sleep
-            //qDebug() << "onPrepareForSleep rewind";
-            m_lastPlayingSeek = (int) m_core->mset.current_sec;
-            m_core->stop();
-            //m_core->pause();
-        }
-        else {//active
-            //qDebug() << "onPrepareForSleep forward";
-//            m_core->play();
-//            m_core->rewind(1);
-//            m_core->forward(1);
-            m_core->play(m_lastPlayingSeek);
-        }
-    }*/
 }
 
 void MainWindow::initRegisterMeta()

@@ -108,8 +108,6 @@ public:
     void slideEdgeWidget(QWidget *right, QRect start, QRect end, int delay, bool hide = false);
     void bindThreadWorker(InfoWorker *worker);
     Core * getCore() { return m_core; };
-    void onPrepareForShutdown(bool start);
-    void onPrepareForSleep(bool start);
 
 public slots:
     void changeStayOnTop(int);

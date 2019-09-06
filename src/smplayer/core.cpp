@@ -264,10 +264,9 @@ void Core::setState(State s) {
 	if (s != _state) {
 		_state = s;
 		emit stateChanged(_state);
-        //kobe 0606
         if (_state == Stopped) {
             mset.current_sec = 0;
-            emit showTime(mset.current_sec, true);//kobe
+            emit showTime(mset.current_sec, true);
             emit positionChanged(0);
         }
 	}
@@ -1048,11 +1047,11 @@ void Core::stop()
     stopMplayer();
     emit mediaStoppedByUser();//kobe:此处信号会让一些按钮处于禁用状态
 
-    if (pref->reset_stop) {
+//    if (pref->reset_stop) {
         mset.current_sec = 0;
         emit showTime( mset.current_sec, true);
         emit positionChanged(0);
-    }
+//    }
 }
 
 void Core::play(int seek) {
@@ -2411,7 +2410,7 @@ void Core::seek(int secs) {
 
 void Core::seek_cmd(double secs, int mode) {
 //    qDebug("**************Core::seek_cmd: %f", secs);
-    proc->seek(secs, mode, pref->precise_seeking/*false*/);//kobe:Enable precise_seeking (only available with mplayer2)
+    proc->seek(secs, mode, false);//kobe:Enable precise_seeking (only available with mplayer2)
 }
 
 void Core::sforward() {

@@ -1,3 +1,11 @@
+kylin-video (2.0.1-1) unstable; urgency=medium
+
+  * Remove the useless code.
+  * Debian/control:
+    - Move libcrystalhd3 | firmware-crystalhd from depends to suggests.
+
+ -- handsome_feng <jianfengli@ubuntukylin.com>  Mon, 23 Sep 2019 19:17:20 +0800
+
 kylin-video (2.0.0-1) unstable; urgency=medium
 
   * Supported Interface Size Tension.

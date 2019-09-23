@@ -26,9 +26,9 @@ Architecture: any
 Depends: mplayer,
          mpv (>= 0.6.2),
          mesa-vdpau-drivers,
-         libcrystalhd3 | firmware-crystalhd,
          ${misc:Depends},
          ${shlibs:Depends}
+Suggests: libcrystalhd3 | firmware-crystalhd,
 Description: Front-end for MPlayer and MPV
  Qt5 Mplayer and MPV front-end, with basic features like playing
  videos and audios to more advanced features.

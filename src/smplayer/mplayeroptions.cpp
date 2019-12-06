@@ -83,7 +83,7 @@ void MplayerProcess::setOption(const QString & option_name, const QVariant & val
         QString ao = value.toString();
         if (ao.contains(":")) {
             QStringList l = DeviceInfo::extractDevice(ao);
-            qDebug() << "MplayerProcess::setOption: ao:" << l;
+            //qDebug() << "MplayerProcess::setOption: ao:" << l;
             if (l.count() > 1) {
 //                #ifndef Q_OS_WIN
                 if (l[0] == "alsa") {

@@ -573,7 +573,7 @@ void MPVProcess::setOption(const QString & option_name, const QVariant & value) 
 }
 
 void MPVProcess::addUserOption(const QString & option) {
-    qDebug() << "MPVProcess::addUserOption:" << option;
+    //qDebug() << "MPVProcess::addUserOption:" << option;
 
     // Remove quotes
     QString s = option;
@@ -587,7 +587,7 @@ void MPVProcess::addUserOption(const QString & option) {
         s.chop(1);
     }
 
-    qDebug() << "MPVProcess::addUserOption: s:" << s;
+    //qDebug() << "MPVProcess::addUserOption: s:" << s;
 
     arg << s;
     if (option == "-v") {
@@ -691,6 +691,45 @@ void MPVProcess::setVideoEqualizerOptions(int contrast, int brightness, int hue,
 void MPVProcess::addAF(const QString & filter_name, const QVariant & value) {
     QString option = value.toString();
 
+    if (filter_name == "volnorm") {
+        QString s = "drc";
+        if (!option.isEmpty()) s += "=" + option;
+        arg << "--af-add=" + s;
+    }
+    else
+    if (filter_name == "channels") {
+        if (option == "2:2:0:1:0:0") arg << "--af-add=channels=2:[0-1,0-0]";
+        else
+        if (option == "2:2:1:0:1:1") arg << "--af-add=channels=2:[1-0,1-1]";
+        else
+        if (option == "2:2:0:1:1:0") arg << "--af-add=channels=2:[0-1,1-0]";
+    }
+    else
+    if (filter_name == "pan") {
+        if (option == "1:0.5:0.5") {
+            arg << "--af-add=pan=1:[0.5,0.5]";
+        }
+    }
+    else
+    if (filter_name == "equalizer") {
+        previous_eq = option;
+        arg << "--af-add=equalizer=" + option;
+    }
+    else
+    if (filter_name == "extrastereo" || filter_name == "karaoke") {
+        /* Not supported anymore */
+        /* Ignore */
+    }
+    else {
+        QString s = filter_name;
+        if (!option.isEmpty()) s += "=" + option;
+        arg << "--af-add=" + s;
+    }
+}
+
+/*void MPVProcess::addAF(const QString & filter_name, const QVariant & value) {
+    QString option = value.toString();
+
     QString lavfi_filter = lavfi(filter_name, value);
     if (!lavfi_filter.isEmpty()) {
         arg << "--af-add=" + lavfi_filter;
@@ -699,7 +738,7 @@ void MPVProcess::addAF(const QString & filter_name, const QVariant & value) {
 
     if (filter_name == "equalizer") {
         AudioEqualizerList al = value.toList();
-        QString f = audioEqualizerFilter(al);
+        QString f = audioEqualizerFilter(al);//20191206 导致mpv播放没有声音
         arg << "--af-add=" + f;
         previous_eq = f;
         previous_eq_list = al;
@@ -709,7 +748,7 @@ void MPVProcess::addAF(const QString & filter_name, const QVariant & value) {
         if (!option.isEmpty()) s += "=" + option;
         arg << "--af-add=" + s;
     }
-}
+}*/
 
 void MPVProcess::quit() {
     writeToStdin("quit 0");
@@ -1124,7 +1163,7 @@ void MPVProcess::changeVF(const QString & filter, bool enable, const QVariant & 
 }
 
 void MPVProcess::changeAF(const QString & filter, bool enable, const QVariant & option) {
-    qDebug() << "MPVProcess::changeAF:" << filter << enable;
+    //qDebug() << "MPVProcess::changeAF:" << filter << enable;
 
     QString f;
 

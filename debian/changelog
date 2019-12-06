@@ -1,3 +1,10 @@
+kylin-video (2.0.1-2) unstable; urgency=medium
+
+  * Set different driving parameters for different graphics cards on the arm64 platform.
+  * Fixed the bug that audioEqualizerFilter() causes no sound when using MPV to play video.
+
+ -- lixiang <lixiang@kylinos.cn>  Fri, 06 Dec 2019 09:49:30 +0800
+
 kylin-video (2.0.1-1) unstable; urgency=medium
 
   * Remove the useless code.

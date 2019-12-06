@@ -50,7 +50,7 @@ Git
 分支1.1.6
 
 + 新建分支：git branch 1.1.6
-+ 切换分支：git checkout 1.1.6
++ 切换分支：git checkout 1.1.6 (上述新建和切换分支的两条命令可合并成一条命令: git checkout -b 1.1.6)
 + 上传分支：git push origin 1.1.6
 
 

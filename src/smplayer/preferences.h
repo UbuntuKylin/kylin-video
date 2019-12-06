@@ -26,6 +26,8 @@
 #include <QStringList>
 #include <QSize>
 #include <QMap>
+#include <QMetaType>
+#include <QDir>
 
 #include "../smplayer/audioequalizerlist.h"
 #include "../smplayer/assstyles.h"
@@ -35,9 +37,48 @@ class Recents;
 class URLHistory;
 class Filters;
 
+class PciePredefined
+{
+public:
+    PciePredefined() {};
+
+    int vid;
+    int pid;
+    int cid;
+    int score;
+    QString description;
+
+};
+class PcieInfo
+{
+public:
+    PcieInfo() {};
+
+    int vid;
+    int pid;
+    int cid;
+};
+
+Q_DECLARE_METATYPE(PciePredefined)
+Q_DECLARE_METATYPE(PcieInfo)
+
 class Preferences {
 
 public:
+    enum HardDecodingType {
+        DefaultSoftDecoding = -1,
+        AmdVdpau = 0,
+        Jm7200Xv,
+        Gp101X11,
+        Sm768Xv,
+        Others
+        //    1. A卡，vdpau；
+        //    2. JM7200，xv；
+        //    3. GP101，x11(可能会改变)；
+        //    4. SM768，xv；
+        //    5. 其他，软解；
+    };
+
     enum OSD { NoneOsd = 0, Seek = 1, SeekTimer = 2, SeekTimerTotal = 3 };
 	enum OnTop { NeverOnTop = 0, AlwaysOnTop = 1, WhilePlayingOnTop = 2 };
     enum PlayOrder { OrderPlay = 0, RandomPlay = 1, ListLoopPlay = 2 };
@@ -69,8 +110,10 @@ public:
 	void save();
 	void load();
 
-	void setupScreenshotFolder();
-
+    void setupScreenshotFolder();
+    void updatePredefinedList();
+    void updatePcieList();
+    HardDecodingType getHardwareDecodingType();
 
     /* *******
        General
@@ -482,6 +525,10 @@ public:
     QString arch_type;
     QString m_snap;
     QMap<QString, VideoPtr> m_videoMap;
+
+    QList<PciePredefined> predefinedList;
+    QList<PcieInfo> pcieList;
+    HardDecodingType m_decoingType;
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(Preferences::WheelFunctions)

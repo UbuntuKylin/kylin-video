@@ -57,6 +57,9 @@ Preferences::Preferences(const QString &arch) {
     history_recents = new Recents;
     history_urls = new URLHistory;
     filters = new Filters;
+
+    m_decoingType = this->getHardwareDecodingType();
+
 	reset();
 	load();
 }
@@ -100,7 +103,9 @@ const VideoPtr Preferences::video(const QString &hash) const
 bool Preferences::contains(const VideoPtr video) const
 {
     if (!video.isNull())
-    return m_videoMap.contains(video->m_localpath);
+        return m_videoMap.contains(video->m_localpath);
+
+    return false;
 }
 
 bool Preferences::contains(const QString &filepath) const
@@ -173,7 +178,8 @@ void Preferences::reset() {
     //edited by kobe 20180623
     mplayer_bin = "/usr/bin/mpv";//mplayer_bin = QString("%1/mpv").arg(Paths::appPath());
 
-    if (arch_type == "aarch64") {//kobe 20180612
+    //20191206
+    if (arch_type == "aarch64") {
         vo = "vdpau";
     }
     else {
@@ -1318,6 +1324,27 @@ void Preferences::load() {
 
     filters->load(set);
 
+    //lixiang reset vo and hwdec for arm64 (only mpv support hwdec)
+    //20191206
+    if (arch_type == "aarch64") {
+        if (m_decoingType == AmdVdpau) {
+            vo = "vdpau";
+            hwdec = "vdpau";
+        }
+        else if (m_decoingType == Jm7200Xv || m_decoingType == Sm768Xv) {
+            vo = "xv";
+            hwdec = "no";
+        }
+        else if (m_decoingType == Gp101X11) {
+            vo = "x11";
+            hwdec = "no";
+        }
+        else {
+            vo = "xv";
+            hwdec = "no";
+        }
+    }
+
     //edited by kobe 20180623
     /*if (!QFile::exists(mplayer_bin)) {
         QString app_path = Utils::findExecutable(mplayer_bin);
@@ -1378,4 +1405,156 @@ void Preferences::setupScreenshotFolder()
         }
 	}
 #endif
+}
+
+void Preferences::updatePredefinedList()
+{
+    //# 对于PCIe设备的预处理
+    //# 格式："VID:PID:ClassID:预设分数:描述信息"
+    //# 一行一条规则
+    //# VID、PID中，-1或者0xFFFF代表匹配所有
+    //# ClassID中，-1或者0xFFFFFF代表匹配所有
+    //# 例如："0x8086:0x1901:0x0:0:Intel PCIe Controller (x16)"
+
+    QStringList itemList;
+    itemList.append("0731:7200:-1:0:JINGJIA MICRO JM7200 Graphics Card");
+    itemList.append("126f:-1:-1:0:SM750/SM768");
+    itemList.append("1a03:-1:-1:0:BMCd");
+    itemList.append("1002:-1:-1:300:AMD Graphics Card");
+    itemList.append("0709:0001:-1:0:709 GP101 Graphics Card");
+
+    foreach (QString item, itemList) {
+        item = item.trimmed();
+        if (item.startsWith("#"))
+            continue;
+        if (item.startsWith("//"))
+            continue;
+
+        PciePredefined device;
+        QStringList stringList = item.split(":");
+        bool ok;
+
+        if (stringList.count() < 5)
+            continue;
+
+        device.vid = stringList[0].toInt(&ok, 16);
+        if (device.vid == -1)
+            device.vid = 0xFFFF;
+        stringList.removeAt(0);
+
+        device.pid = stringList[0].toInt(&ok, 16);
+        if (device.pid == -1)
+            device.pid = 0xFFFF;
+        stringList.removeAt(0);
+
+        device.cid = stringList[0].toInt(&ok, 16);
+        if (device.cid == -1)
+            device.cid = 0xFFFFFF;
+        stringList.removeAt(0);
+
+        device.score = stringList[0].toInt(&ok, 10);
+        stringList.removeAt(0);
+
+        device.description = stringList.join(":").trimmed();
+        predefinedList.append(device);
+    }
+}
+
+void Preferences::updatePcieList()
+{
+    QDir dir("/sys/bus/pci/devices/");
+    if (!dir.exists())
+            return;
+
+    dir.setFilter(QDir::Dirs);
+    QStringList busList = dir.entryList();
+    busList.removeOne(".");
+    busList.removeOne("..");
+
+    foreach(QString bus, busList) {
+        PcieInfo info;
+        QString path;
+        QFile file;
+        QByteArray charArray;
+        bool ok;
+        int id;
+
+        path = dir.absoluteFilePath(bus + "/" + "vendor");
+        file.setFileName(path);
+        file.open(QIODevice::ReadOnly | QIODevice::Text);
+        charArray = file.readAll();
+        file.close();
+        id = QString(charArray).toInt(&ok, 16);
+        info.vid = id;
+
+        path = dir.absoluteFilePath(bus + "/" + "device");
+        file.setFileName(path);
+        file.open(QIODevice::ReadOnly | QIODevice::Text);
+        charArray = file.readAll();
+        file.close();
+        id = QString(charArray).toInt(&ok, 16);
+        info.pid = id;
+
+        path = dir.absoluteFilePath(bus + "/" + "class");
+        file.setFileName(path);
+        file.open(QIODevice::ReadOnly | QIODevice::Text);
+        charArray = file.readAll();
+        file.close();
+        id = QString(charArray).toInt(&ok, 16);
+        info.cid = id;
+
+        pcieList.append(info);
+        //qDebug() << path + QString(": 0x%1, 0x%2, 0x%3").arg(info.vid, 4, 16).arg(info.pid, 4, 16,   QChar('0')).arg(info.cid, 4, 16);
+    }
+//      foreach(PcieInfo info, pcieList) {
+//              qDebug() << QString(": 0x%1, 0x%2, 0x%3").arg(info.vid, 4, 16).arg(info.pid, 4, 16, QChar('0')).arg(info.cid, 4, 16);
+//      }
+}
+
+Preferences::HardDecodingType Preferences::getHardwareDecodingType()
+{
+    //默认值为-1,表示使用软解
+    HardDecodingType type = DefaultSoftDecoding;
+
+    updatePredefinedList();
+
+    int size = predefinedList.size();
+    if (size > 0) {
+        updatePcieList();
+
+        foreach (PciePredefined predefined, predefinedList) {
+            foreach(PcieInfo info, pcieList) {
+                if ( ((predefined.vid == info.vid) || (predefined.vid == 0xFFFF))
+                         && ((predefined.pid == info.pid) || (predefined.pid == 0xFFFF))
+                         && ((predefined.cid == info.cid) || (predefined.cid == 0xFFFFFF))) {
+                    printf("Find %s device(%04x:%04x.%04x), "
+                               "use predefine score: %d\n",
+                               predefined.description.toUtf8().data(),
+                               predefined.vid, predefined.pid,
+                               predefined.cid, predefined.score);
+                    char vidstr[128] = {0};
+                    snprintf(vidstr, sizeof(vidstr), "%04x", predefined.vid);
+                    //printf("vidstr:%s\n", vidstr);
+                    QString vid = QString::fromStdString(std::string(vidstr));
+                    //qDebug() << "vid:" << vid;
+                    //Find AMD Graphics Card device(1002:ffff.ffffff), use predefine score: 300
+                    if (predefined.description == "AMD Graphics Card" && vid == "1002") {
+                        type = AmdVdpau;
+                    }
+                    else if (predefined.description == "JINGJIA MICRO JM7200 Graphics Card" && vid == "0731") {
+                        type = Jm7200Xv;
+                    }
+                    else if (predefined.description == "709 GP101 Graphics Card" && vid == "0709") {
+                        type = Gp101X11;
+                    }
+                    else if (predefined.description == "SM750/SM768" && vid == "126f") {
+                        type = Sm768Xv;
+                    }
+                    return type;
+                }
+            }
+        }
+    }
+
+    return type;
 }

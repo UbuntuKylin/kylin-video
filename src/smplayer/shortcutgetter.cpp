@@ -244,7 +244,6 @@ static QString keyToString(int k)
 static QStringList modToString(Qt::KeyboardModifiers k)
 {
 	//qDebug("modToString: k: %x", (int) k);
-    qDebug() << "========modToString========";
 	QStringList l;
 	
 	if ( k & Qt::ShiftModifier )

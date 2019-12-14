@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1">
+<TS version="2.0">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -25,7 +25,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Kylin Video is developed on the basis of SMPlayer, is a graphical interface for MPlayer and MPV.</source>
-        <translation type="vanished">Kylin Video разработан на базе SMPlayer, представляет собой графический интерфейс для MPlayer и MPV.</translation>
+        <translation type="obsolete">Kylin Video разработан на базе SMPlayer, представляет собой графический интерфейс для MPlayer и MPV.</translation>
     </message>
     <message>
         <source>Kylin Video</source>
@@ -258,423 +258,423 @@ Do you want to overwrite?</source>
     <name>BaseGui</name>
     <message>
         <source>Kylin Video</source>
-        <translation type="vanished">Kylin Video</translation>
+        <translation type="obsolete">Kylin Video</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation type="vanished">открыто</translation>
+        <translation type="obsolete">открыто</translation>
     </message>
     <message>
         <source>Open &amp;File...</source>
-        <translation type="vanished">Открыть файл...</translation>
+        <translation type="obsolete">Открыть файл...</translation>
     </message>
     <message>
         <source>Directory...</source>
-        <translation type="vanished">Справочник ...</translation>
+        <translation type="obsolete">Справочник ...</translation>
     </message>
     <message>
         <source>&amp;URL...</source>
-        <translation type="vanished">&amp; URL ...</translation>
+        <translation type="obsolete">&amp; URL ...</translation>
     </message>
     <message>
         <source>&amp;Clear</source>
-        <translation type="vanished">&amp;Очистить</translation>
+        <translation type="obsolete">&amp;Очистить</translation>
     </message>
     <message>
         <source>Recent files</source>
-        <translation type="vanished">Недавние файлы</translation>
+        <translation type="obsolete">Недавние файлы</translation>
     </message>
     <message>
         <source>Play control</source>
-        <translation type="vanished">Управление воспроизведением</translation>
+        <translation type="obsolete">Управление воспроизведением</translation>
     </message>
     <message>
         <source>Forward and rewind</source>
-        <translation type="vanished">Перемотка вперед и назад</translation>
+        <translation type="obsolete">Перемотка вперед и назад</translation>
     </message>
     <message>
         <source>&amp;Jump to...</source>
-        <translation type="vanished">&amp;Прыгать, чтобы...</translation>
+        <translation type="obsolete">&amp;Прыгать, чтобы...</translation>
     </message>
     <message>
         <source>Play Speed</source>
-        <translation type="vanished">Скорость воспроизведения</translation>
+        <translation type="obsolete">Скорость воспроизведения</translation>
     </message>
     <message>
         <source>Normal speed</source>
-        <translation type="vanished">Нормальная скорость</translation>
+        <translation type="obsolete">Нормальная скорость</translation>
     </message>
     <message>
         <source>Half speed</source>
-        <translation type="vanished">Половина скорости</translation>
+        <translation type="obsolete">Половина скорости</translation>
     </message>
     <message>
         <source>Double speed</source>
-        <translation type="vanished">Двойная скорость</translation>
+        <translation type="obsolete">Двойная скорость</translation>
     </message>
     <message>
         <source>Speed -10%</source>
-        <translation type="vanished">Скорость -10%</translation>
+        <translation type="obsolete">Скорость -10%</translation>
     </message>
     <message>
         <source>Speed +10%</source>
-        <translation type="vanished">Скорость + 10%</translation>
+        <translation type="obsolete">Скорость + 10%</translation>
     </message>
     <message>
         <source>Speed -4%</source>
-        <translation type="vanished">Скорость -4%</translation>
+        <translation type="obsolete">Скорость -4%</translation>
     </message>
     <message>
         <source>Speed +4%</source>
-        <translation type="vanished">Скорость + 4%</translation>
+        <translation type="obsolete">Скорость + 4%</translation>
     </message>
     <message>
         <source>Speed -1%</source>
-        <translation type="vanished">Скорость -1%</translation>
+        <translation type="obsolete">Скорость -1%</translation>
     </message>
     <message>
         <source>Speed +1%</source>
-        <translation type="vanished">Скорость + 1%</translation>
+        <translation type="obsolete">Скорость + 1%</translation>
     </message>
     <message>
         <source>Next</source>
-        <translation type="vanished">следующий</translation>
+        <translation type="obsolete">следующий</translation>
     </message>
     <message>
         <source>Previous</source>
-        <translation type="vanished">предыдущий</translation>
+        <translation type="obsolete">предыдущий</translation>
     </message>
     <message>
         <source>&amp;Auto</source>
-        <translation type="vanished">&amp;Авто</translation>
+        <translation type="obsolete">&amp;Авто</translation>
     </message>
     <message>
         <source>&amp;Disabled</source>
-        <translation type="vanished">&amp;Инвалид</translation>
+        <translation type="obsolete">&amp;Инвалид</translation>
     </message>
     <message>
         <source>Aspect ratio</source>
-        <translation type="vanished">Соотношение сторон</translation>
+        <translation type="obsolete">Соотношение сторон</translation>
     </message>
     <message>
         <source>&amp;Off</source>
-        <translation type="vanished">&amp; Off</translation>
+        <translation type="obsolete">&amp; Off</translation>
     </message>
     <message>
         <source>&amp;Rotate by 90 degrees clockwise and flip</source>
-        <translation type="vanished">&amp; Повернуть на 90 градусов по часовой стрелке и перевернуть</translation>
+        <translation type="obsolete">&amp; Повернуть на 90 градусов по часовой стрелке и перевернуть</translation>
     </message>
     <message>
         <source>Rotate by 90 degrees &amp;clockwise</source>
-        <translation type="vanished">Повернуть на 90 градусов и по часовой стрелке</translation>
+        <translation type="obsolete">Повернуть на 90 градусов и по часовой стрелке</translation>
     </message>
     <message>
         <source>Rotate by 90 degrees counterclock&amp;wise</source>
-        <translation type="vanished">Поворот на 90 градусов против часовой стрелки и мудрый</translation>
+        <translation type="obsolete">Поворот на 90 градусов против часовой стрелки и мудрый</translation>
     </message>
     <message>
         <source>Rotate by 90 degrees counterclockwise and &amp;flip</source>
-        <translation type="vanished">Поверните на 90 градусов против часовой стрелки и переверните</translation>
+        <translation type="obsolete">Поверните на 90 градусов против часовой стрелки и переверните</translation>
     </message>
     <message>
         <source>Fli&amp;p image</source>
-        <translation type="vanished">Fli &amp; p image</translation>
+        <translation type="obsolete">Fli &amp; p image</translation>
     </message>
     <message>
         <source>Mirr&amp;or image</source>
-        <translation type="vanished">Зеркальное изображение</translation>
+        <translation type="obsolete">Зеркальное изображение</translation>
     </message>
     <message>
         <source>Frame rotation</source>
-        <translation type="vanished">Вращение рамы</translation>
+        <translation type="obsolete">Вращение рамы</translation>
     </message>
     <message>
         <source>&amp;Rotate</source>
-        <translation type="vanished">&amp; Rotate</translation>
+        <translation type="obsolete">&amp; Rotate</translation>
     </message>
     <message>
         <source>&amp;Screenshot</source>
-        <translation type="vanished">&amp;Скриншот</translation>
+        <translation type="obsolete">&amp;Скриншот</translation>
     </message>
     <message>
         <source>&amp;Always</source>
-        <translation type="vanished">&amp;Всегда</translation>
+        <translation type="obsolete">&amp;Всегда</translation>
     </message>
     <message>
         <source>&amp;Never</source>
-        <translation type="vanished">&amp;Никогда</translation>
+        <translation type="obsolete">&amp;Никогда</translation>
     </message>
     <message>
         <source>While &amp;playing</source>
-        <translation type="vanished">Во время игры</translation>
+        <translation type="obsolete">Во время игры</translation>
     </message>
     <message>
         <source>S&amp;tay on top</source>
-        <translation type="vanished">S &amp; tay сверху</translation>
+        <translation type="obsolete">S &amp; tay сверху</translation>
     </message>
     <message>
         <source>Order play</source>
-        <translation type="vanished">Заказать игру</translation>
+        <translation type="obsolete">Заказать игру</translation>
     </message>
     <message>
         <source>Random play</source>
-        <translation type="vanished">Случайная игра</translation>
+        <translation type="obsolete">Случайная игра</translation>
     </message>
     <message>
         <source>List loop play</source>
-        <translation type="vanished">Список воспроизведения в цикле</translation>
+        <translation type="obsolete">Список воспроизведения в цикле</translation>
     </message>
     <message>
         <source>Play order</source>
-        <translation type="vanished">Порядок воспроизведения</translation>
+        <translation type="obsolete">Порядок воспроизведения</translation>
     </message>
     <message>
         <source>&amp;Stereo</source>
-        <translation type="vanished">&amp;Стерео</translation>
+        <translation type="obsolete">&amp;Стерео</translation>
     </message>
     <message>
         <source>&amp;4.0 Surround</source>
-        <translation type="vanished">&amp; 4.0 Surround</translation>
+        <translation type="obsolete">&amp; 4.0 Surround</translation>
     </message>
     <message>
         <source>&amp;5.1 Surround</source>
-        <translation type="vanished">&amp; 5.1 Surround</translation>
+        <translation type="obsolete">&amp; 5.1 Surround</translation>
     </message>
     <message>
         <source>&amp;6.1 Surround</source>
-        <translation type="vanished">&amp; 6.1 Surround</translation>
+        <translation type="obsolete">&amp; 6.1 Surround</translation>
     </message>
     <message>
         <source>&amp;7.1 Surround</source>
-        <translation type="vanished">&amp; 7.1 Surround</translation>
+        <translation type="obsolete">&amp; 7.1 Surround</translation>
     </message>
     <message>
         <source>&amp;Channels</source>
-        <translation type="vanished">&amp;Каналы</translation>
+        <translation type="obsolete">&amp;Каналы</translation>
     </message>
     <message>
         <source>Audio</source>
-        <translation type="vanished">аудио</translation>
+        <translation type="obsolete">аудио</translation>
     </message>
     <message>
         <source>&amp;Mute</source>
-        <translation type="vanished">&amp; Mute</translation>
+        <translation type="obsolete">&amp; Mute</translation>
     </message>
     <message>
         <source>Volume -</source>
-        <translation type="vanished">Объем -</translation>
+        <translation type="obsolete">Объем -</translation>
     </message>
     <message>
         <source>Volume +</source>
-        <translation type="vanished">Объем +</translation>
+        <translation type="obsolete">Объем +</translation>
     </message>
     <message>
         <source>Delay -</source>
-        <translation type="vanished">Задержка -</translation>
+        <translation type="obsolete">Задержка -</translation>
     </message>
     <message>
         <source>Delay +</source>
-        <translation type="vanished">Задержка +</translation>
+        <translation type="obsolete">Задержка +</translation>
     </message>
     <message>
         <source>Set dela&amp;y...</source>
-        <translation type="vanished">Установить dela &amp; y ...</translation>
+        <translation type="obsolete">Установить dela &amp; y ...</translation>
     </message>
     <message>
         <source>&amp;Left channel</source>
-        <translation type="vanished">&amp; Левый канал</translation>
+        <translation type="obsolete">&amp; Левый канал</translation>
     </message>
     <message>
         <source>&amp;Right channel</source>
-        <translation type="vanished">&amp; Правый канал</translation>
+        <translation type="obsolete">&amp; Правый канал</translation>
     </message>
     <message>
         <source>&amp;Mono</source>
-        <translation type="vanished">&amp;Моно</translation>
+        <translation type="obsolete">&amp;Моно</translation>
     </message>
     <message>
         <source>Re&amp;verse</source>
-        <translation type="vanished">Задний ход</translation>
+        <translation type="obsolete">Задний ход</translation>
     </message>
     <message>
         <source>&amp;Stereo mode</source>
-        <translation type="vanished">&amp; Стерео режим</translation>
+        <translation type="obsolete">&amp; Стерео режим</translation>
     </message>
     <message>
         <source>Subtitles</source>
-        <translation type="vanished">Субтитры</translation>
+        <translation type="obsolete">Субтитры</translation>
     </message>
     <message>
         <source>Load...</source>
-        <translation type="vanished">Загрузить ...</translation>
+        <translation type="obsolete">Загрузить ...</translation>
     </message>
     <message>
         <source>Subtitle &amp;visibility</source>
-        <translation type="vanished">Субтитры и видимость</translation>
+        <translation type="obsolete">Субтитры и видимость</translation>
     </message>
     <message>
         <source>Preferences</source>
-        <translation type="vanished">предпочтения</translation>
+        <translation type="obsolete">предпочтения</translation>
     </message>
     <message>
         <source>View &amp;info and properties...</source>
-        <translation type="vanished">Просмотр и информация и свойства ...</translation>
+        <translation type="obsolete">Просмотр и информация и свойства ...</translation>
     </message>
     <message>
         <source>Help</source>
-        <translation type="vanished">Помогите</translation>
+        <translation type="obsolete">Помогите</translation>
     </message>
     <message>
         <source>About &amp;Kylin Video</source>
-        <translation type="vanished">О компании &amp; Kylin Video</translation>
+        <translation type="obsolete">О компании &amp; Kylin Video</translation>
     </message>
     <message>
         <source>Quit</source>
-        <translation type="vanished">Уволиться</translation>
+        <translation type="obsolete">Уволиться</translation>
     </message>
     <message>
         <source>Open Homepage</source>
-        <translation type="vanished">Открыть домашнюю страницу</translation>
+        <translation type="obsolete">Открыть домашнюю страницу</translation>
     </message>
     <message>
         <source>Open screenshots folder</source>
-        <translation type="vanished">Открыть папку скриншотов</translation>
+        <translation type="obsolete">Открыть папку скриншотов</translation>
     </message>
     <message>
         <source>PlayList</source>
-        <translation type="vanished">PlayList</translation>
+        <translation type="obsolete">PlayList</translation>
     </message>
     <message>
         <source>Play/Pause</source>
-        <translation type="vanished">Воспроизведение / Пауза</translation>
+        <translation type="obsolete">Воспроизведение / Пауза</translation>
     </message>
     <message>
         <source>Stop</source>
-        <translation type="vanished">Стоп</translation>
+        <translation type="obsolete">Стоп</translation>
     </message>
     <message>
         <source>Fullscreen</source>
-        <translation type="vanished">Полноэкранный</translation>
+        <translation type="obsolete">Полноэкранный</translation>
     </message>
     <message>
         <source>Video filters are disabled when using vdpau</source>
-        <translation type="vanished">Видеоэффекты отключены при использовании vdpau</translation>
+        <translation type="obsolete">Видеоэффекты отключены при использовании vdpau</translation>
     </message>
     <message>
         <source>-%1</source>
-        <translation type="vanished">- 1%</translation>
+        <translation type="obsolete">- 1%</translation>
     </message>
     <message>
         <source>+%1</source>
-        <translation type="vanished">+ 1%</translation>
+        <translation type="obsolete">+ 1%</translation>
     </message>
     <message>
         <source>&lt;empty&gt;</source>
-        <translation type="vanished">&lt;Пусто&gt;</translation>
+        <translation type="obsolete">&lt;Пусто&gt;</translation>
     </message>
     <message>
         <source>Confirm deletion - Kylin Video</source>
-        <translation type="vanished">Подтвердить удаление - Kylin Video</translation>
+        <translation type="obsolete">Подтвердить удаление - Kylin Video</translation>
     </message>
     <message>
         <source>Delete the list of recent files?</source>
-        <translation type="vanished">Удалить список последних файлов?</translation>
+        <translation type="obsolete">Удалить список последних файлов?</translation>
     </message>
     <message>
         <source>Choose a file</source>
-        <translation type="vanished">Выберите файл</translation>
+        <translation type="obsolete">Выберите файл</translation>
     </message>
     <message>
         <source>Multimedia</source>
-        <translation type="vanished">мультимедиа</translation>
+        <translation type="obsolete">мультимедиа</translation>
     </message>
     <message>
         <source>Video</source>
-        <translation type="vanished">видео</translation>
+        <translation type="obsolete">видео</translation>
     </message>
     <message>
         <source>Playlists</source>
-        <translation type="vanished">Плейлисты</translation>
+        <translation type="obsolete">Плейлисты</translation>
     </message>
     <message>
         <source>All files</source>
-        <translation type="vanished">Все файлы</translation>
+        <translation type="obsolete">Все файлы</translation>
     </message>
     <message>
         <source>Choose a directory</source>
-        <translation type="vanished">Выберите каталог</translation>
+        <translation type="obsolete">Выберите каталог</translation>
     </message>
     <message>
         <source>&amp;Jump to:</source>
-        <translation type="vanished">&amp;Прыгать, чтобы:</translation>
+        <translation type="obsolete">&amp;Прыгать, чтобы:</translation>
     </message>
     <message>
         <source>Kylin Video - Seek</source>
-        <translation type="vanished">Kylin Video - Ищите</translation>
+        <translation type="obsolete">Kylin Video - Ищите</translation>
     </message>
     <message>
         <source>Kylin Video - Subtitle delay</source>
-        <translation type="vanished">Kylin Video - Задержка субтитров</translation>
+        <translation type="obsolete">Kylin Video - Задержка субтитров</translation>
     </message>
     <message>
         <source>Subtitle delay (in milliseconds):</source>
-        <translation type="vanished">Задержка субтитров (в миллисекундах):</translation>
+        <translation type="obsolete">Задержка субтитров (в миллисекундах):</translation>
     </message>
     <message>
         <source>Error detected</source>
-        <translation type="vanished">Обнаружена ошибка</translation>
+        <translation type="obsolete">Обнаружена ошибка</translation>
     </message>
     <message>
         <source>Unfortunately this video can&apos;t be played.</source>
-        <translation type="vanished">К сожалению, это видео невозможно воспроизвести.</translation>
+        <translation type="obsolete">К сожалению, это видео невозможно воспроизвести.</translation>
     </message>
     <message>
         <source>The server returned &apos;%1&apos;</source>
-        <translation type="vanished">Сервер вернул &apos;% 1&apos;</translation>
+        <translation type="obsolete">Сервер вернул &apos;% 1&apos;</translation>
     </message>
     <message>
         <source>Jump to %1</source>
-        <translation type="vanished">Перейти к% 1</translation>
+        <translation type="obsolete">Перейти к% 1</translation>
     </message>
     <message>
         <source>%1 Error</source>
-        <translation type="vanished">% 1 Ошибка</translation>
+        <translation type="obsolete">% 1 Ошибка</translation>
     </message>
     <message>
         <source>&apos;%1&apos; was not found!</source>
-        <translation type="vanished">«% 1» не найден!</translation>
+        <translation type="obsolete">«% 1» не найден!</translation>
     </message>
     <message>
         <source>%1 has finished unexpectedly.</source>
-        <translation type="vanished">% 1 закончил неожиданно.</translation>
+        <translation type="obsolete">% 1 закончил неожиданно.</translation>
     </message>
     <message>
         <source>Exit code: %1</source>
-        <translation type="vanished">Код выхода:% 1</translation>
+        <translation type="obsolete">Код выхода:% 1</translation>
     </message>
     <message>
         <source>%1 failed to start.</source>
-        <translation type="vanished">% 1 не удалось запустить.</translation>
+        <translation type="obsolete">% 1 не удалось запустить.</translation>
     </message>
     <message>
         <source>Please check the %1 path in preferences.</source>
-        <translation type="vanished">Проверьте путь% 1 в настройках.</translation>
+        <translation type="obsolete">Проверьте путь% 1 в настройках.</translation>
     </message>
     <message>
         <source>%1 has crashed.</source>
-        <translation type="vanished">% 1 разбился.</translation>
+        <translation type="obsolete">% 1 разбился.</translation>
     </message>
     <message>
         <source>See the log for more info.</source>
-        <translation type="vanished">См. Журнал для получения дополнительной информации.</translation>
+        <translation type="obsolete">См. Журнал для получения дополнительной информации.</translation>
     </message>
     <message>
         <source>Information</source>
-        <translation type="vanished">Информация</translation>
+        <translation type="obsolete">Информация</translation>
     </message>
     <message>
         <source>The screenshot folder does not exist!</source>
-        <translation type="vanished">Папки для скриншотов не существует!</translation>
+        <translation type="obsolete">Папки для скриншотов не существует!</translation>
     </message>
 </context>
 <context>
@@ -1454,7 +1454,7 @@ Do you want to overwrite?</source>
         <source>Nauru</source>
         <translation>Науру</translation>
     </message>
-    <message>
+    <message utf8="true">
         <source>Bokmål</source>
         <translation>букмол</translation>
     </message>
@@ -1706,7 +1706,7 @@ Do you want to overwrite?</source>
         <source>Vietnamese</source>
         <translation>вьетнамский</translation>
     </message>
-    <message>
+    <message utf8="true">
         <source>Volapük</source>
         <translation>Volapük</translation>
     </message>
@@ -2504,15 +2504,15 @@ Do you want to overwrite?</source>
     </message>
     <message>
         <source>Play</source>
-        <translation type="vanished">Играть</translation>
+        <translation type="obsolete">Играть</translation>
     </message>
     <message>
         <source>Remove &amp;selected</source>
-        <translation type="vanished">Убрать выбранное</translation>
+        <translation type="obsolete">Убрать выбранное</translation>
     </message>
     <message>
         <source>&amp;Delete file from disk</source>
-        <translation type="vanished">&amp; Удалить файл с диска</translation>
+        <translation type="obsolete">&amp; Удалить файл с диска</translation>
     </message>
     <message>
         <source>Reached the end of the playlist</source>
@@ -2540,7 +2540,7 @@ Do you want to overwrite?</source>
     </message>
     <message>
         <source>You&apos;re about to remove the file &apos;%1&apos; from the playlist.</source>
-        <translation type="vanished">Вы собираетесь удалить файл «% 1» из списка воспроизведения.</translation>
+        <translation type="obsolete">Вы собираетесь удалить файл «% 1» из списка воспроизведения.</translation>
     </message>
     <message>
         <source>Are you sure you want to proceed?</source>
@@ -2552,7 +2552,7 @@ Do you want to overwrite?</source>
     </message>
     <message>
         <source>You&apos;re about to DELETE the file &apos;%1&apos; from your drive.</source>
-        <translation type="vanished">Вы собираетесь удалить файл «% 1» с вашего диска.</translation>
+        <translation type="obsolete">Вы собираетесь удалить файл «% 1» с вашего диска.</translation>
     </message>
     <message>
         <source>This action cannot be undone. Are you sure you want to proceed?</source>
@@ -2560,19 +2560,19 @@ Do you want to overwrite?</source>
     </message>
     <message>
         <source>Deletion failed</source>
-        <translation type="vanished">Не удалось выполнить удаление</translation>
+        <translation type="obsolete">Не удалось выполнить удаление</translation>
     </message>
     <message>
         <source>It wasn&apos;t possible to delete &apos;%1&apos;</source>
-        <translation type="vanished">Не удалось удалить &apos;% 1&apos;</translation>
+        <translation type="obsolete">Не удалось удалить &apos;% 1&apos;</translation>
     </message>
     <message>
         <source>Error deleting the file</source>
-        <translation type="vanished">Ошибка удаления файла</translation>
+        <translation type="obsolete">Ошибка удаления файла</translation>
     </message>
     <message>
         <source>It&apos;s not possible to delete &apos;%1&apos; from the filesystem.</source>
-        <translation type="vanished">Невозможно удалить «% 1» из файловой системы.</translation>
+        <translation type="obsolete">Невозможно удалить «% 1» из файловой системы.</translation>
     </message>
     <message>
         <source>Choose a filename</source>

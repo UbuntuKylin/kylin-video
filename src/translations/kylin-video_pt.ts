@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1">
+<TS version="2.0">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -25,7 +25,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Kylin Video is developed on the basis of SMPlayer, is a graphical interface for MPlayer and MPV.</source>
-        <translation type="vanished">O Kylin Video é desenvolvido com base no SMPlayer, é uma interface gráfica para o MPlayer e o MPV.</translation>
+        <translation type="obsolete">O Kylin Video é desenvolvido com base no SMPlayer, é uma interface gráfica para o MPlayer e o MPV.</translation>
     </message>
     <message>
         <source>Kylin Video</source>
@@ -258,423 +258,423 @@ Do you want to overwrite?</source>
     <name>BaseGui</name>
     <message>
         <source>Kylin Video</source>
-        <translation type="vanished">Vídeo Kylin</translation>
+        <translation type="obsolete">Vídeo Kylin</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation type="vanished">Abrir</translation>
+        <translation type="obsolete">Abrir</translation>
     </message>
     <message>
         <source>Open &amp;File...</source>
-        <translation type="vanished">Abrir arquivo...</translation>
+        <translation type="obsolete">Abrir arquivo...</translation>
     </message>
     <message>
         <source>Directory...</source>
-        <translation type="vanished">Diretório...</translation>
+        <translation type="obsolete">Diretório...</translation>
     </message>
     <message>
         <source>&amp;URL...</source>
-        <translation type="vanished">&amp; URL ...</translation>
+        <translation type="obsolete">&amp; URL ...</translation>
     </message>
     <message>
         <source>&amp;Clear</source>
-        <translation type="vanished">&amp;Claro</translation>
+        <translation type="obsolete">&amp;Claro</translation>
     </message>
     <message>
         <source>Recent files</source>
-        <translation type="vanished">Arquivos recentes</translation>
+        <translation type="obsolete">Arquivos recentes</translation>
     </message>
     <message>
         <source>Play control</source>
-        <translation type="vanished">Controle de reprodução</translation>
+        <translation type="obsolete">Controle de reprodução</translation>
     </message>
     <message>
         <source>Forward and rewind</source>
-        <translation type="vanished">Avançar e retroceder</translation>
+        <translation type="obsolete">Avançar e retroceder</translation>
     </message>
     <message>
         <source>&amp;Jump to...</source>
-        <translation type="vanished">&amp;Pule para...</translation>
+        <translation type="obsolete">&amp;Pule para...</translation>
     </message>
     <message>
         <source>Play Speed</source>
-        <translation type="vanished">Velocidade de jogo</translation>
+        <translation type="obsolete">Velocidade de jogo</translation>
     </message>
     <message>
         <source>Normal speed</source>
-        <translation type="vanished">Velocidade normal</translation>
+        <translation type="obsolete">Velocidade normal</translation>
     </message>
     <message>
         <source>Half speed</source>
-        <translation type="vanished">Meia velocidade</translation>
+        <translation type="obsolete">Meia velocidade</translation>
     </message>
     <message>
         <source>Double speed</source>
-        <translation type="vanished">Velocidade dupla</translation>
+        <translation type="obsolete">Velocidade dupla</translation>
     </message>
     <message>
         <source>Speed -10%</source>
-        <translation type="vanished">Velocidade -10%</translation>
+        <translation type="obsolete">Velocidade -10%</translation>
     </message>
     <message>
         <source>Speed +10%</source>
-        <translation type="vanished">Velocidade + 10%</translation>
+        <translation type="obsolete">Velocidade + 10%</translation>
     </message>
     <message>
         <source>Speed -4%</source>
-        <translation type="vanished">Velocidade de -4%</translation>
+        <translation type="obsolete">Velocidade de -4%</translation>
     </message>
     <message>
         <source>Speed +4%</source>
-        <translation type="vanished">Velocidade + 4%</translation>
+        <translation type="obsolete">Velocidade + 4%</translation>
     </message>
     <message>
         <source>Speed -1%</source>
-        <translation type="vanished">Velocidade -1%</translation>
+        <translation type="obsolete">Velocidade -1%</translation>
     </message>
     <message>
         <source>Speed +1%</source>
-        <translation type="vanished">Velocidade + 1%</translation>
+        <translation type="obsolete">Velocidade + 1%</translation>
     </message>
     <message>
         <source>Next</source>
-        <translation type="vanished">Próximo</translation>
+        <translation type="obsolete">Próximo</translation>
     </message>
     <message>
         <source>Previous</source>
-        <translation type="vanished">Anterior</translation>
+        <translation type="obsolete">Anterior</translation>
     </message>
     <message>
         <source>&amp;Auto</source>
-        <translation type="vanished">&amp;Auto</translation>
+        <translation type="obsolete">&amp;Auto</translation>
     </message>
     <message>
         <source>&amp;Disabled</source>
-        <translation type="vanished">&amp;Desativado</translation>
+        <translation type="obsolete">&amp;Desativado</translation>
     </message>
     <message>
         <source>Aspect ratio</source>
-        <translation type="vanished">Proporção da tela</translation>
+        <translation type="obsolete">Proporção da tela</translation>
     </message>
     <message>
         <source>&amp;Off</source>
-        <translation type="vanished">&amp;Fora</translation>
+        <translation type="obsolete">&amp;Fora</translation>
     </message>
     <message>
         <source>&amp;Rotate by 90 degrees clockwise and flip</source>
-        <translation type="vanished">&amp; Rodar 90 graus no sentido dos ponteiros do relógio e virar</translation>
+        <translation type="obsolete">&amp; Rodar 90 graus no sentido dos ponteiros do relógio e virar</translation>
     </message>
     <message>
         <source>Rotate by 90 degrees &amp;clockwise</source>
-        <translation type="vanished">Rodar 90 graus e no sentido horário</translation>
+        <translation type="obsolete">Rodar 90 graus e no sentido horário</translation>
     </message>
     <message>
         <source>Rotate by 90 degrees counterclock&amp;wise</source>
-        <translation type="vanished">Gire em 90 graus no sentido anti-horário e sábio</translation>
+        <translation type="obsolete">Gire em 90 graus no sentido anti-horário e sábio</translation>
     </message>
     <message>
         <source>Rotate by 90 degrees counterclockwise and &amp;flip</source>
-        <translation type="vanished">Gire 90 graus no sentido anti-horário e &amp; flip</translation>
+        <translation type="obsolete">Gire 90 graus no sentido anti-horário e &amp; flip</translation>
     </message>
     <message>
         <source>Fli&amp;p image</source>
-        <translation type="vanished">Imagem Fli &amp; p</translation>
+        <translation type="obsolete">Imagem Fli &amp; p</translation>
     </message>
     <message>
         <source>Mirr&amp;or image</source>
-        <translation type="vanished">Mirr e ou imagem</translation>
+        <translation type="obsolete">Mirr e ou imagem</translation>
     </message>
     <message>
         <source>Frame rotation</source>
-        <translation type="vanished">Rotação do quadro</translation>
+        <translation type="obsolete">Rotação do quadro</translation>
     </message>
     <message>
         <source>&amp;Rotate</source>
-        <translation type="vanished">E girar</translation>
+        <translation type="obsolete">E girar</translation>
     </message>
     <message>
         <source>&amp;Screenshot</source>
-        <translation type="vanished">Captura de tela</translation>
+        <translation type="obsolete">Captura de tela</translation>
     </message>
     <message>
         <source>&amp;Always</source>
-        <translation type="vanished">&amp;Sempre</translation>
+        <translation type="obsolete">&amp;Sempre</translation>
     </message>
     <message>
         <source>&amp;Never</source>
-        <translation type="vanished">&amp;Nunca</translation>
+        <translation type="obsolete">&amp;Nunca</translation>
     </message>
     <message>
         <source>While &amp;playing</source>
-        <translation type="vanished">Enquanto jogando</translation>
+        <translation type="obsolete">Enquanto jogando</translation>
     </message>
     <message>
         <source>S&amp;tay on top</source>
-        <translation type="vanished">Fique no topo</translation>
+        <translation type="obsolete">Fique no topo</translation>
     </message>
     <message>
         <source>Order play</source>
-        <translation type="vanished">Peça de ordem</translation>
+        <translation type="obsolete">Peça de ordem</translation>
     </message>
     <message>
         <source>Random play</source>
-        <translation type="vanished">Jogada aleatória</translation>
+        <translation type="obsolete">Jogada aleatória</translation>
     </message>
     <message>
         <source>List loop play</source>
-        <translation type="vanished">Listar jogo de loop</translation>
+        <translation type="obsolete">Listar jogo de loop</translation>
     </message>
     <message>
         <source>Play order</source>
-        <translation type="vanished">Ordem de jogo</translation>
+        <translation type="obsolete">Ordem de jogo</translation>
     </message>
     <message>
         <source>&amp;Stereo</source>
-        <translation type="vanished">&amp;Estéreo</translation>
+        <translation type="obsolete">&amp;Estéreo</translation>
     </message>
     <message>
         <source>&amp;4.0 Surround</source>
-        <translation type="vanished">&amp; 4.0 Surround</translation>
+        <translation type="obsolete">&amp; 4.0 Surround</translation>
     </message>
     <message>
         <source>&amp;5.1 Surround</source>
-        <translation type="vanished">&amp; 5.1 Surround</translation>
+        <translation type="obsolete">&amp; 5.1 Surround</translation>
     </message>
     <message>
         <source>&amp;6.1 Surround</source>
-        <translation type="vanished">&amp; 6.1 Surround</translation>
+        <translation type="obsolete">&amp; 6.1 Surround</translation>
     </message>
     <message>
         <source>&amp;7.1 Surround</source>
-        <translation type="vanished">&amp; 7.1 Surround</translation>
+        <translation type="obsolete">&amp; 7.1 Surround</translation>
     </message>
     <message>
         <source>&amp;Channels</source>
-        <translation type="vanished">E canais</translation>
+        <translation type="obsolete">E canais</translation>
     </message>
     <message>
         <source>Audio</source>
-        <translation type="vanished">Audio</translation>
+        <translation type="obsolete">Audio</translation>
     </message>
     <message>
         <source>&amp;Mute</source>
-        <translation type="vanished">&amp;Mudo</translation>
+        <translation type="obsolete">&amp;Mudo</translation>
     </message>
     <message>
         <source>Volume -</source>
-        <translation type="vanished">Volume -</translation>
+        <translation type="obsolete">Volume -</translation>
     </message>
     <message>
         <source>Volume +</source>
-        <translation type="vanished">Volume +</translation>
+        <translation type="obsolete">Volume +</translation>
     </message>
     <message>
         <source>Delay -</source>
-        <translation type="vanished">Atraso -</translation>
+        <translation type="obsolete">Atraso -</translation>
     </message>
     <message>
         <source>Delay +</source>
-        <translation type="vanished">Atraso +</translation>
+        <translation type="obsolete">Atraso +</translation>
     </message>
     <message>
         <source>Set dela&amp;y...</source>
-        <translation type="vanished">Definir dela ...</translation>
+        <translation type="obsolete">Definir dela ...</translation>
     </message>
     <message>
         <source>&amp;Left channel</source>
-        <translation type="vanished">E canal esquerdo</translation>
+        <translation type="obsolete">E canal esquerdo</translation>
     </message>
     <message>
         <source>&amp;Right channel</source>
-        <translation type="vanished">Canal direito</translation>
+        <translation type="obsolete">Canal direito</translation>
     </message>
     <message>
         <source>&amp;Mono</source>
-        <translation type="vanished">&amp;Mono</translation>
+        <translation type="obsolete">&amp;Mono</translation>
     </message>
     <message>
         <source>Re&amp;verse</source>
-        <translation type="vanished">Marcha ré</translation>
+        <translation type="obsolete">Marcha ré</translation>
     </message>
     <message>
         <source>&amp;Stereo mode</source>
-        <translation type="vanished">E modo estéreo</translation>
+        <translation type="obsolete">E modo estéreo</translation>
     </message>
     <message>
         <source>Subtitles</source>
-        <translation type="vanished">Legendas</translation>
+        <translation type="obsolete">Legendas</translation>
     </message>
     <message>
         <source>Load...</source>
-        <translation type="vanished">Carga...</translation>
+        <translation type="obsolete">Carga...</translation>
     </message>
     <message>
         <source>Subtitle &amp;visibility</source>
-        <translation type="vanished">Legenda e visibilidade</translation>
+        <translation type="obsolete">Legenda e visibilidade</translation>
     </message>
     <message>
         <source>Preferences</source>
-        <translation type="vanished">Preferências</translation>
+        <translation type="obsolete">Preferências</translation>
     </message>
     <message>
         <source>View &amp;info and properties...</source>
-        <translation type="vanished">Ver e informações e propriedades ...</translation>
+        <translation type="obsolete">Ver e informações e propriedades ...</translation>
     </message>
     <message>
         <source>Help</source>
-        <translation type="vanished">Socorro</translation>
+        <translation type="obsolete">Socorro</translation>
     </message>
     <message>
         <source>About &amp;Kylin Video</source>
-        <translation type="vanished">Sobre o &amp; Kylin Video</translation>
+        <translation type="obsolete">Sobre o &amp; Kylin Video</translation>
     </message>
     <message>
         <source>Quit</source>
-        <translation type="vanished">Sair</translation>
+        <translation type="obsolete">Sair</translation>
     </message>
     <message>
         <source>Open Homepage</source>
-        <translation type="vanished">Homepage Aberta</translation>
+        <translation type="obsolete">Homepage Aberta</translation>
     </message>
     <message>
         <source>Open screenshots folder</source>
-        <translation type="vanished">Abra a pasta screenshots</translation>
+        <translation type="obsolete">Abra a pasta screenshots</translation>
     </message>
     <message>
         <source>PlayList</source>
-        <translation type="vanished">Lista de reprodução</translation>
+        <translation type="obsolete">Lista de reprodução</translation>
     </message>
     <message>
         <source>Play/Pause</source>
-        <translation type="vanished">A pausa</translation>
+        <translation type="obsolete">A pausa</translation>
     </message>
     <message>
         <source>Stop</source>
-        <translation type="vanished">Pare</translation>
+        <translation type="obsolete">Pare</translation>
     </message>
     <message>
         <source>Fullscreen</source>
-        <translation type="vanished">Tela cheia</translation>
+        <translation type="obsolete">Tela cheia</translation>
     </message>
     <message>
         <source>Video filters are disabled when using vdpau</source>
-        <translation type="vanished">Os filtros de vídeo são desativados ao usar o vdpau</translation>
+        <translation type="obsolete">Os filtros de vídeo são desativados ao usar o vdpau</translation>
     </message>
     <message>
         <source>-%1</source>
-        <translation type="vanished">-% 1</translation>
+        <translation type="obsolete">-% 1</translation>
     </message>
     <message>
         <source>+%1</source>
-        <translation type="vanished">+% 1</translation>
+        <translation type="obsolete">+% 1</translation>
     </message>
     <message>
         <source>&lt;empty&gt;</source>
-        <translation type="vanished">&lt;vazio&gt;</translation>
+        <translation type="obsolete">&lt;vazio&gt;</translation>
     </message>
     <message>
         <source>Confirm deletion - Kylin Video</source>
-        <translation type="vanished">Confirme a exclusão - Kylin Video</translation>
+        <translation type="obsolete">Confirme a exclusão - Kylin Video</translation>
     </message>
     <message>
         <source>Delete the list of recent files?</source>
-        <translation type="vanished">Excluir a lista de arquivos recentes?</translation>
+        <translation type="obsolete">Excluir a lista de arquivos recentes?</translation>
     </message>
     <message>
         <source>Choose a file</source>
-        <translation type="vanished">Escolha um arquivo</translation>
+        <translation type="obsolete">Escolha um arquivo</translation>
     </message>
     <message>
         <source>Multimedia</source>
-        <translation type="vanished">Multimídia</translation>
+        <translation type="obsolete">Multimídia</translation>
     </message>
     <message>
         <source>Video</source>
-        <translation type="vanished">Vídeo</translation>
+        <translation type="obsolete">Vídeo</translation>
     </message>
     <message>
         <source>Playlists</source>
-        <translation type="vanished">Listas de reprodução</translation>
+        <translation type="obsolete">Listas de reprodução</translation>
     </message>
     <message>
         <source>All files</source>
-        <translation type="vanished">Todos os arquivos</translation>
+        <translation type="obsolete">Todos os arquivos</translation>
     </message>
     <message>
         <source>Choose a directory</source>
-        <translation type="vanished">Escolha um diretório</translation>
+        <translation type="obsolete">Escolha um diretório</translation>
     </message>
     <message>
         <source>&amp;Jump to:</source>
-        <translation type="vanished">&amp;Pule para:</translation>
+        <translation type="obsolete">&amp;Pule para:</translation>
     </message>
     <message>
         <source>Kylin Video - Seek</source>
-        <translation type="vanished">Vídeo de Kylin - busca</translation>
+        <translation type="obsolete">Vídeo de Kylin - busca</translation>
     </message>
     <message>
         <source>Kylin Video - Subtitle delay</source>
-        <translation type="vanished">Vídeo Kylin - Atraso de legendas</translation>
+        <translation type="obsolete">Vídeo Kylin - Atraso de legendas</translation>
     </message>
     <message>
         <source>Subtitle delay (in milliseconds):</source>
-        <translation type="vanished">Atraso de legendas (em milissegundos):</translation>
+        <translation type="obsolete">Atraso de legendas (em milissegundos):</translation>
     </message>
     <message>
         <source>Error detected</source>
-        <translation type="vanished">Erro detectado</translation>
+        <translation type="obsolete">Erro detectado</translation>
     </message>
     <message>
         <source>Unfortunately this video can&apos;t be played.</source>
-        <translation type="vanished">Infelizmente este vídeo não pode ser reproduzido.</translation>
+        <translation type="obsolete">Infelizmente este vídeo não pode ser reproduzido.</translation>
     </message>
     <message>
         <source>The server returned &apos;%1&apos;</source>
-        <translation type="vanished">O servidor retornou &apos;% 1&apos;</translation>
+        <translation type="obsolete">O servidor retornou &apos;% 1&apos;</translation>
     </message>
     <message>
         <source>Jump to %1</source>
-        <translation type="vanished">Ir para% 1</translation>
+        <translation type="obsolete">Ir para% 1</translation>
     </message>
     <message>
         <source>%1 Error</source>
-        <translation type="vanished">% 1 erro</translation>
+        <translation type="obsolete">% 1 erro</translation>
     </message>
     <message>
         <source>&apos;%1&apos; was not found!</source>
-        <translation type="vanished">&apos;% 1&apos; não foi encontrado!</translation>
+        <translation type="obsolete">&apos;% 1&apos; não foi encontrado!</translation>
     </message>
     <message>
         <source>%1 has finished unexpectedly.</source>
-        <translation type="vanished">% 1 terminou inesperadamente.</translation>
+        <translation type="obsolete">% 1 terminou inesperadamente.</translation>
     </message>
     <message>
         <source>Exit code: %1</source>
-        <translation type="vanished">Código de saída:% 1</translation>
+        <translation type="obsolete">Código de saída:% 1</translation>
     </message>
     <message>
         <source>%1 failed to start.</source>
-        <translation type="vanished">% 1 falhou ao iniciar.</translation>
+        <translation type="obsolete">% 1 falhou ao iniciar.</translation>
     </message>
     <message>
         <source>Please check the %1 path in preferences.</source>
-        <translation type="vanished">Por favor, verifique o caminho% 1 nas preferências.</translation>
+        <translation type="obsolete">Por favor, verifique o caminho% 1 nas preferências.</translation>
     </message>
     <message>
         <source>%1 has crashed.</source>
-        <translation type="vanished">% 1 caiu.</translation>
+        <translation type="obsolete">% 1 caiu.</translation>
     </message>
     <message>
         <source>See the log for more info.</source>
-        <translation type="vanished">Veja o log para mais informações.</translation>
+        <translation type="obsolete">Veja o log para mais informações.</translation>
     </message>
     <message>
         <source>Information</source>
-        <translation type="vanished">Em formação</translation>
+        <translation type="obsolete">Em formação</translation>
     </message>
     <message>
         <source>The screenshot folder does not exist!</source>
-        <translation type="vanished">A pasta de screenshots não existe!</translation>
+        <translation type="obsolete">A pasta de screenshots não existe!</translation>
     </message>
 </context>
 <context>
@@ -1454,7 +1454,7 @@ Do you want to overwrite?</source>
         <source>Nauru</source>
         <translation>Nauru</translation>
     </message>
-    <message>
+    <message utf8="true">
         <source>Bokmål</source>
         <translation>Bokmål</translation>
     </message>
@@ -1706,7 +1706,7 @@ Do you want to overwrite?</source>
         <source>Vietnamese</source>
         <translation>vietnamita</translation>
     </message>
-    <message>
+    <message utf8="true">
         <source>Volapük</source>
         <translation>Volapuque</translation>
     </message>
@@ -2504,15 +2504,15 @@ Do you want to overwrite?</source>
     </message>
     <message>
         <source>Play</source>
-        <translation type="vanished">Toque</translation>
+        <translation type="obsolete">Toque</translation>
     </message>
     <message>
         <source>Remove &amp;selected</source>
-        <translation type="vanished">Remover e selecionado</translation>
+        <translation type="obsolete">Remover e selecionado</translation>
     </message>
     <message>
         <source>&amp;Delete file from disk</source>
-        <translation type="vanished">&amp; Excluir arquivo do disco</translation>
+        <translation type="obsolete">&amp; Excluir arquivo do disco</translation>
     </message>
     <message>
         <source>Reached the end of the playlist</source>
@@ -2540,7 +2540,7 @@ Do you want to overwrite?</source>
     </message>
     <message>
         <source>You&apos;re about to remove the file &apos;%1&apos; from the playlist.</source>
-        <translation type="vanished">Você está prestes a remover o arquivo &apos;% 1&apos; da playlist.</translation>
+        <translation type="obsolete">Você está prestes a remover o arquivo &apos;% 1&apos; da playlist.</translation>
     </message>
     <message>
         <source>Are you sure you want to proceed?</source>
@@ -2552,7 +2552,7 @@ Do you want to overwrite?</source>
     </message>
     <message>
         <source>You&apos;re about to DELETE the file &apos;%1&apos; from your drive.</source>
-        <translation type="vanished">Você está prestes a DELETAR o arquivo &apos;% 1&apos; da sua unidade.</translation>
+        <translation type="obsolete">Você está prestes a DELETAR o arquivo &apos;% 1&apos; da sua unidade.</translation>
     </message>
     <message>
         <source>This action cannot be undone. Are you sure you want to proceed?</source>
@@ -2560,19 +2560,19 @@ Do you want to overwrite?</source>
     </message>
     <message>
         <source>Deletion failed</source>
-        <translation type="vanished">A exclusão falhou</translation>
+        <translation type="obsolete">A exclusão falhou</translation>
     </message>
     <message>
         <source>It wasn&apos;t possible to delete &apos;%1&apos;</source>
-        <translation type="vanished">Não foi possível excluir &apos;% 1&apos;</translation>
+        <translation type="obsolete">Não foi possível excluir &apos;% 1&apos;</translation>
     </message>
     <message>
         <source>Error deleting the file</source>
-        <translation type="vanished">Erro ao excluir o arquivo</translation>
+        <translation type="obsolete">Erro ao excluir o arquivo</translation>
     </message>
     <message>
         <source>It&apos;s not possible to delete &apos;%1&apos; from the filesystem.</source>
-        <translation type="vanished">Não é possível excluir &apos;% 1&apos; do sistema de arquivos.</translation>
+        <translation type="obsolete">Não é possível excluir &apos;% 1&apos; do sistema de arquivos.</translation>
     </message>
     <message>
         <source>Choose a filename</source>

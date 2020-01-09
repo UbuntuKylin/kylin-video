@@ -69,7 +69,7 @@
 #include "maskwidget.h"
 #include "videowindow.h"
 #include "poweroffdialog.h"
-#include "controllerworker.h"
+//#include "controllerworker.h"
 
 #include "smplayer/desktopinfo.h"
 #include "smplayer/paths.h"
@@ -122,7 +122,7 @@ QDataStream &operator>>(QDataStream &dataStream, VideoPtr &objectA)
     return dataStream;
 }
 
-MainWindow::MainWindow(QString arch_type, QString snap, ControllerWorker *controller, QWidget* parent)
+MainWindow::MainWindow(QString arch_type, QString snap, /*ControllerWorker *controller, */QWidget* parent)
     : QMainWindow( parent)
 #if QT_VERSION >= 0x050000
 	, was_minimized(false)
@@ -135,7 +135,7 @@ MainWindow::MainWindow(QString arch_type, QString snap, ControllerWorker *contro
     , m_arch(arch_type)
     , m_snap(snap)
     , m_maskWidget(new MaskWidget(this))
-    , m_controllerWorker(controller)
+//    , m_controllerWorker(controller)
     , m_dragWindow(false)
     , m_lastPlayingSeek(0)
 {
@@ -1491,6 +1491,7 @@ void MainWindow::toggleFullscreen(bool b)
 }
 
 #ifdef SINGLE_INSTANCE
+//单实例情况下，麒麟影音正在运行事，此时如果对其他视频文件进行右键选择使用麒麟影音播放，则会走这里打开文件进行播放
 void MainWindow::handleMessageFromOtherInstances(const QString& message) {
 	int pos = message.indexOf(' ');
 	if (pos > -1) {
@@ -1693,12 +1694,12 @@ void MainWindow::createHelpDialog()
 
 void MainWindow::initRemoteControllerConnections()
 {
-    connect(m_controllerWorker, SIGNAL(requestSeekForward(int)), m_core, SLOT(forward(int)));
-    connect(m_controllerWorker, SIGNAL(requestSeekRewind(int)), m_core, SLOT(rewind(int)));
-    connect(m_controllerWorker, &ControllerWorker::requestPlayPause, this, [=] () {
-        m_core->playOrPause(m_lastPlayingSeek);
-    });
-    connect(m_controllerWorker, &ControllerWorker::requestStop, m_core, &Core::stop);
+//    connect(m_controllerWorker, SIGNAL(requestSeekForward(int)), m_core, SLOT(forward(int)));
+//    connect(m_controllerWorker, SIGNAL(requestSeekRewind(int)), m_core, SLOT(rewind(int)));
+//    connect(m_controllerWorker, &ControllerWorker::requestPlayPause, this, [=] () {
+//        m_core->playOrPause(m_lastPlayingSeek);
+//    });
+//    connect(m_controllerWorker, &ControllerWorker::requestStop, m_core, &Core::stop);
 }
 
 void MainWindow::setStayOnTop(bool b)

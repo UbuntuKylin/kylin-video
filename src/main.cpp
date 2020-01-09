@@ -19,8 +19,8 @@
 
 #include "myapplication.h"
 #include "kylinvideo.h"
-#include "remotecontroller.h"
-#include "controllerworker.h"
+//#include "remotecontroller.h"
+//#include "controllerworker.h"
 
 #include <QDir>
 #include <QFile>
@@ -41,12 +41,13 @@ int main(int argc, char **argv)
     a.setOrganizationName("kylin");
     a.setApplicationName("kylin-video");
     a.setApplicationVersion("2.0.1");
-	
+
 #if QT_VERSION >= 0x040400
 	// Enable icons in menus
 	QCoreApplication::setAttribute(Qt::AA_DontShowIconsInMenus, false);
 #endif
 
+    /*
     //----------------register controller dbus service----------------
     QDBusConnection connection = QDBusConnection::sessionBus();
     if (!connection.isConnected()) {
@@ -56,6 +57,7 @@ int main(int argc, char **argv)
         return 1;
     }
 
+    //registerService在FT arm上将导致麒麟影音在播放视频时，如果在其他视频文件上右键选择麒麟影音进行播放，麒麟影音无反应，即无法调用handleMessageFromOtherInstances()，而在x86上无此问题
     if (!connection.registerService(CONTROL_DBUS_SERVICE_NAME)) {
         fprintf(stderr, "%s\n", qPrintable(connection.lastError().message()));
         exit(1);
@@ -66,9 +68,9 @@ int main(int argc, char **argv)
 //    connection(&a, &QApplication::aboutToQuit, adaptor, &ControllerAdaptor::aboutToQuit);
     QDBusConnection::sessionBus().registerObject("/", controller);
     //-------------------------------------------------------------------
+    */
 
     QStringList args = a.arguments();
-
     QFile qss(":/qss/res/style.qss");
     if (!qss.open(QIODevice::ReadOnly)) {
         qWarning("Can't open the style sheet file: :/qss/res/style.qss.");
@@ -94,12 +96,11 @@ int main(int argc, char **argv)
         qDebug() << "SNAP: " << snap_path;
     }
 
-    KylinVideo *player = new KylinVideo(arch, snap, controller);
+    KylinVideo *player = new KylinVideo(arch, snap/*, controller*/);
     KylinVideo::ExitCode c = player->processArgs(args);
     if (c != KylinVideo::NoExit) {
 		return c;
 	}
-
 	int r = a.exec();
     delete player;
 

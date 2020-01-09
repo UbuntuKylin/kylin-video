@@ -26,7 +26,7 @@
 #include "mainwindow.h"
 
 class InfoWorker;
-class ControllerWorker;
+//class ControllerWorker;
 
 class KylinVideo : public QObject
 {
@@ -35,7 +35,7 @@ class KylinVideo : public QObject
 public:
 	enum ExitCode { ErrorArgument = -3, NoAction = -2, NoRunningInstance = -1, NoError = 0, NoExit = 1 };
 
-    KylinVideo(const QString &arch = QString::null, const QString &snap = QString::null, ControllerWorker *controller = nullptr, QObject * parent = 0);
+    KylinVideo(const QString &arch = QString::null, const QString &snap = QString::null, /*ControllerWorker *controller = nullptr, */QObject * parent = 0);
 	~KylinVideo();
 
 	//! Process arguments. If ExitCode != NoExit the application must be exited.
@@ -61,7 +61,7 @@ private:
     QString m_snap;
     QThread *m_thread = nullptr;
     InfoWorker *m_infoWorker = nullptr;
-    ControllerWorker *m_controllerWorker = nullptr;
+//    ControllerWorker *m_controllerWorker = nullptr;
 };
 
 #endif

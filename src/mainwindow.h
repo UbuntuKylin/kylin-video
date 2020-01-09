@@ -56,7 +56,7 @@ class FilterHandler;
 class CoverWidget;
 class InfoWorker;
 class MaskWidget;
-class ControllerWorker;
+//class ControllerWorker;
 class AudioEqualizer;
 
 class MainWindow : public QMainWindow
@@ -64,7 +64,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
     
 public:
-    MainWindow(QString arch_type = "", QString snap = "", ControllerWorker *controller = NULL, QWidget* parent = 0);
+    MainWindow(QString arch_type = "", QString snap = "", /*ControllerWorker *controller = NULL, */QWidget* parent = 0);
     ~MainWindow();
 
     void initRegisterMeta();
@@ -254,7 +254,7 @@ private:
     FilterHandler *m_mouseFilterHandler = nullptr;
 //    CoverWidget *m_coverWidget = nullptr;
     MaskWidget *m_maskWidget = nullptr;
-    ControllerWorker *m_controllerWorker = nullptr;
+//    ControllerWorker *m_controllerWorker = nullptr;
 
     QWidget *m_centralWidget = nullptr;
     QStackedLayout/*QVBoxLayout*/ *m_centralLayout = nullptr;

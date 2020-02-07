@@ -118,7 +118,8 @@ bool VideoPreview::createPreThumbnail(int time) {
 //        qDebug("The following error has occurred while creating the thumbnails:\n %s", error_message);
         qDebug() << "The following error has occurred while creating the thumbnails:" << error_message;
 	}
-    cleanDir(full_output_dir);
+    //如果这里执行cleanDir，将会导致缩略图还没显示，图片就已经被删除了
+    //cleanDir(full_output_dir);
 	return result;
 }
 
@@ -286,10 +287,10 @@ void VideoPreview::cleanDir(QString directory) {
     QStringList l = d.entryList( filter, QDir::Files, QDir::Unsorted);
 
     for (int n = 0; n < l.count(); n++) {
-        qDebug("VideoPreview::cleanDir: deleting '%s'", l[n].toUtf8().constData());
+        //qDebug("VideoPreview::cleanDir: deleting '%s'", l[n].toUtf8().constData());
         d.remove(l[n]);
     }
-    qDebug("VideoPreview::cleanDir: removing directory '%s'", directory.toUtf8().constData());
+    //qDebug("VideoPreview::cleanDir: removing directory '%s'", directory.toUtf8().constData());
     d.rmpath(directory);
 }
 

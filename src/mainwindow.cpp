@@ -49,7 +49,8 @@
 #include <QtX11Extras/QX11Info>
 #include <QtDBus>
 #include <QDBusConnection>
-
+#include <QEvent>
+#include <QKeyEvent>
 
 #include "playlist.h"
 #include "titlewidget.h"
@@ -99,7 +100,7 @@
 #include "smplayer/eqslider.h"
 
 //注意: x11的头文件需要放置在QJson/QDbus的后面
-#include <X11/Xlib.h>
+//#include <X11/Xlib.h>
 
 using namespace Global;
 
@@ -142,7 +143,6 @@ MainWindow::MainWindow(QString arch_type, QString snap, /*ControllerWorker *cont
     this->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);//设置窗体标题栏隐藏并设置位于顶层
     this->setMouseTracking(true);//可获取鼠标跟踪效果，界面拉伸需要这个属性
     this->setAutoFillBackground(true);
-    this->setFocusPolicy(Qt::ClickFocus);//Qt::StrongFocus
     this->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
     this->setMinimumSize(WINDOW_MIN_WIDTH, WINDOW_MIN_HEIGHT);
     this->resize(900, 600);
@@ -150,6 +150,10 @@ MainWindow::MainWindow(QString arch_type, QString snap, /*ControllerWorker *cont
     this->setWindowIcon(QIcon::fromTheme("kylin-video", QIcon(":/res/kylin-video.png")));
 //    this->setWindowIcon(QIcon::fromTheme("kylin-video", QIcon(":/res/kylin-video.png")).pixmap(QSize(64, 64)).scaled(64, 64, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
     this->setAcceptDrops(true);
+
+//    this->setFocusPolicy(Qt::ClickFocus);
+    this->setFocusPolicy(Qt::StrongFocus);//让空格等按钮事件可以在keyPressEvent函数中获取
+    installEventFilter(this);//add event filter
 
     m_windowPos = pos();
 
@@ -1139,9 +1143,11 @@ void MainWindow::createOthersActionsAndMenus()
     playlist_action->change(tr("PlayList"));
     connect(playlist_action, SIGNAL(triggered()), this, SLOT(onShowOrHidePlaylist()));
 
-    play_pause_aciton = new MyAction(QKeySequence(Qt::Key_Space), this, "play_pause");
+    //这里设置快捷键后，则在keyPressEvent中无法获取到该快捷键的QKeySequence
+    /*play_pause_aciton = new MyAction(Qt::Key_Space, this, "play_pause");
+    //play_pause_aciton = new MyAction(QKeySequence(Qt::Key_Space), this, "play_pause");
     play_pause_aciton->change(tr("Play/Pause"));
-    connect(playlist_action, &MyAction::triggered, this, &MainWindow::onPlayPause);
+    connect(playlist_action, &MyAction::triggered, this, &MainWindow::onPlayPause);*/
 
     stopAct = new MyAction(Qt::Key_MediaStop, this, "stop");
     stopAct->change(tr("Stop"));
@@ -1491,7 +1497,7 @@ void MainWindow::toggleFullscreen(bool b)
 }
 
 #ifdef SINGLE_INSTANCE
-//单实例情况下，麒麟影音正在运行事，此时如果对其他视频文件进行右键选择使用麒麟影音播放，则会走这里打开文件进行播放
+//单实例情况下，麒麟影音正在运行时，此时如果对其他视频文件进行右键选择使用麒麟影音播放，则会走这里打开文件进行播放
 void MainWindow::handleMessageFromOtherInstances(const QString& message) {
 	int pos = message.indexOf(' ');
 	if (pos > -1) {
@@ -3088,6 +3094,15 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *event)
             }
         }
     }
+    /*else {
+        if (event->type() == QEvent::KeyPress) {
+            QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
+            if (keyEvent->key() == Qt::Key_Space) {
+                this->leftClickFunction();
+            }
+        }
+        return false;
+    }*/
 
     return qApp->eventFilter(obj, event);
 }

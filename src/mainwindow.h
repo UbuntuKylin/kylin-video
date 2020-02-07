@@ -428,7 +428,7 @@ private:
 
     // The actions which are invisible shortcuts
     MyAction *playlist_action = nullptr;
-    MyAction *play_pause_aciton = nullptr;
+//    MyAction *play_pause_aciton = nullptr;
     MyAction *stopAct = nullptr;
     MyAction *fullscreenAct = nullptr;
 };

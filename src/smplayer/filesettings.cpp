@@ -25,7 +25,7 @@
 
 FileSettings::FileSettings(QString directory) : FileSettingsBase(directory) 
 {
-    my_settings = new QSettings(directory + "/kylin-video-files.ini", QSettings::IniFormat);
+    my_settings = new QSettings(directory + "/kylin_video_files.ini", QSettings::IniFormat);
 }
 
 FileSettings::~FileSettings() {

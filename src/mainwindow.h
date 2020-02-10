@@ -161,6 +161,7 @@ public slots:
     void setJumpTexts();
     void openRecent();
     void playlistHasFinished();
+    void onCleanPlaylistFinished();
     void displayState(Core::State state);
     void displayMessage(QString message);
     void gotCurrentTime(double, bool);

@@ -112,7 +112,7 @@ void VideoWindow::setColorKey( QColor c )
     ColorUtils::setBackgroundColor(m_displayLayer, c);
 }
 
-void VideoWindow::setLogoVisible( bool b)
+void VideoWindow::setLogoVisible(bool b)
 {
     if (b) m_displayLayer->setUpdatesEnabled(true);
     /*if (m_cornerWidget) {// m_cornerWidget is playmask widget

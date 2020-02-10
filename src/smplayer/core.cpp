@@ -750,7 +750,7 @@ void Core::openStream(QString name, QStringList params) {
 
     mdat.reset();
     mdat.m_filename = name;//20181201  m_filename
-    qDebug() << "###############mdat.m_filename=" << mdat.m_filename;
+    //qDebug() << "###############mdat.m_filename=" << mdat.m_filename;
     mdat.type = TYPE_STREAM;
     mdat.extra_params = params;
 

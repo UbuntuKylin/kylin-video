@@ -409,7 +409,6 @@ void BottomWidget::updateWidgetQssProperty(QWidget *w, const char *name, const Q
 //    if ((m_ctlWidget->isVisible()) && (!underMouse())) {
 //        this->showGatherAnimated();
 //        //tell mainwindow to hide escwidget
-//        qDebug() << "AAAAAAAAAAAAAAAAAA";
 //        emit this->requestShowOrHideEscWidget(false);
 //    }
 //}

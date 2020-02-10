@@ -30,6 +30,7 @@
 #include "../smplayer/extensions.h"
 #include "../messagedialog.h"
 #include "../smplayer/infoprovider.h"
+#include "../smplayer/cleanconfig.h"
 
 #include <QFile>
 #include <QTextStream>
@@ -1131,6 +1132,7 @@ void Playlist::onPlayListChanged(const VideoPtrList medialist)
     set->endArray();
     set->setValue("current_item", m_currentItemIndex);
     set->endGroup();
+    set->sync();
 
     // update ui
     this->m_playlistView->onPlayListChanged(/*medialist*/);
@@ -1316,6 +1318,7 @@ void Playlist::onPlayListItemDeleteBtnClicked(const QStringList &filepathlist)
                     set->endArray();
                     set->setValue("current_item", m_currentItemIndex);
                     set->endGroup();
+                    set->sync();
 
                     // Step3 : update ui
                     this->m_playlistView->removeFilesFromPlayList(filepathlist);
@@ -1395,6 +1398,7 @@ void Playlist::deleteSelectedFileFromDisk(const QStringList &filepathlist)
                     set->endArray();
                     set->setValue("current_item", m_currentItemIndex);
                     set->endGroup();
+                    set->sync();
 
                     // Step3 : update ui
                     this->m_playlistView->removeFilesFromPlayList(deletedList);
@@ -1431,6 +1435,10 @@ void Playlist::removeAll()
     if (msgDialog.exec() != -1) {
         if (msgDialog.standardButton(msgDialog.clickedButton()) == QMessageBox::Yes) {
             if (set) {
+                // stop play
+                emit this->cleanPlaylistFinished();
+                emit this->requestSetPlayingTitle("");
+
                 // Step 1: update pref->m_videoMap
                 pref->m_videoMap.clear();
 
@@ -1440,6 +1448,9 @@ void Playlist::removeAll()
                 // Step3 : update ui && update count
                 clear();
                 setPlaylistFilename("");
+
+                //删除播放列表的时候，将存放视频文件详细信息的其他配置文件删除
+                CleanConfig::clean(Paths::configPath());
             }
         }
     }
@@ -1738,12 +1749,15 @@ void Playlist::onResortVideos(const QStringList &sortList, int index)
     set->setValue("current_item", m_currentItemIndex);
     set->endGroup();
 
+    set->sync();
+
     //read form ini file
     pref->m_videoMap.clear();
     set->beginGroup("playlist_contents");
     int itemIndex = set->value("current_item", -1).toInt();
     this->m_currentItemIndex = itemIndex;
     int count = set->beginReadArray("items");
+//    int count = set->value("count", 0).toInt();
     QString filename, name;
     double duration;
     for (int n = 0; n < count; n++) {
@@ -1760,6 +1774,16 @@ void Playlist::onResortVideos(const QStringList &sortList, int index)
     set->endGroup();
 }
 
+void Playlist::updatePlayOrderSettings()
+{
+    if (!set) return;
+
+    set->beginGroup("playlist_contents");
+    set->setValue("play_order", (int) pref->play_order);
+    set->endGroup();
+    set->sync();
+}
+
 void Playlist::saveSettings()
 {
     if (!set) return;
@@ -1771,6 +1795,7 @@ void Playlist::saveSettings()
     //Save current list
     set->remove("playlist_contents");
     set->beginGroup("playlist_contents");
+//    set->setValue("count", (int)pl.count());
     set->beginWriteArray("items");
     int index = 0;
     for (int row = 0; row < this->m_playlistView->getModelRowCount(); row++ ) {
@@ -1792,17 +1817,29 @@ void Playlist::saveSettings()
     }
     set->endArray();
     set->setValue("current_item", m_currentItemIndex);
+    set->setValue("play_order", (int) pref->play_order);
     set->endGroup();
+    set->sync();
 }
 
 void Playlist::loadSettings()
 {
     if (!set) return;
 
+    /*QStringList groups = set->childGroups();
+    foreach (QString group, groups) {//列出所有子组
+        qDebug() << "group:" << group;
+    }*/
+
     //Load latest list
     set->beginGroup("playlist_contents");
+
+    //playlist_load_latest_dir = set->value("laylist_load_latest_dir", playlist_load_latest_dir).toString();//latest_dir  0526
+    pref->play_order = (Preferences::PlayOrder) set->value("play_order", (int) pref->play_order).toInt();//20170725
+
     int index = set->value("current_item", -1).toInt();
     int count = set->beginReadArray("items");
+//    int count = set->value("count", 0).toInt();
     QString filename, name;
     double duration;
     for (int n = 0; n < count; n++) {

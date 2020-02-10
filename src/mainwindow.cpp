@@ -431,6 +431,7 @@ void MainWindow::createPlaylist()
     m_playlistWidget->setViewHeight();
     m_playlistWidget->move(this->width()-220, TOP_TOOLBAR_HEIGHT);
     m_playlistWidget->hide();
+    connect(m_playlistWidget, SIGNAL(cleanPlaylistFinished()), this, SLOT(onCleanPlaylistFinished()));
     connect(m_playlistWidget, SIGNAL(playlistEnded()), this, SLOT(playlistHasFinished()));
     connect(m_playlistWidget, SIGNAL(playlistEnded()), m_mplayerWindow, SLOT(showLogo()));
     connect(m_playlistWidget, SIGNAL(closePlaylist()), this, SLOT(onShowOrHidePlaylist()));
@@ -490,7 +491,18 @@ void MainWindow::createBottomToolBar()
     connect(m_bottomToolbar, SIGNAL(wheelDown()), m_core, SLOT(wheelDown()));
     connect(m_bottomToolbar, SIGNAL(mouseMovedDiff(QPoint)), this, SLOT(moveWindowDiff(QPoint)), Qt::QueuedConnection );
     connect(m_core, SIGNAL(newDuration(double)), m_bottomToolbar, SLOT(setDuration(double)));
-    connect(m_playlistWidget, SIGNAL(update_playlist_count(int)), m_bottomToolbar, SLOT(updateLabelCountNumber(int)));
+
+    connect(m_playlistWidget, &Playlist::update_playlist_count, this, [=] (int count) {
+            m_bottomToolbar->updateLabelCountNumber(count);
+            if (count == 0) {
+                this->setActionsEnabled(false);
+                emit this->requestPlayOrPauseEnabled(false);
+            }
+            else {
+                this->enableActionsOnPlaying();
+            }
+        });
+    //connect(m_playlistWidget, SIGNAL(update_playlist_count(int)), m_bottomToolbar, SLOT(updateLabelCountNumber(int)));
     connect(m_bottomToolbar, SIGNAL(requestSavePreviewImage(int)), this, SLOT(onSavePreviewImage(int)));
 
     m_resizeCornerBtn = new QPushButton(m_bottomToolbar);
@@ -1253,6 +1265,9 @@ void MainWindow::changePlayOrder(int play_order)
 {
     pref->play_order = (Preferences::PlayOrder) play_order;
     this->updatePlayOrderWidgets();
+    if (m_playlistWidget) {
+        m_playlistWidget->updatePlayOrderSettings();
+    }
 }
 
 void MainWindow::bindThreadWorker(InfoWorker *worker)
@@ -1277,7 +1292,9 @@ void MainWindow::onPlayPause()
     m_topToolbar->show();
     m_bottomToolbar->show();
     connect(m_mouseFilterHandler, SIGNAL(mouseMoved()), m_bottomController, SLOT(temporaryShow()));
-    m_core->playOrPause(m_lastPlayingSeek);
+//    if (m_playlistWidget && m_playlistWidget->count() > 0) {
+        m_core->playOrPause(m_lastPlayingSeek);
+//    }
 }
 
 //void MainWindow::showShortcuts()
@@ -2136,19 +2153,27 @@ void MainWindow::clearRecentsList()
 
 void MainWindow::openRecent()
 {
-	QAction *a = qobject_cast<QAction *> (sender());
-	if (a) {
-		int item = a->data().toInt();
-		QString file = pref->history_recents->item(item);
+    QAction *a = qobject_cast<QAction *> (sender());
+    if (a) {
+        int item = a->data().toInt();
+        QString file = pref->history_recents->item(item);
+        if (file.startsWith("file:")) {
+            file = QUrl(file).toLocalFile();
+        }
+
         QFileInfo fi(file);
-        if (fi.exists()) {
+        if (fi.exists() && (!fi.isDir())) {
+            file = QFileInfo(file).absoluteFilePath();
             m_playlistWidget->addFile(file, Playlist::NoGetInfo);
             doOpen(file);
+        }
+        else if ((file.toLower().startsWith("http:")) || (file.toLower().startsWith("https:"))) {
+            m_core->openStream(file);
         }
         else {
             this->showErrorFromPlayList(file);
         }
-	}
+    }
 }
 
 void MainWindow::doOpen(QString file)
@@ -2700,7 +2725,21 @@ void MainWindow::playlistHasFinished()
     m_lastPlayingSeek = 0;
     m_core->stop();
 
-	exitFullscreenOnStop();
+    this->disableActionsOnStop();
+
+    exitFullscreenOnStop();
+}
+
+void MainWindow::onCleanPlaylistFinished()
+{
+    //if (m_core->state() != Core::Stopped) {
+        m_lastPlayingSeek = 0;
+        m_core->stop();
+
+        this->disableActionsOnStop();
+    //}
+
+    exitFullscreenOnStop();
 }
 
 void MainWindow::powerOffPC()

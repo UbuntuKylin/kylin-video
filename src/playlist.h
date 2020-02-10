@@ -172,6 +172,7 @@ public slots:
     void openFolder();
 
     void saveSettings();
+    void updatePlayOrderSettings();
     void loadSettings();
     void maybeSaveSettings();
 
@@ -181,6 +182,7 @@ public slots:
 
 signals:
 	void playlistEnded();
+    void cleanPlaylistFinished();
     void requestSetPlayingTitle(QString title);
     void update_playlist_count(int count);
     void closePlaylist();

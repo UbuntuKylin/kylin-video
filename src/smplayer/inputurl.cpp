@@ -33,7 +33,7 @@ InputURL::InputURL( QWidget* parent, Qt::WindowFlags f )
     , m_startDrag(QPoint(0,0))
 {
 	setupUi(this);
-    this->setWindowFlags(Qt::FramelessWindowHint);
+    this->setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
     this->setFixedSize(500, 170);
     this->setStyleSheet("QDialog{border: 1px solid #121212;border-radius:1px;background-color:#1f1f1f;}");
     this->setWindowIcon(QIcon::fromTheme("kylin-video", QIcon(":/res/kylin-video.png")));

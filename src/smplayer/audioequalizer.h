@@ -28,6 +28,7 @@
 #include <QHideEvent>
 #include <QShowEvent>
 #include "audioequalizerlist.h"
+#include "utils.h"
 
 class QLabel;
 class QComboBox;
@@ -49,6 +50,9 @@ public:
     EqSlider * eq[10];
 
     void setEqualizer(AudioEqualizerList l);
+
+    virtual bool eventFilter(QObject *, QEvent *);
+    void moveDialog(QPoint diff);
 
 signals:
     void visibilityChanged();
@@ -82,6 +86,9 @@ protected:
     QPushButton * set_default_button;
     QPushButton * close_button;
     QMap<int,AudioEqualizerList> preset_list;
+
+    DragState m_dragState;
+    QPoint m_startDrag;
 };
 
 #endif

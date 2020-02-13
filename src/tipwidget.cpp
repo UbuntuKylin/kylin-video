@@ -27,7 +27,7 @@
 #include <QPropertyAnimation>
 #include <QGraphicsOpacityEffect>
 
-TipWidget::TipWidget(const QString &text, QWidget *parent) : QFrame(parent)//: QWidget(parent, Qt::SubWindow)
+TipWidget::TipWidget(const QString &text, QWidget *parent) : QFrame(parent)//: QWidget(parent, Qt::SubWindow) //: QWidget(parent, Qt::Window)
 {
     setWindowFlags(windowFlags() | Qt::SubWindow);
     setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);

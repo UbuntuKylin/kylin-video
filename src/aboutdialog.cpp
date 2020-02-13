@@ -49,8 +49,9 @@ AboutDialog::AboutDialog(const QString &snap, QWidget * parent, Qt::WindowFlags 
     , m_startDrag(QPoint(0,0))
     , m_snap(snap)
 {
-	setupUi(this);
-    this->setWindowFlags(Qt::FramelessWindowHint);
+    setupUi(this);
+//    this->setModal(true);
+    this->setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
     //this->setFixedSize(438, 320);
     this->setStyleSheet("QDialog{border: 1px solid #121212;border-radius:1px;background-color: #ffffff;}");
     this->setWindowIcon(QIcon::fromTheme("kylin-video", QIcon(":/res/kylin-video.png")));

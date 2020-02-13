@@ -32,7 +32,16 @@ using namespace Global;
 
 AudioEqualizer::AudioEqualizer( QWidget* parent, Qt::WindowFlags f)
     : QWidget(parent, f)
+    , m_dragState(NOT_DRAGGING)
+    , m_startDrag(QPoint(0,0))
 {
+    this->setWindowFlags(this->windowFlags() | Qt::FramelessWindowHint);
+    this->setStyleSheet("QDialog{border: 1px solid #121212;border-radius:1px;background-color: #ffffff;}");
+    this->setWindowIcon(QIcon::fromTheme("kylin-video", QIcon(":/res/kylin-video.png")));
+    this->setAutoFillBackground(true);
+    this->setMouseTracking(true);
+    installEventFilter(this);
+
     createPresets();
 
     QBoxLayout *bl = new QHBoxLayout; //(0, 4, 2);
@@ -331,4 +340,95 @@ void AudioEqualizer::changeEvent(QEvent *e) {
     } else {
         QWidget::changeEvent(e);
     }
+}
+
+
+void AudioEqualizer::moveDialog(QPoint diff) {
+#if QT_VERSION >= 0x050000
+    // Move the window with some delay.
+    // Seems to work better with Qt 5
+
+    static QPoint d;
+    static int count = 0;
+
+    d += diff;
+    count++;
+
+    if (count > 3) {
+        QPoint new_pos = pos() + d;
+        if (new_pos.y() < 0) new_pos.setY(0);
+        if (new_pos.x() < 0) new_pos.setX(0);
+        move(new_pos);
+        count = 0;
+        d = QPoint(0,0);
+    }
+#else
+    move(pos() + diff);
+#endif
+}
+
+bool AudioEqualizer::eventFilter( QObject * object, QEvent * event ) {
+    QEvent::Type type = event->type();
+    if (type != QEvent::MouseButtonPress
+        && type != QEvent::MouseButtonRelease
+        && type != QEvent::MouseMove)
+        return false;
+
+    QMouseEvent *mouseEvent = dynamic_cast<QMouseEvent*>(event);
+    if (!mouseEvent)
+        return false;
+
+    if (mouseEvent->modifiers() != Qt::NoModifier) {
+        m_dragState = NOT_DRAGGING;
+        return false;
+    }
+
+    if (type == QEvent::MouseButtonPress) {
+        if (mouseEvent->button() != Qt::LeftButton) {
+            m_dragState = NOT_DRAGGING;
+            return false;
+        }
+
+        m_dragState = START_DRAGGING;
+        m_startDrag = mouseEvent->globalPos();
+        // Don't filter, so others can have a look at it too
+        return false;
+    }
+
+    if (type == QEvent::MouseButtonRelease) {
+        if (m_dragState != DRAGGING || mouseEvent->button() != Qt::LeftButton) {
+            m_dragState = NOT_DRAGGING;
+            return false;
+        }
+
+        // Stop dragging and eat event
+        m_dragState = NOT_DRAGGING;
+        event->accept();
+        return true;
+    }
+
+    // type == QEvent::MouseMove
+    if (m_dragState == NOT_DRAGGING)
+        return false;
+
+    // buttons() note the s
+    if (mouseEvent->buttons() != Qt::LeftButton) {
+        m_dragState = NOT_DRAGGING;
+        return false;
+    }
+
+    QPoint pos = mouseEvent->globalPos();
+    QPoint diff = pos - m_startDrag;
+    if (m_dragState == START_DRAGGING) {
+        // Don't start dragging before moving at least DRAG_THRESHOLD pixels
+        if (abs(diff.x()) < 4 && abs(diff.y()) < 4)
+            return false;
+
+        m_dragState = DRAGGING;
+    }
+    this->moveDialog(diff);
+
+    m_startDrag = pos;
+    event->accept();
+    return true;
 }

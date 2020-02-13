@@ -14,7 +14,7 @@ PoweroffDialog::PoweroffDialog(QWidget * parent, Qt::WindowFlags f)
     , m_countdown(30)
     , m_mainLayout(new QVBoxLayout(this))
 {
-    this->setWindowFlags(Qt::FramelessWindowHint);
+    this->setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
     setMinimumSize(QSize(438, 100));
     this->setStyleSheet("QDialog{border: 1px solid #121212;border-radius:1px;background-color: #ffffff;}");
     this->setWindowIcon(QIcon::fromTheme("kylin-video", QIcon(":/res/kylin-video.png")));

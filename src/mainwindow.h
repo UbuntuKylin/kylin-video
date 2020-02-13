@@ -64,7 +64,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
     
 public:
-    MainWindow(QString arch_type = "", QString snap = "", /*ControllerWorker *controller = NULL, */QWidget* parent = 0);
+    MainWindow(QString arch_type = "", QString snap = "", /*ControllerWorker *controller = NULL, */QWidget *parent = 0, Qt::WindowFlags flags = 0);
     ~MainWindow();
 
     void initRegisterMeta();
@@ -95,7 +95,7 @@ public:
     void createPreferencesDialog();
     void createFilePropertiesDialog();
     void setDataToFileProperties();
-    void createAboutDialog();
+    //void createAboutDialog();
     void createHelpDialog();
     void initRemoteControllerConnections();
     void setStayOnTop(bool b);
@@ -264,7 +264,7 @@ private:
     BottomController *m_bottomController = nullptr;
     PreferencesDialog *m_prefDialog = nullptr;
     FilePropertiesDialog *m_propertyDialog = nullptr;
-    AboutDialog *m_aboutDialog = nullptr;
+    //AboutDialog *m_aboutDialog = nullptr;
     HelpDialog *m_helpDialog = nullptr;
     Core *m_core = nullptr;
     VideoWindow *m_mplayerWindow = nullptr;

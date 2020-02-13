@@ -390,7 +390,7 @@ void ActionsEditor::editShortcut() {
     QTableWidgetItem * i = actionsTable->item( actionsTable->currentRow(), COL_SHORTCUT );
     if (i) {
         //QTableWidgetItem * j = actionsTable->item( actionsTable->currentRow(), COL_NAME );
-        ShortcutGetter d/*(this)*/;
+        ShortcutGetter d(this);
         QString result = d.exec( i->text() );
 
         if (!result.isNull()) {

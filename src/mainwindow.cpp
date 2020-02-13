@@ -123,8 +123,8 @@ QDataStream &operator>>(QDataStream &dataStream, VideoPtr &objectA)
     return dataStream;
 }
 
-MainWindow::MainWindow(QString arch_type, QString snap, /*ControllerWorker *controller, */QWidget* parent)
-    : QMainWindow( parent)
+MainWindow::MainWindow(QString arch_type, QString snap, /*ControllerWorker *controller, */QWidget *parent, Qt::WindowFlags flags)
+    : QMainWindow(parent, flags)
 #if QT_VERSION >= 0x050000
 	, was_minimized(false)
 #endif
@@ -140,7 +140,7 @@ MainWindow::MainWindow(QString arch_type, QString snap, /*ControllerWorker *cont
     , m_dragWindow(false)
     , m_lastPlayingSeek(0)
 {
-    this->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);//设置窗体标题栏隐藏并设置位于顶层
+    this->setWindowFlags(Qt::FramelessWindowHint/* | Qt::WindowStaysOnTopHint*/);//设置窗体标题栏隐藏并设置位于顶层
     this->setMouseTracking(true);//可获取鼠标跟踪效果，界面拉伸需要这个属性
     this->setAutoFillBackground(true);
     this->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
@@ -270,10 +270,10 @@ MainWindow::~MainWindow()
         delete m_propertyDialog;
         m_propertyDialog = nullptr;
     }
-    if (m_aboutDialog) {
-        delete m_aboutDialog;
-        m_aboutDialog = nullptr;
-    }
+//    if (m_aboutDialog) {
+//        delete m_aboutDialog;
+//        m_aboutDialog = nullptr;
+//    }
     if (m_helpDialog) {
         delete m_helpDialog;
         m_helpDialog = nullptr;
@@ -534,6 +534,7 @@ void MainWindow::createAudioEqualizer()
 {
     // Audio Equalizer
     audio_equalizer = new AudioEqualizer(this);
+    audio_equalizer->setVisible(false);
     connect(audio_equalizer->eq[0], SIGNAL(valueChanged(int)), m_core, SLOT(setAudioEq0(int)));
     connect(audio_equalizer->eq[1], SIGNAL(valueChanged(int)), m_core, SLOT(setAudioEq1(int)));
     connect(audio_equalizer->eq[2], SIGNAL(valueChanged(int)), m_core, SLOT(setAudioEq2(int)));
@@ -640,7 +641,7 @@ void MainWindow::createRecentsActionsAndMenus()
 
 void MainWindow::createTopActionsAndMenus()
 {
-    // On Top
+    // On Top : 在FT上有时候设置置顶无效，在X86下正常`
     onTopActionGroup = new MyActionGroup(this);
     onTopAlwaysAct = new MyActionGroupItem(this,onTopActionGroup,"on_top_always",Preferences::AlwaysOnTop);
     onTopNeverAct = new MyActionGroupItem(this,onTopActionGroup,"on_top_never",Preferences::NeverOnTop);
@@ -1652,7 +1653,7 @@ void MainWindow::setJumpTexts()
 void MainWindow::createPreferencesDialog()
 {
     QApplication::setOverrideCursor(Qt::WaitCursor);
-    m_prefDialog = new PreferencesDialog(m_arch, this->m_snap);
+    m_prefDialog = new PreferencesDialog(m_arch, this->m_snap, this);
     m_prefDialog->setModal(false);
     connect(m_prefDialog, SIGNAL(applied()), this, SLOT(applyNewPreferences()));
     QApplication::restoreOverrideCursor();
@@ -1661,7 +1662,7 @@ void MainWindow::createPreferencesDialog()
 void MainWindow::createFilePropertiesDialog()
 {
     QApplication::setOverrideCursor(Qt::WaitCursor);
-    m_propertyDialog = new FilePropertiesDialog(/*this*/);
+    m_propertyDialog = new FilePropertiesDialog(this);
     m_propertyDialog->setModal(false);
     connect( m_propertyDialog, SIGNAL(applied()), this, SLOT(applyFileProperties()) );
     QApplication::restoreOverrideCursor();
@@ -1699,18 +1700,18 @@ void MainWindow::setDataToFileProperties()
     m_propertyDialog->setMediaData(m_core->mdat, m_core->mset.videos, m_core->mset.audios, m_core->mset.subs);
 }
 
-void MainWindow::createAboutDialog()
-{
-    QApplication::setOverrideCursor(Qt::WaitCursor);
-    m_aboutDialog = new AboutDialog(this->m_snap);
-    m_aboutDialog->setModal(false);
-    QApplication::restoreOverrideCursor();
-}
+//void MainWindow::createAboutDialog()
+//{
+//    QApplication::setOverrideCursor(Qt::WaitCursor);
+//    m_aboutDialog = new AboutDialog(this->m_snap);
+//    m_aboutDialog->setModal(false);
+//    QApplication::restoreOverrideCursor();
+//}
 
 void MainWindow::createHelpDialog()
 {
     QApplication::setOverrideCursor(Qt::WaitCursor);
-    m_helpDialog = new HelpDialog();
+    m_helpDialog = new HelpDialog(this);
     m_helpDialog->setModal(false);
     QApplication::restoreOverrideCursor();
 }
@@ -2141,7 +2142,7 @@ void MainWindow::recordMplayerLog(QString line)
 
 void MainWindow::clearRecentsList()
 {
-    MessageDialog msgDialog(0, tr("Confirm deletion - Kylin Video"), tr("Delete the list of recent files?"));
+    MessageDialog msgDialog(this, tr("Confirm deletion - Kylin Video"), tr("Delete the list of recent files?"));
     if (msgDialog.exec() != -1) {
         if (msgDialog.standardButton(msgDialog.clickedButton()) == QMessageBox::Ok) {
             // Delete items in menu
@@ -2289,7 +2290,7 @@ void MainWindow::openURL()
 {
     exitFullscreenIfNeeded();
 
-    InputURL d;
+    InputURL d(this);
 
     // Get url from clipboard
     QString clipboard_text = QApplication::clipboard()->text();
@@ -2300,9 +2301,9 @@ void MainWindow::openURL()
     for (int n=0; n < pref->history_urls->count(); n++) {
         d.setURL(pref->history_urls->url(n) );
     }
-    int w_x = this->frameGeometry().topLeft().x() + (this->width() / 2) - (400  / 2);
-    int w_y = this->frameGeometry().topLeft().y() + (this->height() /2) - (170  / 2);
-    d.move(w_x, w_y);
+//    int w_x = this->frameGeometry().topLeft().x() + (this->width() / 2) - (400  / 2);
+//    int w_y = this->frameGeometry().topLeft().y() + (this->height() /2) - (170  / 2);
+//    d.move(w_x, w_y);
     if (d.exec() == QDialog::Accepted ) {
         QString url = d.url();
         if (!url.isEmpty()) {
@@ -2385,14 +2386,19 @@ void MainWindow::onSavePreviewImage(int time)
 
 void MainWindow::showAboutDialog()
 {
-    if (!m_aboutDialog) {
-        createAboutDialog();
-    }
-    m_aboutDialog->setVersions();
-    int w_x = this->frameGeometry().topLeft().x() + (this->width() / 2) - (438  / 2);
-    int w_y = this->frameGeometry().topLeft().y() + (this->height() /2) - (320  / 2);
-    m_aboutDialog->move(w_x, w_y);
-    m_aboutDialog->show();
+//    if (!m_aboutDialog) {
+//        createAboutDialog();
+//    }
+//    m_aboutDialog->setVersions();
+//    int w_x = this->frameGeometry().topLeft().x() + (this->width() / 2) - (438  / 2);
+//    int w_y = this->frameGeometry().topLeft().y() + (this->height() /2) - (320  / 2);
+//    m_aboutDialog->move(w_x, w_y);
+//    m_aboutDialog->show();
+
+    AboutDialog d(this->m_snap, this);
+    //d.setWindowModality(Qt::ApplicationModal);
+    d.setVersions();
+    d.exec();
 }
 
 void MainWindow::showHelpDialog()
@@ -2410,26 +2416,26 @@ void MainWindow::showHelpDialog()
 
 void MainWindow::showGotoDialog()
 {
-    TimeDialog d;
-	d.setLabel(tr("&Jump to:"));
+    TimeDialog d(this);
+    d.setLabel(tr("&Jump to:"));
     d.setWindowTitle(tr("Kylin Video - Seek"));
     d.setMaximumTime((int) m_core->mdat.duration);
     d.setTime((int) m_core->mset.current_sec);
-    int w_x = this->frameGeometry().topLeft().x() + (this->width() / 2) - (380  / 2);
-    int w_y = this->frameGeometry().topLeft().y() + (this->height() /2) - (170  / 2);
-    d.move(w_x, w_y);
-	if (d.exec() == QDialog::Accepted) {
+//    int w_x = this->frameGeometry().topLeft().x() + (this->width() / 2) - (380  / 2);
+//    int w_y = this->frameGeometry().topLeft().y() + (this->height() /2) - (170  / 2);
+//    d.move(w_x, w_y);
+    if (d.exec() == QDialog::Accepted) {
         m_core->goToSec(d.time());
-	}
+    }
 }
 
 void MainWindow::showAudioDelayDialog()
 {
-    AudioDelayDialog dlg;
+    AudioDelayDialog dlg(this);
     dlg.setDefaultValue(m_core->mset.audio_delay);
-    int w_x = this->frameGeometry().topLeft().x() + (this->width() / 2) - (380  / 2);
-    int w_y = this->frameGeometry().topLeft().y() + (this->height() /2) - (170  / 2);
-    dlg.move(w_x, w_y);
+//    int w_x = this->frameGeometry().topLeft().x() + (this->width() / 2) - (380  / 2);
+//    int w_y = this->frameGeometry().topLeft().y() + (this->height() /2) - (170  / 2);
+//    dlg.move(w_x, w_y);
     if (dlg.exec() == QDialog::Accepted) {
         int delay = dlg.getCurrentValue();
         m_core->setAudioDelay(delay);
@@ -2744,7 +2750,7 @@ void MainWindow::onCleanPlaylistFinished()
 
 void MainWindow::powerOffPC()
 {
-    PoweroffDialog d;
+    PoweroffDialog d(this);
     if (d.exec() == QDialog::Accepted) {
         Utils::shutdown();
     }
@@ -3047,7 +3053,7 @@ void MainWindow::showMainWindow()
 
 void MainWindow::showErrorFromPlayList(QString errorStr)
 {
-    ErrorDialog d;
+    ErrorDialog d(this);
     d.setWindowTitle(tr("%1 Error").arg(PLAYER_NAME));
     d.setTitleText(tr("%1 Error").arg(PLAYER_NAME));
     d.setText(tr("'%1' was not found!").arg(errorStr));
@@ -3058,7 +3064,7 @@ void MainWindow::showErrorFromPlayList(QString errorStr)
 void MainWindow::showExitCodeFromMplayer(int exit_code)
 {
 	if (exit_code != 255 ) {
-        ErrorDialog d;
+        ErrorDialog d(this);
 		d.setWindowTitle(tr("%1 Error").arg(PLAYER_NAME));
         d.setTitleText(tr("%1 Error").arg(PLAYER_NAME));
 		d.setText(tr("%1 has finished unexpectedly.").arg(PLAYER_NAME) + " " + 
@@ -3072,7 +3078,7 @@ void MainWindow::showExitCodeFromMplayer(int exit_code)
 void MainWindow::showErrorFromMplayer(QProcess::ProcessError e)
 {
 	if ((e == QProcess::FailedToStart) || (e == QProcess::Crashed)) {
-        ErrorDialog d;
+        ErrorDialog d(this);
 		d.setWindowTitle(tr("%1 Error").arg(PLAYER_NAME));
         d.setTitleText(tr("%1 Error").arg(PLAYER_NAME));
 		if (e == QProcess::FailedToStart) {

@@ -41,13 +41,12 @@ PreferencesDialog::PreferencesDialog(QString arch_type, QString snap, QWidget * 
     , m_startDrag(QPoint(0,0))
 {
 	setupUi(this);
-
+    this->setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
     this->setFixedSize(675, 425);
     this->setStyleSheet("QDialog{border: 1px solid #121212;border-radius:1px;background-color:#1f1f1f;}");
     this->setWindowIcon(QIcon::fromTheme("kylin-video", QIcon(":/res/kylin-video.png")));
 //    this->setWindowIcon(QIcon::fromTheme("kylin-video", QIcon(":/res/kylin-video.png")).pixmap(QSize(64, 64)).scaled(64, 64, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
     this->setAttribute(Qt::WA_DeleteOnClose);
-    this->setWindowFlags(Qt::FramelessWindowHint);
     this->setAutoFillBackground(true);
 
     this->setMouseTracking(true);

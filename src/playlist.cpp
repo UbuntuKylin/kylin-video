@@ -1282,7 +1282,7 @@ void Playlist::onPlayListItemDeleteBtnClicked(const QStringList &filepathlist)
 //        MessageDialog msgDialog(0, tr("Confirm remove"),
 //                                tr("You're about to remove the file '%1' from the playlist.").arg(filename) + "<br>"+
 //                                tr("Are you sure you want to proceed?"), QMessageBox::Yes | QMessageBox::No);
-        MessageDialog msgDialog(0, tr("Confirm remove"),
+        MessageDialog msgDialog(this, tr("Confirm remove"),
                                 tr("You're about to remove the file from the playlist.") + "<br>"+
                                 tr("Are you sure you want to proceed?"), QMessageBox::Yes | QMessageBox::No);
         if (msgDialog.exec() != -1) {
@@ -1354,7 +1354,7 @@ void Playlist::deleteSelectedFileFromDisk(const QStringList &filepathlist)
 
     if (!filepathlist.isEmpty()) {
         // Ask the user for confirmation
-        MessageDialog msgDialog(0, tr("Confirm deletion"),
+        MessageDialog msgDialog(this, tr("Confirm deletion"),
                                 tr("You're about to Delete the files from your drive.") + "<br>"+
                                 tr("This action cannot be undone. Are you sure you want to proceed?"), QMessageBox::Yes | QMessageBox::No);
         if (msgDialog.exec() != -1) {
@@ -1429,7 +1429,7 @@ void Playlist::deleteSelectedFileFromDisk(const QStringList &filepathlist)
 
 void Playlist::removeAll()
 {
-    MessageDialog msgDialog(0, tr("Confirm remove all"),
+    MessageDialog msgDialog(this, tr("Confirm remove all"),
                             tr("You're about to empty the playlist.") + "<br>"+
                             tr("Are you sure you want to proceed?"), QMessageBox::Yes | QMessageBox::No);
     if (msgDialog.exec() != -1) {

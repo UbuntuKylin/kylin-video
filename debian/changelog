@@ -5,6 +5,7 @@ kylin-video (2.0.1-4) unstable; urgency=medium
   * Solve some bugs caused by playlist cleaned.
   * Solve the problem that URLs in recent playlists cannot be played.
   * Make play order settings work.
+  * When the mainwindow is set to be set on the top, make the subwindow display normally.
 
  -- lixiang <lixiang@kylinos.cn>  Mon, 10 Feb 2020 13:12:57 +0800
 

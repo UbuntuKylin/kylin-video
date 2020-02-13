@@ -267,7 +267,7 @@ ShortcutGetter::ShortcutGetter(/*bool isbtn, */QWidget *parent) : QDialog(parent
   , m_dragState(NOT_DRAGGING)
   , m_startDrag(QPoint(0,0))
 {
-    this->setWindowFlags(Qt::FramelessWindowHint);
+    this->setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
     this->setFixedSize(438, 320);
     this->setStyleSheet("QDialog{border: 1px solid #121212;border-radius:1px;background-color:#1f1f1f;}");
     this->setWindowIcon(QIcon::fromTheme("kylin-video", QIcon(":/res/kylin-video.png")));

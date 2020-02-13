@@ -42,11 +42,10 @@ FilePropertiesDialog::FilePropertiesDialog( QWidget* parent, Qt::WindowFlags f )
     , m_startDrag(QPoint(0,0))
 {
 	setupUi(this);
-
+    this->setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
     this->setFixedSize(650, 509);
     this->setStyleSheet("QDialog{border: 1px solid #121212;border-radius:1px;background-color:#1f1f1f;}");
     this->setAttribute(Qt::WA_DeleteOnClose);
-    this->setWindowFlags(Qt::FramelessWindowHint);
     this->setAutoFillBackground(true);
 
     info_edit->setStyleSheet("QTextEdit {border: 1px solid #000000;color: #999999;background: #0f0f0f;font-family:方正黑体_GBK;font-size: 12px;}");

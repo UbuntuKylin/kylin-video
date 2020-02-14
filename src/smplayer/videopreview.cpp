@@ -18,22 +18,19 @@
 
 #include "videopreview.h"
 #include "../utils.h"
+#include "../smplayer/inforeader.h"
+#include "../smplayer/images.h"
+
 #include <QProcess>
 #include <QRegExp>
 #include <QDir>
 #include <QTime>
-#include <QMessageBox>
-#include <QSettings>
 #include <QApplication>
 #include <QPixmapCache>
 #include <QImageWriter>
 #include <QImageReader>
 #include <QDebug>
 #include <cmath>
-
-
-#include "../smplayer/inforeader.h"
-#include "../smplayer/images.h"
 
 #define RENAME_PICTURES 0
 
@@ -45,7 +42,6 @@ VideoPreview::VideoPreview(QString mplayer_path, QObject * parent) : QObject(par
 {
 	setMplayerPath(mplayer_path);
 
-    set = 0; // settings
     save_last_directory = true;
 
 	prop.input_video.clear();
@@ -57,63 +53,28 @@ VideoPreview::VideoPreview(QString mplayer_path, QObject * parent) : QObject(par
 
     output_dir = "kylin_video_preview";
 	full_output_dir = QDir::tempPath() +"/"+ output_dir;
-
-    /*QList<QByteArray> r_formats = QImageReader::supportedImageFormats();
-    QString read_formats;
-    for (int n=0; n < r_formats.count(); n++) {
-        read_formats.append(r_formats[n]+" ");
-    }
-    qDebug("VideoPreview::VideoPreview: supported formats for reading: %s", read_formats.toUtf8().constData());
-
-    QList<QByteArray> w_formats = QImageWriter::supportedImageFormats();
-    QString write_formats;
-    for (int n=0; n < w_formats.count(); n++) {
-        write_formats.append(w_formats[n]+" ");
-    }
-    qDebug("VideoPreview::VideoPreview: supported formats for writing: %s", write_formats.toUtf8().constData());
-    */
 }
 
 VideoPreview::~VideoPreview() {
-    if (set) saveSettings();
     cleanDir(full_output_dir/*, true*/);
 }
 
 void VideoPreview::setMplayerPath(QString mplayer_path) {
 	mplayer_bin = mplayer_path;
 
-    //edited by kobe 20180623
-    /*
 	QFileInfo fi(mplayer_bin);
 	if (fi.exists() && fi.isExecutable() && !fi.isDir()) {
 		mplayer_bin = fi.absoluteFilePath();
-    }*/
-
-//	qDebug("VideoPreview::setMplayerPath: mplayer_bin: '%s'", mplayer_bin.toUtf8().constData());
-}
-
-void VideoPreview::setSettings(QSettings * settings) {
-    set = settings;
-    loadSettings();
-}
-
-void VideoPreview::clearThumbnails() {
-    /*for (int n=0; n < label_list.count(); n++) {
-        grid_layout->removeWidget( label_list[n] );
-        delete label_list[n];
     }
-    label_list.clear();
-    info->clear();*/
 }
 
 QString VideoPreview::framePicture() {
 	return QString("0000000%1.%2").arg(N_OUTPUT_FRAMES == 1 ? 1 : N_OUTPUT_FRAMES-1).arg(prop.extract_format == PNG ? "png" : "jpg");
 }
 
-bool VideoPreview::createPreThumbnail(int time) {
-    clearThumbnails();
+bool VideoPreview::createPreThumbnail(int seek) {
 	error_message.clear();
-    bool result = extractImages(time);
+    bool result = extractImages(seek);
 	if ((result == false) && (!error_message.isEmpty())) {
 //        qDebug("The following error has occurred while creating the thumbnails:\n %s", error_message);
         qDebug() << "The following error has occurred while creating the thumbnails:" << error_message;
@@ -123,7 +84,19 @@ bool VideoPreview::createPreThumbnail(int time) {
 	return result;
 }
 
-bool VideoPreview::extractImages(int time) {
+bool VideoPreview::extractImages(int seek) {
+    //删除文件夹下原来的缩略图
+    QDir dir(full_output_dir);
+    if (dir.exists()) {
+        dir.setFilter(QDir::AllEntries | QDir::NoDotAndDotDot);
+        QFileInfoList fileList = dir.entryInfoList();
+        foreach (QFileInfo file, fileList){
+            if (file.exists() && file.isFile()) {
+                file.dir().remove(file.fileName());//QFile::remove(file.fileName());
+            }
+        }
+    }
+
 //    qDebug() << "VideoPreview::extractImages time=" << time;
 	VideoInfo i = getInfo(mplayer_bin, prop.input_video);
 	int length = i.length;
@@ -143,12 +116,11 @@ bool VideoPreview::extractImages(int time) {
 		}
 	}
 
-    cleanDir(full_output_dir/*, false*/);
+    //在此处调用cleanDir，将导致在FT平台上预览视频时报错即QProcess会执行失败
+    //cleanDir(full_output_dir/*, false*/);
 
-//    displayVideoInfo(i);
-
-    prop.initial_step = time;
-    /*double*/int current_time = prop.initial_step;
+    prop.initial_step = seek;
+    int current_time = prop.initial_step;
 
 	double aspect_ratio = i.aspect;
 	if (prop.aspect_ratio != 0) aspect_ratio = prop.aspect_ratio;
@@ -196,7 +168,7 @@ bool VideoPreview::isOptionAvailableinMPV(const QString & option) {
   -vo  视频输出格式为jpeg
   -frames 从ss指定的时间开始截取多少帧
 */
-bool VideoPreview::runPlayer(/*int*/double seek, double aspect_ratio) {
+bool VideoPreview::runPlayer(int seek, double aspect_ratio) {
 	QStringList args;
 
     //edited by kobe 20180623
@@ -257,8 +229,8 @@ bool VideoPreview::runPlayer(/*int*/double seek, double aspect_ratio) {
 
     /*QString command = mplayer_bin + " ";
     for (int n = 0; n < args.count(); n++) command = command + args[n] + " ";*/
-    QString command = mplayer_bin + " " + args.join(" ");
-//    qDebug("VideoPreview::runMplayer: command: %s", command.toUtf8().constData());///usr/bin/mplayer -nosound -nocache -noframedrop -vo jpeg:outdir="/tmp/kylin_video_preview" -frames 1 -ss 77 -aspect 1.7778 -zoom /home/lixiang/resources/1080.wmv
+    //QString command = mplayer_bin + " " + args.join(" ");
+    //qDebug("VideoPreview::runMplayer: command: %s", command.toUtf8().constData());///usr/bin/mplayer -nosound -nocache -noframedrop -vo jpeg:outdir="/tmp/kylin_video_preview" -frames 1 -ss 77 -aspect 1.7778 -zoom /home/lixiang/resources/1080.wmv
     //VideoPreview::runMplayer: command: /usr/bin/mplayer -nosound -nocache -noframedrop -vo jpeg:outdir="/tmp/kylin_video_preview" -frames 1 -ss 470 -aspect 1.33333 -zoom /home/lixiang/resources/Katy Perry Roar.swf
 	QProcess p;
 	p.setWorkingDirectory(full_output_dir);
@@ -268,7 +240,12 @@ bool VideoPreview::runPlayer(/*int*/double seek, double aspect_ratio) {
     }
 	if (!p.waitForFinished()) {
         qDebug() << "VideoPreview::runMplayer: error running process";
-        error_message = QString(tr("The mplayer process didn't run"));
+        if (Utils::player(mplayer_bin/*, this->m_snap*/) == Utils::MPV) {
+            error_message = QString(tr("The mpv process didn't run"));
+        }
+        else {
+            error_message = QString(tr("The mplayer process didn't run"));
+        }
 		return false;
 	}
 
@@ -396,61 +373,6 @@ VideoInfo VideoPreview::getInfo(const QString & mplayer_path, const QString & fi
         error_message = QString(tr("The mplayer process didn't start while trying to get info about the video"));
 	}
 
-//	qDebug("VideoPreview::getInfo: filename: '%s'", i.filename.toUtf8().constData());
-//	qDebug("VideoPreview::getInfo: resolution: '%d x %d'", i.width, i.height);
-//	qDebug("VideoPreview::getInfo: length: '%d'", i.length);
-//	qDebug("VideoPreview::getInfo: size: '%d'", (int) i.size);
-
 	return i;
 }
-
-
-void VideoPreview::saveSettings() {
-    qDebug("VideoPreview::saveSettings");
-
-    set->beginGroup("videopreview");
-
-//	set->setValue("columns", cols());
-//	set->setValue("rows", rows());
-    set->setValue("initial_step", initialStep());
-    set->setValue("max_width", maxWidth());
-    set->setValue("osd", displayOSD());
-    set->setValue("format", extractFormat());
-    set->setValue("save_last_directory", save_last_directory);
-
-    if (save_last_directory) {
-        set->setValue("last_directory", last_directory);
-    }
-
-    set->setValue("filename", videoFile());
-    set->setValue("dvd_device", DVDDevice());
-
-//	set->setValue("show_info", toggleInfoAct->isChecked());
-
-    set->endGroup();
-}
-
-void VideoPreview::loadSettings() {
-    qDebug("VideoPreview::loadSettings");
-
-    set->beginGroup("videopreview");
-
-//	setCols( set->value("columns", cols()).toInt() );
-//	setRows( set->value("rows", rows()).toInt() );
-    setInitialStep( set->value("initial_step", initialStep()).toInt() );
-    setMaxWidth( set->value("max_width", maxWidth()).toInt() );
-    setDisplayOSD( set->value("osd", displayOSD()).toBool() );
-    setExtractFormat( (ExtractFormat) set->value("format", extractFormat()).toInt() );
-    save_last_directory = set->value("save_last_directory", save_last_directory).toBool();
-    last_directory = set->value("last_directory", last_directory).toString();
-
-    setVideoFile( set->value("filename", videoFile()).toString() );
-    setDVDDevice( set->value("dvd_device", DVDDevice()).toString() );
-
-//	toggleInfoAct->setChecked(set->value("show_info", true).toBool());
-
-    set->endGroup();
-}
-
-//#include "moc_videopreview.cpp"
 

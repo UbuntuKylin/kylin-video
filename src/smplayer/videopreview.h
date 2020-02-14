@@ -23,8 +23,6 @@
 #include <QString>
 #include <QList>
 
-class QSettings;
-
 class VideoInfo
 {
 public:
@@ -81,10 +79,7 @@ public:
 	void setExtractFormat( ExtractFormat format ) { prop.extract_format = format; };
 	ExtractFormat extractFormat() { return prop.extract_format; };
 
-    bool createPreThumbnail(int time);
-
-    void setSettings(QSettings * settings);
-    QSettings * settings() { return set; };
+    bool createPreThumbnail(int seek);
 
 	VideoInfo getInfo(const QString & mplayer_path, const QString & filename);
 	QString errorMessage() { return error_message; };
@@ -92,15 +87,11 @@ public:
     QString getCurrentPicture() { return current_picture;};
 
 protected:
-    bool extractImages(int time);
-    bool runPlayer(/*int*/double seek, double aspect_ratio);
+    bool extractImages(int seek);
+    bool runPlayer(int seek, double aspect_ratio);
 //    void displayVideoInfo(const VideoInfo & i);
     void cleanDir(QString directory/*, bool removeDir=false*/);
-    void clearThumbnails();
 	QString framePicture();
-
-    void saveSettings();
-    void loadSettings();
 
 //#if defined(Q_OS_LINUX) && !defined(NO_SMPLAYER_SUPPORT)
     bool isOptionAvailableinMPV(const QString & option);
@@ -110,8 +101,6 @@ protected:
 
 	QString output_dir;
 	QString full_output_dir;
-
-    QSettings * set;
 
 	struct Properties {
 		QString input_video;

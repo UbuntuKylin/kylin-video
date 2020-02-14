@@ -26,6 +26,7 @@ Architecture: any
 Depends: mplayer,
          mpv (>= 0.6.2),
          mesa-vdpau-drivers,
+         libcrystalhd3 [amd64 i386],
          ${misc:Depends},
          ${shlibs:Depends}
 Suggests: libcrystalhd3 | firmware-crystalhd,

@@ -1798,6 +1798,18 @@ void Playlist::saveSettings()
 //    set->setValue("count", (int)pl.count());
     set->beginWriteArray("items");
     int index = 0;
+    QMap<QString, VideoPtr>::iterator i;
+    for (i = pref->m_videoMap.begin(); i != pref->m_videoMap.end(); ++i) {
+        set->setArrayIndex(index);
+        set->setValue(QString("item_%1_filename").arg(index), i.value()->localpath());
+        set->setValue(QString("item_%1_duration").arg(index), i.value()->duration());
+        set->setValue(QString("item_%1_name").arg(index), i.value()->name());
+        index ++;
+        break;
+    }
+
+    //将会导致切换播放引擎时，播放列表被清空
+    /*
     for (int row = 0; row < this->m_playlistView->getModelRowCount(); row++ ) {
         QString filepath = this->m_playlistView->getFileNameByRow(row);
         //Q_ASSERT(!filepath.isEmpty());
@@ -1814,7 +1826,7 @@ void Playlist::saveSettings()
                 break;
             }
         }
-    }
+    }*/
     set->endArray();
     set->setValue("current_item", m_currentItemIndex);
     set->setValue("play_order", (int) pref->play_order);
@@ -1860,16 +1872,21 @@ void Playlist::loadSettings()
     latest_dir = set->value("latest_dir", latest_dir).toString();
     set->endGroup();
 
+
+    //界面播放引擎切换后，播放列表被清空的问题
+    // update ui
+    this->m_playlistView->onPlayListChanged();
     int currentCount = this->count();
     emit this->update_playlist_count(currentCount);
     if (currentCount > 0) {
-        noVideoFrame->hide();
-        m_playlistView->show();
+        noVideoFrame->setVisible(false);
+        m_playlistView->setVisible(true);
     }
     else {
+        m_currentItemIndex = 0;
         this->setPlaying("", 0);
-        noVideoFrame->show();
-        m_playlistView->hide();
+        noVideoFrame->setVisible(true);
+        m_playlistView->setVisible(false);
     }
 }
 

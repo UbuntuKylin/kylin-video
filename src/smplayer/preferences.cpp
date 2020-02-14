@@ -506,7 +506,7 @@ void Preferences::reset() {
 
     animated_logo = true;
 
-//    preview_when_playing = true;
+    preview_when_playing = true;
 //    playlist_key = "F3";
 //    prev_key = "<, Media Previous";
 //    next_key = ">, Media Next";
@@ -569,8 +569,7 @@ void Preferences::reset() {
        ******* */
 
     filters->init();
-
-
+;
     m_videoMap.clear();
 }
 
@@ -1242,6 +1241,9 @@ void Preferences::load() {
     media_to_add_to_playlist = (AutoAddToPlaylistFilter) set->value("media_to_add_to_playlist", media_to_add_to_playlist).toInt();
 
     preview_when_playing = set->value("preview_when_playing", preview_when_playing).toBool();
+    if (!preview_when_playing) {
+        preview_when_playing = true;
+    }
 //	playlist_key = set->value("playlist_key", playlist_key).toString();
 //    next_key = set->value("next_key", next_key).toString();
 //    prev_key = set->value("prev_key", prev_key).toString();

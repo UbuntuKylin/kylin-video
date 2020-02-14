@@ -252,7 +252,7 @@ void MplayerProcess::parseLine(QByteArray ba) {
         emit lineAvailable(line);
 
         // Parse other things
-        qDebug("MplayerProcess::parseLine: '%s'", line.toUtf8().data() );
+        //qDebug("MplayerProcess::parseLine: '%s'", line.toUtf8().data() );
 
         // Screenshot
         if (rx_screenshot.indexIn(line) > -1) {

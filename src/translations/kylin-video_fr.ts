@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0">
+<TS version="2.1">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -1454,7 +1454,7 @@ Do you want to overwrite?</source>
         <source>Nauru</source>
         <translation>Nauru</translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Bokmål</source>
         <translation>Bokmål</translation>
     </message>
@@ -1706,7 +1706,7 @@ Do you want to overwrite?</source>
         <source>Vietnamese</source>
         <translation>vietnamien</translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Volapük</source>
         <translation>Volapük</translation>
     </message>
@@ -2229,7 +2229,7 @@ Do you want to overwrite?</source>
     </message>
     <message>
         <source>Play/Pause</source>
-        <translation type="unfinished">Jouer pause</translation>
+        <translation type="obsolete">Jouer pause</translation>
     </message>
     <message>
         <source>Stop</source>
@@ -3347,6 +3347,10 @@ Do you want to overwrite?</source>
     <message>
         <source>The mplayer process didn&apos;t start while trying to get info about the video</source>
         <translation>Le processus mplayer n&apos;a pas démarré alors que l&apos;on tentait d&apos;obtenir des informations sur la vidéo.</translation>
+    </message>
+    <message>
+        <source>The mpv process didn&apos;t run</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

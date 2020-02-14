@@ -362,7 +362,7 @@ void MainWindow::createCore()
     connect(m_core, SIGNAL(widgetsNeedUpdate()), this, SLOT(updateWidgets()));
     connect(m_core, SIGNAL(audioEqualizerNeedsUpdate()), this, SLOT(updateAudioEqualizer()));
     connect(m_core, &Core::showFrame, this, [=] (int frame) {
-        qDebug() << "Frame changed: " << frame;
+        //qDebug() << "Frame changed: " << frame;
     });
     connect(m_core, &Core::ABMarkersChanged, this, [=] (int secs_a, int secs_b) {
         QString s;

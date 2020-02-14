@@ -121,7 +121,7 @@ void InfoReaderMplayer::readLine(QByteArray ba) {
 			if ( rx_driver.indexIn(line) > -1 ) {
 				QString name = rx_driver.cap(1);
 				QString desc = rx_driver.cap(2);
-				qDebug("InfoReaderMplayer::readLine: found driver: '%s' '%s'", name.toUtf8().data(), desc.toUtf8().data());
+                //("InfoReaderMplayer::readLine: found driver: '%s' '%s'", name.toUtf8().data(), desc.toUtf8().data());
 				if (reading_type==VO) {
 					vo_list.append( InfoData(name, desc) );
 				} 
@@ -138,14 +138,14 @@ void InfoReaderMplayer::readLine(QByteArray ba) {
             if ( rx_demuxer.indexIn(line) > -1 ) {
                 QString name = rx_demuxer.cap(1);
                 QString desc = rx_demuxer.cap(3);
-                qDebug("InfoReaderMplayer::readLine: found demuxer: '%s' '%s'", name.toUtf8().data(), desc.toUtf8().data());
+                //qDebug("InfoReaderMplayer::readLine: found demuxer: '%s' '%s'", name.toUtf8().data(), desc.toUtf8().data());
                 demuxer_list.append( InfoData(name, desc) );
             }
             else
             if ( rx_demuxer2.indexIn(line) > -1 ) {
                 QString name = rx_demuxer2.cap(1);
                 QString desc = rx_demuxer2.cap(2);
-                qDebug("InfoReaderMplayer::readLine: found demuxer: '%s' '%s'", name.toUtf8().data(), desc.toUtf8().data());
+                //qDebug("InfoReaderMplayer::readLine: found demuxer: '%s' '%s'", name.toUtf8().data(), desc.toUtf8().data());
                 demuxer_list.append( InfoData(name, desc) );
             }
             else {
@@ -157,7 +157,7 @@ void InfoReaderMplayer::readLine(QByteArray ba) {
             if ( rx_codec.indexIn(line) > -1 ) {
                 QString name = rx_codec.cap(1);
                 QString desc = rx_codec.cap(4);
-                qDebug("InfoReaderMplayer::readLine: found codec: '%s' '%s'", name.toUtf8().data(), desc.toUtf8().data());
+                //qDebug("InfoReaderMplayer::readLine: found codec: '%s' '%s'", name.toUtf8().data(), desc.toUtf8().data());
                 if (reading_type==VC) {
                     vc_list.append( InfoData(name, desc) );
                 }
@@ -209,7 +209,7 @@ void InfoReaderMplayer::readLine(QByteArray ba) {
 }
 
 bool InfoReaderMplayer::run(QString options) {
-	qDebug("InfoReaderMplayer::run: '%s'", options.toUtf8().data());
+    //qDebug("InfoReaderMplayer::run: '%s'", options.toUtf8().data());
 
 	if (proc->state() == QProcess::Running) {
 		qWarning("InfoReaderMplayer::run: process already running");

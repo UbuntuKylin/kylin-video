@@ -8,8 +8,9 @@ kylin-video (2.0.1-4) unstable; urgency=medium
   * When the mainwindow is set to be set on the top, make the subwindow display normally.
   * Solve the bug that the playlist is cleared when switching the playback engine.
   * Fixed the bug that failed to preview video on FT platform.
+  * Solve the bug that when the random number is greater than the total number of playlists, the Prev and Next buttons will fail.
 
- -- lixiang <lixiang@kylinos.cn>  Fri, 14 Feb 2020 21:41:09 +0800
+ -- lixiang <lixiang@kylinos.cn>  Sat, 15 Feb 2020 20:29:07 +0800
 
 kylin-video (2.0.1-3) unstable; urgency=medium
 

@@ -5198,35 +5198,40 @@ Do you want to overwrite?</source>
 您想要覆盖吗?</translation>
     </message>
     <message>
-        <location filename="../playlist.cpp" line="1286"/>
+        <location filename="../playlist.cpp" line="1065"/>
+        <source>Reached the top of the playlist</source>
+        <translation>已经到达播放列表顶部</translation>
+    </message>
+    <message>
+        <location filename="../playlist.cpp" line="1325"/>
         <source>You&apos;re about to remove the file from the playlist.</source>
         <translation>将从播放列表中移除文件。</translation>
     </message>
     <message>
-        <location filename="../playlist.cpp" line="1358"/>
+        <location filename="../playlist.cpp" line="1397"/>
         <source>You&apos;re about to Delete the files from your drive.</source>
         <translation>将从您的硬盘删除文件。</translation>
     </message>
     <message>
-        <location filename="../playlist.cpp" line="1432"/>
+        <location filename="../playlist.cpp" line="1471"/>
         <source>Confirm remove all</source>
         <translation>确认移除所有文件</translation>
     </message>
     <message>
-        <location filename="../playlist.cpp" line="1433"/>
+        <location filename="../playlist.cpp" line="1472"/>
         <source>You&apos;re about to empty the playlist.</source>
         <translation>将清空播放列表。</translation>
     </message>
     <message>
         <location filename="../playlist.cpp" line="838"/>
-        <location filename="../playlist.cpp" line="1100"/>
-        <location filename="../playlist.cpp" line="1161"/>
+        <location filename="../playlist.cpp" line="1139"/>
+        <location filename="../playlist.cpp" line="1200"/>
         <source>All files</source>
         <translation>所有文件</translation>
     </message>
     <message>
-        <location filename="../playlist.cpp" line="1097"/>
-        <location filename="../playlist.cpp" line="1158"/>
+        <location filename="../playlist.cpp" line="1136"/>
+        <location filename="../playlist.cpp" line="1197"/>
         <source>Select one or more files to open</source>
         <translation>选择一个或多个要打开的文件</translation>
     </message>
@@ -5265,7 +5270,7 @@ Do you want to overwrite?</source>
         <translation>已经到达播放列表底部</translation>
     </message>
     <message>
-        <location filename="../playlist.cpp" line="1212"/>
+        <location filename="../playlist.cpp" line="1251"/>
         <source>Choose a directory</source>
         <translation>选择一个目录</translation>
     </message>
@@ -5342,7 +5347,7 @@ Do you want to overwrite?</source>
         <translation type="obsolete">视频播放器 - 播放列表</translation>
     </message>
     <message>
-        <location filename="../playlist.cpp" line="1285"/>
+        <location filename="../playlist.cpp" line="1324"/>
         <source>Confirm remove</source>
         <translation>确认移除</translation>
     </message>
@@ -5351,13 +5356,13 @@ Do you want to overwrite?</source>
         <translation type="obsolete">将从播放列表中移除文件 &apos;%1&apos;。</translation>
     </message>
     <message>
-        <location filename="../playlist.cpp" line="1287"/>
-        <location filename="../playlist.cpp" line="1434"/>
+        <location filename="../playlist.cpp" line="1326"/>
+        <location filename="../playlist.cpp" line="1473"/>
         <source>Are you sure you want to proceed?</source>
         <translation>你确定要继续？</translation>
     </message>
     <message>
-        <location filename="../playlist.cpp" line="1357"/>
+        <location filename="../playlist.cpp" line="1396"/>
         <source>Confirm deletion</source>
         <translation>确认删除</translation>
     </message>
@@ -5366,7 +5371,7 @@ Do you want to overwrite?</source>
         <translation type="obsolete">将从您的硬盘删除文件 &apos;%1&apos; </translation>
     </message>
     <message>
-        <location filename="../playlist.cpp" line="1359"/>
+        <location filename="../playlist.cpp" line="1398"/>
         <source>This action cannot be undone. Are you sure you want to proceed?</source>
         <translation>此操作不可撤销。你确定要继续？</translation>
     </message>
@@ -5403,8 +5408,8 @@ Do you want to overwrite?</source>
         <translation type="obsolete">有未保存的更改，您想要保存该播放列表吗?</translation>
     </message>
     <message>
-        <location filename="../playlist.cpp" line="1099"/>
-        <location filename="../playlist.cpp" line="1160"/>
+        <location filename="../playlist.cpp" line="1138"/>
+        <location filename="../playlist.cpp" line="1199"/>
         <source>Multimedia</source>
         <translation>多媒体</translation>
     </message>
@@ -10378,17 +10383,17 @@ Example: extrastereo,karaoke</source>
         <translation type="obsolete">创建缩略图时发生以下错误:</translation>
     </message>
     <message>
-        <location filename="../smplayer/videopreview.cpp" line="141"/>
+        <location filename="../smplayer/videopreview.cpp" line="114"/>
         <source>The temporary directory (%1) can&apos;t be created</source>
         <translation>无法创建临时目录(%1)</translation>
     </message>
     <message>
-        <location filename="../smplayer/videopreview.cpp" line="272"/>
+        <location filename="../smplayer/videopreview.cpp" line="244"/>
         <source>The mpv process didn&apos;t run</source>
         <translation>MPV 进程没有运行</translation>
     </message>
     <message>
-        <location filename="../smplayer/videopreview.cpp" line="275"/>
+        <location filename="../smplayer/videopreview.cpp" line="247"/>
         <source>The mplayer process didn&apos;t run</source>
         <translation>MPlayer 进程没有运行</translation>
     </message>
@@ -10413,22 +10418,22 @@ Example: extrastereo,karaoke</source>
         <translation type="obsolete">无法加载文件 %1</translation>
     </message>
     <message>
-        <location filename="../smplayer/videopreview.cpp" line="306"/>
+        <location filename="../smplayer/videopreview.cpp" line="278"/>
         <source>No filename</source>
         <translation>没有文件名</translation>
     </message>
     <message>
-        <location filename="../smplayer/videopreview.cpp" line="401"/>
+        <location filename="../smplayer/videopreview.cpp" line="373"/>
         <source>The mplayer process didn&apos;t start while trying to get info about the video</source>
         <translation>试图获取视频信息时，MPlayer 进程没有启动</translation>
     </message>
     <message>
-        <location filename="../smplayer/videopreview.cpp" line="132"/>
+        <location filename="../smplayer/videopreview.cpp" line="105"/>
         <source>The length of the video is 0</source>
         <translation>视频的长度是 0</translation>
     </message>
     <message>
-        <location filename="../smplayer/videopreview.cpp" line="162"/>
+        <location filename="../smplayer/videopreview.cpp" line="134"/>
         <source>The file %1 doesn&apos;t exist</source>
         <translation>文件 %1 不存在</translation>
     </message>

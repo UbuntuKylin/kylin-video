@@ -1028,12 +1028,51 @@ void Playlist::playNext()
 
 void Playlist::playPrev()
 {
-    if (m_currentItemIndex > 0) {
-        playItem(m_currentItemIndex - 1);
+    if (pref->play_order == Preferences::RandomPlay) {//随机播放
+        int chosen_item = chooseRandomItem();
+        if (chosen_item == -1) {
+            clearPlayedTag();
+            chosen_item = chooseRandomItem();
+            if (chosen_item == -1) chosen_item = 0;
+        }
+        playItem(chosen_item);
     }
-    else {
-        if (this->m_playlistView->getModelRowCount() > 1) {
-            playItem(this->m_playlistView->getModelRowCount() - 1);
+    else if (pref->play_order == Preferences::ListLoopPlay) {//列表循环
+        bool top_list = (m_currentItemIndex == 0) ? true : false;
+        if (top_list) {
+            clearPlayedTag();
+        }
+        if (top_list) {
+            playItem(0);
+        }
+        else {
+            if (m_currentItemIndex > 0) {
+                playItem(m_currentItemIndex - 1);
+            }
+            else {
+                if (this->m_playlistView->getModelRowCount() > 1) {
+                    playItem(this->m_playlistView->getModelRowCount() - 1);
+                }
+            }
+        }
+    }
+    else {//顺序播放
+        bool top_list = (m_currentItemIndex == 0) ? true : false;
+        if (top_list) {
+            clearPlayedTag();
+        }
+        if (top_list) {
+            emit this->showMessage(tr("Reached the top of the playlist"));
+        }
+        else {
+            if (m_currentItemIndex > 0) {
+                playItem(m_currentItemIndex - 1);
+            }
+            else {
+                if (this->m_playlistView->getModelRowCount() > 1) {
+                    playItem(this->m_playlistView->getModelRowCount() - 1);
+                }
+            }
         }
     }
 }
@@ -1476,7 +1515,10 @@ int Playlist::chooseRandomItem()
 
     if (fi.count() == 0) return -1; // none free
 
-    int selected = (int) ((double) this->count() * rand()/(RAND_MAX+1.0));
+    //解决随机播放时，随机数大于播放列表总数时导致上一曲和下一曲按钮功能失效的问题
+    //int selected = (int) ((double) this->count() * rand()/(RAND_MAX+1.0));
+    int selected = (int) ((double) fi.count() * rand()/(RAND_MAX+1.0));
+
     return fi[selected];
 }
 
@@ -1805,7 +1847,6 @@ void Playlist::saveSettings()
         set->setValue(QString("item_%1_duration").arg(index), i.value()->duration());
         set->setValue(QString("item_%1_name").arg(index), i.value()->name());
         index ++;
-        break;
     }
 
     //将会导致切换播放引擎时，播放列表被清空

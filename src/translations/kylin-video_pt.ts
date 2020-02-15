@@ -2607,6 +2607,10 @@ Do you want to overwrite?</source>
         <source>You&apos;re about to empty the playlist.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Reached the top of the playlist</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PoweroffDialog</name>

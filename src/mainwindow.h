@@ -155,7 +155,7 @@ public slots:
 	void setInitialSubtitle(const QString & subtitle_file);
     void onSavePreviewImage(int time);
 //    void showShortcuts();
-    void onMeidaFilesAdded(const VideoPtrList medialist);
+    void onMeidaFilesAdded(const VideoPtrList medialist, bool isFileInPlaylist);
     void setBackgroudPixmap(QString pixmapDir);
     void trayIconActivated(QSystemTrayIcon::ActivationReason);
     void setJumpTexts();

@@ -1274,14 +1274,16 @@ void MainWindow::changePlayOrder(int play_order)
 void MainWindow::bindThreadWorker(InfoWorker *worker)
 {
     connect(m_playlistWidget, SIGNAL(requestGetMediaInfo(QStringList)), worker, SLOT(onGetMediaInfo(QStringList)));
-    connect(worker, SIGNAL(meidaFilesAdded(VideoPtrList)), this, SLOT(onMeidaFilesAdded(VideoPtrList)));
+    connect(worker, SIGNAL(meidaFilesAdded(VideoPtrList,bool)), this, SLOT(onMeidaFilesAdded(VideoPtrList,bool)));
 }
 
-void MainWindow::onMeidaFilesAdded(const VideoPtrList medialist)
+void MainWindow::onMeidaFilesAdded(const VideoPtrList medialist, bool isFileInPlaylist)
 {
     if (medialist.length() == 0) {
-        QString message = QString(tr("Failed to add files!"));
-        this->displayMessage(message);
+        if (!isFileInPlaylist) {//当执行了新加文件操作，而得到的新加文件结果为0时，此时如果isFileInPlaylist为true，表示新增加的文件在播放列表中早已存在，故不再次添加，此时不显示添加失败信息
+            QString message = QString(tr("Failed to add files!"));
+            this->displayMessage(message);
+        }
     }
     else {
         this->m_playlistWidget->onPlayListChanged(medialist);

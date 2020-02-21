@@ -35,7 +35,7 @@ public slots:
     void onGetMediaInfo(const QStringList &filepaths);
 
 signals:
-    void meidaFilesAdded(VideoPtrList medialist);
+    void meidaFilesAdded(VideoPtrList medialist, bool isFileInPlaylist);
 };
 
 #endif // INFO_WORKER_H

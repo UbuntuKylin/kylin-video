@@ -42,6 +42,7 @@ InfoWorker::~InfoWorker()
 
 void InfoWorker::onGetMediaInfo(const QStringList &filepaths)
 {
+    bool fileInPlaylist = false;
     VideoPtrList medialist;
     for (int n = 0; n < filepaths.count(); n++) {
         QFileInfo fileInfo(filepaths[n]);
@@ -50,6 +51,7 @@ void InfoWorker::onGetMediaInfo(const QStringList &filepaths)
         }
 
         if (pref->m_videoMap.contains(filepaths[n])) {
+            fileInPlaylist = true;
             continue;
         }
 
@@ -78,6 +80,6 @@ void InfoWorker::onGetMediaInfo(const QStringList &filepaths)
         }
     }
 
-    emit meidaFilesAdded(medialist);
+    emit meidaFilesAdded(medialist, fileInPlaylist);
     medialist.clear();
 }

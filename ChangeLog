@@ -1,1 +1,66 @@
-Use 'git log' for a detailed list of changes.
+kylin-video (2.0.1-4) unstable; urgency=medium
+
+  * Support Key_Space for playback and pause control.
+  * Support preview.
+  * Solve some bugs caused by playlist cleaned.
+  * Solve the problem that URLs in recent playlists cannot be played.
+  * Make play order settings work.
+  * When the mainwindow is set to be set on the top, make the subwindow display normally.
+  * Solve the bug that the playlist is cleared when switching the playback engine.
+  * Fixed the bug that failed to preview video on FT platform.
+  * Solve the bug that when the random number is greater than the total number of playlists, the Prev and Next buttons will fail.
+  * When the newly added file is already in the playlist, will not be prompted to add the failed information.
+
+ -- lixiang <lixiang@kylinos.cn>  Fri, 21 Feb 2020 15:37:26 +0800
+
+kylin-video (2.0.1-3) unstable; urgency=medium
+
+  * Fixed that when player is running, cannot right-click the video file to select the player to play.
+  * Update Logo.
+
+ -- lixiang <lixiang@kylinos.cn>  Tue, 14 Jan 2020 18:09:57 +0800
+
+kylin-video (2.0.1-2) unstable; urgency=medium
+
+  * Set different driving parameters for different graphics cards on the arm64 platform.
+  * Fixed the bug that audioEqualizerFilter() causes no sound when using MPV to play video.
+
+ -- lixiang <lixiang@kylinos.cn>  Fri, 06 Dec 2019 09:49:30 +0800
+
+kylin-video (2.0.1-1) unstable; urgency=medium
+
+  * Remove the useless code.
+  * Debian/control:
+    - Move libcrystalhd3 | firmware-crystalhd from depends to suggests.
+
+ -- handsome_feng <jianfengli@ubuntukylin.com>  Mon, 23 Sep 2019 19:17:20 +0800
+
+kylin-video (2.0.0-1) unstable; urgency=medium
+
+  * Supported Interface Size Tension.
+  * Added new files, such as videowindow.cpp, autohidecursorwidget.cpp
+    and displaylayercomposer.cpp.
+  * Add remote controller dbus.
+  * Add equalizer and filter for audio.
+  * Fixed the exception of the esctip.
+  * Access icon from theme.
+  * Modified the path of translated pm files and the timing of
+    generation.
+  * Updated these modules: preferences, core, mplayerprocess and
+    mpvprocess.
+  * Rewrote playlist with model and delegate.
+  * Added OSD info.
+  * Optimized partial parameters for mpv and mplayer.
+  * Debian/control:
+    - Add qtbase5-private-dev and libcrystalhd-dev to build-depends.
+    - Add libcrystalhd3 | firmware-crystalhd to depends.
+    - Bump standards vertion to 4.4.0.
+    - Bump compat level to 12.
+
+ -- handsome_feng <jianfengli@ubuntukylin.com>  Mon, 12 Aug 2019 15:10:39 +0800
+
+kylin-video (1.1.7-1) unstable; urgency=low
+
+  * Initial release. (Closes: #904002)
+
+ -- handsome_feng <jianfengli@ubuntukylin.com>  Tue, 17 Jul 2018 15:52:31 +0800

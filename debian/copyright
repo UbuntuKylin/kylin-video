@@ -4,7 +4,6 @@ Upstream-Contact: lixiang <lixiang@kylinos.cn>
 Source: https://github.com/ukui/kylin-video
 
 Files: AUTHORS
-       COPYING
        ChangeLog
        NEWS
        README.md

@@ -140,14 +140,21 @@ void TimeSlider::wheelEvent(QWheelEvent * e) {
 	}
 }
 
-void TimeSlider::enterEvent(QEvent *)
+void TimeSlider::enterEvent(QEvent * event)
 {
     emit this->active_status(true);
+
+//    event->ignore();
+//    QSlider::enterEvent(event);
 }
 
-void TimeSlider::leaveEvent(QEvent *)
+void TimeSlider::leaveEvent(QEvent * event)
 {
     emit this->active_status(false);
+
+    emit requestHideTip();
+    event->ignore();
+    QSlider::leaveEvent(event);
 }
 
 void TimeSlider::show_time_value(int time)
@@ -212,7 +219,7 @@ bool TimeSlider::event(QEvent *event) {
 		if (time >= 0 && time <= total_time) {
             //QToolTip::showText(help_event->globalPos(), Utils::formatTime(time), this);
             if (preview) {
-                emit this->requestSavePreviewImage(time);
+                emit this->requestSavePreviewImage(time, cur_pos);
             }
             else {
                 hintWidget->setText(Utils::formatTime(time));
@@ -264,5 +271,3 @@ bool TimeSlider::eventFilter(QObject *obj, QEvent *event)
     }
     return QObject::eventFilter(obj, event);
 }
-
-//#include "moc_timeslider.cpp"

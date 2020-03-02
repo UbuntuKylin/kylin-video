@@ -194,6 +194,10 @@ signals:
     void windowTitleChanged(const QString & title);
     void requestGetMediaInfo(const QStringList &files);
 
+#ifdef PREVIEW_TEST
+    void requestDestoryPreview();
+#endif
+
 protected:
     virtual void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
     virtual void dragEnterEvent(QDragEnterEvent *) Q_DECL_OVERRIDE;

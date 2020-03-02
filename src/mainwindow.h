@@ -32,6 +32,10 @@
 #include "smplayer/preferences.h"
 #include "smplayer/core.h"
 
+#ifdef PREVIEW_TEST
+#include "previewmanager.h"
+#endif
+
 class QPushButton;
 class QWidget;
 class QMenu;
@@ -50,6 +54,7 @@ class TitleWidget;
 class BottomWidget;
 class PlayMask;
 class VideoPreview;
+class PreviewDialog;
 class BottomController;
 class FilterHandler;
 //class ShortcutsWidget;
@@ -153,7 +158,7 @@ public slots:
     void openURL();
     void loadSub();
 	void setInitialSubtitle(const QString & subtitle_file);
-    void onSavePreviewImage(int time);
+    void onSavePreviewImage(int time, QPoint pos);
 //    void showShortcuts();
     void onMeidaFilesAdded(const VideoPtrList medialist, bool isFileInPlaylist);
     void setBackgroudPixmap(QString pixmapDir);
@@ -207,6 +212,11 @@ public slots:
     void clearMplayerLog();
     void recordMplayerLog(QString line);
 
+#ifdef PREVIEW_TEST
+    void onStopPreview(int rc);
+    void onPausePreview();
+#endif
+
 signals:
     void requestActionsEnabled(bool);
     void requestPlayOrPauseEnabled(bool);
@@ -250,7 +260,6 @@ private:
     EscTip *m_escWidget = nullptr;
     TipWidget *m_tipWidget = nullptr;
     QTimer *m_tipTimer = nullptr;
-    VideoPreview *m_videoPreview = nullptr;
 //    ShortcutsWidget *m_shortcutsWidget;
     FilterHandler *m_mouseFilterHandler = nullptr;
 //    CoverWidget *m_coverWidget = nullptr;
@@ -432,6 +441,13 @@ private:
 //    MyAction *play_pause_aciton = nullptr;
     MyAction *stopAct = nullptr;
     MyAction *fullscreenAct = nullptr;
+
+#ifdef PREVIEW_TEST
+    QPointer<PreviewManager> m_previewMgr;
+    PreviewDialog *m_previewDlg = nullptr;
+#else
+    VideoPreview *m_videoPreview = nullptr;
+#endif
 };
     
 #endif // _MAINWINDOW_H_

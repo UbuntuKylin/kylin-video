@@ -10,6 +10,8 @@ kylin-video (2.0.1-4) unstable; urgency=medium
   * Fixed the bug that failed to preview video on FT platform.
   * Solve the bug that when the random number is greater than the total number of playlists, the Prev and Next buttons will fail.
   * When the newly added file is already in the playlist, will not be prompted to add the failed information.
+  * Enable hardware acceleration on x86 platform(vdapu).
+  * Test video preview.
 
  -- lixiang <lixiang@kylinos.cn>  Fri, 21 Feb 2020 15:37:26 +0800
 

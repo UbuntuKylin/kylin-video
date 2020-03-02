@@ -906,6 +906,9 @@ void Playlist::onPlayListItemDoubleClicked(int row, const QString &filename)
             return;
         }
 
+#ifdef PREVIEW_TEST
+        emit requestDestoryPreview();
+#endif
 
         QString name = fi.fileName();
         emit this->requestSetPlayingTitle(name);

@@ -94,10 +94,15 @@
 #include "smplayer/myactiongroup.h"
 #include "smplayer/extensions.h"
 #include "smplayer/version.h"
-#include "smplayer/videopreview.h"
 #include "smplayer/inputurl.h"
 #include "smplayer/audioequalizer.h"
 #include "smplayer/eqslider.h"
+
+#ifdef PREVIEW_TEST
+#include "previewdialog.h"
+#else
+#include "smplayer/videopreview.h"
+#endif
 
 //注意: x11的头文件需要放置在QJson/QDbus的后面
 //#include <X11/Xlib.h>
@@ -215,6 +220,12 @@ MainWindow::MainWindow(QString arch_type, QString snap, /*ControllerWorker *cont
 //    effect->setColor(Qt::red);
 //    effect->setOffset(0);
 //    this->setGraphicsEffect(effect);
+
+
+#ifdef PREVIEW_TEST
+    m_previewDlg = new PreviewDialog(this);
+    m_previewDlg->hide();
+#endif
 }
 
 MainWindow::~MainWindow()
@@ -254,10 +265,21 @@ MainWindow::~MainWindow()
         delete m_playlistWidget;
         m_playlistWidget = nullptr;
     }
+#ifdef PREVIEW_TEST
+    if (m_previewDlg) {
+        delete m_previewDlg;
+        m_previewDlg = nullptr;
+    }
+    if (m_previewMgr) {
+        m_previewMgr->stop();
+        delete m_previewMgr;
+    }
+#else
     if (m_videoPreview) {
         delete m_videoPreview;
         m_videoPreview = nullptr;
     }
+#endif
 //    if (m_shortcutsWidget) {
 //        delete m_shortcutsWidget;
 //        m_shortcutsWidget = nullptr;
@@ -437,6 +459,14 @@ void MainWindow::createPlaylist()
     connect(m_playlistWidget, SIGNAL(closePlaylist()), this, SLOT(onShowOrHidePlaylist()));
     connect(m_playlistWidget, SIGNAL(playListFinishedWithError(QString)), this, SLOT(showErrorFromPlayList(QString)));
     connect(m_playlistWidget, SIGNAL(showMessage(QString)), this, SLOT(displayMessage(QString)));
+#ifdef PREVIEW_TEST
+    connect(m_playlistWidget, &Playlist::requestDestoryPreview, [=] () {
+        if (m_previewMgr) {
+            m_previewMgr->stop();
+            delete m_previewMgr;
+        }
+    });
+#endif
 }
 
 void MainWindow::createTopTitleBar()
@@ -503,7 +533,15 @@ void MainWindow::createBottomToolBar()
             }
         });
     //connect(m_playlistWidget, SIGNAL(update_playlist_count(int)), m_bottomToolbar, SLOT(updateLabelCountNumber(int)));
-    connect(m_bottomToolbar, SIGNAL(requestSavePreviewImage(int)), this, SLOT(onSavePreviewImage(int)));
+    connect(m_bottomToolbar, SIGNAL(requestSavePreviewImage(int, QPoint)), this, SLOT(onSavePreviewImage(int, QPoint)));
+    connect(m_bottomToolbar, &BottomWidget::requestHideTip, [=] () {
+#ifdef PREVIEW_TEST
+        if (m_previewDlg) {
+            m_previewDlg->resize(1,1);
+            m_previewDlg->close();
+        }
+#endif
+    });
 
     m_resizeCornerBtn = new QPushButton(m_bottomToolbar);
     m_resizeCornerBtn->setFocusPolicy(Qt::NoFocus);
@@ -1332,6 +1370,12 @@ void MainWindow::onMediaStoppedByUser()
     this->exitFullscreenOnStop();
     m_mplayerWindow->showLogo();
     this->disableActionsOnStop();
+#ifdef PREVIEW_TEST
+    if (m_previewMgr) {
+        m_previewMgr->stop();
+        delete m_previewMgr;
+    }
+#endif
 }
 
 void MainWindow::onMute()
@@ -2181,6 +2225,12 @@ void MainWindow::openRecent()
 
 void MainWindow::doOpen(QString file)
 {
+#ifdef PREVIEW_TEST
+    if (m_previewMgr) {
+        m_previewMgr->stop();
+        delete m_previewMgr;
+    }
+#endif
 	// If file is a playlist, open that playlist
 	QString extension = QFileInfo(file).suffix().toLower();
     if (((extension == "m3u") || (extension== "m3u8")) && (QFile::exists(file))) {
@@ -2236,6 +2286,12 @@ void MainWindow::openFile()
 void MainWindow::openFile(QString file)
 {
    if (!file.isEmpty()) {
+#ifdef PREVIEW_TEST
+       if (m_previewMgr) {
+           m_previewMgr->stop();
+           delete m_previewMgr;
+       }
+#endif
 		// If file is a playlist, open that playlist
 		QString extension = QFileInfo(file).suffix().toLower();
         if ((extension == "m3u") || (extension == "m3u8")) {
@@ -2334,7 +2390,7 @@ void MainWindow::setInitialSubtitle(const QString & subtitle_file)
     m_core->setInitialSubtitle(subtitle_file);
 }
 
-void MainWindow::onSavePreviewImage(int time)
+void MainWindow::onSavePreviewImage(int time, QPoint pos)
 {
 //    QString state = m_core->stateToString().toUtf8().data();
 //    if (state == "Playing" || state == "Paused") {
@@ -2342,6 +2398,22 @@ void MainWindow::onSavePreviewImage(int time)
 //    }
     if (m_core) {
         if (m_core->state() == Core::Playing || m_core->state() == Core::Paused) {
+
+#ifdef PREVIEW_TEST
+            if (!m_previewMgr) {
+                //预览界面
+                m_previewMgr = new PreviewManager(this);
+                QObject::connect(m_previewMgr, SIGNAL(processFinished(int)),this,SLOT(onStopPreview(int)));
+                QObject::connect(m_previewMgr, SIGNAL(requestPausePreview()),this,SLOT(onPausePreview()));
+                m_previewMgr->setVideoWinid(m_previewDlg->getWindowID());
+                m_previewMgr->play(m_core->mdat.m_filename, m_core->mdat.duration);
+            }
+            m_previewDlg->resize(128,105);
+            m_previewDlg->move(pos.x()-64, this->m_bottomToolbar->y() -105);
+            m_previewDlg->show();
+            m_previewDlg->setPosition(Utils::formatTime(time));
+            m_previewMgr->seek(time);
+#else
             if (m_videoPreview == 0) {
                 m_videoPreview = new VideoPreview(pref->mplayer_bin, 0);
             }
@@ -2377,6 +2449,7 @@ void MainWindow::onSavePreviewImage(int time)
                     m_bottomToolbar->savePreviewImageName(time, "");
                 }
             }
+#endif
         }
         else {
             if (m_bottomToolbar) {
@@ -2385,6 +2458,24 @@ void MainWindow::onSavePreviewImage(int time)
         }
     }
 }
+
+#ifdef PREVIEW_TEST
+void MainWindow::onStopPreview(int rc)
+{
+    Q_UNUSED(rc);
+
+    if (m_previewMgr) {
+        m_previewMgr->stop();
+        m_previewMgr = NULL;
+    }
+}
+void MainWindow::onPausePreview()
+{
+    if (m_previewMgr) {
+        m_previewMgr->pause();
+    }
+}
+#endif
 
 void MainWindow::showAboutDialog()
 {

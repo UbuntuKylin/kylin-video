@@ -57,7 +57,9 @@ signals:
 	void wheelDown();
 
     void active_status(bool);
-    void requestSavePreviewImage(int time);
+    void requestSavePreviewImage(int time, QPoint pos);
+
+    void requestHideTip();
 
 protected slots:
 	void stopUpdate();

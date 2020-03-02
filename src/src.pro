@@ -12,6 +12,7 @@ QT += network xml
 RESOURCES = res.qrc
 
 DEFINES += SINGLE_INSTANCE
+#DEFINES += PREVIEW_TEST
 
 !system($$PWD/translations/generate_translations_pm.sh): error("Failed to generate pm")
 qm_files.files = translations/*.qm
@@ -276,11 +277,16 @@ FORMS = smplayer/timedialog.ui \
 
 # qtsingleapplication
 contains( DEFINES, SINGLE_INSTANCE ) {
-	INCLUDEPATH += qtsingleapplication
-	DEPENDPATH += qtsingleapplication
+    INCLUDEPATH += qtsingleapplication
+    DEPENDPATH += qtsingleapplication
+    SOURCES += qtsingleapplication/qtsingleapplication.cpp qtsingleapplication/qtlocalpeer.cpp
+    HEADERS += qtsingleapplication/qtsingleapplication.h qtsingleapplication/qtlocalpeer.h
+}
 
-	SOURCES += qtsingleapplication/qtsingleapplication.cpp qtsingleapplication/qtlocalpeer.cpp
-	HEADERS += qtsingleapplication/qtsingleapplication.h qtsingleapplication/qtlocalpeer.h
+contains( DEFINES, PREVIEW_TEST ) {
+    SOURCES += previewmanager.cpp previewdialog.cpp previewprocess.cpp
+    HEADERS += previewmanager.h previewdialog.h previewprocess.h
+    FORMS   += previewdialog.ui
 }
 
 #contains( DEFINES, GLOBALSHORTCUTS ) {

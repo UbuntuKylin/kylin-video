@@ -118,6 +118,7 @@
         <file>res/plus.png</file>
         <file>res/osd.png</file>
         <file>res/poweroff.png</file>
+        <file>res/preview.png</file>
     </qresource>
     <qresource prefix="/qss">
         <file>res/style.qss</file>

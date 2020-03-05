@@ -1676,12 +1676,19 @@ void MainWindow::togglePlayAction(Core::State state)
         m_bottomToolbar->onMusicPause();
         m_playMaskWidget->hide();
     }
-    else {
+    else if (state == Core::Paused) {
         m_bottomToolbar->onMusicPause();
         if (m_mplayerWindow) {
             m_mplayerWindow->hideLogo();
         }
         m_playMaskWidget->show();
+    }
+    else {//Core::Buffering  缓冲的时候不改变m_playMaskWidget的显示隐藏状态
+        // do nothing
+        /*m_bottomToolbar->onMusicPause();
+        if (m_mplayerWindow) {
+            m_mplayerWindow->hideLogo();
+        }*/
     }
 }
 
@@ -3189,14 +3196,12 @@ void MainWindow::showErrorFromMplayer(QProcess::ProcessError e)
 
 void MainWindow::showTipWidget(const QString text)
 {
-    if (this->m_tipWidget->isVisible())
-        this->m_tipWidget->hide();
+    //注意：这里不能将m_tipWidget先hide，然后再show，这样会导致按快捷键时视频刷新会闪烁以下，如按快进键
+    this->m_tipWidget->setText(text);
+    this->m_tipWidget->show();
     if (m_tipTimer->isActive())
         m_tipTimer->stop();
     m_tipTimer->start();
-//    this->m_tipWidget->move(this->pos().x() + 30, this->pos().y() + TOP_TOOLBAR_HEIGHT);
-    this->m_tipWidget->setText(text);
-    this->m_tipWidget->show();
 }
 
 void MainWindow::onShowOrHideEscWidget(bool b)

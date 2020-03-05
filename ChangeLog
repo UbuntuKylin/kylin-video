@@ -10,10 +10,12 @@ kylin-video (2.0.1-4) unstable; urgency=medium
   * Fixed the bug that failed to preview video on FT platform.
   * Solve the bug that when the random number is greater than the total number of playlists, the Prev and Next buttons will fail.
   * When the newly added file is already in the playlist, will not be prompted to add the failed information.
-  * Enable hardware acceleration on x86 platform(vdapu).
+  * Enable hardware acceleration on x86 platform(vdpau).
   * Test video preview.
+  * Fixed the bug that video flickering when using the shortcut key to control video (example: rewind and forward).
+  * In the process of video buffering, don't change the state of some UI controls(example: m_tipWidget).
 
- -- lixiang <lixiang@kylinos.cn>  Fri, 21 Feb 2020 15:37:26 +0800
+ -- lixang <lixiang@kylinos.cn>  Fri, 21 Feb 2020 15:37:26 +0800
 
 kylin-video (2.0.1-3) unstable; urgency=medium
 

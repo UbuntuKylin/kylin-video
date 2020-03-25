@@ -49,7 +49,12 @@ void DisplayLayerComposer::paintEvent(QPaintEvent * e)
 {
     if (!m_playing) {//if m_repaintBackground is true, Qt5 will call "QPainter::begin: Paint device returned engine == 0, type: 1"
         QPainter painter(this);
+        //painter.drawRoundedRect(e->rect(), 6, 6);
         painter.eraseRect(e->rect());//painter.fillRect(e->rect(), QColor(255,0,0));
+
+//        QPainterPath painterPath;
+//        painterPath.addRoundedRect(e->rect(), 6, 6);
+//        painter.drawPath(painterPath);
     }
 }
 

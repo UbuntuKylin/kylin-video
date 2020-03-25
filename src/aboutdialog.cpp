@@ -52,13 +52,23 @@ AboutDialog::AboutDialog(const QString &snap, QWidget * parent, Qt::WindowFlags 
     setupUi(this);
 //    this->setModal(true);
     this->setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
+    this->setAutoFillBackground(true);
+    this->setAttribute(Qt::WA_TranslucentBackground);//设置窗口背景透明
     //this->setFixedSize(438, 320);
-    this->setStyleSheet("QDialog{border: 1px solid #121212;border-radius:1px;background-color: #ffffff;}");
+//    this->setStyleSheet("QDialog{border:none;background-color: #ffffff;}");//border: 1px solid #121212;border-radius:6px;
     this->setWindowIcon(QIcon::fromTheme("kylin-video", QIcon(":/res/kylin-video.png")));
     //this->setWindowIcon(QIcon::fromTheme("kylin-video", QIcon(":/res/kylin-video.png")).pixmap(QSize(64, 64)).scaled(64, 64, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
-    this->setAutoFillBackground(true);
+
     this->setMouseTracking(true);
     installEventFilter(this);
+
+    //TODO: 无效
+    this->setObjectName("popDialog");
+    //this->setStyleSheet("QDialog#prefrecesdialog{border: 1px solid #121212;border-radius:6px;background-color:#1f1f1f;}");
+
+    widget->setAutoFillBackground(true);
+    widget->setObjectName("centerWidget");
+//    widget->setStyleSheet("QWidget{border:none;border-top-right-radius:6px;border-bottom-right-radius:6px;background-color:#1f1f1f;}");//
 
 #if QT_VERSION >= 0x050000
     ScrollerModule::setScroller(aboutText->viewport());
@@ -70,9 +80,11 @@ AboutDialog::AboutDialog(const QString &snap, QWidget * parent, Qt::WindowFlags 
     m_contributorGroup = NULL;
 
     baseWidget->setAutoFillBackground(true);
-    QPalette palette;
-    palette.setBrush(QPalette::Background, QBrush(QPixmap(":/res/about_bg.png")));
-    baseWidget->setPalette(palette);
+    baseWidget->setObjectName("aboutTopWidget");
+//    baseWidget->setStyleSheet("QWidget{background-image:url(':/res/about_bg.png'); border:0px; border-radius:6px;}");
+//    QPalette palette;
+//    palette.setBrush(QPalette::Background, QBrush(QPixmap(":/res/about_bg.png")));
+//    baseWidget->setPalette(palette);
 
     closeBtn->setFocusPolicy(Qt::NoFocus);
     aboutBtn->setFocusPolicy(Qt::NoFocus);
@@ -113,7 +125,7 @@ AboutDialog::AboutDialog(const QString &snap, QWidget * parent, Qt::WindowFlags 
 //    }
 //    <a href=\"http://www.smplayer.info\">SMPlayer</a>
 
-    contributorText->setText("<br>&copy; 2006-2015 Ricardo Villalba &lt;rvm@users.sourceforge.net&gt;<br>&copy; 2017-2019 lixiang &lt;lixiang@kylinos.cn&gt;<br><br>");
+    contributorText->setText("<br>&copy; 2006-2015 Ricardo Villalba &lt;rvm@users.sourceforge.net&gt;<br>&copy; 2017-2020 lixiang &lt;lixiang@kylinos.cn&gt;<br><br>");
     //contributorText->setText(QString("<br>&copy; 2006-2015 Ricardo Villalba &lt;rvm@users.sourceforge.net&gt;<br>&copy; 2017-2019 lixiang &lt;lixiang@kylinos.cn&gt; %1<br><br>").arg("<a href=\"https://eightplus.github.io\">https://eightplus.github.io</a>"));
     contributorText->hide();
 

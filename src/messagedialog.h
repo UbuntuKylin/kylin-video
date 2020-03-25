@@ -57,6 +57,7 @@ private:
     int returnCodeByRun(QAbstractButton *button);
 
 private:
+    QWidget *m_centerWidget;
     QLabel *title_label = nullptr;
     QLabel *icon_label = nullptr;
     QLabel *msg_label = nullptr;

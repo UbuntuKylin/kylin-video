@@ -35,17 +35,21 @@ int main(int argc, char **argv)
 {
     signal(SIGINT, [](int) { QApplication::quit(); });// 设置退出信号
 
-    MyApplication a("kylin-video", argc, argv );
-    a.setQuitOnLastWindowClosed(false);
+#if QT_VERSION >= 0x040400
+    // Enable icons in menus
+    QCoreApplication::setAttribute(Qt::AA_DontShowIconsInMenus, false);
+#endif
 
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
+    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+#endif
+
+    MyApplication a("kylin-video", argc, argv );
+    a.setAttribute(Qt::AA_UseHighDpiPixmaps);
+    a.setQuitOnLastWindowClosed(false);
     a.setOrganizationName("kylin");
     a.setApplicationName("kylin-video");
-    a.setApplicationVersion("2.0.1");
-
-#if QT_VERSION >= 0x040400
-	// Enable icons in menus
-	QCoreApplication::setAttribute(Qt::AA_DontShowIconsInMenus, false);
-#endif
+    a.setApplicationVersion("2.1.0");
 
     /*
     //----------------register controller dbus service----------------

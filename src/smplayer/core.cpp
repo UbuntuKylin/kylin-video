@@ -47,6 +47,7 @@ using namespace Global;
 
 Core::Core(VideoWindow *mpw, const QString &snap, QWidget* parent)
 	: QObject( parent ) 
+        , initial_second(0)
 {
 	qRegisterMetaType<Core::State>("Core::State");
 
@@ -233,7 +234,7 @@ Core::Core(VideoWindow *mpw, const QString &snap, QWidget* parent)
 //#endif
 
     m_mplayerWindow->displayLayer()->setRepaintBackground(pref->repaint_video_background);
-
+    //mplayerwindow->setMonitorAspect( pref->monitor_aspect_double() );
 	connect(this, SIGNAL(buffering()), this, SLOT(displayBuffering()));
 }
 
@@ -831,6 +832,12 @@ void Core::initPlaying(int seek) {
 	int start_sec = (int) mset.current_sec;
 	if (seek > -1) start_sec = seek;
 
+
+        if (initial_second != 0) {
+                qDebug("Core::initPlaying: initial_second: %d", initial_second);
+                start_sec = initial_second;
+                initial_second = 0;
+        }
 //#ifdef YOUTUBE_SUPPORT
 //	if (pref->enable_yt_support) {
 //		// Avoid to pass to mplayer the youtube page url
@@ -1007,7 +1014,6 @@ void Core::finishRestart() {
     }
 //#endif
 
-
 	emit mediaLoaded();
 	emit mediaInfoChanged();
 	emit newDuration(mdat.duration);
@@ -1099,6 +1105,12 @@ void Core::pause() {
 		// Pauses and unpauses
 		if (state() == Paused) proc->setPause(false); else proc->setPause(true);
 	}
+}
+
+void Core::setPause(bool b) {
+        if (proc->isRunning()) {
+                proc->setPause(b);
+        }
 }
 
 void Core::playOrPause(int seek) {
@@ -3564,6 +3576,20 @@ void Core::changeSubtitle(int track) {
     updateWidgets();
 }
 
+void Core::prevSubtitle() {
+        qDebug("Core::prevSubtitle");
+
+        if (mset.subs.numItems() > 0) {
+                if (mset.current_subtitle_track == MediaSettings::SubNone) {
+                        changeSubtitle(mset.subs.numItems() - 1);
+                } else {
+                        int item = mset.current_subtitle_track - 1;
+                        if (item < 0) item = MediaSettings::SubNone;
+                        changeSubtitle(item);
+                }
+        }
+}
+
 void Core::nextSubtitle() {
     qDebug("Core::nextSubtitle");
 
@@ -3654,6 +3680,22 @@ void Core::changeAudio(int ID, bool allow_restart) {
     }
 }
 
+void Core::prevAudio() {
+        qDebug("Core::prevAudio");
+
+        int item = mset.audios.find( mset.current_audio_id );
+        if (item == -1) {
+                qWarning("Core::prevAudio: audio ID %d not found!", mset.current_audio_id);
+        } else {
+                qDebug( "Core::prevAudio: numItems: %d, item: %d", mset.audios.numItems(), item);
+                item--;
+                if (item < 0) item = mset.audios.numItems() - 1;
+                int ID = mset.audios.itemAt(item).ID();
+                qDebug( "Core::prevAudio: item: %d, ID: %d", item, ID);
+                changeAudio( ID );
+        }
+}
+
 void Core::nextAudio() {
     qDebug("Core::nextAudio");
 
@@ -3698,6 +3740,22 @@ void Core::changeVideo(int ID, bool allow_restart) {
         }
         */
     }
+}
+
+void Core::prevVideo() {
+        qDebug("Core::prevVideo");
+
+        int item = mset.videos.find( mset.current_video_id );
+        if (item == -1) {
+                qWarning("Core::prevVideo: video ID %d not found!", mset.current_video_id);
+        } else {
+                qDebug( "Core::prevVideo: numItems: %d, item: %d", mset.videos.numItems(), item);
+                item--;
+                if (item < 0) item = mset.videos.numItems() - 1;
+                int ID = mset.videos.itemAt(item).ID();
+                qDebug( "Core::prevVideo: item: %d, ID: %d", item, ID);
+                changeVideo( ID );
+        }
 }
 
 void Core::nextVideo() {
@@ -4388,6 +4446,7 @@ void Core::initAudioTrack(const Tracks & audios, int selected_id) {
                         changeAudio(audio_id);
                 }
         }
+
         emit audioTracksInitialized();
 }
 

@@ -114,14 +114,14 @@ void InfoReader::getInfo() {
 		}
 		set.endGroup();
 		if (got_info) {
-            //qDebug() << "InfoReader::getInfo: loaded info from" << inifile;
+            		//qDebug() << "InfoReader::getInfo: loaded info from" << inifile;
 			return;
 		}
 	}
 
     //edited by kobe 20180623
     if (Utils::player(mplayerbin/*, this->m_snap*/) == Utils::MPV) {
-//        qDebug("InfoReader::getInfo: mpv");
+        //qDebug("InfoReader::getInfo: mpv");
         InfoReaderMPV ir(mplayerbin, this->m_snap, this);
         ir.getInfo();
         vo_list = ir.voList();
@@ -137,7 +137,7 @@ void InfoReader::getInfo() {
 //		is_mplayer2 = false;
         is_mpv = true;
     } else {
-//        qDebug("InfoReader::getInfo: mplayer");
+        //qDebug("InfoReader::getInfo: mplayer");
         InfoReaderMplayer ir(mplayerbin, this->m_snap, this);
 		ir.getInfo();
 		vo_list = ir.voList();
@@ -156,7 +156,7 @@ void InfoReader::getInfo() {
     }
 
 	if (fi.exists()) {
-        //qDebug() << "InfoReader::getInfo: saving info to" << inifile;
+        	//qDebug() << "InfoReader::getInfo: saving info to" << inifile;
 		set.beginGroup(version_group +"/"+ sname);
 		set.setValue("size", fi.size());
 		set.setValue("date", fi.lastModified());

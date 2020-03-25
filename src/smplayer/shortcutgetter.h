@@ -67,6 +67,7 @@ private:
 	QLineEdit *leKey;
 	QStringList lKeys;
 	bool capture;
+    QWidget *m_centerWidget;
 
 	QListWidget * list;
 	QPushButton * addItem;

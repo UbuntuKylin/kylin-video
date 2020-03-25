@@ -28,15 +28,26 @@ MessageDialog::MessageDialog(QWidget *parent, const QString &title, const QStrin
     : QDialog(parent)
     , m_dragState(NOT_DRAGGING)
     , m_startDrag(QPoint(0,0))
+    , m_centerWidget(new QWidget(this))
 {
     this->setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
-    this->setStyleSheet("QDialog{border: 1px solid #121212;border-radius:1px;background-color:#1f1f1f;}");
+//    this->setStyleSheet("QDialog{border: 1px solid #121212;border-radius:1px;background-color:#1f1f1f;}");
+    this->setAutoFillBackground(true);
+    this->setAttribute(Qt::WA_TranslucentBackground);//设置窗口背景透明
     this->setWindowTitle(title);
     this->setWindowIcon(QIcon::fromTheme("kylin-video", QIcon(":/res/kylin-video.png")));
 //    this->setWindowIcon(QIcon::fromTheme("kylin-video", QIcon(":/res/kylin-video.png")).pixmap(QSize(64, 64)).scaled(64, 64, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
-    this->setAutoFillBackground(true);
+
     this->setMouseTracking(true);
     installEventFilter(this);
+
+    //TODO: 无效
+    this->setObjectName("popDialog");
+    //this->setStyleSheet("QDialog#prefrecesdialog{border: 1px solid #121212;border-radius:6px;background-color:#1f1f1f;}");
+
+    m_centerWidget->setAutoFillBackground(true);
+    m_centerWidget->setObjectName("centerWidget");
+    m_centerWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     title_label = new QLabel(this);
     title_label->setAlignment(Qt::AlignCenter);
@@ -120,13 +131,18 @@ MessageDialog::MessageDialog(QWidget *parent, const QString &title, const QStrin
     blayout->addWidget(buttonBox);
     blayout->setContentsMargins(10,0,10,0);
 
+    QBoxLayout *layout = new QVBoxLayout(m_centerWidget);
+    layout->addLayout(title_layout);
+    layout->addLayout(hlayout);
+    layout->addLayout(blayout);
+    layout->setMargin(0);
+    layout->setSpacing(10);
+    layout->setContentsMargins(0, 0, 0, 10);
+
+
     main_layout = new QVBoxLayout(this);
-    main_layout->addLayout(title_layout);
-    main_layout->addLayout(hlayout);
-    main_layout->addLayout(blayout);
-    main_layout->setMargin(0);
-    main_layout->setSpacing(10);
-    main_layout->setContentsMargins(0, 0, 0, 10);
+    main_layout->setContentsMargins(0,0,0,0);
+    main_layout->addWidget(m_centerWidget);
 
     this->layout()->setSizeConstraint(QLayout::SetFixedSize);
 

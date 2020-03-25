@@ -51,6 +51,7 @@
 #include <QDBusConnection>
 #include <QEvent>
 #include <QKeyEvent>
+#include <QBitmap>
 
 #include "playlist.h"
 #include "titlewidget.h"
@@ -145,9 +146,15 @@ MainWindow::MainWindow(QString arch_type, QString snap, /*ControllerWorker *cont
     , m_dragWindow(false)
     , m_lastPlayingSeek(0)
 {
+
+    //qDebug() << "qApp->devicePixelRatio():" << qApp->devicePixelRatio();
+
+
+
     this->setWindowFlags(Qt::FramelessWindowHint/* | Qt::WindowStaysOnTopHint*/);//设置窗体标题栏隐藏并设置位于顶层
     this->setMouseTracking(true);//可获取鼠标跟踪效果，界面拉伸需要这个属性
     this->setAutoFillBackground(true);
+    this->setAttribute(Qt::WA_TranslucentBackground);//设置窗口背景透明
     this->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
     this->setMinimumSize(WINDOW_MIN_WIDTH, WINDOW_MIN_HEIGHT);
     this->resize(900, 600);
@@ -350,6 +357,14 @@ void MainWindow::createPanel()
     m_centralWidget->setMinimumSize(QSize(1,1));
     m_centralWidget->setFocusPolicy(Qt::StrongFocus);
     this->setCentralWidget(m_centralWidget);
+
+//    //给主界面设置6px的圆角
+////    this->setStyleSheet("QMainWindow{background-color: transparent;}");
+//    this->setStyleSheet("QWidget{border:none; border-radius:6px;}");
+    this->centralWidget()->setStyleSheet("QWidget{border:none; border-radius:6px; background: #000000;}");//background:rgba(0,0,0,0.9);
+//    //border:1px solid rgba(255,255,255,0.05);
+
+
     m_centralWidget->setFocus();
 }
 
@@ -740,6 +755,7 @@ void MainWindow::createPlayCommandActionsAndMenus()
     connect(gotoAct, SIGNAL(triggered()), this, SLOT(showGotoDialog()));
 //    gotoAct->change( Images::icon("jumpto"), tr("&Jump to..."));
     gotoAct->change(tr("&Jump to..."));
+
     control_menu->addAction(rewind1Act);
     control_menu->addAction(forward1Act);
     control_menu->addSeparator();
@@ -1707,6 +1723,7 @@ void MainWindow::createPreferencesDialog()
 {
     QApplication::setOverrideCursor(Qt::WaitCursor);
     m_prefDialog = new PreferencesDialog(m_arch, this->m_snap, this);
+    //m_prefDialog->setStyleSheet("QDialog{border: 1px solid #121212;border-radius:20px;background-color:transparent;}");
     m_prefDialog->setModal(false);
     connect(m_prefDialog, SIGNAL(applied()), this, SLOT(applyNewPreferences()));
     QApplication::restoreOverrideCursor();
@@ -2018,6 +2035,9 @@ void MainWindow::showAudioEqualizer(bool b)
         // Exit fullscreen, otherwise dialog is not visible
         exitFullscreenIfNeeded();
         audio_equalizer->show();
+//        int w_x = this->frameGeometry().topLeft().x() + (audio_equalizer->width() / 2) - (400  / 2);
+//        int w_y = this->frameGeometry().topLeft().y() + (audio_equalizer->height() /2) - (170  / 2);
+//        audio_equalizer->move(w_x, w_y);
     }
     updateWidgets();
 }
@@ -3327,15 +3347,22 @@ void MainWindow::closeEvent(QCloseEvent * e)
     e->accept();
 }
 
-//void MainWindow::paintEvent(QPaintEvent *)
-//{
+void MainWindow::paintEvent(QPaintEvent *e)
+{
 //    QPainter painter(this);
 //    painter.drawPixmap(rect(), currentBackground);
 
-////QPalette palette;
-////palette.setBrush(QPalette::Background, image);
-////setPalette(palette);
-//}
+
+    QBitmap bmp(this->size());
+    bmp.fill();
+    QPainter painter(&bmp);
+    painter.setRenderHint(QPainter::Antialiasing, true);//设置反走样，避免锯齿
+//    painter.setRenderHints(QPainter::Antialiasing | QPainter::HighQualityAntialiasing);
+    painter.setPen(Qt::NoPen);
+    painter.setBrush(Qt::black);
+    painter.drawRoundedRect(bmp.rect(), 6, 6);
+    setMask(bmp);
+}
 
 void MainWindow::setBackgroudPixmap(QString pixmapDir)
 {

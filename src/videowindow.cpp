@@ -59,12 +59,14 @@ VideoWindow::VideoWindow(QWidget* parent, Qt::WindowFlags f)
     this->setAutoFillBackground(true);
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     this->setFocusPolicy(Qt::StrongFocus);
+//    this->setStyleSheet("QWidget{border:none; border-radius:6px;}");//background-color: transparent;
 
     ColorUtils::setBackgroundColor( this, QColor(0,0,0) );
 
     m_displayLayer = new DisplayLayerComposer(this);
     m_displayLayer->setObjectName("m_displayLayer");
     m_displayLayer->setAutoFillBackground(true);
+//    m_displayLayer->setStyleSheet("QWidget{border:none; border-radius:6px;}");
 
     m_logoLabel = new QLabel(m_displayLayer);
     m_logoLabel->setAutoFillBackground(true);
@@ -100,6 +102,7 @@ VideoWindow::~VideoWindow()
 void VideoWindow::setCornerWidget(QWidget * w)
 {
     m_cornerWidget = w;
+//    m_cornerWidget->setStyleSheet("QWidget{border:none; border-radius:6px;}");
     QHBoxLayout * blayout = new QHBoxLayout;
     blayout->addStretch();
     blayout->addWidget(m_cornerWidget);

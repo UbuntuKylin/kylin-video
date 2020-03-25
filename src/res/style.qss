@@ -1,3 +1,16 @@
+QDialog#popDialog{
+border: 1px solid #121212;border-radius:6px;background-color:#1f1f1f;}
+
+QWidget#leftWidget {
+border:none;border-top-left-radius:6px;border-bottom-left-radius:6px;background-color:#2e2e2e;
+}
+
+QWidget#rightWidget{border:none;border-top-right-radius:6px;border-bottom-right-radius:6px;background-color:#1f1f1f;}
+
+QWidget#centerWidget{border:none; border-radius:6px;background-color:#1f1f1f;}
+
+QWidget#aboutTopWidget{background-image:url(':/res/about_bg.png'); border:0px; border-radius:6px;}
+
 QLabel#BtmSeperatorLine {
     background-color: rgba(0, 0, 0, .1);
 }

@@ -43,13 +43,21 @@ void InfoReaderMPV::getInfo() {
 	vf_list.clear();
 	mplayer_svn = -1;
 
-	vo_list = getList(run("--vo help"));
-	ao_list = getList(run("--ao help"));
-	demuxer_list = getList(run("--demuxer help"));
-	vc_list = getList(run("--vd help"));
-	ac_list = getList(run("--ad help"));
+	// old, 解决20.04上mpv help参数问题
+//       vo_list = getList(run("--vo help"));
+//       ao_list = getList(run("--ao help"));
+//       demuxer_list = getList(run("--demuxer help"));
+//       vc_list = getList(run("--vd help"));
+//       ac_list = getList(run("--ad help"));
+
+	vo_list = getList(run("-vo help"));
+	ao_list = getList(run("-ao help"));
+	demuxer_list = getList(run("-demuxer help"));
+	vc_list = getList(run("-vd help"));
+	ac_list = getList(run("-ad help"));
 	{
-		InfoList list = getList(run("--vf help"));
+		//InfoList list = getList(run("--vf help"));//old
+		InfoList list = getList(run("-vf help"));
 		for (int n = 0; n < list.count(); n++) {
 			vf_list.append(list[n].name());
 		}
@@ -64,8 +72,8 @@ void InfoReaderMPV::getInfo() {
 		mpv_version = MplayerVersion::mpvVersion();
 	}
 
-	qDebug() << "InfoReaderMPV::getInfo: version_line" << mpv_version_line;
-	qDebug() << "InfoReaderMPV::getInfo: mplayer_svn" << mplayer_svn;
+	//qDebug() << "InfoReaderMPV::getInfo: version_line" << mpv_version_line;
+	//qDebug() << "InfoReaderMPV::getInfo: mplayer_svn" << mplayer_svn;
 
 	option_list = getOptionsList(run("--list-options"));
 
@@ -73,7 +81,7 @@ void InfoReaderMPV::getInfo() {
 }
 
 void InfoReaderMPV::list() {
-	qDebug("InfoReaderMPV::list");
+	//qDebug("InfoReaderMPV::list");
 
 	InfoList::iterator it;
 
@@ -143,7 +151,7 @@ InfoList InfoReaderMPV::getList(const QList<QByteArray> & lines) {
 	InfoList l;
 
 	foreach(QByteArray line, lines) {
-		//qDebug() << "InfoReaderMPV::getList: line:" << line;
+		qDebug() << "InfoReaderMPV::getList: line:" << line;
 
 		line.replace("\n", "");
 		line = line.simplified();
@@ -159,7 +167,7 @@ InfoList InfoReaderMPV::getList(const QList<QByteArray> & lines) {
 				if (name.endsWith(':')) name = name.left(name.count()-1);
 				QString desc = line.mid(pos+1);
 				desc = desc.replace(": ", "").replace("- ", "");
-				//qDebug() << "InfoReaderMPV::getList: name:" << name << "desc:" << desc;
+				qDebug() << "InfoReaderMPV::getList: name:" << name << "desc:" << desc;
 				l.append(InfoData(name, desc));
 			}
 		}

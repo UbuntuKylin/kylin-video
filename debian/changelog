@@ -1,3 +1,12 @@
+kylin-video (2.1.0-1) unstable; urgency=medium
+
+  * The playback status information of MPV can be obtained normally.
+  * Get the list of video and audio drivers supported by MPV normally.
+  * Fixed the bug of no sound when playing with MPV.
+  * Add border radius for UI.
+
+ -- lixang <lixiang@kylinos.cn>  Wed, 25 Mar 2020 15:32:12 +0800
+
 kylin-video (2.0.5-1) unstable; urgency=medium
 
   * New upstream release.

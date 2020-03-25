@@ -44,9 +44,17 @@ FilePropertiesDialog::FilePropertiesDialog( QWidget* parent, Qt::WindowFlags f )
 	setupUi(this);
     this->setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
     this->setFixedSize(650, 509);
-    this->setStyleSheet("QDialog{border: 1px solid #121212;border-radius:1px;background-color:#1f1f1f;}");
-    this->setAttribute(Qt::WA_DeleteOnClose);
     this->setAutoFillBackground(true);
+    this->setAttribute(Qt::WA_TranslucentBackground);//设置窗口背景透明
+    this->setAttribute(Qt::WA_DeleteOnClose);
+    this->setWindowIcon(QIcon::fromTheme("kylin-video", QIcon(":/res/kylin-video.png")));
+
+    //TODO: 无效
+    this->setObjectName("popDialog");
+    //this->setStyleSheet("QDialog#prefrecesdialog{border: 1px solid #121212;border-radius:6px;background-color:#1f1f1f;}");
+
+    this->setMouseTracking(true);
+    installEventFilter(this);
 
     info_edit->setStyleSheet("QTextEdit {border: 1px solid #000000;color: #999999;background: #0f0f0f;font-family:方正黑体_GBK;font-size: 12px;}");
     info_edit->verticalScrollBar()->setStyleSheet("QScrollBar:vertical {width: 12px;background: #141414;margin:0px 0px 0px 0px;border:1px solid #141414;}QScrollBar::handle:vertical {width: 12px;min-height: 45px;background: #292929;margin-left: 0px;margin-right: 0px;}QScrollBar::handle:vertical:hover {background: #3e3e3e;}QScrollBar::handle:vertical:pressed {background: #272727;}QScrollBar::sub-line:vertical {height: 6px;background: transparent;subcontrol-position: top;}QScrollBar::add-line:vertical {height: 6px;background: transparent;subcontrol-position: bottom;}QScrollBar::sub-line:vertical:hover {background: #292929;}QScrollBar::add-line:vertical:hover {background: #292929;}QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {background: transparent;}");
@@ -55,10 +63,17 @@ FilePropertiesDialog::FilePropertiesDialog( QWidget* parent, Qt::WindowFlags f )
     installEventFilter(this);
 
     title_widget->setAutoFillBackground(true);
-    title_widget->setStyleSheet("QWidget{border:none;background-color:#2e2e2e;}");
+    title_widget->setObjectName("leftWidget");
+    //TODO:这里如果不用setObjectName的方式，而是直接使用setStyleSheet，将影响各自窗口下的子控件的样式
+//    title_widget->setStyleSheet("QWidget{border:none;border-top-left-radius:6px;border-bottom-left-radius:6px;background-color:#2e2e2e;}");//
+
 //    QPalette palette;
 //    palette.setColor(QPalette::Background, QColor("#2e2e2e"));
 //    title_widget->setPalette(palette);
+
+    widget->setAutoFillBackground(true);
+    widget->setObjectName("rightWidget");
+//    widget->setStyleSheet("QWidget{border:none;border-top-right-radius:6px;border-bottom-right-radius:6px;background-color:#1f1f1f;}");//
 
     demuxer_listbox->setStyleSheet("QListWidget{color: #999999;font-size: 12px;border: 0px solid rgba(255, 0, 0, 0.7);background-color: #171717;outline:none;}QListWidget::item{color: #999999;height: 30px;}QListWidget::item:hover{background: #242424;}QListWidget::item:selected:!active {color: #999999;background-color: #171717;}QListWidget::item:selected:active {color: white;background-color: #0f0f0f;}");
     vc_listbox->setStyleSheet("QListWidget{color: #999999;font-size: 12px;border: 0px solid rgba(255, 0, 0, 0.7);background-color: #171717;outline:none;}QListWidget::item{color: #999999;height: 30px;}QListWidget::item:hover{background: #242424;}QListWidget::item:selected:!active {color: #999999;background-color: #171717;}QListWidget::item:selected:active {color: white;background-color: #0f0f0f;}");

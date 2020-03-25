@@ -40,6 +40,7 @@ TitleWidget::TitleWidget(QWidget *parent)
     this->setAutoFillBackground(true);
     this->setFocusPolicy(Qt::StrongFocus);
     this->setAttribute(Qt::WA_TranslucentBackground, true);//窗体标题栏不透明，背景透明
+//    this->setStyleSheet("QWidget{border: none; background-color: transparent; border-top-left-radius: 16px; border-top-right-radius: 16px;}");
 
     initWidgets();
 
@@ -103,8 +104,9 @@ void TitleWidget::mouseDoubleClickEvent(QMouseEvent *event)
 void TitleWidget::initLeftContent()
 {
     QWidget *w = new QWidget;
+//    w->setStyleSheet("QWidget{border:none; background-color: transparent;}");
     m_lLayout = new QHBoxLayout(w);
-    m_lLayout->setContentsMargins(5, 0, 0, 0);
+    m_lLayout->setContentsMargins(6, 0, 0, 0);
     m_lLayout->setSpacing(5);
 
     m_logoLabel = new QLabel(this);
@@ -125,6 +127,7 @@ void TitleWidget::initLeftContent()
 void TitleWidget::initMiddleContent()
 {
     QWidget *w = new QWidget;
+//    w->setStyleSheet("QWidget{border:none; background-color: transparent;}");
     w->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     m_mLayout = new QHBoxLayout(w);
     m_mLayout->setContentsMargins(0, 0, 0, 0);
@@ -155,8 +158,9 @@ void TitleWidget::cleaTitleName()
 void TitleWidget::initRightContent()
 {
     QWidget *w = new QWidget;
+//    w->setStyleSheet("QWidget{border:none; background-color: transparent;}");
     m_rLayout = new QHBoxLayout(w);
-    m_rLayout->setContentsMargins(0, 0, 0, 0);
+    m_rLayout->setContentsMargins(0, 0, 6, 0);
     m_rLayout->setSpacing(0);
     m_layout->addWidget(w, 1, Qt::AlignRight);
 
@@ -264,19 +268,19 @@ void TitleWidget::updateMaxButtonStatus(bool is_maxed)
 //    m_gatherAnimation->start();
 //}
 
-void TitleWidget::paintEvent(QPaintEvent *event)
-{
-    Q_UNUSED(event);
+//void TitleWidget::paintEvent(QPaintEvent *event)
+//{
+//    Q_UNUSED(event);
 
-//    QStyleOption opt;
-//    opt.init(this);
+////    QStyleOption opt;
+////    opt.init(this);
+////    QPainter p(this);
+////    style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+
 //    QPainter p(this);
-//    style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
-
-    QPainter p(this);
-    p.setCompositionMode(QPainter::CompositionMode_Clear);
-    p.fillRect(rect(), Qt::SolidPattern);//p.fillRect(0, 0, this->width(), this->height(), Qt::SolidPattern);
-}
+//    p.setCompositionMode(QPainter::CompositionMode_Clear);
+//    p.fillRect(rect(), Qt::SolidPattern);//p.fillRect(0, 0, this->width(), this->height(), Qt::SolidPattern);
+//}
 
 bool TitleWidget::eventFilter(QObject * obj, QEvent * event)
 {

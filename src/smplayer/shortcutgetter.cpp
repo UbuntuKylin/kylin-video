@@ -266,17 +266,28 @@ static QStringList modToString(Qt::KeyboardModifiers k)
 ShortcutGetter::ShortcutGetter(/*bool isbtn, */QWidget *parent) : QDialog(parent)
   , m_dragState(NOT_DRAGGING)
   , m_startDrag(QPoint(0,0))
+  , m_centerWidget(new QWidget(this))
 {
     this->setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
     this->setFixedSize(438, 320);
-    this->setStyleSheet("QDialog{border: 1px solid #121212;border-radius:1px;background-color:#1f1f1f;}");
+    this->setAutoFillBackground(true);
+    this->setAttribute(Qt::WA_TranslucentBackground);//设置窗口背景透明
+//    this->setStyleSheet("QDialog{border: 1px solid #121212;border-radius:1px;background-color:#1f1f1f;}");
     this->setWindowIcon(QIcon::fromTheme("kylin-video", QIcon(":/res/kylin-video.png")));
 //    this->setWindowIcon(QIcon::fromTheme("kylin-video", QIcon(":/res/kylin-video.png")).pixmap(QSize(64, 64)).scaled(64, 64, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
-    this->setAutoFillBackground(true);
+
     this->setMouseTracking(true);
 	setWindowTitle(tr("Modify shortcut"));
 
-	QVBoxLayout *vbox = new QVBoxLayout(this);
+    //TODO: 无效
+    this->setObjectName("popDialog");
+    //this->setStyleSheet("QDialog#prefrecesdialog{border: 1px solid #121212;border-radius:6px;background-color:#1f1f1f;}");
+
+    m_centerWidget->setGeometry(0,0,this->width(),this->height());
+    m_centerWidget->setAutoFillBackground(true);
+    m_centerWidget->setObjectName("centerWidget");
+
+    QVBoxLayout *vbox = new QVBoxLayout(m_centerWidget);
 	vbox->setMargin(2);
     vbox->setSpacing(10);
     vbox->setContentsMargins(5,5,5,5);

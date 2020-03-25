@@ -21,6 +21,8 @@
 #include <QDebug>
 #include <QMouseEvent>
 #include <QPoint>
+#include <QPainter>
+#include <QBitmap>
 
 #include "prefgeneral.h"
 #include "prefvideo.h"
@@ -43,17 +45,27 @@ PreferencesDialog::PreferencesDialog(QString arch_type, QString snap, QWidget * 
 	setupUi(this);
     this->setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
     this->setFixedSize(675, 425);
-    this->setStyleSheet("QDialog{border: 1px solid #121212;border-radius:1px;background-color:#1f1f1f;}");
+    this->setAutoFillBackground(true);
+    this->setAttribute(Qt::WA_TranslucentBackground);//设置窗口背景透明
+
+    //TODO: 无效
+    this->setObjectName("popDialog");
+    //this->setStyleSheet("QDialog#prefrecesdialog{border: 1px solid #121212;border-radius:6px;background-color:#1f1f1f;}");
+
     this->setWindowIcon(QIcon::fromTheme("kylin-video", QIcon(":/res/kylin-video.png")));
 //    this->setWindowIcon(QIcon::fromTheme("kylin-video", QIcon(":/res/kylin-video.png")).pixmap(QSize(64, 64)).scaled(64, 64, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
     this->setAttribute(Qt::WA_DeleteOnClose);
-    this->setAutoFillBackground(true);
-
     this->setMouseTracking(true);
     installEventFilter(this);
 
     title_widget->setAutoFillBackground(true);
-    title_widget->setStyleSheet("QWidget{border:none;background-color:#2e2e2e;}");
+    title_widget->setObjectName("leftWidget");
+    //TODO:这里如果不用setObjectName的方式，而是直接使用setStyleSheet，将影响各自窗口下的子控件的样式
+//    title_widget->setStyleSheet("QWidget{border:none;border-top-left-radius:6px;border-bottom-left-radius:6px;background-color:#2e2e2e;}");//
+
+    widget->setAutoFillBackground(true);
+    widget->setObjectName("rightWidget");
+//    widget->setStyleSheet("QWidget{border:none;border-top-right-radius:6px;border-bottom-right-radius:6px;background-color:#1f1f1f;}");//
 
     connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
     connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));

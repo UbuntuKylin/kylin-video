@@ -30,7 +30,8 @@ MaskWidget::MaskWidget(QWidget *parent) : QWidget(parent)
     this->resize(0,0);
     this->setWindowFlags(Qt::FramelessWindowHint);
     this->setAttribute(Qt::WA_StyledBackground);
-    this->setStyleSheet("QWidget{background:rgba(0,0,0,200);}");
+////    this->setStyleSheet("QWidget{background:rgba(0,0,0,200);}");
+//    this->setStyleSheet("QWidget{background:rgba(0,0,0,200); border:none; border-radius:6px;}");
     this->setAttribute(Qt::WA_DeleteOnClose);
     this->setWindowOpacity(0.7);
 

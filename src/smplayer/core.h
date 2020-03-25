@@ -93,6 +93,7 @@ public slots:
     void playOrPause(int seek = -1);
     void pause_and_frame_step();
 	void pause();
+	void setPause(bool b);
 	void frameStep();
 	void frameBackStep();
 
@@ -278,13 +279,16 @@ public slots:
 
 	void changeDeinterlace(int);
     void changeSubtitle(int track);
+        void prevSubtitle();
 	void nextSubtitle();
 //#ifdef MPV_SUPPORT
     void changeSecondarySubtitle(int track);
 //#endif
 	void changeAudio(int ID, bool allow_restart = true);
+	void prevAudio();
 	void nextAudio();
 	void changeVideo(int ID, bool allow_restart = true);
+	void prevVideo();
 	void nextVideo();
 
 	void changeTitle(int);
@@ -516,7 +520,7 @@ private:
 	bool change_volume_after_unpause;
 
 	QString initial_subtitle;
-
+        int initial_second;
 //#if DVDNAV_SUPPORT
 //	bool dvdnav_title_is_menu;
 //#endif

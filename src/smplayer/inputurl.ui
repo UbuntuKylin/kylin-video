@@ -25,98 +25,108 @@
   <property name="windowTitle">
    <string>Enter URL</string>
   </property>
-  <widget class="QPushButton" name="okBtn">
+  <widget class="QWidget" name="widget" native="true">
    <property name="geometry">
     <rect>
-     <x>297</x>
-     <y>127</y>
-     <width>91</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>OK</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="cancelBtn">
-   <property name="geometry">
-    <rect>
-     <x>397</x>
-     <y>127</y>
-     <width>91</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Cancel</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="closeBtn">
-   <property name="geometry">
-    <rect>
-     <x>464</x>
+     <x>0</x>
      <y>0</y>
-     <width>36</width>
-     <height>36</height>
+     <width>500</width>
+     <height>170</height>
     </rect>
    </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QLabel" name="title_label">
-   <property name="geometry">
-    <rect>
-     <x>154</x>
-     <y>10</y>
-     <width>191</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Enter URL</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="url_edit">
-   <property name="geometry">
-    <rect>
-     <x>68</x>
-     <y>60</y>
-     <width>421</width>
-     <height>27</height>
-    </rect>
-   </property>
-   <property name="sizePolicy">
-    <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-     <horstretch>0</horstretch>
-     <verstretch>0</verstretch>
-    </sizepolicy>
-   </property>
-   <property name="editable">
-    <bool>true</bool>
-   </property>
-   <property name="sizeAdjustPolicy">
-    <enum>QComboBox::AdjustToMinimumContentsLength</enum>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>11</x>
-     <y>57</y>
-     <width>51</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>URL:</string>
-   </property>
-   <property name="buddy">
-    <cstring>url_edit</cstring>
-   </property>
+   <widget class="QLabel" name="title_label">
+    <property name="geometry">
+     <rect>
+      <x>151</x>
+      <y>13</y>
+      <width>191</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Enter URL</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="closeBtn">
+    <property name="geometry">
+     <rect>
+      <x>458</x>
+      <y>1</y>
+      <width>36</width>
+      <height>36</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>8</x>
+      <y>60</y>
+      <width>51</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>URL:</string>
+    </property>
+    <property name="buddy">
+     <cstring>url_edit</cstring>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="url_edit">
+    <property name="geometry">
+     <rect>
+      <x>65</x>
+      <y>63</y>
+      <width>421</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="editable">
+     <bool>true</bool>
+    </property>
+    <property name="sizeAdjustPolicy">
+     <enum>QComboBox::AdjustToMinimumContentsLength</enum>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="cancelBtn">
+    <property name="geometry">
+     <rect>
+      <x>394</x>
+      <y>130</y>
+      <width>91</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Cancel</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="okBtn">
+    <property name="geometry">
+     <rect>
+      <x>294</x>
+      <y>130</y>
+      <width>91</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>OK</string>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>

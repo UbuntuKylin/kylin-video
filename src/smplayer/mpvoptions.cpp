@@ -62,10 +62,12 @@ void MPVProcess::initializeOptionVars() {
 }
 
 void MPVProcess::setMedia(const QString & media, bool is_playlist) {
+    // INFO_VIDEO_ASPECT for ubuntukylin 20.04
     arg << "--term-playing-msg="
             "MPV_VERSION=${=mpv-version:}\n"
             "INFO_VIDEO_WIDTH=${=width}\nINFO_VIDEO_HEIGHT=${=height}\n"
-            "INFO_VIDEO_ASPECT=${=video-aspect}\n"
+                      "INFO_VIDEO_ASPECT=${=video-aspect}\n" // old
+//                        "INFO_VIDEO_ASPECT=${=video-params/aspect}\n"
 //			"INFO_VIDEO_DSIZE=${=dwidth}x${=dheight}\n"
             "INFO_VIDEO_FPS=${=container-fps:${=fps}}\n"
 //			"INFO_VIDEO_BITRATE=${=video-bitrate}\n"
@@ -128,7 +130,9 @@ void MPVProcess::setFixedOptions() {
     arg << "--terminal";
     arg << "--no-msg-color";
     arg << "--input-file=/dev/stdin";
+    arg << "--msg-level=ffmpeg/demuxer=error";
 
+    //TODO
     static QStringList option_list;
     InfoReader * ir = InfoReader::obj(this->m_snap, executable());
     ir->getInfo();
@@ -216,11 +220,16 @@ void MPVProcess::enableScreenshots(const QString & dir, const QString & templ, c
 void MPVProcess::setOption(const QString & option_name, const QVariant & value) {
     if (option_name == "cache") {
         int cache = value.toInt();
-        if (cache > 31) {
-            arg << "--cache=" + value.toString();
+	if (cache > 31) {
+            if (isOptionAvailable("--demuxer-max-bytes")) {
+                int bytes = value.toString().toInt() * 1024;
+                arg << "--demuxer-max-bytes=" + QString::number(bytes);
+            } else {
+                arg << "--cache=" + value.toString();
+            }
         } else {
             arg << "--cache=no";
-        }
+	}
     }
     else
     if (option_name == "cache_auto") {
@@ -361,6 +370,7 @@ void MPVProcess::setOption(const QString & option_name, const QVariant & value) 
                 arg << "--softvol=yes";
                 arg << "--softvol-max=" + QString::number(v);
             }
+
         }
     }
     else
@@ -689,8 +699,16 @@ void MPVProcess::setVideoEqualizerOptions(int contrast, int brightness, int hue,
 }
 
 void MPVProcess::addAF(const QString & filter_name, const QVariant & value) {
+
     QString option = value.toString();
 
+    // filter_name = "equalizer"
+
+    QString lavfi_filter = lavfi(filter_name, value);
+    if (!lavfi_filter.isEmpty()) {
+        arg << "--af-add=" + lavfi_filter;
+    }
+    else
     if (filter_name == "volnorm") {
         QString s = "drc";
         if (!option.isEmpty()) s += "=" + option;
@@ -712,19 +730,104 @@ void MPVProcess::addAF(const QString & filter_name, const QVariant & value) {
     }
     else
     if (filter_name == "equalizer") {
+        //这里设置错误将导致播放无声音，且音量调整无效
+
+        // for ubuntukylin 16.04
+        /*previous_eq = option;
+        arg << "--af-add=equalizer=" + option;*/
+
+        // for ubuntukylin 20.04
+        AudioEqualizerList al = value.toList();
+        QString f = audioEqualizerFilter(al);//lavfi=[firequalizer=gain='cubic_interpolate(f)':zero_phase=on:wfunc=tukey:delay=0.027:gain_entry='entry(0,0);entry(62.5,0);entry(125,0);entry(250,0);entry(500,0);entry(1000,0);entry(2000,0);entry(4000,0);entry(8000,0);entry(16000,0)']
+        arg << "--af-add=" + f;
+        previous_eq = f;
+        previous_eq_list = al;
+    }
+    else
+    if (filter_name == "extrastereo" || filter_name == "karaoke") {
+        //Not supported anymore
+        //Ignore
+    }
+    else {
+        qDebug() << "MPVProcess::addAF 444444";
+        QString s = filter_name;
+        if (!option.isEmpty()) s += "=" + option;
+        arg << "--af-add=" + s;
+    }
+
+
+/*
+    //20.04之前的系统，在使用mpv播放时需要使用以下代码，否则播放无声音，且音量调整无效
+    QString option = value.toString();
+    qDebug() << "MPVProcess::addAF filter_name:" << filter_name << ", option:" << option;
+    // filter_name = "equalizer"
+
+    if (filter_name == "volnorm") {
+        qDebug() << "MPVProcess::addAF 0000";
+        QString s = "drc";
+        if (!option.isEmpty()) s += "=" + option;
+        arg << "--af-add=" + s;
+    }
+    else
+    if (filter_name == "channels") {
+        qDebug() << "MPVProcess::addAF 1111";
+        if (option == "2:2:0:1:0:0") arg << "--af-add=channels=2:[0-1,0-0]";
+        else
+        if (option == "2:2:1:0:1:1") arg << "--af-add=channels=2:[1-0,1-1]";
+        else
+        if (option == "2:2:0:1:1:0") arg << "--af-add=channels=2:[0-1,1-0]";
+    }
+    else
+    if (filter_name == "pan") {
+        qDebug() << "MPVProcess::addAF 2222222222222";
+        if (option == "1:0.5:0.5") {
+            arg << "--af-add=pan=1:[0.5,0.5]";
+        }
+    }
+    else
+    if (filter_name == "equalizer") {
+        qDebug() << "MPVProcess::addAF 333333333333";
         previous_eq = option;
         arg << "--af-add=equalizer=" + option;
     }
     else
     if (filter_name == "extrastereo" || filter_name == "karaoke") {
-        /* Not supported anymore */
-        /* Ignore */
+        //Not supported anymore
+        //Ignore
     }
     else {
+        qDebug() << "MPVProcess::addAF 444444";
         QString s = filter_name;
         if (!option.isEmpty()) s += "=" + option;
         arg << "--af-add=" + s;
     }
+*/
+
+
+
+	//20.04系统，在使用mpv播放时需要使用以下代码，否则播放无声音，且音量调整无效
+/*
+        QString option = value.toString();
+
+        QString lavfi_filter = lavfi(filter_name, value);
+        if (!lavfi_filter.isEmpty()) {
+                arg << "--af-add=" + lavfi_filter;
+        }
+        else
+
+        if (filter_name == "equalizer") {
+                AudioEqualizerList al = value.toList();
+                QString f = audioEqualizerFilter(al);
+                arg << "--af-add=" + f;
+                previous_eq = f;
+                previous_eq_list = al;
+        }
+        else {
+                QString s = filter_name;
+                if (!option.isEmpty()) s += "=" + option;
+                arg << "--af-add=" + s;
+        }
+*/
 }
 
 /*void MPVProcess::addAF(const QString & filter_name, const QVariant & value) {
@@ -1022,6 +1125,8 @@ void MPVProcess::enableEarwax(bool b) {
 }
 
 void MPVProcess::setAudioEqualizer(AudioEqualizerList l) {
+    //TODO: previous_eq_list
+
     QString eq_filter = audioEqualizerFilter(l);
     if (previous_eq == eq_filter) return;
 
@@ -1217,6 +1322,12 @@ void MPVProcess::setSubStyles(const AssStyles & styles, const QString &) {
     SUBOPTION(sub_align_x, "--sub-align-x", "--sub-text-align-x");
     SUBOPTION(sub_align_y, "--sub-align-y", "--sub-text-align-y");
 
+        QString sub_margin_y = "";
+        if (isOptionAvailable("--sub-margin-y")) sub_margin_y = "--sub-margin-y";
+
+        QString sub_margin_x = "";
+        if (isOptionAvailable("--sub-margin-x")) sub_margin_x = "--sub-margin-x";
+
     if (!sub_font.isEmpty()) {
         QString font = styles.fontname;
         //arg << "--sub-text-font=" + font.replace(" ", "");
@@ -1276,6 +1387,18 @@ void MPVProcess::setSubStyles(const AssStyles & styles, const QString &) {
     if (!sub_align_y.isEmpty() && !valign.isEmpty()) {
         arg << sub_align_y + "=" + valign;
     }
+
+        if (!sub_margin_y.isEmpty()) {
+                int marginv = styles.marginv;
+                if (marginv < 0) marginv = 0;
+                arg << sub_margin_y + "=" + QString::number(marginv);
+        }
+
+        if (!sub_margin_x.isEmpty()) {
+                int marginx = styles.marginl;
+                if (marginx < 0) marginx = 0;
+                arg << sub_margin_x + "=" + QString::number(marginx);
+        }
 }
 
 void MPVProcess::setChannelsFile(const QString & filename) {

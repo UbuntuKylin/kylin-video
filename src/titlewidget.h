@@ -100,7 +100,7 @@ public slots:
 
 protected:
     bool eventFilter(QObject * obj, QEvent * event);
-    void paintEvent(QPaintEvent *event);
+//    void paintEvent(QPaintEvent *event);
 
 private slots:
 //    void checkUnderMouse();

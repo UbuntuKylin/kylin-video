@@ -38,6 +38,7 @@ PrefVideo::PrefVideo(QString arch_type, QString snap, QWidget * parent, Qt::Wind
     InfoReader * i = InfoReader::obj(this->m_snap);//20181212
 	i->getInfo();
 	vo_list = i->voList();
+
 //	alsa_devices = DeviceInfo::alsaDevices();
 	xv_adaptors = DeviceInfo::xvAdaptors();
     connect(vo_combo, SIGNAL(currentIndexChanged(int)), this, SLOT(vo_combo_changed(int)));
@@ -132,7 +133,7 @@ void PrefVideo::updateDriverCombos() {
             vo_combo->addItem("x11 (" + tr("slow") + ")", vo);
         }
         //当播放引擎为mplayer时如果选择sdl，视频显示尺寸可能异常，当播放引擎为mpv时如果选择sdl，视频窗口将分离。
-        else if (vo == "xv" || vo == "gl_nosw" || vo == "gpu"  || vo == "vdpau") {//用麒麟的内核，在x86平台也支持vdpau
+        else if (vo == "xv" || vo == "gl_nosw" || vo == "gpu" || vo == "vdpau" || vo == "vaapi") {//用麒麟的内核，在x86平台也支持vdpau
             vo_combo->addItem(vo, vo);
         }
         /*else if (vo == "xv" || vo == "gl_nosw" || vo == "gpu") {

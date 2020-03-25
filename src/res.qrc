@@ -119,6 +119,8 @@
         <file>res/osd.png</file>
         <file>res/poweroff.png</file>
         <file>res/preview.png</file>
+        <file>res/logo.svg</file>
+        <file>res/kylin-video.svg</file>
     </qresource>
     <qresource prefix="/qss">
         <file>res/style.qss</file>

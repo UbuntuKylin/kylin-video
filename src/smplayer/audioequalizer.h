@@ -20,7 +20,7 @@
 #ifndef AUDIOEQUALIZER_H
 #define AUDIOEQUALIZER_H
 
-#include <QWidget>
+#include <QDialog>
 #include <QHideEvent>
 #include <QShowEvent>
 #include "audioequalizerlist.h"
@@ -35,7 +35,7 @@ class QComboBox;
 class QPushButton;
 class EqSlider;
 
-class AudioEqualizer : public QWidget
+class AudioEqualizer : public QDialog
 {
     Q_OBJECT
 
@@ -79,6 +79,7 @@ protected:
     int findPreset(AudioEqualizerList l);
 
 protected:
+    QWidget *m_centerWidget;
     QLabel * presets_label;
     QComboBox * presets_combo;
     QPushButton * apply_button;

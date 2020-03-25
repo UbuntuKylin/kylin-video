@@ -31,16 +31,27 @@
 using namespace Global;
 
 AudioEqualizer::AudioEqualizer( QWidget* parent, Qt::WindowFlags f)
-    : QWidget(parent, f)
+    : QDialog(parent, f)
     , m_dragState(NOT_DRAGGING)
     , m_startDrag(QPoint(0,0))
+    , m_centerWidget(new QWidget)
 {
-    this->setWindowFlags(this->windowFlags() | Qt::FramelessWindowHint);
-    this->setStyleSheet("QDialog{border: 1px solid #121212;border-radius:1px;background-color: #ffffff;}");
-    this->setWindowIcon(QIcon::fromTheme("kylin-video", QIcon(":/res/kylin-video.png")));
+    this->setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
     this->setAutoFillBackground(true);
+    this->setAttribute(Qt::WA_TranslucentBackground);//设置窗口背景透明
+//    this->setStyleSheet("QDialog{border: 1px solid #121212;border-radius:1px;background-color: #ffffff;}");
+    this->setWindowIcon(QIcon::fromTheme("kylin-video", QIcon(":/res/kylin-video.png")));
+
     this->setMouseTracking(true);
     installEventFilter(this);
+
+    //TODO: 无效
+    this->setObjectName("popDialog");
+    //this->setStyleSheet("QDialog#prefrecesdialog{border: 1px solid #121212;border-radius:6px;background-color:#1f1f1f;}");
+
+    m_centerWidget->setAutoFillBackground(true);
+    m_centerWidget->setObjectName("centerWidget");
+    m_centerWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     createPresets();
 
@@ -82,9 +93,14 @@ AudioEqualizer::AudioEqualizer( QWidget* parent, Qt::WindowFlags f)
     button_layout->addWidget(reset_button);
     button_layout->addWidget(close_button);
 
-    QBoxLayout *layout = new QVBoxLayout(this); //, 4, 2);
+    QBoxLayout *layout = new QVBoxLayout(m_centerWidget); //, 4, 2);
     layout->addLayout(bl);
     layout->addLayout(button_layout);
+
+
+    QBoxLayout *mainlayout = new QVBoxLayout(this);
+    mainlayout->setContentsMargins(0,0,0,0);
+    mainlayout->addWidget(m_centerWidget);
 
     retranslateStrings();
 

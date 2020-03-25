@@ -64,6 +64,8 @@ BottomWidget::BottomWidget(QWidget *parent)
     this->setFocusPolicy(Qt::StrongFocus);
     this->setAttribute(Qt::WA_TranslucentBackground, true);//窗体标题栏不透明，背景透明
     this->setWindowFlags(windowFlags() | Qt::SubWindow | Qt::WindowStaysOnTopHint);
+//    this->setStyleSheet("QWidget{border: none; background-color: transparent; border-bottom-left-radius: 6px; border-bottom-right-radius: 6px;}");
+
     this->installEventFilter(this);
 
     m_controlWidget = new QWidget(this);

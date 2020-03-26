@@ -503,7 +503,10 @@ void MainWindow::createBottomToolBar()
             }
         });
     //connect(m_playlistWidget, SIGNAL(update_playlist_count(int)), m_bottomToolbar, SLOT(updateLabelCountNumber(int)));
-    connect(m_bottomToolbar, SIGNAL(requestSavePreviewImage(int)), this, SLOT(onSavePreviewImage(int)));
+    connect(m_bottomToolbar, SIGNAL(requestSavePreviewImage(int, QPoint)), this, SLOT(onSavePreviewImage(int, QPoint)));
+    connect(m_bottomToolbar, &BottomWidget::requestHideTip, [=] () {
+
+    });
 
     m_resizeCornerBtn = new QPushButton(m_bottomToolbar);
     m_resizeCornerBtn->setFocusPolicy(Qt::NoFocus);
@@ -1632,12 +1635,19 @@ void MainWindow::togglePlayAction(Core::State state)
         m_bottomToolbar->onMusicPause();
         m_playMaskWidget->hide();
     }
-    else {
+    else if (state == Core::Paused) {
         m_bottomToolbar->onMusicPause();
         if (m_mplayerWindow) {
             m_mplayerWindow->hideLogo();
         }
         m_playMaskWidget->show();
+    }
+    else {//Core::Buffering  缓冲的时候不改变m_playMaskWidget的显示隐藏状态
+        // do nothing
+        /*m_bottomToolbar->onMusicPause();
+        if (m_mplayerWindow) {
+            m_mplayerWindow->hideLogo();
+        }*/
     }
 }
 
@@ -2334,7 +2344,7 @@ void MainWindow::setInitialSubtitle(const QString & subtitle_file)
     m_core->setInitialSubtitle(subtitle_file);
 }
 
-void MainWindow::onSavePreviewImage(int time)
+void MainWindow::onSavePreviewImage(int time, QPoint pos)
 {
 //    QString state = m_core->stateToString().toUtf8().data();
 //    if (state == "Playing" || state == "Paused") {
@@ -2345,7 +2355,6 @@ void MainWindow::onSavePreviewImage(int time)
             if (m_videoPreview == 0) {
                 m_videoPreview = new VideoPreview(pref->mplayer_bin, 0);
             }
-
             if (!m_core->mdat.m_filename.isEmpty()) {//20181201  m_filename
                 m_videoPreview->setVideoFile(m_core->mdat.m_filename);
 
@@ -3098,14 +3107,12 @@ void MainWindow::showErrorFromMplayer(QProcess::ProcessError e)
 
 void MainWindow::showTipWidget(const QString text)
 {
-    if (this->m_tipWidget->isVisible())
-        this->m_tipWidget->hide();
+    //注意：这里不能将m_tipWidget先hide，然后再show，这样会导致按快捷键时视频刷>新会闪烁以下，如按快进键
+    this->m_tipWidget->setText(text);
+    this->m_tipWidget->show();
     if (m_tipTimer->isActive())
         m_tipTimer->stop();
     m_tipTimer->start();
-//    this->m_tipWidget->move(this->pos().x() + 30, this->pos().y() + TOP_TOOLBAR_HEIGHT);
-    this->m_tipWidget->setText(text);
-    this->m_tipWidget->show();
 }
 
 void MainWindow::onShowOrHideEscWidget(bool b)

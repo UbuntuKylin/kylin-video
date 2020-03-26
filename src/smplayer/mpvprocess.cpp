@@ -114,9 +114,11 @@ bool MPVProcess::start() {
 
 void MPVProcess::initializeRX() {
 //#ifdef CUSTOM_STATUS
-    rx_av.setPattern("^STATUS: ([0-9\\.-]+) / ([0-9\\.-]+) P: (yes|no) B: (yes|no) I: (yes|no) VB: ([0-9\\.-]+) AB: ([0-9\\.-]+)");
+    rx_av.setPattern("STATUS: ([0-9\\.-]+) / ([0-9\\.-]+) P: (yes|no) B: (yes|no) I: (yes|no) VB: ([0-9\\.-]+) AB: ([0-9\\.-]+)");// new for ubuntukylin 20.04 and 16.04
+    //rx_av.setPattern("^STATUS: ([0-9\\.-]+) / ([0-9\\.-]+) P: (yes|no) B: (yes|no) I: (yes|no) VB: ([0-9\\.-]+) AB: ([0-9\\.-]+)"); //old, 在ubuntukylin 16.04上正常，但那是在ubuntukylin 20.04上无法获取视频的播放状态，即parseLine中解析会得不到想要的数据
 //#else
-//    rx_av.setPattern("^(\\((.*)\\) |)(AV|V|A): ([0-9]+):([0-9]+):([0-9]+) / ([0-9]+):([0-9]+):([0-9]+)"); //AV: 00:02:15 / 00:09:56
+//    rx_av.setPattern("(\\((.*)\\) |)(AV|V|A): ([0-9]+):([0-9]+):([0-9]+) / ([0-9]+):([0-9]+):([0-9]+)"); //AV: 00:02:15 / 00:09:56
+//      //rx_av.setPattern("^(\\((.*)\\) |)(AV|V|A): ([0-9]+):([0-9]+):([0-9]+) / ([0-9]+):([0-9]+):([0-9]+)"); //AV: 00:02:15 / 00:09:56 //old
 //#endif
 
     rx_dsize.setPattern("^INFO_VIDEO_DSIZE=(\\d+)x(\\d+)");
@@ -134,24 +136,18 @@ void MPVProcess::initializeRX() {
     rx_audiocodec.setPattern("^INFO_AUDIO_CODEC=(.*)\\s");
     rx_audiocodec.setMinimal(true);
 
+//#if !NOTIFY_VIDEO_CHANGES
+//    rx_video.setPattern("^.* Video\\s+--vid=(\\d+)([ \\(\\)\\*]+)('(.*)'|)");
+//#endif
     rx_chaptername.setPattern("^INFO_CHAPTER_(\\d+)_NAME=(.*)");
     rx_trackinfo.setPattern("^INFO_TRACK_(\\d+): (audio|video|sub) (\\d+) '(.*)' '(.*)' (yes|no)");
 
     rx_forbidden.setPattern("HTTP error 403 Forbidden");
 
-//#if DVDNAV_SUPPORT
-//    rx_switch_title.setPattern("^\\[dvdnav\\] DVDNAV, switched to title: (\\d+)");
-//#endif
-
     rx_playing.setPattern("^Playing:.*|^\\[ytdl_hook\\].*");
     rx_generic.setPattern("^([A-Z_]+)=(.*)");
     rx_stream_title.setPattern("icy-title: (.*)");
     rx_debug.setPattern("^(INFO|METADATA)_.*=\\$.*");
-
-//    #if 0
-//    static QRegExp rx_subs2("^Sub:( >|) \\((\\d+)\\) '(.*)'");
-//    static QRegExp rx_videoinfo("^\\[vd\\] VIDEO: .* (\\d+)x(\\d+) .* ([0-9.]+) fps"); // [vd] VIDEO:  624x352  25.000 fps  1018.5 kbps (127.3 kB/s)
-//    #endif
 }
 
 void MPVProcess::parseLine(QByteArray ba) {

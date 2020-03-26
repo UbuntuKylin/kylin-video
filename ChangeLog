@@ -1,3 +1,15 @@
+kylin-video (2.1.0-1) unstable; urgency=medium
+
+  * Fix the bug can't be previewed.
+  * Enable hardware acceleration on x86 platform(vdpau).
+  * Fix the bug that video flickering when using the shortcut key to control video (example: rewind and forward).
+  * Fix the bug that some UI controls will display in the process of video buffering.
+  * Fix the bug that can't get the playback status when using MPV.
+  * Fix the bug that can't get the list of video and audio drivers supported by MPV.
+  * Fix no sound when playing with MPV.
+
+ -- lixang <lixiang@kylinos.cn>  Wed, 25 Mar 2020 15:32:12 +0800
+
 kylin-video (2.0.1-4) unstable; urgency=medium
 
   * Support Key_Space for playback and pause control.

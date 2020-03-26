@@ -505,7 +505,6 @@ void MplayerProcess::enableVolnorm(bool b, const QString & option) {
 //	writeToStdin("af_cmdline equalizer " + values);
 //}
 void MplayerProcess::setAudioEqualizer(AudioEqualizerList l) {
-    qDebug() << "equalizerListToString start 222";
     QString values = AudioEqualizerHelper::equalizerListToString(l);
     writeToStdin("af_cmdline equalizer " + values);
 }
@@ -535,7 +534,6 @@ void MplayerProcess::clearABMarkers() {
 }
 
 void MplayerProcess::takeScreenshot(ScreenshotType t, bool /*include_subtitles*/) {
-    qDebug() << "MplayerProcess::takeScreenshot";
 	if (t == Single) {
 		writeToStdin(pausing_prefix + " screenshot 0");
 	} else {

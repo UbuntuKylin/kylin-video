@@ -77,7 +77,8 @@ BottomWidget::BottomWidget(QWidget *parent)
     connect(m_timeProgress, SIGNAL(delayedDraggingPos(int)), this, SIGNAL(delayedDraggingPos(int)));
     connect(m_timeProgress, SIGNAL(wheelUp()), this, SIGNAL(wheelUp()));
     connect(m_timeProgress, SIGNAL(wheelDown()), this, SIGNAL(wheelDown()));
-    connect(m_timeProgress, SIGNAL(requestSavePreviewImage(int)), this, SIGNAL(requestSavePreviewImage(int)));
+    connect(m_timeProgress, SIGNAL(requestHideTip()), this, SIGNAL(requestHideTip()));
+    connect(m_timeProgress, SIGNAL(requestSavePreviewImage(int, QPoint)), this, SIGNAL(requestSavePreviewImage(int, QPoint)));
     m_timeProgress->setObjectName("processProgress");
     m_timeProgress->setProperty("status", "");
     connect(m_timeProgress, SIGNAL(active_status(bool)), this, SLOT(onProgressActiveStatus(bool)));

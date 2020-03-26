@@ -38,6 +38,7 @@ PrefVideo::PrefVideo(QString arch_type, QString snap, QWidget * parent, Qt::Wind
     InfoReader * i = InfoReader::obj(this->m_snap);//20181212
 	i->getInfo();
 	vo_list = i->voList();
+
 //	alsa_devices = DeviceInfo::alsaDevices();
 	xv_adaptors = DeviceInfo::xvAdaptors();
     connect(vo_combo, SIGNAL(currentIndexChanged(int)), this, SLOT(vo_combo_changed(int)));
@@ -119,6 +120,8 @@ void PrefVideo::update_driver_combobox()
 
 
 //硬解： mpv --vo=gpu --hwdec=rkmpp-copy --gpu-context=x11egl xxx.avi
+//mpv --vo=vdpau --hwdec=vdpau xxx.avi
+//mpv --vo help
 void PrefVideo::updateDriverCombos() {
 	QString current_vo = VO();
 	vo_combo->clear();
@@ -130,14 +133,17 @@ void PrefVideo::updateDriverCombos() {
             vo_combo->addItem("x11 (" + tr("slow") + ")", vo);
         }
         //当播放引擎为mplayer时如果选择sdl，视频显示尺寸可能异常，当播放引擎为mpv时如果选择sdl，视频窗口将分离。
-        else if (vo == "xv" || vo == "gl_nosw" || vo == "gpu" /* || vo == "sdl"*/) {
+        else if (vo == "xv" || vo == "gl_nosw" || vo == "gpu" || vo == "vdpau" || vo == "vaapi") {//用麒麟的内核，在x86平台也支持vdpau
+            vo_combo->addItem(vo, vo);
+        }
+        /*else if (vo == "xv" || vo == "gl_nosw" || vo == "gpu") {
             vo_combo->addItem(vo, vo);
         }
         else if (vo == "vdpau") {//kobe for arm 硬件解码基于飞腾上的只能基于vdpau接口来实现
             if (arch == "aarch64") {//kobe 20180612
                 vo_combo->addItem(vo, vo);
             }
-        }
+        }*/
 
         /*else
         if (vo == "gl") {//kobe:此类驱动在arm64上会导致机器卡死 Bug:3152

@@ -31,11 +31,15 @@ PrefPerformance::PrefPerformance(QWidget * parent, Qt::WindowFlags f)
 	setupUi(this);
     hwdec_combo->addItem(tr("None"), "no");
 	hwdec_combo->addItem(tr("Auto"), "auto");
+	hwdec_combo->addItem("auto-copy", "auto-copy");
     hwdec_combo->addItem("vdpau", "vdpau");
+        hwdec_combo->addItem("vdpau-copy", "vdpau-copy");
 	hwdec_combo->addItem("vaapi", "vaapi");
 	hwdec_combo->addItem("vaapi-copy", "vaapi-copy");
 	//hwdec_combo->addItem("rkmpp-copy", "rkmpp-copy");
-
+	hwdec_combo->addItem("cuda", "cuda");
+        hwdec_combo->addItem("cuda-copy", "cuda-copy");
+        hwdec_combo->addItem("crystalhd", "crystalhd");
 	retranslateStrings();
 }
 

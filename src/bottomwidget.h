@@ -77,7 +77,8 @@ signals:
     void mouseMovedDiff(QPoint);
 //    void requestShowOrHideEscWidget(bool b);
     void resize_bottom_widget_height(bool b);
-    void requestSavePreviewImage(int time);
+    void requestSavePreviewImage(int time, QPoint pos);
+    void requestHideTip();
     void mouseEnter();
     void mouseLeave();
     void requestTemporaryShow();

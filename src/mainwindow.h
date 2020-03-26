@@ -153,7 +153,7 @@ public slots:
     void openURL();
     void loadSub();
 	void setInitialSubtitle(const QString & subtitle_file);
-    void onSavePreviewImage(int time);
+    void onSavePreviewImage(int time, QPoint pos);
 //    void showShortcuts();
     void onMeidaFilesAdded(const VideoPtrList medialist, bool isFileInPlaylist);
     void setBackgroudPixmap(QString pixmapDir);

@@ -125,7 +125,7 @@ void PrefVideo::update_driver_combobox()
 void PrefVideo::updateDriverCombos() {
 	QString current_vo = VO();
 	vo_combo->clear();
-    vo_combo->addItem(tr("Default"), "");//vo_combo->addItem(tr("Default"), "player_default");
+    vo_combo->addItem(tr("Default"), "player_default");//vo_combo->addItem(tr("Default"), "");
 	QString vo;
 	for ( int n = 0; n < vo_list.count(); n++ ) {
 		vo = vo_list[n].name();
@@ -191,7 +191,8 @@ void PrefVideo::setVO( QString vo_driver ) {
 		vo_combo->setCurrentIndex(idx);
 	} else {
         //kobe
-        idx = vo_combo->findData("xv");
+        idx = vo_combo->findData("player_default");
+        //idx = vo_combo->findData("xv");
         vo_combo->setCurrentIndex(idx);
 //		vo_combo->setCurrentIndex(vo_combo->findData("user_defined"));
 //		vo_user_defined_edit->setText(vo_driver);

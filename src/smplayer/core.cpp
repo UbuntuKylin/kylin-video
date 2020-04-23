@@ -1482,38 +1482,21 @@ void Core::startMplayer( QString file, double seek ) {
 
     proc->setOption("sub-fuzziness", /*1*/pref->subfuzziness);
 
-    if (!pref->vo.isEmpty()) {
+    /*if (!pref->vo.isEmpty()) {
         QString vo = pref->vo;
         if (!vo.endsWith(",")) vo += ",";
         proc->setOption("vo", vo);
-    }
-//    #ifdef Q_OS_WIN
-//    else {
-//            if ((proc->isMPlayer() && QSysInfo::WindowsVersion >= QSysInfo::WV_VISTA) || proc->isMPV()) {
-//                    proc->setOption("vo", "direct3d,");
-//            }
-//    }
-//    #endif
-
-	// From mplayer SVN r27667 the number of chapters can be obtained from ID_CHAPTERS
-    /*mset.current_chapter_id = 0; // Reset chapters
-	// TODO: I think the current_chapter_id thing has to be deleted
-
-	if (pref->vo != "player_default") {
-		if (!pref->vo.isEmpty()) {
-			proc->setOption("vo", pref->vo );
-		} else {
-//			#ifdef Q_OS_WIN
-//			if (QSysInfo::WindowsVersion >= QSysInfo::WV_VISTA) {
-//				proc->setOption("vo", "direct3d,");
-//			} else {
-//				proc->setOption("vo", "directx,");
-//			}
-//			#else
-			proc->setOption("vo", "xv,");
-//			#endif
-		}
     }*/
+    if (pref->vo != "player_default") {
+        if (!pref->vo.isEmpty()) {
+            QString vo = pref->vo;
+            if (!vo.endsWith(",")) vo += ",";
+            proc->setOption("vo", vo);
+        }
+        else {
+            proc->setOption("vo", "xv,");
+        }
+    }
 
 //	if (pref->ao != "player_default") {
 //		if (!pref->ao.isEmpty()) {

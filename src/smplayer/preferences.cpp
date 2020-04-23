@@ -949,6 +949,9 @@ void Preferences::load() {
         mplayer_bin = "/usr/bin/mpv";//mplayer_bin = QString("%1/mpv").arg(Paths::appPath());
     }
 	vo = set->value("driver/vo", vo).toString();
+    if (vo.isNull() || vo.isEmpty()) {
+        vo = "player_default";
+    }
 	ao = set->value("driver/audio_output", ao).toString();
 	use_screenshot = set->value("use_screenshot", use_screenshot).toBool();
 	screenshot_template = set->value("screenshot_template", screenshot_template).toString();

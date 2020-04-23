@@ -1228,11 +1228,13 @@ void MainWindow::createOthersActionsAndMenus()
 
 void MainWindow::createTrayActions()
 {
-    m_mainTray = new QSystemTrayIcon(Images::icon("logo", 22), this);
+    //m_mainTray = new QSystemTrayIcon(Images::icon("logo", 22), this);
+    m_mainTray = new QSystemTrayIcon(this);
+    m_mainTray->setIcon(QIcon::fromTheme("kylin-video"));
     m_mainTray->setToolTip(tr("Kylin Video"));
     m_mainTray->show();
     connect(m_mainTray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(trayIconActivated(QSystemTrayIcon::ActivationReason)));
-    m_mainTray->setIcon(Images::icon("logo", 22));
+    //m_mainTray->setIcon(Images::icon("logo", 22));
     tray_menu = new QMenu(this);
 
     action_show = new MyAction(this, "open_window");

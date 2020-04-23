@@ -4,6 +4,8 @@ kylin-video (2.1.0-1) unstable; urgency=medium
   * Get the list of video and audio drivers supported by MPV normally.
   * Fixed the bug of no sound when playing with MPV.
   * Add border radius for UI.
+  * Fix vo exception when the default parameter is set.
+  * Fix tray icon size.
 
  -- lixang <lixiang@kylinos.cn>  Wed, 25 Mar 2020 15:32:12 +0800
 

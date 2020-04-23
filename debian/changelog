@@ -1,4 +1,4 @@
-kylin-video (2.1.0-1) unstable; urgency=medium
+kylin-video (2.1.0-2) unstable; urgency=medium
 
   * New upstream bugfix release:
     - Fix the bug can't be previewed.
@@ -11,6 +11,8 @@ kylin-video (2.1.0-1) unstable; urgency=medium
     - Fix the bug that can't get the list of video and audio drivers
       supported by MPV.
     - Fix no sound when playing with MPV.
+    - Fix vo exception when the default parameter is set.
+    - Fix tray icon size.
 
  -- handsome_feng <jianfengli@ubuntukylin.com>  Thu, 26 Mar 2020 21:43:31 +0800
 

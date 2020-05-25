@@ -1320,6 +1320,7 @@ void Playlist::addDirectory(QString dir)
 void Playlist::onPlayListItemDeleteBtnClicked(const QStringList &filepathlist)
 {
     if (!filepathlist.isEmpty()) {
+        QString playingFile = this->m_playlistView->getPlayingFile();
 //    if (!filename.isEmpty()) {
 //        MessageDialog msgDialog(0, tr("Confirm remove"),
 //                                tr("You're about to remove the file '%1' from the playlist.").arg(filename) + "<br>"+
@@ -1330,8 +1331,9 @@ void Playlist::onPlayListItemDeleteBtnClicked(const QStringList &filepathlist)
         if (msgDialog.exec() != -1) {
             if (msgDialog.standardButton(msgDialog.clickedButton()) == QMessageBox::Yes) {
                 if (set) {
-                    if (filepathlist.contains(this->m_playlistView->getPlayingFile())) {
+                    if (!playingFile.isEmpty() && filepathlist.contains(playingFile)) {
                         this->setPlaying("", 0);
+                        m_core->stop();//Fixed bug: #4915  将播放列表中正在播放的视频移除后，视频仍在播放
                     }
 
                     // Step 1: update pref->m_videoMap
@@ -1340,6 +1342,26 @@ void Playlist::onPlayListItemDeleteBtnClicked(const QStringList &filepathlist)
                             if (videoPtr->m_localpath == filepath) {
                                 pref->m_videoMap.remove(filepath);
                                 break;
+                            }
+                        }
+                    }
+
+                    //解决删除一个列表文件后，列表刷新后被选中的索引不正确的bug
+                    if (playingFile.isEmpty()) {
+                        this->m_currentItemIndex = 0;
+                    }
+                    else {
+                        if (filepathlist.contains(playingFile)) {
+                            this->m_currentItemIndex = 0;
+                        }
+                        else {
+                            int index = 0;
+                            QMap<QString, VideoPtr>::iterator i;
+                            for (i = pref->m_videoMap.begin(); i != pref->m_videoMap.end(); ++i) {
+                                if (playingFile == i.value()->localpath()) {
+                                    this->m_currentItemIndex = index;
+                                }
+                                index ++;
                             }
                         }
                     }
@@ -1372,7 +1394,16 @@ void Playlist::onPlayListItemDeleteBtnClicked(const QStringList &filepathlist)
                     if (!this->rowIsEmpty()) {//if (m_playlistView->getModelRowCount() > 0) {
                         noVideoFrame->hide();
                         this->m_playlistView->show();
-                        this->playNext();//Fixed bug: #4915
+                        QString state = m_core->stateToString().toUtf8().data();
+                        if (state == "Playing" || state == "Paused") {
+                            //当视频正在播放或者暂停时，继续保持该视频对应的播放列表项处于被选中的状态
+                            if (playingFile.isEmpty()) {
+                                this->setPlaying("", 0);//this->playNext();
+                            }
+                            else {
+                                this->setPlaying(playingFile, this->m_currentItemIndex);
+                            }
+                        }
                         emit this->update_playlist_count(pref->m_videoMap.count());
                     }
                     else {

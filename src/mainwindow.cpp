@@ -1230,7 +1230,11 @@ void MainWindow::createTrayActions()
 {
     //m_mainTray = new QSystemTrayIcon(Images::icon("logo", 22), this);
     m_mainTray = new QSystemTrayIcon(this);
-    m_mainTray->setIcon(QIcon::fromTheme("kylin-video"));
+    QIcon icon(QIcon::fromTheme("kylin-video"));
+    if (icon.isNull()) {
+        icon = QIcon(":/res/kylin-video.png");
+    }
+    m_mainTray->setIcon(icon);
     m_mainTray->setToolTip(tr("Kylin Video"));
     m_mainTray->show();
     connect(m_mainTray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(trayIconActivated(QSystemTrayIcon::ActivationReason)));

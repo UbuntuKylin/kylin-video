@@ -164,27 +164,27 @@ void TitleWidget::initRightContent()
     m_rLayout->setSpacing(0);
     m_layout->addWidget(w, 1, Qt::AlignRight);
 
-    menu_button = new SystemButton();
+    menu_button = new SystemButton(true);
     menu_button->setMouseTracking(true);
-    menu_button->loadPixmap(":/res/option.png");
+    menu_button->loadPixmap(":/res/view-grid-symbolic.png", 36, 36, 10);//menu_button->loadPixmap(":/res/option.png");
     menu_button->setObjectName("menu_button");
-    min_button = new SystemButton();
-    min_button->loadPixmap(":/res/min.png");
+    min_button = new SystemButton(true);
+    min_button->loadPixmap(":/res/window-minimize-symbolic.png", 36, 36, 10);//min_button->loadPixmap(":/res/min.png");
     min_button->setObjectName("min_button");
-    max_button = new SystemButton();
-    max_button->loadPixmap(":/res/max.png");
+    max_button = new SystemButton(true);
+    max_button->loadPixmap(":/res/window-maximize-symbolic.png", 36, 36, 10);//max_button->loadPixmap(":/res/max.png");
     max_button->setObjectName("max_button");
-    close_button = new SystemButton();
-    close_button->loadPixmap(":/res/close.png");
+    close_button = new SystemButton(true);
+    close_button->loadPixmap(":/res/window-close-symbolic.png", 36, 36, 10);//close_button->loadPixmap(":/res/close.png");
     close_button->setObjectName("close_button");
-    menu_button->setFixedSize(36,36);
-    min_button->setFixedSize(36,36);
-    max_button->setFixedSize(36,36);
-    close_button->setFixedSize(36,36);
-    min_button->setObjectName("min_button");
-    close_button->setObjectName("close_button");
-    menu_button->setObjectName("menu_button");
-    max_button->setObjectName("max_button");
+//    menu_button->setFixedSize(36,36);
+//    min_button->setFixedSize(36,36);
+//    max_button->setFixedSize(36,36);
+//    close_button->setFixedSize(36,36);
+//    min_button->setObjectName("min_button");
+//    close_button->setObjectName("close_button");
+//    menu_button->setObjectName("menu_button");
+//    max_button->setObjectName("max_button");
 
     min_button->setFocusPolicy(Qt::NoFocus);
     close_button->setFocusPolicy(Qt::NoFocus);
@@ -200,7 +200,7 @@ void TitleWidget::initRightContent()
     connect(close_button, SIGNAL(clicked()), this, SIGNAL(requestCloseWindow()));
     connect(max_button, SIGNAL(clicked(bool)), this, SIGNAL(requestMaxWindow(bool)));
     connect(min_button, &SystemButton::clicked, this, [=] () {
-        max_button->loadPixmap(":/res/max.png");
+        max_button->loadPixmap(":/res/window-maximize-symbolic.png", 36, 36, 10);//max_button->loadPixmap(":/res/max.png");
         emit this->requestMinWindow();
     });
 
@@ -209,10 +209,10 @@ void TitleWidget::initRightContent()
 void TitleWidget::updateMaxButtonStatus(bool is_maxed)
 {
     if (is_maxed) {
-        max_button->loadPixmap(":/res/unmax.png");
+        max_button->loadPixmap(":/res/window-restore-symbolic.png", 36, 36, 10);//max_button->loadPixmap(":/res/unmax.png");
     }
     else {
-        max_button->loadPixmap(":/res/max.png");
+        max_button->loadPixmap(":/res/window-maximize-symbolic.png", 36, 36, 10);//max_button->loadPixmap(":/res/max.png");
     }
 }
 

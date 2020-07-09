@@ -29,7 +29,9 @@ class SystemButton : public QPushButton
     Q_OBJECT
 public:
     explicit SystemButton(QWidget *parent = 0);
-    void loadPixmap(QString pic_name);
+    explicit SystemButton(bool singleIcon, QWidget *parent = 0);
+
+    void loadPixmap(QString pic_name, int w, int h, int alignOff = 0);
 
 protected:
     void enterEvent(QEvent *);
@@ -45,6 +47,8 @@ private:
     bool mouse_press; //按钮左键是否按下
     int btn_width;
     int btn_height;
+    bool m_singleIcon = false;
+    int m_alignOff;
 };
 
 #endif // SYSTEMBUTTON_H

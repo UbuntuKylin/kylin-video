@@ -2,6 +2,7 @@ kylin-video (2.1.0-2) unstable; urgency=medium
 
   * Solve the problem of video switching when deleting non playing files in playlist(Closes: #3576).
   * Support to set the volume when clicking the volume slider.
+  * Update toolbar's icon.
 
  -- lixiang <lixiang@kylinos.cn>  Thu, 09 Jul 2020 11:11:45 +0800
 

@@ -121,6 +121,14 @@
         <file>res/preview.png</file>
         <file>res/logo.svg</file>
         <file>res/kylin-video.svg</file>
+        <file>res/playing.png</file>
+        <file>res/prefs_hover_press.png</file>
+        <file>res/style.qss</file>
+        <file>res/view-grid-symbolic.png</file>
+        <file>res/window-close-symbolic.png</file>
+        <file>res/window-maximize-symbolic.png</file>
+        <file>res/window-minimize-symbolic.png</file>
+        <file>res/window-restore-symbolic.png</file>
     </qresource>
     <qresource prefix="/qss">
         <file>res/style.qss</file>

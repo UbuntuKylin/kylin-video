@@ -22,19 +22,37 @@
 
 SystemButton::SystemButton(QWidget *parent) :
     QPushButton(parent)
+    , m_alignOff(0)
 {
     this->setMouseTracking(false);
     status = NORMAL;
     mouse_press = false;
 }
 
-
-void SystemButton::loadPixmap(QString pic_name)
+SystemButton::SystemButton(bool singleIcon, QWidget *parent)
+    :SystemButton(parent)
 {
+    this->m_singleIcon = singleIcon;
+}
+
+void SystemButton::loadPixmap(QString pic_name, int w, int h, int alignOff)
+{
+    m_alignOff = alignOff;
     pixmap = QPixmap(pic_name);
-    btn_width = pixmap.width()/3;
+    if (this->m_singleIcon) {
+        btn_width = pixmap.width();
+    }
+    else {
+        btn_width = pixmap.width()/3;
+    }
     btn_height = pixmap.height();
-    this->setFixedSize(btn_width, btn_height);
+
+    if (m_alignOff == 0) {
+        this->setFixedSize(btn_width, btn_height);
+    }
+    else {
+        this->setFixedSize(w, h);
+    }
 }
 
 void SystemButton::enterEvent(QEvent *)
@@ -73,7 +91,22 @@ void SystemButton::leaveEvent(QEvent *)
 void SystemButton::paintEvent(QPaintEvent *)
 {
     QPainter painter;
+
     painter.begin(this);
-    painter.drawPixmap(this->rect(), pixmap.copy(btn_width * status, 0, btn_width, btn_height));
+    if (this->m_singleIcon) {
+        QRect r(m_alignOff, m_alignOff, this->rect().width() - m_alignOff*2, this->rect().height() - m_alignOff*2);
+        painter.drawPixmap(r, pixmap.copy(0, 0, btn_width, btn_height));
+    }
+    else {
+        painter.drawPixmap(this->rect(), pixmap.copy(btn_width * status, 0, btn_width, btn_height));
+    }
+    if (status != NORMAL) {
+        //painter.fillRect(this->rect(), QColor("#3253bc"));
+        QPainterPath path;
+        path.addRoundedRect(QRectF(rect()), 2, 2);
+        painter.setOpacity(0.1);
+        painter.fillPath(path, QColor("#2bb6ea"));
+    }
+
     painter.end();
 }

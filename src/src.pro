@@ -148,7 +148,8 @@ HEADERS += smplayer/mplayerversion.h \
         poweroffdialog.h \
         controllerworker.h \
         remotecontroller.h \
-        utils.h
+        utils.h \
+        slider.h
 
 SOURCES	+= smplayer/version.cpp \
         smplayer/mplayerversion.cpp \
@@ -255,7 +256,8 @@ SOURCES	+= smplayer/version.cpp \
         poweroffdialog.cpp \
         controllerworker.cpp \
         remotecontroller.cpp \
-        utils.cpp
+        utils.cpp \
+        slider.cpp
 
 FORMS = smplayer/timedialog.ui \
         smplayer/preferencesdialog.ui \

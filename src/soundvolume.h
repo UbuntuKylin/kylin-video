@@ -19,8 +19,10 @@
 
 #include <QScopedPointer>
 #include <QFrame>
-class QSlider;
 #include <QBrush>
+
+class QSlider;
+class Slider;
 
 class SoundVolume : public QWidget
 {
@@ -61,7 +63,7 @@ private:
     int tradius;
     QBrush tbackground;
     QColor tborderColor;
-    QSlider *m_volSlider = nullptr;
+    /*QSlider*/Slider *m_volSlider = nullptr;
     bool mouseIn;
 };
 

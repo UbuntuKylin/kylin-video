@@ -18,6 +18,8 @@
  */
 
 #include "soundvolume.h"
+#include "slider.h"
+
 #include <QDebug>
 #include <QPainter>
 #include <QWheelEvent>
@@ -43,10 +45,11 @@ SoundVolume::SoundVolume(QWidget *parent) : QWidget(parent)
     tradius      = 4;
     mouseIn     = false;
 
-    m_volSlider = new QSlider(Qt::Horizontal);//Qt::Vertical
+    m_volSlider = new Slider(Qt::Horizontal);/*QSlider(Qt::Horizontal)*/
     m_volSlider->setMinimum(0);
     m_volSlider->setMaximum(100);
-    m_volSlider->setSingleStep(10);//VolumeStep
+    //m_volSlider->setSingleStep(10);//VolumeStep
+    m_volSlider->setPageStep(1);
     m_volSlider->setValue(50);
     m_volSlider->setFocusPolicy(Qt::NoFocus);
     m_volSlider->setObjectName("VolumeProgress");

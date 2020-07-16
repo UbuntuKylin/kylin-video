@@ -448,6 +448,8 @@ private:
 #else
     VideoPreview *m_videoPreview = nullptr;
 #endif
+
+    bool m_oldIsMaxmized;
 };
     
 #endif // _MAINWINDOW_H_

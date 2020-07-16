@@ -145,6 +145,7 @@ MainWindow::MainWindow(QString arch_type, QString snap, /*ControllerWorker *cont
 //    , m_controllerWorker(controller)
     , m_dragWindow(false)
     , m_lastPlayingSeek(0)
+    , m_oldIsMaxmized(false)
 {
 
     //qDebug() << "qApp->devicePixelRatio():" << qApp->devicePixelRatio();
@@ -1230,10 +1231,11 @@ void MainWindow::createTrayActions()
 {
     //m_mainTray = new QSystemTrayIcon(Images::icon("logo", 22), this);
     m_mainTray = new QSystemTrayIcon(this);
-    QIcon icon(QIcon::fromTheme("kylin-video"));
+    QIcon icon = QIcon::fromTheme("kylin-video", QIcon(":/res/kylin-video.png"));
+    /*QIcon icon(QIcon::fromTheme("kylin-video"));
     if (icon.isNull()) {
         icon = QIcon(":/res/kylin-video.png");
-    }
+    }*/
     m_mainTray->setIcon(icon);
     m_mainTray->setToolTip(tr("Kylin Video"));
     m_mainTray->show();
@@ -1433,6 +1435,12 @@ void MainWindow::onMinWindow()
     }*/
     this->onShowOrHideEscWidget(false);
     pref->fullscreen = false;
+    if (this->window()->windowState() == Qt::WindowMaximized) {
+        m_oldIsMaxmized = true;
+    }
+    else {
+        m_oldIsMaxmized = false;
+    }
     this->showMinimized();
 }
 
@@ -3099,7 +3107,7 @@ void MainWindow::hideEvent( QHideEvent * ) {
 bool MainWindow::event(QEvent * e)
 {
 	bool result = QWidget::event(e);
-    if ((m_ignoreShowHideEvents) || (!pref->pause_when_hidden)) {
+    if ((m_ignoreShowHideEvents)/* || (!pref->pause_when_hidden)*/) {
         return result;
     }
 
@@ -3117,23 +3125,27 @@ bool MainWindow::event(QEvent * e)
 
     if ((e->type() == QEvent::ActivationChange) && (isActiveWindow())) {//Widget 的顶层窗口激活状态发生了变化
         m_isMaximized = isMaximized();
+        if (m_oldIsMaxmized) {
+            this->showMaximized();
+            m_topToolbar->updateMaxButtonStatus(true);
+        }
+        else {
+            if ((!isMinimized()) && (was_minimized)) {
+                was_minimized = false;
+                if (this->m_isMaximized) {
+                    m_topToolbar->updateMaxButtonStatus(true);
+                }
+                else {
+                    m_topToolbar->updateMaxButtonStatus(false);
+                }
 
-        if ((!isMinimized()) && (was_minimized)) {
-            was_minimized = false;
-            if (this->m_isMaximized) {
-                m_topToolbar->updateMaxButtonStatus(true);
-            }
-            else {
-                m_topToolbar->updateMaxButtonStatus(false);
-            }
-
-            if (m_core->state() == Core::Paused) {
-                qDebug("MainWindow::showEvent: unpausing");
-                m_core->pause(); // Unpauses
+                if (m_core->state() == Core::Paused) {
+                    //qDebug("MainWindow::showEvent: unpausing");
+                    m_core->pause(); // Unpauses
+                }
             }
         }
     }
-
 
 	return result;
 }

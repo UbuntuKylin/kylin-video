@@ -26,6 +26,7 @@
 #include <QFile>
 #include <QTextCodec>
 #include <QtDBus>
+#include <QDesktopWidget>
 
 #include <signal.h>
 
@@ -56,10 +57,12 @@ int main(int argc, char **argv)
     QTextCodec::setCodecForLocale(codec);
 #endif
 
+    if (QApplication::desktop()->width() >= 2560) {
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-    QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+        QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+        QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
 #endif
+    }
 
 //#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
 //    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);

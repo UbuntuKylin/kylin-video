@@ -4,8 +4,10 @@ kylin-video (2.1.0-2) unstable; urgency=medium
   * Support to set the volume when clicking the volume slider.
   * Update toolbar's icon.
   * Keep the window state when the window is restored from minimized.
+  * Adapt to 4K screen.
+  * Fix bug of video pause after minimization.
 
- -- lixiang <lixiang@kylinos.cn>  Thu, 09 Jul 2020 11:11:45 +0800
+ -- lixiang <lixiang@kylinos.cn>  Sat, 18 Jul 2020 09:32:43 +0800
 
 kylin-video (2.1.0-1) unstable; urgency=medium
 

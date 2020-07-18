@@ -3106,28 +3106,37 @@ void MainWindow::hideEvent( QHideEvent * ) {
 // Qt 5 doesn't call showEvent / hideEvent when the window is minimized or unminimized
 bool MainWindow::event(QEvent * e)
 {
-	bool result = QWidget::event(e);
+    bool result = QWidget::event(e);
     if ((m_ignoreShowHideEvents)/* || (!pref->pause_when_hidden)*/) {
         return result;
     }
 
     if (e->type() == QEvent::WindowStateChange) {//窗口的状态（最小化、最大化或全屏）发生改变（QWindowStateChangeEvent）
-		if (isMinimized()) {
-			was_minimized = true;
-            if (m_core->state() == Core::Playing) {
+        if (isMinimized()) {
+            was_minimized = true;
+            if (m_core->state() == Core::Playing && pref->pause_when_hidden) {
                 m_core->pause();
-			}
-		}
+            }
+        }
         else if (isMaximized()) {
             this->m_isMaximized = true;
         }
-	}
+    }
 
     if ((e->type() == QEvent::ActivationChange) && (isActiveWindow())) {//Widget 的顶层窗口激活状态发生了变化
         m_isMaximized = isMaximized();
         if (m_oldIsMaxmized) {
-            this->showMaximized();
-            m_topToolbar->updateMaxButtonStatus(true);
+            //QWindowStateChangeEvent *ce = static_cast<QWindowStateChangeEvent*>(e);
+            //if (ce->oldState() & Qt::WindowMinimized) {
+            //}
+            if ((!isMinimized()) && (was_minimized)) {
+                was_minimized = false;
+                this->showMaximized();
+                m_topToolbar->updateMaxButtonStatus(true);
+            }
+            if (m_core->state() == Core::Paused) {
+                m_core->pause(); // Unpauses
+            }
         }
         else {
             if ((!isMinimized()) && (was_minimized)) {
@@ -3147,7 +3156,7 @@ bool MainWindow::event(QEvent * e)
         }
     }
 
-	return result;
+    return result;
 }
 #endif
 

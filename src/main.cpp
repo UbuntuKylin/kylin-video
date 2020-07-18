@@ -40,9 +40,30 @@ int main(int argc, char **argv)
     QCoreApplication::setAttribute(Qt::AA_DontShowIconsInMenus, false);
 #endif
 
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
-    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+//#if (QT_VERSION <= QT_VERSION_CHECK(5,0,0))
+//    QTextCodec::setCodecForTr(QTextCodec::codecForLocale());
+//    QTextCodec::setCodecForCStrings(QTextCodec::codecForLocale());
+//    QTextCodec::setCodecForTr(QTextCodec::codecForName("UTF-8"));
+//    QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
+//#endif
+#if (QT_VERSION <= QT_VERSION_CHECK(5,0,0))
+    QTextCodec *codec = QTextCodec::codecForName("utf-8");
+    QTextCodec::setCodecForLocale(codec);
+    QTextCodec::setCodecForCStrings(codec);
+    QTextCodec::setCodecForTr(codec);
+#else
+    QTextCodec *codec = QTextCodec::codecForName("utf-8");
+    QTextCodec::setCodecForLocale(codec);
 #endif
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
+    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+#endif
+
+//#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
+//    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+//#endif
 
     MyApplication a("kylin-video", argc, argv );
     a.setAttribute(Qt::AA_UseHighDpiPixmaps);

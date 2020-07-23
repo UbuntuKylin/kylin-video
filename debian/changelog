@@ -6,6 +6,7 @@ kylin-video (2.1.0-2) unstable; urgency=medium
   * Keep the window state when the window is restored from minimized.
   * Adapt to 4K screen.
   * Fix bug of video pause after minimization.
+  * Automatic hiding of titlebar and toolbar in fullscreen.
 
  -- lixiang <lixiang@kylinos.cn>  Sat, 18 Jul 2020 09:32:43 +0800
 

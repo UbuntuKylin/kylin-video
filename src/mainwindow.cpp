@@ -234,6 +234,14 @@ MainWindow::MainWindow(QString arch_type, QString snap, /*ControllerWorker *cont
     m_previewDlg = new PreviewDialog(this);
     m_previewDlg->hide();
 #endif
+
+    connect(m_mouseFilterHandler, &FilterHandler::mouseMoved, [=] () {
+        if (this->isFullScreen()) {
+            if (!m_topToolbar->isVisible() || !m_bottomToolbar->isVisible()) {
+                m_bottomController->temporaryShow();
+            }
+        }
+    });
 }
 
 MainWindow::~MainWindow()
@@ -514,7 +522,7 @@ void MainWindow::createBottomToolBar()
     connect(m_bottomToolbar, &BottomWidget::toggleStop, this, [=] {
         m_lastPlayingSeek = (int) m_core->mset.current_sec;
         m_core->stop();
-        disconnect(m_mouseFilterHandler, SIGNAL(mouseMoved()), m_bottomController, SLOT(temporaryShow()));
+        //disconnect(m_mouseFilterHandler, SIGNAL(mouseMoved()), m_bottomController, SLOT(temporaryShow()));
         m_bottomController->permanentShow();
     });
     connect(m_bottomToolbar, SIGNAL(togglePrev()), m_playlistWidget, SLOT(playPrev()));
@@ -572,15 +580,17 @@ void MainWindow::createBottomToolBar()
         m_bottomToolbar->show();
         m_topToolbar->show();
 
-        if (this->isFullScreen()) {
-            this->onShowOrHideEscWidget(true);
-        }
+//        if (this->isFullScreen()) {
+//            this->onShowOrHideEscWidget(true);
+//        }
     });
 
     connect(m_bottomController, &BottomController::requestHide, this, [=] {
-        m_bottomToolbar->hide();
-        m_topToolbar->hide();
-        this->onShowOrHideEscWidget(false);
+        if (this->isFullScreen()) {
+            m_bottomToolbar->hide();
+            m_topToolbar->hide();
+            this->onShowOrHideEscWidget(false);
+        }
     });
 }
 
@@ -1356,7 +1366,7 @@ void MainWindow::onPlayPause()
 {
     m_topToolbar->show();
     m_bottomToolbar->show();
-    connect(m_mouseFilterHandler, SIGNAL(mouseMoved()), m_bottomController, SLOT(temporaryShow()));
+    //connect(m_mouseFilterHandler, SIGNAL(mouseMoved()), m_bottomController, SLOT(temporaryShow()));
 //    if (m_playlistWidget && m_playlistWidget->count() > 0) {
         m_core->playOrPause(m_lastPlayingSeek);
 //    }
@@ -1418,13 +1428,19 @@ void MainWindow::onMaxWindow(bool b)
     this->onShowOrHideEscWidget(false);
     pref->fullscreen = false;
     m_bottomToolbar->onUnFullScreen();//让全屏/取消全屏的按钮更换图片为全屏
-    if (!this->isMaximized()) {
-        m_topToolbar->updateMaxButtonStatus(true);
-        this->showMaximized();
-    }
-    else {
+    if (isFullScreen()) {
         m_topToolbar->updateMaxButtonStatus(false);
         this->showNormal();
+    }
+    else {
+        if (!this->isMaximized()) {
+            m_topToolbar->updateMaxButtonStatus(true);
+            this->showMaximized();
+        }
+        else {
+            m_topToolbar->updateMaxButtonStatus(false);
+            this->showNormal();
+        }
     }
 }
 
@@ -1547,7 +1563,7 @@ void MainWindow::toggleFullscreen(bool b)
 
     if (pref->fullscreen) {
         if (m_bottomController)
-            m_bottomController->permanentShow();
+            m_bottomController->temporaryShow();
         m_isMaximized = isMaximized();
 
         if (pref->stay_on_top == Preferences::WhilePlayingOnTop && m_core->state() == Core::Playing) {
@@ -1570,10 +1586,10 @@ void MainWindow::toggleFullscreen(bool b)
             m_bottomController->permanentShow();
         m_topToolbar->updateMaxButtonStatus(false);
         this->showNormal();
-        if (m_isMaximized) {
-            m_topToolbar->updateMaxButtonStatus(true);
-            this->showMaximized(); // It has to be called after showNormal()
-        }
+//        if (m_isMaximized) {
+//            m_topToolbar->updateMaxButtonStatus(true);
+//            this->showMaximized(); // It has to be called after showNormal()
+//        }
         m_bottomToolbar->onUnFullScreen();//让全屏/取消全屏的按钮更换图片为全屏
         this->m_resizeCornerBtn->show();
         if (this->m_escWidget->isVisible()) {//For Esc Key：不能用this->onShowOrHideEscWidget(false)

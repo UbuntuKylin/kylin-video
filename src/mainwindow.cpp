@@ -2910,15 +2910,35 @@ void MainWindow::displayState(Core::State state)
 {
     switch (state) {
         case Core::Playing://播放时开启自动隐藏标题栏和控制栏的定时器
+            if (this->isFullScreen()) {
+                m_bottomController->temporaryShow();
+            }
+            else {
+                m_bottomController->permanentShow();
+            }
             break;
         case Core::Paused://暂停时显示标题栏和控制栏
-            if (m_bottomController)
-                m_bottomController->permanentShow();
+            if (m_bottomController) {
+                if (this->isFullScreen()) {
+                    m_bottomController->temporaryShow();
+                }
+                else {
+                    m_bottomController->permanentShow();
+                }
+            }
             break;
         case Core::Stopped:
-        if (m_bottomController)
-            m_bottomController->permanentShow();
-            m_topToolbar->onSetPlayingTitleName("");
+            if (m_bottomController) {
+                if (this->isFullScreen()) {
+                    m_bottomController->temporaryShow();
+                }
+                else {
+                    m_bottomController->permanentShow();
+                }
+            }
+            if (m_topToolbar) {
+                m_topToolbar->onSetPlayingTitleName("");
+            }
             break;
     }
 }

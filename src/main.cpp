@@ -36,11 +36,6 @@ int main(int argc, char **argv)
 {
     signal(SIGINT, [](int) { QApplication::quit(); });// 设置退出信号
 
-#if QT_VERSION >= 0x040400
-    // Enable icons in menus
-    QCoreApplication::setAttribute(Qt::AA_DontShowIconsInMenus, false);
-#endif
-
 //#if (QT_VERSION <= QT_VERSION_CHECK(5,0,0))
 //    QTextCodec::setCodecForTr(QTextCodec::codecForLocale());
 //    QTextCodec::setCodecForCStrings(QTextCodec::codecForLocale());
@@ -57,6 +52,18 @@ int main(int argc, char **argv)
     QTextCodec::setCodecForLocale(codec);
 #endif
 
+    MyApplication a("kylin-video", argc, argv );
+    a.setAttribute(Qt::AA_UseHighDpiPixmaps);
+    a.setQuitOnLastWindowClosed(false);
+    a.setOrganizationName("kylin");
+    a.setApplicationName("kylin-video");
+    a.setApplicationVersion("2.1.0");
+
+#if QT_VERSION >= 0x040400
+    // Enable icons in menus
+    QCoreApplication::setAttribute(Qt::AA_DontShowIconsInMenus, false);
+#endif
+
     if (QApplication::desktop()->width() >= 2560) {
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
         QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -68,12 +75,6 @@ int main(int argc, char **argv)
 //    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 //#endif
 
-    MyApplication a("kylin-video", argc, argv );
-    a.setAttribute(Qt::AA_UseHighDpiPixmaps);
-    a.setQuitOnLastWindowClosed(false);
-    a.setOrganizationName("kylin");
-    a.setApplicationName("kylin-video");
-    a.setApplicationVersion("2.1.0");
 
     /*
     //----------------register controller dbus service----------------

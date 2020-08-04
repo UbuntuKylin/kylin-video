@@ -27,10 +27,25 @@
 #include <QTextCodec>
 #include <QtDBus>
 #include <QDesktopWidget>
+#include <X11/Xlib.h>
 
 #include <signal.h>
 
 #define CONTROL_DBUS_SERVICE_NAME  "com.kylin.kylinvideo.controller"
+
+int getScreenWidth() {
+    Display *disp = XOpenDisplay(NULL);
+    Screen *scrn = DefaultScreenOfDisplay(disp);
+    if (NULL == scrn) {
+        return 0;
+    }
+    int width = scrn->width;
+
+    if (NULL != disp) {
+        XCloseDisplay(disp);
+    }
+    return width;
+}
 
 int main(int argc, char **argv)
 {
@@ -64,10 +79,10 @@ int main(int argc, char **argv)
     QCoreApplication::setAttribute(Qt::AA_DontShowIconsInMenus, false);
 #endif
 
-    if (QApplication::desktop()->width() >= 2560) {
+    if (getScreenWidth() > 2560) {
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
-        QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-        QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+        QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+        QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
 #endif
     }
 

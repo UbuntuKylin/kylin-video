@@ -34,7 +34,7 @@ QMAKE_CXXFLAGS *= $(shell dpkg-buildflags --get CXXFLAGS)
 QMAKE_LFLAGS   *= $(shell dpkg-buildflags --get LDFLAGS)
 
 isEqual(QT_MAJOR_VERSION, 5) {
-    QT += widgets gui x11extras svg
+    QT += widgets gui x11extras
 }
 
 unix {

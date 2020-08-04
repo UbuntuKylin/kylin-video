@@ -32,6 +32,13 @@ PrefAudio::PrefAudio(QString snap, QWidget * parent, Qt::WindowFlags f)
 {
 	setupUi(this);
 
+    //add by zhaoyubiao for hide-volume-check
+    global_volume_check->setVisible(false);
+    softvol_check->setVisible(false);
+    softvol_max_spin->setVisible(false);
+    amplification_label->setVisible(false);
+    //add end
+
     this->m_snap = snap;
 
 	// Read driver info from InfoReader:
@@ -217,11 +224,13 @@ QString PrefAudio::AO() {
 }
 
 void PrefAudio::setSoftVol(bool b) {
-	softvol_check->setChecked(b);
+	//softvol_check->setChecked(b);
+	softvol_check->setChecked(false);//disable SoftVol
 }
 
 void PrefAudio::setGlobalVolume(bool b) {
-	global_volume_check->setChecked(b);
+	//global_volume_check->setChecked(b);
+	global_volume_check->setChecked(false);//disable GlobalVolume
 }
 
 bool PrefAudio::globalVolume() {

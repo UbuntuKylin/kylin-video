@@ -1,3 +1,9 @@
+kylin-video (2.1.0-3) unstable; urgency=medium
+
+  * Hide global_volume_check softvol_volume_check and disable them.
+
+ -- zhaoyubiao <zhaoyubiao@kylinos.cn>  Tue, 04 Aug 2020 19:51:52 +0800
+
 kylin-video (2.1.0-2) unstable; urgency=medium
 
   * Solve the problem of video switching when deleting non playing files in playlist(Closes: #3576).

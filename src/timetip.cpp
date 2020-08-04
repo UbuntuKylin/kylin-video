@@ -24,6 +24,7 @@
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QPainter>
+#include <QPainterPath>
 
 TimeTip::TimeTip(const QString &text, QWidget *parent) : QFrame(parent)
 {

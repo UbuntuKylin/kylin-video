@@ -205,6 +205,14 @@ void VideoWindow::updateVideoWindow()
     int w_width = size().width();
     int w_height = size().height();
 
+    //-----------------------add by zhaoyubiao-----------------------
+    //When no fullscreen, Reduce the videowindow height so that the videowindow is not blocked
+    if(!window()->isFullScreen())
+    {
+        w_height = size().height()*0.9 - 20;
+    }
+    //------------------------add end--------------------------------
+
     int w = w_width;
     int h = w_height;
     int x = 0;

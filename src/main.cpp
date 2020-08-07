@@ -67,6 +67,13 @@ int main(int argc, char **argv)
     QTextCodec::setCodecForLocale(codec);
 #endif
 
+    if (getScreenWidth() > 2560) {
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
+        QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+        QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+#endif
+    }
+
     MyApplication a("kylin-video", argc, argv );
     a.setAttribute(Qt::AA_UseHighDpiPixmaps);
     a.setQuitOnLastWindowClosed(false);
@@ -78,13 +85,6 @@ int main(int argc, char **argv)
     // Enable icons in menus
     QCoreApplication::setAttribute(Qt::AA_DontShowIconsInMenus, false);
 #endif
-
-    if (getScreenWidth() > 2560) {
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
-        QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-        QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
-#endif
-    }
 
 //#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
 //    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);

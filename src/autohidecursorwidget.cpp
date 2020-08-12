@@ -87,4 +87,8 @@ void AutoHideCursorWidget::playingStarted()
 void AutoHideCursorWidget::playingStopped()
 {
     setAutoHideCursor(false);
+
+    if (cursor().shape() != Qt::ArrowCursor) {
+        setCursor(QCursor(Qt::ArrowCursor));
+    }
 }

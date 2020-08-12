@@ -44,6 +44,7 @@ public:
 
 public slots:
     void selectRadioButton();
+    bool eventFilter(QObject *watched, QEvent *event);
 
 protected:
 	virtual void createHelp();

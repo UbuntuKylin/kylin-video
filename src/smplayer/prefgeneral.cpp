@@ -32,6 +32,9 @@ PrefGeneral::PrefGeneral(QWidget * parent, Qt::WindowFlags f)
 {
 	setupUi(this);
 	retranslateStrings();
+
+    mplayer_radioButton->installEventFilter(this);
+    mpv_radioButton->installEventFilter(this);
 }
 
 PrefGeneral::~PrefGeneral()
@@ -144,10 +147,36 @@ void PrefGeneral::createHelp() {
     setWhatsThis(preview_if_play_check, tr("Preview when the video is playing"),
         tr("If this option is enabled, the video preview will be displayed "
            "when the mouse is placed on the progress bar."));
-    setWhatsThis(mplayer_radioButton, tr("Select MPlayer as playback engine"),
-        tr("If you change the playback engine to MPlayer, please restart Kylin Video."));
-    setWhatsThis(mpv_radioButton, tr("Select MPV as playback engine"),
-        tr("If you change the playback engine to MPV, please restart Kylin Video."));
+//    setWhatsThis(mplayer_radioButton, tr("Select MPlayer as playback engine"),
+//        tr("If you change the playback engine to MPlayer, please restart Kylin Video."));
+//    setWhatsThis(mpv_radioButton, tr("Select MPV as playback engine"),
+//        tr("If you change the playback engine to MPV, please restart Kylin Video."));
 }
 
+#if 1
+bool PrefGeneral::eventFilter(QObject *watched, QEvent *event)
+{
+
+    if ((watched == mplayer_radioButton && event->type() == QEvent::HoverMove)
+            && (mplayer_radioButton->geometry().contains(this->mapFromGlobal(QCursor::pos()))))
+    {
+//        qDebug()<<"hover";
+        QString strToolTip = tr("If you change the playback engine to MPlayer, please restart Kylin Video.");
+        QToolTip::showText(QCursor::pos(), strToolTip);
+    }
+    else if((watched == mpv_radioButton && event->type() == QEvent::HoverMove) && mpv_radioButton->geometry().contains(this->mapFromGlobal(QCursor::pos())))
+    {
+        QString strToolTip = tr("If you change the playback engine to MPV, please restart Kylin Video.");
+        QToolTip::showText(QCursor::pos(), strToolTip);
+    }
+//    else
+//    {
+//        qDebug()<<"leave";
+
+//    }
+
+    return QWidget::eventFilter(watched, event);
+
+}
+#endif
 //#include "moc_prefgeneral.cpp"

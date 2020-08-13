@@ -25,6 +25,7 @@
 #include "../smplayer/inforeader.h"
 #include "../smplayer/deviceinfo.h"
 #include "../smplayer/preferences.h"
+#include <QToolTip>
 
 class PrefGeneral : public PrefWidget, public Ui::PrefGeneral
 {

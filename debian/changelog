@@ -1,7 +1,8 @@
 kylin-video (2.1.0-4) unstable; urgency=medium
 
   * Put EnableHighDpiScaling and UseHighDpiPixmaps before MyApplication 
-
+  * Fix Playstop-Cursor-Not-Show and Engine-Swtich-Playlist-Add-File-Failed 
+ 
  -- zhaoyubiao <zhaoyubiao@kylinos.cn>  Fri, 07 Aug 2020 10:42:02 +0800
 
 kylin-video (2.1.0-3) unstable; urgency=medium

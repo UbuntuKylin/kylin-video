@@ -370,6 +370,9 @@ public:
 	void changeFileSettingsMethod(QString method);
 //#endif
 
+	void setIsPreviewed(bool is_previewed);
+	void setPreviewTime(int preview_time);
+
 protected:
 	//! Returns the prefix to keep pausing on slave commands
 	QString pausing_prefix();
@@ -527,6 +530,9 @@ private:
 
 	QMap<QString,QString> forced_titles;
     QString m_snap;
+
+	bool is_previewed;
+	int preview_time;
 };
 
 #endif

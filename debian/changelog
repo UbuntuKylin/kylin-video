@@ -1,3 +1,9 @@
+kylin-video (2.1.0-5) unstable; urgency=medium
+
+  * Fix MinWindow Restore Auto Not Pause
+
+ -- biwenjie <biwenjie@kylinos.cn>  Fri, 21 Aug 2020 14:07:35 +0800
+
 kylin-video (2.1.0-4) unstable; urgency=medium
 
   * Put EnableHighDpiScaling and UseHighDpiPixmaps before MyApplication 

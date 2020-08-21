@@ -61,6 +61,8 @@ Core::Core(VideoWindow *mpw, const QString &snap, QWidget* parent)
 	just_unloaded_external_subs = false;
 	change_volume_after_unpause = false;
 
+    is_previewed = false;
+
 //#if DVDNAV_SUPPORT
 //	dvdnav_title_is_menu = true; // Enabled by default for compatibility with previous versions of mplayer
 //#endif
@@ -259,6 +261,16 @@ void Core::changeFileSettingsMethod(QString method) {
         file_settings = new FileSettingsHash(Paths::iniPath());
     else
         file_settings = new FileSettings(Paths::iniPath());
+}
+
+void Core::setIsPreviewed(bool is_previewed)
+{
+    this->is_previewed = is_previewed;
+}
+
+void Core::setPreviewTime(int preview_time)
+{
+    this->preview_time = preview_time;
 }
 
 void Core::setState(State s) {
@@ -1236,6 +1248,12 @@ void Core::goToPosition(int value) {
 //        qDebug("***************Core::goToPos 22222222222 jump_time=%f", (double) value / (SEEKBAR_RESOLUTION / 100));
         goToPos((double) value / (SEEKBAR_RESOLUTION / 100));
     }*/
+
+    if (is_previewed) {
+        goToSec(preview_time);
+        is_previewed = false;
+        return;
+    }
 
     if (pref->relative_seeking) {
         goToPos( (double) value / (SEEKBAR_RESOLUTION / 100) );

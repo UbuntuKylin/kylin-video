@@ -2455,7 +2455,8 @@ void MainWindow::onSavePreviewImage(int time, QPoint pos)
 //    }
     if (m_core) {
         if (m_core->state() == Core::Playing || m_core->state() == Core::Paused) {
-
+            m_core->setIsPreviewed(true);
+            m_core->setPreviewTime(time);
 #ifdef PREVIEW_TEST
             if (!m_previewMgr) {
                 //预览界面

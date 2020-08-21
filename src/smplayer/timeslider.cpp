@@ -213,9 +213,15 @@ void TimeSlider::show_save_preview_image(int time, QString filepath)
 bool TimeSlider::event(QEvent *event) {
 	if (event->type() == QEvent::ToolTip) {
 		QHelpEvent * help_event = static_cast<QHelpEvent *>(event);
+#if 0
 		int pos_in_slider = help_event->x() * maximum() / width();
         cur_pos = help_event->pos();
 		int time = pos_in_slider * total_time / maximum();
+#else
+        cur_pos = help_event->pos();
+        int time = help_event->x() * total_time / width();
+//        qDebug() << "bybobbi in TimeSlider's event: width() = " << width() << ", cur_pos->x is     " << cur_pos.x() << ". time is " << time;
+#endif
 		if (time >= 0 && time <= total_time) {
             //QToolTip::showText(help_event->globalPos(), Utils::formatTime(time), this);
             if (preview) {

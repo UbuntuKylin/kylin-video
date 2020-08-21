@@ -3184,7 +3184,7 @@ bool MainWindow::event(QEvent * e)
                     m_topToolbar->updateMaxButtonStatus(false);
                 }
 
-                if (m_core->state() == Core::Paused) {
+                if (m_core->state() == Core::Paused &&  pref->pause_when_hidden) {
                     //qDebug("MainWindow::showEvent: unpausing");
                     m_core->pause(); // Unpauses
                 }

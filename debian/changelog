@@ -1,3 +1,9 @@
+kylin-video (2.1.0-6) unstable; urgency=medium
+
+  * fix fullscreen button not trans
+
+ -- zhaoyubiao <zhaoyubiao@kylinos.cn>  Sat, 29 Aug 2020 18:14:58 +0800
+
 kylin-video (2.1.0-5) unstable; urgency=medium
 
   * Fix MinWindow Restore Auto Not Pause

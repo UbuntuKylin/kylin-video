@@ -12,37 +12,37 @@
         <translation type="obsolete">麒麟影音基于SMPlayer进行开发，是MPlayer和MPV的图形化前端。</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="193"/>
+        <location filename="../aboutdialog.cpp" line="205"/>
         <source>Kylin Video is developed on the basis of %1, is a graphical interface for %2 and %3.</source>
         <translation>麒麟影音基于 %1 进行开发，是 %2 和 %3 的图形化前端。</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="194"/>
+        <location filename="../aboutdialog.cpp" line="206"/>
         <source>Version: %1</source>
         <translation>版本: %1</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="194"/>
+        <location filename="../aboutdialog.cpp" line="206"/>
         <source>Kylin Video</source>
         <translation>麒麟影音</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="196"/>
+        <location filename="../aboutdialog.cpp" line="208"/>
         <source>Playback engine:</source>
         <translation>播放引擎：</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="197"/>
+        <location filename="../aboutdialog.cpp" line="209"/>
         <source>Links:</source>
         <translation>链接:</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="198"/>
+        <location filename="../aboutdialog.cpp" line="210"/>
         <source>Code website:</source>
         <translation>代码托管：</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="199"/>
+        <location filename="../aboutdialog.cpp" line="211"/>
         <source>Developer&apos;s personal home page:</source>
         <translation>开发者个人主页：</translation>
     </message>
@@ -127,7 +127,7 @@
         <translation type="obsolete">便携版</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="195"/>
+        <location filename="../aboutdialog.cpp" line="207"/>
         <source>Using Qt %1 (compiled with Qt %2)</source>
         <translation>正在使用 Qt %1 (用 Qt %2 编译)</translation>
     </message>
@@ -148,7 +148,7 @@
         <translation type="obsolete">阅读翻译</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="89"/>
+        <location filename="../aboutdialog.cpp" line="101"/>
         <source>OK</source>
         <translation>确定</translation>
     </message>
@@ -170,23 +170,23 @@
     </message>
     <message>
         <location filename="../aboutdialog.ui" line="26"/>
-        <location filename="../aboutdialog.ui" line="66"/>
+        <location filename="../aboutdialog.ui" line="117"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.ui" line="79"/>
+        <location filename="../aboutdialog.ui" line="130"/>
         <source>Contributor</source>
         <translation>贡献者</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.ui" line="131"/>
+        <location filename="../aboutdialog.ui" line="53"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -267,24 +267,24 @@ Do you want to overwrite?</source>
     <name>AudioDelayDialog</name>
     <message>
         <location filename="../smplayer/audiodelaydialog.ui" line="26"/>
-        <location filename="../smplayer/audiodelaydialog.ui" line="77"/>
+        <location filename="../smplayer/audiodelaydialog.ui" line="86"/>
         <source>Audio delay</source>
         <translation>音频延迟</translation>
     </message>
     <message>
-        <location filename="../smplayer/audiodelaydialog.ui" line="38"/>
-        <location filename="../smplayer/audiodelaydialog.cpp" line="54"/>
+        <location filename="../smplayer/audiodelaydialog.ui" line="118"/>
+        <location filename="../smplayer/audiodelaydialog.cpp" line="63"/>
         <source>OK</source>
         <translation>确定</translation>
     </message>
     <message>
-        <location filename="../smplayer/audiodelaydialog.ui" line="51"/>
-        <location filename="../smplayer/audiodelaydialog.cpp" line="59"/>
+        <location filename="../smplayer/audiodelaydialog.ui" line="60"/>
+        <location filename="../smplayer/audiodelaydialog.cpp" line="68"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../smplayer/audiodelaydialog.ui" line="93"/>
+        <location filename="../smplayer/audiodelaydialog.ui" line="73"/>
         <source>Audio delay (in milliseconds):</source>
         <translation>音频延迟(毫秒):</translation>
     </message>
@@ -292,165 +292,165 @@ Do you want to overwrite?</source>
 <context>
     <name>AudioEqualizer</name>
     <message>
-        <location filename="../smplayer/audioequalizer.cpp" line="198"/>
+        <location filename="../smplayer/audioequalizer.cpp" line="214"/>
         <source>Audio Equalizer</source>
         <translation>音频均衡器</translation>
     </message>
     <message>
-        <location filename="../smplayer/audioequalizer.cpp" line="201"/>
-        <location filename="../smplayer/audioequalizer.cpp" line="202"/>
-        <location filename="../smplayer/audioequalizer.cpp" line="203"/>
-        <location filename="../smplayer/audioequalizer.cpp" line="204"/>
-        <location filename="../smplayer/audioequalizer.cpp" line="205"/>
+        <location filename="../smplayer/audioequalizer.cpp" line="217"/>
+        <location filename="../smplayer/audioequalizer.cpp" line="218"/>
+        <location filename="../smplayer/audioequalizer.cpp" line="219"/>
+        <location filename="../smplayer/audioequalizer.cpp" line="220"/>
+        <location filename="../smplayer/audioequalizer.cpp" line="221"/>
         <source>%1 Hz</source>
         <translation>%1 Hz</translation>
     </message>
     <message>
-        <location filename="../smplayer/audioequalizer.cpp" line="206"/>
-        <location filename="../smplayer/audioequalizer.cpp" line="207"/>
-        <location filename="../smplayer/audioequalizer.cpp" line="208"/>
-        <location filename="../smplayer/audioequalizer.cpp" line="209"/>
-        <location filename="../smplayer/audioequalizer.cpp" line="210"/>
+        <location filename="../smplayer/audioequalizer.cpp" line="222"/>
+        <location filename="../smplayer/audioequalizer.cpp" line="223"/>
+        <location filename="../smplayer/audioequalizer.cpp" line="224"/>
+        <location filename="../smplayer/audioequalizer.cpp" line="225"/>
+        <location filename="../smplayer/audioequalizer.cpp" line="226"/>
         <source>%1 kHz</source>
         <translation>%1 kHz</translation>
     </message>
     <message>
-        <location filename="../smplayer/audioequalizer.cpp" line="212"/>
+        <location filename="../smplayer/audioequalizer.cpp" line="228"/>
         <source>&amp;Preset</source>
         <translation>当前(&amp;P)</translation>
     </message>
     <message>
-        <location filename="../smplayer/audioequalizer.cpp" line="213"/>
+        <location filename="../smplayer/audioequalizer.cpp" line="229"/>
         <source>&amp;Apply</source>
         <translation>应用(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../smplayer/audioequalizer.cpp" line="214"/>
+        <location filename="../smplayer/audioequalizer.cpp" line="230"/>
         <source>&amp;Reset</source>
         <translation>重置(&amp;R)</translation>
     </message>
     <message>
-        <location filename="../smplayer/audioequalizer.cpp" line="215"/>
+        <location filename="../smplayer/audioequalizer.cpp" line="231"/>
         <source>&amp;Set as default values</source>
         <translation>设置为默认值(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../smplayer/audioequalizer.cpp" line="216"/>
+        <location filename="../smplayer/audioequalizer.cpp" line="232"/>
         <source>&amp;Close</source>
         <translation>关闭(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../smplayer/audioequalizer.cpp" line="221"/>
+        <location filename="../smplayer/audioequalizer.cpp" line="237"/>
         <source>Flat</source>
         <translation>平坦</translation>
     </message>
     <message>
-        <location filename="../smplayer/audioequalizer.cpp" line="222"/>
+        <location filename="../smplayer/audioequalizer.cpp" line="238"/>
         <source>Classical</source>
         <translation>古典</translation>
     </message>
     <message>
-        <location filename="../smplayer/audioequalizer.cpp" line="223"/>
+        <location filename="../smplayer/audioequalizer.cpp" line="239"/>
         <source>Club</source>
         <translation>俱乐部</translation>
     </message>
     <message>
-        <location filename="../smplayer/audioequalizer.cpp" line="224"/>
+        <location filename="../smplayer/audioequalizer.cpp" line="240"/>
         <source>Dance</source>
         <translation>舞曲</translation>
     </message>
     <message>
-        <location filename="../smplayer/audioequalizer.cpp" line="225"/>
+        <location filename="../smplayer/audioequalizer.cpp" line="241"/>
         <source>Full bass</source>
         <translation>重低音</translation>
     </message>
     <message>
-        <location filename="../smplayer/audioequalizer.cpp" line="226"/>
+        <location filename="../smplayer/audioequalizer.cpp" line="242"/>
         <source>Full bass and treble</source>
         <translation>超重低音</translation>
     </message>
     <message>
-        <location filename="../smplayer/audioequalizer.cpp" line="227"/>
+        <location filename="../smplayer/audioequalizer.cpp" line="243"/>
         <source>Full treble</source>
         <translation>超高音</translation>
     </message>
     <message>
-        <location filename="../smplayer/audioequalizer.cpp" line="228"/>
+        <location filename="../smplayer/audioequalizer.cpp" line="244"/>
         <source>Headphones</source>
         <translation>耳机</translation>
     </message>
     <message>
-        <location filename="../smplayer/audioequalizer.cpp" line="229"/>
+        <location filename="../smplayer/audioequalizer.cpp" line="245"/>
         <source>Large hall</source>
         <translation>大厅</translation>
     </message>
     <message>
-        <location filename="../smplayer/audioequalizer.cpp" line="230"/>
+        <location filename="../smplayer/audioequalizer.cpp" line="246"/>
         <source>Live</source>
         <translation>现场</translation>
     </message>
     <message>
-        <location filename="../smplayer/audioequalizer.cpp" line="231"/>
+        <location filename="../smplayer/audioequalizer.cpp" line="247"/>
         <source>Party</source>
         <translation>派对</translation>
     </message>
     <message>
-        <location filename="../smplayer/audioequalizer.cpp" line="232"/>
+        <location filename="../smplayer/audioequalizer.cpp" line="248"/>
         <source>Pop</source>
         <translation>流行</translation>
     </message>
     <message>
-        <location filename="../smplayer/audioequalizer.cpp" line="233"/>
+        <location filename="../smplayer/audioequalizer.cpp" line="249"/>
         <source>Reggae</source>
         <translation>雷盖舞曲</translation>
     </message>
     <message>
-        <location filename="../smplayer/audioequalizer.cpp" line="234"/>
+        <location filename="../smplayer/audioequalizer.cpp" line="250"/>
         <source>Rock</source>
         <translation>摇滚</translation>
     </message>
     <message>
-        <location filename="../smplayer/audioequalizer.cpp" line="235"/>
+        <location filename="../smplayer/audioequalizer.cpp" line="251"/>
         <source>Ska</source>
         <translation>斯卡</translation>
     </message>
     <message>
-        <location filename="../smplayer/audioequalizer.cpp" line="236"/>
+        <location filename="../smplayer/audioequalizer.cpp" line="252"/>
         <source>Soft</source>
         <translation>轻柔</translation>
     </message>
     <message>
-        <location filename="../smplayer/audioequalizer.cpp" line="237"/>
+        <location filename="../smplayer/audioequalizer.cpp" line="253"/>
         <source>Soft rock</source>
         <translation>轻摇滚</translation>
     </message>
     <message>
-        <location filename="../smplayer/audioequalizer.cpp" line="238"/>
+        <location filename="../smplayer/audioequalizer.cpp" line="254"/>
         <source>Techno</source>
         <translation> 电子舞曲</translation>
     </message>
     <message>
-        <location filename="../smplayer/audioequalizer.cpp" line="239"/>
+        <location filename="../smplayer/audioequalizer.cpp" line="255"/>
         <source>Custom</source>
         <translation>自定义</translation>
     </message>
     <message>
-        <location filename="../smplayer/audioequalizer.cpp" line="244"/>
+        <location filename="../smplayer/audioequalizer.cpp" line="260"/>
         <source>Use the current values as default values for new videos.</source>
         <translation>使用当前的值作为新视频的默认值。</translation>
     </message>
     <message>
-        <location filename="../smplayer/audioequalizer.cpp" line="246"/>
+        <location filename="../smplayer/audioequalizer.cpp" line="262"/>
         <source>Set all controls to zero.</source>
         <translation>将所有的控制都设置为零。</translation>
     </message>
     <message>
-        <location filename="../smplayer/audioequalizer.cpp" line="261"/>
+        <location filename="../smplayer/audioequalizer.cpp" line="277"/>
         <source>Information</source>
         <translation>信息</translation>
     </message>
     <message>
-        <location filename="../smplayer/audioequalizer.cpp" line="262"/>
+        <location filename="../smplayer/audioequalizer.cpp" line="278"/>
         <source>The current values have been stored to be used as default.</source>
         <translation>当前的值已被储存作为默认值使用。</translation>
     </message>
@@ -1896,7 +1896,7 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="obsolete">上一个</translation>
     </message>
     <message>
-        <location filename="../bottomwidget.cpp" line="223"/>
+        <location filename="../bottomwidget.cpp" line="226"/>
         <source>Next</source>
         <translation>下一个</translation>
     </message>
@@ -1905,8 +1905,9 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="obsolete">播放/暂停</translation>
     </message>
     <message>
+        <location filename="../bottomwidget.cpp" line="228"/>
         <source>FullScreen</source>
-        <translation type="obsolete">全屏</translation>
+        <translation>全屏</translation>
     </message>
     <message>
         <source>Open</source>
@@ -1917,22 +1918,22 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="obsolete">播放列表</translation>
     </message>
     <message>
-        <location filename="../bottomwidget.cpp" line="220"/>
+        <location filename="../bottomwidget.cpp" line="223"/>
         <source>Stop</source>
         <translation>停止</translation>
     </message>
     <message>
-        <location filename="../bottomwidget.cpp" line="221"/>
+        <location filename="../bottomwidget.cpp" line="224"/>
         <source>Prev</source>
         <translation>上一个</translation>
     </message>
     <message>
-        <location filename="../bottomwidget.cpp" line="222"/>
+        <location filename="../bottomwidget.cpp" line="225"/>
         <source>Play / Pause</source>
         <translation>播放/暂停</translation>
     </message>
     <message>
-        <location filename="../bottomwidget.cpp" line="224"/>
+        <location filename="../bottomwidget.cpp" line="227"/>
         <source>Mute</source>
         <translation>静音</translation>
     </message>
@@ -1941,7 +1942,7 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="obsolete">打开文件</translation>
     </message>
     <message>
-        <location filename="../bottomwidget.cpp" line="225"/>
+        <location filename="../bottomwidget.cpp" line="229"/>
         <source>Play List</source>
         <translation>播放列表</translation>
     </message>
@@ -1984,73 +1985,73 @@ The configuration dialog will be shown now, so you can do it.</source>
 <context>
     <name>Core</name>
     <message>
-        <location filename="../smplayer/core.cpp" line="2898"/>
+        <location filename="../smplayer/core.cpp" line="2911"/>
         <source>Brightness: %1</source>
         <translation>亮度: %1</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="2914"/>
+        <location filename="../smplayer/core.cpp" line="2927"/>
         <source>Contrast: %1</source>
         <translation>对比度: %1</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="2929"/>
+        <location filename="../smplayer/core.cpp" line="2942"/>
         <source>Gamma: %1</source>
         <translation>伽玛: %1</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="2944"/>
+        <location filename="../smplayer/core.cpp" line="2957"/>
         <source>Hue: %1</source>
         <translation>色调: %1</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="2959"/>
+        <location filename="../smplayer/core.cpp" line="2972"/>
         <source>Saturation: %1</source>
         <translation>饱和度: %1</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="3114"/>
+        <location filename="../smplayer/core.cpp" line="3127"/>
         <source>Volume: %1</source>
         <translation>音量: %1</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="3988"/>
+        <location filename="../smplayer/core.cpp" line="4047"/>
         <source>Zoom: %1</source>
         <translation>缩放: %1</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="4229"/>
+        <location filename="../smplayer/core.cpp" line="4288"/>
         <source>Buffering...</source>
         <translation>缓冲中...</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="3253"/>
-        <location filename="../smplayer/core.cpp" line="3264"/>
+        <location filename="../smplayer/core.cpp" line="3266"/>
+        <location filename="../smplayer/core.cpp" line="3277"/>
         <source>Font scale: %1</source>
         <translation>字体缩放: %1</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="3826"/>
+        <location filename="../smplayer/core.cpp" line="3885"/>
         <source>Aspect ratio: %1</source>
         <translation>纵横比: %1</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="4224"/>
+        <location filename="../smplayer/core.cpp" line="4283"/>
         <source>Updating the font cache. This may take some seconds...</source>
         <translation>正在更新字体缓存。这可能需要几秒钟...</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="3178"/>
+        <location filename="../smplayer/core.cpp" line="3191"/>
         <source>Subtitle delay: %1 ms</source>
         <translation>字幕延迟: %1毫秒</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="3196"/>
+        <location filename="../smplayer/core.cpp" line="3209"/>
         <source>Audio delay: %1 ms</source>
         <translation>音频延迟: %1毫秒</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="3013"/>
+        <location filename="../smplayer/core.cpp" line="3026"/>
         <source>Speed: %1</source>
         <translation>速度: %1</translation>
     </message>
@@ -2063,67 +2064,67 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="obsolete">无法定位视频的URL</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="3348"/>
+        <location filename="../smplayer/core.cpp" line="3361"/>
         <source>Subtitles on</source>
         <translation>字幕开启</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="3350"/>
+        <location filename="../smplayer/core.cpp" line="3363"/>
         <source>Subtitles off</source>
         <translation>字幕关闭</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="3874"/>
+        <location filename="../smplayer/core.cpp" line="3933"/>
         <source>Mouse wheel seeks now</source>
         <translation>鼠标滚轮定位</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="3877"/>
+        <location filename="../smplayer/core.cpp" line="3936"/>
         <source>Mouse wheel changes volume now</source>
         <translation>鼠标滚轮更改音量</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="3880"/>
+        <location filename="../smplayer/core.cpp" line="3939"/>
         <source>Mouse wheel changes zoom level now</source>
         <translation>鼠标滚轮更改缩放等级</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="3883"/>
+        <location filename="../smplayer/core.cpp" line="3942"/>
         <source>Mouse wheel changes speed now</source>
         <translation>鼠标滚轮更改速度</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="4202"/>
+        <location filename="../smplayer/core.cpp" line="4261"/>
         <source>Screenshot saved as %1</source>
         <translation>截图保存为 %1</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="4235"/>
+        <location filename="../smplayer/core.cpp" line="4294"/>
         <source>Starting...</source>
         <translation>正在开始...</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="1140"/>
+        <location filename="../smplayer/core.cpp" line="1164"/>
         <source>Screenshot NOT taken, folder not configured</source>
         <translation>无法进行屏幕截图，没有配置文件夹</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="1153"/>
+        <location filename="../smplayer/core.cpp" line="1177"/>
         <source>Screenshots NOT taken, folder not configured</source>
         <translation>无法进行屏幕截图，没有配置文件夹</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="2502"/>
+        <location filename="../smplayer/core.cpp" line="2515"/>
         <source>&quot;A&quot; marker set to %1</source>
         <translation>&quot;A&quot;标记设置到 %1</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="2527"/>
+        <location filename="../smplayer/core.cpp" line="2540"/>
         <source>&quot;B&quot; marker set to %1</source>
         <translation>&quot;B&quot;标记设置到 %1</translation>
     </message>
     <message>
-        <location filename="../smplayer/core.cpp" line="2550"/>
+        <location filename="../smplayer/core.cpp" line="2563"/>
         <source>A-B markers cleared</source>
         <translation>A-B 标记已清除</translation>
     </message>
@@ -2210,39 +2211,39 @@ The configuration dialog will be shown now, so you can do it.</source>
 <context>
     <name>ErrorDialog</name>
     <message>
-        <location filename="../smplayer/errordialog.cpp" line="102"/>
+        <location filename="../smplayer/errordialog.cpp" line="111"/>
         <source>Hide log</source>
         <translation>隐藏日志</translation>
     </message>
     <message>
-        <location filename="../smplayer/errordialog.ui" line="159"/>
-        <location filename="../smplayer/errordialog.cpp" line="106"/>
+        <location filename="../smplayer/errordialog.ui" line="101"/>
+        <location filename="../smplayer/errordialog.cpp" line="115"/>
         <source>Show log</source>
         <translation>显示日志</translation>
     </message>
     <message>
         <location filename="../smplayer/errordialog.ui" line="26"/>
-        <location filename="../smplayer/errordialog.ui" line="64"/>
+        <location filename="../smplayer/errordialog.ui" line="181"/>
         <source>MPlayer Error</source>
         <translation>MPlayer 错误</translation>
     </message>
     <message>
-        <location filename="../smplayer/errordialog.ui" line="38"/>
+        <location filename="../smplayer/errordialog.ui" line="88"/>
         <source>OK</source>
         <translation>确定</translation>
     </message>
     <message>
-        <location filename="../smplayer/errordialog.ui" line="80"/>
+        <location filename="../smplayer/errordialog.ui" line="117"/>
         <source>icon</source>
         <translation>icon</translation>
     </message>
     <message>
-        <location filename="../smplayer/errordialog.ui" line="105"/>
+        <location filename="../smplayer/errordialog.ui" line="155"/>
         <source>Oops, something wrong happened</source>
         <translation>额..出错了</translation>
     </message>
     <message>
-        <location filename="../smplayer/errordialog.ui" line="130"/>
+        <location filename="../smplayer/errordialog.ui" line="72"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
@@ -2250,7 +2251,7 @@ The configuration dialog will be shown now, so you can do it.</source>
 <context>
     <name>EscTip</name>
     <message>
-        <location filename="../esctip.cpp" line="50"/>
+        <location filename="../esctip.cpp" line="51"/>
         <source>Press ESC to exit full screen mode</source>
         <translation>请按 ESC 键退出全屏</translation>
     </message>
@@ -2401,18 +2402,18 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation>属性</translation>
     </message>
     <message>
-        <location filename="../smplayer/filepropertiesdialog.ui" line="124"/>
+        <location filename="../smplayer/filepropertiesdialog.ui" line="133"/>
         <source>&amp;Select the demuxer that will be used for this file:</source>
         <translation>选择将用于此文件的解复用器(&amp;S):</translation>
     </message>
     <message>
-        <location filename="../smplayer/filepropertiesdialog.ui" line="153"/>
-        <location filename="../smplayer/filepropertiesdialog.ui" line="200"/>
+        <location filename="../smplayer/filepropertiesdialog.ui" line="162"/>
+        <location filename="../smplayer/filepropertiesdialog.ui" line="209"/>
         <source>&amp;Reset</source>
         <translation>重置(&amp;R)</translation>
     </message>
     <message>
-        <location filename="../smplayer/filepropertiesdialog.ui" line="244"/>
+        <location filename="../smplayer/filepropertiesdialog.ui" line="253"/>
         <source>Reset</source>
         <translation>重置</translation>
     </message>
@@ -2421,7 +2422,7 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="obsolete">视频编解码器(&amp;V)</translation>
     </message>
     <message>
-        <location filename="../smplayer/filepropertiesdialog.ui" line="181"/>
+        <location filename="../smplayer/filepropertiesdialog.ui" line="190"/>
         <source>&amp;Select the video codec:</source>
         <translation>选择视频编解码器(&amp;S):</translation>
     </message>
@@ -2430,7 +2431,7 @@ The configuration dialog will be shown now, so you can do it.</source>
         <translation type="obsolete">音频编解码器(&amp;U)</translation>
     </message>
     <message>
-        <location filename="../smplayer/filepropertiesdialog.ui" line="225"/>
+        <location filename="../smplayer/filepropertiesdialog.ui" line="234"/>
         <source>&amp;Select the audio codec:</source>
         <translation>选择音频编解码器(&amp;S):</translation>
     </message>
@@ -2461,40 +2462,40 @@ Example: extrastereo,karaoke</source>
         <translation type="obsolete">音频过滤器(&amp;F):</translation>
     </message>
     <message>
-        <location filename="../smplayer/filepropertiesdialog.cpp" line="108"/>
+        <location filename="../smplayer/filepropertiesdialog.cpp" line="123"/>
         <source>Information</source>
         <translation>信息</translation>
     </message>
     <message>
-        <location filename="../smplayer/filepropertiesdialog.cpp" line="113"/>
+        <location filename="../smplayer/filepropertiesdialog.cpp" line="128"/>
         <source>Demuxer</source>
         <translation>解复用器</translation>
     </message>
     <message>
-        <location filename="../smplayer/filepropertiesdialog.cpp" line="117"/>
+        <location filename="../smplayer/filepropertiesdialog.cpp" line="132"/>
         <source>Video codec</source>
         <translation>视频编解码器</translation>
     </message>
     <message>
-        <location filename="../smplayer/filepropertiesdialog.cpp" line="121"/>
+        <location filename="../smplayer/filepropertiesdialog.cpp" line="136"/>
         <source>Audio codec</source>
         <translation>音频编解码器</translation>
     </message>
     <message>
-        <location filename="../smplayer/filepropertiesdialog.ui" line="272"/>
-        <location filename="../smplayer/filepropertiesdialog.cpp" line="210"/>
+        <location filename="../smplayer/filepropertiesdialog.ui" line="294"/>
+        <location filename="../smplayer/filepropertiesdialog.cpp" line="225"/>
         <source>OK</source>
         <translation>确定</translation>
     </message>
     <message>
-        <location filename="../smplayer/filepropertiesdialog.ui" line="285"/>
-        <location filename="../smplayer/filepropertiesdialog.cpp" line="211"/>
+        <location filename="../smplayer/filepropertiesdialog.ui" line="281"/>
+        <location filename="../smplayer/filepropertiesdialog.cpp" line="226"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../smplayer/filepropertiesdialog.ui" line="259"/>
-        <location filename="../smplayer/filepropertiesdialog.cpp" line="212"/>
+        <location filename="../smplayer/filepropertiesdialog.ui" line="268"/>
+        <location filename="../smplayer/filepropertiesdialog.cpp" line="227"/>
         <source>Apply</source>
         <translation>应用</translation>
     </message>
@@ -2837,13 +2838,13 @@ Please check the permissions of that folder.</source>
         <translation>帮助</translation>
     </message>
     <message>
-        <location filename="../helpdialog.ui" line="109"/>
-        <location filename="../helpdialog.cpp" line="144"/>
+        <location filename="../helpdialog.ui" line="99"/>
+        <location filename="../helpdialog.cpp" line="154"/>
         <source>OK</source>
         <translation>确定</translation>
     </message>
     <message>
-        <location filename="../helpdialog.cpp" line="69"/>
+        <location filename="../helpdialog.cpp" line="79"/>
         <source>Supported formats</source>
         <translation>支持的格式</translation>
     </message>
@@ -3078,25 +3079,25 @@ Please check the permissions of that folder.</source>
         <translation type="obsolete">URL(&amp;U):</translation>
     </message>
     <message>
-        <location filename="../smplayer/inputurl.ui" line="38"/>
-        <location filename="../smplayer/inputurl.cpp" line="63"/>
+        <location filename="../smplayer/inputurl.ui" line="127"/>
+        <location filename="../smplayer/inputurl.cpp" line="72"/>
         <source>OK</source>
         <translation>确定</translation>
     </message>
     <message>
         <location filename="../smplayer/inputurl.ui" line="26"/>
-        <location filename="../smplayer/inputurl.ui" line="77"/>
+        <location filename="../smplayer/inputurl.ui" line="47"/>
         <source>Enter URL</source>
         <translation>输入网址</translation>
     </message>
     <message>
-        <location filename="../smplayer/inputurl.ui" line="51"/>
-        <location filename="../smplayer/inputurl.cpp" line="68"/>
+        <location filename="../smplayer/inputurl.ui" line="114"/>
+        <location filename="../smplayer/inputurl.cpp" line="77"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../smplayer/inputurl.ui" line="115"/>
+        <location filename="../smplayer/inputurl.ui" line="76"/>
         <source>URL:</source>
         <translation>网址:</translation>
     </message>
@@ -4234,78 +4235,78 @@ Do you want to overwrite?</source>
 <context>
     <name>MPVProcess</name>
     <message>
-        <location filename="../smplayer/mpvoptions.cpp" line="190"/>
+        <location filename="../smplayer/mpvoptions.cpp" line="194"/>
         <source>the &apos;%1&apos; filter is not supported by mpv</source>
         <translation>mpv不支持 &apos;%1&apos; 过滤器</translation>
     </message>
     <message>
-        <location filename="../smplayer/mpvoptions.cpp" line="879"/>
+        <location filename="../smplayer/mpvoptions.cpp" line="982"/>
         <source>File:</source>
         <translation>文件：</translation>
     </message>
     <message>
-        <location filename="../smplayer/mpvoptions.cpp" line="882"/>
+        <location filename="../smplayer/mpvoptions.cpp" line="985"/>
         <source>Video:</source>
         <translation>视频：</translation>
     </message>
     <message>
-        <location filename="../smplayer/mpvoptions.cpp" line="883"/>
+        <location filename="../smplayer/mpvoptions.cpp" line="986"/>
         <source>Resolution:</source>
         <translation>解析度：</translation>
     </message>
     <message>
-        <location filename="../smplayer/mpvoptions.cpp" line="884"/>
+        <location filename="../smplayer/mpvoptions.cpp" line="987"/>
         <source>Frames per second:</source>
         <translation>每秒显示的画面数：</translation>
     </message>
     <message>
-        <location filename="../smplayer/mpvoptions.cpp" line="884"/>
+        <location filename="../smplayer/mpvoptions.cpp" line="987"/>
         <source>Estimated:</source>
         <translation>预估：</translation>
     </message>
     <message>
-        <location filename="../smplayer/mpvoptions.cpp" line="886"/>
+        <location filename="../smplayer/mpvoptions.cpp" line="989"/>
         <source>Aspect Ratio:</source>
         <translation>外观比例：</translation>
     </message>
     <message>
-        <location filename="../smplayer/mpvoptions.cpp" line="887"/>
-        <location filename="../smplayer/mpvoptions.cpp" line="892"/>
+        <location filename="../smplayer/mpvoptions.cpp" line="990"/>
+        <location filename="../smplayer/mpvoptions.cpp" line="995"/>
         <source>Bitrate:</source>
         <translation>位率：</translation>
     </message>
     <message>
-        <location filename="../smplayer/mpvoptions.cpp" line="888"/>
+        <location filename="../smplayer/mpvoptions.cpp" line="991"/>
         <source>Dropped frames:</source>
         <translation>已丢失的画面：</translation>
     </message>
     <message>
-        <location filename="../smplayer/mpvoptions.cpp" line="891"/>
+        <location filename="../smplayer/mpvoptions.cpp" line="994"/>
         <source>Audio:</source>
         <translation>音频：</translation>
     </message>
     <message>
-        <location filename="../smplayer/mpvoptions.cpp" line="893"/>
+        <location filename="../smplayer/mpvoptions.cpp" line="996"/>
         <source>Sample Rate:</source>
         <translation>取样率：</translation>
     </message>
     <message>
-        <location filename="../smplayer/mpvoptions.cpp" line="894"/>
+        <location filename="../smplayer/mpvoptions.cpp" line="997"/>
         <source>Channels:</source>
         <translation>频道：</translation>
     </message>
     <message>
-        <location filename="../smplayer/mpvoptions.cpp" line="897"/>
+        <location filename="../smplayer/mpvoptions.cpp" line="1000"/>
         <source>Audio/video synchronization:</source>
         <translation>音/视频同步：</translation>
     </message>
     <message>
-        <location filename="../smplayer/mpvoptions.cpp" line="898"/>
+        <location filename="../smplayer/mpvoptions.cpp" line="1001"/>
         <source>Cache fill:</source>
         <translation>缓存填充：</translation>
     </message>
     <message>
-        <location filename="../smplayer/mpvoptions.cpp" line="899"/>
+        <location filename="../smplayer/mpvoptions.cpp" line="1002"/>
         <source>Used cache:</source>
         <translation>使用缓存：</translation>
     </message>
@@ -4313,457 +4314,457 @@ Do you want to overwrite?</source>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../mainwindow.cpp" line="149"/>
-        <location filename="../mainwindow.cpp" line="1184"/>
+        <location filename="../mainwindow.cpp" line="162"/>
+        <location filename="../mainwindow.cpp" line="1250"/>
         <source>Kylin Video</source>
         <translation>麒麟影音</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="375"/>
+        <location filename="../mainwindow.cpp" line="415"/>
         <source>A:%1</source>
         <translation>A:%1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="379"/>
+        <location filename="../mainwindow.cpp" line="419"/>
         <source>B:%1</source>
         <translation>B:%1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="612"/>
+        <location filename="../mainwindow.cpp" line="670"/>
         <source>Open</source>
         <translation>打开</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="618"/>
+        <location filename="../mainwindow.cpp" line="676"/>
         <source>Open &amp;File...</source>
         <translation>打开文件(&amp;F)...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="622"/>
+        <location filename="../mainwindow.cpp" line="680"/>
         <source>Directory...</source>
         <translation>目录...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="626"/>
+        <location filename="../mainwindow.cpp" line="684"/>
         <source>&amp;URL...</source>
         <translation>网址(&amp;U)...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="637"/>
+        <location filename="../mainwindow.cpp" line="695"/>
         <source>&amp;Clear</source>
         <translation>清除(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="642"/>
+        <location filename="../mainwindow.cpp" line="700"/>
         <source>Recent files</source>
         <translation>最近的文件</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="670"/>
+        <location filename="../mainwindow.cpp" line="728"/>
         <source>Play control</source>
         <translation>播放控制</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="672"/>
+        <location filename="../mainwindow.cpp" line="730"/>
         <source>Forward and rewind</source>
         <translation>快进快退</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="710"/>
+        <location filename="../mainwindow.cpp" line="768"/>
         <source>&amp;Jump to...</source>
         <translation>跳转到(&amp;J)...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="722"/>
+        <location filename="../mainwindow.cpp" line="781"/>
         <source>Play Speed</source>
         <translation>播放速度</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="743"/>
+        <location filename="../mainwindow.cpp" line="802"/>
         <source>Normal speed</source>
         <translation>正常速度</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="744"/>
+        <location filename="../mainwindow.cpp" line="803"/>
         <source>Half speed</source>
         <translation>半速</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="745"/>
+        <location filename="../mainwindow.cpp" line="804"/>
         <source>Double speed</source>
         <translation>双倍速度</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="746"/>
+        <location filename="../mainwindow.cpp" line="805"/>
         <source>Speed -10%</source>
         <translation>速度-10%</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="747"/>
+        <location filename="../mainwindow.cpp" line="806"/>
         <source>Speed +10%</source>
         <translation>速度+10%</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="748"/>
+        <location filename="../mainwindow.cpp" line="807"/>
         <source>Speed -4%</source>
         <translation>速度-4%</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="749"/>
+        <location filename="../mainwindow.cpp" line="808"/>
         <source>Speed +4%</source>
         <translation>速度+4%</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="750"/>
+        <location filename="../mainwindow.cpp" line="809"/>
         <source>Speed -1%</source>
         <translation>速度-1%</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="751"/>
+        <location filename="../mainwindow.cpp" line="810"/>
         <source>Speed +1%</source>
         <translation>速度+1%</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="775"/>
+        <location filename="../mainwindow.cpp" line="834"/>
         <source>Next</source>
         <translation>下一个</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="776"/>
+        <location filename="../mainwindow.cpp" line="835"/>
         <source>Previous</source>
         <translation>上一个</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="824"/>
+        <location filename="../mainwindow.cpp" line="883"/>
         <source>&amp;Auto</source>
         <translation>自动(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="835"/>
+        <location filename="../mainwindow.cpp" line="894"/>
         <source>&amp;Disabled</source>
         <translation>禁用(&amp;D)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="841"/>
+        <location filename="../mainwindow.cpp" line="900"/>
         <source>Aspect ratio</source>
         <translation>画面比例</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="854"/>
+        <location filename="../mainwindow.cpp" line="913"/>
         <source>&amp;Off</source>
         <translation>关(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="855"/>
+        <location filename="../mainwindow.cpp" line="914"/>
         <source>&amp;Rotate by 90 degrees clockwise and flip</source>
         <translation>顺时针旋转90度并翻转(&amp;R)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="856"/>
+        <location filename="../mainwindow.cpp" line="915"/>
         <source>Rotate by 90 degrees &amp;clockwise</source>
         <translation>顺时针旋转90度(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="857"/>
+        <location filename="../mainwindow.cpp" line="916"/>
         <source>Rotate by 90 degrees counterclock&amp;wise</source>
         <translation>逆时针旋转90度(&amp;W)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="858"/>
+        <location filename="../mainwindow.cpp" line="917"/>
         <source>Rotate by 90 degrees counterclockwise and &amp;flip</source>
         <translation>逆时针旋转90度并翻转(&amp;F)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="863"/>
+        <location filename="../mainwindow.cpp" line="922"/>
         <source>Fli&amp;p image</source>
         <translation>翻转图像(&amp;P)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="868"/>
+        <location filename="../mainwindow.cpp" line="927"/>
         <source>Mirr&amp;or image</source>
         <translation>镜像图像(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="872"/>
+        <location filename="../mainwindow.cpp" line="931"/>
         <source>Frame rotation</source>
         <translation>画面旋转</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="877"/>
+        <location filename="../mainwindow.cpp" line="936"/>
         <source>&amp;Rotate</source>
         <translation>旋转(&amp;R)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1041"/>
+        <location filename="../mainwindow.cpp" line="1100"/>
         <source>&amp;Screenshot</source>
         <translation>屏幕截图(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="655"/>
+        <location filename="../mainwindow.cpp" line="713"/>
         <source>&amp;Always</source>
         <translation>始终(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="656"/>
+        <location filename="../mainwindow.cpp" line="714"/>
         <source>&amp;Never</source>
         <translation>从不(&amp;N)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="657"/>
+        <location filename="../mainwindow.cpp" line="715"/>
         <source>While &amp;playing</source>
         <translation>当播放时(&amp;P)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="663"/>
+        <location filename="../mainwindow.cpp" line="721"/>
         <source>S&amp;tay on top</source>
         <translation>置顶(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="792"/>
+        <location filename="../mainwindow.cpp" line="851"/>
         <source>Order play</source>
         <translation>顺序播放</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="793"/>
+        <location filename="../mainwindow.cpp" line="852"/>
         <source>Random play</source>
         <translation>随机播放</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="794"/>
+        <location filename="../mainwindow.cpp" line="853"/>
         <source>List loop play</source>
         <translation>列表循环播放</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="799"/>
+        <location filename="../mainwindow.cpp" line="858"/>
         <source>Play order</source>
         <translation>播放顺序</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="895"/>
-        <location filename="../mainwindow.cpp" line="998"/>
+        <location filename="../mainwindow.cpp" line="954"/>
+        <location filename="../mainwindow.cpp" line="1057"/>
         <source>&amp;Stereo</source>
         <translation>立体声(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="896"/>
+        <location filename="../mainwindow.cpp" line="955"/>
         <source>&amp;4.0 Surround</source>
         <translation>4.0 环绕声(&amp;4)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="897"/>
+        <location filename="../mainwindow.cpp" line="956"/>
         <source>&amp;5.1 Surround</source>
         <translation>5.1 环绕声(&amp;5)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="898"/>
+        <location filename="../mainwindow.cpp" line="957"/>
         <source>&amp;6.1 Surround</source>
         <translation>6.1 环绕声(&amp;6)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="899"/>
+        <location filename="../mainwindow.cpp" line="958"/>
         <source>&amp;7.1 Surround</source>
         <translation>7.1 环绕声(&amp;7)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="904"/>
+        <location filename="../mainwindow.cpp" line="963"/>
         <source>&amp;Channels</source>
         <translation>声道(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="907"/>
-        <location filename="../mainwindow.cpp" line="972"/>
-        <location filename="../mainwindow.cpp" line="2233"/>
+        <location filename="../mainwindow.cpp" line="966"/>
+        <location filename="../mainwindow.cpp" line="1031"/>
+        <location filename="../mainwindow.cpp" line="2335"/>
         <source>Audio</source>
         <translation>音频</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="915"/>
+        <location filename="../mainwindow.cpp" line="974"/>
         <source>&amp;Mute</source>
         <translation>静音(&amp;M)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="934"/>
+        <location filename="../mainwindow.cpp" line="993"/>
         <source>&amp;Extrastereo</source>
         <translation>附加立体声(&amp;E)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="935"/>
+        <location filename="../mainwindow.cpp" line="994"/>
         <source>&amp;Karaoke</source>
         <translation>卡拉 OK(&amp;K)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="936"/>
+        <location filename="../mainwindow.cpp" line="995"/>
         <source>Volume &amp;normalization</source>
         <translation>音量标准化(&amp;N)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="937"/>
+        <location filename="../mainwindow.cpp" line="996"/>
         <source>&amp;Headphone optimization</source>
         <translation>优化耳机(&amp;h)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="946"/>
+        <location filename="../mainwindow.cpp" line="1005"/>
         <source>&amp;Filters</source>
         <translation>过滤器(&amp;F)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="951"/>
+        <location filename="../mainwindow.cpp" line="1010"/>
         <source>Volume -</source>
         <translation>音量 -</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="954"/>
+        <location filename="../mainwindow.cpp" line="1013"/>
         <source>Volume +</source>
         <translation>音量 +</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="957"/>
+        <location filename="../mainwindow.cpp" line="1016"/>
         <source>Delay -</source>
         <translation>延迟 -</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="960"/>
+        <location filename="../mainwindow.cpp" line="1019"/>
         <source>Delay +</source>
         <translation>延迟 +</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="963"/>
+        <location filename="../mainwindow.cpp" line="1022"/>
         <source>Set dela&amp;y...</source>
         <translation>设置延迟(&amp;Y)...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="977"/>
+        <location filename="../mainwindow.cpp" line="1036"/>
         <source>&amp;Load external file...</source>
         <translation>加载外部文件(&amp;L)...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="980"/>
+        <location filename="../mainwindow.cpp" line="1039"/>
         <source>U&amp;nload</source>
         <translation>卸载外部文件(&amp;N)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="984"/>
+        <location filename="../mainwindow.cpp" line="1043"/>
         <source>E&amp;qualizer</source>
         <translation>均衡器(&amp;Q)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="988"/>
+        <location filename="../mainwindow.cpp" line="1047"/>
         <source>Reset audio equalizer</source>
         <translation>重置音频均衡器</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="999"/>
+        <location filename="../mainwindow.cpp" line="1058"/>
         <source>&amp;Left channel</source>
         <translation>左声道(&amp;L)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1000"/>
+        <location filename="../mainwindow.cpp" line="1059"/>
         <source>&amp;Right channel</source>
         <translation>右声道(&amp;R)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1001"/>
+        <location filename="../mainwindow.cpp" line="1060"/>
         <source>&amp;Mono</source>
         <translation>单声道(&amp;M)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1002"/>
+        <location filename="../mainwindow.cpp" line="1061"/>
         <source>Re&amp;verse</source>
         <translation>反相(&amp;v)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1008"/>
+        <location filename="../mainwindow.cpp" line="1067"/>
         <source>&amp;Stereo mode</source>
         <translation>立体声模式(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1060"/>
-        <location filename="../mainwindow.cpp" line="2331"/>
+        <location filename="../mainwindow.cpp" line="1119"/>
+        <location filename="../mainwindow.cpp" line="2439"/>
         <source>Subtitles</source>
         <translation>字幕</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1064"/>
+        <location filename="../mainwindow.cpp" line="1123"/>
         <source>Load...</source>
         <translation>加载...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1069"/>
+        <location filename="../mainwindow.cpp" line="1128"/>
         <source>Subtitle &amp;visibility</source>
         <translation>字幕可见性(&amp;V)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1131"/>
+        <location filename="../mainwindow.cpp" line="1190"/>
         <source>Preferences</source>
         <translation>设置</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1135"/>
+        <location filename="../mainwindow.cpp" line="1194"/>
         <source>View &amp;info and properties...</source>
         <translation>媒体信息(&amp;I)...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1139"/>
+        <location filename="../mainwindow.cpp" line="1198"/>
         <source>Help</source>
         <translation>帮助</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1143"/>
+        <location filename="../mainwindow.cpp" line="1202"/>
         <source>About &amp;Kylin Video</source>
         <translation>关于 麒麟影音</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1146"/>
+        <location filename="../mainwindow.cpp" line="1205"/>
         <source>Quit</source>
         <translation>退出</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1078"/>
+        <location filename="../mainwindow.cpp" line="1137"/>
         <source>Show &amp;info on OSD</source>
         <translation>在 OSD 中显示信息(&amp;i)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1087"/>
+        <location filename="../mainwindow.cpp" line="1146"/>
         <source>Size &amp;+</source>
         <translation>大小 &amp;+</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1091"/>
+        <location filename="../mainwindow.cpp" line="1150"/>
         <source>Size &amp;-</source>
         <translation>大小 &amp;-</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1095"/>
+        <location filename="../mainwindow.cpp" line="1154"/>
         <source>Show times with &amp;milliseconds</source>
         <translation>以毫秒显示时间</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1106"/>
+        <location filename="../mainwindow.cpp" line="1165"/>
         <source>Subtitles onl&amp;y</source>
         <translation>仅字幕(&amp;Y)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1107"/>
+        <location filename="../mainwindow.cpp" line="1166"/>
         <source>Volume + &amp;Seek</source>
         <translation>音量+定位(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1108"/>
+        <location filename="../mainwindow.cpp" line="1167"/>
         <source>Volume + Seek + &amp;Timer</source>
         <translation>音量+定位+计时器(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1109"/>
+        <location filename="../mainwindow.cpp" line="1168"/>
         <source>Volume + Seek + Timer + T&amp;otal time</source>
         <translation>音量+定位+计时器+总时间(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1123"/>
+        <location filename="../mainwindow.cpp" line="1182"/>
         <source>&amp;OSD</source>
         <translation>屏幕显示(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1162"/>
+        <location filename="../mainwindow.cpp" line="1221"/>
         <source>PlayList</source>
         <translation>播放列表</translation>
     </message>
@@ -4772,202 +4773,202 @@ Do you want to overwrite?</source>
         <translation type="vanished">播放/暂停</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1172"/>
+        <location filename="../mainwindow.cpp" line="1231"/>
         <source>Stop</source>
         <translation>停止</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1176"/>
+        <location filename="../mainwindow.cpp" line="1235"/>
         <source>Fullscreen</source>
         <translation>全屏</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1191"/>
+        <location filename="../mainwindow.cpp" line="1257"/>
         <source>Open Homepage</source>
         <translation>打开主界面</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1194"/>
+        <location filename="../mainwindow.cpp" line="1260"/>
         <source>Open screenshots folder</source>
         <translation>打开截图文件夹</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1289"/>
+        <location filename="../mainwindow.cpp" line="1356"/>
         <source>Failed to add files!</source>
         <translation>添加文件失败！</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1617"/>
+        <location filename="../mainwindow.cpp" line="1702"/>
         <source>Video filters are disabled when using vdpau</source>
         <translation>使用 VDPAU 时将禁用视频过滤器</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1651"/>
-        <location filename="../mainwindow.cpp" line="1652"/>
-        <location filename="../mainwindow.cpp" line="1653"/>
+        <location filename="../mainwindow.cpp" line="1743"/>
+        <location filename="../mainwindow.cpp" line="1744"/>
+        <location filename="../mainwindow.cpp" line="1745"/>
         <source>-%1</source>
         <translation>-%1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1655"/>
-        <location filename="../mainwindow.cpp" line="1656"/>
-        <location filename="../mainwindow.cpp" line="1657"/>
+        <location filename="../mainwindow.cpp" line="1747"/>
+        <location filename="../mainwindow.cpp" line="1748"/>
+        <location filename="../mainwindow.cpp" line="1749"/>
         <source>+%1</source>
         <translation>+%1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1848"/>
+        <location filename="../mainwindow.cpp" line="1941"/>
         <source>&lt;empty&gt;</source>
         <translation>&lt;空&gt;</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2152"/>
+        <location filename="../mainwindow.cpp" line="2248"/>
         <source>Confirm deletion - Kylin Video</source>
         <translation>确认删除 - 麒麟影音</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2152"/>
+        <location filename="../mainwindow.cpp" line="2248"/>
         <source>Delete the list of recent files?</source>
         <translation>要删除最近的文件列表吗?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="970"/>
-        <location filename="../mainwindow.cpp" line="2230"/>
-        <location filename="../mainwindow.cpp" line="2329"/>
+        <location filename="../mainwindow.cpp" line="1029"/>
+        <location filename="../mainwindow.cpp" line="2332"/>
+        <location filename="../mainwindow.cpp" line="2437"/>
         <source>Choose a file</source>
         <translation>选择一个文件</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2231"/>
+        <location filename="../mainwindow.cpp" line="2333"/>
         <source>Multimedia</source>
         <translation>多媒体</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2232"/>
+        <location filename="../mainwindow.cpp" line="2334"/>
         <source>Video</source>
         <translation>视频</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2234"/>
+        <location filename="../mainwindow.cpp" line="2336"/>
         <source>Playlists</source>
         <translation>播放列表</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="973"/>
-        <location filename="../mainwindow.cpp" line="2235"/>
-        <location filename="../mainwindow.cpp" line="2332"/>
+        <location filename="../mainwindow.cpp" line="1032"/>
+        <location filename="../mainwindow.cpp" line="2337"/>
+        <location filename="../mainwindow.cpp" line="2440"/>
         <source>All files</source>
         <translation>所有文件</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2271"/>
+        <location filename="../mainwindow.cpp" line="2379"/>
         <source>Choose a directory</source>
         <translation>选择一个目录</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2430"/>
+        <location filename="../mainwindow.cpp" line="2571"/>
         <source>&amp;Jump to:</source>
         <translation>跳转到(&amp;J):</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2431"/>
+        <location filename="../mainwindow.cpp" line="2572"/>
         <source>Kylin Video - Seek</source>
         <translation>麒麟影音 - 定位</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2459"/>
-        <location filename="../mainwindow.cpp" line="2463"/>
+        <location filename="../mainwindow.cpp" line="2600"/>
+        <location filename="../mainwindow.cpp" line="2604"/>
         <source>Kylin Video - Subtitle delay</source>
         <translation>麒麟影音 - 字幕延迟</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2460"/>
-        <location filename="../mainwindow.cpp" line="2464"/>
+        <location filename="../mainwindow.cpp" line="2601"/>
+        <location filename="../mainwindow.cpp" line="2605"/>
         <source>Subtitle delay (in milliseconds):</source>
         <translation>字幕延迟(毫秒):</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2578"/>
+        <location filename="../mainwindow.cpp" line="2719"/>
         <source>Error detected</source>
         <translation>检测到错误</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2579"/>
+        <location filename="../mainwindow.cpp" line="2720"/>
         <source>Unfortunately this video can&apos;t be played.</source>
         <translation>抱歉此视频不能播放</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2580"/>
+        <location filename="../mainwindow.cpp" line="2721"/>
         <source>The server returned &apos;%1&apos;</source>
         <translation>服务器返回&apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2855"/>
+        <location filename="../mainwindow.cpp" line="3016"/>
         <source>Jump to %1</source>
         <translation>跳转到 %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3067"/>
-        <location filename="../mainwindow.cpp" line="3068"/>
-        <location filename="../mainwindow.cpp" line="3078"/>
-        <location filename="../mainwindow.cpp" line="3079"/>
-        <location filename="../mainwindow.cpp" line="3092"/>
-        <location filename="../mainwindow.cpp" line="3093"/>
+        <location filename="../mainwindow.cpp" line="3241"/>
+        <location filename="../mainwindow.cpp" line="3242"/>
+        <location filename="../mainwindow.cpp" line="3252"/>
+        <location filename="../mainwindow.cpp" line="3253"/>
+        <location filename="../mainwindow.cpp" line="3266"/>
+        <location filename="../mainwindow.cpp" line="3267"/>
         <source>%1 Error</source>
         <translation>%1 错误</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3069"/>
+        <location filename="../mainwindow.cpp" line="3243"/>
         <source>&apos;%1&apos; was not found!</source>
         <translation>&apos;%1&apos; 没有被找到！</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3080"/>
+        <location filename="../mainwindow.cpp" line="3254"/>
         <source>%1 has finished unexpectedly.</source>
         <translation>%1 已意外结束。</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3081"/>
+        <location filename="../mainwindow.cpp" line="3255"/>
         <source>Exit code: %1</source>
         <translation>退出代码: %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3095"/>
+        <location filename="../mainwindow.cpp" line="3269"/>
         <source>%1 failed to start.</source>
         <translation>%1 启动失败。</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3096"/>
+        <location filename="../mainwindow.cpp" line="3270"/>
         <source>Please check the %1 path in preferences.</source>
         <translation>请检查首选项中的 %1 路径。</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3098"/>
+        <location filename="../mainwindow.cpp" line="3272"/>
         <source>%1 has crashed.</source>
         <translation>%1 已崩溃。</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3099"/>
+        <location filename="../mainwindow.cpp" line="3273"/>
         <source>See the log for more info.</source>
         <translation>更多信息请参阅日志。</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1203"/>
+        <location filename="../mainwindow.cpp" line="1269"/>
         <source>Information</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1203"/>
+        <location filename="../mainwindow.cpp" line="1269"/>
         <source>The screenshot folder does not exist!</source>
         <translation>截图文件夹不存在！</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="392"/>
+        <location filename="../mainwindow.cpp" line="432"/>
         <source>Warning - Using old MPlayer</source>
         <translation>警告 - 正在使用过时的 MPlayer</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="393"/>
+        <location filename="../mainwindow.cpp" line="433"/>
         <source>The version of MPlayer (%1) installed on your system is obsolete. kylin-video can&apos;t work well with it: some options won&apos;t work, subtitle selection may fail...</source>
         <translation>您的系统上安装的 MPlayer(%1)版本已过时。麒麟影音无法正常运行它: 有些选项无法正常工作，字幕选择可能会失效...</translation>
     </message>
@@ -4976,12 +4977,12 @@ Do you want to overwrite?</source>
         <translation type="obsolete">您的系统上安装的 MPlayer(%1)版本已过时。视频播放器无法正常运行它: 有些选项无法正常工作，字幕选择可能会失效...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="398"/>
+        <location filename="../mainwindow.cpp" line="438"/>
         <source>Please, update your MPlayer.</source>
         <translation>请更新您的 MPlayer。</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="400"/>
+        <location filename="../mainwindow.cpp" line="440"/>
         <source>(This warning won&apos;t be displayed anymore)</source>
         <translation>(此警告将不再显示)</translation>
     </message>
@@ -4989,7 +4990,7 @@ Do you want to overwrite?</source>
 <context>
     <name>MaskWidget</name>
     <message>
-        <location filename="../maskwidget.cpp" line="47"/>
+        <location filename="../maskwidget.cpp" line="48"/>
         <source>Loading...</source>
         <translation></translation>
     </message>
@@ -5026,22 +5027,22 @@ Do you want to overwrite?</source>
         <translation type="obsolete">确定</translation>
     </message>
     <message>
-        <location filename="../messagedialog.cpp" line="65"/>
+        <location filename="../messagedialog.cpp" line="76"/>
         <source>Ok</source>
         <translation>确定</translation>
     </message>
     <message>
-        <location filename="../messagedialog.cpp" line="73"/>
+        <location filename="../messagedialog.cpp" line="84"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../messagedialog.cpp" line="81"/>
+        <location filename="../messagedialog.cpp" line="92"/>
         <source>Yes</source>
         <translation>是</translation>
     </message>
     <message>
-        <location filename="../messagedialog.cpp" line="89"/>
+        <location filename="../messagedialog.cpp" line="100"/>
         <source>No</source>
         <translation>否</translation>
     </message>
@@ -5198,40 +5199,40 @@ Do you want to overwrite?</source>
 您想要覆盖吗?</translation>
     </message>
     <message>
-        <location filename="../playlist.cpp" line="1065"/>
+        <location filename="../playlist.cpp" line="1068"/>
         <source>Reached the top of the playlist</source>
         <translation>已经到达播放列表顶部</translation>
     </message>
     <message>
-        <location filename="../playlist.cpp" line="1325"/>
+        <location filename="../playlist.cpp" line="1329"/>
         <source>You&apos;re about to remove the file from the playlist.</source>
         <translation>将从播放列表中移除文件。</translation>
     </message>
     <message>
-        <location filename="../playlist.cpp" line="1397"/>
+        <location filename="../playlist.cpp" line="1431"/>
         <source>You&apos;re about to Delete the files from your drive.</source>
         <translation>将从您的硬盘删除文件。</translation>
     </message>
     <message>
-        <location filename="../playlist.cpp" line="1471"/>
+        <location filename="../playlist.cpp" line="1505"/>
         <source>Confirm remove all</source>
         <translation>确认移除所有文件</translation>
     </message>
     <message>
-        <location filename="../playlist.cpp" line="1472"/>
+        <location filename="../playlist.cpp" line="1506"/>
         <source>You&apos;re about to empty the playlist.</source>
         <translation>将清空播放列表。</translation>
     </message>
     <message>
         <location filename="../playlist.cpp" line="838"/>
-        <location filename="../playlist.cpp" line="1139"/>
-        <location filename="../playlist.cpp" line="1200"/>
+        <location filename="../playlist.cpp" line="1142"/>
+        <location filename="../playlist.cpp" line="1203"/>
         <source>All files</source>
         <translation>所有文件</translation>
     </message>
     <message>
-        <location filename="../playlist.cpp" line="1136"/>
-        <location filename="../playlist.cpp" line="1197"/>
+        <location filename="../playlist.cpp" line="1139"/>
+        <location filename="../playlist.cpp" line="1200"/>
         <source>Select one or more files to open</source>
         <translation>选择一个或多个要打开的文件</translation>
     </message>
@@ -5265,12 +5266,12 @@ Do you want to overwrite?</source>
         <translation type="obsolete">播放</translation>
     </message>
     <message>
-        <location filename="../playlist.cpp" line="1021"/>
+        <location filename="../playlist.cpp" line="1024"/>
         <source>Reached the end of the playlist</source>
         <translation>已经到达播放列表底部</translation>
     </message>
     <message>
-        <location filename="../playlist.cpp" line="1251"/>
+        <location filename="../playlist.cpp" line="1254"/>
         <source>Choose a directory</source>
         <translation>选择一个目录</translation>
     </message>
@@ -5347,7 +5348,7 @@ Do you want to overwrite?</source>
         <translation type="obsolete">视频播放器 - 播放列表</translation>
     </message>
     <message>
-        <location filename="../playlist.cpp" line="1324"/>
+        <location filename="../playlist.cpp" line="1328"/>
         <source>Confirm remove</source>
         <translation>确认移除</translation>
     </message>
@@ -5356,13 +5357,13 @@ Do you want to overwrite?</source>
         <translation type="obsolete">将从播放列表中移除文件 &apos;%1&apos;。</translation>
     </message>
     <message>
-        <location filename="../playlist.cpp" line="1326"/>
-        <location filename="../playlist.cpp" line="1473"/>
+        <location filename="../playlist.cpp" line="1330"/>
+        <location filename="../playlist.cpp" line="1507"/>
         <source>Are you sure you want to proceed?</source>
         <translation>你确定要继续？</translation>
     </message>
     <message>
-        <location filename="../playlist.cpp" line="1396"/>
+        <location filename="../playlist.cpp" line="1430"/>
         <source>Confirm deletion</source>
         <translation>确认删除</translation>
     </message>
@@ -5371,7 +5372,7 @@ Do you want to overwrite?</source>
         <translation type="obsolete">将从您的硬盘删除文件 &apos;%1&apos; </translation>
     </message>
     <message>
-        <location filename="../playlist.cpp" line="1398"/>
+        <location filename="../playlist.cpp" line="1432"/>
         <source>This action cannot be undone. Are you sure you want to proceed?</source>
         <translation>此操作不可撤销。你确定要继续？</translation>
     </message>
@@ -5408,8 +5409,8 @@ Do you want to overwrite?</source>
         <translation type="obsolete">有未保存的更改，您想要保存该播放列表吗?</translation>
     </message>
     <message>
-        <location filename="../playlist.cpp" line="1138"/>
-        <location filename="../playlist.cpp" line="1199"/>
+        <location filename="../playlist.cpp" line="1141"/>
+        <location filename="../playlist.cpp" line="1202"/>
         <source>Multimedia</source>
         <translation>多媒体</translation>
     </message>
@@ -5884,7 +5885,7 @@ Example: extrastereo,karaoke</source>
     </message>
     <message>
         <location filename="../smplayer/prefaudio.ui" line="155"/>
-        <location filename="../smplayer/prefaudio.cpp" line="336"/>
+        <location filename="../smplayer/prefaudio.cpp" line="345"/>
         <source>Audio/video auto synchronization</source>
         <translation>音频/视频自动同步</translation>
     </message>
@@ -5933,110 +5934,110 @@ Example: extrastereo,karaoke</source>
         <translation type="obsolete">因子(&amp;F):</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefaudio.cpp" line="89"/>
+        <location filename="../smplayer/prefaudio.cpp" line="96"/>
         <source>2 (Stereo)</source>
         <translation>2 (立体声)</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefaudio.cpp" line="90"/>
+        <location filename="../smplayer/prefaudio.cpp" line="97"/>
         <source>4 (4.0 Surround)</source>
         <translation>4 (4.0 环绕声)</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefaudio.cpp" line="91"/>
+        <location filename="../smplayer/prefaudio.cpp" line="98"/>
         <source>6 (5.1 Surround)</source>
         <translation>6 (5.1 环绕声)</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefaudio.cpp" line="92"/>
+        <location filename="../smplayer/prefaudio.cpp" line="99"/>
         <source>7 (6.1 Surround)</source>
         <translation>7 (6.1 环绕声)</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefaudio.cpp" line="93"/>
+        <location filename="../smplayer/prefaudio.cpp" line="100"/>
         <source>8 (7.1 Surround)</source>
         <translation>8 (7.1 环绕声)</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefaudio.cpp" line="88"/>
-        <location filename="../smplayer/prefaudio.cpp" line="150"/>
+        <location filename="../smplayer/prefaudio.cpp" line="95"/>
+        <location filename="../smplayer/prefaudio.cpp" line="157"/>
         <source>Default</source>
         <translation>默认</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefaudio.cpp" line="295"/>
+        <location filename="../smplayer/prefaudio.cpp" line="304"/>
         <source>Audio output driver</source>
         <translation>音频输出驱动</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefaudio.cpp" line="296"/>
+        <location filename="../smplayer/prefaudio.cpp" line="305"/>
         <source>Select the audio output driver.</source>
         <translation>选择音频输出驱动。</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefaudio.cpp" line="298"/>
+        <location filename="../smplayer/prefaudio.cpp" line="307"/>
         <source>%1 is the recommended one. Try to avoid %2 and %3, they are slow and can have an impact on performance.</source>
         <translation>推荐使用 %1。尽量避免 %2 和 %3，它们速度很慢，且会影响性能。</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefaudio.cpp" line="305"/>
+        <location filename="../smplayer/prefaudio.cpp" line="314"/>
         <source>Channels by default</source>
         <translation>默认声道</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefaudio.cpp" line="306"/>
+        <location filename="../smplayer/prefaudio.cpp" line="315"/>
         <source>Requests the number of playback channels. MPlayer asks the decoder to decode the audio into as many channels as specified. Then it is up to the decoder to fulfill the requirement. This is usually only important when playing videos with AC3 audio (like DVDs). In that case liba52 does the decoding by default and correctly downmixes the audio into the requested number of channels. &lt;b&gt;Note&lt;/b&gt;: This option is honored by codecs (AC3 only), filters (surround) and audio output drivers (OSS at least).</source>
         <translation>指定播放声道的数量。MPlayer 告诉解码器需要将音频解码成多少声道，再由解码器来实现此需求。通常只有在播放带有 AC3 音频(比如 DVD)的视频时才有用。在该情况下将默认使用 liba52 解码并把音频正确地混合成需要的声道数量。&lt;b&gt;注意&lt;/b&gt;: 此选项需要 编码(仅 AC3)、过滤器(环绕声)和音频输出驱动(OSS或更高级)三者都满足。</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefaudio.cpp" line="337"/>
+        <location filename="../smplayer/prefaudio.cpp" line="346"/>
         <source>Gradually adjusts the A/V sync based on audio delay measurements.</source>
         <translation>基于音频延迟的测量值逐步调整 A/V 同步。</translation>
     </message>
     <message>
         <location filename="../smplayer/prefaudio.ui" line="44"/>
-        <location filename="../smplayer/prefaudio.cpp" line="316"/>
+        <location filename="../smplayer/prefaudio.cpp" line="325"/>
         <source>Global volume</source>
         <translation>全局音量</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefaudio.cpp" line="317"/>
+        <location filename="../smplayer/prefaudio.cpp" line="326"/>
         <source>If this option is checked, the same volume will be used for all files you play. If the option is not checked each file uses its own volume.</source>
         <translation>如果勾选此选项，您播放的所有文件都将使用相同的音量。如果此选项未被勾选，每个文件将使用其自己的音量。</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefaudio.cpp" line="320"/>
+        <location filename="../smplayer/prefaudio.cpp" line="329"/>
         <source>This option also applies for the mute control.</source>
         <translation>此选项也适用于静音控制。</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefaudio.cpp" line="322"/>
+        <location filename="../smplayer/prefaudio.cpp" line="331"/>
         <source>Software volume control</source>
         <translation>使用软件音量控制</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefaudio.cpp" line="323"/>
+        <location filename="../smplayer/prefaudio.cpp" line="332"/>
         <source>Check this option to use the software mixer, instead of using the sound card mixer.</source>
         <translation>勾选此选项以使用软件混音器，而不使用声卡混音器。</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefaudio.cpp" line="326"/>
+        <location filename="../smplayer/prefaudio.cpp" line="335"/>
         <source>Max. Amplification</source>
         <translation>最大放大率</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefaudio.cpp" line="327"/>
+        <location filename="../smplayer/prefaudio.cpp" line="336"/>
         <source>Sets the maximum amplification level in percent (default: 110). A value of 200 will allow you to adjust the volume up to a maximum of double the current level. With values below 100 the initial volume (which is 100%) will be above the maximum, which e.g. the OSD cannot display correctly.</source>
         <translation>设置最大放大级别的百分比(默认值: 110)。该值为 200 时允许您调整的最大音量为目前级别的两倍。该值低于 100 时，初始音量(为100%)将高于可调整的最大值，这时例如 OSD (屏幕显示)将不能正确显示。</translation>
     </message>
     <message>
         <location filename="../smplayer/prefaudio.ui" line="119"/>
-        <location filename="../smplayer/prefaudio.cpp" line="333"/>
+        <location filename="../smplayer/prefaudio.cpp" line="342"/>
         <source>Volume normalization by default</source>
         <translation>默认音量标准化</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefaudio.cpp" line="334"/>
+        <location filename="../smplayer/prefaudio.cpp" line="343"/>
         <source>Maximizes the volume without distorting the sound.</source>
         <translation>声音没有失真的最大音量。</translation>
     </message>
@@ -6400,7 +6401,7 @@ Example: extrastereo,karaoke</source>
     </message>
     <message>
         <location filename="../smplayer/prefgeneral.ui" line="26"/>
-        <location filename="../smplayer/prefgeneral.cpp" line="140"/>
+        <location filename="../smplayer/prefgeneral.cpp" line="143"/>
         <source>Pause when minimized</source>
         <translation>最小化时暂停</translation>
     </message>
@@ -6649,37 +6650,35 @@ Example: extrastereo,karaoke</source>
         <translation type="obsolete">通常视频播放器将记住您所播放的每个文件的设置(音轨选择、音量、过滤器...)。如果您不喜欢这个功能，请禁用此选项。</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefgeneral.cpp" line="141"/>
+        <location filename="../smplayer/prefgeneral.cpp" line="144"/>
         <source>If this option is enabled, the file will be paused when the main window is hidden. When the window is restored, playback will be resumed.</source>
         <translation>如果启用此选项，主窗口处于隐藏状态时，文件将被暂停。窗口还原时，将恢复播放。</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefgeneral.cpp" line="144"/>
+        <location filename="../smplayer/prefgeneral.cpp" line="147"/>
         <source>Preview when the video is playing</source>
         <translation>视频播放时进行预览</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefgeneral.cpp" line="145"/>
+        <location filename="../smplayer/prefgeneral.cpp" line="148"/>
         <source>If this option is enabled, the video preview will be displayed when the mouse is placed on the progress bar.</source>
         <translation>如果此选项打开，则当鼠标放置在进度条上时，会显示视频预览图。</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefgeneral.cpp" line="147"/>
         <source>Select MPlayer as playback engine</source>
-        <translation>选择 MPlayer 作为播放引擎</translation>
+        <translation type="vanished">选择 MPlayer 作为播放引擎</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefgeneral.cpp" line="148"/>
+        <location filename="../smplayer/prefgeneral.cpp" line="164"/>
         <source>If you change the playback engine to MPlayer, please restart Kylin Video.</source>
         <translation>如果你切换播放引擎为MPlayer，请重启麒麟影音。</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefgeneral.cpp" line="149"/>
         <source>Select MPV as playback engine</source>
-        <translation>选择 MPV 作为播放引擎</translation>
+        <translation type="vanished">选择 MPV 作为播放引擎</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefgeneral.cpp" line="150"/>
+        <location filename="../smplayer/prefgeneral.cpp" line="169"/>
         <source>If you change the playback engine to MPV, please restart Kylin Video.</source>
         <translation>如果你切换播放引擎为MPV，请重启麒麟影音。</translation>
     </message>
@@ -7936,8 +7935,8 @@ Example: extrastereo,karaoke</source>
 <context>
     <name>PrefPerformance</name>
     <message>
-        <location filename="../smplayer/prefperformance.cpp" line="52"/>
-        <location filename="../smplayer/prefperformance.cpp" line="134"/>
+        <location filename="../smplayer/prefperformance.cpp" line="56"/>
+        <location filename="../smplayer/prefperformance.cpp" line="138"/>
         <source>Performance</source>
         <translation>性能</translation>
     </message>
@@ -8080,22 +8079,22 @@ Example: extrastereo,karaoke</source>
         <translation type="obsolete">可允许的值:&lt;br&gt; &lt;b&gt;是&lt;/b&gt;: 它将尝试以最快的方法来切换音轨(它可能无法工作于某些格式)。&lt;br&gt; &lt;b&gt;否&lt;/b&gt;: 每当您更改音轨，MPlayer 进程将重新启动。&lt;br&gt; &lt;b&gt;自动&lt;/b&gt;: 视频播放器将根据 MPlayer 版本来决定如何做。</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefperformance.cpp" line="158"/>
+        <location filename="../smplayer/prefperformance.cpp" line="162"/>
         <source>Cache for files</source>
         <translation>本地文件缓存</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefperformance.cpp" line="159"/>
+        <location filename="../smplayer/prefperformance.cpp" line="163"/>
         <source>This option specifies how much memory (in kBytes) to use when precaching a file.</source>
         <translation>此选项可指定预缓存文件时要使用多少内存(以 KB 为单位)。</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefperformance.cpp" line="162"/>
+        <location filename="../smplayer/prefperformance.cpp" line="166"/>
         <source>Cache for streams</source>
         <translation>流缓存</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefperformance.cpp" line="163"/>
+        <location filename="../smplayer/prefperformance.cpp" line="167"/>
         <source>This option specifies how much memory (in kBytes) to use when precaching a URL.</source>
         <translation>此选项可指定预缓存 URL 时要使用多少内存(以 KB 为单位)。</translation>
     </message>
@@ -8159,42 +8158,42 @@ Example: extrastereo,karaoke</source>
     </message>
     <message>
         <location filename="../smplayer/prefperformance.ui" line="172"/>
-        <location filename="../smplayer/prefperformance.cpp" line="140"/>
+        <location filename="../smplayer/prefperformance.cpp" line="144"/>
         <source>Hardware decoding</source>
         <translation>硬件解码</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefperformance.cpp" line="141"/>
+        <location filename="../smplayer/prefperformance.cpp" line="145"/>
         <source>Sets the hardware video decoding API. If hardware decoding is not possible, software decoding will be used instead.</source>
         <translation>设置硬件解码 API。如果无法使用硬解，则会使用软解。</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefperformance.cpp" line="143"/>
+        <location filename="../smplayer/prefperformance.cpp" line="147"/>
         <source>Available options:</source>
         <translation>可用选项：</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefperformance.cpp" line="145"/>
+        <location filename="../smplayer/prefperformance.cpp" line="149"/>
         <source>None: only software decoding will be used.</source>
         <translation>无：仅用软解。</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefperformance.cpp" line="146"/>
+        <location filename="../smplayer/prefperformance.cpp" line="150"/>
         <source>Auto: it tries to automatically enable hardware decoding using the first available method.</source>
         <translation>自动：自动尝试使用第一种可用的硬解方式。</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefperformance.cpp" line="148"/>
+        <location filename="../smplayer/prefperformance.cpp" line="152"/>
         <source>vdpau: for the vdpau and opengl video outputs.</source>
         <translation>vdpau：用于 vdpau 以及 opengl 显示输出。</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefperformance.cpp" line="149"/>
+        <location filename="../smplayer/prefperformance.cpp" line="153"/>
         <source>vaapi: for the opengl and vaapi video outputs. For Intel GPUs only.</source>
         <translation>vaapi：用于 opengl 以及 vaapi 视频输出。仅支持 Intel GPU。</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefperformance.cpp" line="150"/>
+        <location filename="../smplayer/prefperformance.cpp" line="154"/>
         <source>vaapi-copy: it copies video back into system RAM. For Intel GPUs only.</source>
         <translation>vaapi-copy：将视频拷贝回系统内存中。仅支持 Intel GPU。</translation>
     </message>
@@ -8203,7 +8202,7 @@ Example: extrastereo,karaoke</source>
         <translation type="obsolete">dxva2-copy：将视频拷贝回系统内存中。试验性功能。</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefperformance.cpp" line="154"/>
+        <location filename="../smplayer/prefperformance.cpp" line="158"/>
         <source>This option only works with mpv.</source>
         <translation>此选项仅支持 mpv。</translation>
     </message>
@@ -8225,7 +8224,7 @@ Example: extrastereo,karaoke</source>
     </message>
     <message>
         <location filename="../smplayer/prefperformance.ui" line="26"/>
-        <location filename="../smplayer/prefperformance.cpp" line="156"/>
+        <location filename="../smplayer/prefperformance.cpp" line="160"/>
         <source>Cache</source>
         <translation>缓存</translation>
     </message>
@@ -8254,12 +8253,12 @@ Example: extrastereo,karaoke</source>
         <translation type="obsolete">VCD 缓存(&amp;V):</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefperformance.cpp" line="136"/>
+        <location filename="../smplayer/prefperformance.cpp" line="140"/>
         <source>Threads for decoding</source>
         <translation>解码线程</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefperformance.cpp" line="137"/>
+        <location filename="../smplayer/prefperformance.cpp" line="141"/>
         <source>Sets the number of threads to use for decoding. Only for MPEG-1/2 and H.264</source>
         <translation>设置要用于解码的线程数。仅适用于 MPEG-1/2 和 H.264</translation>
     </message>
@@ -9169,28 +9168,28 @@ Example: extrastereo,karaoke</source>
         <translation type="obsolete">使用切片方式绘制视频(&amp;W)</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefvideo.cpp" line="125"/>
+        <location filename="../smplayer/prefvideo.cpp" line="128"/>
         <source>Default</source>
         <translation>默认</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefvideo.cpp" line="130"/>
+        <location filename="../smplayer/prefvideo.cpp" line="133"/>
         <source>slow</source>
         <translation>慢速</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefvideo.cpp" line="260"/>
+        <location filename="../smplayer/prefvideo.cpp" line="267"/>
         <source>Video output driver</source>
         <translation>视频输出驱动</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefvideo.cpp" line="261"/>
+        <location filename="../smplayer/prefvideo.cpp" line="268"/>
         <source>Select the video output driver. %1 provides the best performance.</source>
         <translation>选择视频输出驱动。%1 可提供最佳性能。</translation>
     </message>
     <message>
         <location filename="../smplayer/prefvideo.ui" line="26"/>
-        <location filename="../smplayer/prefvideo.cpp" line="265"/>
+        <location filename="../smplayer/prefvideo.cpp" line="272"/>
         <source>Enable postprocessing by default</source>
         <translation>默认启用后期处理</translation>
     </message>
@@ -9205,50 +9204,50 @@ Example: extrastereo,karaoke</source>
         <translation>输出驱动:</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefvideo.cpp" line="266"/>
+        <location filename="../smplayer/prefvideo.cpp" line="273"/>
         <source>Postprocessing will be used by default on new opened files.</source>
         <translation>默认在新打开的文件上使用后期处理。</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefvideo.cpp" line="268"/>
+        <location filename="../smplayer/prefvideo.cpp" line="275"/>
         <source>Software video equalizer</source>
         <translation>使用软件视频均衡器</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefvideo.cpp" line="269"/>
+        <location filename="../smplayer/prefvideo.cpp" line="276"/>
         <source>You can check this option if video equalizer is not supported by your graphic card or the selected video output driver.&lt;br&gt;&lt;b&gt;Note:&lt;/b&gt; this option can be incompatible with some video output drivers.</source>
         <translation>如果您的显示卡或所选的视频输出驱动不支持视频均衡器，您可以勾选此选项。&lt;br&gt;&lt;b&gt;注意:&lt;/b&gt; 此选项可能与某些视频输出驱动不兼容。</translation>
     </message>
     <message>
         <location filename="../smplayer/prefvideo.ui" line="52"/>
-        <location filename="../smplayer/prefvideo.cpp" line="274"/>
+        <location filename="../smplayer/prefvideo.cpp" line="281"/>
         <source>Direct rendering</source>
         <translation>直接渲染</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefvideo.cpp" line="275"/>
+        <location filename="../smplayer/prefvideo.cpp" line="282"/>
         <source>If checked, turns on direct rendering (not supported by all codecs and video outputs)&lt;br&gt;&lt;b&gt;Warning:&lt;/b&gt; May cause OSD/SUB corruption!</source>
         <translation>如果勾选，将打开直接渲染(还不被所有的编解码器和视频输出支持)&lt;br&gt;&lt;b&gt;警告:&lt;/b&gt; 可能会导致 OSD (屏幕显示)/SUB 的讹误!</translation>
     </message>
     <message>
         <location filename="../smplayer/prefvideo.ui" line="65"/>
-        <location filename="../smplayer/prefvideo.cpp" line="279"/>
+        <location filename="../smplayer/prefvideo.cpp" line="286"/>
         <source>Double buffering</source>
         <translation>双缓冲</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefvideo.cpp" line="280"/>
+        <location filename="../smplayer/prefvideo.cpp" line="287"/>
         <source>Double buffering fixes flicker by storing two frames in memory, and displaying one while decoding another. If disabled it can affect OSD negatively, but often removes OSD flickering.</source>
         <translation>通过在内存中存储两帧，在显示一帧的同时解码另一帧的双缓冲来修复闪烁问题。如果禁用它会对 OSD (屏幕显示)产生负面影响，但常常能去除 OSD (屏幕显示)的闪烁。</translation>
     </message>
     <message>
         <location filename="../smplayer/prefvideo.ui" line="39"/>
-        <location filename="../smplayer/prefvideo.cpp" line="284"/>
+        <location filename="../smplayer/prefvideo.cpp" line="291"/>
         <source>Draw video using slices</source>
         <translation>使用切片方式绘制视频</translation>
     </message>
     <message>
-        <location filename="../smplayer/prefvideo.cpp" line="285"/>
+        <location filename="../smplayer/prefvideo.cpp" line="292"/>
         <source>Enable/disable drawing video by 16-pixel height slices/bands. If disabled, the whole frame is drawn in a single run. May be faster or slower, depending on video card and available cache. It has effect only with libmpeg2 and libavcodec codecs.</source>
         <translation>启用/禁用以 16-像素高的片/带方式绘制视频。如果禁用，将一次运行绘制整个帧。可能更快或更慢，这取决于显卡和可用的缓存。它只对 libmpeg2 和 libavcodec 编解码器有效果。</translation>
     </message>
@@ -9260,37 +9259,37 @@ Example: extrastereo,karaoke</source>
         <translation type="obsolete">视频播放器 - 帮助</translation>
     </message>
     <message>
-        <location filename="../smplayer/preferencesdialog.cpp" line="84"/>
+        <location filename="../smplayer/preferencesdialog.cpp" line="96"/>
         <source>General</source>
         <translation>常规</translation>
     </message>
     <message>
-        <location filename="../smplayer/preferencesdialog.cpp" line="92"/>
+        <location filename="../smplayer/preferencesdialog.cpp" line="104"/>
         <source>Video</source>
         <translation>视频</translation>
     </message>
     <message>
-        <location filename="../smplayer/preferencesdialog.cpp" line="99"/>
+        <location filename="../smplayer/preferencesdialog.cpp" line="111"/>
         <source>Audio</source>
         <translation>音频</translation>
     </message>
     <message>
-        <location filename="../smplayer/preferencesdialog.cpp" line="106"/>
+        <location filename="../smplayer/preferencesdialog.cpp" line="118"/>
         <source>Performance</source>
         <translation>性能</translation>
     </message>
     <message>
-        <location filename="../smplayer/preferencesdialog.cpp" line="113"/>
+        <location filename="../smplayer/preferencesdialog.cpp" line="125"/>
         <source>Subtitles</source>
         <translation>字幕</translation>
     </message>
     <message>
-        <location filename="../smplayer/preferencesdialog.cpp" line="120"/>
+        <location filename="../smplayer/preferencesdialog.cpp" line="132"/>
         <source>ScreenShot</source>
         <translation>屏幕截图</translation>
     </message>
     <message>
-        <location filename="../smplayer/preferencesdialog.cpp" line="127"/>
+        <location filename="../smplayer/preferencesdialog.cpp" line="139"/>
         <source>Shortcut Key</source>
         <translation>快捷键</translation>
     </message>
@@ -9299,14 +9298,14 @@ Example: extrastereo,karaoke</source>
         <translation type="obsolete">缓存</translation>
     </message>
     <message>
-        <location filename="../smplayer/preferencesdialog.ui" line="135"/>
-        <location filename="../smplayer/preferencesdialog.cpp" line="233"/>
+        <location filename="../smplayer/preferencesdialog.ui" line="144"/>
+        <location filename="../smplayer/preferencesdialog.cpp" line="245"/>
         <source>OK</source>
         <translation>确定</translation>
     </message>
     <message>
-        <location filename="../smplayer/preferencesdialog.ui" line="109"/>
-        <location filename="../smplayer/preferencesdialog.cpp" line="234"/>
+        <location filename="../smplayer/preferencesdialog.ui" line="131"/>
+        <location filename="../smplayer/preferencesdialog.cpp" line="246"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
@@ -9316,8 +9315,8 @@ Example: extrastereo,karaoke</source>
         <translation>设置</translation>
     </message>
     <message>
-        <location filename="../smplayer/preferencesdialog.ui" line="122"/>
-        <location filename="../smplayer/preferencesdialog.cpp" line="235"/>
+        <location filename="../smplayer/preferencesdialog.ui" line="99"/>
+        <location filename="../smplayer/preferencesdialog.cpp" line="247"/>
         <source>Apply</source>
         <translation>应用</translation>
     </message>
@@ -9337,6 +9336,19 @@ Example: extrastereo,karaoke</source>
     <message>
         <source>Kylin Video - Preference</source>
         <translation type="obsolete">麒麟影音 - 设置</translation>
+    </message>
+</context>
+<context>
+    <name>PreviewDialog</name>
+    <message>
+        <location filename="../previewdialog.ui" line="14"/>
+        <source>Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../previewdialog.ui" line="69"/>
+        <source>00:00:00</source>
+        <translation type="unfinished">00:00:00</translation>
     </message>
 </context>
 <context>
@@ -9560,47 +9572,47 @@ Example: extrastereo,karaoke</source>
 <context>
     <name>ShortcutGetter</name>
     <message>
-        <location filename="../smplayer/shortcutgetter.cpp" line="277"/>
+        <location filename="../smplayer/shortcutgetter.cpp" line="280"/>
         <source>Modify shortcut</source>
         <translation>修改快捷键</translation>
     </message>
     <message>
-        <location filename="../smplayer/shortcutgetter.cpp" line="350"/>
+        <location filename="../smplayer/shortcutgetter.cpp" line="361"/>
         <source>Clear</source>
         <translation>清除</translation>
     </message>
     <message>
-        <location filename="../smplayer/shortcutgetter.cpp" line="329"/>
+        <location filename="../smplayer/shortcutgetter.cpp" line="340"/>
         <source>Press the key combination you want to assign</source>
         <translation>按下您想要分配的组合键</translation>
     </message>
     <message>
-        <location filename="../smplayer/shortcutgetter.cpp" line="302"/>
+        <location filename="../smplayer/shortcutgetter.cpp" line="313"/>
         <source>Add shortcut</source>
         <translation>添加快捷键</translation>
     </message>
     <message>
-        <location filename="../smplayer/shortcutgetter.cpp" line="310"/>
+        <location filename="../smplayer/shortcutgetter.cpp" line="321"/>
         <source>Remove shortcut</source>
         <translation>移除快捷键</translation>
     </message>
     <message>
-        <location filename="../smplayer/shortcutgetter.cpp" line="356"/>
+        <location filename="../smplayer/shortcutgetter.cpp" line="367"/>
         <source>OK</source>
         <translation>确定</translation>
     </message>
     <message>
-        <location filename="../smplayer/shortcutgetter.cpp" line="361"/>
+        <location filename="../smplayer/shortcutgetter.cpp" line="372"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../smplayer/shortcutgetter.cpp" line="363"/>
+        <location filename="../smplayer/shortcutgetter.cpp" line="374"/>
         <source>Capture</source>
         <translation>捕捉</translation>
     </message>
     <message>
-        <location filename="../smplayer/shortcutgetter.cpp" line="366"/>
+        <location filename="../smplayer/shortcutgetter.cpp" line="377"/>
         <source>Capture keystrokes</source>
         <translation>捕捉按键</translation>
     </message>
@@ -10095,25 +10107,25 @@ Example: extrastereo,karaoke</source>
         <translation type="obsolete">跳转到(&amp;J):</translation>
     </message>
     <message>
-        <location filename="../smplayer/timedialog.ui" line="38"/>
-        <location filename="../smplayer/timedialog.cpp" line="50"/>
+        <location filename="../smplayer/timedialog.ui" line="47"/>
+        <location filename="../smplayer/timedialog.cpp" line="60"/>
         <source>OK</source>
         <translation>确定</translation>
     </message>
     <message>
         <location filename="../smplayer/timedialog.ui" line="26"/>
-        <location filename="../smplayer/timedialog.ui" line="77"/>
+        <location filename="../smplayer/timedialog.ui" line="121"/>
         <source>Seek</source>
         <translation>定位</translation>
     </message>
     <message>
-        <location filename="../smplayer/timedialog.ui" line="51"/>
-        <location filename="../smplayer/timedialog.cpp" line="55"/>
+        <location filename="../smplayer/timedialog.ui" line="108"/>
+        <location filename="../smplayer/timedialog.cpp" line="65"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../smplayer/timedialog.ui" line="99"/>
+        <location filename="../smplayer/timedialog.ui" line="66"/>
         <source>Jump to:</source>
         <translation>跳转到:</translation>
     </message>
@@ -10121,7 +10133,7 @@ Example: extrastereo,karaoke</source>
 <context>
     <name>TitleWidget</name>
     <message>
-        <location filename="../titlewidget.cpp" line="118"/>
+        <location filename="../titlewidget.cpp" line="120"/>
         <source>Kylin Video</source>
         <translation>麒麟影音</translation>
     </message>

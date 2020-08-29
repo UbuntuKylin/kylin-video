@@ -225,6 +225,7 @@ BottomWidget::BottomWidget(QWidget *parent)
     m_btnPlayPause->setToolTip(tr("Play / Pause"));
     m_btnNext->setToolTip(tr("Next"));
     m_btnSound->setToolTip(tr("Mute"));
+    m_btnFullScreen->setToolTip(tr("FullScreen"));
     m_btnPlayList->setToolTip(tr("Play List"));
 
     this->updateWidgetQssProperty(m_btnPlayPause, property_PlayStatus, playStatusPause);

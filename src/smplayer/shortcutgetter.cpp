@@ -268,6 +268,7 @@ ShortcutGetter::ShortcutGetter(/*bool isbtn, */QWidget *parent) : QDialog(parent
   , m_startDrag(QPoint(0,0))
   , m_centerWidget(new QWidget(this))
 {
+    is_clear_clicked = false;
     this->setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
     this->setFixedSize(438, 320);
     this->setAutoFillBackground(true);
@@ -386,6 +387,7 @@ ShortcutGetter::ShortcutGetter(/*bool isbtn, */QWidget *parent) : QDialog(parent
 	connect( buttonbox, SIGNAL(accepted()), this, SLOT(accept()) );
 	connect( buttonbox, SIGNAL(rejected()), this, SLOT(reject()) );
 	connect( clearbutton, SIGNAL(clicked()), leKey, SLOT(clear()) );
+    connect( clearbutton, SIGNAL(clicked()), this, SLOT(clear()) );
 	vbox->addWidget(buttonbox);
 }
 
@@ -404,6 +406,15 @@ void ShortcutGetter::rowChanged(int row) {
 
 // Added by rvm
 void ShortcutGetter::textChanged(const QString & text) {
+    for (int i = 0; i < list->count(); ++i) {
+        if (text == list->item(i)->text())
+            return;
+    }
+    for (auto &s : allAccelText) {
+        if (text == s && text != "") {
+            return;
+        }
+    }
 	list->item(list->currentRow())->setText(text);
 }
 
@@ -417,17 +428,24 @@ void ShortcutGetter::addItemClicked() {
 // Added by rvm
 void ShortcutGetter::removeItemClicked() {
 	qDebug("ShortcutGetter::removeItemClicked");
+    is_clear_clicked = true;
 	if (list->count() > 1) {
 		QListWidgetItem * i = list->takeItem( list->currentRow() );
 		if (i) delete i;
 	} else {
 		list->setCurrentRow(0);
 		leKey->setText("");
-	}
+    }
 }
 
-QString ShortcutGetter::exec(const QString& s)
+void ShortcutGetter::clear()
 {
+    is_clear_clicked = true;
+}
+
+QString ShortcutGetter::exec(const QString& s, const QStringList& sl)
+{
+    allAccelText = sl;
 	// Added by rvm
 	QStringList shortcuts = s.split(", ");
 	QString shortcut;
@@ -466,43 +484,39 @@ bool ShortcutGetter::event(QEvent *e)
 			
 	switch ( e->type() )
 	{
-		case QEvent::KeyPress :
+    case QEvent::KeyPress :
 					
-		if ( bStop )
-		{
-			lKeys.clear();
-			bStop = false;
-		}
+        if ( bStop ) {
+            lKeys.clear();
+            bStop = false;
+        }
+        break;
+					
+    case QEvent::KeyRelease :
 
-		key = keyToString(k->key());
-		mods = modToString(k->modifiers());
+        bStop = true;
+        key = keyToString(k->key());
+        if (key == "")
+            break;
+        mods = modToString(k->modifiers());
 
-		//qDebug("event: key.count: %d, mods.count: %d", key.count(), mods.count());
+        if ( key.count() || mods.count() ) {
 
-		if ( key.count() || mods.count() )
-		{
-						
-			if ( key.count() && !lKeys.contains(key) )
-				lKeys << key;
-						
-			foreach ( key, mods )
-				if ( !lKeys.contains(key) )
-					lKeys << key;
-			
-			} else {
-				key = k->text();
-						
-				if ( !lKeys.contains(key) )
-					lKeys << key;
-			}
-					
-			setText();
-			break;
-					
-		case QEvent::KeyRelease :
-					
-			bStop = true;
-			break;
+            if ( key.count() && !lKeys.contains(key) )
+                lKeys << key;
+
+            foreach ( key, mods )
+                if ( !lKeys.contains(key) )
+                    lKeys << key;
+        } else {
+            key = k->text();
+
+            if ( !lKeys.contains(key) )
+                lKeys << key;
+        }
+
+        setText();
+        break;
 					
 			/*
 		case QEvent::ShortcutOverride :

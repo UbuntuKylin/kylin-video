@@ -43,7 +43,9 @@ class ShortcutGetter : public QDialog
 public:
     ShortcutGetter(/*bool isbtn = false, */QWidget *parent = 0);
 
-	QString exec(const QString& s);
+    QString exec(const QString& s, const QStringList& sl);
+
+    inline bool getIsClearClicked() {return is_clear_clicked;}
 
 protected slots:
 	void setCaptureKeyboard(bool b);
@@ -52,6 +54,8 @@ protected slots:
 
 	void addItemClicked();
 	void removeItemClicked();
+
+    void clear();
 
 protected:
 	bool captureKeyboard() { return capture; };
@@ -75,6 +79,9 @@ private:
     QPushButton *closeBtn;
     DragState m_dragState;
     QPoint m_startDrag;
+
+    bool is_clear_clicked;
+    QStringList allAccelText;
 };
 
 #endif

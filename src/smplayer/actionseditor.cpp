@@ -388,14 +388,33 @@ void ActionsEditor::validateAction(QTableWidgetItem * i) {
 
 void ActionsEditor::editShortcut() {
     QTableWidgetItem * i = actionsTable->item( actionsTable->currentRow(), COL_SHORTCUT );
+    QString originAccelText = i->text();
+    QStringList allAccelText;
     if (i) {
         //QTableWidgetItem * j = actionsTable->item( actionsTable->currentRow(), COL_NAME );
         ShortcutGetter d(this);
-        QString result = d.exec( i->text() );
+
+        for (int j = 0; j < actionsTable->rowCount(); ++j) {
+            QTableWidgetItem *k = actionsTable->item(j, COL_SHORTCUT);
+            allAccelText << k->text();
+        }
+
+        QString result = d.exec( i->text(), allAccelText );
 
         if (!result.isNull()) {
             //qDebug("ActionsEditor::editShortcut: result: '%s'", result.toUtf8().constData());
             QString accelText = QKeySequence(result).toString(QKeySequence::PortableText);
+
+            if (d.getIsClearClicked() == false) {
+                for (int j = 0; j < actionsTable->rowCount(); ++j) {
+                    QTableWidgetItem *k = actionsTable->item(j, COL_SHORTCUT);
+                    if (accelText == k->text()) {
+                        accelText = originAccelText;
+                        break;
+                    }
+                }
+            }
+
             i->setText(accelText);
             if (hasConflicts()) qApp->beep();//使用默认的音量和铃声，发出铃声
         }

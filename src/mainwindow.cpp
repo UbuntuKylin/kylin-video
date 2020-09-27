@@ -2208,6 +2208,13 @@ void MainWindow::newMediaLoaded()
 	}
 	updateRecents();
 
+    // lc add 20200831 如果是网络视频流直接修改标题
+    if(m_core->mdat.m_filename.indexOf(QRegExp("^.*://.*")) != -1)
+    {
+        m_topToolbar->onSetPlayingTitleName(m_core->mdat.m_filename);
+    }
+    // lc end
+
     QFileInfo fi(m_core->mdat.m_filename);//20181201  m_filename
     if (fi.exists()) {
         QString name = fi.fileName();
@@ -2422,7 +2429,12 @@ void MainWindow::openURL()
     if (d.exec() == QDialog::Accepted ) {
         QString url = d.url();
         if (!url.isEmpty()) {
+            // lc add 20200831 添加到播放列表
+            m_playlistWidget->addFile(url, Playlist::NoGetInfo);
+            this->m_playlistWidget->setPlaying(url, 0);
+            // lc end
             pref->history_urls->addUrl(url);
+            m_core->stop();
             m_core->openStream(url);
         }
     }
@@ -3151,7 +3163,10 @@ bool MainWindow::event(QEvent * e)
     if (e->type() == QEvent::WindowStateChange) {//窗口的状态（最小化、最大化或全屏）发生改变（QWindowStateChangeEvent）
         if (isMinimized()) {
             was_minimized = true;
+            // lc add is_change_stat
+            is_change_stat = false;
             if (m_core->state() == Core::Playing && pref->pause_when_hidden) {
+                is_change_stat = true;
                 m_core->pause();
             }
         }
@@ -3185,7 +3200,9 @@ bool MainWindow::event(QEvent * e)
                     m_topToolbar->updateMaxButtonStatus(false);
                 }
 
-                if (m_core->state() == Core::Paused &&  pref->pause_when_hidden) {
+                // lc change
+//                if (m_core->state() == Core::Paused || (!pref->pause_when_hidden)) {
+                if (m_core->state() == Core::Paused && pref->pause_when_hidden && is_change_stat) {
                     //qDebug("MainWindow::showEvent: unpausing");
                     m_core->pause(); // Unpauses
                 }
@@ -3229,8 +3246,11 @@ void MainWindow::toggleShowOrHideMainWindow()
 
 void MainWindow::showMainWindow()
 {
-    if (!this->isVisible()) {
-        this->move(m_windowPos);
+// lc change
+//    if (!this->isVisible()) {
+    if (!this->isActiveWindow()) {
+//        this->move(m_windowPos);
+        this->hide();
         this->show();
     }
 }

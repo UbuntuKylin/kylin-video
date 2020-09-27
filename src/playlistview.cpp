@@ -169,9 +169,10 @@ const QModelIndex &PlayListView::currentHoverIndex() const
 
 void PlayListView::enterEvent(QEvent *event)
 {
-    if (m_indexCurrent.isValid()) {
-        openPersistentEditor(m_indexCurrent);
-    }
+//    lc 0827 列表刪除刪除按鈕不刪除
+//    if (m_indexCurrent.isValid()) {
+//        openPersistentEditor(m_indexCurrent);
+//    }
 
     QWidget::enterEvent(event);
 }
@@ -202,6 +203,8 @@ void PlayListView::onItemEntered(const QModelIndex &index)
         m_indexPrevious = m_indexCurrent;
     }
     m_playlistDelegate->setItemHover(m_indexCurrent);
+//  lc 0827 列表刪除刪除按鈕不刪除
+    openPersistentEditor(m_indexCurrent);
 }
 
 void PlayListView::updateScrollbarSize()

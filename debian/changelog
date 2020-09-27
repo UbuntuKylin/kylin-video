@@ -1,3 +1,21 @@
+kylin-video (2.1.0-13) unstable; urgency=medium
+
+  * Fix The entry in the play list is deleted, but the icon is not deleted
+  * Fix Network video stream play failed
+  * Add url stream to playlist
+  * Fix the logo animation is played in full screen when the video is playing
+  * Fix when s3/s4 state wake up, the video in list is playing.
+  * Fix previous version can't compile.
+  * Fix When the playback window is recalled from the taskbar, the video playback state is opposite to that when it is minimized to the taskbar.
+  * Fix screenshot format combox item increase.
+  * Fix click stop button then click play button, video/audio not start from 00:00:00.
+  * Fix mplayer engine use vo=vdpau can't screenshot.
+  * Fix when kylin-video is open, double click the video file to play, but kylin-video won't go to the top.
+  * Fix mpv playback engine seek imprecise.
+  * Add restart tip widget after switching playback engine.
+
+ -- liucong1 <liucong1@kylinos.cn>  Sun, 27 Sep 2020 17:09:18 +0800
+
 kylin-video (2.1.0-6) unstable; urgency=medium
 
   * fix fullscreen button not trans

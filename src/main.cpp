@@ -33,20 +33,6 @@
 
 #define CONTROL_DBUS_SERVICE_NAME  "com.kylin.kylinvideo.controller"
 
-int getScreenWidth() {
-    Display *disp = XOpenDisplay(NULL);
-    Screen *scrn = DefaultScreenOfDisplay(disp);
-    if (NULL == scrn) {
-        return 0;
-    }
-    int width = scrn->width;
-
-    if (NULL != disp) {
-        XCloseDisplay(disp);
-    }
-    return width;
-}
-
 int main(int argc, char **argv)
 {
     signal(SIGINT, [](int) { QApplication::quit(); });// 设置退出信号
@@ -67,12 +53,9 @@ int main(int argc, char **argv)
     QTextCodec::setCodecForLocale(codec);
 #endif
 
-    if (getScreenWidth() > 2560) {
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
-        QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-        QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
-#endif
-    }
+
+    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
 
     MyApplication a("kylin-video", argc, argv );
     a.setAttribute(Qt::AA_UseHighDpiPixmaps);

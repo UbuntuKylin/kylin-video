@@ -1,8 +1,8 @@
 [Desktop Entry]
 Name=Kylin Video
 Name[zh_CN]=麒麟影音
-Comment=A great MPlayer front-end
-Comment[zh_CN]=麒麟影音
+Comment=Kylin Video is a powerful video player, which supports most of the audio and video formats. Functions of shortcut keys/ preview/ screenshot/ sound settings/ subtitles and so on are provided.
+Comment[zh_CN]=麒麟影音是一款功能强大的视频播放器，支持多种音视频格式。同时，它也提供了快捷键、预览、截图、声音设置等功能。
 GenericName=Kylin Video
 GenericName[zh_CN]=麒麟影音
 Exec=kylin-video %U

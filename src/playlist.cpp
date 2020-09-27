@@ -897,6 +897,21 @@ bool Playlist::maybeSave()
 void Playlist::onPlayListItemDoubleClicked(int row, const QString &filename)
 {
     //playlist_filename = filename;
+    // lc add 20200831 判断是否为网络视频
+    if(filename.indexOf(QRegExp("^.*://.*")) != -1)
+    {
+        if ((row >= this->m_playlistView->getModelRowCount()) || (row < 0)) {
+            emit this->requestSetPlayingTitle("");
+            return;
+        }
+        emit this->requestSetPlayingTitle(filename);
+        //保存当前播放文件的索引和文件路径名
+        this->setPlaying(filename, row);
+        m_core->stop();
+        m_core->openStream(filename);
+        return;
+    }
+    // lc end
 
     QFileInfo fi(filename);
     if (fi.exists()) {
@@ -915,7 +930,7 @@ void Playlist::onPlayListItemDoubleClicked(int row, const QString &filename)
 
         //保存当前播放文件的索引和文件路径名
         this->setPlaying(filename, row);
-
+        m_core->stop();
         m_core->open(filename/*, 0*/);//每次从头开始播放文件
     }
     else {
@@ -959,8 +974,22 @@ void Playlist::playItem( int n )
         return;
     }
 
+
     QString filename = this->m_playlistView->getFileNameByRow(n);
     if (!filename.isEmpty()) {
+        // lc add 20200901 如果为网络视频流单独处理
+        qDebug() << "====================" << filename;
+        if(filename.indexOf(QRegExp("^.*://.*")) != -1)
+        {
+            //保存当前播放文件的索引和文件路径名
+            this->setPlaying(filename, n);
+            emit this->requestSetPlayingTitle(filename);
+            m_core->stop();
+            m_core->open(filename, 0);
+            return;
+        }
+        // lc end
+
         QFileInfo fi(filename);
         if (fi.exists()) {
             //this->playlist_filename = filename;

@@ -61,6 +61,40 @@ void MPVProcess::initializeOptionVars() {
     use_osd_in_commands = true;
 }
 
+/** lc add 获取视频地址 **/
+#include <QtNetwork>
+QString get_video_url(QString http_url)
+{
+    QNetworkAccessManager* manager = new QNetworkAccessManager(nullptr);
+    QEventLoop loop;
+    QNetworkReply *reply;
+    QNetworkRequest req_net(http_url);
+
+    qDebug() << "Reading html code form " << http_url;
+    reply = manager->get(req_net);
+    //请求结束并下载完成后，退出子事件循环
+    QObject::connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
+    //开启子事件循环
+    loop.exec();
+
+    QByteArray codeContent = reply->readAll();
+    delete reply;
+
+    //将获取到的网页源码写入文件
+    //一定要注意编码问题，否则很容易出现乱码的
+    QString source_tmp = QTextCodec::codecForHtml(codeContent)->toUnicode(codeContent);
+    if(source_tmp.indexOf("<video") == -1)
+        return http_url;
+    qDebug() << source_tmp.indexOf("<video");
+    source_tmp = source_tmp.mid(source_tmp.indexOf("<video"));
+    source_tmp = source_tmp.mid(source_tmp.indexOf("src")+3);
+    source_tmp = source_tmp.mid(source_tmp.indexOf("=")+1);
+    int index_space = source_tmp.indexOf(" ")-1;
+    int index_less = source_tmp.indexOf("<")-1;
+    source_tmp = source_tmp.left(index_space < index_less ? index_space : index_less);
+    return source_tmp;
+}
+
 void MPVProcess::setMedia(const QString & media, bool is_playlist) {
     // INFO_VIDEO_ASPECT for ubuntukylin 20.04
     arg << "--term-playing-msg="
@@ -112,11 +146,27 @@ void MPVProcess::setMedia(const QString & media, bool is_playlist) {
 //#endif
 
     //qDebug() << "MPVProcess::setMedia file=" << media;
-    if (is_playlist) {
-        arg << "--playlist=" + media;
-    } else {
-        arg << media;
+
+    /** START **
+      lc change 0828
+      网址 url 解析之后取 <video 开始的 src 中视频地址为播放地址参数
+    */
+    QString tmp_media = media;
+//    if(media.startsWith("http://") || media.startsWith("https://"))
+    if(media.indexOf(QRegExp("^.*://.*")) != -1)
+    {
+        tmp_media = get_video_url(media);
     }
+
+
+    if (is_playlist) {
+//        arg << "--playlist=" + media;
+        arg << "--playlist=" + tmp_media;
+    } else {
+//        arg << media;
+        arg << tmp_media;
+    }
+    /** END **/
 
 //#ifdef CAPTURE_STREAM
 //    capturing = false;
@@ -909,7 +959,7 @@ void MPVProcess::seek(double secs, int mode, bool precise) {
         case 1 : s += "absolute-percent "; break;
         case 2 : s += "absolute "; break;
     }
-    if (precise) s += "exact"; else s += "keyframes";
+    if (precise) s += "exact"; // else s += "keyframes"; // lc change 20200917
     //qDebug() << "*****************MPVProcess::seek="<<s;//seek 162 absolute exact
     writeToStdin(s);
 }

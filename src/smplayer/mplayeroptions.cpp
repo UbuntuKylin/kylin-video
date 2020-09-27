@@ -28,10 +28,25 @@ void MplayerProcess::initializeOptionVars() {
     PlayerProcess::initializeOptionVars();
 }
 
+// lc add 0828
+extern QString get_video_url(QString http_url);
+
 void MplayerProcess::setMedia(const QString & media, bool is_playlist) {
     //qDebug() << "MplayerProcess::setMedia file=" << media;
 	if (is_playlist) arg << "-playlist";
-	arg << media;
+
+    /** START **
+      lc change 0828
+      网址 url 解析之后取 <video 开始的 src 中视频地址为播放地址参数
+    */
+    QString tmp_media = media;
+//    if(media.startsWith("http://") || media.startsWith("https://"))
+    if(media.indexOf(QRegExp("^.*://.*")) != -1)
+    {
+        tmp_media = get_video_url(media);
+    }
+    arg << tmp_media;
+    /** END **/
 }
 
 void MplayerProcess::setFixedOptions() {

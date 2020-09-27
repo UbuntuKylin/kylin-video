@@ -106,6 +106,8 @@ MainWindow * KylinVideo::gui()
 	return main_window;
 }
 
+// lc add 20200908 提示用户重启
+#include "smplayer/restarttip.h"
 MainWindow * KylinVideo::createGUI(QString arch, QString snap)
 {
     MainWindow * gui = 0;
@@ -114,6 +116,7 @@ MainWindow * KylinVideo::createGUI(QString arch, QString snap)
         deleteGUI();
         main_window = createGUI(this->m_arch, this->m_snap);
         main_window->show();
+        RestartTip::showTip();
     });
 
 #if SINGLE_INSTANCE

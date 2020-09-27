@@ -55,6 +55,20 @@ void InfoWorker::onGetMediaInfo(const QStringList &filepaths)
             continue;
         }
 
+        // lc add 20200831 如果是网络视频流添加視頻信息
+        if (filepaths[0].indexOf(QRegExp("^.*://.*")) == 0) {
+            MediaData data = InfoProvider::getInfo(filepaths[n]);
+            QString name = "";
+            double duration = data.duration;
+            name = filepaths[n];
+            auto video = pref->generateVedioData(filepaths[n], name, duration);
+            if (video.isNull()) {
+                continue;
+            }
+            medialist << video;
+        }
+        // lc end
+
         if ((QFile::exists(filepaths[n]))) {
             MediaData data = InfoProvider::getInfo(filepaths[n]);
             QString name = "";

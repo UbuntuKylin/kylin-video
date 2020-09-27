@@ -149,7 +149,8 @@ HEADERS += smplayer/mplayerversion.h \
         controllerworker.h \
         remotecontroller.h \
         utils.h \
-        slider.h
+        slider.h \
+    smplayer/restarttip.h
 
 SOURCES	+= smplayer/version.cpp \
         smplayer/mplayerversion.cpp \
@@ -257,7 +258,8 @@ SOURCES	+= smplayer/version.cpp \
         controllerworker.cpp \
         remotecontroller.cpp \
         utils.cpp \
-        slider.cpp
+        slider.cpp \
+    smplayer/restarttip.cpp
 
 FORMS = smplayer/timedialog.ui \
         smplayer/preferencesdialog.ui \
@@ -275,7 +277,9 @@ FORMS = smplayer/timedialog.ui \
         helpdialog.ui \
         supportformats.ui \
         aboutdialog.ui \
-        smplayer/globalshortcuts/globalshortcutsdialog.ui
+        smplayer/globalshortcuts/globalshortcutsdialog.ui \
+    smplayer/restarttip.ui
+
 
 # qtsingleapplication
 contains( DEFINES, SINGLE_INSTANCE ) {
@@ -302,6 +306,7 @@ unix {
     UI_DIR = .ui
     MOC_DIR = .moc
     OBJECTS_DIR = .obj
+    INCLUDEPATH += .moc
 }
 
 #TRANSLATIONS += \

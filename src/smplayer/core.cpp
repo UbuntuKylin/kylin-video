@@ -1208,7 +1208,9 @@ void Core::processFinished()
         qDebug("Core::processFinished: play has finished!");
 		setState(Stopped);
 	}
-    emit this->requestShowLogo(true);
+
+    // lc change 20200904
+//    emit this->requestShowLogo(true);
 
 	int exit_code = proc->exitCode();
 //    qDebug("Core::processFinished: exit_code: %d", exit_code);
@@ -1959,7 +1961,7 @@ void Core::startMplayer( QString file, double seek ) {
 	if (proc->isMPlayer()) {
         if ((pref->vdpau.disable_video_filters) && (pref->vo.startsWith("vdpau"))) {
             //qDebug("Core::startMplayer: using vdpau, video filters are ignored");
-            goto end_video_filters;
+            // goto end_video_filters; // lc change 0924 
         }
 	} else {
 		// MPV

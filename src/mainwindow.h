@@ -231,6 +231,7 @@ protected:
     bool event(QEvent * event) Q_DECL_OVERRIDE;
 	bool was_minimized;
 #endif
+    bool is_change_stat;
     void dragEnterEvent(QDragEnterEvent *event) Q_DECL_OVERRIDE;
     void dropEvent(QDropEvent *event) Q_DECL_OVERRIDE;
     void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;

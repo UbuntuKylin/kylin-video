@@ -35,6 +35,7 @@ protected:
 	static bool loadCatalog(QTranslator & t, QString name, QString locale, QString dir);
 
 	QTranslator app_trans;
+    QTranslator app_qt_trans; // lc add 20201015
 	QTranslator qt_trans;
 };
 

@@ -26,6 +26,7 @@
 Translator::Translator()
 {
     qApp->installTranslator(&app_trans);
+    qApp->installTranslator(&app_qt_trans); // lc add 20201015
     qApp->installTranslator(&qt_trans);
 }
 
@@ -59,4 +60,5 @@ void Translator::load(const QString &snap)
 
     loadCatalog(qt_trans, "qt", locale, qt_trans_path);
     loadCatalog(app_trans, "kylin-video", locale, trans_path);
+    loadCatalog(app_qt_trans, "qtbase", locale, trans_path); // lc add 20201015
 }

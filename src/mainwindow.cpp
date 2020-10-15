@@ -155,7 +155,8 @@ MainWindow::MainWindow(QString arch_type, QString snap, /*ControllerWorker *cont
     this->setWindowFlags(Qt::FramelessWindowHint/* | Qt::WindowStaysOnTopHint*/);//设置窗体标题栏隐藏并设置位于顶层
     this->setMouseTracking(true);//可获取鼠标跟踪效果，界面拉伸需要这个属性
     this->setAutoFillBackground(true);
-    this->setAttribute(Qt::WA_TranslucentBackground);//设置窗口背景透明
+    // lc change 取消窗口透明 否则mplayer引擎无法正常播放视频
+    //this->setAttribute(Qt::WA_TranslucentBackground);//设置窗口背景透明
     this->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
     this->setMinimumSize(WINDOW_MIN_WIDTH, WINDOW_MIN_HEIGHT);
     this->resize(900, 600);
@@ -3155,6 +3156,9 @@ void MainWindow::hideEvent( QHideEvent * ) {
 // Qt 5 doesn't call showEvent / hideEvent when the window is minimized or unminimized
 bool MainWindow::event(QEvent * e)
 {
+    // lc add 20201014
+    if(e->type() == QEvent::HoverEnter || e->type() == QEvent::HoverLeave)
+	return true;
     bool result = QWidget::event(e);
     if ((m_ignoreShowHideEvents)/* || (!pref->pause_when_hidden)*/) {
         return result;

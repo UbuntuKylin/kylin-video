@@ -363,6 +363,7 @@ void PlayListView::addPlayListItem(const QString &filepath, const QString &name,
     //PlayListItem *newItem = new PlayListItem(filepath, name, duration);
     //m_playlistModel->appendRow(static_cast<QStandardItem *>(newItem));
     QStandardItem *newItem = new QStandardItem;
+    newItem->setToolTip(name);
     m_playlistModel->appendRow(newItem);
     int row = m_playlistModel->rowCount() - 1;
     QModelIndex index = m_playlistModel->index(row, 0, QModelIndex());

@@ -3,26 +3,7 @@ Upstream-Name: kylin-video
 Upstream-Contact: lixiang <lixiang@kylinos.cn>
 Source: https://github.com/ukui/kylin-video
 
-Files: AUTHORS
-       ChangeLog
-       NEWS
-       README.md
-       autogen.sh
-       debian/*
-       snap/gui/kylin-video.desktop
-       snap/gui/kylin-video.png
-       snap/snapcraft.yaml
-       kylin-video.desktop
-       kylin-video.pro
-       man/*
-       doc/*
-       src/src.pro
-       src/res/*.png
-       src/res.qrc
-       src/res/style.qss
-       src/input.conf
-       src/translations/*
-       controllertest/*
+Files: *
 Copyright: lixiang <lixiang@kylinos.cn>
            handsome_feng <jianfengli@ubuntukylin.com>
            2013-2019, National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
@@ -30,141 +11,81 @@ License: GPL-2+
 Comment:
   Assume license as found in COPYING file.
 
-Files: src/aboutdialog.cpp
-       src/aboutdialog.h
-       src/aboutdialog.ui
-       src/autohidecursorwidget.cpp
-       src/autohidecursorwidget.h
-       src/bottomcontroller.cpp
-       src/bottomcontroller.h
-       src/bottomwidget.cpp
-       src/bottomwidget.h
-       src/controllerworker.cpp
-       src/controllerworker.h
-       src/coverwidget.cpp
-       src/coverwidget.h
-       src/datautils.h
-       src/displaylayercomposer.cpp
-       src/displaylayercomposer.h
-       src/esctip.cpp
-       src/esctip.h
-       src/filterhandler.cpp
-       src/filterhandler.h
-       src/helpdialog.cpp
-       src/helpdialog.h
-       src/helpdialog.ui
-       src/infoworker.cpp
-       src/infoworker.h
-       src/kylinvideo.cpp
-       src/kylinvideo.h
-       src/main.cpp
-       src/mainwindow.cpp
-       src/mainwindow.h
-       src/maskwidget.cpp
-       src/maskwidget.h
-       src/messagedialog.cpp
-       src/messagedialog.h
-       src/myapplication.h
-       src/playlist.cpp
-       src/playlist.h
-       src/playlistdelegate.cpp
-       src/playlistdelegate.h
-       src/playlistitem.cpp
-       src/playlistitem.h
-       src/playlistmodel.cpp
-       src/playlistmodel.h
-       src/playlistview.cpp
-       src/playlistview.h
-       src/playmask.cpp
-       src/playmask.h
-       src/poweroffdialog.cpp
-       src/poweroffdialog.h
-       src/remote_controller.xml
-       src/remotecontroller.cpp
+Files: controllertest/*
+       src/*
+Copyright: 2013-2019, National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
+License: GPL-3
+Comment:
+  Assume license as found in COPYING file.
+
+Files: src/qtsingleapplication/*
+Copyright: 2013, Digia Plc and/or its subsidiary(-ies).
+License: BSD-3-clause
+
+Files: src/remotecontroller.cpp
        src/remotecontroller.h
-       src/shortcutswidget.cpp
-       src/shortcutswidget.h
-       src/soundvolume.cpp
-       src/soundvolume.h
-       src/supportformats.cpp
-       src/supportformats.h
-       src/supportformats.ui
-       src/supportshortcuts.cpp
-       src/supportshortcuts.h
-       src/supportshortcuts.ui
-       src/systembutton.cpp
-       src/systembutton.h
-       src/timetip.cpp
-       src/timetip.h
-       src/tipwidget.cpp
-       src/tipwidget.h
-       src/titlebutton.cpp
-       src/titlebutton.h
-       src/titlewidget.cpp
-       src/titlewidget.h
-       src/utils.cpp
-       src/utils.h
-       src/videowindow.cpp
-       src/videowindow.h
-Copyright: 2013-2019 National University of Defense Technology(NUDT) & Tianjin Kylin Ltd.
+Copyright: 2017, The Qt Company Ltd.
 License: GPL-3
 
 Files: src/smplayer/*
+Copyright: 2006-2018, Ricardo Villalba <rvm@users.sourceforge.net>
+License: GPL-2+
+
+Files: src/smplayer/audiodelaydialog.cpp
+       src/smplayer/audiodelaydialog.h
+       src/smplayer/errordialog.cpp
+       src/smplayer/errordialog.h
+       src/smplayer/filepropertiesdialog.cpp
+       src/smplayer/filepropertiesdialog.h
+       src/smplayer/inputurl.cpp
+       src/smplayer/inputurl.h
+       src/smplayer/lineedit_with_icon.cpp
+       src/smplayer/lineedit_with_icon.h
+       src/smplayer/playlist-org.cpp
+       src/smplayer/playlist-org.h
+       src/smplayer/prefaudio.cpp
+       src/smplayer/prefaudio.h
+       src/smplayer/preferencesdialog.cpp
+       src/smplayer/preferencesdialog.h
+       src/smplayer/prefgeneral.cpp
+       src/smplayer/prefgeneral.h
+       src/smplayer/prefperformance.cpp
+       src/smplayer/prefperformance.h
+       src/smplayer/prefscreenshot.cpp
+       src/smplayer/prefscreenshot.h
+       src/smplayer/prefshortcut.cpp
+       src/smplayer/prefshortcut.h
+       src/smplayer/prefsubtitles.cpp
+       src/smplayer/prefsubtitles.h
+       src/smplayer/prefvideo.cpp
+       src/smplayer/prefvideo.h
+Copyright: 2006-2015, Ricardo Villalba <rvm@users.sourceforge.net>
+License: GPL-2+
+
+Files: src/smplayer/chapters.cpp
+       src/smplayer/chapters.h
+Copyright: 2006-2018, Ricardo Villalba <rvm@escomposlinux.org>
+License: GPL-2+
+
+Files: src/smplayer/cleanconfig.cpp
+       src/smplayer/cleanconfig.h
+       src/smplayer/restarttip.cpp
+       src/smplayer/restarttip.h
 Copyright: 2006-2015, Ricardo Villalba <rvm@escomposlinux.org>
 License: GPL-2+
 
-Files: src/qtsingleapplication/*
-Copyright: 2013 Digia Plc and/or its subsidiary(-ies).
-License: BSD-3-Clause
-
 Files: src/smplayer/myslider.cpp
        src/smplayer/myslider.h
-Copyright: 2006-2012, Ricardo Villalba <rvm@escomposlinux.org>
-License: LGPL-2.1+
+Copyright: 2006-2015, Ricardo Villalba <rvm@users.sourceforge.net>
+License: LGPL-2.1 or LGPL-3
 
+Files: src/smplayer/verticaltext.cpp
+Copyright: 2003, 2004, Christian Esken <esken@kde.org>
+License: LGPL-2+
+
+Files: src/smplayer/verticaltext.h
+Copyright: 2003, 2004, Christian Esken <esken@kde.org>
 License: GPL-2+
- This program is free software; you can redistribute it and/or
- modify it under the terms of the GNU General Public License as
- published by the Free Software Foundation; either version 2 of
- the License, or (at your option) any later version.
- .
- On Debian and Ubuntu systems, a copy of the GNU General Public License version
- 2 may be found in the file /usr/share/common-licenses/GPL-2.
-
-License: LGPL-2.1+
- This library is free software; you can redistribute it and/or
- modify it under the terms of the GNU Lesser General Public
- License as published by the Free Software Foundation; either
- version 2.1 of the License, or (at your option) version 3, or any
- later version accepted by the membership of KDE e.V. (or its
- successor approved by the membership of KDE e.V.), Trolltech ASA
- (or its successors, if any) and the KDE Free Qt Foundation, which shall
- act as a proxy defined in Section 6 of version 3 of the license.
- .
- This library is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- Lesser General Public License for more details.
- .
- You should have received a copy of the GNU Lesser General Public
- License along with this library.  If not, see http://www.gnu.org/licenses/.
- .
- On Debian GNU/Linux systems, the complete text of the GNU Lesser General
- Public License version 2.1 can be found in the file
- `/usr/share/common-licenses/LGPL-2.1'.
-
-License: GPL-3
- This program is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License version 3 as
- published by the Free Software Foundation.
- .
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
- .
- On Debian/Ubuntu systems, the full text of the GPL v3 can be found in
- `/usr/share/common-licenses/GPL-3'
 
 License: BSD-3-Clause
  Redistribution and use in source and binary forms, with or without
@@ -190,3 +111,55 @@ License: BSD-3-Clause
  LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+License: GPL-2+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of
+ the License, or (at your option) any later version.
+ .
+ On Debian and Ubuntu systems, a copy of the GNU General Public License version
+ 2 may be found in the file /usr/share/common-licenses/GPL-2.
+
+License: GPL-3
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License version 3 as
+ published by the Free Software Foundation.
+ .
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ .
+ On Debian/Ubuntu systems, the full text of the GPL v3 can be found in
+ `/usr/share/common-licenses/GPL-3'
+
+License: LGPL-2+
+ This software is Copyright (c) 2020 by X. Ample.
+ .
+ This is free software, licensed under:
+ .
+   The GNU Library General Public License, Version 2, June 1991
+ .
+ This program is free software; you can redistribute it and/or modify it
+ under the terms of the GNU Library General Public License as published by the
+ Free Software Foundation; version 2 of the License, or (at
+ your option) any later version.
+ On Debian systems, the complete text of version 2 of the GNU Library
+ General Public License can be found in '/usr/share/common-licenses/LGPL-2'.
+
+License: LGPL-2.1
+ This software is Copyright (c) 2020 by X. Ample.
+ .
+ This is free software, licensed under:
+ .
+   The GNU Lesser General Public License, Version 2.1, February 1999
+ .
+ This program is free software; you can redistribute it and/or modify it
+ under the terms of the GNU Lesser General Public License as published by the
+ Free Software Foundation; version 2.1 of the License.
+ On Debian systems, the complete text of version 2.1 of the GNU Lesser
+ General Public License can be found in '/usr/share/common-licenses/LGPL-2.1'.
+
+License: LGPL-3
+ Please fill license LGPL-2.1 or LGPL-3 from header of src/smplayer/myslider.cpp src/smplayer/myslider.h

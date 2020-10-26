@@ -1,69 +1,28 @@
-kylin-video (2.1.0-13) unstable; urgency=medium
+kylin-video (2.1.1-1) unstable; urgency=medium
 
-  * Fix The entry in the play list is deleted, but the icon is not deleted
-  * Fix Network video stream play failed
-  * Add url stream to playlist
-  * Fix the logo animation is played in full screen when the video is playing
-  * Fix when s3/s4 state wake up, the video in list is playing.
-  * Fix previous version can't compile.
-  * Fix When the playback window is recalled from the taskbar, the video playback state is opposite to that when it is minimized to the taskbar.
-  * Fix screenshot format combox item increase.
-  * Fix click stop button then click play button, video/audio not start from 00:00:00.
-  * Fix mplayer engine use vo=vdpau can't screenshot.
-  * Fix when kylin-video is open, double click the video file to play, but kylin-video won't go to the top.
-  * Fix mpv playback engine seek imprecise.
-  * Add restart tip widget after switching playback engine.
+  [ Dmitry Shachnev ]
+  * Fix build with Qt 5.15. (Closes: #972156)
 
- -- liucong1 <liucong1@kylinos.cn>  Sun, 27 Sep 2020 17:09:18 +0800
+  [ handsome_feng ]
+  * New upstream release.
 
-kylin-video (2.1.0-6) unstable; urgency=medium
-
-  * fix fullscreen button not trans
-
- -- zhaoyubiao <zhaoyubiao@kylinos.cn>  Sat, 29 Aug 2020 18:14:58 +0800
-
-kylin-video (2.1.0-5) unstable; urgency=medium
-
-  * Fix MinWindow Restore Auto Not Pause
-
- -- biwenjie <biwenjie@kylinos.cn>  Fri, 21 Aug 2020 14:07:35 +0800
-
-kylin-video (2.1.0-4) unstable; urgency=medium
-
-  * Put EnableHighDpiScaling and UseHighDpiPixmaps before MyApplication 
-
- -- zhaoyubiao <zhaoyubiao@kylinos.cn>  Fri, 07 Aug 2020 10:42:02 +0800
-
-kylin-video (2.1.0-3) unstable; urgency=medium
-
-  * Hide global_volume_check softvol_volume_check and disable them.
-
- -- zhaoyubiao <zhaoyubiao@kylinos.cn>  Tue, 04 Aug 2020 19:51:52 +0800
-
-kylin-video (2.1.0-2) unstable; urgency=medium
-
-  * Solve the problem of video switching when deleting non playing files in playlist(Closes: #3576).
-  * Support to set the volume when clicking the volume slider.
-  * Update toolbar's icon.
-  * Keep the window state when the window is restored from minimized.
-  * Adapt to 4K screen.
-  * Fix bug of video pause after minimization.
-  * Automatic hiding of titlebar and toolbar in fullscreen.
-  * Fix the bug that the titlebar does not hide when the video has finished in full screen mode.
-  * Fix that Must construct a QApplication first.
-
- -- lixiang <lixiang@kylinos.cn>  Sat, 18 Jul 2020 09:32:43 +0800
+ -- handsome_feng <jianfengli@ubuntukylin.com>  Mon, 26 Oct 2020 18:49:02 +0800
 
 kylin-video (2.1.0-1) unstable; urgency=medium
 
-  * The playback status information of MPV can be obtained normally.
-  * Get the list of video and audio drivers supported by MPV normally.
-  * Fixed the bug of no sound when playing with MPV.
-  * Add border radius for UI.
-  * Fix vo exception when the default parameter is set.
-  * Fix tray icon size.
+  * New upstream bugfix release:
+    - Fix the bug can't be previewed.
+    - Enable hardware acceleration on x86 platform(vdpau).
+    - Fix the bug that video flickering when using the shortcut key to
+      control video (example: rewind and forward).
+    - Fix the bug that some UI controls will display in the process of
+      video buffering.
+    - Fix the bug that can't get the playback status when using MPV.
+    - Fix the bug that can't get the list of video and audio drivers
+      supported by MPV.
+    - Fix no sound when playing with MPV.
 
- -- lixang <lixiang@kylinos.cn>  Wed, 25 Mar 2020 15:32:12 +0800
+ -- handsome_feng <jianfengli@ubuntukylin.com>  Thu, 26 Mar 2020 21:43:31 +0800
 
 kylin-video (2.0.5-1) unstable; urgency=medium
 

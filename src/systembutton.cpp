@@ -19,6 +19,7 @@
 
 #include "systembutton.h"
 #include <QDebug>
+#include <QPainterPath>
 
 SystemButton::SystemButton(QWidget *parent) :
     QPushButton(parent)

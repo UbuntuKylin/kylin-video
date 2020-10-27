@@ -1,3 +1,10 @@
+kylin-video (2.1.1.1-1) unstable; urgency=medium
+
+  [ Dmitry Shachnev ]
+  * Fix build with Qt 5.15 again. (Closes: #972156)
+
+ -- handsome_feng <jianfengli@ubuntukylin.com>  Tue, 27 Oct 2020 14:43:05 +0800
+
 kylin-video (2.1.1-1) unstable; urgency=medium
 
   [ Dmitry Shachnev ]

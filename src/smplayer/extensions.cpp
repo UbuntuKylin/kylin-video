@@ -64,10 +64,31 @@ Extensions::Extensions()
        << "ts" << "rmvb" << "dvr-ms" << "m2t" << "m2ts" << "mts" << "rec" << "wtv"
        << "f4v" << "hdmov" << "webm" << "vp8"
        << "bik" << "smk" << "m4b" << "wtv"
-       << "part";
+       << "part"
+       << "x-flv" << "ogg" << "3gpp" << "x-mng"
+       << "mp2t" << "dv" << "mp4v-es" << "x-ms-wmx"
+       << "vnd.mpegurl" << "fli" << "x-ms-wm" << "x-ms-wvx" << "vnd.vivo"
+       << "x-fli" << "x-flc" << "x-m4v" << "3gpp2" << "x-ogm+ogg"
+       << "x-avi" << "msvideo" << "x-theora+ogg" << "x-flic" << "x-mpeg"
+       << "x-mpeg2" << "x-nsv" << "x-anim" << "3gp" << "divx"
+       << "vnd.divx" << "x-ms-asx" << "mpeg-system" << "x-ms-afs"
+       << "x-ms-asf-plugin" << "x-ms-wvxvideo"
+       << "vivo" << "x-mpeg-system" << "x-totem-stream" << "mediaplayer"
+       << "mkv" << "x-mjpeg" << "x-mpeg3" << "x-ms-wmp";
 
     _audio << "mp3" << "ogg" << "oga" << "wav" << "wma" <<  "aac" << "ac3"
-       << "dts" << "ra" << "ape" << "flac" << "thd" << "mka" << "m4a" << "opus";
+       << "dts" << "ra" << "ape" << "flac" << "thd" << "mka" << "m4a" << "opus"
+       << "amr" << "x-aiff" << "basic" << "midi" << "amr-wb" << "x-realaudio"
+       << "3gpp" << "x-pn-realaudio-plugin" << "x-gsm" << "x-ms-wax" << "prs.sid"
+       << "x-musepack" << "x-ape" << "x-m4a" << "x-mod" << "x-s3m" << "x-flac"
+       << "x-vorbis+ogg" << "x-wavpack" << "mp2" << "x-ms-asx" << "x-tta" << "x-mpeg"
+       << "m4a" << "mp1" << "mp3" << "mpg" << "scpls" << "wav" << "webm" << "x-aac" << "x-it"
+       << "x-mp1" << "x-mpg" << "x-ms-asf" << "x-pn-au" << "x-pn-wav" << "x-shorten" << "x-speex"
+       << "x-xm" << "3gpp2" << "dv" << "eac3" << "opus" << "x-pn-aiff" << "x-pn-windows-acm"
+       << "x-real-audio" << "vnd.dolby.heaac.1" << "vnd.dolby.heaac.2" << "vnd.dts" << "vnd.dts.hd"
+       << "x-m4b" << "x-stm" << "m3u" << "rn-mpeg" << "vnd.dolby.mlp" << "x-pls"
+       << "x-pn-windows-pcm" << "x-sbc" << "x-voc" << "aiff" << "mpeg2"
+       << "mpeg3" << "musepack" << "x-flac+ogg" << "x-m3u" << "x-oggflac" << "x-opus+ogg" ;
 
     _subtitles << "srt" << "sub" << "ssa" << "ass" << "idx" << "txt" << "smi"
            << "rt" << "utf" << "aqt" << "vtt";

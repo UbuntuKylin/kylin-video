@@ -1,8 +1,13 @@
-kylin-video (2.1.1.1-2) unstable; urgency=medium
+kylin-video (2.1.2-1) unstable; urgency=medium
 
-  * Add the supported audio and video formats to the desktopfile.
+  * New upstream release.
+    - Add the supported audio and video formats to the desktop file.
 
- -- zhaoyubiao <zhaoyubiao@kylinos.cn>  Wed, 28 Oct 2020 11:30:54 +0800
+  * d/control:
+    - Drop dependency on crystalhd. (Closes: #981390)
+    - Bump Standards-Version to 4.5.1.
+
+ -- handsome_feng <jianfengli@ubuntukylin.com>  Thu, 04 Feb 2021 12:54:57 +0000
 
 kylin-video (2.1.1.1-1) unstable; urgency=medium
 

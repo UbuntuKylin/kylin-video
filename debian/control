@@ -14,9 +14,8 @@ Build-Depends: debhelper-compat (= 12),
                qtbase5-private-dev,
                libqt5x11extras5-dev,
                libx11-dev,
-               libcrystalhd-dev [amd64 i386],
                zlib1g-dev,
-Standards-Version: 4.5.0
+Standards-Version: 4.5.1
 Rules-Requires-Root: no
 Homepage: https://github.com/ukui/kylin-video
 Vcs-Git: https://github.com/ukui/kylin-video.git
@@ -27,10 +26,9 @@ Architecture: any
 Depends: mplayer,
          mpv (>= 0.6.2),
          mesa-vdpau-drivers,
-         libcrystalhd3 [amd64 i386],
          ${misc:Depends},
          ${shlibs:Depends}
-Suggests: libcrystalhd3 | firmware-crystalhd,
+Suggests: firmware-crystalhd,
 Description: Front-end for MPlayer and MPV
  Qt5 Mplayer and MPV front-end, with basic features like playing
  videos and audios to more advanced features.

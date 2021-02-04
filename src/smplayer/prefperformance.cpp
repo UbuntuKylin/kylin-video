@@ -28,18 +28,19 @@ using namespace Global;
 PrefPerformance::PrefPerformance(QWidget * parent, Qt::WindowFlags f)
 	: PrefWidget(parent, f )
 {
-	setupUi(this);
+    setupUi(this);
     hwdec_combo->addItem(tr("None"), "no");
-	hwdec_combo->addItem(tr("Auto"), "auto");
-	hwdec_combo->addItem("auto-copy", "auto-copy");
+    hwdec_combo->addItem(tr("Auto"), "auto");
+    hwdec_combo->addItem("auto-copy", "auto-copy");
     hwdec_combo->addItem("vdpau", "vdpau");
-        hwdec_combo->addItem("vdpau-copy", "vdpau-copy");
-	hwdec_combo->addItem("vaapi", "vaapi");
-	hwdec_combo->addItem("vaapi-copy", "vaapi-copy");
-	//hwdec_combo->addItem("rkmpp-copy", "rkmpp-copy");
-	hwdec_combo->addItem("cuda", "cuda");
-        hwdec_combo->addItem("cuda-copy", "cuda-copy");
-        hwdec_combo->addItem("crystalhd", "crystalhd");
+    hwdec_combo->addItem("vdpau-copy", "vdpau-copy");
+    hwdec_combo->addItem("vaapi", "vaapi");
+    hwdec_combo->addItem("vaapi-copy", "vaapi-copy");
+    //hwdec_combo->addItem("rkmpp-copy", "rkmpp-copy");
+    hwdec_combo->addItem("cuda", "cuda");
+    hwdec_combo->addItem("cuda-copy", "cuda-copy");
+    // Drop this since crystalhd is not in bullseye
+    //hwdec_combo->addItem("crystalhd", "crystalhd");
 	retranslateStrings();
 }
 

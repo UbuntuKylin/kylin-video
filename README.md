@@ -42,7 +42,7 @@ How to report bugs
 ==================
 
 Bugs should be report to the kylin-video bug tracking system:
-    https://github.com/ukui/kylin-video/issues
+    https://github.com/UbuntuKylin/kylin-video
 
 
 Snap

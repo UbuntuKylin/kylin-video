@@ -21,7 +21,7 @@ Installation
 
 Enable Hardware Acceleration on Intel Graphics Cards in Ubuntu (vdpau)
 ==================
-```
+```shell
 ~$ sudo apt-get install libvdpau-va-gl1
 ~$ sudo apt-get install i965-va-driver
 ~$ sudo apt-get install vdpauinfo
@@ -30,8 +30,8 @@ display: :0   screen: 0
 Failed to open VDPAU backend libvdpau_i965.so: cannot open shared object file: No such file or directory
 Error creating VDPAU device: 1
 ```
-如果在执行vdpauinfo后，出现了上述错误，则需要执行以下操作完成Intel上对vdpau的支持：
-```
+如果在执行 vdpauinfo 后，出现了上述错误，则需要执行以下操作完成 Intel 上对 vdpau 的支持：
+```shell
 ~$ cd /usr/lib/x86_64-linux-gnu/vdpau/
 ~$ sudo ln -s libvdpau_va_gl.so libvdpau_i965.so
 ~$ sudo ln -s libvdpau_va_gl.so.1 libvdpau_i965.so.1
@@ -42,7 +42,7 @@ How to report bugs
 ==================
 
 Bugs should be report to the kylin-video bug tracking system:
-    https://github.com/UbuntuKylin/kylin-video
+    https://github.com/UbuntuKylin/kylin-video/issues
 
 
 Snap
@@ -56,17 +56,17 @@ Snap
 * sudo snap remove kylin-video
 * unsquashfs -l kylin-video_1.1.6_amd64.snap | less
 * unsquashfs kylin-video_1.1.6_amd64.snap
-* 查看已经存在的plug及slot
+* 查看已经存在的 plug 及 slot
 	* snap interfaces
 	* snapcraft plugins
 	* snapcraft list-plugins
-* 处在snapcraft中最核心的是parts。parts是一些软件或数据被用来构造snap包的，或是用来编译其它软件的，每个part是由一个plugin来管理的，并且通常是互相独立的。
+* 处在 snapcraft 中最核心的是 parts。parts 是一些软件或数据被用来构造 snap 包的，或是用来编译其它软件的，每个 part 是由一个 plugin 来管理的，并且通常是互相独立的。
 
 
 Git
 ==================
 
-分支1.1.6
+分支 1.1.6
 
 + 新建分支：git branch 1.1.6
 + 切换分支：git checkout 1.1.6 (上述新建和切换分支的两条命令可合并成一条命令: git checkout -b 1.1.6)
